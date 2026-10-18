@@ -67,7 +67,8 @@ def render_one(s, renderer: LyzrRenderer | None, raw_dir: Path, model: str, max_
             feedback = r.errors
             continue
         system, evaluation = build_views(s, r, seed=seed)
-        hard = [f for f in leakcheck.text_flags(system) + leakcheck.echo_flags(system) if f.hard]
+        hard = [f for f in leakcheck.text_flags(system) + leakcheck.echo_flags(system)
+                + leakcheck.decoy_word_flags(system, evaluation) if f.hard]
         if hard:
             inv = {v: k for k, v in evaluation["idmap"].items()}
             def name(item):

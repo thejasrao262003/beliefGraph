@@ -309,3 +309,24 @@ Word-only heuristic: 0.09.
 - decoys must not share a distinctive content word with any memory.
 
 The human review of these two scenarios should decide whether this is needed.
+
+## 16. render-v5 (2026-10-18): bounded pilot for F1, F2, F6
+
+**Principle (adopted):** the lexical leakage score is a **diagnostic ceiling** (≤ 0.50), not an objective to minimise. A lower score obtained by making concepts harder to identify is worse, not better. The target is scenarios that are semantically clear (C8/C10), structurally inferable, and resistant to phrase matching.
+
+v5 = verbatim v4 (SHA-256 `dd74235d…`, pinned in tests) + 2 asserted edits:
+
+| Rule | Prompt | Automated check |
+|---|---|---|
+| **Outcome naming:** a policy names its outcome with a clear synonym or close paraphrase of the memory's conclusion, recognisably the same concept | ✓ | none possible lexically; **human C8/C10** |
+| **Quantity naming:** a condition names the same measured quantity as its fact (revenue ≠ spending ≠ billing) | ✓ | human C10 |
+| **Decoy words:** a decoy may not share a distinctive content word with any memory | ✓ | **hard** `decoy_shares_memory_word`, excluding numbers and a generic rule-word list calibrated on smoke tests 3–4. On stored outputs it fires for v4-F6 "organic", and for v3-F3 "partner/tier"/"channel" |
+| No shared ordinary 3-word phrase (v4) | ✓ | hard `policy_echoes_memory`. Kept, but passing it is not evidence of semantic quality |
+| Flat-denial retractions, units (v4) | ✓ | soft `retraction_reads_as_hedge` |
+
+**Approval conditions for the 40-scenario run** (from review):
+1. F1, F2 and F6 rendered under the existing cap.
+2. All checks run, with complete logs kept.
+3. **A human** independently reviews them against C1–C13, especially C6/C8/C10/C12.
+4. That review is recorded separately from any AI review, with its provenance.
+5. All three pass. A failing scenario is revised individually, and checks are never relaxed globally.

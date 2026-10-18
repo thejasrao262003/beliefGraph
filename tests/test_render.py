@@ -100,7 +100,7 @@ def test_payload_carries_dates_but_no_gold_or_family():
     assert groups["B3"] != groups["B1"]
     obs = {e["id"]: e["observed"] for e in payload["evidence"]} | {u["id"]: u["observed"] for u in payload["updates"]}
     assert obs == timeline(s, 0)
-    assert PROMPT_VERSION == "render-v4" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
+    assert PROMPT_VERSION == "render-v5" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
     assert "justification_sets" in user_message(s)
 
 
@@ -367,7 +367,8 @@ def test_v3_prompt_is_kept_verbatim_and_v4_extends_it():
     from beliefbench.render.prompt import PROMPT_VERSION as current, PROMPTS
 
     assert hashlib.sha256(PROMPTS["render-v3"].encode()).hexdigest() == V3_SHA256
-    assert current == "render-v4" and "HARD RULE" in PROMPTS["render-v4"] and "flatly states" in PROMPTS["render-v4"]
+    assert "HARD RULE" in PROMPTS["render-v4"] and "flatly states" in PROMPTS["render-v4"]
+    assert current == "render-v5"
 
 
 def _system(memories, policies):
@@ -406,3 +407,35 @@ def test_retraction_that_reads_as_hedge_is_flagged():
     assert [f.kind for f in leakcheck.relation_flags(system, evaluation)] == ["retraction_reads_as_hedge"]
     system, evaluation = views(s=s)  # flat denial
     assert leakcheck.relation_flags(system, evaluation) == []
+
+
+# ── render-v5 (v4 re-render: over-paraphrase, decoy closer than the real policy) ──
+
+V4_SHA256 = "dd74235d2fdda437b4a2598438ec991a449485a3607aaaec3c08d83d40fdc9cc"
+
+
+def test_v4_prompt_is_kept_verbatim_and_v5_extends_it():
+    import hashlib
+
+    from beliefbench.render.prompt import PROMPTS
+
+    assert hashlib.sha256(PROMPTS["render-v4"].encode()).hexdigest() == V4_SHA256
+    assert "OUTCOME NAMING" in PROMPTS["render-v5"] and "QUANTITY NAMING" in PROMPTS["render-v5"]
+    assert "organic" in PROMPTS["render-v5"]
+
+
+def test_decoy_sharing_a_distinctive_memory_word_is_hard():
+    # v4 F6: food-certification decoy shares "organic" with the Dermacool memory.
+    s = _system(["Dermacool Gel meets organic cosmetics formulation standards.",
+                 "Vendor X receives preferred supplier status."],
+                ["Food service products obtain organic retail certification if ingredients come from certified farms.",
+                 "A vendor receives expedited renewal status with quarterly volume above 5 million."])
+    ev = {"decoy_policies": ["p_0000", "p_0001"]}
+    flags = leakcheck.decoy_word_flags(s, ev)
+    assert [(f.item, f.match, f.hard) for f in flags] == [("p_0000", "organic", True)]  # generic words and numbers ignored
+
+
+def test_real_policies_are_not_decoy_checked():
+    s = _system(["Dermacool Gel meets organic cosmetics formulation standards."],
+                ["Cosmetics earn organic formulation standing when tests show no synthetic preservatives."])
+    assert leakcheck.decoy_word_flags(s, {"decoy_policies": []}) == []

@@ -215,6 +215,34 @@ def echo_flags(system: dict) -> list[Flag]:
     return flags
 
 
+# Words that are generic in eligibility rules; sharing them does not make a decoy a
+# plausible match for a memory (calibrated on smoke tests 3-4).
+GENERIC_RULE_WORDS = {
+    "statu", "status", "receive", "receiv", "grant", "granted", "approved", "approval", "qualify", "qualifie",
+    "qualified", "eligible", "eligibility", "program", "programme", "requirement", "criteria", "standard",
+    "commercial", "business", "company", "vendor", "supplier", "client", "customer", "account", "applicant",
+    "firm", "organization", "organisation", "entity", "annual", "year", "month", "quarter", "active", "valid",
+    "certified", "certification", "minimum", "least", "maintain", "hold", "holding", "level", "designation",
+    "product", "service", "meet", "meets", "achieve", "achieves", "fulfill", "fulfil", "secure",
+}
+
+
+def decoy_word_flags(system: dict, evaluation: dict) -> list[Flag]:
+    """render-v5 hard rule: a decoy policy may not share a distinctive content word with
+    any memory (numbers and generic rule words excepted). Otherwise the decoy can be a
+    plausible competing match for that memory (v4 re-render, F6 'organic')."""
+    decoys = set(evaluation.get("decoy_policies") or [])
+    mem = set().union(*(tokens(m["text"]) for m in system["memories"])) if system["memories"] else set()
+    flags = []
+    for p in system.get("policies", []):
+        if p["id"] not in decoys:
+            continue
+        shared = sorted(w for w in tokens(p["text"]) & mem if not w.isdigit() and w not in GENERIC_RULE_WORDS)
+        if shared:
+            flags.append(Flag(system["scenario"], p["id"], "decoy_shares_memory_word", ",".join(shared), True))
+    return flags
+
+
 UNNAMED = re.compile(r"\bthe (customer|client|applicant|user|traveller|traveler|company|business|account holder)\b", re.I)
 
 
@@ -408,7 +436,8 @@ def check(pairs: list[tuple[dict, dict]]) -> LeakReport:
     rep = LeakReport()
     for system, evaluation in pairs:
         rep.flags += (text_flags(system) + echo_flags(system) + group_flags(system, evaluation)
-                      + consistency_flags(system, evaluation) + relation_flags(system, evaluation))
+                      + consistency_flags(system, evaluation) + relation_flags(system, evaluation)
+                      + decoy_word_flags(system, evaluation))
         rep.lexical.add(evaluation["justifications"], lexical_justifications(system))
         rep.policy_lexical.add(evaluation["justifications"], policy_assisted_justifications(system))
         rep.aucs[system["scenario"]] = premise_overlap_auc(system, evaluation)

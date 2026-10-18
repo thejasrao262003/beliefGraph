@@ -9,7 +9,8 @@ render-v3 (2026-10-18) keeps v2's text and adds: vocabulary separation between
 policies, memories and facts, decoy policies, and an eval-only post-update state per
 derived node (smoke test 2, P7). render-v4 adds a hard no-shared-phrase rule between
 memories and policies, flat-denial retractions and correct units (review of smoke
-test 3). All versions stay runnable and earlier ones are kept verbatim.
+test 3). render-v5 adds outcome/quantity naming rules and bans distinctive memory
+words in decoys (v4 re-render). All versions stay runnable; earlier ones are verbatim.
 """
 
 from __future__ import annotations
@@ -20,7 +21,7 @@ from dataclasses import dataclass, field
 from beliefbench.render.views import timeline
 from beliefbench.schema import Scenario
 
-PROMPT_VERSION = "render-v4"
+PROMPT_VERSION = "render-v5"
 
 # Exactly the text used for smoke test 2 (commit 896d366). Do not edit.
 SYSTEM_PROMPT_V2 = """\
@@ -218,7 +219,47 @@ def _v4_from_v3(v3: str) -> str:
 
 
 SYSTEM_PROMPT_V4 = _v4_from_v3(SYSTEM_PROMPT_V3)
-PROMPTS = {"render-v2": SYSTEM_PROMPT_V2, "render-v3": SYSTEM_PROMPT_V3, "render-v4": SYSTEM_PROMPT_V4}
+
+# render-v5 = v4 + the edits below (v4 re-render: over-paraphrase in F1, decoy closer
+# to a memory than its real policy in F6).
+_V5_EDITS = [
+    (
+        """products, programmes and standards are exempt. Responses that break this are rejected.
+""",
+        """products, programmes and standards are exempt. Responses that break this are rejected.
+- OUTCOME NAMING: a policy must name its outcome with a clear synonym or close \
+paraphrase of the memory's conclusion, recognisably the SAME concept (memory "holds \
+Gold-tier partner status" -> policy "partnership at the Gold level"), never a \
+different concept name (not "premier merchant designation" for "Qualified Enterprise \
+Status"). The same applies when a condition refers to another conclusion.
+- QUANTITY NAMING: a condition must name the same measured quantity as the fact that \
+satisfies it. Revenue, spending and billing are different quantities; never swap them.
+""",
+    ),
+    (
+        """entity from the scenario. Write them in the same style as the real policies.
+""",
+        """entity from the scenario. Write them in the same style as the real policies.
+- A decoy must not use any distinctive content word that appears in any memory (if a \
+memory mentions "organic", no decoy may), so that no decoy is a plausible match for a \
+memory. Generic rule words (status, eligible, annual, vendor, client, ...) are fine. \
+Responses that break this are rejected.
+""",
+    ),
+]
+
+
+def _v5_from_v4(v4: str) -> str:
+    out = v4
+    for old, new in _V5_EDITS:
+        assert out.count(old) == 1, f"v5 anchor not found exactly once: {old[:60]!r}"
+        out = out.replace(old, new)
+    return out
+
+
+SYSTEM_PROMPT_V5 = _v5_from_v4(SYSTEM_PROMPT_V4)
+PROMPTS = {"render-v2": SYSTEM_PROMPT_V2, "render-v3": SYSTEM_PROMPT_V3, "render-v4": SYSTEM_PROMPT_V4,
+           "render-v5": SYSTEM_PROMPT_V5}
 SYSTEM_PROMPT = PROMPTS[PROMPT_VERSION]
 AFTER_UPDATE_STATES = {"holds", "fails", "undetermined"}
 
