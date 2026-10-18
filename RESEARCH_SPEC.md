@@ -1,6 +1,6 @@
 # BeliefGraph — Research Specification v0.2
 
-*Status (2026-10-18): literature audit + novelty gate done. Scenario generator, deterministic gold labeller, no-LLM baselines and metrics implemented (`src/beliefbench`; pilot-1 results in §5). No LLM system yet. Verification debt (§1) still open.*
+*Status (2026-10-18): literature audit + novelty gate done (v0.2). Generator, gold labeller (differentially verified against Veritas-TMS), no-LLM baselines incl. PACMI-style (S5) and Atlas-style (S7), and metrics implemented in `src/beliefbench`; results in §5 (pilot-1, 1b, 1c). No LLM system yet. Verification debt (§1) partly open.*
 
 ---
 
@@ -241,7 +241,20 @@ All systems use the **same base LLM** and see the **same evidence stream**.
 | S4 | Naive cascade | Explicit graph; withdraw every descendant of the changed node |
 | S5 | PACMI-style lattice | Reimplementation of PACMI's 4-state propagation (or their code, if released) |
 | S6 | Re-derive-all | Recompute every belief from current evidence after each update (accuracy ceiling for LLM-only; cost ceiling) |
-| S7 | Atlas-style soft propagation | BFS over dependents + damped per-edge confidence update (`α, β·strength·Δ`), thresholded into actions. Thresholds tuned on a dev split |
+| S7 | Atlas-style soft propagation | BFS over dependents + damped per-edge confidence update (`α, β·strength·Δ`). Native discrete mapping uses Atlas's own routing floor (\|Δ\| ≥ 0.15 → flagged); plus a threshold sweep on applied confidences |
+
+**S5 / S7 implementation notes** (`src/beliefbench/prior_art.py`, pinned by `tests/test_prior_art.py`):
+
+- *S5 faithful:* direct targets → superseded; `supports` → needs-verification, `used-by` → historical-only; on multiple paths the stronger state wins; no AND/OR reasoning.
+  - **A-P1** (adaptation): our graphs have no edge types, so an edge into a decision is `used-by` and every other edge is `supports`.
+  - **A-P2** (assumption): "stronger" follows the paper's listing order, active < needs-verification < historical-only < superseded.
+  - **A-P3** (adaptation): PACMI has no reliability, recency or hedge handling, so every update makes its target superseded.
+  - **A-P4** (prespecified mapping): active→keep, needs-verification→recompute (alternative: uncertain; SCR/OIR identical under either), historical-only→withdraw, superseded→withdraw or supersede.
+- *S7 faithful (from `reassess.py`, `analyze_impact.py`, `adjudication.py`):* default weights α 0.5, β 0.3, γ 0.15, δ 0.05; the `HeuristicReassessor` (Δ clipped to ±0.5); decay(None) = 0.5; BFS depth cap 10. Every impacted node is reassessed against the *origin's* Δ with strength 1.0. Proposals are not written back (Atlas has no automatic consumer). Routing: \|Δ\| ≥ 0.15 → strategic review.
+  - **A-A1** (adaptation): all nodes start at confidence c0 = 0.8.
+  - **A-A2** (adaptation): retracts / supersedes set the target to 0; hedges halve it; reliability and recency are ignored, since Atlas has neither.
+  - **A-A3** (mapping): a flagged node gets the gold class of its cause (charitable; affects macro-F1 only).
+  - The threshold sweep applies all proposals sequentially and revises a node iff its final confidence < τ.
 | **P** | **Justification-aware revision** | LLM induces OR-of-AND justifications at write time; TMS label propagation decides; LLM recomputes only nodes labelled recompute; LLM adjudicates `uncertain` on F6 |
 | P-oracle | P with gold justifications | Upper bound; isolates induction error |
 
@@ -259,7 +272,7 @@ All systems use the **same base LLM** and see the **same evidence stream**.
 ## 5. Pilot plan (next steps)
 
 1. **Finish the verification-debt reads** (§1 checklist). Update the matrix. Re-run the gate. *Mostly done 2026-10-18. Still open: the full re-derivation-gap paper (manual PDF download), AGM-Bench scoring, Kumiho §15–16, and primary JTMS/ATMS texts.*
-1b. **Model-free checks still available before any spend:** differential-test `labeler.py` against Veritas-TMS on keep/withdraw-only scenarios (F1–F3 retractions); implement S5 (PACMI lattice) and S7 (Atlas-style) as deterministic baselines on the existing graphs.
+1b. ~~**Model-free checks:** differential-test `labeler.py` against Veritas-TMS; implement S5 (PACMI lattice) and S7 (Atlas-style) as deterministic baselines.~~ **Done**, see pilot-1c.
 2. ~~**Scenario generator v0**: graph sampler + JTMS gold labeller for F1, F2, F3, F6. 40 scenarios.~~ **Done**, without NL rendering. See pilot-1 below.
 2b. **NL renderer** (the first step that costs model calls): render each graph to evidence and memory text without stating its justification structure. Use a different model family from the systems under test.
 3. **Hand-check 40 scenarios** for rendering fidelity.
@@ -315,6 +328,36 @@ Naive cascade's OIR by family: F1 0.000 · F2 **0.271 ±0.019** · F3 0.144 ±0.
 
   So the "extraction errors cause staleness" finding from pilot-1 depends on the mix of error types. Missing links and AND→OR confusion leave conclusions stale; OR→AND confusion and missed alternatives destroy supported ones. **What the first LLM experiment must measure is the real mix of error types**, not just extraction F1. Add per-error-type counts to the extraction report when LLM extraction lands.
 - **Per-family results need more scenarios.** 10 scenarios per family gives wide intervals (e.g. F1 SCR@0.25 ±0.064). The LLM pilot should use ≥ 25 per family, or several seeds.
+
+### Pilot-1c: model-free validation and prior-art baselines (2026-10-18)
+
+Reproduce: `uv sync --all-groups && uv run python scripts/prior_art_report.py --seeds 20 --fuzz 5000`. Full output is in `data/prior-art.results.txt`. Generator, labeller and metrics are unchanged.
+
+**Differential test vs Veritas-TMS 0.16.0: exact agreement.**
+- Coverage: 295 pilot retraction scenarios (seeds 0–19) plus 5,000 random DAGs, 50,682 nodes in total. **0 disagreeing scenarios.**
+- Structural features exercised (random DAGs): diamond 3,746 · multi-support 4,317 · conjunctive 4,546 · multiple retraction 3,188 · partial support loss 2,435 · all supports lost 2,178 · unaffected parts 4,320.
+- Scope: retract-only updates, reliability ≥ target's, not outdated. Not compared, because Veritas has no equivalent representation (documented rather than mapped away): supersede/STALE, hedge/UNK, low-reliability and outdated updates. Veritas handles reliability through entrenchment at assert time, which is a different mechanism.
+- A greedy minimiser is in place for any future disagreement (`diffcheck.minimize`, tested on a planted fault).
+
+**Baselines (20 seeds × 40 scenarios, mean ±95% CI):**
+
+| System | SCR | OIR | macro-F1 | F2 OIR |
+|---|---|---|---|---|
+| direct_only | 0.565 ±0.015 | 0.000 | 0.564 | 0.000 |
+| naive_cascade | 0.000 | 0.160 ±0.009 | 0.551 | 0.271 |
+| S5 PACMI-style | 0.000 | 0.160 ±0.009 | 0.546 | 0.271 |
+| S7 Atlas-style (native routing) | 0.066 ±0.016 | 0.139 ±0.009 | 0.741 | 0.271 |
+| S7 Atlas-style (applied, c < 0.5) | 0.505 ±0.027 | 0.037 ±0.008 | 0.602 | 0.127 |
+| S7 Atlas-style (applied, c < 0.75) | 0.000 | 0.160 ±0.009 | 0.783 | 0.271 |
+| oracle JTMS (= Veritas on shared subset) | 0 | 0 | 1.000 | 0 |
+
+What this shows:
+- **PACMI-style propagation matches naive cascade on SCR and OIR exactly.** Its lattice changes *which* non-keep label a node gets, not *whether* it is touched. That is expected from its design (no alternative-support logic), and now measured: OIR 0.271 on F2.
+- **Atlas's confidence carries no information about independent support.** The mean confidence drop for gold-keep vs gold-revise nodes is identical (0.1575 vs 0.1575 in F1–F3), because every impacted node is reassessed against the origin's Δ. So **no threshold can separate them**, and the sweep only trades one failure for the other: (SCR 0.505, OIR 0.037) at τ = 0.5 to (SCR 0, OIR 0.160) at τ = 0.75. In F2 the only OIR reduction comes from accumulating several retractions, not from support reasoning.
+- **Atlas misses hedged updates.** A hedge moves confidence by 0.09, below the 0.15 routing floor, so uncertain conclusions stay keep (F6 SCR 0.293).
+- **Minimal failure graphs** (in the results file): `B1 <= (E1) | (E2)`, retract E2. PACMI sends B1 to needs-verification and Atlas flags it, while gold is keep. For Atlas staleness: `B1 <= (E1)`, hedge E1; gold is uncertain, Atlas keeps it.
+- **Caveat:** these are reproductions on our graphs with documented adaptations (A-P1…4, A-A1…3), not the original systems end to end. PACMI's LLM relation classifier and premise checker, and Atlas's contradiction detection and LLM reassessor, are not modelled.
+- **Consequence for the gate:** on the explicit track, the credible prior-art mechanisms reproduce the naive-cascade failure on independent support, while a correct JTMS has none. That is expected, and it confirms why the explicit track cannot be the headline: the open question is still whether *induced* justifications keep that advantage.
 
 ---
 

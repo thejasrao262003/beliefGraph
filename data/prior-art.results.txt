@@ -1,0 +1,82 @@
+== 1. Differential test: labeler.gold_actions vs Veritas-TMS 0.16.0 (shared subset) ==
+pilot F1-F3 retractions: 295 scenarios, 3099 nodes, disagreeing scenarios: 0
+  coverage: all_supports_lost=24, conjunctive=246, multi_retraction=59, multi_support=152, partial_support_loss=128, unaffected_part=295
+random DAGs: 5000 scenarios, 47583 nodes, disagreeing scenarios: 0
+  coverage: all_supports_lost=2178, conjunctive=4546, diamond=3746, multi_retraction=3188, multi_support=4317, partial_support_loss=2435, unaffected_part=4320
+Scope: retract-only, reliability >= target, not outdated. Not compared: supersede/STALE, hedge/UNK, low-reliability, outdated (no equivalent Veritas representation).
+
+== 2. Baselines: 20 seeds x 40 scenarios. Mean ±95% CI over seeds ==
+-- all --
+system                                   stale         overinv         macroF1
+direct_only                       0.565 ±0.015    0.000 ±0.000    0.564 ±0.011
+naive_cascade                     0.000 ±0.000    0.160 ±0.009    0.551 ±0.011
+S5 pacmi                          0.000 ±0.000    0.160 ±0.009    0.546 ±0.008
+S7 atlas (native |Δ|>=0.15)       0.066 ±0.016    0.139 ±0.009    0.741 ±0.014
+S7 atlas (applied, c<0.5)         0.505 ±0.027    0.037 ±0.008    0.602 ±0.018
+S7 atlas (applied, c<0.6)         0.505 ±0.027    0.037 ±0.008    0.602 ±0.018
+S7 atlas (applied, c<0.7)         0.066 ±0.016    0.139 ±0.009    0.741 ±0.014
+S7 atlas (applied, c<0.75)        0.000 ±0.000    0.160 ±0.009    0.783 ±0.017
+-- F1 --
+system                                   stale         overinv         macroF1
+direct_only                       0.752 ±0.013    0.000 ±0.000    0.545 ±0.008
+naive_cascade                     0.000 ±0.000    0.000 ±0.000    0.680 ±0.014
+S5 pacmi                          0.000 ±0.000    0.000 ±0.000    0.774 ±0.016
+S7 atlas (native |Δ|>=0.15)       0.000 ±0.000    0.000 ±0.000    1.000 ±0.000
+S7 atlas (applied, c<0.5)         0.752 ±0.013    0.000 ±0.000    0.545 ±0.008
+S7 atlas (applied, c<0.6)         0.752 ±0.013    0.000 ±0.000    0.545 ±0.008
+S7 atlas (applied, c<0.7)         0.000 ±0.000    0.000 ±0.000    1.000 ±0.000
+S7 atlas (applied, c<0.75)        0.000 ±0.000    0.000 ±0.000    1.000 ±0.000
+-- F2 --
+system                                   stale         overinv         macroF1
+direct_only                       0.231 ±0.053    0.000 ±0.000    0.804 ±0.057
+naive_cascade                     0.000 ±0.000    0.271 ±0.019    0.654 ±0.044
+S5 pacmi                          0.000 ±0.000    0.271 ±0.019    0.745 ±0.031
+S7 atlas (native |Δ|>=0.15)       0.000 ±0.000    0.271 ±0.019    0.788 ±0.028
+S7 atlas (applied, c<0.5)         0.000 ±0.000    0.127 ±0.026    0.879 ±0.027
+S7 atlas (applied, c<0.6)         0.000 ±0.000    0.127 ±0.026    0.879 ±0.027
+S7 atlas (applied, c<0.7)         0.000 ±0.000    0.271 ±0.019    0.788 ±0.028
+S7 atlas (applied, c<0.75)        0.000 ±0.000    0.271 ±0.019    0.788 ±0.028
+-- F3 --
+system                                   stale         overinv         macroF1
+direct_only                       0.528 ±0.041    0.000 ±0.000    0.650 ±0.017
+naive_cascade                     0.000 ±0.000    0.144 ±0.013    0.606 ±0.016
+S5 pacmi                          0.000 ±0.000    0.144 ±0.013    0.702 ±0.013
+S7 atlas (native |Δ|>=0.15)       0.000 ±0.000    0.144 ±0.013    0.831 ±0.025
+S7 atlas (applied, c<0.5)         0.528 ±0.041    0.000 ±0.000    0.650 ±0.017
+S7 atlas (applied, c<0.6)         0.528 ±0.041    0.000 ±0.000    0.650 ±0.017
+S7 atlas (applied, c<0.7)         0.000 ±0.000    0.144 ±0.013    0.831 ±0.025
+S7 atlas (applied, c<0.75)        0.000 ±0.000    0.144 ±0.013    0.831 ±0.025
+-- F6 --
+system                                   stale         overinv         macroF1
+direct_only                       0.581 ±0.035    0.000 ±0.000    0.621 ±0.028
+naive_cascade                     0.000 ±0.000    0.165 ±0.028    0.631 ±0.020
+S5 pacmi                          0.000 ±0.000    0.165 ±0.028    0.454 ±0.008
+S7 atlas (native |Δ|>=0.15)       0.293 ±0.059    0.071 ±0.020    0.628 ±0.023
+S7 atlas (applied, c<0.5)         0.581 ±0.035    0.000 ±0.000    0.621 ±0.028
+S7 atlas (applied, c<0.6)         0.581 ±0.035    0.000 ±0.000    0.621 ±0.028
+S7 atlas (applied, c<0.7)         0.293 ±0.059    0.071 ±0.020    0.628 ±0.023
+S7 atlas (applied, c<0.75)        0.000 ±0.000    0.165 ±0.028    0.736 ±0.038
+
+== 3. Atlas native confidence behaviour (unapplied proposals, c0=0.8) ==
+Max confidence drop per impacted node, split by gold action:
+  F1: keep: n=0 | revise: n=618 mean=0.1575
+  F2: keep: n=466 mean=0.1575 | revise: n=141 mean=0.1575
+  F3: keep: n=253 mean=0.1575 | revise: n=237 mean=0.1575
+  F6: keep: n=209 mean=0.1194 | revise: n=294 mean=0.1231
+
+== 4. Minimal failure graphs (from generated scenarios; over-invalidation searched in F2) ==
+S5 pacmi / over-invalidation  (gold -> S5 pacmi):
+  E1 <= evidence   [gold keep -> keep]
+  E2 <= evidence   [gold withdraw -> withdraw]
+  B1 <= (E1) | (E2)   [gold keep -> recompute]
+  updates: retracts E2
+S5 pacmi / stale: none found
+S7 atlas native / over-invalidation  (gold -> S7 atlas native):
+  E1 <= evidence   [gold keep -> keep]
+  E2 <= evidence   [gold withdraw -> withdraw]
+  B1 <= (E1) | (E2)   [gold keep -> withdraw]
+  updates: retracts E2
+S7 atlas native / stale  (gold -> S7 atlas native):
+  E1 <= evidence   [gold uncertain -> uncertain]
+  B1 <= (E1)   [gold uncertain -> keep]
+  updates: hedges E1
