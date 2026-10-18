@@ -217,3 +217,45 @@ Command: `uv run --group lyzr python scripts/render_run.py --run smoke-render-v2
 2. **Decoy policies.** Per scenario, 1–2 plausible rules from the same domain that govern nothing in the scenario, so the policy-to-memory mapping is not 1:1.
 3. **Narrow `policy_shares_name`** to subject entities only.
 4. Re-run the same 4-scenario smoke test (expected ≈ $0.10, cap $0.50). The gate stays at ≤ 0.50 on the worse heuristic.
+
+## 13. Smoke test 3 (2026-10-18): 4 scenarios, `render-v3`, `gemini-3.5-flash` via Lyzr
+
+Command: `uv run --group lyzr python scripts/render_run.py --run smoke-render-v3 --limit 4 --budget-usd 0.50`. Outputs are in `data/rendered/smoke-render-v3/`. The v2 outputs are untouched; v2 replays from cache with 0 calls and identical views.
+
+**Run facts**
+- Live catalogue check passed at run time.
+- 5 calls: 3 scenarios first-attempt, 1 retry (F3: the word "reliability" in a policy, caught by the hard check).
+- Usage: 12,832 input + 19,357 output tokens. **$0.164 at the proxy price; the guard charged $0.247** (with the 1.5× factor). Cap $0.50. The actual Lyzr credit charge must be checked in the dashboard.
+
+**Leakage gate (heuristics and threshold unchanged from v2):**
+
+| | v2 | **v3** |
+|---|---|---|
+| Policy-assisted justification-set F1 | 0.67 (fail) | **0.41 (pass)** |
+| precision / recall | 0.72 / 0.62 | 0.44 / 0.38 |
+| Word-matching-only set F1 | 0.27 | 0.23 |
+| Policy-assisted edge F1 | n/a | 0.61 (P 0.56 / R 0.68) |
+| Premise-overlap AUC | 0.88 | 0.84 |
+
+Below the gate is necessary, not sufficient: four scenarios is a small sample, and the 40-scenario run must re-measure it.
+
+**Semantic consistency:** 0 `final_state_mismatch` / `recompute_unresolved` flags. The renderer's post-update state agrees with gold in all 4 scenarios: F1/F2 recompute → fails; F3/F6 alternatives hold → keep → holds.
+
+**Pre-review by Claude** (C8–C13; *not* the human review the protocol requires):
+
+| Scenario | C8 inferable | C10 unambiguous | C11 policy ≠ graph | C12 decoys inert | Notes |
+|---|---|---|---|---|---|
+| F1 chain, ARR $3.5M → $1.2M | ✓ the chain follows from the policies; the $2.5M threshold fails | ✓ | ◐ "operational risk threshold for enterprise status" is **verbatim** in a memory and two policies, violating vocabulary separation | ✓ (underwriting, hardware credit) | |
+| F2 two alternatives, both superseded below threshold | ✓ ($85k < $100k, 350 < 500) | ✓ | ✓ | ✓ | |
+| F3 (spend ∧ implementations) ∨ ISO 27001; spend drops | ✓ ISO keeps Gold tier | ✓ | ✓ | ✓ (Platinum decoy uses similar categories but governs no memory) | Soft flag: "Gold/Tier" in both groups (EcoVadis Gold vs Gold tier). Different entities, but lexically confusable |
+| F6 OR(R&D $12M, 15 patents); low-reliability claim against R&D | ✓ patents keep it | ✓ | ✓ good paraphrase ("technical capability criteria" vs "technical distribution eligibility") | ✓ | "500 megawatts … per hour" is a unit error (C1) |
+
+**Residual issues for the human review to judge:**
+- **R1 (F1):** vocabulary separation is only partly followed.
+- **R2:** the gate margin is modest (0.41 vs 0.50) on n = 4.
+- **R3 (F3):** cross-group vocabulary overlap.
+- **R4 (F6):** a unit error.
+
+None changes a gold label.
+
+**Status:** smoke tests are complete. Before the 40-scenario validation run, the human review of these 4 (`review.md` + `review.csv`) is needed. Any further calls need approval.
