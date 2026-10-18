@@ -422,3 +422,29 @@ Both suite numbers are reported. Neither aggregation is chosen to make the resul
 - **Pilot gate:** the worse heuristic's justification-set F1 ≤ 0.50, **pooled over the three pilot scenarios in their candidate versions**: F1 from `smoke-render-v5`, F2 from `smoke-render-v5b`, F6 from the new run `smoke-render-v5c`.
 - **Diagnostic only, not a gate:** the run-level score (F6 alone) and the per-scenario scores. They are reported, not used to pass or fail.
 - **Run:** F6-000 only, fresh (no cache), `--max-attempts 2`, new isolated cap **$0.20**. The v5/v5b outputs and their gate results stay untouched.
+
+### 16e. Fresh F6 render (2026-10-18): attempt 1 rejected, retry refused by the guard
+
+Command: `... --run smoke-render-v5c --only F6-000 --max-attempts 2 --budget-usd 0.20`. Outputs are in `data/rendered/smoke-render-v5c/`.
+
+**Run facts**
+- Attempt 1: 3,116 in / 5,364 out tokens, **$0.067** guard-charged.
+- Rejected by **5 hard `policy_echoes_evidence` flags**.
+- The retry was **refused by the guard**: $0.067 spent + $0.141 worst case > $0.20. **0 scenarios rendered.**
+- The cap held. The rejected response is cached.
+
+**Rejection cause:** each echo is the policy reusing the fact's *name for the quantity or credential*:
+- "gross annual revenue"
+- "fleet-wide average carbon emission level"
+- "converted … to electric vehicles"
+- "certified annual carbon offset"
+- "active corporate membership"
+
+The v5 prompt already says conditions must be "never in the fact's words", but the model does not comply when naming a measured quantity.
+
+**Finding:** the echo rule and determinability (C8/C10) pull against each other. The most natural unambiguous reference to a fact is its own name for the quantity. The retry path sends the exact echoed phrases back as feedback, but the guard's worst-case assumption (12,000 output tokens; observed completions 3.7k–6.2k) leaves no room for it under $0.20.
+
+**Options for decision (none applied):**
+- **A.** Allow one retry with feedback: a new isolated run reusing the cached attempt 1 for free, with the cap raised so that $0.067 + one worst-case call fits (≥ $0.21; e.g. $0.25 cumulative).
+- **B.** render-v6: promote "no fact wording in policies" to an explicit HARD RULE in the prompt, mirroring the memory rule, then re-render F6 (≈ $0.07 expected, same cap logic).
+- **C.** Revisit the rule: allow the *quantity / credential name* to be shared (as standard names and number+unit phrases already are), and rely on human C7/C11 for genuine leaks. This would relax a check after seeing results, so it needs an explicit decision.
