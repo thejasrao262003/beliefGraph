@@ -178,3 +178,42 @@ The renderer now defaults to **`gemini-3.5-flash`**.
 - **Spend guard price:** proxied at $1.50 / $7.50 per 1M (gemini-3.8-flash post-intro list price), because Google's pricing page has no "3.5 Flash" entry. That puts the worst case for the 40-scenario run at ~$3.7 per attempt round.
 
 For the later evaluation, the top models by provider in the same catalogue: Anthropic `claude-opus-5-5` (58) / `claude-sonnet-5-5` (56); OpenAI `gpt-6-astra` (53); open-weights `groq/openai/gpt-oss-120b` (12) and `groq/moonshotai/kimi-k2-instruct` (15).
+
+## 12. Smoke test 2 (2026-10-18): 4 scenarios, `render-v2`, `gemini-3.5-flash` via Lyzr
+
+Command: `uv run --group lyzr python scripts/render_run.py --run smoke-render-v2 --limit 4 --budget-usd 0.50`. Outputs are in `data/rendered/smoke-render-v2/`.
+
+**Run facts**
+- The live catalogue check passed at run time: `gemini/gemini-3.5-flash`, balanced tier, index 33, credential `lyzr_google`, `reasoning_effort` default `medium`.
+- **Lyzr does report token usage**, in `raw_response` (`prompt_tokens`, `completion_tokens`). Smoke test 1 missed it because the client discarded `raw_response`.
+- Usage: 8,967 input + 12,107 output tokens over 4 calls. **$0.104 at the proxy price; the guard charged $0.156** (with the 1.5× safety factor). Actual Lyzr credit cost must still be checked in the dashboard.
+- 4/4 rendered on the first attempt, 0 hard flags.
+
+**Smoke-test-1 problems: all resolved**
+
+| | Status in v2 |
+|---|---|
+| P1 structure not inferable | **Fixed.** E.g. F3: the policy states "(account ≥ 2 years AND spend ≥ $200k) OR Tier-1 accreditation". After spend drops to $180k, the visible accreditation keeps the conclusion. Determinable from the system view |
+| P2 reliability labels | Fixed: "Unverified community forum post" for low; authoritative registries for high |
+| P3 gold false positive | Fixed (regression tested) |
+| P4 same-entity distractors | Fixed: every group has distinct named entities (Boreal Health, Crestview Foods, DynaTek…) |
+| P5 dates | Fixed: no absolute dates in any text |
+| P6 order cues | Fixed: none present |
+
+**New problem: P7, the policies hand over the graph lexically. The gate fails.**
+- **Numbers:** the policy-assisted heuristic recovers **0.67** justification-set F1 (gate ≤ 0.50); word matching alone, 0.27. Premise-overlap AUC is 0.88.
+- **Cause:** each policy restates its memory nearly verbatim in its head and its premises verbatim in its body. Example from F1:
+  - memory: "Apex Tech Solutions meets enterprise security compliance criteria"
+  - policy: "An account meets enterprise security compliance criteria if it qualifies for priority support routing and maintains at least two certified security officers"
+  - evidence: "…maintains two certified security officers on staff"
+- **Effect:** memory → policy → premises becomes string matching, which is exactly the risk raised in review. One policy per memory also makes the mapping 1:1.
+
+**Other observations (pre-review by Claude, not the human review)**
+- **F2, supersedes on a boolean fact:** "certification was formally suspended / report revoked". The gold label is `recompute`, and re-deriving under the policy flips the conclusion, so outcome-wise it equals `withdraw`. Not wrong, but scoring should treat "recompute that flips" consistently. To decide before the evaluation.
+- **`policy_shares_name` is noisy:** 5 soft flags, all standard or product names (ISO, SOC, Tier, Grade), none of them the subject entity. The heuristic needs narrowing to subject names.
+
+**Proposed `render-v3`** (needs approval before any further calls):
+1. **Vocabulary separation.** Policies and memories must not reuse each other's head phrase, and policy conditions must describe requirements in category terms, not the facts' wording ("a security staffing requirement of two or more certified officers", not "maintains two certified security officers"). The C8 human check guards determinability.
+2. **Decoy policies.** Per scenario, 1–2 plausible rules from the same domain that govern nothing in the scenario, so the policy-to-memory mapping is not 1:1.
+3. **Narrow `policy_shares_name`** to subject entities only.
+4. Re-run the same 4-scenario smoke test (expected ≈ $0.10, cap $0.50). The gate stays at ≤ 0.50 on the worse heuristic.
