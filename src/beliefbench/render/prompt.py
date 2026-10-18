@@ -10,7 +10,8 @@ policies, memories and facts, decoy policies, and an eval-only post-update state
 derived node (smoke test 2, P7). render-v4 adds a hard no-shared-phrase rule between
 memories and policies, flat-denial retractions and correct units (review of smoke
 test 3). render-v5 adds outcome/quantity naming rules and bans distinctive memory
-words in decoys (v4 re-render). All versions stay runnable; earlier ones are verbatim.
+words in decoys (v4 re-render). render-v6 makes "no fact wording in policies" an explicit
+hard rule (fresh F6 render). All versions stay runnable; earlier ones are verbatim.
 """
 
 from __future__ import annotations
@@ -21,7 +22,7 @@ from dataclasses import dataclass, field
 from beliefbench.render.views import timeline
 from beliefbench.schema import Scenario
 
-PROMPT_VERSION = "render-v5"
+PROMPT_VERSION = "render-v6"
 
 # Exactly the text used for smoke test 2 (commit 896d366). Do not edit.
 SYSTEM_PROMPT_V2 = """\
@@ -258,8 +259,38 @@ def _v5_from_v4(v4: str) -> str:
 
 
 SYSTEM_PROMPT_V5 = _v5_from_v4(SYSTEM_PROMPT_V4)
+
+# render-v6 = v5 + one edit (fresh F6 render reused fact wording in 5 policy conditions).
+_V6_EDITS = [
+    (
+        """- QUANTITY NAMING: a condition must name the same measured quantity as the fact that \
+satisfies it. Revenue, spending and billing are different quantities; never swap them.
+""",
+        """- QUANTITY NAMING: a condition must name the same measured quantity as the fact that \
+satisfies it. Revenue, spending and billing are different quantities; never swap them.
+- HARD RULE (facts): no phrase of three or more consecutive ordinary (lower-case) words \
+may appear both in any evidence item and in any policy. Refer to the fact's quantity or \
+credential by a clear equivalent that still identifies it unambiguously (fact "gross \
+annual revenue" -> condition "yearly turnover"; fact "fleet-wide average carbon emission \
+level" -> condition "mean CO2 output per km across the fleet"). Never replace a clear \
+quantity with a vague one. Proper names and number+unit phrases ("90 g/km") are \
+exempt. Responses that break this are rejected.
+""",
+    ),
+]
+
+
+def _v6_from_v5(v5: str) -> str:
+    out = v5
+    for old, new in _V6_EDITS:
+        assert out.count(old) == 1, f"v6 anchor not found exactly once: {old[:60]!r}"
+        out = out.replace(old, new)
+    return out
+
+
+SYSTEM_PROMPT_V6 = _v6_from_v5(SYSTEM_PROMPT_V5)
 PROMPTS = {"render-v2": SYSTEM_PROMPT_V2, "render-v3": SYSTEM_PROMPT_V3, "render-v4": SYSTEM_PROMPT_V4,
-           "render-v5": SYSTEM_PROMPT_V5}
+           "render-v5": SYSTEM_PROMPT_V5, "render-v6": SYSTEM_PROMPT_V6}
 SYSTEM_PROMPT = PROMPTS[PROMPT_VERSION]
 AFTER_UPDATE_STATES = {"holds", "fails", "undetermined"}
 

@@ -448,3 +448,14 @@ The v5 prompt already says conditions must be "never in the fact's words", but t
 - **A.** Allow one retry with feedback: a new isolated run reusing the cached attempt 1 for free, with the cap raised so that $0.067 + one worst-case call fits (≥ $0.21; e.g. $0.25 cumulative).
 - **B.** render-v6: promote "no fact wording in policies" to an explicit HARD RULE in the prompt, mirroring the memory rule, then re-render F6 (≈ $0.07 expected, same cap logic).
 - **C.** Revisit the rule: allow the *quantity / credential name* to be shared (as standard names and number+unit phrases already are), and rely on human C7/C11 for genuine leaks. This would relax a check after seeing results, so it needs an explicit decision.
+
+### 16f. render-v6 and the single approved F6 retry (2026-10-18)
+
+- **Prompt:** render-v6 = verbatim v5 (SHA-256 `d8368d88…`, pinned) + one asserted edit: "HARD RULE (facts)".
+  - No ordinary 3-word phrase may be shared by an evidence item and a policy.
+  - Refer to the fact's quantity or credential by a clear, unambiguous equivalent ("gross annual revenue" → "yearly turnover"), never a vague one.
+  - The proper-name and number+unit exemptions are unchanged.
+- **Retry mechanics:** new run `smoke-render-v5d`.
+  - **Attempt 1** = the rejected v5c response, copied unchanged. Its record keeps `prompt_version: render-v5`. It is stored under the v6 cache key so the pipeline reuses it with **no API call**.
+  - **Attempt 2** = one v6 call, carrying the attempt-1 rejection feedback (the 5 echoed phrases).
+- **Cap:** `--max-attempts 2 --budget-usd 0.25 --prior-spend-usd 0.067`, leaving $0.183 of headroom. The guard stays authoritative.

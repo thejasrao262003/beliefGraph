@@ -100,7 +100,7 @@ def test_payload_carries_dates_but_no_gold_or_family():
     assert groups["B3"] != groups["B1"]
     obs = {e["id"]: e["observed"] for e in payload["evidence"]} | {u["id"]: u["observed"] for u in payload["updates"]}
     assert obs == timeline(s, 0)
-    assert PROMPT_VERSION == "render-v5" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
+    assert PROMPT_VERSION == "render-v6" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
     assert "justification_sets" in user_message(s)
 
 
@@ -368,7 +368,7 @@ def test_v3_prompt_is_kept_verbatim_and_v4_extends_it():
 
     assert hashlib.sha256(PROMPTS["render-v3"].encode()).hexdigest() == V3_SHA256
     assert "HARD RULE" in PROMPTS["render-v4"] and "flatly states" in PROMPTS["render-v4"]
-    assert current == "render-v5"
+    assert current == "render-v6"
 
 
 def _system(memories, policies, evidence=()):
@@ -503,3 +503,16 @@ def test_quantity_phrases_are_exempt_from_echo_check():
     ev = ["Vance Medical Supplies operates a refrigerated storage facility measuring 2,500 square meters."]
     pol = ["Catalog access requires a cold storage facility of no less than 1,500 square meters."]
     assert leakcheck.echo_flags(_system([], pol, ev)) == []
+
+
+V5_SHA256 = "d8368d88a2d57a49226e69446089147d5f4c3ca68a0a49dc31de865e8b17e543"
+
+
+def test_v5_prompt_is_kept_verbatim_and_v6_adds_fact_rule():
+    import hashlib
+
+    from beliefbench.render.prompt import PROMPTS
+
+    assert hashlib.sha256(PROMPTS["render-v5"].encode()).hexdigest() == V5_SHA256
+    v6 = PROMPTS["render-v6"]
+    assert "HARD RULE (facts)" in v6 and "number+unit phrases" in v6 and "Never replace a clear" in v6
