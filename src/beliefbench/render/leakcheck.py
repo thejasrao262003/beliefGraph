@@ -183,6 +183,38 @@ def text_flags(system: dict) -> list[Flag]:
     return flags
 
 
+def shared_phrases(a: str, b: str, n: int = 3) -> set[str]:
+    """Lower-case word n-grams (>= 2 content words) present in both texts. Spans with a
+    capitalised word are skipped: product, programme and standard names may be shared."""
+    def grams(text: str) -> set[tuple[str, ...]]:
+        words = re.findall(r"[A-Za-z0-9$%-]+", text)
+        out = set()
+        for i in range(len(words) - n + 1):
+            g = words[i : i + n]
+            if any(w[0].isupper() for w in g):
+                continue
+            low = tuple(w.lower() for w in g)
+            if sum(w not in STOP for w in low) >= 2:
+                out.add(low)
+        return out
+
+    return {" ".join(g) for g in grams(a) & grams(b)}
+
+
+def echo_flags(system: dict) -> list[Flag]:
+    """render-v4 hard rule: no ordinary 3-word phrase shared by a memory and any policy.
+    Such echoes let a reader map memory -> policy -> premise memories by string matching
+    (smoke test 3, F1 and F2)."""
+    flags = []
+    for m in system["memories"]:
+        for p in system.get("policies", []):
+            shared = shared_phrases(m["text"], p["text"])
+            if shared:
+                flags.append(Flag(system["scenario"], f"{m['id']}~{p['id']}", "policy_echoes_memory",
+                                  "; ".join(sorted(shared)), True))
+    return flags
+
+
 UNNAMED = re.compile(r"\bthe (customer|client|applicant|user|traveller|traveler|company|business|account holder)\b", re.I)
 
 
@@ -215,6 +247,19 @@ def group_flags(system: dict, evaluation: dict) -> list[Flag]:
 
 
 _EXPECTED_FINAL = {"keep": "holds", "withdraw": "fails", "uncertain": "undetermined"}
+HEDGE_LANGUAGE = re.compile(r"\b(claims?|claimed|alleg\w*|may|might|possibly|reportedly|rumou?r\w*|suggest\w*|"
+                            r"question\w*|doubt\w*|unconfirmed|could)\b", re.I)
+
+
+def relation_flags(system: dict, evaluation: dict) -> list[Flag]:
+    """An update's wording should match its formal relation: a `retracts` update asserts
+    falsity, so hedging language there is flagged (smoke test 3, F6 C4)."""
+    flags = []
+    rel = {u: t["relation"] for u, t in (evaluation.get("update_targets") or {}).items()}
+    for u in system["updates"]:
+        if rel.get(u["id"]) == "retracts" and (m := HEDGE_LANGUAGE.search(u["text"])):
+            flags.append(Flag(system["scenario"], u["id"], "retraction_reads_as_hedge", m.group(0), False))
+    return flags
 
 
 def consistency_flags(system: dict, evaluation: dict) -> list[Flag]:
@@ -362,7 +407,8 @@ def check(pairs: list[tuple[dict, dict]]) -> LeakReport:
     """Run every check over (system_view, eval_view) pairs."""
     rep = LeakReport()
     for system, evaluation in pairs:
-        rep.flags += text_flags(system) + group_flags(system, evaluation) + consistency_flags(system, evaluation)
+        rep.flags += (text_flags(system) + echo_flags(system) + group_flags(system, evaluation)
+                      + consistency_flags(system, evaluation) + relation_flags(system, evaluation))
         rep.lexical.add(evaluation["justifications"], lexical_justifications(system))
         rep.policy_lexical.add(evaluation["justifications"], policy_assisted_justifications(system))
         rep.aucs[system["scenario"]] = premise_overlap_auc(system, evaluation)

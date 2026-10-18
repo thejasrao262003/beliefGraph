@@ -259,3 +259,23 @@ Below the gate is necessary, not sufficient: four scenarios is a small sample, a
 None changes a gold label.
 
 **Status:** smoke tests are complete. Before the 40-scenario validation run, the human review of these 4 (`review.md` + `review.csv`) is needed. Any further calls need approval.
+
+## 14. External review of smoke test 3, and render-v4 (2026-10-18)
+
+**Review provenance.** The 4 v3 scenarios were reviewed against C1–C13 by **an external AI assistant, supplied by the user, not a human**. The original file is stored verbatim as `smoke-render-v3/review-external-ai.long.csv`, and converted (validated by `read_decisions`) into `smoke-render-v3/review.csv` with that reviewer recorded. **The protocol's human review is still outstanding.**
+
+| Scenario | Verdict | Failed items |
+|---|---|---|
+| F1 | revise | C7, C11: "operational risk threshold for enterprise status" / "commercial stability" repeated across memory and policies |
+| F2 | accept | none |
+| F3 | accept | none ("Gold/Tier" judged a lexical collision, not a dependency) |
+| F6 | revise | C4: the low-reliability `retracts` update *alleges* inflation rather than denying the fact; C10: "500 megawatts … per hour" |
+
+**Inconsistency found when automating the F1 criterion.** F2 has the same pattern as F1: "standard partner tier standing" appears in its memory, in its own policy, *and* as a condition of the specialist policy, which exposes the B1→D1 link. The reviewer passed F2. The rule is now enforced mechanically and uniformly (below). Under it F2 would also need re-rendering; F3 and F6 are clean.
+
+**render-v4** (v3 kept verbatim, pinned by SHA-256 `d20ac3c3…`; v4 = v3 + 3 asserted edits):
+1. **Prompt, hard no-shared-phrase rule:** no ordinary 3-word phrase in both a memory and any policy, including policies that use another conclusion as a condition. Proper names are exempt. **Code:** `leakcheck.echo_flags`, a *hard* flag that triggers regeneration. On the stored v3 outputs it fires for F1 (3 pairs) and F2 (3 pairs) only.
+2. **Prompt:** `retracts` must flatly assert falsity, even from a weak source; questioning or alleging is `hedges`. **Code:** `leakcheck.relation_flags`, a soft flag on hedge language in a `retracts` update. On v3 it fires for F6 ("claims") only.
+3. **Prompt:** realistic, dimensionally correct units; policy thresholds in the same unit as the fact.
+
+Next: re-render **F1-000 and F6-000 only**, cap $0.25 (`--only F1-000 F6-000`).

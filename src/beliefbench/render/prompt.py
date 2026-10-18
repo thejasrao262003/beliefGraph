@@ -7,7 +7,9 @@ render-v2 (2026-10-18) adds visible *policies*: one general rule per derived nod
 so the AND/OR structure is determinable from what the system sees (smoke test 1, P1).
 render-v3 (2026-10-18) keeps v2's text and adds: vocabulary separation between
 policies, memories and facts, decoy policies, and an eval-only post-update state per
-derived node (smoke test 2, P7). Both versions stay runnable; v2 is kept verbatim.
+derived node (smoke test 2, P7). render-v4 adds a hard no-shared-phrase rule between
+memories and policies, flat-denial retractions and correct units (review of smoke
+test 3). All versions stay runnable and earlier ones are kept verbatim.
 """
 
 from __future__ import annotations
@@ -18,7 +20,7 @@ from dataclasses import dataclass, field
 from beliefbench.render.views import timeline
 from beliefbench.schema import Scenario
 
-PROMPT_VERSION = "render-v3"
+PROMPT_VERSION = "render-v4"
 
 # Exactly the text used for smoke test 2 (commit 896d366). Do not edit.
 SYSTEM_PROMPT_V2 = """\
@@ -168,7 +170,55 @@ def _v3_from_v2(v2: str) -> str:
 
 
 SYSTEM_PROMPT_V3 = _v3_from_v2(SYSTEM_PROMPT_V2)
-PROMPTS = {"render-v2": SYSTEM_PROMPT_V2, "render-v3": SYSTEM_PROMPT_V3}
+
+# render-v4 = v3 + the edits below (external review of smoke test 3: F1 C7/C11, F6 C4/C10).
+_V4_EDITS = [
+    (
+        """- The meaning must still let a careful reader match each policy to the memory it \
+governs and each condition to the facts that satisfy it. Separation of wording, not \
+of meaning.
+""",
+        """- The meaning must still let a careful reader match each policy to the memory it \
+governs and each condition to the facts that satisfy it. Separation of wording, not \
+of meaning.
+- HARD RULE: no phrase of three or more consecutive ordinary (lower-case) words may \
+appear both in any memory and in any policy. This includes a policy that uses another \
+conclusion as a condition: paraphrase that conclusion too (memory "meets the operational \
+risk threshold" -> condition "an applicant cleared on risk grounds"). Proper names of \
+products, programmes and standards are exempt. Responses that break this are rejected.
+""",
+    ),
+    (
+        """- retracts: a later report that the target fact is no longer true. Nothing replaces it.
+""",
+        """- retracts: a later report that flatly states the target fact is not, or is no \
+longer, true (e.g. "X never held that certification", "X's licence was withdrawn"). \
+Nothing replaces it. Even when the source is weak, a retraction asserts falsity; it \
+does not merely question or allege. Questioning, alleging or casting doubt is "hedges".
+""",
+    ),
+    (
+        """- Keep every text under 45 words. Use concrete names, places and numbers.
+""",
+        """- Keep every text under 45 words. Use concrete names, places and numbers.
+- Quantities must be realistic and use dimensionally correct units (power in MW, \
+energy in MWh, money with a currency); a policy threshold must use the same unit as \
+the fact it is compared with.
+""",
+    ),
+]
+
+
+def _v4_from_v3(v3: str) -> str:
+    out = v3
+    for old, new in _V4_EDITS:
+        assert out.count(old) == 1, f"v4 anchor not found exactly once: {old[:60]!r}"
+        out = out.replace(old, new)
+    return out
+
+
+SYSTEM_PROMPT_V4 = _v4_from_v3(SYSTEM_PROMPT_V3)
+PROMPTS = {"render-v2": SYSTEM_PROMPT_V2, "render-v3": SYSTEM_PROMPT_V3, "render-v4": SYSTEM_PROMPT_V4}
 SYSTEM_PROMPT = PROMPTS[PROMPT_VERSION]
 AFTER_UPDATE_STATES = {"holds", "fails", "undetermined"}
 

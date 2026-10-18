@@ -100,7 +100,7 @@ def test_payload_carries_dates_but_no_gold_or_family():
     assert groups["B3"] != groups["B1"]
     obs = {e["id"]: e["observed"] for e in payload["evidence"]} | {u["id"]: u["observed"] for u in payload["updates"]}
     assert obs == timeline(s, 0)
-    assert PROMPT_VERSION == "render-v3" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
+    assert PROMPT_VERSION == "render-v4" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
     assert "justification_sets" in user_message(s)
 
 
@@ -354,3 +354,55 @@ def test_report_has_precision_and_recall():
     summ = leakcheck.check([views()]).summary()
     for key in ("lexical_heuristic", "policy_assisted_heuristic"):
         assert {"edge_precision", "edge_recall", "justification_set_precision", "justification_set_recall"} <= set(summ[key])
+
+
+# ── render-v4 (external review of smoke test 3) ──
+
+V3_SHA256 = "d20ac3c35ab915586d6283209c5b6f0a91e98ab8f3bea11ee42a3138ca84ee5e"
+
+
+def test_v3_prompt_is_kept_verbatim_and_v4_extends_it():
+    import hashlib
+
+    from beliefbench.render.prompt import PROMPT_VERSION as current, PROMPTS
+
+    assert hashlib.sha256(PROMPTS["render-v3"].encode()).hexdigest() == V3_SHA256
+    assert current == "render-v4" and "HARD RULE" in PROMPTS["render-v4"] and "flatly states" in PROMPTS["render-v4"]
+
+
+def _system(memories, policies):
+    return {"scenario": "s_x", "domain": "d", "evidence": [], "updates": [],
+            "memories": [{"id": f"m_{i:04x}", "text": t} for i, t in enumerate(memories)],
+            "policies": [{"id": f"p_{i:04x}", "text": t} for i, t in enumerate(policies)]}
+
+
+def test_echo_flag_catches_smoke3_f1_and_f2_patterns():
+    # F1 (failed review): memory phrase reused in its own and in another memory's policy.
+    f1 = _system(["Apex Dynamics meets the operational risk threshold for enterprise status."],
+                 ["Preferred Partner Discount prerequisites are fulfilled when an account meets the operational "
+                  "risk threshold for enterprise status and retains a designated account executive team."])
+    flags = leakcheck.echo_flags(f1)
+    assert flags and flags[0].hard and "operational risk threshold" in flags[0].match
+    # F2 (accepted by the reviewer, same pattern): flagged too, so the rule is applied uniformly.
+    f2 = _system(["Apex Tech Solutions qualifies for standard partner tier standing."],
+                 ["A dedicated client specialist is designated for any account possessing standard partner tier standing."])
+    assert leakcheck.echo_flags(f2)
+
+
+def test_echo_flag_allows_proper_names_and_paraphrase():
+    ok = _system(["Enroll Apex Dynamics in the Preferred Partner Discount program."],
+                 ["Program enrollment for the Preferred Partner Discount is authorized for clients cleared on all "
+                  "prerequisite grounds."])
+    assert leakcheck.echo_flags(ok) == []
+    assert leakcheck.shared_phrases("meets the commercial stability benchmark",
+                                    "commercial stability status is attained") == set()
+
+
+def test_retraction_that_reads_as_hedge_is_flagged():
+    s = spec_example()
+    r = copy.deepcopy(GOOD)
+    r["updates"]["U1"]["text"] = "An anonymous post claims the catalogue no longer lists Horizon Saver."
+    system, evaluation = views(r, s=s)
+    assert [f.kind for f in leakcheck.relation_flags(system, evaluation)] == ["retraction_reads_as_hedge"]
+    system, evaluation = views(s=s)  # flat denial
+    assert leakcheck.relation_flags(system, evaluation) == []

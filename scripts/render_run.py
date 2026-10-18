@@ -67,10 +67,13 @@ def render_one(s, renderer: LyzrRenderer | None, raw_dir: Path, model: str, max_
             feedback = r.errors
             continue
         system, evaluation = build_views(s, r, seed=seed)
-        hard = [f for f in leakcheck.text_flags(system) if f.hard]
+        hard = [f for f in leakcheck.text_flags(system) + leakcheck.echo_flags(system) if f.hard]
         if hard:
             inv = {v: k for k, v in evaluation["idmap"].items()}
-            feedback = [f"text of {inv.get(f.item, f.item)} contains forbidden {f.kind}: '{f.match}'" for f in hard]
+            def name(item):
+                return "~".join(inv.get(x, x) for x in item.split("~"))
+
+            feedback = [f"text of {name(f.item)} contains forbidden {f.kind}: '{f.match}'" for f in hard]
             continue
         return r, system, evaluation, attempt
     raise ValueError(f"{s.id}: no valid rendering after {max_attempts} attempts; last problems: {feedback}")
@@ -86,6 +89,7 @@ def main() -> None:
     ap.add_argument("--model", default=DEFAULT_MODEL, choices=sorted(MODEL_PRICES))
     ap.add_argument("--budget-usd", type=float, default=5.0)
     ap.add_argument("--max-attempts", type=int, default=3)
+    ap.add_argument("--only", nargs="+", default=None, help="render only these scenario ids (e.g. F1-000 F6-000)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -97,6 +101,11 @@ def main() -> None:
             by_fam.setdefault(s.family, []).append(s)
         order = [x for group in zip(*by_fam.values()) for x in group]
         suite = order[: args.limit]
+    if args.only:
+        suite = [s for s in suite if s.id in set(args.only)]
+        missing = set(args.only) - {s.id for s in suite}
+        if missing:
+            sys.exit(f"unknown scenario ids: {sorted(missing)}")
     max_calls = len(suite) * args.max_attempts
     guard = SpendGuard(budget_usd=args.budget_usd, max_calls=max_calls, model=args.model)
     out = Path("data/rendered") / (args.run or f"pilot-{args.prompt_version}")
