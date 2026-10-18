@@ -31,6 +31,8 @@ def good_response(s, leak: str | None = None) -> str:
         "world": "w", "nodes": nodes,
         "updates": {u.id: {"text": "A later notice changed this.", "source": "Official registry"} for u in s.updates},
         "policies": {n.id: f"Rule {i} applies." for i, n in enumerate(s.nodes) if not n.is_evidence},
+        "decoy_policies": ["An unrelated rule applies elsewhere."],
+        "after_updates": {n.id: "holds" for n in s.nodes if not n.is_evidence},
         "rationale": {n.id: ["r"] * len(n.justifications) for n in s.nodes if not n.is_evidence},
     })
 

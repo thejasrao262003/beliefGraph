@@ -23,6 +23,10 @@ CHECKLIST = [
     ("C10_unambiguous", "No reasonable alternative reading of the text would make a gold label wrong."),
     ("C11_policy_not_graph", "Policies state reusable rules about kinds of facts; they do not name the specific "
                              "entity, quote evidence, or otherwise disclose which item supports which memory."),
+    # render-v3
+    ("C12_decoys_inert", "Decoy policies govern nothing here and offer no alternative route to any memory."),
+    ("C13_final_state", "The renderer's after-update state for each memory follows from the policies and the "
+                        "facts that remain credible (and recompute results are right)."),
 ]
 COLUMNS = ["scenario", "reviewer", *[c for c, _ in CHECKLIST], "decision", "notes"]
 DECISIONS = {"accept", "revise", "reject"}
@@ -55,6 +59,11 @@ def review_sheet(system: dict, evaluation: dict, flags: list[Flag]) -> str:
             lines.append(f"  - set {i + 1}: {r}")
     for uid, u in evaluation["update_targets"].items():
         lines.append(f"- `{uid}` {u['relation']} `{u['target']}` (reliability {u['reliability']})")
+    if evaluation.get("decoy_policies"):
+        lines.append("- decoy policies: " + ", ".join(f"`{p}`" for p in evaluation["decoy_policies"]))
+    if evaluation.get("final_state"):
+        lines.append("- final state after updates (gold action -> state): " + "; ".join(
+            f"`{m}` {evaluation['gold'][m]} -> {st}" for m, st in evaluation["final_state"].items()))
     if flags:
         lines += ["", "### C. Automated flags (for review, not verdicts)"]
         lines += [f"- {'HARD' if f.hard else 'soft'} `{f.item}` {f.kind}: \"{f.match}\"" for f in flags]

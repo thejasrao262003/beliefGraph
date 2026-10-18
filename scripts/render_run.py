@@ -31,13 +31,13 @@ from beliefbench.render.lyzr_client import (
     LyzrRenderer,
     SpendGuard,
 )
-from beliefbench.render.prompt import PROMPT_VERSION, SYSTEM_PROMPT, parse_response, user_message
+from beliefbench.render.prompt import PROMPT_VERSION, PROMPTS, parse_response, user_message
 from beliefbench.render.review import review_sheet, write_csv_template
 from beliefbench.render.views import build_views
 
 
-def payload_hash(s, model: str, seed: int = 0) -> str:
-    return hashlib.sha256(f"{PROMPT_VERSION}|{model}|{user_message(s, seed)}".encode()).hexdigest()[:16]
+def payload_hash(s, model: str, seed: int = 0, version: str = PROMPT_VERSION) -> str:
+    return hashlib.sha256(f"{version}|{model}|{user_message(s, seed)}".encode()).hexdigest()[:16]
 
 
 def attempt_message(s, feedback: list[str], seed: int = 0) -> str:
@@ -47,21 +47,22 @@ def attempt_message(s, feedback: list[str], seed: int = 0) -> str:
     return msg
 
 
-def render_one(s, renderer: LyzrRenderer | None, raw_dir: Path, model: str, max_attempts: int, seed: int):
+def render_one(s, renderer: LyzrRenderer | None, raw_dir: Path, model: str, max_attempts: int, seed: int,
+               version: str = PROMPT_VERSION):
     """Returns (rendering, system, evaluation, attempts) or raises after max_attempts."""
     feedback: list[str] = []
     for attempt in range(1, max_attempts + 1):
-        cache = raw_dir / f"{s.id}.{payload_hash(s, model, seed)}.a{attempt}.json"
+        cache = raw_dir / f"{s.id}.{payload_hash(s, model, seed, version)}.a{attempt}.json"
         if cache.exists():
             rec = json.loads(cache.read_text())
         else:
             if renderer is None:
                 raise RuntimeError("not cached and no renderer (dry run)")
             text, meta = renderer.call(attempt_message(s, feedback, seed), note=f"{s.id} attempt {attempt}")
-            rec = {"scenario": s.id, "attempt": attempt, "prompt_version": PROMPT_VERSION, "model": model,
+            rec = {"scenario": s.id, "attempt": attempt, "prompt_version": version, "model": model,
                    "feedback": feedback, "response": text, "metadata": meta}
             cache.write_text(json.dumps(rec, indent=1, default=str))
-        r = parse_response(s, rec["response"])
+        r = parse_response(s, rec["response"], version=version)
         if not r.ok:
             feedback = r.errors
             continue
@@ -77,7 +78,8 @@ def render_one(s, renderer: LyzrRenderer | None, raw_dir: Path, model: str, max_
 
 def main() -> None:
     ap = argparse.ArgumentParser()
-    ap.add_argument("--run", default=f"pilot-{PROMPT_VERSION}")
+    ap.add_argument("--run", default=None, help="output directory name (default: pilot-<prompt version>)")
+    ap.add_argument("--prompt-version", default=PROMPT_VERSION, choices=sorted(PROMPTS))
     ap.add_argument("--seed", type=int, default=0)
     ap.add_argument("--n-per-family", type=int, default=10)
     ap.add_argument("--limit", type=int, default=None, help="render only the first N scenarios (smoke test)")
@@ -97,11 +99,16 @@ def main() -> None:
         suite = order[: args.limit]
     max_calls = len(suite) * args.max_attempts
     guard = SpendGuard(budget_usd=args.budget_usd, max_calls=max_calls, model=args.model)
-    out = Path("data/rendered") / args.run
+    out = Path("data/rendered") / (args.run or f"pilot-{args.prompt_version}")
+    if out.exists() and any((out / "system").glob("*.json")) and not args.dry_run:
+        # Never overwrite a finished run (e.g. the failed v2 smoke test); cached raw
+        # responses are reused, but views and reports must go to a new directory.
+        if (out / "spend.json").exists():
+            sys.exit(f"{out} already holds a completed run; choose a new --run name")
     raw_dir = out / "raw"
 
-    worst = sum(guard.worst_case(len(SYSTEM_PROMPT) + len(user_message(s, args.seed))) for s in suite)
-    print(f"{len(suite)} scenarios, prompt {PROMPT_VERSION}, model {args.model} (guard prices "
+    worst = sum(guard.worst_case(len(PROMPTS[args.prompt_version]) + len(user_message(s, args.seed))) for s in suite)
+    print(f"{len(suite)} scenarios, prompt {args.prompt_version}, model {args.model} (guard prices "
           f"${guard.prices[0]:.2f}/${guard.prices[1]:.2f} per 1M), worst case per first attempt incl. {THINKING_ALLOWANCE + MAX_VISIBLE_OUTPUT:,} output tokens: "
           f"${worst:.3f} total; x{args.max_attempts} attempts = ${worst * args.max_attempts:.3f}. "
           f"Hard budget: ${args.budget_usd:.2f}, call cap {max_calls}.")
@@ -122,12 +129,13 @@ def main() -> None:
 
     for d in ("raw", "system", "eval"):
         (out / d).mkdir(parents=True, exist_ok=True)
-    renderer = LyzrRenderer(guard)
+    renderer = LyzrRenderer(guard, prompt_version=args.prompt_version)
     pairs, failures, attempts = [], {}, {}
     try:
         for s in suite:
             try:
-                r, system, evaluation, k = render_one(s, renderer, raw_dir, args.model, args.max_attempts, args.seed)
+                r, system, evaluation, k = render_one(s, renderer, raw_dir, args.model, args.max_attempts, args.seed,
+                                                      args.prompt_version)
             except BudgetExceeded as e:
                 print(f"STOP: {e}", file=sys.stderr)
                 break
@@ -154,7 +162,7 @@ def main() -> None:
             review_sheet(sv, ev, flags_by.get(sv["scenario"], [])) for sv, ev in pairs))
         write_csv_template(out / "review.csv", [sv["scenario"] for sv, _ in pairs])
     spend = {"model": args.model, "lyzr_catalogue_entry": catalogue.get(f"gemini/{args.model}"),
-             "prompt_version": PROMPT_VERSION, "seed": args.seed, "guard_prices_per_1m": guard.prices,
+             "prompt_version": args.prompt_version, "seed": args.seed, "guard_prices_per_1m": guard.prices,
              "calls": guard.calls,
              "est_usd_conservative": round(guard.spent_usd, 4), "budget_usd": args.budget_usd,
              "rendered": len(pairs), "first_attempt_ok": sum(1 for k in attempts.values() if k == 1),

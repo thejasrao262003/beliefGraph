@@ -106,6 +106,33 @@ def names(text: str) -> set[str]:
     return out
 
 
+SUBJECT = re.compile(r"^((?:[A-Z][\w&'.-]*)(?:\s+(?:[A-Z][\w&'.-]*|of|and|&))*)")
+
+
+def subject_names(system: dict) -> set[str]:
+    """The entity each evidence sentence is about: its leading run of capitalised words
+    ("Apex Tech Solutions maintains ..."). Generic openers ("The", "A") are skipped."""
+    out = set()
+    for e in system["evidence"]:
+        m = SUBJECT.match(e["text"].strip())
+        if not m:
+            continue
+        name = m.group(1).strip()
+        first = name.split()[0]
+        if first.lower() in CAP_STOP or first.lower() in {"the", "a", "an", "our", "its"}:
+            continue
+        out.add(name)
+    return out
+
+
+def _mentions(text: str, name: str) -> str | None:
+    """Full name, or its distinctive first word, as a whole word in text."""
+    for cand in (name, name.split()[0]):
+        if len(cand) >= 3 and re.search(rf"\b{re.escape(cand)}\b", text):
+            return cand
+    return None
+
+
 @dataclass
 class Flag:
     scenario: str
@@ -127,7 +154,7 @@ def text_flags(system: dict) -> list[Flag]:
     if extra:
         flags.append(Flag(sid, "-", "unexpected_key", ",".join(sorted(extra)), True))
     last_evidence = max((dt.date.fromisoformat(e["observed"]) for e in system["evidence"]), default=None)
-    evidence_names = set().union(*(names(e["text"]) for e in system["evidence"])) if system["evidence"] else set()
+    subjects = subject_names(system)
     for kind, item in _items(system):
         fields = [("text", item["text"])] + ([("source", item["source"])] if "source" in item else [])
         for fname, text in fields:
@@ -150,9 +177,9 @@ def text_flags(system: dict) -> list[Flag]:
                     hard = last_evidence is not None and d > last_evidence
                     flags.append(Flag(sid, item["id"], "date_in_" + kind, d.isoformat(), hard))
         if kind == "policy":
-            shared = names(item["text"]) & evidence_names
-            if shared:
-                flags.append(Flag(sid, item["id"], "policy_shares_name", ",".join(sorted(shared)), False))
+            hits = sorted({h for n in subjects if (h := _mentions(item["text"], n))})
+            if hits:
+                flags.append(Flag(sid, item["id"], "policy_names_subject", ",".join(hits), False))
     return flags
 
 
@@ -184,6 +211,30 @@ def group_flags(system: dict, evaluation: dict) -> list[Flag]:
             generic = by_group_unnamed[a] & by_group_unnamed[b]
             if generic:
                 flags.append(Flag(sid, f"groups {a}/{b}", "unnamed_entity_in_groups", ",".join(sorted(generic)), False))
+    return flags
+
+
+_EXPECTED_FINAL = {"keep": "holds", "withdraw": "fails", "uncertain": "undetermined"}
+
+
+def consistency_flags(system: dict, evaluation: dict) -> list[Flag]:
+    """render-v3: the renderer's own post-update judgement per memory must agree with the
+    gold action (keep -> holds, withdraw -> fails, uncertain -> undetermined), and a
+    recompute must resolve to holds or fails. Disagreement means the rendered world and
+    the gold labels diverge: a semantic problem for review, not a leak."""
+    after = evaluation.get("after_updates") or {}
+    if not after:
+        return []
+    flags = []
+    for mid, action in evaluation["gold"].items():
+        if not mid.startswith("m_"):
+            continue
+        got = after.get(mid)
+        if action == "recompute":
+            if got not in ("holds", "fails"):
+                flags.append(Flag(system["scenario"], mid, "recompute_unresolved", str(got), False))
+        elif got != _EXPECTED_FINAL[action]:
+            flags.append(Flag(system["scenario"], mid, "final_state_mismatch", f"gold {action}, renderer {got}", False))
     return flags
 
 
@@ -266,6 +317,17 @@ def template_flags(systems: list[dict], max_share: float = 0.25, min_scenarios: 
 LEXICAL_GATE = 0.50  # prespecified: max justification-set F1 of either heuristic
 
 
+def _pr(score: ExtractionScore) -> dict:
+    def p(c):
+        return c["tp"] / (c["tp"] + c["fp"]) if c["tp"] + c["fp"] else None
+
+    def r(c):
+        return c["tp"] / (c["tp"] + c["fn"]) if c["tp"] + c["fn"] else None
+
+    return {"edge_precision": p(score.edge), "edge_recall": r(score.edge),
+            "justification_set_precision": p(score.jset), "justification_set_recall": r(score.jset)}
+
+
 @dataclass
 class LeakReport:
     flags: list[Flag] = field(default_factory=list)
@@ -280,7 +342,8 @@ class LeakReport:
 
     def summary(self) -> dict:
         aucs = [a for a in self.aucs.values() if a is not None]
-        lex, pol = self.lexical.summary(), self.policy_lexical.summary()
+        lex = self.lexical.summary() | _pr(self.lexical)
+        pol = self.policy_lexical.summary() | _pr(self.policy_lexical)
         worst = max(lex["justification_set_f1"], pol["justification_set_f1"])
         return {
             "scenarios": len(self.aucs),
@@ -299,7 +362,7 @@ def check(pairs: list[tuple[dict, dict]]) -> LeakReport:
     """Run every check over (system_view, eval_view) pairs."""
     rep = LeakReport()
     for system, evaluation in pairs:
-        rep.flags += text_flags(system) + group_flags(system, evaluation)
+        rep.flags += text_flags(system) + group_flags(system, evaluation) + consistency_flags(system, evaluation)
         rep.lexical.add(evaluation["justifications"], lexical_justifications(system))
         rep.policy_lexical.add(evaluation["justifications"], policy_assisted_justifications(system))
         rep.aucs[system["scenario"]] = premise_overlap_auc(system, evaluation)

@@ -20,6 +20,9 @@ from beliefbench.render.views import SYSTEM_VIEW_KEYS, build_views, timeline
 from beliefbench.schema import Kind, Node, Relation, Scenario, Update
 
 
+V2_SHA256 = "3c5920c2487ba6147ec71679ee789a152d8f6d2f145109787c81d083f1828d3e"
+
+
 def spec_example() -> Scenario:
     # RESEARCH_SPEC.md 4.1, plus one unrelated distractor (B3 <= E4).
     s = Scenario("F2-900", "F2", "product_eligibility", [
@@ -59,6 +62,8 @@ GOOD = {
         "D1": "Offer an account to any customer who may hold it.",
         "B3": "Client meetings take place at a partner's current office address.",
     },
+    "decoy_policies": ["A fixed-term deposit may be renewed early if the holder has kept it for at least half its term."],
+    "after_updates": {"B1": "holds", "B2": "holds", "D1": "holds", "B3": "holds"},
     "rationale": {
         "B1": ["The catalogue listing makes it available.", "Branches opening accounts shows it is available."],
         "B2": ["Availability plus age eligibility make Nok eligible."],
@@ -78,6 +83,8 @@ def fake_response(s):
                                     for i, n in enumerate(s.nodes)},
             "updates": {u.id: {"text": "A later notice changed this.", "source": "Registry office"} for u in s.updates},
             "policies": {n.id: f"Rule {i} applies." for i, n in enumerate(s.nodes) if not n.is_evidence},
+            "decoy_policies": ["An unrelated rule applies elsewhere."],
+            "after_updates": {n.id: "holds" for n in s.nodes if not n.is_evidence},
             "rationale": {n.id: ["r"] * len(n.justifications) for n in s.nodes if not n.is_evidence}}
 
 
@@ -93,7 +100,7 @@ def test_payload_carries_dates_but_no_gold_or_family():
     assert groups["B3"] != groups["B1"]
     obs = {e["id"]: e["observed"] for e in payload["evidence"]} | {u["id"]: u["observed"] for u in payload["updates"]}
     assert obs == timeline(s, 0)
-    assert PROMPT_VERSION == "render-v2" and "POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
+    assert PROMPT_VERSION == "render-v3" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
     assert "justification_sets" in user_message(s)
 
 
@@ -128,10 +135,10 @@ def test_parse_response_requires_policies_and_validates():
 def test_system_view_hides_structure_and_eval_view_keeps_it():
     s = spec_example()
     system, evaluation = views(s=s)
-    assert set(system) == SYSTEM_VIEW_KEYS and len(system["policies"]) == 4
+    assert set(system) == SYSTEM_VIEW_KEYS and len(system["policies"]) == 5  # 4 real + 1 decoy
     blob = json.dumps(system)
-    for forbidden in ("justification", "gold", "rationale", "groups", "policy_of", "F2", "E1", "B1", "keep",
-                      "withdraw", "family"):
+    for forbidden in ("justification", "gold", "rationale", "groups", "policy_of", "decoy", "after_updates",
+                      "final_state", "holds", "F2", "E1", "B1", "keep", "withdraw", "family"):
         assert forbidden not in blob, forbidden
     inv = {v: k for k, v in evaluation["idmap"].items()}
     assert {inv[k]: v for k, v in evaluation["gold"].items()} == {k: v.value for k, v in s.gold.items()}
@@ -231,11 +238,17 @@ def test_order_cues_are_flagged():
     assert ("order_cue", False) in kinds(leakcheck.text_flags(system))
 
 
-def test_policy_naming_the_entity_is_flagged():
+def test_policy_naming_the_subject_entity_is_flagged_but_terms_are_not():
     r = copy.deepcopy(GOOD)
     r["policies"]["B2"] = "Nok Phairot may hold the account if she is between 18 and 60."
+    r["policies"]["B1"] = "A product with ISO 27001 and Tier-1 status counts as available."
     system, _ = views(r)
-    assert any(f.kind == "policy_shares_name" and "Phairot" in f.match for f in leakcheck.text_flags(system))
+    flags = [f for f in leakcheck.text_flags(system) if f.kind == "policy_names_subject"]
+    assert len(flags) == 1 and "Nok" in flags[0].match
+    assert "Nok Phairot" in leakcheck.subject_names(system)
+    r["decoy_policies"] = ["Lanna Logistics may renew a lease early."]
+    system, _ = views(r)
+    assert any("Lanna" in f.match for f in leakcheck.text_flags(system) if f.kind == "policy_names_subject")
 
 
 def test_lexical_heuristics_and_gate():
@@ -264,7 +277,8 @@ def test_review_sheet_and_decisions(tmp_path):
     md = review_sheet(system, evaluation, [])
     assert "System view" in md and "policies:" in md and all(c in md for c, _ in CHECKLIST)
     assert md.index("System view") < md.index("Intended structure")
-    assert {"C8_inferable", "C9_no_hidden_needed", "C10_unambiguous", "C11_policy_not_graph"} <= {c for c, _ in CHECKLIST}
+    assert {"C8_inferable", "C9_no_hidden_needed", "C10_unambiguous", "C11_policy_not_graph", "C12_decoys_inert",
+            "C13_final_state"} <= {c for c, _ in CHECKLIST}
     path = tmp_path / "review.csv"
     write_csv_template(path, [system["scenario"]], reviewer="tr")
     with pytest.raises(ValueError):
@@ -275,3 +289,68 @@ def test_review_sheet_and_decisions(tmp_path):
     text[1] = ",".join([system["scenario"], "tr", *cells, "revise", "B2 does not need the age fact"])
     path.write_text("\n".join(text) + "\n")
     assert read_decisions(path)[0]["decision"] == "revise"
+
+
+# ── render-v3 ──
+
+
+def test_v2_prompt_is_kept_verbatim():
+    import hashlib
+
+    from beliefbench.render.prompt import PROMPTS, SYSTEM_PROMPT_V2
+
+    assert hashlib.sha256(SYSTEM_PROMPT_V2.encode()).hexdigest() == V2_SHA256
+    assert PROMPTS["render-v3"].startswith(SYSTEM_PROMPT_V2[:200]) and "VOCABULARY SEPARATION" in PROMPTS["render-v3"]
+
+
+def test_v3_requires_decoys_and_after_updates_but_v2_does_not():
+    s = spec_example()
+    bad = copy.deepcopy(GOOD)
+    del bad["decoy_policies"]
+    bad["after_updates"]["B2"] = "maybe"
+    errs = parse_response(s, json.dumps(bad)).errors
+    assert any("decoy" in e for e in errs) and any("B2: after_updates" in e for e in errs)
+    assert parse_response(s, json.dumps(bad), version="render-v2").ok
+
+
+def test_decoys_are_visible_but_unlinked_and_final_state_is_separate():
+    s = spec_example()
+    system, evaluation = views(s=s)
+    (decoy,) = evaluation["decoy_policies"]
+    assert decoy in {p["id"] for p in system["policies"]} and decoy not in evaluation["policy_of"]
+    inv = {v: k for k, v in evaluation["idmap"].items()}
+    assert {inv[m]: st for m, st in evaluation["final_state"].items()} == {
+        "B1": "holds", "B2": "holds", "D1": "holds", "B3": "holds"}
+
+
+def test_recompute_final_state_comes_from_rederivation():
+    from beliefbench.generate import generate_suite
+
+    s = next(sc for sc in generate_suite(10, seed=0, families=["F1"]) if sc.meta["relation"] == "supersedes")
+    resp = fake_response(s)
+    resp["after_updates"] = {n.id: "fails" for n in s.nodes if not n.is_evidence}
+    for n in s.nodes:  # distractors are kept, so they hold
+        if not n.is_evidence and s.gold[n.id].value == "keep":
+            resp["after_updates"][n.id] = "holds"
+    system, evaluation = build_views(s, parse_response(s, json.dumps(resp)))
+    inv = {v: k for k, v in evaluation["idmap"].items()}
+    for m, st in evaluation["final_state"].items():
+        action = s.gold[inv[m]].value
+        assert st == ("fails" if action == "recompute" else "holds")
+    assert {evaluation["gold"][m] for m in evaluation["final_state"]} >= {"recompute"}  # action stays recompute
+    assert leakcheck.consistency_flags(system, evaluation) == []
+
+
+def test_consistency_flags():
+    system, evaluation = views()
+    assert leakcheck.consistency_flags(system, evaluation) == []
+    r = copy.deepcopy(GOOD)
+    r["after_updates"]["B1"] = "fails"  # gold keep: B1 still has the branch support
+    system, evaluation = views(r)
+    assert [f.kind for f in leakcheck.consistency_flags(system, evaluation)] == ["final_state_mismatch"]
+
+
+def test_report_has_precision_and_recall():
+    summ = leakcheck.check([views()]).summary()
+    for key in ("lexical_heuristic", "policy_assisted_heuristic"):
+        assert {"edge_precision", "edge_recall", "justification_set_precision", "justification_set_recall"} <= set(summ[key])

@@ -5,6 +5,9 @@ output is split by ``views.py``: the evaluated system only ever sees the system 
 
 render-v2 (2026-10-18) adds visible *policies*: one general rule per derived node,
 so the AND/OR structure is determinable from what the system sees (smoke test 1, P1).
+render-v3 (2026-10-18) keeps v2's text and adds: vocabulary separation between
+policies, memories and facts, decoy policies, and an eval-only post-update state per
+derived node (smoke test 2, P7). Both versions stay runnable; v2 is kept verbatim.
 """
 
 from __future__ import annotations
@@ -15,9 +18,10 @@ from dataclasses import dataclass, field
 from beliefbench.render.views import timeline
 from beliefbench.schema import Scenario
 
-PROMPT_VERSION = "render-v2"
+PROMPT_VERSION = "render-v3"
 
-SYSTEM_PROMPT = """\
+# Exactly the text used for smoke test 2 (commit 896d366). Do not edit.
+SYSTEM_PROMPT_V2 = """\
 You write test data for a research benchmark on how AI assistants revise conclusions \
 they stored in memory when new information arrives. You receive an abstract dependency \
 graph and a domain. Invent a small, realistic situation in that domain and write text \
@@ -108,6 +112,67 @@ The rationale is for human reviewers only and is never shown to the system under
 """
 
 
+# render-v3 = v2 + the edits below. Each anchor must exist exactly once in v2.
+_V3_EDITS = [
+    (
+        """- For a belief that depends on another belief, the rule may refer to that other \
+conclusion in general terms (e.g. "an eligible applicant who also ...").
+""",
+        """- For a belief that depends on another belief, the rule may refer to that other \
+conclusion in general terms (e.g. "an eligible applicant who also ...").
+- VOCABULARY SEPARATION (essential). A policy must not reuse the wording of the memory \
+it governs or of the facts it relies on. Name the outcome differently from the memory \
+(memory "meets enterprise security compliance criteria" -> policy "security clearance \
+is granted when ..."). Describe each condition as a requirement CATEGORY with its \
+threshold, never in the fact's words (fact "maintains two certified security officers" \
+-> condition "a minimum certified security staffing level of two"). Product, programme \
+and standard names (ISO 27001, Platinum Partner) may be kept where needed.
+- The meaning must still let a careful reader match each policy to the memory it \
+governs and each condition to the facts that satisfy it. Separation of wording, not \
+of meaning.
+
+DECOY POLICIES (1 or 2 per scenario)
+- Also write one or two extra rules from the same domain that govern NOTHING in this \
+scenario: they concern outcomes that no memory states, and none of their conditions \
+offers an alternative way to reach any memory's conclusion. They must not mention any \
+entity from the scenario. Write them in the same style as the real policies.
+""",
+    ),
+    (
+        """  "policies": {"<belief or decision id>": "<the general rule>"},
+""",
+        """  "policies": {"<belief or decision id>": "<the general rule>"},
+  "decoy_policies": ["<rule>", "<optional second rule>"],
+  "after_updates": {"<belief or decision id>": "holds" | "fails" | "undetermined"},
+""",
+    ),
+    (
+        """The rationale is for human reviewers only and is never shown to the system under test.
+""",
+        """"after_updates" says, for every belief and decision, whether its conclusion still \
+holds once ALL updates are taken into account, judged under its policy from the facts \
+that remain credible ("undetermined" if the updates leave it genuinely open).
+The rationale and after_updates are for human reviewers only and are never shown to \
+the system under test.
+""",
+    ),
+]
+
+
+def _v3_from_v2(v2: str) -> str:
+    out = v2
+    for old, new in _V3_EDITS:
+        assert out.count(old) == 1, f"v3 anchor not found exactly once: {old[:60]!r}"
+        out = out.replace(old, new)
+    return out
+
+
+SYSTEM_PROMPT_V3 = _v3_from_v2(SYSTEM_PROMPT_V2)
+PROMPTS = {"render-v2": SYSTEM_PROMPT_V2, "render-v3": SYSTEM_PROMPT_V3}
+SYSTEM_PROMPT = PROMPTS[PROMPT_VERSION]
+AFTER_UPDATE_STATES = {"holds", "fails", "undetermined"}
+
+
 def _groups(s: Scenario) -> dict[str, int]:
     """Weakly connected components, numbered in node order."""
     adj: dict[str, set[str]] = {n.id: set() for n in s.nodes}
@@ -169,13 +234,15 @@ class Rendering:
     rationale: dict[str, list[str]]
     errors: list[str] = field(default_factory=list)
     policies: dict[str, str] = field(default_factory=dict)  # derived id -> rule (render-v2)
+    decoy_policies: list[str] = field(default_factory=list)  # render-v3
+    after_updates: dict[str, str] = field(default_factory=dict)  # derived id -> holds|fails|undetermined (v3, eval only)
 
     @property
     def ok(self) -> bool:
         return not self.errors
 
 
-def parse_response(s: Scenario, raw: str, require_policies: bool = True) -> Rendering:
+def parse_response(s: Scenario, raw: str, require_policies: bool = True, version: str = PROMPT_VERSION) -> Rendering:
     """Parse and structurally validate a renderer response. Problems go to ``errors``."""
     errors: list[str] = []
     try:
@@ -211,8 +278,17 @@ def parse_response(s: Scenario, raw: str, require_policies: bool = True) -> Rend
     extra = (set(nodes) - {n.id for n in s.nodes}) | (set(updates) - {u.id for u in s.updates}) | (set(policies) - derived)
     if extra:
         errors.append(f"unknown ids in response: {sorted(extra)}")
+    decoys = [str(d).strip() for d in (obj.get("decoy_policies") or []) if str(d).strip()]
+    after = {k: str(v).strip().lower() for k, v in (obj.get("after_updates") or {}).items()}
+    if version != "render-v2":
+        if not 1 <= len(decoys) <= 2:
+            errors.append(f"expected 1-2 decoy policies, got {len(decoys)}")
+        for nid in sorted(derived):
+            if after.get(nid) not in AFTER_UPDATE_STATES:
+                errors.append(f"{nid}: after_updates must be one of {sorted(AFTER_UPDATE_STATES)}")
     return Rendering(
         (obj.get("world") or "").strip(), texts, sources, update_texts,
         {k: list(v) for k, v in rationale.items()}, errors,
         {k: str(v).strip() for k, v in policies.items() if k in derived},
+        decoys, {k: v for k, v in after.items() if k in derived},
     )

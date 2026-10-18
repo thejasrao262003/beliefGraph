@@ -219,7 +219,14 @@ Per node, with gold action *g* and predicted action *p*:
 | **Downstream decision accuracy** | Accuracy on probe questions (LLM judge from a *different* model family than the system, plus a human-checked subset) |
 | **Recomputation cost** | LLM calls and tokens per update; nodes touched per update |
 
-Report SCR vs OIR as a 2-D plot. The claim is a Pareto improvement. **Plain accuracy is not a headline metric.** It is dominated by trivially-kept nodes (untargeted evidence, distractors). In pilot-1, a 50% extraction-error rate still scored 0.91 accuracy, while SCR rose to 0.31.
+Report SCR vs OIR as a 2-D plot. The claim is a Pareto improvement.
+
+**Action vs final state (locked 2026-10-18, before any evaluation run).** The revision *action* and the resulting *final state* of a conclusion are scored separately:
+- `recompute` means the conclusion must be derived again. `withdraw` means it is no longer supported.
+- If re-deriving produces a false result, the final state is `fails`, but the correct action was still `recompute`. A system that answers `withdraw` there gets the final state right and the action wrong.
+- **Action accuracy** uses the metrics above, over {keep, withdraw, recompute, uncertain, supersede}. **`recompute` is never merged with `withdraw`.**
+- **Final-state accuracy** is over memories, with states {holds, fails, undetermined}. Gold: keep → holds, withdraw → fails, uncertain → undetermined; recompute → the result of re-deriving under the visible policy. That result comes from the renderer's eval-only `after_updates` (render-v3), cross-checked by human review item C13 and by the automated consistency check in `leakcheck.consistency_flags`.
+- Both are reported for every system. A system that only flags (e.g. PACMI-style) is scored on action; final state applies only to systems that commit to a post-update belief. **Plain accuracy is not a headline metric.** It is dominated by trivially-kept nodes (untargeted evidence, distractors). In pilot-1, a 50% extraction-error rate still scored 0.91 accuracy, while SCR rose to 0.31.
 
 **Justification extraction is scored separately from revision** (implemented in `metrics.py`). Otherwise good propagation can hide poor extraction, or good extraction can hide weak revision logic:
 

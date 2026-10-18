@@ -99,6 +99,11 @@ def build_views(s: Scenario, r: Rendering, seed: int = 0) -> tuple[dict, dict]:
             pid = _opaque(rng, "p", used)
             policy_of[pid] = idmap[n.id]
             policies.append({"id": pid, "text": r.policies[n.id]})
+    decoy_ids = []
+    for text in r.decoy_policies:  # render-v3: rules that govern nothing in the scenario
+        pid = _opaque(rng, "p", used)
+        decoy_ids.append(pid)
+        policies.append({"id": pid, "text": text})
     rng.shuffle(policies)
     system = {"scenario": sid, "domain": s.domain.replace("_", " "), "evidence": evidence,
               "memories": memories, "updates": updates, "policies": policies}
@@ -117,7 +122,27 @@ def build_views(s: Scenario, r: Rendering, seed: int = 0) -> tuple[dict, dict]:
         "justifications": {idmap[k]: [[idmap[p] for p in j] for j in js] for k, js in ps.justifications().items()},
         "update_targets": {idmap[u.id]: {"target": idmap[u.target], "relation": u.relation.value,
                                          "reliability": u.reliability} for u in ps.updates},
+        "decoy_policies": decoy_ids,
+        "after_updates": {idmap[k]: v for k, v in r.after_updates.items()},
+        "final_state": final_state(gold, r.after_updates, idmap),
         "world": r.world,
         "rationale": {idmap[k]: v for k, v in r.rationale.items() if k in idmap},
     }
     return system, evaluation
+
+
+_ACTION_FINAL = {"keep": "holds", "withdraw": "fails", "uncertain": "undetermined"}
+
+
+def final_state(gold, after_updates: dict[str, str], idmap: dict[str, str]) -> dict[str, str | None]:
+    """Gold final state per derived node (memory), kept separate from the revision
+    *action*: keep -> holds, withdraw -> fails, uncertain -> undetermined; recompute ->
+    whatever re-deriving under the policy gives (the renderer's after_updates, None if
+    missing). A recompute whose result fails is still scored as action `recompute`."""
+    out = {}
+    for nid, action in gold.items():
+        oid = idmap[nid]
+        if not oid.startswith("m_"):  # evidence has no derived final state
+            continue
+        out[oid] = after_updates.get(nid) if action.value == "recompute" else _ACTION_FINAL[action.value]
+    return out

@@ -19,7 +19,7 @@ import uuid
 from dataclasses import dataclass, field
 from typing import Any
 
-from beliefbench.render.prompt import PROMPT_VERSION, SYSTEM_PROMPT
+from beliefbench.render.prompt import PROMPT_VERSION, PROMPTS
 
 # USD per 1M tokens (input, output), Google's official Gemini pricing page, updated
 # 2026-10-16. Lyzr bills in its own credits; these drive the conservative spend guard.
@@ -155,13 +155,16 @@ def find_usage(raw) -> dict | None:
 class LyzrRenderer:
     """Thin wrapper: one Lyzr agent whose instructions are the renderer system prompt."""
 
-    def __init__(self, guard: SpendGuard, studio: Any = None, temperature: float = 0.9):
+    def __init__(self, guard: SpendGuard, studio: Any = None, temperature: float = 0.9,
+                 prompt_version: str = PROMPT_VERSION):
         if guard.model not in MODEL_PRICES:
             raise ValueError(f"model {guard.model!r} has no price entry; add one before using it")
         self.guard = guard
         self._studio = studio
         self._agent = None
         self.temperature = temperature
+        self.prompt_version = prompt_version
+        self.system_prompt = PROMPTS[prompt_version]
 
     @property
     def agent(self):
@@ -172,11 +175,11 @@ class LyzrRenderer:
                 self._studio = Studio(log="warning")
             register_gemini_model(self.guard.model)
             self._agent = self._studio.create_agent(
-                name=f"beliefbench-renderer-{PROMPT_VERSION}",
+                name=f"beliefbench-renderer-{self.prompt_version}",
                 provider=f"gemini/{self.guard.model}",
                 role="Benchmark scenario writer",
                 goal="Render abstract dependency graphs as realistic natural-language scenarios as strict JSON.",
-                instructions=SYSTEM_PROMPT,
+                instructions=self.system_prompt,
                 temperature=self.temperature,
                 top_p=0.95,
                 store_messages=False,
@@ -186,7 +189,7 @@ class LyzrRenderer:
 
     def call(self, message: str, note: str = "") -> tuple[str, dict]:
         """One billed call. Raises BudgetExceeded *before* calling if it might not fit."""
-        prompt_chars = len(SYSTEM_PROMPT) + len(message)
+        prompt_chars = len(self.system_prompt) + len(message)
         self.guard.check(prompt_chars)
         resp = self.agent.run(message, session_id=f"render-{uuid.uuid4().hex[:12]}")
         text = getattr(resp, "response", None) or str(resp)
