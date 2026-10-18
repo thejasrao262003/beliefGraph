@@ -282,7 +282,7 @@ All systems use the **same base LLM** and see the **same evidence stream**.
 1. **Finish the verification-debt reads** (§1 checklist). Update the matrix. Re-run the gate. *Status 2026-10-18:* done for PACMI, Kumiho §15.9–16, DeltaLogic, ATMS (de Kleer), and the PACMI citation search. **No remaining blockers before the renderer pilot.** Must read before write-up: the re-derivation-gap paper (manual PDF download). Non-blocking: the AGM-Bench scoring formula, Doyle (1979) text, and PlaceMem.
 1b. ~~**Model-free checks:** differential-test `labeler.py` against Veritas-TMS; implement S5 (PACMI lattice) and S7 (Atlas-style) as deterministic baselines.~~ **Done**, see pilot-1c.
 2. ~~**Scenario generator v0**: graph sampler + JTMS gold labeller for F1, F2, F3, F6. 40 scenarios.~~ **Done**, without NL rendering. See pilot-1 below.
-2b. **NL renderer** (the first step that costs model calls): render each graph to evidence and memory text without stating its justification structure. Use a different model family from the systems under test.
+2b. **NL renderer** (the first step that costs model calls). *Design and model-free implementation done 2026-10-18; awaiting approval: see `docs/renderer-design.md`.* render each graph to evidence and memory text without stating its justification structure. Use a different model family from the systems under test.
 3. **Hand-check 40 scenarios** for rendering fidelity.
 4. **Run S3, S4, P-oracle, and a first P** on the 40 scenarios.
 5. **Gate check:** H1 is directionally true (S3 high SCR, S4 high OIR). P-oracle ≫ P (induction is non-trivial). If not, apply the kill/pivot rules in §2.
