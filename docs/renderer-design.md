@@ -459,3 +459,26 @@ The v5 prompt already says conditions must be "never in the fact's words", but t
   - **Attempt 1** = the rejected v5c response, copied unchanged. Its record keeps `prompt_version: render-v5`. It is stored under the v6 cache key so the pipeline reuses it with **no API call**.
   - **Attempt 2** = one v6 call, carrying the attempt-1 rejection feedback (the 5 echoed phrases).
 - **Cap:** `--max-attempts 2 --budget-usd 0.25 --prior-spend-usd 0.067`, leaving $0.183 of headroom. The guard stays authoritative.
+
+### 16g. Result of the single approved F6 retry (2026-10-18): rejected; stopped as instructed
+
+`smoke-render-v5d`:
+- **Attempt 1:** the cached v5c response (render-v5), $0.
+- **Attempt 2:** render-v6 with feedback. 3,409 in / **9,097 out** tokens, **$0.110** guard-charged.
+- **F6 cumulative: $0.177 of the $0.25 cap.** 0 scenarios rendered. No further calls; no exemption added; no new prompt version.
+
+**Hard failures of attempt 2:**
+
+| Flag | Phrases | Assessment |
+|---|---|---|
+| `policy_echoes_evidence` | fact "85 **g/km across all** trucks" ↔ policy "under 90 **g/km across all** vehicles" ("g km across", "km across all") | Tokeniser edge: "g/km" splits into "g" + "km", so the existing number+unit exemption (which needs a digit inside the 3-gram) does not apply. Same class as the exempted unit overlap. Covering it **would be a new exemption** and is not applied |
+| `decoy_shares_memory_word` | decoy "upfront **security** deposits" ↔ memory "corporate IT **security** prerequisites" | Same word, different sense; weak association. A hit under the rule as defined |
+
+**Semantic quality** (pre-review by Claude, not the human review), the risk named in the approval:
+- **D1 policy:** "audited annual **balance credits** of 5,000 metric tons" for the fact "verified yearly **carbon offsets** totaling 10,000 metric tons". This is a vague replacement of a clear quantity and would likely fail **C8/C10** even if all automated checks passed.
+- **B3:** "total annual income" for "gross yearly earnings" is borderline.
+- **Fine:** B1 ("four-fifths of its transport vehicles" for 80 percent) and B2 ("continuous corporate standing within an accredited freight consortium" for paid membership).
+- Soft: the retraction reads "A blog entry **claims** … **never** converted…", which is a flat denial in reported speech.
+- Diagnostic only: F6 alone, worse heuristic 0.62.
+
+**Reading:** under the strict lexical rules, F6 (one chain plus three single-premise distractors, many named quantities) pushes the renderer either into echoes or into vague paraphrase. Raising the lexical bar further is unlikely to produce a scenario that passes C8/C10. **Decision needed.** The pooled pilot gate cannot be computed until a final F6 exists.
