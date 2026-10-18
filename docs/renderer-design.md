@@ -279,3 +279,33 @@ None changes a gold label.
 3. **Prompt:** realistic, dimensionally correct units; policy thresholds in the same unit as the fact.
 
 Next: re-render **F1-000 and F6-000 only**, cap $0.25 (`--only F1-000 F6-000`).
+
+## 15. Targeted re-render (2026-10-18): F1-000 and F6-000, `render-v4`
+
+Command: `uv run --group lyzr python scripts/render_run.py --run smoke-render-v4 --only F1-000 F6-000 --budget-usd 0.25`. Outputs are in `data/rendered/smoke-render-v4/`.
+
+**Run facts**
+- 2 calls, both accepted on the first attempt; 0 hard flags, so the no-shared-phrase rule was met without retries.
+- 5,767 input + 10,677 output tokens. **$0.089 at the proxy price; the guard charged $0.133** (cap $0.25).
+
+**Gate** (same heuristics and threshold):
+
+| | Worse heuristic, justification-set F1 | Precision / recall |
+|---|---|---|
+| These 2 scenarios in v3 | (part of 0.41 overall) | |
+| **v4** | **0.17 (pass)** | 0.20 / 0.15 |
+
+Word-only heuristic: 0.09.
+
+**Pre-review by Claude** (the human review is still required):
+
+| Scenario | Fixed | New concern |
+|---|---|---|
+| F1 | No shared phrases (C7/C11); chain logic correct ($250k → $150k < $200k ⇒ chain fails, consistent with gold) | **Over-paraphrase (C8/C10):** "Qualified Enterprise Status" ↔ "premier merchant designation" and "prerequisites for enrollment" ↔ "partner registry inclusion" are hard to map with confidence. The fact's "software expenditure" vs the policy's "annual billing" may not be the same quantity |
+| F6 | Units correct (dB). The update now denies the target fact ("lacks genuine ISO 13485 certification") from an unverified forum post. The soft `retraction_reads_as_hedge` flag fires on "claimed", which is natural framing for a weak source | **Decoy closer than the real policy (C12/C10):** decoy "organic retail certification" (food) is lexically closer to the Dermacool memory ("organic cosmetics formulation standards") than its real policy ("eco-friendly designation"). Sources have awkward appended tags (", signed certificate", ", user comment") |
+
+**Reading:** v4 removes lexical shortcuts, but the paraphrase pressure can push mappings past what a careful reader can verify. The leakage gate cannot detect that; C8/C10 can. A possible v5 adjustment, *not yet made*:
+- the outcome named in a policy must be a recognisable synonym of the memory's outcome, not a different concept name;
+- decoys must not share a distinctive content word with any memory.
+
+The human review of these two scenarios should decide whether this is needed.
