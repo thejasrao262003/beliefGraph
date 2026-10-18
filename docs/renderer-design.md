@@ -330,3 +330,25 @@ v5 = verbatim v4 (SHA-256 `dd74235d…`, pinned in tests) + 2 asserted edits:
 3. **A human** independently reviews them against C1–C13, especially C6/C8/C10/C12.
 4. That review is recorded separately from any AI review, with its provenance.
 5. All three pass. A failing scenario is revised individually, and checks are never relaxed globally.
+
+### 16a. v5 run (2026-10-18): stopped by the spend guard after F1
+
+Command: `... --run smoke-render-v5 --only F1-000 F2-000 F6-000 --budget-usd 0.25`. Outputs are in `data/rendered/smoke-render-v5/`.
+
+**Calls:** 2 calls, guard-charged **$0.124**; 5,817 input + 9,877 output tokens, ≈ $0.083 at the proxy price.
+- F1: accepted on the first attempt.
+- F2 attempt 1: rejected by the hard check.
+- F2 attempt 2: **refused by the guard** (spent + worst case > $0.25).
+- F6: not attempted.
+
+The cap held. Both responses are cached and will not be re-billed.
+
+**F1 (v5), pre-review by Claude, not the human review:** 0 hard / 0 soft flags; worse heuristic 0.17.
+- **Outcome naming is now recognisable:** "clean transport operational benchmarks" ↔ "green fleet operation standards"; "eco-friendly freight carrier" ↔ "low-emission carrier"; "preferred environmental supplier ranking" ↔ "preferred eco-vendor status".
+- **Quantities match:** an electric fleet of 45 vehicles ↔ an active electric transport count ≥ 30. The update to 15 vehicles breaks the chain, consistent with gold (all recompute → fails).
+- Decoys (customs clearance, bulk shipping subsidy) are inert.
+
+**F2 attempt 1, rejection cause:** `decoy_shares_memory_word: "logistic"`.
+- The decoy reads "A **logistics** firm secures Executive Vendor Status…". The shared word comes from the memory's *entity name* "Apex **Logistics**", not from any outcome concept. No memory states Executive Vendor Status.
+- By the stated intent ("words that create a plausible association"), this looks like a **false positive** in the check's definition: entity names were not excluded.
+- **Not changed unilaterally.** Review conditions forbid relaxing checks after seeing results. Proposed refinement, for approval: exclude words of subject-entity names (`leakcheck.subject_names`) from the memory vocabulary. Outcome and programme words, e.g. "Tier-1 Freight Coverage", would still count.
