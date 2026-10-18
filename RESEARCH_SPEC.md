@@ -1,4 +1,4 @@
-# BeliefGraph — Research Specification v0.1
+# BeliefGraph — Research Specification v0.2
 
 *Status (2026-10-18): literature audit + novelty gate done. Scenario generator, deterministic gold labeller, no-LLM baselines and metrics implemented (`src/beliefbench`; pilot-1 results in §5). No LLM system yet. Verification debt (§1) still open.*
 
@@ -15,7 +15,8 @@
   3. **incomplete or ambiguous evidence**, where "uncertain" is the correct answer rather than revise or keep;
   4. **recomputing** the downstream conclusion, not just flagging it (PACMI and Kumiho flag; the "re-derivation gap" paper shows flagging is not enough).
 - **Critical consequence for the design:** if dependency edges are given as ground truth, the proposed method collapses to a JTMS and the result is a foregone conclusion. The research is only interesting where **justification structure must be inferred from text**. The method, benchmark and ablations must be built around that.
-- **Scoop risk is high.** PACMI (5 Oct 2026) lists "deeper and branching dependencies" as future work. Move quickly, and position the work as complementary to PACMI.
+- **Scoop risk is high.** PACMI (5 Oct 2026) App. J explicitly proposes branching topologies, unaffected connected nodes and oracle-vs-induced edges (verified; none run). Veritas-TMS (17 Oct 2026) ships the oracle-edge mechanism. Move quickly, and position the work as complementary to PACMI.
+- **v0.2 narrowing (audit 2026-10-18):** the contribution is the *error-type-resolved* study of LLM-induced AND/OR justifications under selective revision, plus a method that targets the costly error types. See §2.
 
 ---
 
@@ -25,10 +26,10 @@ Legend: ✅ demonstrated · ◐ partial / claimed without evaluation · ✗ abse
 
 | Work | Type / status | Explicit dep. graph | Edges induced from text | Multi-support (OR) preserved | Recompute vs flag | Uncertain / ambiguous evidence | Measures over-invalidation | Measures stale downstream | Cost metric |
 |---|---|---|---|---|---|---|---|---|---|
-| **PACMI** (Wang et al., arXiv 2610.05732, Oct 2026) | Method + 100-case benchmark, preprint | ✅ supports / used-by | ✗ annotation (assumption A1) | ✗ max-state rule; one lost support → needs-verification | Flag only ("non-destructive") | ✗ | ✗ "cannot be tested" (fixed 2-hop topology) | ✅ | ✗ (LLM call counts only) |
+| **PACMI** (Wang et al., arXiv 2610.05732, Oct 2026) | Method + 100-case benchmark, preprint | ✅ supports / used-by | ✗ annotation (assumption A1). **Proposed** in App. J (oracle vs text-induced vs corrupted edges), not run | ✗ max-state rule; one lost support → needs-verification | Flag only ("non-destructive") | ✗ | ✗ "cannot be tested" (fixed 2-hop topology). Branching / unaffected-connected nodes **proposed** in App. J, not run | ✅ | ✗ (LLM call counts only) |
 | **Kumiho** (Park, arXiv 2603.17244, Mar 2026) | Architecture + AGM proofs, preprint | ✅ Depends_On / Derived_From / Supersedes | ✗ (NL→triple is "lossy by design") | ✗ | Flag (AnalyzeImpact is query-time, read-only) | ✗ | ✗ | ✗ (LoCoMo QA + 49 AGM compliance tests) | ◐ traversal latency |
-| **Atlas / Ripple** (Schefren, GitHub, alpha) | Open-source system | ✅ Depends_On + strength | ✗ "does not infer dependency edges" | ? not described | ◐ damped confidence update → proposals; not auto-applied | ◐ heuristic confidence | ✗ | ◐ self-authored BusinessMemBench (synthetic, 149 Q) | ✗ |
-| **Agents Retrieve but Do Not Re-Derive** (Goswami et al., NeurIPS 2026) | Empirical + GuardWrite protocol | ◐ validity predicates at write time | ✗ | ✗ not tested | ✅ rewrite with corrected conclusion | ◐ safe refusal | ✗ | ✅ 91–100% stale-following on premise entries | ✗ |
+| **Atlas / Ripple** (Schefren, GitHub, alpha) | Open-source system | ✅ Depends_On + strength | ✗ "does not infer dependency edges" | ✗ **verified in source**: `reassess.py` perturbs each dependent by `β·strength·Δupstream` per changed edge, with no check for alternative support. Soft over-invalidation by design | ◐ damped confidence update → proposals; not auto-applied | ◐ heuristic confidence | ✗ | ◐ self-authored BusinessMemBench (synthetic, 149 Q) | ✗ |
+| **Agents Retrieve but Do Not Re-Derive** (Goswami et al., NeurIPS 2026 **Workshop on Resource-Aware Agentic AI**, poster; full text not yet read) | Empirical + GuardWrite protocol | ◐ validity predicates at write time | ✗ | ✗ not tested | ✅ rewrite with corrected conclusion | ◐ safe refusal | ✗ | ✅ 91–100% stale-following on premise entries | ✗ |
 | **STALE** (Chao et al., arXiv 2605.06527) | Benchmark, 400 scenarios | ✗ | n/a | ✗ no "should stay valid" cases | n/a | ◐ CUPMem can block uncertain updates | ✗ | ✅ Type II "propagated" conflicts, IPA probe | ✗ |
 | **StateAuditor** (Sun & He, arXiv 2608.01619) | Method on STALE | ✗ | ◐ LLM proposes transitions | ✗ | ✅ repairs response | ✗ | ◐ "false invalidation controlled" | ✅ | ◐ matched call budget |
 | **BeliefShift** (Myakala et al., arXiv 2603.23848) | Benchmark, 2,400 trajectories | ✗ | n/a | ✗ | n/a | ✗ binary evidence (stated limitation) | ✗ | ✗ directly revised belief only | ✗ |
@@ -39,49 +40,80 @@ Legend: ✅ demonstrated · ◐ partial / claimed without evaluation · ✗ abse
 | **MQuAKE / RippleEdits / EchoEdit** | Parametric knowledge editing | ◐ RippleGraph (EchoEdit) | — | ✗ | — | ✗ | ◐ RippleEdits "relation specificity" | ✅ multi-hop | ✗ |
 | **Graphiti / Zep** | Temporal KG product | ✅ bi-temporal edges | ✅ LLM extraction | ✗ edge-level invalidation only | Invalidate edge | ✗ | ✗ | ✗ | ✗ |
 | **Revok** (PyPI, 2026) | Library | ✅ causal graph, BFS | ✗ | ? not described | Degrade confidence | ◐ decay + pressure | ✗ | ✗ no eval | ✗ |
-| **Lemmalog** (GitHub) | Datalog memory engine | ✅ rules + provenance | ◐ LLM extracts facts, not rules | ◐ DRed-lite re-derivation (likely preserves alt. derivations) | ✅ re-derive | ◐ confidence on facts | ✗ | ◐ LongMemEval knowledge-update | ✗ |
-| **NeuSymMS** (arXiv 2605.17596), **SSGM** (arXiv 2603.11768), **Veritas-TMS** (PyPI) | TMS-style memory | ✅ | ◐ | ◐ Veritas claims "unless it stands on its own source" (page failed to load, **unverified**) | ✅ retract | ✗ | ✗ | ✗ | ✗ |
+| **Lemmalog** (GitHub) | Datalog memory engine | ✅ rules + provenance | ◐ LLM extracts facts. `examples/llm_rules.rs` has the LLM *author rules* from an explicit NL request; not induced from memory text, not evaluated | ✅ verified: retraction clears dependent derived predicates and re-derives from the remaining facts, so alternative derivations survive | ✅ re-derive | ◐ confidence on facts | ✗ | ◐ LongMemEval knowledge-update | ✗ |
+| **Veritas-TMS** (PyPI v0.16.0, 2026-10-17, MIT; github.com/Iam-Raghava/veritas) | JTMS library with agent-memory helpers | ✅ Horn-clause justifications | ✗ **caller supplies** `justifications=[...]`; LLM only detects contradictions ("the LLM judges, Veritas still decides") | ✅ **verified in source**: doomed iff *every* justification set has a doomed premise (`store.py`). Entrenchment capped by best proof | ✅ retract / cascade | ◐ entrenchment, calibration tracker | ✗ | ✗ (unit / property / differential tests and throughput only) | ✅ throughput |
+| **NeuSymMS** (arXiv 2605.17596), **SSGM** (arXiv 2603.11768) | TMS-style memory | ✅ | ◐ | ? not verified | ✅ retract | ✗ | ✗ | ✗ | ✗ |
+| **AGM-Bench** (Jenkins, ICLR 2026 workshop) | In-context LLM benchmark, 2,400 scenarios | ✗ | n/a | ? | n/a | ✗ | ◐ "collateral damage" / Preservation violations reported; scoring procedure not given | ✗ | ✗ |
+| **DeltaLogic** (Dhanda, arXiv 2604.02733, ICLR 2026 workshop) | In-context premise-edit episodes (FOLIO / ProofWriter) | ✗ | n/a | ? | n/a | ◐ abstention | ◐ some episodes are stable, but no over-revision metric; reports inertia | ✅ inertia | ✗ |
+| **ReviseQA** (Helwe et al., ICML 2025 workshop), **Belief-R** (arXiv 2406.19764) | In-context multi-turn revision | ✗ | n/a | ? not read | n/a | ✗ | ? | ✅ | ✗ |
 | **Classical JTMS / ATMS** (Doyle 1979; de Kleer 1986) | Theory | ✅ | ✗ | ✅ **this is the core idea** | ✅ | ATMS: assumption sets | — | — | ✅ complexity |
 
 ### What the matrix says
 
-1. **Column "Multi-support preserved" + "Measures over-invalidation" is empty for LLM-agent work.** Classical TMS has the mechanism. No LLM-agent paper has measured it. The closest measurement is eviction precision in Invalidation Contracts, but there the edges are declared by an API server.
+1. **Column "Multi-support preserved" + "Measures over-invalidation" is empty for LLM-agent work.** Classical TMS has the mechanism, and Veritas-TMS ships it as an agent-memory library (with caller-supplied justifications). No LLM-agent paper has measured it. The closest measurement is eviction precision in Invalidation Contracts, but there the edges are declared by an API server. In-context benchmarks (AGM-Bench, DeltaLogic) report related failures (collateral damage, inertia) for a model reasoning over premises in its prompt. That is a different setting from a persistent memory with stored conclusions. *A stated limitation or proposed extension is evidence of an open opportunity, not proof that nobody has solved it.*
 2. **Column "Edges induced from text" is the real bottleneck.** Every system with a correct propagation rule gets its dependency edges from a human or a server. Nobody has measured how revision quality degrades when an LLM must infer *which* premises a conclusion rests on and *whether* they are jointly necessary (AND) or alternatives (OR).
 3. **Flag vs recompute matters.** The re-derivation gap paper shows agents follow stale conclusions even when premises are updated, so flagging (PACMI, Kumiho) leaves the hard part undone.
 
 ### Still to read before the spec freezes (verification debt)
 
-- [ ] PACMI §5–7 in full, and its released code if any. It is the main baseline and the main scoop risk.
+- [x] PACMI full paper, including App. J. Verified 2026-10-18: App. J *proposes* (i) depth > 2, branching and confluence, plus unaffected dependency-connected nodes to measure over-invalidation; (ii) oracle vs text-induced vs corrupted edges; (iii) larger memory stores; (iv) more backbones, a cross-family judge and a human study. **None were run.** Nothing on AND/OR, alternative support, recomputation or uncertainty. Ablation without cascading: 3 vs 11 errors / 300 queries, p = 0.0574. Code release: not checked.
 - [ ] Kumiho §15–16 (limitations / future work were truncated in my read).
-- [ ] Atlas source code: how the Ripple formula treats multiple Depends_On parents.
-- [ ] Veritas-TMS docs (page failed to load) and Lemmalog's DRed-lite: do they handle OR-support correctly?
-- [ ] "Agents Retrieve but Do Not Re-Derive": full paper, especially whether any condition has independent support.
+- [x] Atlas source (`atlas_core/ripple/reassess.py`, `analyze_impact.py`): BFS over incoming DEPENDS_ON edges, then a per-dependent damped additive update. No alternative-support logic.
+- [x] Veritas-TMS (`veritas/store.py`): correct OR-of-AND JTMS doom check; justifications supplied by the caller. Lemmalog (`src/eval.rs`): retraction → clear dependent derived predicates → re-derive.
+- [ ] "Agents Retrieve but Do Not Re-Derive": full paper. **Blocked**: the NeurIPS page links only OpenReview (`forum?id=vNQcrBtiMb`), which serves a browser challenge to automated fetches, and there is no arXiv version. Download the PDF manually. Confirmed: workshop poster, not main track.
+- [ ] AGM-Bench: how "collateral damage" is scored, and whether any scenarios contain derived beliefs with alternative support.
 - [ ] RippleEdits (Cohen et al., 2024): its "preservation" checks are the closest prior metric to over-invalidation in the parametric setting.
-- [ ] Classical: Doyle (1979), de Kleer (1986), Gärdenfors & Rott on AGM base revision, Hansson's belief bases. Needed to state precisely what is *borrowed*.
+- [~] Classical: Doyle (1979), de Kleer (1986), Gärdenfors & Rott on AGM base revision, Hansson's belief bases. Summary below is from standard knowledge of these works; primary texts still to be read for exact citations.
+  - *JTMS* (Doyle, "A Truth Maintenance System", AIJ 12, 1979): a node is IN iff some justification is valid (all IN-list premises IN, all OUT-list premises OUT). Retraction relabels the affected nodes. **Borrowed by us:** OR-of-AND support semantics (our labeller is a monotone JTMS with no OUT-lists, extended with UNK and STALE).
+  - *ATMS* (de Kleer, AIJ 28, 1986): each node carries a label, the minimal sets of assumptions under which it holds. Multiple contexts coexist without retraction. **Relevant to F6:** an `uncertain` node can be represented as "holds under assumption {E is still valid}" rather than flattened to UNK. This is a possible refinement, not adopted yet.
+  - **Not in either:** where justifications come from. Both assume the problem solver hands them over. That is exactly the step an LLM agent has to perform from text.
 - [ ] One more sweep (Nov 2026) for anything citing PACMI.
 
 ---
 
 ## 2. Novelty gate
 
-**Proposed contribution (revised):**
+**Proposed contribution (v0.2, narrowed after the 2026-10-18 audit):**
 
-> We study *selective* belief revision in LLM agents, where a new piece of evidence should withdraw some beliefs, trigger recomputation of some conclusions, leave others intact because they have independent support, and mark others uncertain. We (i) introduce a benchmark with branching, multi-support, and ambiguous-evidence dependency structures, labelled with gold revision actions for every node; (ii) show that existing approaches fail in opposite directions, with flat LLM memory leaving stale conclusions and descendant-cascade methods destroying supported ones; and (iii) propose justification-aware revision, where the LLM induces typed justifications (AND-premises within a justification, OR across justifications) at write time and a TMS-style label propagation decides keep / recompute / withdraw / uncertain. We quantify how much of the remaining error comes from justification induction rather than propagation.
+> When an LLM agent must infer *why* it holds each stored conclusion, which premises it needs jointly (AND) and which are alternatives (OR), how do errors in that inferred structure affect selective revision? We (i) measure the real distribution of LLM justification-induction errors *by type*, on controlled scenarios where some descendants of a changed fact must be revised and others stay independently supported; (ii) show that the error type decides the failure direction: missing links and AND→OR confusion leave stale conclusions, while OR→AND confusion and missed alternatives destroy supported ones (pilot-1b shows this with simulated errors; the LLM pilot must confirm it with real ones); and (iii) test whether a revision procedure that targets the costly error types improves the stale / over-invalidation trade-off over credible baselines.
+
+What this deliberately does **not** claim:
+- Propagation through dependencies: established (PACMI, Kumiho, Atlas, JTMS).
+- Preserving independently supported conclusions: established mechanism (JTMS 1979; shipped in Veritas-TMS).
+- Running branching topologies or oracle-vs-induced edges *as such*: proposed in PACMI App. J. Doing these is necessary for our study, but they are not the novelty.
+- Separating extraction error from revision error: good experimental design, not a contribution by itself.
+- Uncertainty handling and NL recomputation: included only as far as the pilot can test them meaningfully. Otherwise they are future work.
+
+Candidate method for (iii), to be fixed only after the LLM pilot shows the real error mix: induce justifications at write time, propagate with the JTMS labeller, then run **asymmetric verification at update time**. Before withdrawing or recomputing a node, re-check the remaining evidence for an alternative support (this targets OR→AND errors and missed alternatives). After an update, re-check affected-region nodes that have no extracted link to the change (this targets unlink errors). Cost: LLM calls only on the affected region.
+
+#### Positioning against the closest work
+
+| Work | What it establishes | What it leaves open, relevant to us | How we use / differ |
+|---|---|---|---|
+| **PACMI** (arXiv 2610.05732) | Typed provenance graph + 4-state validity lattice; validity-aware retrieval; premise checker. 100 cases, fixed 2-hop chain, annotated edges | Over-invalidation untestable by construction; App. J *proposes* branching, unaffected connected nodes and induced/corrupted edges, but none were run. No AND/OR, no alternative support, flag-only | Baseline S5. We run its proposed axes as a means, and add AND/OR typing, error-type decomposition and alternative-support cases |
+| **Re-derivation gap / GuardWrite** (NeurIPS 2026 workshop) | Agents follow stale *conclusions* when only premises change (91–100% on mid-scale models); validity predicates + rewrite fix it | (Abstract only; full text unread.) No evidence of alternative support or branching. It assumes we already know *which* entries are invalid | Motivates recompute over flag. We address the step before it: deciding which conclusions are still justified |
+| **Veritas-TMS** (v0.16.0) | Correct OR-of-AND JTMS for agent memory, entrenchment, LLM contradiction detection | Justifications are supplied by the caller; no revision-correctness benchmark | Reference implementation of our oracle track. Differential-test our labeller against it. It is the "if edges were given, a TMS solves it" point made concrete |
+| **Classical JTMS / ATMS** | The propagation semantics we borrow | Where justifications come from | Cite as the source of the mechanism; ATMS labels are a candidate refinement for F6 |
+| **Atlas / Ripple** | Engineered propagation: BFS + damped per-edge confidence updates | No alternative-support check (verified in source); self-authored eval only | Add as a soft-propagation baseline (S7). Prediction: OIR > 0 on F2 even with correct edges |
+| **Lemmalog** | Datalog re-derivation preserves alternative derivations; LLM can author rules on request | No induction from memory text; no revision evaluation | Shows rule-level induction is feasible. Our setting is instance-level justifications from stored NL memories |
+| **AGM-Bench, DeltaLogic, ReviseQA** | In-context LLMs show collateral damage, inertia and inconsistency under premise edits | Premises sit in the prompt, with no persistent memory of stored conclusions | Related failure modes in a different setting; cite, and contrast with persistent memory |
 
 **Closest competitors and what they do not show:**
 
 | Competitor | What it lacks that we must demonstrate |
 |---|---|
-| PACMI | Over-invalidation on multi-support nodes; induced edges; recomputation; uncertain evidence |
-| Re-derivation gap / GuardWrite | Dependency structure beyond a single predicate; independent support |
+| PACMI | Over-invalidation on multi-support nodes (proposed, not run); induced edges (proposed, not run); **AND/OR typing and error-type effects (not proposed)**; recomputation; uncertain evidence |
+| Re-derivation gap / GuardWrite | Dependency structure beyond a single predicate; independent support (pending full-text check) |
 | Kumiho / Atlas | Any empirical evaluation of propagation correctness |
-| Classical JTMS | An LLM in the loop: justifications from natural language, and natural-language recomputation |
+| Classical JTMS / Veritas-TMS | An LLM in the loop: justifications from natural language, and how their errors propagate |
 
 **Gate criteria (all must hold to proceed past the pilot):**
 
-1. Final read of PACMI and the re-derivation-gap paper confirms neither measures preservation of independently supported conclusions.
-2. In the pilot, the naive-cascade baseline has a **meaningfully high** over-invalidation rate and flat LLM memory has a **meaningfully high** stale rate. If both baselines are already fine, there is no problem to solve.
-3. In the pilot, **oracle-edge JTMS ≫ LLM-induced-edge JTMS**. If induction is trivially easy, the contribution shrinks to "use a JTMS", which is not a paper.
+1. Final read of PACMI and the re-derivation-gap paper confirms neither measures preservation of independently supported conclusions. *PACMI: confirmed 2026-10-18 (proposed in App. J, not run). Re-derivation gap: pending the full text.*
+2. The benchmark produces the opposing failures across seeds. *Confirmed at the rule-based level in pilot-1b (20 seeds).* Still needed: flat LLM memory shows high SCR and naive cascade shows high OIR with real LLM systems.
+3. Real LLM justification induction is **measurably imperfect** on the controlled scenarios, *and* its error mix includes the types that matter (pilot-1b shows the direction depends on type). If induction is near-perfect, the contribution shrinks to "use a JTMS", which is not a paper.
+4. The proposed method improves the SCR/OIR trade-off over **credible** baselines (PACMI-style, Atlas-style, flat LLM memory, re-derive-all), not just over the deliberately simple rules.
+5. Before the renderer spend: a fresh search (≥ 2026-11) for work citing PACMI or running its App. J extensions.
 
 **Kill / pivot conditions:**
 
@@ -209,6 +241,7 @@ All systems use the **same base LLM** and see the **same evidence stream**.
 | S4 | Naive cascade | Explicit graph; withdraw every descendant of the changed node |
 | S5 | PACMI-style lattice | Reimplementation of PACMI's 4-state propagation (or their code, if released) |
 | S6 | Re-derive-all | Recompute every belief from current evidence after each update (accuracy ceiling for LLM-only; cost ceiling) |
+| S7 | Atlas-style soft propagation | BFS over dependents + damped per-edge confidence update (`α, β·strength·Δ`), thresholded into actions. Thresholds tuned on a dev split |
 | **P** | **Justification-aware revision** | LLM induces OR-of-AND justifications at write time; TMS label propagation decides; LLM recomputes only nodes labelled recompute; LLM adjudicates `uncertain` on F6 |
 | P-oracle | P with gold justifications | Upper bound; isolates induction error |
 
@@ -225,7 +258,8 @@ All systems use the **same base LLM** and see the **same evidence stream**.
 
 ## 5. Pilot plan (next steps)
 
-1. **Finish the verification-debt reads** (§1 checklist). Update the matrix. Re-run the gate. *(~1 week)*
+1. **Finish the verification-debt reads** (§1 checklist). Update the matrix. Re-run the gate. *Mostly done 2026-10-18. Still open: the full re-derivation-gap paper (manual PDF download), AGM-Bench scoring, Kumiho §15–16, and primary JTMS/ATMS texts.*
+1b. **Model-free checks still available before any spend:** differential-test `labeler.py` against Veritas-TMS on keep/withdraw-only scenarios (F1–F3 retractions); implement S5 (PACMI lattice) and S7 (Atlas-style) as deterministic baselines on the existing graphs.
 2. ~~**Scenario generator v0**: graph sampler + JTMS gold labeller for F1, F2, F3, F6. 40 scenarios.~~ **Done**, without NL rendering. See pilot-1 below.
 2b. **NL renderer** (the first step that costs model calls): render each graph to evidence and memory text without stating its justification structure. Use a different model family from the systems under test.
 3. **Hand-check 40 scenarios** for rendering fidelity.
@@ -315,4 +349,11 @@ Naive cascade's OIR by family: F1 0.000 · F2 **0.271 ±0.019** · F3 0.144 ±0.
 - Lemmalog — https://github.com/JordyZomer/lemmalog
 - NeuSymMS — https://arxiv.org/pdf/2605.17596
 - SSGM — https://arxiv.org/pdf/2603.11768
-- Veritas-TMS — https://pypi.org/project/veritas-tms/0.15.0/ (not verified)
+- Veritas-TMS — https://pypi.org/project/veritas-tms/ · https://github.com/Iam-Raghava/veritas
+- Atlas source — https://github.com/RichSchefren/atlas/tree/main/atlas_core/ripple
+- Re-derivation gap (OpenReview) — https://openreview.net/forum?id=vNQcrBtiMb
+- AGM-Bench — https://iclr.cc/virtual/2026/10017503
+- DeltaLogic — https://arxiv.org/abs/2604.02733
+- ReviseQA — https://icml.cc/virtual/2025/49130
+- Belief-R — https://arxiv.org/abs/2406.19764
+- MemTX (adjacent: transactional memory writes) — https://arxiv.org/abs/2607.23929
