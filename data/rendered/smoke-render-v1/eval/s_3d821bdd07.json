@@ -1,0 +1,75 @@
+{
+ "scenario": "s_3d821bdd07",
+ "source_scenario": "F2-000",
+ "family": "F2",
+ "meta": {
+  "fan_in": 2,
+  "revised_supports": 2,
+  "preserved": false,
+  "depth": 1,
+  "relation": "supersedes"
+ },
+ "idmap": {
+  "E1": "e_e50c",
+  "E2": "e_dfe6",
+  "B1": "m_2075",
+  "D1": "m_7743",
+  "E3": "e_1552",
+  "B2": "m_36f2",
+  "U1": "u_a152",
+  "U2": "u_41fa"
+ },
+ "gold": {
+  "e_e50c": "supersede",
+  "e_dfe6": "supersede",
+  "e_1552": "keep",
+  "m_2075": "recompute",
+  "m_36f2": "keep",
+  "m_7743": "recompute"
+ },
+ "justifications": {
+  "m_2075": [
+   [
+    "e_e50c"
+   ],
+   [
+    "e_dfe6"
+   ]
+  ],
+  "m_7743": [
+   [
+    "m_2075"
+   ]
+  ],
+  "m_36f2": [
+   [
+    "e_1552"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_a152": {
+   "target": "e_e50c",
+   "relation": "supersedes",
+   "reliability": "high"
+  },
+  "u_41fa": {
+   "target": "e_dfe6",
+   "relation": "supersedes",
+   "reliability": "high"
+  }
+ },
+ "world": "The company evaluates customer accounts for eligibility to various software products and features.",
+ "rationale": {
+  "m_2075": [
+   "If Customer X has an active Premium Support subscription, they are eligible for Product A.",
+   "If Customer X completed the mandatory Product A Onboarding training, they are eligible for Product A."
+  ],
+  "m_7743": [
+   "If Customer X is eligible to receive Product A, then a Product A license should be provisioned for them."
+  ],
+  "m_36f2": [
+   "If Customer Y successfully paid the annual fee for 'Product B Advanced Features', then their account has access to those features."
+  ]
+ }
+}
