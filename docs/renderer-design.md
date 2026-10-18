@@ -160,3 +160,21 @@ Pre-review by Claude (not the human review the protocol requires) found problems
 | P6 | Chain order leaked through ordinal wording | F1: initial → preliminary → advanced → fully qualifies | Prompt: no stage/sequence words that encode derivation order. Soft check for them |
 
 **Status:** do not render the 40 with `render-v1`. P1 changes what the evaluated system sees, so it is a design decision for approval.
+
+## 11. Model update (2026-10-18): `gemini-3.5-flash` via Lyzr
+
+`gemini-2.5-flash` (smoke test 1) is outdated. Lyzr's live catalogue (`GET /v3/providers/type?provider_type=lyzr-llm`) ranks the Google models by intelligence index:
+
+| Model | Index | Tier |
+|---|---|---|
+| **`gemini-3.5-flash`** | **33** | balanced |
+| `gemini-3.1-pro-preview` | 30 | high reasoning |
+| `gemini-3-flash-preview` | 26 | balanced |
+| `gemini-2.5-flash` | 13 | balanced |
+
+The renderer now defaults to **`gemini-3.5-flash`**.
+- **SDK workaround:** lyzr-adk 0.1.12's local registry predates it, so `register_gemini_model` adds it at runtime, with the same Google / `lyzr_google` mapping the SDK uses for 2.5 Flash.
+- **Live check:** `render_run.py` refuses to run a model that isn't in the live catalogue.
+- **Spend guard price:** proxied at $1.50 / $7.50 per 1M (gemini-3.8-flash post-intro list price), because Google's pricing page has no "3.5 Flash" entry. That puts the worst case for the 40-scenario run at ~$3.7 per attempt round.
+
+For the later evaluation, the top models by provider in the same catalogue: Anthropic `claude-opus-5-5` (58) / `claude-sonnet-5-5` (56); OpenAI `gpt-6-astra` (53); open-weights `groq/openai/gpt-oss-120b` (12) and `groq/moonshotai/kimi-k2-instruct` (15).

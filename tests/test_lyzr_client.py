@@ -86,7 +86,7 @@ def test_renderer_creates_one_cheap_agent_and_fresh_sessions():
     r.call("m1")
     r.call("m2")
     kw = studio.create_kwargs
-    assert kw["provider"] == "gemini/gemini-2.5-flash" and kw["store_messages"] is False
+    assert kw["provider"] == "gemini/gemini-3.5-flash" and kw["store_messages"] is False
     assert not any(k in kw for k in ("memory", "reflection", "llm_judge", "bias_check"))
     sessions = [sid for _, sid in agent.messages]
     assert len(set(sessions)) == 2
@@ -98,7 +98,7 @@ def test_renderer_creates_one_cheap_agent_and_fresh_sessions():
 def test_unpriced_model_rejected():
     with pytest.raises(ValueError):
         LyzrRenderer(SpendGuard(1.0, 1, model="gpt-4o"), studio=FakeStudio(FakeAgent([])))
-    assert "gemini-2.5-flash" in MODEL_PRICES
+    assert "gemini-3.5-flash" in MODEL_PRICES
 
 
 def test_render_one_retries_on_hard_leak_then_caches(tmp_path):
@@ -106,11 +106,11 @@ def test_render_one_retries_on_hard_leak_then_caches(tmp_path):
     s = generate_suite(1, seed=0, families=["F2"])[0]
     agent = FakeAgent([good_response(s, leak="Per E1 this holds."), good_response(s)])
     renderer = LyzrRenderer(SpendGuard(1.0, 10), studio=FakeStudio(agent))
-    r, system, evaluation, k = rr.render_one(s, renderer, tmp_path, "gemini-2.5-flash", 3, seed=0)
+    r, system, evaluation, k = rr.render_one(s, renderer, tmp_path, "gemini-3.5-flash", 3, seed=0)
     assert k == 2 and len(agent.messages) == 2
     assert "forbidden graph_id" in agent.messages[1][0]  # feedback sent on retry
     # Second run is fully cached: no renderer needed, nothing billed.
-    r2, system2, _, k2 = rr.render_one(s, None, tmp_path, "gemini-2.5-flash", 3, seed=0)
+    r2, system2, _, k2 = rr.render_one(s, None, tmp_path, "gemini-3.5-flash", 3, seed=0)
     assert k2 == 2 and system2 == system
 
 
@@ -120,4 +120,15 @@ def test_render_one_gives_up_after_max_attempts(tmp_path):
     agent = FakeAgent(["not json"] * 2)
     renderer = LyzrRenderer(SpendGuard(1.0, 10), studio=FakeStudio(agent))
     with pytest.raises(ValueError, match="no valid rendering after 2"):
-        rr.render_one(s, renderer, tmp_path, "gemini-2.5-flash", 2, seed=0)
+        rr.render_one(s, renderer, tmp_path, "gemini-3.5-flash", 2, seed=0)
+
+
+def test_register_gemini_model_makes_sdk_accept_current_models():
+    pytest.importorskip("lyzr")
+    from lyzr.providers import ModelResolver
+
+    from beliefbench.render.lyzr_client import register_gemini_model
+
+    register_gemini_model("gemini-3.5-flash")
+    provider, model, _ = ModelResolver.parse("gemini/gemini-3.5-flash")
+    assert (provider.value, model, ModelResolver.get_credential_id(provider)) == ("Google", "gemini-3.5-flash", "lyzr_google")

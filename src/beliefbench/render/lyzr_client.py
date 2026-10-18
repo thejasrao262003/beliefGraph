@@ -22,15 +22,40 @@ from typing import Any
 from beliefbench.render.prompt import PROMPT_VERSION, SYSTEM_PROMPT
 
 # USD per 1M tokens (input, output), Google's official Gemini pricing page, updated
-# 2026-10-16. Only models in lyzr-adk 0.1.12's registry can be used.
+# 2026-10-16. Lyzr bills in its own credits; these drive the conservative spend guard.
 MODEL_PRICES: dict[str, tuple[float, float]] = {
-    "gemini-2.5-flash": (0.30, 2.50),
-    "gemini-2.5-flash-lite": (0.10, 0.40),
-    "gemini-2.5-pro": (1.25, 10.00),
-    # Not on the current pricing page; priced as gemini-3.1-pro-preview (≤200k) as a proxy.
-    "gemini-3-pro-preview": (2.00, 12.00),
+    # Lyzr's best Google model (live catalogue 2026-10-18: intelligence index 33, the
+    # highest Google entry). Not on Google's pricing page under this name, so priced as
+    # gemini-3.8-flash at its post-intro list price, a conservative proxy.
+    "gemini-3.5-flash": (1.50, 7.50),
+    "gemini-3.1-pro-preview": (2.00, 12.00),
+    "gemini-2.5-flash": (0.30, 2.50),  # outdated (index 13); kept so smoke test 1 stays reproducible
 }
-DEFAULT_MODEL = "gemini-2.5-flash"
+DEFAULT_MODEL = "gemini-3.5-flash"
+CATALOGUE_URL = "https://agent-prod.studio.lyzr.ai/v3/providers/type"
+
+
+def lyzr_catalogue(api_key: str) -> dict[str, dict]:
+    """Lyzr's live hosted-model catalogue ({"gemini/gemini-3.5-flash": {...}, ...}). Free call;
+    needs the providers:read permission."""
+    import httpx
+
+    r = httpx.get(CATALOGUE_URL, params={"provider_type": "lyzr-llm"}, headers={"x-api-key": api_key}, timeout=20)
+    r.raise_for_status()
+    return {m["name"]: {**m, "provider": p["provider_id"], "credential_id": (p.get("meta_data") or {}).get("credential_id")}
+            for p in r.json() for m in (p.get("meta_data") or {}).get("models") or []}
+
+
+def register_gemini_model(model: str, context_window: int = 1_000_000) -> None:
+    """lyzr-adk 0.1.12's local registry predates current Gemini models and rejects them.
+    Add the model so ``provider="gemini/<model>"`` resolves to provider_id Google with
+    credential lyzr_google (the same mapping the SDK uses for gemini-2.5-flash)."""
+    from lyzr.providers import _PROVIDERS_DATA, ModelInfo, ProviderName
+
+    models = _PROVIDERS_DATA[ProviderName.GOOGLE].models
+    if model not in models:
+        models[model] = ModelInfo(name=model, capability_score=5, speed_score=4,
+                                  context_window=context_window, model_type="Reasoning")
 THINKING_ALLOWANCE = 8_000  # worst-case reasoning tokens per call, billed as output
 MAX_VISIBLE_OUTPUT = 4_000  # worst-case visible output tokens per call (texts are capped at 40 words)
 
@@ -99,6 +124,7 @@ class LyzrRenderer:
                 from lyzr import Studio  # imported lazily: tests and dry runs need no key
 
                 self._studio = Studio(log="warning")
+            register_gemini_model(self.guard.model)
             self._agent = self._studio.create_agent(
                 name=f"beliefbench-renderer-{PROMPT_VERSION}",
                 provider=f"gemini/{self.guard.model}",

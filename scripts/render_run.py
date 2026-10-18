@@ -107,9 +107,18 @@ def main() -> None:
           f"Hard budget: ${args.budget_usd:.2f}, call cap {max_calls}.")
     if args.dry_run:
         return
+    import os
+
     from dotenv import load_dotenv  # ships with lyzr-adk; .env is git-ignored
 
+    from beliefbench.render.lyzr_client import lyzr_catalogue
+
     load_dotenv()
+    catalogue = lyzr_catalogue(os.environ["LYZR_API_KEY"])
+    if f"gemini/{args.model}" not in catalogue:
+        sys.exit(f"gemini/{args.model} is not in Lyzr's live catalogue; refusing to run")
+    print(f"Lyzr catalogue: gemini/{args.model} is live "
+          f"(intelligence index {catalogue[f'gemini/{args.model}'].get('intelligence_index')})")
 
     for d in ("raw", "system", "eval"):
         (out / d).mkdir(parents=True, exist_ok=True)
