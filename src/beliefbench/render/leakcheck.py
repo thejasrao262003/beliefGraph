@@ -232,7 +232,18 @@ def decoy_word_flags(system: dict, evaluation: dict) -> list[Flag]:
     any memory (numbers and generic rule words excepted). Otherwise the decoy can be a
     plausible competing match for that memory (v4 re-render, F6 'organic')."""
     decoys = set(evaluation.get("decoy_policies") or [])
-    mem = set().union(*(tokens(m["text"]) for m in system["memories"])) if system["memories"] else set()
+    # Entity names are identity, not outcome concepts: strip the subject-name spans from
+    # each memory before taking its vocabulary ("Apex Logistics" vs "a logistics firm").
+    # A word that also occurs in the memory's outcome wording still counts, because only
+    # the name span is removed (refinement approved 2026-10-18, after v5 F2).
+    names = sorted(subject_names(system), key=len, reverse=True)
+
+    def outcome_words(text: str) -> set[str]:
+        for name in names:
+            text = re.sub(rf"\b{re.escape(name)}\b", " ", text)
+        return tokens(text)
+
+    mem = set().union(*(outcome_words(m["text"]) for m in system["memories"])) if system["memories"] else set()
     flags = []
     for p in system.get("policies", []):
         if p["id"] not in decoys:

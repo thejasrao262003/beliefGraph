@@ -89,6 +89,8 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=None, help="render only the first N scenarios (smoke test)")
     ap.add_argument("--model", default=DEFAULT_MODEL, choices=sorted(MODEL_PRICES))
     ap.add_argument("--budget-usd", type=float, default=5.0)
+    ap.add_argument("--prior-spend-usd", type=float, default=0.0,
+                    help="spend already charged against this budget by earlier runs (makes the cap cumulative)")
     ap.add_argument("--max-attempts", type=int, default=3)
     ap.add_argument("--only", nargs="+", default=None, help="render only these scenario ids (e.g. F1-000 F6-000)")
     ap.add_argument("--dry-run", action="store_true")
@@ -108,7 +110,8 @@ def main() -> None:
         if missing:
             sys.exit(f"unknown scenario ids: {sorted(missing)}")
     max_calls = len(suite) * args.max_attempts
-    guard = SpendGuard(budget_usd=args.budget_usd, max_calls=max_calls, model=args.model)
+    guard = SpendGuard(budget_usd=args.budget_usd, max_calls=max_calls, model=args.model,
+                       spent_usd=args.prior_spend_usd)
     out = Path("data/rendered") / (args.run or f"pilot-{args.prompt_version}")
     if out.exists() and any((out / "system").glob("*.json")) and not args.dry_run:
         # Never overwrite a finished run (e.g. the failed v2 smoke test); cached raw
@@ -173,7 +176,7 @@ def main() -> None:
         write_csv_template(out / "review.csv", [sv["scenario"] for sv, _ in pairs])
     spend = {"model": args.model, "lyzr_catalogue_entry": catalogue.get(f"gemini/{args.model}"),
              "prompt_version": args.prompt_version, "seed": args.seed, "guard_prices_per_1m": guard.prices,
-             "calls": guard.calls,
+             "prior_spend_usd": args.prior_spend_usd, "calls": guard.calls,
              "est_usd_conservative": round(guard.spent_usd, 4), "budget_usd": args.budget_usd,
              "rendered": len(pairs), "first_attempt_ok": sum(1 for k in attempts.values() if k == 1),
              "failures": failures, "calls_log": guard.log}

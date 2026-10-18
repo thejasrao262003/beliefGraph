@@ -352,3 +352,14 @@ The cap held. Both responses are cached and will not be re-billed.
 - The decoy reads "A **logistics** firm secures Executive Vendor Status…". The shared word comes from the memory's *entity name* "Apex **Logistics**", not from any outcome concept. No memory states Executive Vendor Status.
 - By the stated intent ("words that create a plausible association"), this looks like a **false positive** in the check's definition: entity names were not excluded.
 - **Not changed unilaterally.** Review conditions forbid relaxing checks after seeing results. Proposed refinement, for approval: exclude words of subject-entity names (`leakcheck.subject_names`) from the memory vocabulary. Outcome and programme words, e.g. "Tier-1 Freight Coverage", would still count.
+
+### 16b. Decoy-check refinement and cumulative cap (approved 2026-10-18)
+
+- **Refinement:** `decoy_word_flags` now strips subject-entity-name spans (`subject_names`) from each memory before comparing vocabularies. Only the *name span* is removed, so a word that also appears in a memory's outcome wording still counts.
+- **Regression tests:**
+  - "Apex Logistics" vs a decoy "a logistics firm…": allowed.
+  - "Tier-1 Freight Coverage" vs a decoy "Tier-2 Freight Coverage…": rejected.
+  - "logistics" in both the name and the outcome ("logistics excellence award"): rejected.
+- **On stored outputs** the refined check still flags v4-F6 "organic", v3-F3 "partner/tier" and "channel", and v4-F1 "partner".
+- **Log:** the original F2 rejection stays recorded in `smoke-render-v5/raw/` and §16a.
+- **Cap accounting:** the spend guard is per-run. The approved $0.30 is applied cumulatively via `--prior-spend-usd 0.124`, leaving $0.176 of headroom.

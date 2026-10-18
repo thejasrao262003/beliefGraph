@@ -371,8 +371,10 @@ def test_v3_prompt_is_kept_verbatim_and_v4_extends_it():
     assert current == "render-v5"
 
 
-def _system(memories, policies):
-    return {"scenario": "s_x", "domain": "d", "evidence": [], "updates": [],
+def _system(memories, policies, evidence=()):
+    return {"scenario": "s_x", "domain": "d", "updates": [],
+            "evidence": [{"id": f"e_{i:04x}", "observed": "2026-01-08", "source": "Registry", "text": t}
+                         for i, t in enumerate(evidence)],
             "memories": [{"id": f"m_{i:04x}", "text": t} for i, t in enumerate(memories)],
             "policies": [{"id": f"p_{i:04x}", "text": t} for i, t in enumerate(policies)]}
 
@@ -439,3 +441,27 @@ def test_real_policies_are_not_decoy_checked():
     s = _system(["Dermacool Gel meets organic cosmetics formulation standards."],
                 ["Cosmetics earn organic formulation standing when tests show no synthetic preservatives."])
     assert leakcheck.decoy_word_flags(s, {"decoy_policies": []}) == []
+
+
+def test_decoy_check_ignores_entity_names_but_not_outcome_terms():
+    # v5 F2 false positive: "logistics" only from the entity name "Apex Logistics".
+    ev = ["Apex Logistics operates 40 vans with an average age of 3 years."]
+    mems = ["Apex Logistics meets the qualification criteria for Tier-1 Freight Coverage."]
+    decoys = {"decoy_policies": ["p_0000"]}
+    ok = _system(mems, ["A logistics firm secures Executive Vendor Status above 5 million dollars in billing."], ev)
+    assert leakcheck.decoy_word_flags(ok, decoys) == []
+    # Genuine outcome/programme collision is still rejected.
+    bad = _system(mems, ["Tier-2 Freight Coverage is granted to carriers with refrigerated trailers."], ev)
+    assert {"freight", "coverage"} <= set(leakcheck.decoy_word_flags(bad, decoys)[0].match.split(","))
+    # A word in the entity name AND in the outcome wording still counts.
+    both = _system(["Apex Logistics wins the logistics excellence award."],
+                   ["A logistics excellence award goes to carriers with zero late deliveries."], ev)
+    assert "logistic" in leakcheck.decoy_word_flags(both, decoys)[0].match
+
+
+def test_prior_spend_makes_the_cap_cumulative():
+    from beliefbench.render.lyzr_client import BudgetExceeded, SpendGuard
+
+    g = SpendGuard(budget_usd=0.30, max_calls=5, model="gemini-3.5-flash", spent_usd=0.124)
+    with pytest.raises(BudgetExceeded):
+        g.check(200_000)  # a huge prompt cannot fit in the remaining 0.176
