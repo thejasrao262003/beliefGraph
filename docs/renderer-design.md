@@ -363,3 +363,41 @@ The cap held. Both responses are cached and will not be re-billed.
 - **On stored outputs** the refined check still flags v4-F6 "organic", v3-F3 "partner/tier" and "channel", and v4-F1 "partner".
 - **Log:** the original F2 rejection stays recorded in `smoke-render-v5/raw/` and §16a.
 - **Cap accounting:** the spend guard is per-run. The approved $0.30 is applied cumulatively via `--prior-spend-usd 0.124`, leaving $0.176 of headroom.
+
+### 16c. v5 completion run (2026-10-18): F2 and F6
+
+Command: `... --run smoke-render-v5b --only F2-000 F6-000 --max-attempts 2 --budget-usd 0.30 --prior-spend-usd 0.124`. Outputs are in `data/rendered/smoke-render-v5b/`. F2's raw response was copied from `smoke-render-v5/raw/` and **reused from cache: no API call, $0**.
+
+**Spend:** F6 took 1 call (3,116 in / 6,197 out tokens, $0.077 guard-charged). **Cumulative: $0.2007 of the $0.30 cap.** No retries were needed.
+
+- **F2:** the cached attempt 1, previously rejected only by the entity-name false positive, passes all checks under the refined rule. 0 flags.
+- **F6:** first attempt, 0 hard and 0 soft flags.
+
+**Gate:** the prespecified definition is suite-level over the assessed set, using the worse of the two heuristics.
+
+| Set | Policy-assisted set F1 | Verdict |
+|---|---|---|
+| This run (F2 + F6) | **0.60** | fail |
+| Whole v5 pilot (F1 + F2 + F6) | 0.44 | pass |
+| F1 alone | 0.17 | n/a (per-scenario diagnostic) |
+| F2 alone | 0.29 | n/a |
+| F6 alone | **0.77** | n/a |
+
+Both suite numbers are reported. Neither aggregation is chosen to make the result pass.
+
+**Diagnosis of F6:**
+- Its 3 distractors are single-premise beliefs about distinct named entities, recovered by entity-name matching. That is legitimate and structural.
+- **But** main-chain B2 and D1 are also recovered, because **two policies copy evidence wording verbatim**:
+  - p_cd31 "valid **state pharmaceutical distribution license**" ↔ fact "active state pharmaceutical distribution license";
+  - p_b3f6 "official **organic processing certification**" ↔ fact.
+- The prompt has forbidden fact wording in policies since v3. The automated echo check covers memory↔policy only, so **policy↔evidence echoes are an unchecked gap**.
+
+**F6 otherwise (pre-review by Claude, not the human review):**
+- C4: the retraction is now a flat denial ("asserts … did **not** achieve $650,000") from an unverified forum post.
+- C10: quantities match (purchases ↔ yearly purchases ≥ $500k).
+- The ISO 13485 alternative keeps preferred-partner status, consistent with gold.
+- **C11 likely fails** on the evidence-wording copies.
+
+**Proposed** (needs approval, not applied):
+- extend `echo_flags` to policy↔evidence (same hard 3-word rule, proper names exempt), with regression tests built from these two phrases;
+- re-render F6 only. That needs a new cap: the remaining $0.099 is below the guard's worst case for one call ($0.14).
