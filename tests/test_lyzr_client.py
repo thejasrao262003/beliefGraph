@@ -30,6 +30,7 @@ def good_response(s, leak: str | None = None) -> str:
     return json.dumps({
         "world": "w", "nodes": nodes,
         "updates": {u.id: {"text": "A later notice changed this.", "source": "Official registry"} for u in s.updates},
+        "policies": {n.id: f"Rule {i} applies." for i, n in enumerate(s.nodes) if not n.is_evidence},
         "rationale": {n.id: ["r"] * len(n.justifications) for n in s.nodes if not n.is_evidence},
     })
 
@@ -132,3 +133,22 @@ def test_register_gemini_model_makes_sdk_accept_current_models():
     register_gemini_model("gemini-3.5-flash")
     provider, model, _ = ModelResolver.parse("gemini/gemini-3.5-flash")
     assert (provider.value, model, ModelResolver.get_credential_id(provider)) == ("Google", "gemini-3.5-flash", "lyzr_google")
+
+
+def test_find_usage_and_charge_on_reported_tokens():
+    from beliefbench.render.lyzr_client import find_usage
+
+    assert find_usage({"response": "x"}) is None
+    u = find_usage({"usage": {"prompt_tokens": 1000, "completion_tokens": 500, "reasoning_tokens": 300}})
+    assert u["input_tokens"] == 1000 and u["output_tokens"] == 500
+    g = find_usage({"usageMetadata": {"promptTokenCount": 10, "candidatesTokenCount": 20, "thoughtsTokenCount": 5}})
+    assert g["output_tokens"] == 25  # Gemini reports thinking separately
+    guard = SpendGuard(1.0, 5, model="gemini-2.5-flash")
+    cost = guard.charge(4000, 2000, usage=u)
+    assert cost == pytest.approx((1000 * 0.30 + 500 * 2.50) / 1e6)
+    assert guard.log[-1]["basis"] == "reported_usage"
+
+
+def test_unverified_price_gets_safety_factor():
+    g = SpendGuard(1.0, 5, model="gemini-3.5-flash")
+    assert g.prices == pytest.approx((1.50 * 1.5, 7.50 * 1.5))

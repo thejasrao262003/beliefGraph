@@ -1,10 +1,10 @@
 """Split a rendered scenario into the two files that must never be mixed.
 
-- **System view**: what the evaluated system receives. Opaque ids, memories in random
-  order, evidence timestamps re-permuted (generation order would leak structure). No
-  gold, justifications, rationale, family or meta.
+- **System view**: what the evaluated system receives. Opaque ids, memories and
+  policies in random order, evidence on a re-permuted timeline (generation order would
+  leak structure). No gold, justifications, rationale, groups, family or meta.
 - **Eval view**: gold labels and justifications keyed by the same opaque ids, plus the
-  id map and rationale, for scoring and human review.
+  id map, groups, policy-to-memory map and rationale, for scoring and human review.
 """
 
 from __future__ import annotations
@@ -13,13 +13,16 @@ import datetime as dt
 import hashlib
 import random
 from dataclasses import replace
+from typing import TYPE_CHECKING
 
 from beliefbench.labeler import gold_actions
-from beliefbench.render.prompt import Rendering
 from beliefbench.schema import Scenario
 
+if TYPE_CHECKING:
+    from beliefbench.render.prompt import Rendering
+
 BASE_DATE = dt.date(2026, 1, 5)
-SYSTEM_VIEW_KEYS = {"scenario", "domain", "evidence", "memories", "updates"}
+SYSTEM_VIEW_KEYS = {"scenario", "domain", "evidence", "memories", "updates", "policies"}
 
 
 def _opaque(rng: random.Random, prefix: str, used: set[str]) -> str:
@@ -28,6 +31,10 @@ def _opaque(rng: random.Random, prefix: str, used: set[str]) -> str:
         if oid not in used:
             used.add(oid)
             return oid
+
+
+def _view_rng(s: Scenario, seed: int) -> random.Random:
+    return random.Random(f"{seed}:{s.id}:view")
 
 
 def permuted_scenario(s: Scenario, rng: random.Random) -> Scenario:
@@ -51,10 +58,19 @@ def _date(t: int) -> str:
     return (BASE_DATE + dt.timedelta(days=3 * t)).isoformat()
 
 
+def timeline(s: Scenario, seed: int = 0) -> dict[str, str]:
+    """Observed date per evidence and update id, exactly as the system view will show
+    them (same RNG stream as build_views), so the renderer can keep dates consistent."""
+    ps = permuted_scenario(s, _view_rng(s, seed))
+    return {n.id: _date(n.t) for n in ps.nodes if n.is_evidence} | {u.id: _date(u.t) for u in ps.updates}
+
+
 def build_views(s: Scenario, r: Rendering, seed: int = 0) -> tuple[dict, dict]:
+    from beliefbench.render.prompt import _groups
+
     if not r.ok:
         raise ValueError(f"{s.id}: rendering has errors: {r.errors}")
-    rng = random.Random(f"{seed}:{s.id}:view")
+    rng = _view_rng(s, seed)
     ps = permuted_scenario(s, rng)
     used: set[str] = set()
     idmap = {}
@@ -75,16 +91,28 @@ def build_views(s: Scenario, r: Rendering, seed: int = 0) -> tuple[dict, dict]:
         {"id": idmap[u.id], "observed": _date(u.t), "source": r.sources[u.id], "text": r.update_texts[u.id]}
         for u in ps.updates
     ]
+    # Policies get their own opaque ids and order; they are not linked to memories here.
+    policy_of: dict[str, str] = {}
+    policies = []
+    for n in ps.nodes:
+        if n.id in r.policies:
+            pid = _opaque(rng, "p", used)
+            policy_of[pid] = idmap[n.id]
+            policies.append({"id": pid, "text": r.policies[n.id]})
+    rng.shuffle(policies)
     system = {"scenario": sid, "domain": s.domain.replace("_", " "), "evidence": evidence,
-              "memories": memories, "updates": updates}
+              "memories": memories, "updates": updates, "policies": policies}
 
     gold = ps.gold or gold_actions(ps)
+    groups = _groups(ps)
     evaluation = {
         "scenario": sid,
         "source_scenario": s.id,
         "family": s.family,
         "meta": s.meta,
         "idmap": idmap,
+        "groups": {idmap[k]: g for k, g in groups.items()},
+        "policy_of": policy_of,
         "gold": {idmap[k]: v.value for k, v in gold.items()},
         "justifications": {idmap[k]: [[idmap[p] for p in j] for j in js] for k, js in ps.justifications().items()},
         "update_targets": {idmap[u.id]: {"target": idmap[u.target], "relation": u.relation.value,

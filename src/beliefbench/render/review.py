@@ -17,6 +17,12 @@ CHECKLIST = [
     ("C6_distractors", "Facts and memories in different groups are unrelated: nothing in one bears on another."),
     ("C7_no_reveal", "Read as the system would (system view only): the wording does not reveal which facts support "
                      "which memory, beyond what the meaning itself implies."),
+    # Information availability (render-v2): judged from section A only, before reading B.
+    ("C8_inferable", "From the visible facts and policies alone, the intended AND/OR structure can be inferred."),
+    ("C9_no_hidden_needed", "Every gold label can be derived without the hidden rationale or any eval metadata."),
+    ("C10_unambiguous", "No reasonable alternative reading of the text would make a gold label wrong."),
+    ("C11_policy_not_graph", "Policies state reusable rules about kinds of facts; they do not name the specific "
+                             "entity, quote evidence, or otherwise disclose which item supports which memory."),
 ]
 COLUMNS = ["scenario", "reviewer", *[c for c, _ in CHECKLIST], "decision", "notes"]
 DECISIONS = {"accept", "revise", "reject"}
@@ -35,10 +41,16 @@ def review_sheet(system: dict, evaluation: dict, flags: list[Flag]) -> str:
         lines.append(f"  - `{m['id']}` {m['text']}")
     for u in system["updates"]:
         lines.append(f"- update `{u['id']}` [{u['observed']}, {u['source']}] {u['text']}")
+    if system.get("policies"):
+        lines.append("- policies:")
+        for p in system["policies"]:
+            lines.append(f"  - `{p['id']}` {p['text']}")
     lines += ["", "### B. Intended structure"]
+    pol_for = {m: p for p, m in evaluation.get("policy_of", {}).items()}
     for mid, justs in evaluation["justifications"].items():
         sets = " **OR** ".join("(" + " AND ".join(f"`{p}`" for p in j) + ")" for j in justs)
-        lines.append(f"- `{mid}` ({inv[mid]}) <= {sets}; gold after update: **{evaluation['gold'][mid]}**")
+        pol = f" [policy `{pol_for[mid]}`]" if mid in pol_for else ""
+        lines.append(f"- `{mid}` ({inv[mid]}){pol} <= {sets}; gold after update: **{evaluation['gold'][mid]}**")
         for i, r in enumerate(evaluation["rationale"].get(mid, [])):
             lines.append(f"  - set {i + 1}: {r}")
     for uid, u in evaluation["update_targets"].items():

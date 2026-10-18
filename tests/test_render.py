@@ -1,5 +1,6 @@
-"""Model-free tests for the renderer pipeline, using a hand-written rendering."""
+"""Model-free tests for the renderer pipeline (render-v2), using hand-written renderings."""
 
+import copy
 import json
 
 import pytest
@@ -7,14 +8,20 @@ import pytest
 from beliefbench.generate import generate_suite
 from beliefbench.labeler import gold_actions
 from beliefbench.render import leakcheck
-from beliefbench.render.prompt import SYSTEM_PROMPT, parse_response, renderer_payload, user_message
+from beliefbench.render.prompt import (
+    PROMPT_VERSION,
+    SYSTEM_PROMPT,
+    parse_response,
+    renderer_payload,
+    user_message,
+)
 from beliefbench.render.review import CHECKLIST, read_decisions, review_sheet, write_csv_template
-from beliefbench.render.views import SYSTEM_VIEW_KEYS, build_views
+from beliefbench.render.views import SYSTEM_VIEW_KEYS, build_views, timeline
 from beliefbench.schema import Kind, Node, Relation, Scenario, Update
 
 
 def spec_example() -> Scenario:
-    # RESEARCH_SPEC.md 4.1, plus one unrelated distractor.
+    # RESEARCH_SPEC.md 4.1, plus one unrelated distractor (B3 <= E4).
     s = Scenario("F2-900", "F2", "product_eligibility", [
         Node("E1", Kind.EVIDENCE, t=1), Node("E2", Kind.EVIDENCE, t=2), Node("E3", Kind.EVIDENCE, t=3),
         Node("E4", Kind.EVIDENCE, t=4),
@@ -31,20 +38,27 @@ def spec_example() -> Scenario:
 GOOD = {
     "world": "A bank decides which savings product to offer a customer in Thailand.",
     "nodes": {
-        "E1": {"text": "The Q1 2026 product catalogue lists the Horizon Saver account for Thai residents.",
-               "source": "Bank product catalogue, Q1 2026"},
-        "E2": {"text": "Nok Phairot, a Bangkok resident, is 34 and meets Horizon Saver's age band of 18 to 60.",
-               "source": "Customer onboarding record"},
-        "E3": {"text": "The Bangkok branch network is actively opening Horizon Saver accounts this quarter.",
+        "E1": {"text": "The current product catalogue lists the Horizon Saver account for Thai residents.",
+               "source": "Bank product catalogue"},
+        "E2": {"text": "Nok Phairot, a Bangkok resident, is 34 years old.", "source": "Customer onboarding record"},
+        "E3": {"text": "Bangkok branches are actively opening Horizon Saver accounts this quarter.",
                "source": "Regional operations dashboard"},
-        "E4": {"text": "The Chiang Mai office relocates to Nimman Road in March.", "source": "Facilities memo"},
+        "E4": {"text": "Lanna Logistics moves its Chiang Mai office to Nimman Road next month.",
+               "source": "Facilities memo"},
         "B1": {"text": "Horizon Saver can be opened in Thailand."},
-        "B2": {"text": "Nok qualifies for a Horizon Saver account."},
+        "B2": {"text": "Nok can hold a Horizon Saver account."},
         "D1": {"text": "Offer Nok the Horizon Saver account at the next review call."},
-        "B3": {"text": "Client meetings in Chiang Mai move to the new Nimman Road site."},
+        "B3": {"text": "Meetings with Lanna Logistics take place on Nimman Road."},
     },
-    "updates": {"U1": {"text": "The Q3 2026 catalogue no longer lists Horizon Saver for Thai residents.",
-                       "source": "Bank product catalogue, Q3 2026"}},
+    "updates": {"U1": {"text": "The newest catalogue no longer lists Horizon Saver for Thai residents.",
+                       "source": "Bank product catalogue, revised edition"}},
+    "policies": {
+        "B1": "A product counts as available in a country if the current catalogue lists it there, or if local "
+              "branches are actively opening accounts for it.",
+        "B2": "A resident of a country where an account is available may hold it if they are between 18 and 60.",
+        "D1": "Offer an account to any customer who may hold it.",
+        "B3": "Client meetings take place at a partner's current office address.",
+    },
     "rationale": {
         "B1": ["The catalogue listing makes it available.", "Branches opening accounts shows it is available."],
         "B2": ["Availability plus age eligibility make Nok eligible."],
@@ -54,84 +68,187 @@ GOOD = {
 }
 
 
-def test_payload_and_prompt_carry_no_gold_or_family():
+def views(resp=GOOD, s=None, seed=0):
+    s = s or spec_example()
+    return build_views(s, parse_response(s, json.dumps(resp)), seed=seed)
+
+
+def fake_response(s):
+    return {"world": "w", "nodes": {n.id: {"text": f"Text number {i}.", "source": "Registry office"}
+                                    for i, n in enumerate(s.nodes)},
+            "updates": {u.id: {"text": "A later notice changed this.", "source": "Registry office"} for u in s.updates},
+            "policies": {n.id: f"Rule {i} applies." for i, n in enumerate(s.nodes) if not n.is_evidence},
+            "rationale": {n.id: ["r"] * len(n.justifications) for n in s.nodes if not n.is_evidence}}
+
+
+# ── prompt, payload, parsing ──
+
+
+def test_payload_carries_dates_but_no_gold_or_family():
     s = spec_example()
-    payload = renderer_payload(s)
-    assert "gold" not in json.dumps(payload) and "F2" not in json.dumps(payload)
+    payload = renderer_payload(s, seed=0)
+    blob = json.dumps(payload)
+    assert "gold" not in blob and "F2" not in blob
     groups = {d["id"]: d["group"] for d in payload["derived"]}
-    assert groups["B3"] != groups["B1"]  # distractor is its own component
+    assert groups["B3"] != groups["B1"]
+    obs = {e["id"]: e["observed"] for e in payload["evidence"]} | {u["id"]: u["observed"] for u in payload["updates"]}
+    assert obs == timeline(s, 0)
+    assert PROMPT_VERSION == "render-v2" and "POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
     assert "justification_sets" in user_message(s)
-    assert "never shown to the system under test" in SYSTEM_PROMPT
 
 
-def test_parse_response_validates_structure():
+def test_renderer_dates_match_system_view_dates():
+    s = spec_example()
+    system, evaluation = views(s=s, seed=7)
+    tl = timeline(s, 7)
+    inv = {v: k for k, v in evaluation["idmap"].items()}
+    for item in system["evidence"] + system["updates"]:
+        assert item["observed"] == tl[inv[item["id"]]]
+
+
+def test_parse_response_requires_policies_and_validates():
     s = spec_example()
     assert parse_response(s, json.dumps(GOOD)).ok
-    bad = json.loads(json.dumps(GOOD))
+    bad = copy.deepcopy(GOOD)
     del bad["nodes"]["B2"]
+    del bad["policies"]["D1"]
     bad["rationale"]["B1"] = ["only one"]
-    bad["nodes"]["X9"] = {"text": "stray"}
+    bad["policies"]["E1"] = "evidence cannot have a policy"
     errs = parse_response(s, json.dumps(bad)).errors
     assert any("B2: missing text" in e for e in errs)
+    assert any("D1: missing policy" in e for e in errs)
     assert any("B1: expected 2 rationale" in e for e in errs)
-    assert any("unknown ids" in e for e in errs)
+    assert any("unknown ids" in e and "E1" in e for e in errs)
     assert parse_response(s, "not json").errors[0].startswith("invalid JSON")
+
+
+# ── separation ──
 
 
 def test_system_view_hides_structure_and_eval_view_keeps_it():
     s = spec_example()
-    system, evaluation = build_views(s, parse_response(s, json.dumps(GOOD)), seed=0)
-    assert set(system) == SYSTEM_VIEW_KEYS
+    system, evaluation = views(s=s)
+    assert set(system) == SYSTEM_VIEW_KEYS and len(system["policies"]) == 4
     blob = json.dumps(system)
-    for forbidden in ("justification", "gold", "rationale", "F2", "E1", "B1", "keep", "withdraw", "family"):
+    for forbidden in ("justification", "gold", "rationale", "groups", "policy_of", "F2", "E1", "B1", "keep",
+                      "withdraw", "family"):
         assert forbidden not in blob, forbidden
-    # Eval view maps back to the original gold exactly.
     inv = {v: k for k, v in evaluation["idmap"].items()}
     assert {inv[k]: v for k, v in evaluation["gold"].items()} == {k: v.value for k, v in s.gold.items()}
-    # Updates come after all evidence.
+    assert {inv[m] for m in evaluation["policy_of"].values()} == {"B1", "B2", "D1", "B3"}
     assert max(e["observed"] for e in system["evidence"]) < system["updates"][0]["observed"]
 
 
 def test_timestamp_permutation_never_changes_gold():
     for s in generate_suite(10, seed=0):
-        fake = {"world": "w", "nodes": {n.id: {"text": f"text {i}", "source": "src"} for i, n in enumerate(s.nodes)},
-                "updates": {u.id: {"text": "upd", "source": "src"} for u in s.updates},
-                "rationale": {n.id: ["r"] * len(n.justifications) for n in s.nodes if not n.is_evidence}}
-        system, evaluation = build_views(s, parse_response(s, json.dumps(fake)), seed=3)
+        system, evaluation = build_views(s, parse_response(s, json.dumps(fake_response(s))), seed=3)
         inv = {v: k for k, v in evaluation["idmap"].items()}
         assert {inv[k]: v for k, v in evaluation["gold"].items()} == {k: v.value for k, v in s.gold.items()}
 
 
-def test_leak_flags():
-    s = spec_example()
-    system, evaluation = build_views(s, parse_response(s, json.dumps(GOOD)), seed=0)
+def test_view_refuses_scenarios_whose_gold_depends_on_recency():
+    s = Scenario("x", "F7", "travel_logistics", [Node("E1", Kind.EVIDENCE, t=5),
+                 Node("B1", Kind.BELIEF, justifications=[["E1"]])], [Update("U1", 3, "E1", Relation.RETRACTS)])
+    s.validate()
+    s.gold = gold_actions(s)  # outdated update: everything kept
+    with pytest.raises(ValueError, match="changed gold"):
+        build_views(s, parse_response(s, json.dumps(fake_response(s))))
+
+
+# ── leak checks: regression tests for smoke-test-1 problems P2-P6 ──
+
+
+def kinds(flags):
+    return {(f.kind, f.hard) for f in flags}
+
+
+def with_text(item, text, field="text"):
+    r = copy.deepcopy(GOOD)
+    (r["nodes"] if item in r["nodes"] else r["updates"])[item][field] = text
+    return r
+
+
+def test_clean_rendering_has_no_flags():
+    system, evaluation = views()
     assert leakcheck.text_flags(system) == []
-    leaky = json.loads(json.dumps(GOOD))
-    leaky["nodes"]["B1"]["text"] = "Since both reports agree, Horizon Saver can be opened in Thailand."
-    leaky["nodes"]["B2"]["text"] = "Per E2, Nok qualifies (premise check done)."
-    system2, _ = build_views(s, parse_response(s, json.dumps(leaky)), seed=0)
-    kinds = {(f.kind, f.hard) for f in leakcheck.text_flags(system2)}
-    assert ("explains_reason", False) in kinds and ("mentions_sources", False) in kinds
-    assert ("graph_id", True) in kinds and ("label_word", True) in kinds
-    system2["gold"] = {}
-    assert any(f.kind == "unexpected_key" for f in leakcheck.text_flags(system2))
+    assert leakcheck.group_flags(system, evaluation) == []
 
 
-def test_lexical_heuristic_and_auc():
-    s = spec_example()
-    system, evaluation = build_views(s, parse_response(s, json.dumps(GOOD)), seed=0)
-    rep = leakcheck.check([(system, evaluation)])
-    summ = rep.summary()
+def test_gold_detector_positive_and_negative():
+    # P3: "Gold" as a card tier is fine; the label phrase is a hard leak.
+    system, _ = views(with_text("E2", "Nok Phairot, 34, holds a Gold tier debit card."))
+    assert not [f for f in leakcheck.text_flags(system) if f.hard]
+    system, _ = views(with_text("B2", "Nok can hold a Horizon Saver account (gold label: keep)."))
+    assert ("label_word", True) in kinds(leakcheck.text_flags(system))
+
+
+@pytest.mark.parametrize("source", ["high", "Site Survey Report, high", "Anonymous forum post (low)",
+                                    "Partner email, medium reliability"])
+def test_reliability_label_in_source_is_hard(source):
+    # P2
+    system, _ = views(with_text("E3", source, field="source"))
+    assert any(f.hard and f.kind in ("reliability_label", "reliability_word") for f in leakcheck.text_flags(system))
+
+
+def test_natural_source_words_are_not_flagged():
+    system, _ = views(with_text("E3", "High Court registry extract", field="source"))
+    assert not [f for f in leakcheck.text_flags(system) if f.hard]
+
+
+def test_distractor_about_same_customer_is_flagged():
+    # P4: the distractor group mentions the main chain's customer.
+    r = copy.deepcopy(GOOD)
+    r["nodes"]["E4"]["text"] = "Nok Phairot moves her office to Nimman Road next month."
+    system, evaluation = views(r)
+    assert ("cross_group_entity", False) in kinds(leakcheck.group_flags(system, evaluation))
+    r2 = copy.deepcopy(GOOD)
+    r2["nodes"]["E2"]["text"] = "The customer is 34 years old."
+    r2["nodes"]["E4"]["text"] = "The customer moves the office to Nimman Road."
+    system, evaluation = views(r2)
+    assert ("unnamed_entity_in_groups", False) in kinds(leakcheck.group_flags(system, evaluation))
+
+
+def test_distinct_entities_are_not_flagged():
+    system, evaluation = views()
+    assert not leakcheck.group_flags(system, evaluation)
+
+
+def test_dates_after_observed_are_hard_and_dates_in_memories_flagged():
+    # P5: the view dates evidence in Jan-Feb 2026.
+    system, _ = views(with_text("E2", "On October 3, 2026, Nok Phairot turned 34."))
+    assert ("date_after_observed", True) in kinds(leakcheck.text_flags(system))
+    system, _ = views(with_text("E2", "Since January 2025 Nok Phairot has lived in Bangkok; she is 34."))
+    assert not [f for f in leakcheck.text_flags(system) if f.kind == "date_after_observed"]
+    system, _ = views(with_text("B2", "Nok can hold a Horizon Saver account from 2025-06-01."))
+    assert any(f.kind == "date_in_memory" for f in leakcheck.text_flags(system))
+    assert leakcheck.dates_in("on 3 March 2026 and in May 2025") == [
+        __import__("datetime").date(2026, 3, 3), __import__("datetime").date(2025, 5, 1)]
+
+
+def test_order_cues_are_flagged():
+    # P6
+    system, _ = views(with_text("B2", "Nok passes the preliminary check for Horizon Saver."))
+    assert ("order_cue", False) in kinds(leakcheck.text_flags(system))
+
+
+def test_policy_naming_the_entity_is_flagged():
+    r = copy.deepcopy(GOOD)
+    r["policies"]["B2"] = "Nok Phairot may hold the account if she is between 18 and 60."
+    system, _ = views(r)
+    assert any(f.kind == "policy_shares_name" and "Phairot" in f.match for f in leakcheck.text_flags(system))
+
+
+def test_lexical_heuristics_and_gate():
+    system, evaluation = views()
+    summ = leakcheck.check([(system, evaluation)]).summary()
     assert summ["hard_flags"] == 0
-    assert 0.0 <= summ["lexical_heuristic"]["justification_set_f1"] <= 1.0
-    assert 0.0 <= summ["premise_overlap_auc_mean"] <= 1.0
-    # A rendering that copies premise wording into conclusions is recovered by word matching.
-    copy = json.loads(json.dumps(GOOD))
-    copy["nodes"]["B3"]["text"] = "The Chiang Mai office relocates to Nimman Road in March, so meetings move."
-    sys3, ev3 = build_views(s, parse_response(s, json.dumps(copy)), seed=0)
-    pred = leakcheck.lexical_justifications(sys3)
-    b3 = ev3["idmap"]["B3"]
-    assert pred[b3] == [[ev3["idmap"]["E4"]]]
+    for key in ("lexical_heuristic", "policy_assisted_heuristic"):
+        assert 0.0 <= summ[key]["justification_set_f1"] <= 1.0
+    assert summ["lexical_gate"]["threshold"] == 0.50
+    # Copying premise wording into a conclusion is recovered by word matching.
+    copied = with_text("B3", "Lanna Logistics moves its Chiang Mai office to Nimman Road, so meetings move.")
+    sys3, ev3 = views(copied)
+    assert leakcheck.lexical_justifications(sys3)[ev3["idmap"]["B3"]] == [[ev3["idmap"]["E4"]]]
 
 
 def test_template_flags():
@@ -139,12 +256,15 @@ def test_template_flags():
     assert any("confirmed that the" in g or "is confirmed that" in g for g, _ in leakcheck.template_flags(systems))
 
 
+# ── review ──
+
+
 def test_review_sheet_and_decisions(tmp_path):
-    s = spec_example()
-    system, evaluation = build_views(s, parse_response(s, json.dumps(GOOD)), seed=0)
+    system, evaluation = views()
     md = review_sheet(system, evaluation, [])
-    assert "System view" in md and all(c in md for c, _ in CHECKLIST)
+    assert "System view" in md and "policies:" in md and all(c in md for c, _ in CHECKLIST)
     assert md.index("System view") < md.index("Intended structure")
+    assert {"C8_inferable", "C9_no_hidden_needed", "C10_unambiguous", "C11_policy_not_graph"} <= {c for c, _ in CHECKLIST}
     path = tmp_path / "review.csv"
     write_csv_template(path, [system["scenario"]], reviewer="tr")
     with pytest.raises(ValueError):
@@ -155,14 +275,3 @@ def test_review_sheet_and_decisions(tmp_path):
     text[1] = ",".join([system["scenario"], "tr", *cells, "revise", "B2 does not need the age fact"])
     path.write_text("\n".join(text) + "\n")
     assert read_decisions(path)[0]["decision"] == "revise"
-
-
-def test_view_refuses_scenarios_whose_gold_depends_on_recency():
-    s = Scenario("x", "F7", "travel_logistics", [Node("E1", Kind.EVIDENCE, t=5),
-                 Node("B1", Kind.BELIEF, justifications=[["E1"]])], [Update("U1", 3, "E1", Relation.RETRACTS)])
-    s.validate()
-    s.gold = gold_actions(s)  # outdated update: everything kept
-    fake = {"world": "w", "nodes": {"E1": {"text": "t", "source": "s"}, "B1": {"text": "b"}},
-            "updates": {"U1": {"text": "u", "source": "s"}}, "rationale": {"B1": ["r"]}}
-    with pytest.raises(ValueError, match="changed gold"):
-        build_views(s, parse_response(s, json.dumps(fake)))

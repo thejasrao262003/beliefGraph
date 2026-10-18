@@ -32,6 +32,10 @@ MODEL_PRICES: dict[str, tuple[float, float]] = {
     "gemini-2.5-flash": (0.30, 2.50),  # outdated (index 13); kept so smoke test 1 stays reproducible
 }
 DEFAULT_MODEL = "gemini-3.5-flash"
+# Prices not verified against a published price for that exact model get this multiplier
+# in the spend guard, so the cap holds even if the proxy is somewhat low.
+PRICE_VERIFIED = {"gemini-3.5-flash": False, "gemini-3.1-pro-preview": True, "gemini-2.5-flash": True}
+UNVERIFIED_SAFETY = 1.5
 CATALOGUE_URL = "https://agent-prod.studio.lyzr.ai/v3/providers/type"
 
 
@@ -75,7 +79,9 @@ class SpendGuard:
 
     @property
     def prices(self) -> tuple[float, float]:
-        return MODEL_PRICES[self.model]
+        pin, pout = MODEL_PRICES[self.model]
+        k = 1.0 if PRICE_VERIFIED.get(self.model, False) else UNVERIFIED_SAFETY
+        return pin * k, pout * k
 
     def worst_case(self, prompt_chars: int) -> float:
         pin, pout = self.prices
@@ -90,20 +96,60 @@ class SpendGuard:
                 f"${self.worst_case(prompt_chars):.4f} > ${self.budget_usd:.2f}"
             )
 
-    def charge(self, prompt_chars: int, response_chars: int, note: str = "") -> float:
-        """Record a completed call at a conservative cost: actual chars, plus the full
-        thinking allowance (actual thinking usage is not reported)."""
+    def charge(self, prompt_chars: int, response_chars: int, note: str = "",
+               usage: dict | None = None) -> float:
+        """Record a completed call. With reported token usage, charge that (output
+        includes reasoning tokens when reported); otherwise a conservative estimate from
+        actual chars plus the full thinking allowance."""
         pin, pout = self.prices
-        cost = (est_tokens(prompt_chars) * pin + (est_tokens(response_chars) + THINKING_ALLOWANCE) * pout) / 1e6
+        if usage and usage.get("input_tokens") is not None and usage.get("output_tokens") is not None:
+            cost = (usage["input_tokens"] * pin + usage["output_tokens"] * pout) / 1e6
+            basis = "reported_usage"
+        else:
+            cost = (est_tokens(prompt_chars) * pin + (est_tokens(response_chars) + THINKING_ALLOWANCE) * pout) / 1e6
+            basis = "conservative_estimate"
         self.calls += 1
         self.spent_usd += cost
         self.log.append({"call": self.calls, "note": note, "prompt_chars": prompt_chars,
-                         "response_chars": response_chars, "est_usd": round(cost, 6)})
+                         "response_chars": response_chars, "usage": usage, "basis": basis,
+                         "est_usd": round(cost, 6)})
         return cost
 
 
 class BudgetExceeded(RuntimeError):
     pass
+
+
+_IN_KEYS = ("prompt_tokens", "input_tokens", "prompt_token_count", "promptTokenCount")
+_OUT_KEYS = ("completion_tokens", "output_tokens", "candidates_token_count", "candidatesTokenCount")
+_THINK_KEYS = ("reasoning_tokens", "thoughts_token_count", "thoughtsTokenCount")
+
+
+def find_usage(raw) -> dict | None:
+    """Search a raw API response for token counts under any common naming. Returns
+    {"input_tokens", "output_tokens" (incl. reasoning), "reasoning_tokens", "raw"} or None."""
+    found: dict = {}
+
+    def walk(o):
+        if isinstance(o, dict):
+            for k, v in o.items():
+                if isinstance(v, (int, float)) and not isinstance(v, bool):
+                    for name, keys in (("in", _IN_KEYS), ("out", _OUT_KEYS), ("think", _THINK_KEYS)):
+                        if k in keys and name not in found:
+                            found[name] = (k, int(v))
+                walk(v)
+        elif isinstance(o, list):
+            for v in o:
+                walk(v)
+
+    walk(raw)
+    if "in" not in found or "out" not in found:
+        return None
+    think = found.get("think", (None, 0))[1]
+    # Some APIs include reasoning in completion tokens, some report it separately.
+    out = found["out"][1] + (think if found["out"][0] in ("candidates_token_count", "candidatesTokenCount") else 0)
+    return {"input_tokens": found["in"][1], "output_tokens": out, "reasoning_tokens": think,
+            "raw": {v[0]: v[1] for v in found.values()}}
 
 
 class LyzrRenderer:
@@ -145,7 +191,11 @@ class LyzrRenderer:
         resp = self.agent.run(message, session_id=f"render-{uuid.uuid4().hex[:12]}")
         text = getattr(resp, "response", None) or str(resp)
         meta = dict(getattr(resp, "metadata", None) or {})
-        meta["est_usd"] = self.guard.charge(prompt_chars, len(text), note)
+        raw = getattr(resp, "raw_response", None) or {}
+        usage = find_usage(raw)
+        meta["raw_response_keys"] = sorted(raw) if isinstance(raw, dict) else []
+        meta["usage"] = usage
+        meta["est_usd"] = self.guard.charge(prompt_chars, len(text), note, usage=usage)
         meta["model"] = self.guard.model
         meta["agent_id"] = getattr(self.agent, "id", None)
         return text, meta
