@@ -250,8 +250,37 @@ Naive cascade's OIR by family: F1 0.00, F2 0.24, F3 0.18, F6 0.28.
 What pilot-1 does and doesn't show:
 - The benchmark separates the two failure directions as designed: one system leaves conclusions stale, the other over-invalidates. These are rule-based stand-ins for S3 and S4, though, so **H1 is not yet tested**. It needs the LLM systems.
 - Extraction errors show up mainly as **staleness**, not over-invalidation: an unlinked or mis-typed node is often left as keep. This suggests induced-edge systems will fail toward under-revision, which is worth checking with real extraction.
-- The 0.25 and 0.5 rows aren't monotonic. That's one seed on 40 scenarios with uniform perturbation. Use several seeds before reading the curve.
+- The 0.25 and 0.5 rows looked non-monotonic. Pilot-1b below resolves this: it was noise, and only in accuracy and single-family metrics.
 - Simulated perturbations are not LLM errors. They only show the scoring pipeline can detect extraction damage.
+
+### Pilot-1b: seed stability (20 seeds × 40 scenarios; generator, labeller and metrics unchanged)
+
+Reproduce: `uv run python scripts/seed_stability.py --seeds 20`. Full output is in `data/seed-stability.results.txt`. Values are the mean ±95% CI over seeds.
+
+| System (all families) | SCR | OIR | macro-F1 |
+|---|---|---|---|
+| direct_only | 0.565 ±0.015 | 0.000 | 0.564 ±0.011 |
+| naive_cascade | 0.000 | 0.160 ±0.009 | 0.551 ±0.011 |
+| extraction error @ 0.1 | 0.092 ±0.017 | 0.006 ±0.003 | 0.950 ±0.009 |
+| extraction error @ 0.25 | 0.205 ±0.022 | 0.013 ±0.006 | 0.882 ±0.017 |
+| extraction error @ 0.5 | 0.384 ±0.020 | 0.019 ±0.005 | 0.770 ±0.014 |
+
+Naive cascade's OIR by family: F1 0.000 · F2 **0.271 ±0.019** · F3 0.144 ±0.013 · F6 0.165 ±0.028.
+
+- **The opposing failures hold across seeds**, with tight intervals (first go/no-go condition, at the rule-based level).
+- **The pilot-1 "reversal" was noise.** With all 40 scenarios pooled, SCR and macro-F1 degrade from 0.25 to 0.5 in 20/20 seeds; plain accuracy flips in 2/20. Within one family (10 scenarios), a metric moves the wrong way in 1–5/20 seeds. *Correction:* pilot-1's overall SCR was in fact monotonic (0.277 → 0.307); the non-monotonic numbers were accuracy and F1's per-family SCR. Note too that `cli evaluate --by-family` re-draws the perturbations for each family, so its per-family numbers differ from slices of the pooled run. Neither is wrong, but they are not comparable.
+- **The direction of failure depends on the error type** (one error type at a time, rate 0.5):
+
+| Extraction error | SCR | OIR | Fails toward |
+|---|---|---|---|
+| unlink (no justification found) | 0.401 | 0.000 | stale |
+| and_to_or (conjunction read as alternatives) | 0.231 | 0.000 | stale |
+| drop_premise | 0.123 | 0.000 | stale |
+| or_to_and (alternatives read as conjunction) | 0.000 | 0.079 | over-invalidation |
+| drop_alternative | 0.000 | 0.029 | over-invalidation |
+
+  So the "extraction errors cause staleness" finding from pilot-1 depends on the mix of error types. Missing links and AND→OR confusion leave conclusions stale; OR→AND confusion and missed alternatives destroy supported ones. **What the first LLM experiment must measure is the real mix of error types**, not just extraction F1. Add per-error-type counts to the extraction report when LLM extraction lands.
+- **Per-family results need more scenarios.** 10 scenarios per family gives wide intervals (e.g. F1 SCR@0.25 ±0.064). The LLM pilot should use ≥ 25 per family, or several seeds.
 
 ---
 
