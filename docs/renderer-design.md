@@ -401,3 +401,24 @@ Both suite numbers are reported. Neither aggregation is chosen to make the resul
 **Proposed** (needs approval, not applied):
 - extend `echo_flags` to policy↔evidence (same hard 3-word rule, proper names exempt), with regression tests built from these two phrases;
 - re-render F6 only. That needs a new cap: the remaining $0.099 is below the guard's worst case for one call ($0.14).
+
+### 16d. Policy↔evidence echo check, AI pre-review of F2/F6, and predeclared scoring scope (2026-10-18)
+
+**Check extension (approved):**
+- `echo_flags` now also compares every policy with every evidence item. It uses the same hard 3-word rule, with capitalised spans (product, programme, standard names) exempt. Kind: `policy_echoes_evidence`.
+- **Quantity phrases with a number are exempt** ("2,500 square meters" vs "1,500 square meters"). Since v4, thresholds must use the same unit as their fact, so number+unit overlap is mandated. This exemption was added *before* the check was used for any gate decision.
+- Regression tests: both v5-F6 phrases are flagged; an unrelated-paraphrase control passes; a quantity phrase passes; the F2 standard-name case is pinned as not flagged.
+- On stored outputs: v5 F1 and v5b F2 are clean; v5b F6 is flagged on exactly its two leaks. Older runs also show echoes (v3: "annual recurring revenue", "quality management facility"; v4-F1: "enterprise client deployments").
+- **Known tension:** QUANTITY NAMING requires the same measured quantity, while the echo rule forbids repeating its 3-word name ("annual recurring revenue"). It must be named the same *in meaning*, worded differently. The v5 renders show this is achievable; human C10 guards the meaning.
+
+**AI pre-review of v5 F2/F6** (external AI assistant via the user, **not** the human review). Stored verbatim as `smoke-render-v5b/ai-prereview-f2-f6.csv`, deliberately *not* as `review.csv`, which is reserved for the human review.
+
+| Scenario | AI verdict | Failed items | Note |
+|---|---|---|---|
+| F2 | revise | C7, C11: policy "active ISO 22000 certification" echoes the evidence | **Conflicts with the documented rule:** standard names are exempt, and the policy must name ISO 22000 for C8. Not re-rendered (not in the approved scope); **for the human reviewer to decide** |
+| F6 | revise | C7, C11: the two evidence-wording echoes | Agrees with the automated finding; F6 is re-rendered |
+
+**Predeclared scoring scope for the next result** (written before the F6 re-render):
+- **Pilot gate:** the worse heuristic's justification-set F1 ≤ 0.50, **pooled over the three pilot scenarios in their candidate versions**: F1 from `smoke-render-v5`, F2 from `smoke-render-v5b`, F6 from the new run `smoke-render-v5c`.
+- **Diagnostic only, not a gate:** the run-level score (F6 alone) and the per-scenario scores. They are reported, not used to pass or fail.
+- **Run:** F6-000 only, fresh (no cache), `--max-attempts 2`, new isolated cap **$0.20**. The v5/v5b outputs and their gate results stay untouched.

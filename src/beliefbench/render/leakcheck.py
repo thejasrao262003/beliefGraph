@@ -185,13 +185,17 @@ def text_flags(system: dict) -> list[Flag]:
 
 def shared_phrases(a: str, b: str, n: int = 3) -> set[str]:
     """Lower-case word n-grams (>= 2 content words) present in both texts. Spans with a
-    capitalised word are skipped: product, programme and standard names may be shared."""
+    capitalised word (product, programme, standard names) or a number are skipped."""
     def grams(text: str) -> set[tuple[str, ...]]:
         words = re.findall(r"[A-Za-z0-9$%-]+", text)
         out = set()
         for i in range(len(words) - n + 1):
             g = words[i : i + n]
             if any(w[0].isupper() for w in g):
+                continue
+            # Quantity phrases ("500 square meters") are exempt: since render-v4 a threshold
+            # must use the same unit as its fact, so number+unit overlap is mandated.
+            if any(any(ch.isdigit() for ch in w) for w in g):
                 continue
             low = tuple(w.lower() for w in g)
             if sum(w not in STOP for w in low) >= 2:
@@ -202,16 +206,18 @@ def shared_phrases(a: str, b: str, n: int = 3) -> set[str]:
 
 
 def echo_flags(system: dict) -> list[Flag]:
-    """render-v4 hard rule: no ordinary 3-word phrase shared by a memory and any policy.
-    Such echoes let a reader map memory -> policy -> premise memories by string matching
-    (smoke test 3, F1 and F2)."""
+    """Hard rule: no ordinary 3-word phrase shared by a policy and any memory (render-v4,
+    smoke test 3) or any evidence item (added 2026-10-18 after v5 F6: "state
+    pharmaceutical distribution license", "organic processing certification"). Such
+    echoes let a reader map memory -> policy -> premises by string matching. Proper
+    names (capitalised spans: products, programmes, standards) are exempt."""
     flags = []
-    for m in system["memories"]:
-        for p in system.get("policies", []):
-            shared = shared_phrases(m["text"], p["text"])
-            if shared:
-                flags.append(Flag(system["scenario"], f"{m['id']}~{p['id']}", "policy_echoes_memory",
-                                  "; ".join(sorted(shared)), True))
+    for kind, items in (("policy_echoes_memory", system["memories"]), ("policy_echoes_evidence", system["evidence"])):
+        for it in items:
+            for p in system.get("policies", []):
+                shared = shared_phrases(it["text"], p["text"])
+                if shared:
+                    flags.append(Flag(system["scenario"], f"{it['id']}~{p['id']}", kind, "; ".join(sorted(shared)), True))
     return flags
 
 

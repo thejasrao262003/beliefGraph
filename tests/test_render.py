@@ -57,7 +57,7 @@ GOOD = {
                        "source": "Bank product catalogue, revised edition"}},
     "policies": {
         "B1": "A product counts as available in a country if the current catalogue lists it there, or if local "
-              "branches are actively opening accounts for it.",
+              "offices are currently signing up holders for it.",
         "B2": "A resident of a country where an account is available may hold it if they are between 18 and 60.",
         "D1": "Offer an account to any customer who may hold it.",
         "B3": "Client meetings take place at a partner's current office address.",
@@ -465,3 +465,41 @@ def test_prior_spend_makes_the_cap_cumulative():
     g = SpendGuard(budget_usd=0.30, max_calls=5, model="gemini-3.5-flash", spent_usd=0.124)
     with pytest.raises(BudgetExceeded):
         g.check(200_000)  # a huge prompt cannot fit in the remaining 0.176
+
+
+# ── policy <-> evidence echoes (gap found in v5 F6) ──
+
+
+def test_policy_echoing_evidence_is_hard_v5_f6_phrases():
+    ev = ["Vance Medical Supplies possesses an active state pharmaceutical distribution license.",
+          "Oakhaven Farms holds official organic processing certification from the Department of Agriculture."]
+    pol = ["Clearance for thermal-sensitive pharmaceuticals requires preferred partner rating alongside a valid "
+           "state pharmaceutical distribution license.",
+           "ECO-label trade rights are granted to an agricultural producer maintaining official organic processing "
+           "certification."]
+    flags = [f for f in leakcheck.echo_flags(_system([], pol, ev)) if f.kind == "policy_echoes_evidence"]
+    matches = " | ".join(f.match for f in flags)
+    assert len(flags) == 2 and all(f.hard for f in flags)
+    assert "state pharmaceutical distribution" in matches and "organic processing certification" in matches
+
+
+def test_unrelated_policy_wording_passes_evidence_echo_check():
+    ev = ["Vance Medical Supplies possesses an active state pharmaceutical distribution license."]
+    pol = ["Clearance for temperature-controlled medicines requires a partner rating and a current regional "
+           "dispensing permit."]
+    assert leakcheck.echo_flags(_system([], pol, ev)) == []
+
+
+def test_standard_names_stay_exempt_documented_f2_case():
+    # F2 (v5): "active ISO 22000 certification" in policy vs "active ISO 22000 food safety management
+    # certification" in evidence. Standard names are exempt by the documented rule, so the lexical check
+    # does not flag it; the AI pre-review failed C7/C11 on it, and that call is left to the human review.
+    ev = ["Apex Logistics holds an active ISO 22000 food safety management certification."]
+    pol = ["An enterprise is granted approval for Tier-1 Freight Coverage if it maintains active ISO 22000 certification."]
+    assert leakcheck.echo_flags(_system([], pol, ev)) == []
+
+
+def test_quantity_phrases_are_exempt_from_echo_check():
+    ev = ["Vance Medical Supplies operates a refrigerated storage facility measuring 2,500 square meters."]
+    pol = ["Catalog access requires a cold storage facility of no less than 1,500 square meters."]
+    assert leakcheck.echo_flags(_system([], pol, ev)) == []
