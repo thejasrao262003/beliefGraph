@@ -976,3 +976,22 @@ The stored renders have no records, so the tests use **hand-annotated record fix
 
 - **Gate over the three rendered:** worse heuristic 0.23 (word-only 0.23, policy-assisted 0.15); 2 soft echoes.
 - **Status:** the declared four-scenario scope is incomplete until F6 is rendered. The gate over three is reported, not claimed as a pass for four.
+
+### 19h. Pilot-4b F6 (2026-10-20): failed both attempts; four-scenario pilot not complete
+
+- **Approved by the user:** raise the cumulative cap to $1.20; F6 only; v10 unchanged.
+- **Run:** `--run pilot4b-render-v10-f6 --only F6-000 --max-attempts 2 --budget-usd 1.20 --prior-spend-usd 0.897`. Outputs are in `data/rendered/pilot4b-render-v10-f6/`; both raw responses are kept.
+
+| Attempt | Tokens in / out | Cost | Hard flags | Assessment |
+|---|---|---|---|---|
+| 1 | 4,143 / 9,659 | $0.1180 | `record_scope_not_in_policy` E4→D1: "record none, clause national" | **False positive of the check.** Policy: "Listing in **national** inventory schedules is granted to equipment with primary hospital qualification carrying a guarantee period of 4 years or higher." The scope word belongs to the outcome's name; `_RECORD_CLAUSE_SPLIT` did not separate the outcome from the condition (no split at "granted to … with … carrying"). The record (scope none) was right. No other hard flag |
+| 2 (with the attempt-1 feedback) | 4,182 / 7,593 | $0.0948 | `reliability_word` in E3's source; `decoy_shares_memory_word` "authorization, transport" | Genuine under the existing word checks: a decoy about "heavy transport authorization" against memories using "authorized" and "transport"; the banned word "reliability" in a source |
+
+- **Cumulative spend:** $1.1098 of $1.20. No further call fits the guard's worst case.
+- **Outcome:**
+  - F6 is not rendered, so the **four-scenario pilot is not complete** and the four-scenario gate is unscored.
+  - F1, F2 and F3 remain accepted (§19g; gate over those three 0.23, reported only).
+  - Nothing is retroactively passed. The 40-scenario run stays unauthorised.
+- **Observations (nothing applied):**
+  - **Check bug:** scope words in an *outcome name* ("national inventory schedules", "international commercial readiness") can be attributed to a condition. Candidate fixes: make "record none vs a scope word in the clause" soft (a stated *different* scope stays hard), or split clauses at "granted to / awarded to / with". Either must be declared before the next run and must not be used to re-judge this one.
+  - **The word-level hard checks remain the main cause of rejection:** pilot-3 F1 ("sales", "reliability"), pilot-4b F1 attempt 1, F6 attempt 2. Each whole-scenario retry re-rolls every check (§18g). Using the targeted repair (§18h, shown to work once) as attempt 2 would address this.
