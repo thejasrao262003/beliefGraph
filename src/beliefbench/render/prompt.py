@@ -12,8 +12,8 @@ memories and policies, flat-denial retractions and correct units (review of smok
 test 3). render-v5 adds outcome/quantity naming rules and bans distinctive memory
 words in decoys (v4 re-render). render-v6 makes "no fact wording in policies" an explicit
 hard rule (fresh F6 render). render-v7 turns that rule into clarity-first guidance and
-adds plain-fact wording (F6 failed twice under v6). All versions stay runnable; earlier
-ones are verbatim.
+adds plain-fact wording (F6 failed twice under v6). render-v8 adds subject- and
+time-window continuity rules (pilot-2). All versions stay runnable; earlier ones are verbatim.
 """
 
 from __future__ import annotations
@@ -24,7 +24,7 @@ from dataclasses import dataclass, field
 from beliefbench.render.views import timeline
 from beliefbench.schema import Scenario
 
-PROMPT_VERSION = "render-v7"
+PROMPT_VERSION = "render-v8"
 
 # Exactly the text used for smoke test 2 (commit 896d366). Do not edit.
 SYSTEM_PROMPT_V2 = """\
@@ -342,8 +342,52 @@ def _v7_from_v6(v6: str) -> str:
 
 
 SYSTEM_PROMPT_V7 = _v7_from_v6(SYSTEM_PROMPT_V6)
+# render-v8 = v7 + the edits below (pilot-2 human review: F6 supported a product's
+# memories with facts about its never-named maker; F2 replaced an annual count with one
+# "during the evaluation period"). Enforced by leakcheck.subject_flags / window_flags.
+_V8_EDITS = [
+    (
+        """- Nothing may support an item except what its justification sets say.
+""",
+        """- Nothing may support an item except what its justification sets say.
+- SUBJECT CONTINUITY: every fact or conclusion in a justification set must name the \
+entity of the item it supports. Prefer facts directly about that entity. If a fact is \
+about a related entity (its maker, parent company, owner), state the relation inside \
+that same fact ("Norland Labs, maker of the Vira Test Kit, holds ..."); \
+a relation stated only in another fact does not count. Responses that break this are \
+rejected.
+""",
+    ),
+    (
+        """- QUANTITY NAMING: a condition must name the same measured quantity as the fact that \
+satisfies it. Revenue, spending and billing are different quantities; never swap them.
+""",
+        """- QUANTITY NAMING: a condition must name the same measured quantity as the fact that \
+satisfies it. Revenue, spending and billing are different quantities; never swap them.
+- TIME WINDOWS: a quantity accumulated over time (revenue, purchases, audits, \
+incidents) states the window it covers ("annual", "last quarter"), and the condition it \
+is compared with uses the same window. Point-in-time values (a fleet size, a rating, an \
+age, a warranty length) need no window. An update that replaces an accumulated value \
+states it over the same window as the original fact. A window that differs between a \
+fact, its condition or its update is rejected; a vague one ("during the evaluation \
+period") fails review.
+""",
+    ),
+]
+
+
+def _v8_from_v7(v7: str) -> str:
+    out = v7
+    for old, new in _V8_EDITS:
+        assert out.count(old) == 1, f"v8 anchor not found exactly once: {old[:60]!r}"
+        out = out.replace(old, new)
+    return out
+
+
+SYSTEM_PROMPT_V8 = _v8_from_v7(SYSTEM_PROMPT_V7)
 PROMPTS = {"render-v2": SYSTEM_PROMPT_V2, "render-v3": SYSTEM_PROMPT_V3, "render-v4": SYSTEM_PROMPT_V4,
-           "render-v5": SYSTEM_PROMPT_V5, "render-v6": SYSTEM_PROMPT_V6, "render-v7": SYSTEM_PROMPT_V7}
+           "render-v5": SYSTEM_PROMPT_V5, "render-v6": SYSTEM_PROMPT_V6, "render-v7": SYSTEM_PROMPT_V7,
+           "render-v8": SYSTEM_PROMPT_V8}
 SYSTEM_PROMPT = PROMPTS[PROMPT_VERSION]
 AFTER_UPDATE_STATES = {"holds", "fails", "undetermined"}
 

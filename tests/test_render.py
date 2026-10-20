@@ -100,7 +100,7 @@ def test_payload_carries_dates_but_no_gold_or_family():
     assert groups["B3"] != groups["B1"]
     obs = {e["id"]: e["observed"] for e in payload["evidence"]} | {u["id"]: u["observed"] for u in payload["updates"]}
     assert obs == timeline(s, 0)
-    assert PROMPT_VERSION == "render-v7" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
+    assert PROMPT_VERSION == "render-v8" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
     assert "justification_sets" in user_message(s)
 
 
@@ -368,7 +368,7 @@ def test_v3_prompt_is_kept_verbatim_and_v4_extends_it():
 
     assert hashlib.sha256(PROMPTS["render-v3"].encode()).hexdigest() == V3_SHA256
     assert "HARD RULE" in PROMPTS["render-v4"] and "flatly states" in PROMPTS["render-v4"]
-    assert current == "render-v7"
+    assert current == "render-v8"
 
 
 def _system(memories, policies, evidence=()):
@@ -749,3 +749,18 @@ def test_continuity_checks_apply_from_v8_only():
     assert not [f for f in leakcheck.check([pair], evidence_hard=False).flags if f.kind == "premise_about_other_entity"]
     assert [f for f in leakcheck.check([pair], evidence_hard=False, continuity=True).flags
             if f.kind == "premise_about_other_entity"]
+
+
+V8_SHA256 = "1239470dfcdd97c07816fc359071dee79fc4c89c008f1f3fa776f45abdad5fb0"  # approved 2026-10-20 for pilot-3
+
+
+def test_v8_is_v7_plus_exactly_the_two_approved_insertions():
+    import hashlib
+
+    from beliefbench.render.prompt import PROMPTS
+
+    v7, v8 = PROMPTS["render-v7"], PROMPTS["render-v8"]
+    assert hashlib.sha256(v7.encode()).hexdigest() == V7_SHA256
+    assert hashlib.sha256(v8.encode()).hexdigest() == V8_SHA256
+    assert "SUBJECT CONTINUITY" in v8 and "TIME WINDOWS" in v8 and "Norland Labs" in v8
+    assert leakcheck.continuity_enforced("render-v8") and not leakcheck.evidence_echo_hard("render-v8")
