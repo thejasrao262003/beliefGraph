@@ -514,3 +514,10 @@ The v5 prompt already says conditions must be "never in the fact's words", but t
 - **Normalised to the validator's format:** C3 "N/A" became `pass` (vacuous, since there are no OR sets); the decision "PASS" became `accept`.
 - **Notes cover:** C3, C4 and C13 only. C7, C8, C10 and C11 pass without specific notes.
 - **Still open:** F2 human review (with the ISO 22000 C7/C11 question). The gate stays unscored: F6 is excluded, and the predeclared F1+F2+F6 scope is not re-scoped. The 40-scenario run stays blocked.
+
+### 16j. F2 human review recorded (2026-10-20)
+
+- **Result:** the `s_3d821bdd07` row of `smoke-render-v5b/review.csv`, reviewer `thejasrao262003`: all 13 checks pass; decision **accept**. The F6 row (`s_c41a0870a2`) is left blank on purpose, since F6 is excluded, so only the F2 row was validated with `read_decisions`.
+- **Decision value:** the user gave verdicts for all checks but did not state a decision. `accept` was recorded because every check passed.
+- **ISO 22000 adjudication:** C7 and C11 both pass. The policy names the standard but not the entity, and does not point to `e_dfe6`. The name is needed for C8 and is covered by the existing standard-name exemption. The overlap is lexical, not structural. **This overrules the AI pre-review** (`ai-prereview-f2-f6.csv`), which failed both checks.
+- **Pilot status:** F1 and F2 are both human-accepted. F6 is excluded. The predeclared pooled gate (F1+F2+F6, §16d) **remains unscored**. Scoring F1+F2 alone would be a new scope and needs to be declared and approved first. The 40-scenario run stays blocked.
