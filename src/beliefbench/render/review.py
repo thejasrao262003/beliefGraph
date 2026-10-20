@@ -30,6 +30,15 @@ CHECKLIST = [
 ]
 COLUMNS = ["scenario", "reviewer", *[c for c, _ in CHECKLIST], "decision", "notes"]
 DECISIONS = {"accept", "revise", "reject"}
+# Semantic quality is judged by the reviewer, independently of the lexical checks: a
+# scenario cannot be accepted unless these pass, however clean its automated report is
+# (render-v7 revision, approved 2026-10-20).
+REQUIRED_FOR_ACCEPT = ("C8_inferable", "C10_unambiguous")
+# Which checklist item a soft flag is evidence for.
+FLAG_ITEMS = {"policy_echoes_evidence": "C7/C11", "policy_names_subject": "C11", "explains_reason": "C7",
+              "mentions_sources": "C7", "order_cue": "C7", "update_mentions_implication": "C4",
+              "retraction_reads_as_hedge": "C4", "cross_group_entity": "C6", "unnamed_entity_in_groups": "C6",
+              "final_state_mismatch": "C13", "recompute_unresolved": "C13"}
 
 
 def review_sheet(system: dict, evaluation: dict, flags: list[Flag]) -> str:
@@ -66,7 +75,9 @@ def review_sheet(system: dict, evaluation: dict, flags: list[Flag]) -> str:
             f"`{m}` {evaluation['gold'][m]} -> {st}" for m, st in evaluation["final_state"].items()))
     if flags:
         lines += ["", "### C. Automated flags (for review, not verdicts)"]
-        lines += [f"- {'HARD' if f.hard else 'soft'} `{f.item}` {f.kind}: \"{f.match}\"" for f in flags]
+        lines += [f"- {'HARD' if f.hard else 'soft'} `{f.item}` {f.kind}: \"{f.match}\""
+                  + (f" (judge under {FLAG_ITEMS[f.kind]})" if not f.hard and f.kind in FLAG_ITEMS else "")
+                  for f in flags]
     lines += ["", "### Checklist (record pass/fail + reason in the CSV)"]
     lines += [f"- [ ] **{c}** {d}" for c, d in CHECKLIST]
     return "\n".join(lines) + "\n"
@@ -81,7 +92,8 @@ def write_csv_template(path: Path, scenarios: list[str], reviewer: str = "") -> 
 
 
 def read_decisions(path: Path) -> list[dict]:
-    """Validated rows: every checklist cell is pass/fail, and a fail needs a note."""
+    """Validated rows: every checklist cell is pass/fail, a fail needs a note, and an
+    accepted scenario must pass the semantic-quality items (C8, C10)."""
     rows = []
     with path.open() as f:
         for row in csv.DictReader(f):
@@ -92,5 +104,7 @@ def read_decisions(path: Path) -> list[dict]:
                 raise ValueError(f"{row['scenario']}: decision must be one of {sorted(DECISIONS)}")
             if any(row[c] == "fail" for c, _ in CHECKLIST) and not row["notes"].strip():
                 raise ValueError(f"{row['scenario']}: a failed item needs a reason in notes")
+            if row["decision"] == "accept" and any(row[c] != "pass" for c in REQUIRED_FOR_ACCEPT):
+                raise ValueError(f"{row['scenario']}: accept requires {' and '.join(REQUIRED_FOR_ACCEPT)} to pass")
             rows.append(row)
     return rows

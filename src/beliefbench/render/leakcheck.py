@@ -205,19 +205,32 @@ def shared_phrases(a: str, b: str, n: int = 3) -> set[str]:
     return {" ".join(g) for g in grams(a) & grams(b)}
 
 
-def echo_flags(system: dict) -> list[Flag]:
-    """Hard rule: no ordinary 3-word phrase shared by a policy and any memory (render-v4,
+# Prompt versions under which a policy<->evidence echo is a hard (regenerating) flag.
+# From render-v7 it is a soft flag for human C7/C11 review: shared technical terms
+# ("carbon offsets", "g/km") are not structural leaks by themselves, and the hard rule
+# pushed F6 into vague substitutes (approved 2026-10-20; v5/v6 results keep the strict rule).
+STRICT_EVIDENCE_ECHO_VERSIONS = {"render-v2", "render-v3", "render-v4", "render-v5", "render-v6"}
+
+
+def evidence_echo_hard(prompt_version: str) -> bool:
+    return prompt_version in STRICT_EVIDENCE_ECHO_VERSIONS
+
+
+def echo_flags(system: dict, evidence_hard: bool = True) -> list[Flag]:
+    """No ordinary 3-word phrase shared by a policy and any memory (hard, render-v4,
     smoke test 3) or any evidence item (added 2026-10-18 after v5 F6: "state
     pharmaceutical distribution license", "organic processing certification"). Such
     echoes let a reader map memory -> policy -> premises by string matching. Proper
-    names (capitalised spans: products, programmes, standards) are exempt."""
+    names (capitalised spans: products, programmes, standards) are exempt. The evidence
+    echo is hard unless ``evidence_hard`` is False (render-v7 onward)."""
     flags = []
-    for kind, items in (("policy_echoes_memory", system["memories"]), ("policy_echoes_evidence", system["evidence"])):
+    for kind, items, hard in (("policy_echoes_memory", system["memories"], True),
+                              ("policy_echoes_evidence", system["evidence"], evidence_hard)):
         for it in items:
             for p in system.get("policies", []):
                 shared = shared_phrases(it["text"], p["text"])
                 if shared:
-                    flags.append(Flag(system["scenario"], f"{it['id']}~{p['id']}", kind, "; ".join(sorted(shared)), True))
+                    flags.append(Flag(system["scenario"], f"{it['id']}~{p['id']}", kind, "; ".join(sorted(shared)), hard))
     return flags
 
 
@@ -448,11 +461,11 @@ class LeakReport:
         }
 
 
-def check(pairs: list[tuple[dict, dict]]) -> LeakReport:
+def check(pairs: list[tuple[dict, dict]], evidence_hard: bool = True) -> LeakReport:
     """Run every check over (system_view, eval_view) pairs."""
     rep = LeakReport()
     for system, evaluation in pairs:
-        rep.flags += (text_flags(system) + echo_flags(system) + group_flags(system, evaluation)
+        rep.flags += (text_flags(system) + echo_flags(system, evidence_hard) + group_flags(system, evaluation)
                       + consistency_flags(system, evaluation) + relation_flags(system, evaluation)
                       + decoy_word_flags(system, evaluation))
         rep.lexical.add(evaluation["justifications"], lexical_justifications(system))

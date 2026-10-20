@@ -100,7 +100,7 @@ def test_payload_carries_dates_but_no_gold_or_family():
     assert groups["B3"] != groups["B1"]
     obs = {e["id"]: e["observed"] for e in payload["evidence"]} | {u["id"]: u["observed"] for u in payload["updates"]}
     assert obs == timeline(s, 0)
-    assert PROMPT_VERSION == "render-v6" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
+    assert PROMPT_VERSION == "render-v7" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
     assert "justification_sets" in user_message(s)
 
 
@@ -368,7 +368,7 @@ def test_v3_prompt_is_kept_verbatim_and_v4_extends_it():
 
     assert hashlib.sha256(PROMPTS["render-v3"].encode()).hexdigest() == V3_SHA256
     assert "HARD RULE" in PROMPTS["render-v4"] and "flatly states" in PROMPTS["render-v4"]
-    assert current == "render-v6"
+    assert current == "render-v7"
 
 
 def _system(memories, policies, evidence=()):
@@ -516,3 +516,70 @@ def test_v5_prompt_is_kept_verbatim_and_v6_adds_fact_rule():
     assert hashlib.sha256(PROMPTS["render-v5"].encode()).hexdigest() == V5_SHA256
     v6 = PROMPTS["render-v6"]
     assert "HARD RULE (facts)" in v6 and "number+unit phrases" in v6 and "Never replace a clear" in v6
+
+
+# ── render-v7: clarity-first fact wording, policy<->evidence echo soft (approved 2026-10-20) ──
+
+V6_SHA256 = "e0ba88886c9b2885fe05123243be63a82501d691870787cd632e4af7f405fdc9"
+
+
+def test_v6_prompt_is_kept_verbatim_and_v7_relaxes_fact_rule():
+    import hashlib
+
+    from beliefbench.render.prompt import PROMPTS
+
+    assert hashlib.sha256(PROMPTS["render-v6"].encode()).hexdigest() == V6_SHA256
+    v7 = PROMPTS["render-v7"]
+    assert "HARD RULE (facts)" not in v7 and "FACT WORDING IN POLICIES (clarity first)" in v7
+    assert "balance credits" in v7 and "PLAIN FACTS" in v7 and "even in a different sense" in v7
+    assert "HARD RULE: no phrase of three" in v7  # the memory<->policy rule stays hard
+
+
+def test_evidence_echo_is_hard_up_to_v6_and_soft_from_v7():
+    assert leakcheck.evidence_echo_hard("render-v6") and leakcheck.evidence_echo_hard("render-v5")
+    assert not leakcheck.evidence_echo_hard("render-v7")
+    ev = ["Apex Logistics recorded verified yearly carbon offsets totaling 10,000 metric tons."]
+    pol = ["A supplier is awarded the contract upon verified yearly carbon offsets of 5,000 metric tons or more."]
+    strict = leakcheck.echo_flags(_system([], pol, ev))
+    soft = leakcheck.echo_flags(_system([], pol, ev), evidence_hard=False)
+    assert strict and all(f.hard for f in strict)
+    assert [f.match for f in soft] == [f.match for f in strict] and not any(f.hard for f in soft)
+
+
+def test_memory_echo_stays_hard_when_evidence_echo_is_soft():
+    flags = leakcheck.echo_flags(_system(["Acme meets the operational risk threshold."],
+                                         ["Clearance is granted once the operational risk threshold is met."]),
+                                 evidence_hard=False)
+    assert flags and all(f.hard and f.kind == "policy_echoes_memory" for f in flags)
+
+
+def _decision_row(**overrides):
+    row = {"scenario": "s_x", "reviewer": "r", **{c: "pass" for c, _ in CHECKLIST}, "decision": "accept", "notes": ""}
+    return row | overrides
+
+
+def _write_rows(path, rows):
+    import csv
+
+    from beliefbench.render.review import COLUMNS
+
+    with path.open("w", newline="") as f:
+        w = csv.DictWriter(f, COLUMNS)
+        w.writeheader()
+        w.writerows(rows)
+
+
+@pytest.mark.parametrize("item", ["C8_inferable", "C10_unambiguous"])
+def test_accept_requires_semantic_quality_items(tmp_path, item):
+    p = tmp_path / "r.csv"
+    _write_rows(p, [_decision_row(**{item: "fail", "notes": "vague condition"})])
+    with pytest.raises(ValueError, match="accept requires"):
+        read_decisions(p)
+    _write_rows(p, [_decision_row(**{item: "fail", "notes": "vague condition", "decision": "revise"})])
+    assert read_decisions(p)[0]["decision"] == "revise"
+
+
+def test_review_sheet_labels_soft_flags_with_their_checklist_item():
+    system, evaluation = views()
+    flag = leakcheck.Flag(system["scenario"], "e_0000~p_0000", "policy_echoes_evidence", "carbon offsets", False)
+    assert "(judge under C7/C11)" in review_sheet(system, evaluation, [flag])

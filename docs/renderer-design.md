@@ -521,3 +521,50 @@ The v5 prompt already says conditions must be "never in the fact's words", but t
 - **Decision value:** the user gave verdicts for all checks but did not state a decision. `accept` was recorded because every check passed.
 - **ISO 22000 adjudication:** C7 and C11 both pass. The policy names the standard but not the entity, and does not point to `e_dfe6`. The name is needed for C8 and is covered by the existing standard-name exemption. The overlap is lexical, not structural. **This overrules the AI pre-review** (`ai-prereview-f2-f6.csv`), which failed both checks.
 - **Pilot status:** F1 and F2 are both human-accepted. F6 is excluded. The predeclared pooled gate (F1+F2+F6, §16d) **remains unscored**. Scoring F1+F2 alone would be a new scope and needs to be declared and approved first. The 40-scenario run stays blocked.
+
+## 17. render-v7 revision and pilot-2 proposal (2026-10-20)
+
+**Approved by the user on 2026-10-20:** the renderer revision and its design work (below). **Not approved:** any model call or spend. Pilot-1 stays recorded as it is in §16h–16j: F1 accepted, F2 accepted, F6 excluded, the pooled gate unscored. Nothing in this section relabels pilot-1.
+
+### 17a. Implemented (model-free; 87 tests pass)
+
+| Layer | Change | Where |
+|---|---|---|
+| **Hard structural checks** | Unchanged: graph ids, label words, reliability labels, impossible dates, unexpected keys, **policy↔memory echo**, decoy↔memory words | `leakcheck` |
+| **Soft lexical flag** | **policy↔evidence echo** is soft from render-v7. Same detection, same matches, but it no longer triggers regeneration. It is shown on the review sheet as "(judge under C7/C11)". v2–v6 keep it hard (`STRICT_EVIDENCE_ECHO_VERSIONS`), so earlier results are not reinterpreted | `leakcheck.evidence_echo_hard`, `render_run.py`, `review.FLAG_ITEMS` |
+| **Measured leakage** | Unchanged and separate: the worse heuristic's justification-set F1 ≤ 0.50, pooled over a predeclared set. Soft-flag counts are reported next to it, never folded into it | `LeakReport.summary` |
+| **Semantic quality** | `read_decisions` now refuses `accept` unless **C8 and C10 pass**, however clean the automated report | `review.REQUIRED_FOR_ACCEPT` |
+| **Prompt** | **render-v7** = verbatim v6 (SHA-256 `e0ba8888…`, pinned) + 2 edits: (1) the "HARD RULE (facts)" becomes **clarity-first fact wording**: prefer a clear equivalent, but use the standard term when it is the only clear name; never a vague or invented substitute ("balance credits" for carbon offsets is named as the anti-example); copying other wording of the fact (its verbs, qualifiers, sentence) remains disallowed. (2) **Plain facts**: each evidence item states one measurable value or one held credential, named in one or two common words, without stacked qualifiers; numeric thresholds only where a fact is naturally a number. The decoy rule adds "even in a different sense" (the v5d "security" collision). The memory↔policy HARD RULE is unchanged | `prompt.py` |
+
+Recorded F1/F2 reviews still validate under the new accept rule.
+
+**Diagnostic on the stored F6 attempts** (no calls; shows what the check change does and does not do):
+- v5c attempt 1 (render-v5): 5 hard echoes under the strict profile, 0 hard flags under the v7 profile. It is **not reused or counted**. It was rendered and rejected under v5's rules, and the cache key includes the prompt version, so a v7 run cannot pick it up.
+- v5d attempt 2 (render-v6): under the v7 profile it is **still rejected** (decoy "security"). Its "balance credits" problem would be a C8/C10 failure in review regardless.
+
+### 17b. F6 design
+
+The generator is frozen (`pilot-1-model-free`), so **the F6-000 graph does not change**: B1 ⇐ E1 OR E2; B2 ⇐ B1 AND E3; D1 ⇐ B2 AND E4; three single-premise distractors (B3–B5); a low-reliability retraction of E1, with gold *keep* because E2 still supports B1. Changing the graph would change the frozen suite and labels, and would make F6 a different test.
+
+The redesign is in how F6 is **worded**, via render-v7:
+- **Fewer, simpler named quantities.** Both v6-era failures came from multi-word quantity or credential names ("fleet-wide average carbon emission level", "certified annual carbon offset plan"). Plain facts mean one value or credential per fact, named in one or two common words. That leaves fewer phrases to echo and fewer to paraphrase vaguely.
+- **Credentials as yes/no conditions.** A licence or membership is a yes/no condition, not a number; numbers are used only where a fact is naturally a number.
+- **Structure is not weakened:** the AND/OR sets, the update, reliability and gold are untouched. The memory↔policy hard rule and the decoy rule still apply.
+- **Accidental clues:** allowing a standard term in both a fact and a policy can raise lexical recoverability. It is measured, not assumed away: the gate below is unchanged, and each soft echo goes to C7/C11 review.
+
+### 17c. Proposed scope, gate and budget (for approval; nothing runs before it)
+
+**Option A (recommended): pilot-2 = F1-000, F2-000, F6-000, all rendered fresh under render-v7.** The 40-scenario run would use render-v7, so the pilot should validate render-v7 on every family it covers. Mixing v5 F1/F2 with a v7 F6 would gate a prompt combination that no later run uses.
+
+| Item | Proposal |
+|---|---|
+| Run | `--run smoke-render-v7 --prompt-version render-v7 --only F1-000 F2-000 F6-000 --max-attempts 2`, seed 0, `gemini-3.5-flash` via Lyzr, no cache reuse from earlier runs |
+| Per-scenario acceptance | 0 hard flags under the v7 profile within 2 attempts; then a **human review** of C1–C13 recorded in `smoke-render-v7/review.csv`, decision `accept`, with **C8 and C10 passing** (enforced) |
+| Measured leakage gate | Worse heuristic's justification-set F1 **≤ 0.50, pooled over these three v7 scenarios**. Per-scenario and soft-flag numbers are diagnostic only |
+| Soft flags | Every `policy_echoes_evidence` flag is listed on the sheet; the reviewer judges each under C7/C11. A flag is not a fail by itself |
+| Pass | All three accepted and the gate ≤ 0.50. The 40-scenario run then still needs its own approval (§8) |
+| Fail | Any scenario not rendered in 2 attempts, not accepted, or gate > 0.50 means pilot-2 fails: stop, report, no further calls. A reviewer's `revise` also needs a new approval before any regeneration. No check or threshold is changed after results are seen |
+| Pilot-1 | Stays recorded (F1, F2 accepted; F6 excluded; gate unscored). Pilot-1 reviews do not carry over: the v7 F1/F2 are new texts and need new reviews |
+| **Budget** | **New pilot-2 cap: $0.60 cumulative** (`--budget-usd 0.60`; later runs in pilot-2 count against it via `--prior-spend-usd`). Guard worst case is $0.141 per call (3 first attempts $0.42; all 6 attempts $0.85). Observed v5/v6 calls cost $0.062–$0.110 (mean ≈ $0.08). Expected ≈ $0.25 if all three pass first time. $0.60 allows the three first attempts plus about one retry under the guard's worst-case rule; the guard stays authoritative and refuses any call that could exceed the cap |
+
+**Option B (cheaper, not recommended):** render only F6 under v7 (cap $0.30: two worst-case attempts = $0.283) and pool it with F1 (v5) and F2 (v5b). This reuses accepted reviews, but the gate would mix prompt versions and leave render-v7 untested on F1/F2.

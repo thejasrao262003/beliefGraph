@@ -11,7 +11,9 @@ derived node (smoke test 2, P7). render-v4 adds a hard no-shared-phrase rule bet
 memories and policies, flat-denial retractions and correct units (review of smoke
 test 3). render-v5 adds outcome/quantity naming rules and bans distinctive memory
 words in decoys (v4 re-render). render-v6 makes "no fact wording in policies" an explicit
-hard rule (fresh F6 render). All versions stay runnable; earlier ones are verbatim.
+hard rule (fresh F6 render). render-v7 turns that rule into clarity-first guidance and
+adds plain-fact wording (F6 failed twice under v6). All versions stay runnable; earlier
+ones are verbatim.
 """
 
 from __future__ import annotations
@@ -22,7 +24,7 @@ from dataclasses import dataclass, field
 from beliefbench.render.views import timeline
 from beliefbench.schema import Scenario
 
-PROMPT_VERSION = "render-v6"
+PROMPT_VERSION = "render-v7"
 
 # Exactly the text used for smoke test 2 (commit 896d366). Do not edit.
 SYSTEM_PROMPT_V2 = """\
@@ -289,8 +291,59 @@ def _v6_from_v5(v5: str) -> str:
 
 
 SYSTEM_PROMPT_V6 = _v6_from_v5(SYSTEM_PROMPT_V5)
+
+# render-v7 = v6 + the edits below (F6 failed twice under v6: the hard fact-wording rule
+# pushed the renderer into echoes or vague substitutes, "balance credits" for "carbon
+# offsets"). Policy<->evidence overlap becomes a soft flag for human C7/C11 review
+# (leakcheck.evidence_echo_hard); clarity of reference comes first (C8/C10).
+_V7_EDITS = [
+    (
+        """- HARD RULE (facts): no phrase of three or more consecutive ordinary (lower-case) words \
+may appear both in any evidence item and in any policy. Refer to the fact's quantity or \
+credential by a clear equivalent that still identifies it unambiguously (fact "gross \
+annual revenue" -> condition "yearly turnover"; fact "fleet-wide average carbon emission \
+level" -> condition "mean CO2 output per km across the fleet"). Never replace a clear \
+quantity with a vague one. Proper names and number+unit phrases ("90 g/km") are \
+exempt. Responses that break this are rejected.
+""",
+        """- FACT WORDING IN POLICIES (clarity first). A condition must identify the quantity or \
+credential of its fact unambiguously. Prefer a clear equivalent to the fact's own \
+phrasing (fact "gross annual revenue" -> condition "yearly turnover"), but if the only \
+clear name is the standard term (carbon offsets, CO2 per km, headcount, gross revenue), \
+use that term. NEVER substitute a vague or invented name (not "balance credits" for \
+carbon offsets). Do not copy any other wording of the fact (its verbs, qualifiers or \
+sentence) into the policy. Shared wording is reviewed by a human, not rejected; a \
+vague condition fails review.
+- PLAIN FACTS. Each evidence item states ONE measurable value or ONE held credential, \
+named in one or two common words, with no stacked qualifiers (not "a certified annual \
+carbon offset plan valued at $50,000"; write "verified carbon offsets of 10,000 \
+metric tons this year"). Use a numeric threshold only where a fact is naturally a \
+number; a credential, licence or membership is a yes/no condition.
+""",
+    ),
+    (
+        """- A decoy must not use any distinctive content word that appears in any memory (if a \
+memory mentions "organic", no decoy may), so that no decoy is a plausible match for a \
+memory.""",
+        """- A decoy must not use any distinctive content word that appears in any memory (if a \
+memory mentions "organic", no decoy may), even in a different sense ("security \
+deposit" vs "IT security"), so that no decoy is a plausible match for a \
+memory.""",
+    ),
+]
+
+
+def _v7_from_v6(v6: str) -> str:
+    out = v6
+    for old, new in _V7_EDITS:
+        assert out.count(old) == 1, f"v7 anchor not found exactly once: {old[:60]!r}"
+        out = out.replace(old, new)
+    return out
+
+
+SYSTEM_PROMPT_V7 = _v7_from_v6(SYSTEM_PROMPT_V6)
 PROMPTS = {"render-v2": SYSTEM_PROMPT_V2, "render-v3": SYSTEM_PROMPT_V3, "render-v4": SYSTEM_PROMPT_V4,
-           "render-v5": SYSTEM_PROMPT_V5, "render-v6": SYSTEM_PROMPT_V6}
+           "render-v5": SYSTEM_PROMPT_V5, "render-v6": SYSTEM_PROMPT_V6, "render-v7": SYSTEM_PROMPT_V7}
 SYSTEM_PROMPT = PROMPTS[PROMPT_VERSION]
 AFTER_UPDATE_STATES = {"holds", "fails", "undetermined"}
 

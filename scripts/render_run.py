@@ -67,7 +67,8 @@ def render_one(s, renderer: LyzrRenderer | None, raw_dir: Path, model: str, max_
             feedback = r.errors
             continue
         system, evaluation = build_views(s, r, seed=seed)
-        hard = [f for f in leakcheck.text_flags(system) + leakcheck.echo_flags(system)
+        hard = [f for f in leakcheck.text_flags(system)
+                + leakcheck.echo_flags(system, leakcheck.evidence_echo_hard(version))
                 + leakcheck.decoy_word_flags(system, evaluation) if f.hard]
         if hard:
             inv = {v: k for k, v in evaluation["idmap"].items()}
@@ -164,7 +165,7 @@ def main() -> None:
     finally:
         renderer.close()
 
-    rep = leakcheck.check(pairs) if pairs else None
+    rep = leakcheck.check(pairs, leakcheck.evidence_echo_hard(args.prompt_version)) if pairs else None
     if rep:
         (out / "leak-report.json").write_text(json.dumps(
             {**rep.summary(), "aucs": rep.aucs, "flags": [f.__dict__ for f in rep.flags]}, indent=1, default=str))
