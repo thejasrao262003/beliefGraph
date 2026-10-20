@@ -592,12 +592,212 @@ def template_flags(systems: list[dict], max_share: float = 0.25, min_scenarios: 
     )
 
 
+# ── render-v9: structured condition records (eval only) ──
+# The renderer declares, per fact and per condition, the entity, quantity, value or
+# threshold, unit, window and scope. Code checks the two records against each other
+# (agreement), checks the arithmetic (satisfaction, and the post-update outcome), and
+# checks each record against its own text (grounding), so a record cannot quietly
+# disagree with what the system is shown.
+
+_WORD_NUM = {w: i for i, w in enumerate("zero one two three four five six seven eight nine ten eleven twelve".split())}
+_MULT = {"thousand": 1e3, "million": 1e6, "billion": 1e9}
+_NUM_RE = re.compile(r"(\d[\d,]*(?:\.\d+)?)(?:\s*(thousand|million|billion))?|\b(" + "|".join(_WORD_NUM) + r")\b", re.I)
+SCOPE_WORDS = {"local": "local", "regional": "regional", "national": "national", "nationwide": "national",
+               "international": "international", "global": "global", "worldwide": "global"}
+_SCOPE_RE = re.compile(r"\b(" + "|".join(SCOPE_WORDS) + r")\b", re.I)
+
+
+def numbers_in(text: str) -> list[float]:
+    out = []
+    for m in _NUM_RE.finditer(text):
+        if m.group(3):
+            out.append(float(_WORD_NUM[m.group(3).lower()]))
+            continue
+        v = float(m.group(1).replace(",", ""))
+        out.append(v * _MULT[m.group(2).lower()] if m.group(2) else v)
+    return out
+
+
+def scopes_in(text: str) -> set[str]:
+    return {SCOPE_WORDS[m.lower()] for m in _SCOPE_RE.findall(text)}
+
+
+def _has_number(text: str, v) -> bool:
+    return any(abs(x - float(v)) <= 1e-6 * max(1.0, abs(float(v))) for x in numbers_in(text))
+
+
+# Finer than _CLAUSE_SPLIT (kept as is for the v8 window check): also splits the outcome
+# from its conditions at "provided", "if", "through", ... so an outcome name such as
+# "international commercial readiness" is not read as a condition's scope.
+_RECORD_CLAUSE_SPLIT = re.compile(r",|;|\b(?:or|and|alongside|together with|plus|while|either|provided|if|when|"
+                                  r"whenever|once|upon|requires?|via|through|by)\b", re.I)
+
+
+def condition_clause(fact: str, policy: str) -> str | None:
+    """The policy clause this fact satisfies (most shared content words), or None if unclear."""
+    fact_words = tokens(fact) - set(GENERIC_RULE_WORDS)
+    scored = sorted(((len(fact_words & (tokens(c) - set(GENERIC_RULE_WORDS))), c)
+                     for c in _RECORD_CLAUSE_SPLIT.split(policy) if c.strip()), key=lambda x: -x[0])
+    if not scored or scored[0][0] == 0 or (len(scored) > 1 and scored[1][0] == scored[0][0]):
+        return None
+    return scored[0][1]
+
+
+_CMP = {">=": lambda a, b: a >= b, ">": lambda a, b: a > b, "<=": lambda a, b: a <= b,
+        "<": lambda a, b: a < b, "==": lambda a, b: a == b}
+
+
+def _norm(x) -> str:
+    return re.sub(r"\s+", " ", str(x or "")).strip().lower()
+
+
+def satisfies(fact: dict, cond: dict) -> bool | None:
+    """Does this fact record meet this condition record? None if the value is unknown."""
+    if fact.get("value") is None:
+        return None
+    if cond["kind"] == "credential":
+        return fact["value"] is True
+    return _CMP[cond["comparator"]](float(fact["value"]), float(cond["threshold"]))
+
+
+def record_flags(system: dict, evaluation: dict) -> list[Flag]:
+    recs = evaluation.get("records")
+    if not recs:
+        return []
+    sid = system["scenario"]
+    facts, conds = recs["facts"], recs["conditions"]
+    text = {x["id"]: x["text"] for x in system["evidence"] + system["memories"] + system["updates"]}
+    policy_for = {m: p for p, m in (evaluation.get("policy_of") or {}).items()}
+    ptext = {p["id"]: p["text"] for p in system.get("policies", [])}
+    flags: list[Flag] = []
+
+    def hard(item, kind, match):
+        flags.append(Flag(sid, item, kind, match, True))
+
+    def soft(item, kind, match):
+        flags.append(Flag(sid, item, kind, match, False))
+
+    # Grounding: each fact record against its own text. A stated contradiction is hard; a
+    # window or scope the record declares but the text leaves vague or unstated is soft
+    # (the reviewer judges it, as approved for windows on 2026-10-20).
+    for fid, f in facts.items():
+        t = text.get(fid, "")
+        if _norm(f["entity"]) not in _norm(t):
+            hard(fid, "record_entity_not_in_text", f["entity"])
+        if f["kind"] == "number":  # credentials have no value or accumulation window to ground
+            if f.get("value") is not None and not _has_number(t, f["value"]):
+                hard(fid, "record_value_not_in_text", str(f["value"]))
+            tw = windows(t)
+            known = tw - {"unknown"}
+            if f["window"] == "none" and known:
+                hard(fid, "record_window_not_in_text", f"record none, text {'/'.join(sorted(known))}")
+            elif f["window"] != "none" and known and f["window"] not in known:
+                hard(fid, "record_window_not_in_text", f"record {f['window']}, text {'/'.join(sorted(known))}")
+            elif "unknown" in tw or (f["window"] != "none" and not known):
+                soft(fid, "record_window_vague_in_text", f"record {f['window']}, text {'vague' if 'unknown' in tw else 'none'}")
+        ts = scopes_in(t)
+        if f["scope"] == "none" and ts:
+            hard(fid, "record_scope_not_in_text", f"record none, text {'/'.join(sorted(ts))}")
+        elif f["scope"] != "none" and ts and f["scope"] not in ts:
+            hard(fid, "record_scope_not_in_text", f"record {f['scope']}, text {'/'.join(sorted(ts))}")
+        elif f["scope"] != "none" and not ts:
+            soft(fid, "record_scope_unstated_in_text", f"record {f['scope']}")
+
+    # Agreement and condition grounding, per premise.
+    for mid, clist in conds.items():
+        pol = ptext.get(policy_for.get(mid, ""), "")
+        for c in clist:
+            item = f"{c['premise']}->{mid}"
+            if _norm(c["entity"]) not in _norm(text.get(mid, "")):
+                hard(item, "record_entity_not_in_memory", c["entity"])
+            if c["kind"] == "conclusion":
+                if _norm(c["entity"]) not in _norm(text.get(c["premise"], "")):
+                    hard(item, "conclusion_about_other_entity", c["entity"])
+                continue
+            f = facts.get(c["premise"])
+            if f is None:
+                continue
+            if c.get("relation"):
+                if _norm(c["entity"]) not in _norm(text.get(c["premise"], "")):
+                    hard(item, "relation_not_stated_in_fact", f"{c['relation']} {c['entity']}")
+            elif _norm(f["entity"]) != _norm(c["entity"]):
+                hard(item, "record_entity_mismatch", f"{f['entity']} vs {c['entity']}")
+            for fld in ("kind", "quantity", "unit"):
+                if _norm(f.get(fld)) != _norm(c.get(fld)):
+                    hard(item, f"record_{fld}_mismatch", f"{f.get(fld)} vs {c.get(fld)}")
+            for fld in ("window", "scope"):  # "none" in a condition means no restriction
+                if c[fld] != "none" and f[fld] != c[fld]:
+                    hard(item, f"record_{fld}_mismatch", f"fact {f[fld]} vs condition {c[fld]}")
+            if satisfies(f, c) is False:
+                hard(item, "record_condition_not_met", f"{f.get('value')} {c.get('comparator') or ''} {c.get('threshold')}")
+            # Condition grounding against the policy text.
+            if c["kind"] == "number" and not _has_number(pol, c["threshold"]):
+                hard(item, "record_threshold_not_in_policy", str(c["threshold"]))
+            clause = condition_clause(text.get(c["premise"], ""), pol)
+            if c["window"] != "none" and c["window"] not in windows(pol):
+                hard(item, "record_window_not_in_policy", c["window"])
+            elif c["window"] == "none" and clause is not None and windows(clause) - {"unknown"}:
+                hard(item, "record_window_not_in_policy", f"record none, clause {'/'.join(sorted(windows(clause)))}")
+            if c["scope"] != "none" and c["scope"] not in scopes_in(pol):
+                hard(item, "record_scope_not_in_policy", c["scope"])
+            elif c["scope"] == "none" and clause is not None and scopes_in(clause):
+                hard(item, "record_scope_not_in_policy", f"record none, clause {'/'.join(sorted(scopes_in(clause)))}")
+
+    # Updates: a superseding value keeps the target's quantity, unit, window and scope.
+    targets = evaluation.get("update_targets") or {}
+    for uid, u in targets.items():
+        uf, tf = facts.get(uid), facts.get(u["target"])
+        if not uf or not tf or u["relation"] != "supersedes":
+            continue
+        for fld in ("entity", "kind", "quantity", "unit"):
+            if _norm(uf.get(fld)) != _norm(tf.get(fld)):
+                hard(uid, f"update_{fld}_mismatch", f"{tf.get(fld)} -> {uf.get(fld)}")
+        for fld in ("window", "scope"):  # different stated values are hard; one unstated is soft
+            a, b = tf.get(fld), uf.get(fld)
+            if a != b and "none" not in (a, b):
+                hard(uid, f"update_{fld}_mismatch", f"{a} -> {b}")
+            elif a != b:
+                soft(uid, f"update_{fld}_unstated", f"{a} -> {b}")
+
+    # Outcome: with superseding updates only, recompute every memory and compare with the
+    # renderer's own after-update judgement (which consistency_flags ties to gold).
+    if targets and all(u["relation"] == "supersedes" for u in targets.values()):
+        after = dict(facts)
+        for uid, u in targets.items():
+            if uid in facts:
+                after[u["target"]] = facts[uid]
+        memo: dict[str, bool | None] = {}
+
+        def holds(mid: str) -> bool | None:
+            if mid in memo:
+                return memo[mid]
+            memo[mid] = None
+            best: bool | None = False
+            for j in evaluation["justifications"].get(mid, []):
+                ok: bool | None = True
+                for p in j:
+                    c = next((c for c in conds.get(mid, []) if c["premise"] == p), None)
+                    r = holds(p) if p in conds else (satisfies(after[p], c) if c and p in after else None)
+                    ok = False if r is False or ok is False else (None if r is None else ok)
+                best = True if ok is True or best is True else (None if ok is None else best)
+            memo[mid] = best
+            return best
+
+        expected = {True: "holds", False: "fails"}
+        for mid in conds:
+            got, said = holds(mid), (evaluation.get("after_updates") or {}).get(mid)
+            if got is not None and said is not None and expected[got] != said:
+                hard(mid, "record_outcome_mismatch", f"records give {expected[got]}, renderer says {said}")
+    return flags
+
+
 def hard_flags(system: dict, evaluation: dict, prompt_version: str) -> list[Flag]:
     """The hard checks a rendering under ``prompt_version`` must pass to be accepted (the
     same set for a fresh rendering and for a targeted repair)."""
     flags = (text_flags(system) + echo_flags(system, evidence_echo_hard(prompt_version))
              + decoy_word_flags(system, evaluation)
-             + (continuity_flags(system, evaluation) if continuity_enforced(prompt_version) else []))
+             + (continuity_flags(system, evaluation) if continuity_enforced(prompt_version) else [])
+             + record_flags(system, evaluation))
     return [f for f in flags if f.hard]
 
 

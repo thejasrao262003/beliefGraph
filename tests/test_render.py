@@ -100,7 +100,7 @@ def test_payload_carries_dates_but_no_gold_or_family():
     assert groups["B3"] != groups["B1"]
     obs = {e["id"]: e["observed"] for e in payload["evidence"]} | {u["id"]: u["observed"] for u in payload["updates"]}
     assert obs == timeline(s, 0)
-    assert PROMPT_VERSION == "render-v8" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
+    assert PROMPT_VERSION == "render-v9" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
     assert "justification_sets" in user_message(s)
 
 
@@ -368,7 +368,7 @@ def test_v3_prompt_is_kept_verbatim_and_v4_extends_it():
 
     assert hashlib.sha256(PROMPTS["render-v3"].encode()).hexdigest() == V3_SHA256
     assert "HARD RULE" in PROMPTS["render-v4"] and "flatly states" in PROMPTS["render-v4"]
-    assert current == "render-v8"
+    assert current == "render-v9"
 
 
 def _system(memories, policies, evidence=()):
@@ -844,3 +844,93 @@ def test_repair_never_modifies_the_frozen_base():
     snapshot = json.dumps(response, sort_keys=True)
     repair.apply_repair(response, json.dumps({"replacements": {"decoy_policies[0]": CLEAN_DECOY}}), problems)
     assert json.dumps(response, sort_keys=True) == snapshot and V8_BASE.read_bytes() == before
+
+
+# ── render-v9 records: agreement, satisfaction, outcome and grounding checks ──
+
+FIXTURES = Path(__file__).resolve().parent / "fixtures" / "records_v9.json"
+
+
+def _with_records(name, mutate=None):
+    """Hand-annotated records (from each render's own text) merged into a stored response."""
+    f = copy.deepcopy(json.loads(FIXTURES.read_text())[name])
+    rec = json.loads((RENDERED / f["raw"]).read_text())
+    obj = json.loads(rec["response"].strip().removeprefix("```json").removesuffix("```"))
+    obj |= {"facts": f["facts"], "conditions": f["conditions"]}
+    if mutate:
+        mutate(obj)
+    s = next(x for x in generate_suite(10, 0) if x.id == rec["scenario"])
+    r = parse_response(s, json.dumps(obj), version="render-v9")
+    assert r.ok, r.errors
+    sv, ev = build_views(s, r, seed=0)
+    inv = {v: k for k, v in ev["idmap"].items()}
+    out = [(f.kind, "->".join(inv.get(p, p) for p in f.item.split("->")), f.hard) for f in leakcheck.record_flags(sv, ev)]
+    return out, sv, ev
+
+
+@pytest.mark.parametrize("name", ["v5_F1_accepted", "v5b_F2_accepted", "v7_F1_accepted"])
+def test_records_accepted_controls_have_no_hard_flags(name):
+    flags, _, _ = _with_records(name)
+    assert not [f for f in flags if f[2]]
+
+
+def test_records_catch_pilot2_f6_unstated_maker():
+    flags, _, _ = _with_records("v7_F6_revise_entity")
+    assert sorted(f for f in flags if f[2]) == [("relation_not_stated_in_fact", "E3->B2", True),
+                                                ("relation_not_stated_in_fact", "E4->D1", True)]
+
+
+def test_records_catch_repaired_f1_local_vs_regional():
+    flags, _, _ = _with_records("v8_F1_repaired_revise_scope")
+    assert [f for f in flags if f[2]] == [("record_scope_mismatch", "E1->B1", True)]
+
+
+def test_records_flag_pilot2_f2_vague_window_softly():
+    flags, _, _ = _with_records("v7_F2_revise_window")
+    assert flags == [("record_window_vague_in_text", "U1", False)]
+
+
+def test_record_that_contradicts_its_own_text_is_hard():
+    def lie(o):  # records agree with each other, but the fact text says $200,000
+        o["facts"]["E1"]["value"] = 175000
+    flags, _, _ = _with_records("v8_F1_repaired_revise_scope", lie)
+    assert ("record_value_not_in_text", "E1", True) in flags
+
+
+def test_unmet_condition_and_wrong_outcome_are_hard():
+    def unmet(o):
+        o["conditions"]["B1"][0]["threshold"] = 50
+    flags, _, _ = _with_records("v5_F1_accepted", unmet)
+    assert ("record_condition_not_met", "E1->B1", True) in flags  # 45 >= 50 fails
+    assert ("record_threshold_not_in_policy", "E1->B1", True) in flags
+
+    def wrong_after(o):
+        o["after_updates"]["B5"] = "fails"
+    flags, _, _ = _with_records("v5_F1_accepted", wrong_after)
+    assert ("record_outcome_mismatch", "B5", True) in flags
+
+
+def test_records_never_reach_the_system_view():
+    _, sv, ev = _with_records("v5_F1_accepted")
+    assert set(sv) <= SYSTEM_VIEW_KEYS and "records" in ev
+    assert "quantity" not in json.dumps(sv) and "comparator" not in json.dumps(sv)
+
+
+def test_v9_requires_complete_records():
+    s = next(x for x in generate_suite(10, 0) if x.id == "F1-000")
+    rec = json.loads((RENDERED / "smoke-render-v7/raw/F1-000.d49b36fdda0b9c35.a1.json").read_text())
+    assert any("facts must cover" in e for e in parse_response(s, rec["response"], version="render-v9").errors)
+    assert parse_response(s, rec["response"], version="render-v8").ok
+
+
+V9_SHA256 = "a9318e96840c597458bea3500ff6675564fae8cce537f367d9b80445c8452359"
+
+
+def test_v9_is_v8_plus_the_records_section():
+    import hashlib
+
+    from beliefbench.render.prompt import PROMPTS
+
+    assert hashlib.sha256(PROMPTS["render-v8"].encode()).hexdigest() == V8_SHA256
+    assert hashlib.sha256(PROMPTS["render-v9"].encode()).hexdigest() == V9_SHA256
+    assert '"conditions"' in PROMPTS["render-v9"] and "RECORDS" in PROMPTS["render-v9"]

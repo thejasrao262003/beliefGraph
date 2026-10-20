@@ -128,6 +128,12 @@ def build_views(s: Scenario, r: Rendering, seed: int = 0) -> tuple[dict, dict]:
         "world": r.world,
         "rationale": {idmap[k]: v for k, v in r.rationale.items() if k in idmap},
     }
+    if r.records:  # render-v9: eval only, keyed by opaque ids
+        evaluation["records"] = {
+            "facts": {idmap[k]: v for k, v in r.records["facts"].items() if k in idmap},
+            "conditions": {idmap[k]: [c | {"premise": idmap.get(c.get("premise"), c.get("premise"))} for c in v]
+                           for k, v in r.records["conditions"].items() if k in idmap},
+        }
     return system, evaluation
 
 

@@ -24,7 +24,7 @@ from dataclasses import dataclass, field
 from beliefbench.render.views import timeline
 from beliefbench.schema import Scenario
 
-PROMPT_VERSION = "render-v8"
+PROMPT_VERSION = "render-v9"
 
 # Exactly the text used for smoke test 2 (commit 896d366). Do not edit.
 SYSTEM_PROMPT_V2 = """\
@@ -385,9 +385,125 @@ def _v8_from_v7(v7: str) -> str:
 
 
 SYSTEM_PROMPT_V8 = _v8_from_v7(SYSTEM_PROMPT_V7)
+# render-v9 = v8 + per-fact and per-condition records (eval only), checked by code
+# against each other and against the text (leakcheck.record_flags). All three human
+# "revise" verdicts so far were fact/condition reference mismatches (entity, time
+# window, scope) that lexical checks cannot see.
+_V9_EDITS = [
+    (
+        """  "after_updates": {"<belief or decision id>": "holds" | "fails" | "undetermined"},
+""",
+        """  "after_updates": {"<belief or decision id>": "holds" | "fails" | "undetermined"},
+  "facts": {"<evidence or update id>": {"entity": "...", "kind": "number" | "credential", \
+"quantity": "...", "value": <number | true | false | null>, "unit": "<unit or null>", \
+"window": "none" | "year" | "quarter" | "month" | "week" | "<N> years", \
+"scope": "none" | "local" | "regional" | "national" | "international" | "global"}},
+  "conditions": {"<belief or decision id>": [{"premise": "<id in its justification sets>", \
+"kind": "number" | "credential" | "conclusion", "entity": "<the conclusion's entity>", \
+"relation": null | "<e.g. maker of>", "quantity": "...", \
+"comparator": ">=" | ">" | "<=" | "<" | "==" | null, "threshold": <number or null>, \
+"unit": "<unit or null>", "window": "...", "scope": "..."}]},
+""",
+    ),
+    (
+        """The rationale and after_updates are for human reviewers only and are never shown to \
+the system under test.
+""",
+        """RECORDS ("facts" and "conditions") are checked by code against each other and \
+against your text. "facts" has one record per evidence item and update: the entity it is \
+about, written exactly as in its text; whether it is a number or a credential; the \
+quantity or credential name; its value (a number; true or false for a credential; null \
+for an update that only retracts or hedges); the unit; the window over which it is \
+accumulated ("none" for point-in-time values); and its scope ("none" unless the text \
+states one). "conditions" has, for every belief and decision, one record per premise in \
+its justification sets, describing the condition in its policy that this premise \
+satisfies: the conclusion's entity; the relation if the premise is about a related \
+entity (null otherwise; the relation must be stated inside that fact); the same quantity \
+name as the fact; comparator and threshold (null for credentials and conclusions); unit; \
+window and scope ("none" means the condition sets no window or scope). Every number, \
+entity name, window and scope word in a record must appear in the matching text. A \
+record that disagrees with its fact, its condition or its own text is rejected.
+The rationale, after_updates and records are for human reviewers and checks only and \
+are never shown to the system under test.
+""",
+    ),
+]
+
+
+def _v9_from_v8(v8: str) -> str:
+    out = v8
+    for old, new in _V9_EDITS:
+        assert out.count(old) == 1, f"v9 anchor not found exactly once: {old[:60]!r}"
+        out = out.replace(old, new)
+    return out
+
+
+SYSTEM_PROMPT_V9 = _v9_from_v8(SYSTEM_PROMPT_V8)
+RECORD_VERSIONS = {"render-v9"}
+WINDOWS_ALLOWED = {"none", "year", "quarter", "month", "week"}
+SCOPES_ALLOWED = {"none", "local", "regional", "national", "international", "global"}
+COMPARATORS = {">=", ">", "<=", "<", "=="}
+
+
+def _window_ok(w) -> bool:
+    import re as _re
+
+    return isinstance(w, str) and (w in WINDOWS_ALLOWED or bool(_re.fullmatch(r"\d+ years", w)))
+
+
+def validate_records(s: Scenario, facts: dict, conditions: dict) -> list[str]:
+    """Structure of the render-v9 records: one fact record per evidence item and update,
+    one condition record per premise of every derived item, with allowed field values."""
+    errors = []
+    expected_facts = {n.id for n in s.nodes if n.is_evidence} | {u.id for u in s.updates}
+    if set(facts) != expected_facts:
+        errors.append(f"facts must cover exactly {sorted(expected_facts)}, got {sorted(facts)}")
+    for fid, f in facts.items():
+        if not isinstance(f, dict):
+            errors.append(f"facts.{fid}: must be an object")
+            continue
+        if f.get("kind") not in ("number", "credential"):
+            errors.append(f"facts.{fid}.kind must be number or credential")
+        if not str(f.get("entity") or "").strip() or not str(f.get("quantity") or "").strip():
+            errors.append(f"facts.{fid}: entity and quantity are required")
+        if not _window_ok(f.get("window")) or f.get("scope") not in SCOPES_ALLOWED:
+            errors.append(f"facts.{fid}: window/scope not in the allowed values")
+        v = f.get("value")
+        if f.get("kind") == "number" and not (v is None or isinstance(v, (int, float)) and not isinstance(v, bool)):
+            errors.append(f"facts.{fid}.value must be a number or null")
+        if f.get("kind") == "credential" and v not in (True, False, None):
+            errors.append(f"facts.{fid}.value must be true, false or null")
+    derived = {n.id: n for n in s.nodes if not n.is_evidence}
+    if set(conditions) != set(derived):
+        errors.append(f"conditions must cover exactly {sorted(derived)}, got {sorted(conditions)}")
+    for nid, conds in conditions.items():
+        if nid not in derived or not isinstance(conds, list):
+            continue
+        premises = {p for j in derived[nid].justifications for p in j}
+        got = [c.get("premise") for c in conds if isinstance(c, dict)]
+        if sorted(got) != sorted(premises):
+            errors.append(f"conditions.{nid}: premises must be exactly {sorted(premises)}, got {sorted(map(str, got))}")
+        for c in conds:
+            if not isinstance(c, dict):
+                continue
+            kind = c.get("kind")
+            want = "conclusion" if c.get("premise") in derived else ("number", "credential")
+            if (kind != want) if isinstance(want, str) else (kind not in want):
+                errors.append(f"conditions.{nid}.{c.get('premise')}: kind {kind!r} does not fit the premise")
+            if not str(c.get("entity") or "").strip():
+                errors.append(f"conditions.{nid}.{c.get('premise')}: entity is required")
+            if kind == "number" and (c.get("comparator") not in COMPARATORS
+                                     or not isinstance(c.get("threshold"), (int, float))):
+                errors.append(f"conditions.{nid}.{c.get('premise')}: a number condition needs comparator and threshold")
+            if kind in ("number", "credential") and (not _window_ok(c.get("window"))
+                                                     or c.get("scope") not in SCOPES_ALLOWED):
+                errors.append(f"conditions.{nid}.{c.get('premise')}: window/scope not in the allowed values")
+    return errors
+
+
 PROMPTS = {"render-v2": SYSTEM_PROMPT_V2, "render-v3": SYSTEM_PROMPT_V3, "render-v4": SYSTEM_PROMPT_V4,
            "render-v5": SYSTEM_PROMPT_V5, "render-v6": SYSTEM_PROMPT_V6, "render-v7": SYSTEM_PROMPT_V7,
-           "render-v8": SYSTEM_PROMPT_V8}
+           "render-v8": SYSTEM_PROMPT_V8, "render-v9": SYSTEM_PROMPT_V9}
 SYSTEM_PROMPT = PROMPTS[PROMPT_VERSION]
 AFTER_UPDATE_STATES = {"holds", "fails", "undetermined"}
 
@@ -455,6 +571,7 @@ class Rendering:
     policies: dict[str, str] = field(default_factory=dict)  # derived id -> rule (render-v2)
     decoy_policies: list[str] = field(default_factory=list)  # render-v3
     after_updates: dict[str, str] = field(default_factory=dict)  # derived id -> holds|fails|undetermined (v3, eval only)
+    records: dict = field(default_factory=dict)  # render-v9: {"facts": {...}, "conditions": {...}}, eval only
 
     @property
     def ok(self) -> bool:
@@ -505,9 +622,14 @@ def parse_response(s: Scenario, raw: str, require_policies: bool = True, version
         for nid in sorted(derived):
             if after.get(nid) not in AFTER_UPDATE_STATES:
                 errors.append(f"{nid}: after_updates must be one of {sorted(AFTER_UPDATE_STATES)}")
+    records = {}
+    if version in RECORD_VERSIONS:
+        facts, conds = obj.get("facts") or {}, obj.get("conditions") or {}
+        errors += validate_records(s, facts, conds)
+        records = {"facts": facts, "conditions": conds}
     return Rendering(
         (obj.get("world") or "").strip(), texts, sources, update_texts,
         {k: list(v) for k, v in rationale.items()}, errors,
         {k: str(v).strip() for k, v in policies.items() if k in derived},
-        decoys, {k: v for k, v in after.items() if k in derived},
+        decoys, {k: v for k, v in after.items() if k in derived}, records,
     )
