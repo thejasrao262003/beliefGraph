@@ -1,0 +1,332 @@
+{
+ "scenario": "F6-000",
+ "repair": 1,
+ "prompt_version": "render-v10",
+ "permitted": {
+  "policies.D1": "policy_echoes_memory 'tier-one safety classification' (a policy may not share a 3-word phrase with any memory)",
+  "decoy_policies[0]": "decoy_shares_memory_word 'rebate' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)",
+  "decoy_policies[1]": "decoy_shares_memory_word 'high,safety' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"decoy_policies[0]\": \"Commercial lighting fixtures receive utility tariff discounts when their power factor exceeds 0.95.\",\n  \"decoy_policies[1]\": \"Industrial protective helmets receive severe-impact clearance if they pass a drop test threshold of 100 joules.\",\n  \"policies.D1\": \"Hospital purchasing approval is granted for a device with premier safety standing that maintains liability insurance coverage of at least 5000000 USD.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6564,
+   "output_tokens": 2191,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6564,
+    "completion_tokens": 2191
+   }
+  },
+  "est_usd": 0.03941775,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "decoy_policies[0]",
+  "decoy_policies[1]",
+  "policies.D1"
+ ],
+ "merged": {
+  "world": "An evaluation assistant checks whether technical equipment and materials meet eligibility thresholds for healthcare procurement, rebate programs, municipal supply, and tax credits.",
+  "nodes": {
+   "E1": {
+    "text": "Vortex 500 Ventilator holds an active ISO 13485 certification.",
+    "source": "Official medical device registry export signed by the registrar"
+   },
+   "E2": {
+    "text": "Vortex 500 Ventilator holds an active CE mark certification.",
+    "source": "European Conformity registry official certificate listing"
+   },
+   "E3": {
+    "text": "Vortex 500 Ventilator recorded 0 critical safety incidents in the last year.",
+    "source": "Signed hospital network safety audit report"
+   },
+   "E4": {
+    "text": "Vortex 500 Ventilator maintains liability insurance coverage of 5000000 USD.",
+    "source": "Certified liability certificate from insurance underwriter"
+   },
+   "E5": {
+    "text": "SolarPulse X Charger achieved an energy efficiency rating of 92 percent.",
+    "source": "Accredited energy testing laboratory report"
+   },
+   "E6": {
+    "text": "AquaClean Filter possesses a NSF/ANSI Standard 53 certification.",
+    "source": "Official NSF product compliance registry"
+   },
+   "E7": {
+    "text": "ThermaShield Insulation recorded a thermal resistance value of 30 R-value.",
+    "source": "Official materials testing laboratory compliance statement"
+   },
+   "B1": {
+    "text": "Vortex 500 Ventilator satisfies baseline quality criteria."
+   },
+   "B2": {
+    "text": "Vortex 500 Ventilator holds tier-one safety classification."
+   },
+   "D1": {
+    "text": "Vortex 500 Ventilator is authorized for hospital procurement."
+   },
+   "B3": {
+    "text": "SolarPulse X Charger qualifies for high-efficiency rebate."
+   },
+   "B4": {
+    "text": "AquaClean Filter meets municipal water filtration standards."
+   },
+   "B5": {
+    "text": "ThermaShield Insulation is eligible for green building credit."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An unverified forum post claims that Vortex 500 Ventilator lacks an active ISO 13485 certification.",
+    "source": "Anonymous online comment"
+   }
+  },
+  "policies": {
+   "B1": "Baseline quality compliance is granted to a medical device holding either a valid ISO 13485 credential or an active CE mark credential.",
+   "B2": "A medical device meeting baseline quality standards achieves tier-one safety status if its annual critical safety incidents do not exceed 0.",
+   "D1": "Hospital purchasing approval is granted for a device with premier safety standing that maintains liability insurance coverage of at least 5000000 USD.",
+   "B3": "Rebate eligibility for high efficiency is awarded to a charger with an energy efficiency rating of at least 90 percent.",
+   "B4": "Municipal water filtration compliance requires a filter to possess a NSF/ANSI Standard 53 credential.",
+   "B5": "Green building tax credits apply to insulation demonstrating a thermal resistance value of at least 30 R-value."
+  },
+  "decoy_policies": [
+   "Commercial lighting fixtures receive utility tariff discounts when their power factor exceeds 0.95.",
+   "Industrial protective helmets receive severe-impact clearance if they pass a drop test threshold of 100 joules."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "holds",
+   "D1": "holds",
+   "B3": "holds",
+   "B4": "holds",
+   "B5": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Vortex 500 Ventilator",
+    "kind": "credential",
+    "quantity": "ISO 13485 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Vortex 500 Ventilator",
+    "kind": "credential",
+    "quantity": "CE mark certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Vortex 500 Ventilator",
+    "kind": "number",
+    "quantity": "critical safety incidents",
+    "value": 0,
+    "unit": "incidents",
+    "window": "year",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Vortex 500 Ventilator",
+    "kind": "number",
+    "quantity": "liability insurance coverage",
+    "value": 5000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "SolarPulse X Charger",
+    "kind": "number",
+    "quantity": "energy efficiency rating",
+    "value": 92,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "AquaClean Filter",
+    "kind": "credential",
+    "quantity": "NSF/ANSI Standard 53 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "ThermaShield Insulation",
+    "kind": "number",
+    "quantity": "thermal resistance value",
+    "value": 30,
+    "unit": "R-value",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Vortex 500 Ventilator",
+    "kind": "credential",
+    "quantity": "ISO 13485 certification",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "credential",
+     "entity": "Vortex 500 Ventilator",
+     "relation": null,
+     "quantity": "ISO 13485 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "credential",
+     "entity": "Vortex 500 Ventilator",
+     "relation": null,
+     "quantity": "CE mark certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Vortex 500 Ventilator",
+     "relation": null,
+     "quantity": "baseline quality criteria",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Vortex 500 Ventilator",
+     "relation": null,
+     "quantity": "critical safety incidents",
+     "comparator": "<=",
+     "threshold": 0,
+     "unit": "incidents",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Vortex 500 Ventilator",
+     "relation": null,
+     "quantity": "tier-one safety classification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Vortex 500 Ventilator",
+     "relation": null,
+     "quantity": "liability insurance coverage",
+     "comparator": ">=",
+     "threshold": 5000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "SolarPulse X Charger",
+     "relation": null,
+     "quantity": "energy efficiency rating",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E6",
+     "kind": "credential",
+     "entity": "AquaClean Filter",
+     "relation": null,
+     "quantity": "NSF/ANSI Standard 53 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "ThermaShield Insulation",
+     "relation": null,
+     "quantity": "thermal resistance value",
+     "comparator": ">=",
+     "threshold": 30,
+     "unit": "R-value",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Holding an active ISO 13485 certification directly satisfies the baseline quality compliance policy.",
+    "Holding an active CE mark certification directly satisfies the baseline quality compliance policy."
+   ],
+   "B2": [
+    "Meeting baseline quality standards combined with recording 0 critical safety incidents over the last year fulfills tier-one safety criteria."
+   ],
+   "D1": [
+    "Achieving tier-one safety classification and maintaining 5000000 USD in liability insurance coverage permits hospital purchasing approval."
+   ],
+   "B3": [
+    "An energy efficiency rating of 92 percent satisfies the minimum 90 percent threshold for high-efficiency rebate eligibility."
+   ],
+   "B4": [
+    "Possessing a NSF/ANSI Standard 53 certification satisfies the requirements for municipal water filtration compliance."
+   ],
+   "B5": [
+    "A thermal resistance value of 30 R-value fulfills the threshold required to receive green building tax credits."
+   ]
+  }
+ }
+}

@@ -1017,3 +1017,27 @@ The stored renders have no records, so the tests use **hand-annotated record fix
 - **Fixes, made before the next call; 143 tests pass:**
   - `scopes_in` counts only lower-case scope words, so scope words inside proper names are ignored;
   - record repairs that may edit a fact's text may also edit its source.
+
+**Iteration B** (`data/rendered/fix-f6-v10-b/`, $0.1407; effort cumulative $0.3181 of $5.00):
+- **What ran:** attempt 1 was rejected (a policy↔memory echo "tier-one safety classification"; the decoys shared "rebate" and "high, safety" with memories). One targeted repair changed exactly `policies.D1` and both decoys; 0 hard flags.
+- **Claude review: accept.** C8/C10 note: D1's condition now reads "premier safety standing" vs B2's "tier-one safety status", which is unambiguous by elimination.
+
+### 19j. Four-scenario pilot complete (2026-10-20)
+
+| Scenario | Source run | Prompt | Review (Claude, delegated) |
+|---|---|---|---|
+| F1-000 | `pilot4b-render-v10` | render-v10 | accept |
+| F2-000 | `pilot4b-render-v10` | render-v10 | accept (C10 note: spec vs measured throughput) |
+| F3-000 | `pilot4b-render-v10` | render-v10 | accept |
+| F6-000 | `fix-f6-v10-b` | render-v10 + one targeted repair | accept (C8/C10 note: "premier safety standing") |
+
+- **Pooled gate over the four:** worse heuristic justification-set F1 **0.31 ≤ 0.50: pass** (word-only 0.31, policy-assisted 0.26).
+- **Hard flags:** 0 under the current v10 checks for all four.
+- **Soft flags:** 6 policy↔evidence echoes (standard measurement terms) and 1 reported-speech retraction.
+- **Disclosed mix:** F1–F3 were rendered before the §19i check changes (scope-word softening, proper-name scope, repair retries). The changes only remove false positives and add repair; all four have 0 hard flags under the current checks.
+- **Reviews are Claude's,** by the user's delegation, not human; κ against a second reviewer is not available (§6).
+- **Spend:**
+  - pilot-4/4b: $1.1098 (cap $1.20);
+  - fix effort: $0.3181 (cap $5.00);
+  - total for the v9/v10 work: $1.43.
+- **Next:** the 40-scenario validation run (§1, §7) needs its own budget. Measured cost is ≈ $0.08–0.12 per render plus ≈ $0.04 per repair.
