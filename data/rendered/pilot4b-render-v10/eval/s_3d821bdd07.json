@@ -1,0 +1,207 @@
+{
+ "scenario": "s_3d821bdd07",
+ "source_scenario": "F2-000",
+ "family": "F2",
+ "meta": {
+  "fan_in": 2,
+  "revised_supports": 2,
+  "preserved": false,
+  "depth": 1,
+  "relation": "supersedes"
+ },
+ "idmap": {
+  "E1": "e_e50c",
+  "E2": "e_dfe6",
+  "B1": "m_2075",
+  "D1": "m_7743",
+  "E3": "e_1552",
+  "B2": "m_36f2",
+  "U1": "u_a152",
+  "U2": "u_41fa"
+ },
+ "groups": {
+  "e_e50c": 1,
+  "m_2075": 1,
+  "e_dfe6": 1,
+  "m_7743": 1,
+  "e_1552": 2,
+  "m_36f2": 2
+ },
+ "policy_of": {
+  "p_d10e": "m_2075",
+  "p_3b4c": "m_7743",
+  "p_4091": "m_36f2"
+ },
+ "gold": {
+  "e_e50c": "supersede",
+  "e_dfe6": "supersede",
+  "e_1552": "keep",
+  "m_2075": "recompute",
+  "m_36f2": "keep",
+  "m_7743": "recompute"
+ },
+ "justifications": {
+  "m_2075": [
+   [
+    "e_e50c"
+   ],
+   [
+    "e_dfe6"
+   ]
+  ],
+  "m_7743": [
+   [
+    "m_2075"
+   ]
+  ],
+  "m_36f2": [
+   [
+    "e_1552"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_a152": {
+   "target": "e_e50c",
+   "relation": "supersedes",
+   "reliability": "high"
+  },
+  "u_41fa": {
+   "target": "e_dfe6",
+   "relation": "supersedes",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_e525",
+  "p_8779"
+ ],
+ "after_updates": {
+  "m_2075": "fails",
+  "m_7743": "fails",
+  "m_36f2": "holds"
+ },
+ "final_state": {
+  "m_2075": "fails",
+  "m_36f2": "holds",
+  "m_7743": "fails"
+ },
+ "world": "An evaluation of hardware products against corporate and institutional procurement standards.",
+ "rationale": {
+  "m_2075": [
+   "AeroGrid Router exhibits data throughput of 12 Gbps, which meets the 10 Gbps threshold for enterprise designation.",
+   "AeroGrid Router holds an ISO 27001 certification, satisfying the compliance requirement for enterprise designation."
+  ],
+  "m_7743": [
+   "AeroGrid Router qualifies for enterprise status, satisfying the prerequisite for public purchasing register listing."
+  ],
+  "m_36f2": [
+   "Lumino Desk Lamp carries a UL safety certification, fulfilling the requirement for domestic electrical compliance."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_e50c": {
+    "entity": "AeroGrid Router",
+    "kind": "number",
+    "quantity": "data throughput",
+    "value": 12,
+    "unit": "Gbps",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_dfe6": {
+    "entity": "AeroGrid Router",
+    "kind": "credential",
+    "quantity": "ISO 27001 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_1552": {
+    "entity": "Lumino Desk Lamp",
+    "kind": "credential",
+    "quantity": "UL safety certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "u_a152": {
+    "entity": "AeroGrid Router",
+    "kind": "number",
+    "quantity": "data throughput",
+    "value": 8,
+    "unit": "Gbps",
+    "window": "none",
+    "scope": "none"
+   },
+   "u_41fa": {
+    "entity": "AeroGrid Router",
+    "kind": "credential",
+    "quantity": "ISO 27001 certification",
+    "value": false,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_2075": [
+    {
+     "premise": "e_e50c",
+     "kind": "number",
+     "entity": "AeroGrid Router",
+     "relation": null,
+     "quantity": "data throughput",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "Gbps",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_dfe6",
+     "kind": "credential",
+     "entity": "AeroGrid Router",
+     "relation": null,
+     "quantity": "ISO 27001 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_7743": [
+    {
+     "premise": "m_2075",
+     "kind": "conclusion",
+     "entity": "AeroGrid Router",
+     "relation": null,
+     "quantity": "enterprise designation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_36f2": [
+    {
+     "premise": "e_1552",
+     "kind": "credential",
+     "entity": "Lumino Desk Lamp",
+     "relation": null,
+     "quantity": "UL safety certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

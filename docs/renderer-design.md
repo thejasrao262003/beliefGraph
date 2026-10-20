@@ -936,3 +936,43 @@ The stored renders have no records, so the tests use **hand-annotated record fix
 **Decisions needed, in order:**
 1. Approve implementing §19b–19d (the parser, checks and fixtures; no calls).
 2. After reviewing the code and test results: approve the exact v9 prompt text, the retry mode (a or b), and the cap.
+
+### 19g. Built and run (2026-10-20): render-v9/v10 records; pilot-4 and pilot-4b
+
+**Process change (user, 2026-10-20):**
+- Stop gating model-free work on approval.
+- Claude may review scenarios itself and run model calls, within a stated budget.
+- Reviews below are **Claude's**, recorded as `claude-ai-review (delegated by user …; not human)`.
+- Budget set by Claude: **$1.00 cumulative** for pilot-4 and pilot-4b.
+
+**Built:**
+- **render-v9:** eval-only fact and condition records. `leakcheck.record_flags` checks agreement, satisfaction, the post-update outcome and grounding against the text.
+- **Hand-annotated fixtures for the six human-reviewed renders:** the 3 accepted controls raise no hard flag; the F6 entity failure and the repaired-F1 scope failure are hard; F2's vague window is soft, per the earlier decision.
+- **Rule design, refined on the controls before any run:**
+  - a condition's window or scope of "none" means "no restriction";
+  - credentials have no accumulation window;
+  - an unstated or vague window or scope is soft;
+  - policy clauses split at "provided / if / through …".
+- **render-v10:** v9 + one clarification (below).
+- **Tests:** 133 pass. One commit (`f7bcd54`) was pushed with 26 failing tests: a `| tail` hid pytest's exit code. Fixed in `0523ff3`; commits are now gated on the real exit code.
+
+**Pilot-4 (render-v9, `data/rendered/pilot4-render-v9/`, $0.4351):**
+- F2, F3 and F6 rendered on the first attempt with 0 hard flags.
+- F1 failed both attempts. Attempt 1: a record said "no window" while its policy clause said quarterly, a genuine catch. Attempt 2: a policy↔memory echo.
+- **Gate 0.59 > 0.50: fail.**
+- **Diagnosis:** the policies copied the facts' quantity names ("customer safety score", "electric motor power", "warranty duration"). That gave 12 policy↔evidence echoes, against 4 in pilot-2.
+  - Masking entity names leaves 0.52 (the word-only score drops to 0), so the leak is the policy wording, not the names.
+  - Cause: v9's "the same quantity name as the fact", written for the records, leaked into the policy text.
+- **Fix, render-v10:** records are labels only; the policy text still follows the clarity-first wording rule, with two examples.
+
+**Pilot-4b (render-v10, `data/rendered/pilot4b-render-v10/`, cumulative $0.8970 of $1.00):**
+
+| Scenario | Attempts | Hard flags | Claude review |
+|---|---|---|---|
+| F1 | 2 (attempt 1: policy↔memory echo "standard impact safety", plus a record/clause window mismatch) | 0 | **accept** |
+| F2 | 1 | 0 | **accept**, with a C10 note: the update "8 Gbps under standardized load" vs the spec "reaching 12 Gbps" is read as a correction of the same quantity |
+| F3 | 2 (attempt 1: record window not in policy) | 0 | **accept** (the alternative-survives case keeps B1 and D1 after efficiency 22 → 18%) |
+| F6 | **not attempted:** the guard refused ($0.897 + $0.143 worst case > $1.00) | — | — |
+
+- **Gate over the three rendered:** worse heuristic 0.23 (word-only 0.23, policy-assisted 0.15); 2 soft echoes.
+- **Status:** the declared four-scenario scope is incomplete until F6 is rendered. The gate over three is reported, not claimed as a pass for four.
