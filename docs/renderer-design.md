@@ -482,3 +482,27 @@ The v5 prompt already says conditions must be "never in the fact's words", but t
 - Diagnostic only: F6 alone, worse heuristic 0.62.
 
 **Reading:** under the strict lexical rules, F6 (one chain plus three single-premise distractors, many named quantities) pushes the renderer either into echoes or into vague paraphrase. Raising the lexical bar further is unlikely to produce a scenario that passes C8/C10. **Decision needed.** The pooled pilot gate cannot be computed until a final F6 exists.
+
+### 16h. Decision on F6 and the pilot (user, 2026-10-20)
+
+| Item | Decision |
+|---|---|
+| Third F6 model call | **Not approved.** The approval covered one retry and required stopping if it failed. A third attempt would be a new experiment, and the remaining $0.073 is a ceiling, not budget to spend |
+| New lexical exemptions (e.g. `g/km` unit tokens, word-sense decoy hits) | **Not approved for this pilot** |
+| Policy↔evidence echo check | **Unchanged** for the frozen pilot. Changing it after two observed failures would alter the acceptance criteria post hoc |
+| F6 | **Failed / unresolved.** Excluded from the accepted pilot set. Both attempts (`smoke-render-v5c`, `smoke-render-v5d`) and their rejection reasons stay in the trail |
+| F1, F2 | Proceed to **human review** independently. Being sent to review is not passing it |
+| 40-scenario run | **Blocked** until the required human reviews and acceptance gates are complete |
+
+**Effect on the predeclared gate (§16d):** the pooled gate was declared over F1 + F2 + F6. With F6 excluded, that gate **cannot be evaluated as declared**. It is not silently re-scoped to F1 + F2. Any new scope must be declared before it is scored.
+
+**Human review packets:**
+- **F1:** `smoke-render-v5/review.md` → record in `smoke-render-v5/review.csv`. The AI pre-assessment (chain consistent with the fleet update) is not a verdict.
+- **F2:** the `s_3d821bdd07` section of `smoke-render-v5b/review.md` → record in the F2 row of `smoke-render-v5b/review.csv`. Leave the F6 section and row (`s_c41a0870a2`) blank, because F6 is excluded. **Reviewer to adjudicate explicitly:** whether the policy wording "active ISO 22000 certification" against the evidence "active ISO 22000 food safety management certification" fails C7 or C11. The standard name is exempt by the documented rule and is needed for C8. The AI pre-review (`ai-prereview-f2-f6.csv`) says it fails.
+
+**Candidate design for the next renderer revision** (recorded only; needs new explicit approval before any implementation or model call):
+- **Hard structural checks:** policy→memory leakage and the other directly prohibited disclosures.
+- **Soft lexical flags:** policy↔evidence overlap, surfaced for human judgement under C7 and C11 rather than rejecting the render. Shared technical terms (`g/km`, "carbon offsets", a named certification) are not inherently structural leaks, and a phrase-overlap check is only a proxy.
+- **Measured leakage:** the predeclared pooled gate over the declared scenario set.
+- **Semantic quality:** C8 and C10, which no lexical score replaces. F6 attempt 2 shows that a render can pass the automated checks while getting harder to interpret ("balance credits" for "carbon offsets").
+- **Scenario design:** consider an F6 variant with fewer independent named quantities.
