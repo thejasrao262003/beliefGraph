@@ -594,3 +594,158 @@ def test_v7_prompt_is_pinned_for_pilot_2():
     from beliefbench.render.prompt import PROMPTS
 
     assert hashlib.sha256(PROMPTS["render-v7"].encode()).hexdigest() == V7_SHA256
+
+
+# ── render-v8 continuity checks (approved 2026-10-20 after pilot-2; design doc §18) ──
+
+from pathlib import Path  # noqa: E402
+
+RENDERED = Path(__file__).resolve().parents[1] / "data" / "rendered"
+
+
+def _stored(run, source):
+    for f in sorted((RENDERED / run / "eval").glob("*.json")):
+        ev = json.loads(f.read_text())
+        if ev["source_scenario"] == source:
+            return json.loads((RENDERED / run / "system" / f.name).read_text()), ev
+    raise LookupError(f"{run} {source}")
+
+
+def _cont(run, source):
+    return leakcheck.continuity_flags(*_stored(run, source))
+
+
+def test_r1_pilot2_f6_maker_never_linked_is_hard():
+    flags = _cont("smoke-render-v7", "F6-000")
+    hard = sorted(f.item for f in flags if f.hard)
+    assert hard == ["e_3dc4->m_e062", "e_45ef->m_cc95"]
+    assert all(f.kind == "premise_about_other_entity" and "Apex Medical Corp" in f.match for f in flags if f.hard)
+
+
+def test_r2_pilot2_f2_evaluation_period_is_soft_not_hard():
+    flags = _cont("smoke-render-v7", "F2-000")
+    assert [(f.item, f.kind, f.hard) for f in flags] == [("u_a152", "update_window_unclear", False)]
+
+
+def test_c1_premise_naming_the_product_passes_kestrel():
+    # "Apex Medical logged ... audits for the Kestrel 800 device": a different company,
+    # but the premise names the memory's entity, so subject continuity holds.
+    assert not [f for f in _cont("smoke-render-v7", "F2-000") if f.item.startswith("e_e50c")]
+
+
+@pytest.mark.parametrize("run,source", [("smoke-render-v5", "F1-000"), ("smoke-render-v5b", "F2-000"),
+                                        ("smoke-render-v5b", "F6-000"), ("smoke-render-v7", "F1-000")])
+def test_c2_accepted_and_same_entity_controls_are_clean(run, source):
+    assert _cont(run, source) == []
+
+
+@pytest.mark.parametrize("text", ["Peak Energy Solutions reduced its standard warranty coverage period to 6 months.",
+                                  "A revised fleet inspection shows Apex Logistics has an average commercial vehicle "
+                                  "age of 5.8 years.",
+                                  "An official notice confirms the certification expired and was not renewed."])
+def test_c3_duration_values_are_not_windows(text):
+    assert leakcheck.windows(text) == set()
+
+
+def test_windows_normalise_common_phrasings():
+    assert leakcheck.windows("1,200 audits over the preceding year") == {"year"}
+    assert leakcheck.windows("annual recurring revenue") == {"year"}
+    assert leakcheck.windows("revenue last quarter") == {"quarter"}
+    assert leakcheck.windows("zero incidents during the previous 3 years") == {"3 years"}
+    assert leakcheck.windows("850 audits during the evaluation period") == {"unknown"}
+
+
+def _window_case(fact, update, policy, relation="supersedes"):
+    system = {"scenario": "s_x", "domain": "d",
+              "evidence": [{"id": "e_0001", "observed": "2026-01-08", "source": "Registry", "text": fact}],
+              "memories": [{"id": "m_0001", "text": "Acme Corp qualifies for the Gold programme."}],
+              "updates": [{"id": "u_0001", "observed": "2026-01-20", "source": "Registry", "text": update}],
+              "policies": [{"id": "p_0001", "text": policy}]}
+    evaluation = {"justifications": {"m_0001": [["e_0001"]]}, "policy_of": {"p_0001": "m_0001"},
+                  "update_targets": {"u_0001": {"target": "e_0001", "relation": relation, "reliability": "high"}}}
+    return leakcheck.window_flags(system, evaluation)
+
+
+def test_s2_annual_fact_superseded_by_a_quarterly_value_is_hard():
+    flags = _window_case("Acme Corp reported annual revenue of $2M.", "Acme Corp reported revenue last quarter of $400k.",
+                         "The Gold programme requires annual revenue of at least $1.5M.")
+    assert [(f.kind, f.hard) for f in flags] == [("update_window_mismatch", True)]
+
+
+def test_same_window_update_passes_and_retractions_are_not_checked():
+    assert _window_case("Acme Corp reported annual revenue of $2M.", "Acme Corp restated its annual revenue to $1M.",
+                        "The Gold programme requires annual revenue of at least $1.5M.") == []
+    assert _window_case("Acme Corp reported annual revenue of $2M.", "A forum post says the figure was invented.",
+                        "The Gold programme requires annual revenue of at least $1.5M.", relation="retracts") == []
+
+
+def test_policy_window_is_attributed_to_its_own_condition_only():
+    # smoke-render-v3 F2: the licence count is monthly; "annual" belongs to the revenue condition.
+    policy = ("Standard partner tier standing is conferred upon any account generating at least $100,000 in annual "
+              "recurring revenue, or maintaining an active seat threshold of 500 licenses.")
+    assert leakcheck.condition_windows("Apex Tech Solutions maintained 600 active licenses during the previous month.",
+                                       policy) == set()
+    assert leakcheck.condition_windows("Apex Tech Solutions recorded annual recurring revenue of $120,000.",
+                                       policy) == {"year"}
+    assert _window_case("Acme Corp maintained 600 active licenses during the previous month.",
+                        "Acme Corp corrected its seat count.", policy)[0].kind == "update_window_unclear"
+
+
+def test_fact_and_policy_condition_with_disjoint_windows_is_hard():
+    flags = _window_case("Acme Corp recorded revenue of $900k last quarter.", "Acme Corp restated it.",
+                         "The Gold programme requires annual revenue of at least $1.5M.")
+    assert ("fact_policy_window_mismatch", True) in [(f.kind, f.hard) for f in flags]
+
+
+def _subject_case(premise, memory, others=()):
+    system = {"scenario": "s_x", "domain": "d", "updates": [], "policies": [],
+              "evidence": [{"id": f"e_{i:04x}", "observed": "2026-01-08", "source": "Registry", "text": t}
+                           for i, t in enumerate([premise, *others])],
+              "memories": [{"id": "m_0001", "text": memory}]}
+    return leakcheck.subject_flags(system, {"justifications": {"m_0001": [["e_0000"]]}})
+
+
+def test_s1_relation_stated_inside_the_premise_passes():
+    assert _subject_case("Apex Medical Corp, maker of the BioGlow Diagnostic Kit, holds ISO 13485 certification.",
+                         "BioGlow Diagnostic Kit fulfils global release standards.",
+                         ["BioGlow Diagnostic Kit secured FDA 510(k) clearance."]) == []
+
+
+def test_association_elsewhere_does_not_rescue_an_unlinked_premise():
+    # The relation stated in some other fact does not count for this premise: it must be in the premise itself.
+    flags = _subject_case("Apex Medical Corp holds ISO 13485 certification.",
+                          "BioGlow Diagnostic Kit fulfils global release standards.",
+                          ["BioGlow Diagnostic Kit secured FDA 510(k) clearance.",
+                           "Apex Medical Corp, maker of the BioGlow Diagnostic Kit, is based in Ohio."])
+    assert [(f.kind, f.hard) for f in flags] == [("premise_about_other_entity", True)]
+
+
+def test_s3_extractor_handles_leading_the_and_possessives():
+    system = {"evidence": [{"text": "The Kestrel 800 device holds an active ISO 13485 credential."},
+                           {"text": "Vortex Solar Inc's Helios Panel achieved a solar cell efficiency of 24%."},
+                           {"text": "Sarah Chen's credit score is 750."}]}
+    names = leakcheck.evidence_entities(system)
+    assert {"Kestrel 800", "Vortex Solar Inc", "Helios Panel", "Sarah Chen"} <= names
+    assert _subject_case("Vortex Solar Inc's Helios Panel achieved a solar cell efficiency of 24%.",
+                         "Helios Panel is eligible for clean power subsidies.") == []
+
+
+def test_unnamed_subject_is_uncertain_not_a_mismatch():
+    flags = _subject_case("The client holds an investment portfolio with our firm.",
+                          "Sarah Chen qualifies for the Elite Savings Account.", ["Sarah Chen's credit score is 745."])
+    assert [(f.kind, f.hard) for f in flags] == [("subject_uncertain", False)]
+
+
+def test_s4_distractor_facts_outside_justifications_are_never_subject_checked():
+    flags = _subject_case("Acme Corp holds ISO 9001.", "Acme Corp is an approved vendor.",
+                          ["Zenith Foods holds organic certification."])
+    assert flags == []
+
+
+def test_continuity_checks_apply_from_v8_only():
+    assert not leakcheck.continuity_enforced("render-v7") and not leakcheck.continuity_enforced("render-v5")
+    assert leakcheck.continuity_enforced("render-v8")
+    pair = _stored("smoke-render-v7", "F6-000")
+    assert not [f for f in leakcheck.check([pair], evidence_hard=False).flags if f.kind == "premise_about_other_entity"]
+    assert [f for f in leakcheck.check([pair], evidence_hard=False, continuity=True).flags
+            if f.kind == "premise_about_other_entity"]

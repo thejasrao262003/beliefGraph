@@ -38,7 +38,8 @@ REQUIRED_FOR_ACCEPT = ("C8_inferable", "C10_unambiguous")
 FLAG_ITEMS = {"policy_echoes_evidence": "C7/C11", "policy_names_subject": "C11", "explains_reason": "C7",
               "mentions_sources": "C7", "order_cue": "C7", "update_mentions_implication": "C4",
               "retraction_reads_as_hedge": "C4", "cross_group_entity": "C6", "unnamed_entity_in_groups": "C6",
-              "final_state_mismatch": "C13", "recompute_unresolved": "C13"}
+              "final_state_mismatch": "C13", "recompute_unresolved": "C13",
+              "subject_uncertain": "C6/C8", "update_window_unclear": "C4/C10"}
 
 
 def review_sheet(system: dict, evaluation: dict, flags: list[Flag]) -> str:

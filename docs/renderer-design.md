@@ -696,3 +696,57 @@ Before any call, I will also report what both checks flag on **every stored run*
 1. Approve implementing §18a–18c (code + tests + the stored-output report). Still no calls.
 2. Choose hard or soft for the *unknown window* case.
 3. After reviewing the code and report: choose scope A or B and approve the cap.
+
+### 18e. Continuity checks implemented; stored-output report (2026-10-20)
+
+**Approved by the user on 2026-10-20:** implement §18a–18c and report on stored outputs; unknown windows are soft. **Not approved:** model calls, a v8 prompt, or pilot-3. No stored run, review or verdict was changed (no diff under `data/`).
+
+**Implementation** (`leakcheck`; 109 tests pass, 22 of them new):
+
+| Function | Behaviour |
+|---|---|
+| `evidence_entities` | Conservative names: the leading capitalised run of each evidence sentence. A leading "The" is skipped, digits are allowed after a name ("Kestrel 800"), and possessives are split into owner and item. A sentence opening with a generic word yields no name |
+| `subject_flags` | For each premise→memory pair in the eval view's justifications: **hard** `premise_about_other_entity` if both name known entities and share none; **soft** `subject_uncertain` if either names none. A relation counts only if it is stated **in the premise itself**; an association stated elsewhere does not rescue it (tested) |
+| `windows` / `condition_windows` | Aggregation windows (year, quarter, month, week, N years; "unknown" for vague). Durations that are the measured value match none. A policy window is attributed only to the condition clause that best matches the fact; a tie or no overlap attributes none |
+| `window_flags` | `supersedes` only. **Hard** `update_window_mismatch` (different stated window) and `fact_policy_window_mismatch` (disjoint fact/condition windows). **Soft** `update_window_unclear` (vague or no window when the fact or condition has one) |
+| Gating | `continuity_enforced(version)` is off for render-v2…v7, so earlier runs are never re-judged; it applies from render-v8, which does not exist yet. `render_run` adds continuity hard flags to retries, and `check(..., continuity=True)` adds them to reports, only when it is enforced |
+| Review sheet | Soft flags labelled "(judge under C6/C8)" and "(judge under C4/C10)" |
+
+**Stored-output report:** `docs/continuity-report.md` (`scripts/continuity_report.py`).
+- **Scope:** every raw response under `data/rendered/*/raw/`, including rejected attempts. 26 files; 24 unique responses after removing byte-identical cache copies (each listed with all the runs holding it); 24 parsed, 0 unparsed, 0 excluded.
+- **Denominators:** 179 premise→memory pairs; 20 superseding updates; 101 evidence→policy-condition pairs (render-v1 has no policies).
+
+| Check | Flags | Known genuine | Likely false positive | Rate |
+|---|---|---|---|---|
+| `premise_about_other_entity` (hard) | 2 | **2**: v7 F6 `e_3dc4`, `e_45ef` (Apex Medical Corp vs BioGlow) | 0 | hard false positives 0 / 177 other pairs; 0 / 23 other renderings |
+| `subject_uncertain` (soft) | 13, all in render-v1 (3 of 24 renderings) | 11 genuinely unnamed subjects ("The customer", "The client", "The business's", "The requested coverage limit"). render-v1 predates the naming rule | 2 detector limits: an address ("123 Oak Street") and a quoted name ("'Elite Savings Account'") | 0 / 142 pairs in render-v2…v7 |
+| `update_window_unclear` (soft) | 2 of 20 updates | **1**: v7 F2 `u_a152` ("during the evaluation period" vs "over the preceding year") | 1 borderline: v3 F2 `u_41fa` "corrected its seat count to 350 … following a user audit" vs a monthly fact. A correction plausibly keeps the window but does not say so | — |
+| `update_window_mismatch` (hard) | 0 / 20 | — | — | 0 |
+| `fact_policy_window_mismatch` (hard) | 0 / 101 | — | — | 0 |
+
+- **Required outcomes:**
+  - Both known pilot-2 failures are detected: F6 hard, exactly the two failing pairs; F2 soft, as approved, with no hard flag.
+  - All four human-accepted controls are clean: v5 F1, v5/v5b F2 (one response), v7 F1.
+  - The Kestrel 800 premise passes.
+- **Disclosure of calibration on this data:** the first implementation attributed a policy's windows to the whole policy. On these outputs that produced one hard false positive (v3 F2: "annual" belongs to the revenue condition, not the monthly licence count) and one soft one (v7 F2's ISO revocation). It also had a possessive bug ("Sarah Chen's …" at the end of a name), which made 6 render-v1 pairs uncertain. Both were fixed before this report: clause-level attribution and possessive splitting, each with a regression test.
+  - These are fixes to the check's definition made on historical data, before the check gates anything. No pilot result depends on them.
+  - The cost of the fix: a window stated only in a policy is now ignored when the clause match is ambiguous, so a mismatch hidden there can be missed (conservative by design).
+- **Known limits:**
+  - **Subject check:** addresses and quoted names are not recognised as entities (they give a soft flag, never a hard one).
+  - **Window check:** it only knows the listed phrases; a window phrased otherwise is invisible to it. Both checks are aids to human review, not replacements for C6/C8/C10.
+
+### 18f. Pilot-3 proposal (for approval; nothing runs before it)
+
+**Proposed render-v8 prompt** = verbatim v7 (pinned `83b02a66…`) + two rules, to be pinned before any call:
+1. "SUBJECT CONTINUITY: every fact that supports a conclusion names the conclusion's entity. If a fact is about a related entity (maker, parent, owner), state the relation inside that same fact (e.g. 'Apex Medical Corp, maker of the BioGlow Diagnostic Kit, …'). Responses that break this are rejected."
+2. "TIME WINDOWS: a count or amount states the window it covers (annual, last quarter, …), and the policy condition it is compared with uses the same window. An update that replaces such a value states it over the same window as the original fact, never a vague one such as 'the evaluation period'."
+
+| Item | Proposal |
+|---|---|
+| Checks | All existing hard checks, plus `premise_about_other_entity`, `update_window_mismatch` and `fact_policy_window_mismatch` as hard. `subject_uncertain`, `update_window_unclear` and the policy↔evidence echo are soft, judged by the reviewer |
+| Scope | **Option B (recommended): F1-000, F2-000, F3-000, F6-000**, fresh under v8. On stored output the new hard checks raised 0 false positives (0 / 177 pairs, 0 / 20 updates, 0 / 101 conditions), so they are unlikely to burn the budget on spurious retries. F3 is in the 40-scenario run and was last rendered under render-v3. **Option A:** F1, F2, F6 only |
+| Acceptance | Unchanged from pilot-2: 0 hard flags within 2 attempts; a human review of C1–C13 for every scenario; `accept` with C8 and C10 passing |
+| Gate | Worse heuristic's justification-set F1 ≤ 0.50, pooled over exactly the declared set. Per-scenario scores and soft-flag counts are reported alongside |
+| Stop rule | Unchanged: a failure after 2 attempts, a guard refusal, or any human fail/`revise` stops the pilot. No scope or criteria change after results |
+| Budget | New pilot-3 cap, cumulative: **B $0.80**, **A $0.60**. Guard worst case $0.141 per call. Expected ≈ $0.27 (B) / ≈ $0.20 (A), at the pilot-2 rate of ≈ $0.068 per call |
+| History | Pilot-1 and pilot-2 remain as recorded; no review carries over |

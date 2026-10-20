@@ -320,6 +320,181 @@ def relation_flags(system: dict, evaluation: dict) -> list[Flag]:
     return flags
 
 
+# ── render-v8: reference continuity (approved 2026-10-20 after pilot-2) ──
+# Pilot-2 failed on reference, not wording: F6 supported a product's memories with facts
+# about another company (its maker, never stated), and F2 replaced an annual count with
+# one "during the evaluation period". Both checks report uncertainty as a soft flag
+# rather than guessing a match or a mismatch.
+
+_NAME_TOKEN = r"(?:[A-Z][\w&.-]*|\d[\w-]*)"
+# Leading run of capitalised tokens; digits may follow ("Kestrel 800", "Orion Drone 4").
+_ENTITY_HEAD = re.compile(rf"^(?:The\s+)?([A-Z][\w&.-]*(?:'s?)?(?:\s+(?:{_NAME_TOKEN}|of|and|&)(?:'s?)?)*)")
+_CORP_SUFFIX = re.compile(r"\s+(Inc|Corp|Corporation|LLC|Ltd|Co|Group|Plc|GmbH)\.?$")
+
+
+def _clean_name(name: str) -> str:
+    name = re.sub(r"\s+(of|and|&)$", "", name.strip().rstrip(".,"))
+    return name
+
+
+def evidence_entities(system: dict) -> set[str]:
+    """Named subjects of the evidence sentences, conservatively: the leading run of
+    capitalised words (a leading "The" is skipped), with possessives split into owner
+    and item ("Vortex Solar Inc's Helios Panel" -> both). Sentences that open with a
+    generic word give no name, so their subject stays unknown."""
+    out = set()
+    for e in system["evidence"]:
+        m = _ENTITY_HEAD.match(e["text"].strip())
+        if not m:
+            continue
+        head = m.group(1)
+        if head.split()[0].lower() in CAP_STOP | {"a", "an", "our", "its", "this", "these", "all", "each"}:
+            continue
+        for part in re.split(r"'s?(?:\s+|$)", head):
+            part = _clean_name(part)
+            if len(part) >= 3 and not part.isdigit():
+                out.add(part)
+    return out
+
+
+def _named(text: str, names: set[str]) -> set[str]:
+    """Which known entity names occur in text (whole words; corporate suffix optional)."""
+    found = set()
+    for n in names:
+        variants = {n, _CORP_SUFFIX.sub("", n)}
+        if any(len(v) >= 3 and re.search(rf"(?<![\w-]){re.escape(v)}(?![\w-])", text) for v in variants):
+            found.add(n)
+    return found
+
+
+def subject_flags(system: dict, evaluation: dict) -> list[Flag]:
+    """Every premise of a memory must be about the memory's entity: it names an entity the
+    memory names, or states the relation itself ("Apex Medical Corp, maker of the BioGlow
+    Diagnostic Kit, ..."), which also names it. Hard when both sides name known entities
+    and share none; soft when either side names none (the detector is unsure)."""
+    names = evidence_entities(system)
+    text = {x["id"]: x["text"] for x in system["evidence"] + system["memories"]}
+    flags = []
+    for mid, justs in evaluation["justifications"].items():
+        if mid not in text:
+            continue
+        m_names = _named(text[mid], names)
+        for p in sorted({p for j in justs for p in j}):
+            if p not in text:
+                continue
+            p_names = _named(text[p], names)
+            item = f"{p}->{mid}"
+            if not m_names or not p_names:
+                side = "memory" if not m_names else "premise"
+                flags.append(Flag(system["scenario"], item, "subject_uncertain", f"no known entity named in {side}", False))
+            elif not m_names & p_names:
+                flags.append(Flag(system["scenario"], item, "premise_about_other_entity",
+                                  f"{', '.join(sorted(p_names))} vs {', '.join(sorted(m_names))}", True))
+    return flags
+
+
+_NUM = r"(\d+|two|three|four|five|six|seven|eight|nine|ten)"
+_WORDNUM = {"two": 2, "three": 3, "four": 4, "five": 5, "six": 6, "seven": 7, "eight": 8, "nine": 9, "ten": 10}
+_REL = r"(?:previous|preceding|past|prior|last|current|latest|most recent)"
+# Windows over which a count or amount is aggregated. A duration that is itself the
+# measured value ("a warranty period of 24 months", "fleet age of 5.8 years") matches
+# none of these: every pattern needs a window word (annual, per, during/over the ...).
+WINDOW_PATTERNS = [
+    ("year", re.compile(rf"\b(annual(ly)?|yearly|per year|a year|each year|every year|per annum|this year|"
+                        rf"last year|year-to-date|(the )?{_REL} (calendar |fiscal |financial )?year|"
+                        rf"(calendar|fiscal|financial) year)\b", re.I)),
+    ("quarter", re.compile(rf"\b(quarterly|per quarter|each quarter|this quarter|last quarter|"
+                           rf"(the )?{_REL} (fiscal )?quarter|Q[1-4])\b", re.I)),
+    ("month", re.compile(rf"\b(monthly|per month|each month|this month|last month|(the )?{_REL} month)\b", re.I)),
+    ("week", re.compile(rf"\b(weekly|per week|this week|last week|(the )?{_REL} week)\b", re.I)),
+]
+MULTI_YEAR = re.compile(rf"\b(?:during|over|in|within|for|across) (?:the )?(?:{_REL} )?{_NUM} years\b", re.I)
+VAGUE_WINDOW = re.compile(r"\b(?:during|over|in|for|within|across) the (?:\w+ )?period\b|\brecently\b|"
+                          r"\bin recent (?:months|years)\b", re.I)
+
+
+def windows(text: str) -> set[str]:
+    """Normalised aggregation windows in text: year, quarter, month, week, "N years",
+    or "unknown" for a vague one ("during the evaluation period")."""
+    out = {w for w, pat in WINDOW_PATTERNS if pat.search(text)}
+    for m in MULTI_YEAR.finditer(text):
+        n = m.group(1).lower()
+        out.add(f"{_WORDNUM.get(n, n)} years")
+    if VAGUE_WINDOW.search(text):
+        out.add("unknown")
+    return out
+
+
+_CLAUSE_SPLIT = re.compile(r",|;|\b(?:or|and|alongside|together with|plus|while|either)\b", re.I)
+
+
+def condition_windows(fact: str, policy: str) -> set[str]:
+    """Windows of the policy condition that this fact satisfies. A policy usually has
+    several conditions, and a window ("annual") belongs to one of them, so the policy is
+    split into clauses and the clause sharing the most content words with the fact is
+    used. No clear best clause (no overlap, or a tie) means no window is attributed."""
+    fact_words = tokens(fact) - set(GENERIC_RULE_WORDS)
+    scored = [(len(fact_words & (tokens(c) - set(GENERIC_RULE_WORDS))), c) for c in _CLAUSE_SPLIT.split(policy) if c.strip()]
+    scored.sort(key=lambda x: -x[0])
+    if not scored or scored[0][0] == 0 or (len(scored) > 1 and scored[1][0] == scored[0][0]):
+        return set()
+    return windows(scored[0][1]) - {"unknown"}
+
+
+def window_flags(system: dict, evaluation: dict) -> list[Flag]:
+    """Time-window continuity (render-v8). For each superseding update, its new value must
+    cover the window of the target fact and of the policy condition it satisfies: hard if
+    it states a different window, soft if it states none or a vague one. Also hard if a
+    premise and its policy condition state disjoint windows. Only stated windows count."""
+    text = {x["id"]: x["text"] for x in system["evidence"] + system["updates"] + system.get("policies", [])}
+    policy_for = {m: p for p, m in (evaluation.get("policy_of") or {}).items()}
+    governing: dict[str, set[str]] = {}  # evidence id -> policies of the memories it supports
+    for mid, justs in evaluation["justifications"].items():
+        for j in justs:
+            for p in j:
+                if mid in policy_for:
+                    governing.setdefault(p, set()).add(policy_for[mid])
+    flags = []
+    sid = system["scenario"]
+    for e in system["evidence"]:
+        ew = windows(e["text"]) - {"unknown"}
+        for pid in sorted(governing.get(e["id"], ())):
+            pw = condition_windows(e["text"], text.get(pid, ""))
+            if ew and pw and not ew & pw:
+                flags.append(Flag(sid, f"{e['id']}~{pid}", "fact_policy_window_mismatch",
+                                  f"{'/'.join(sorted(ew))} vs {'/'.join(sorted(pw))}", True))
+    for uid, u in (evaluation.get("update_targets") or {}).items():
+        if u["relation"] != "supersedes" or uid not in text:
+            continue
+        ref = windows(text.get(u["target"], ""))
+        for pid in governing.get(u["target"], ()):
+            ref |= condition_windows(text.get(u["target"], ""), text.get(pid, ""))
+        ref -= {"unknown"}
+        if not ref:
+            continue
+        uw = windows(text[uid])
+        known = uw - {"unknown"}
+        if known and not known & ref:
+            flags.append(Flag(sid, uid, "update_window_mismatch",
+                              f"{'/'.join(sorted(known))} vs {'/'.join(sorted(ref))}", True))
+        elif not known:
+            flags.append(Flag(sid, uid, "update_window_unclear",
+                              f"{'vague' if uw else 'none'} vs {'/'.join(sorted(ref))}", False))
+    return flags
+
+
+# Prompt versions rendered before these checks existed; their results are not re-judged.
+PRE_CONTINUITY_VERSIONS = STRICT_EVIDENCE_ECHO_VERSIONS | {"render-v7"}
+
+
+def continuity_enforced(prompt_version: str) -> bool:
+    return prompt_version not in PRE_CONTINUITY_VERSIONS
+
+
+def continuity_flags(system: dict, evaluation: dict) -> list[Flag]:
+    return subject_flags(system, evaluation) + window_flags(system, evaluation)
+
+
 def consistency_flags(system: dict, evaluation: dict) -> list[Flag]:
     """render-v3: the renderer's own post-update judgement per memory must agree with the
     gold action (keep -> holds, withdraw -> fails, uncertain -> undetermined), and a
@@ -461,13 +636,16 @@ class LeakReport:
         }
 
 
-def check(pairs: list[tuple[dict, dict]], evidence_hard: bool = True) -> LeakReport:
-    """Run every check over (system_view, eval_view) pairs."""
+def check(pairs: list[tuple[dict, dict]], evidence_hard: bool = True, continuity: bool = False) -> LeakReport:
+    """Run every check over (system_view, eval_view) pairs. ``continuity`` adds the
+    render-v8 reference checks (off for versions rendered before they existed)."""
     rep = LeakReport()
     for system, evaluation in pairs:
         rep.flags += (text_flags(system) + echo_flags(system, evidence_hard) + group_flags(system, evaluation)
                       + consistency_flags(system, evaluation) + relation_flags(system, evaluation)
                       + decoy_word_flags(system, evaluation))
+        if continuity:
+            rep.flags += continuity_flags(system, evaluation)
         rep.lexical.add(evaluation["justifications"], lexical_justifications(system))
         rep.policy_lexical.add(evaluation["justifications"], policy_assisted_justifications(system))
         rep.aucs[system["scenario"]] = premise_overlap_auc(system, evaluation)
