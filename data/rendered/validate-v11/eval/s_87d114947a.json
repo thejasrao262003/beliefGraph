@@ -1,0 +1,162 @@
+{
+ "scenario": "s_87d114947a",
+ "source_scenario": "F6-005",
+ "family": "F6",
+ "meta": {
+  "variant": "low_reliability",
+  "has_alternative": false,
+  "depth": 1
+ },
+ "idmap": {
+  "E1": "e_7eaa",
+  "B1": "m_0bed",
+  "D1": "m_7aa7",
+  "E2": "e_0804",
+  "B2": "m_c44a",
+  "U1": "u_5c8f"
+ },
+ "groups": {
+  "e_7eaa": 1,
+  "m_0bed": 1,
+  "m_7aa7": 1,
+  "e_0804": 2,
+  "m_c44a": 2
+ },
+ "policy_of": {
+  "p_ce99": "m_0bed",
+  "p_4932": "m_7aa7",
+  "p_0203": "m_c44a"
+ },
+ "gold": {
+  "e_7eaa": "uncertain",
+  "e_0804": "keep",
+  "m_0bed": "uncertain",
+  "m_c44a": "keep",
+  "m_7aa7": "uncertain"
+ },
+ "justifications": {
+  "m_0bed": [
+   [
+    "e_7eaa"
+   ]
+  ],
+  "m_7aa7": [
+   [
+    "m_0bed"
+   ]
+  ],
+  "m_c44a": [
+   [
+    "e_0804"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_5c8f": {
+   "target": "e_7eaa",
+   "relation": "retracts",
+   "reliability": "low"
+  }
+ },
+ "decoy_policies": [
+  "p_b2ab",
+  "p_43ca"
+ ],
+ "after_updates": {
+  "m_0bed": "undetermined",
+  "m_7aa7": "undetermined",
+  "m_c44a": "holds"
+ },
+ "final_state": {
+  "m_0bed": "undetermined",
+  "m_c44a": "holds",
+  "m_7aa7": "undetermined"
+ },
+ "world": "AeroVanguard Logistics and BlueSky Express are evaluated for travel service designations based on fleet numbers and flight performance.",
+ "rationale": {
+  "m_0bed": [
+   "AeroVanguard Logistics maintains a fleet size of 15 coaches, satisfying the requirement of at least 10 coaches for high-capacity carrier classification."
+  ],
+  "m_7aa7": [
+   "AeroVanguard Logistics holds high-capacity carrier classification, qualifying it as preferred event transport."
+  ],
+  "m_c44a": [
+   "BlueSky Express achieved an on-time arrival rate of 98 percent this quarter, meeting the threshold of 95 percent for premier punctuality distinction."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_7eaa": {
+    "entity": "AeroVanguard Logistics",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 15,
+    "unit": "coaches",
+    "window": "none",
+    "scope": "none"
+   },
+   "u_5c8f": {
+    "entity": "AeroVanguard Logistics",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": null,
+    "unit": "coaches",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_0804": {
+    "entity": "BlueSky Express",
+    "kind": "number",
+    "quantity": "on-time arrival rate",
+    "value": 98,
+    "unit": "percent",
+    "window": "quarter",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_0bed": [
+    {
+     "premise": "e_7eaa",
+     "kind": "number",
+     "entity": "AeroVanguard Logistics",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "coaches",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_7aa7": [
+    {
+     "premise": "m_0bed",
+     "kind": "conclusion",
+     "entity": "AeroVanguard Logistics",
+     "relation": null,
+     "quantity": "high-capacity carrier classification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_c44a": [
+    {
+     "premise": "e_0804",
+     "kind": "number",
+     "entity": "BlueSky Express",
+     "relation": null,
+     "quantity": "on-time arrival rate",
+     "comparator": ">=",
+     "threshold": 95,
+     "unit": "percent",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

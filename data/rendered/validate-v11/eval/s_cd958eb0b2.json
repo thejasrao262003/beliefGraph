@@ -1,0 +1,255 @@
+{
+ "scenario": "s_cd958eb0b2",
+ "source_scenario": "F6-004",
+ "family": "F6",
+ "meta": {
+  "variant": "low_reliability",
+  "has_alternative": false,
+  "depth": 2
+ },
+ "idmap": {
+  "E1": "e_3413",
+  "B1": "m_cf41",
+  "B2": "m_96ef",
+  "E2": "e_b97e",
+  "D1": "m_3290",
+  "E3": "e_0b1d",
+  "B3": "m_6b8e",
+  "E4": "e_aef9",
+  "B4": "m_0517",
+  "U1": "u_5597"
+ },
+ "groups": {
+  "e_3413": 1,
+  "m_cf41": 1,
+  "m_96ef": 1,
+  "m_3290": 1,
+  "e_b97e": 1,
+  "e_0b1d": 2,
+  "m_6b8e": 2,
+  "e_aef9": 3,
+  "m_0517": 3
+ },
+ "policy_of": {
+  "p_2cc1": "m_cf41",
+  "p_c627": "m_96ef",
+  "p_8c4d": "m_3290",
+  "p_b238": "m_6b8e",
+  "p_c5b9": "m_0517"
+ },
+ "gold": {
+  "e_3413": "uncertain",
+  "e_b97e": "keep",
+  "e_0b1d": "keep",
+  "e_aef9": "keep",
+  "m_cf41": "uncertain",
+  "m_6b8e": "keep",
+  "m_0517": "keep",
+  "m_96ef": "uncertain",
+  "m_3290": "uncertain"
+ },
+ "justifications": {
+  "m_cf41": [
+   [
+    "e_3413"
+   ]
+  ],
+  "m_96ef": [
+   [
+    "m_cf41"
+   ]
+  ],
+  "m_3290": [
+   [
+    "m_96ef",
+    "e_b97e"
+   ]
+  ],
+  "m_6b8e": [
+   [
+    "e_0b1d"
+   ]
+  ],
+  "m_0517": [
+   [
+    "e_aef9"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_5597": {
+   "target": "e_3413",
+   "relation": "retracts",
+   "reliability": "low"
+  }
+ },
+ "decoy_policies": [
+  "p_234e",
+  "p_0dd6"
+ ],
+ "after_updates": {
+  "m_cf41": "undetermined",
+  "m_96ef": "undetermined",
+  "m_3290": "undetermined",
+  "m_6b8e": "holds",
+  "m_0517": "holds"
+ },
+ "final_state": {
+  "m_cf41": "undetermined",
+  "m_6b8e": "holds",
+  "m_0517": "holds",
+  "m_96ef": "undetermined",
+  "m_3290": "undetermined"
+ },
+ "world": "An assistant tracks compliance, safety certifications, and market eligibility for various commercial products.",
+ "rationale": {
+  "m_cf41": [
+   "AeroGlide X1's acoustic output level of 58 dB satisfies the policy requirement of being 60 dB or less."
+  ],
+  "m_96ef": [
+   "AeroGlide X1 secures quiet flight recognition, which satisfies the policy requirement for eco-friendly validation."
+  ],
+  "m_3290": [
+   "AeroGlide X1 achieves eco-friendly validation and has an emergency reserve power duration of 25 minutes, meeting the 20-minute threshold."
+  ],
+  "m_6b8e": [
+   "VeraTherm 500's thermal resistance rating of 4.5 m\u00b2K/W meets the policy requirement of at least 4.0 m\u00b2K/W."
+  ],
+  "m_0517": [
+   "Solaris Prime's peak conversion efficiency of 98 percent satisfies the policy threshold of 95 percent or higher."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_3413": {
+    "entity": "AeroGlide X1",
+    "kind": "number",
+    "quantity": "acoustic output level",
+    "value": 58,
+    "unit": "dB",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_b97e": {
+    "entity": "AeroGlide X1",
+    "kind": "number",
+    "quantity": "emergency reserve power duration",
+    "value": 25,
+    "unit": "minutes",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_0b1d": {
+    "entity": "VeraTherm 500",
+    "kind": "number",
+    "quantity": "thermal resistance rating",
+    "value": 4.5,
+    "unit": "m\u00b2K/W",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_aef9": {
+    "entity": "Solaris Prime",
+    "kind": "number",
+    "quantity": "peak conversion efficiency",
+    "value": 98,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "u_5597": {
+    "entity": "AeroGlide X1",
+    "kind": "number",
+    "quantity": "acoustic output level",
+    "value": null,
+    "unit": "dB",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_cf41": [
+    {
+     "premise": "e_3413",
+     "kind": "number",
+     "entity": "AeroGlide X1",
+     "relation": null,
+     "quantity": "acoustic output level",
+     "comparator": "<=",
+     "threshold": 60,
+     "unit": "dB",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_96ef": [
+    {
+     "premise": "m_cf41",
+     "kind": "conclusion",
+     "entity": "AeroGlide X1",
+     "relation": null,
+     "quantity": "quiet flight recognition",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_3290": [
+    {
+     "premise": "m_96ef",
+     "kind": "conclusion",
+     "entity": "AeroGlide X1",
+     "relation": null,
+     "quantity": "eco-friendly validation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_b97e",
+     "kind": "number",
+     "entity": "AeroGlide X1",
+     "relation": null,
+     "quantity": "emergency reserve power duration",
+     "comparator": ">=",
+     "threshold": 20,
+     "unit": "minutes",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_6b8e": [
+    {
+     "premise": "e_0b1d",
+     "kind": "number",
+     "entity": "VeraTherm 500",
+     "relation": null,
+     "quantity": "thermal resistance rating",
+     "comparator": ">=",
+     "threshold": 4.0,
+     "unit": "m\u00b2K/W",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_0517": [
+    {
+     "premise": "e_aef9",
+     "kind": "number",
+     "entity": "Solaris Prime",
+     "relation": null,
+     "quantity": "peak conversion efficiency",
+     "comparator": ">=",
+     "threshold": 95,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

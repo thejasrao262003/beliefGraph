@@ -1,0 +1,278 @@
+{
+ "scenario": "s_1e4e415b76",
+ "source_scenario": "F3-001",
+ "family": "F3",
+ "meta": {
+  "conj_size": 3,
+  "has_alternative": false,
+  "depth": 1,
+  "relation": "supersedes"
+ },
+ "idmap": {
+  "E1": "e_03b9",
+  "E2": "e_c8d9",
+  "E3": "e_efaf",
+  "B1": "m_76d0",
+  "E4": "e_9416",
+  "D1": "m_58c3",
+  "E5": "e_cecb",
+  "B2": "m_29fa",
+  "E6": "e_d52f",
+  "B3": "m_c464",
+  "U1": "u_5ce3"
+ },
+ "groups": {
+  "e_03b9": 1,
+  "m_76d0": 1,
+  "e_c8d9": 1,
+  "m_58c3": 1,
+  "e_9416": 1,
+  "e_efaf": 1,
+  "e_cecb": 2,
+  "m_29fa": 2,
+  "e_d52f": 3,
+  "m_c464": 3
+ },
+ "policy_of": {
+  "p_98c8": "m_76d0",
+  "p_7f75": "m_58c3",
+  "p_eab6": "m_29fa",
+  "p_658f": "m_c464"
+ },
+ "gold": {
+  "e_03b9": "keep",
+  "e_c8d9": "supersede",
+  "e_efaf": "keep",
+  "e_9416": "keep",
+  "e_cecb": "keep",
+  "e_d52f": "keep",
+  "m_76d0": "recompute",
+  "m_29fa": "keep",
+  "m_c464": "keep",
+  "m_58c3": "recompute"
+ },
+ "justifications": {
+  "m_76d0": [
+   [
+    "e_03b9",
+    "e_c8d9",
+    "e_efaf"
+   ]
+  ],
+  "m_58c3": [
+   [
+    "m_76d0",
+    "e_9416"
+   ]
+  ],
+  "m_29fa": [
+   [
+    "e_cecb"
+   ]
+  ],
+  "m_c464": [
+   [
+    "e_d52f"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_5ce3": {
+   "target": "e_c8d9",
+   "relation": "supersedes",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_3c20",
+  "p_a189"
+ ],
+ "after_updates": {
+  "m_76d0": "fails",
+  "m_58c3": "fails",
+  "m_29fa": "holds",
+  "m_c464": "holds"
+ },
+ "final_state": {
+  "m_76d0": "fails",
+  "m_29fa": "holds",
+  "m_c464": "holds",
+  "m_58c3": "fails"
+ },
+ "world": "Evaluations and contract decisions for passenger transportation and fleet logistics providers.",
+ "rationale": {
+  "m_76d0": [
+   "Apex Tours has a fleet size of 15 coaches, a safety evaluation score of 92 points this year, and a Commercial Passenger Transport Licence, satisfying the requirement for carrier preferred designation."
+  ],
+  "m_58c3": [
+   "Apex Tours achieves carrier preferred designation and holds 24-hour roadside assistance coverage, satisfying the criteria for corporate transit agreements."
+  ],
+  "m_29fa": [
+   "Horizon Charter achieved an on-time arrival rate of 98 percent this quarter, satisfying the condition for top-tier service rating."
+  ],
+  "m_c464": [
+   "Sol Express holds a Green Transit Certification, satisfying the condition for local eco-subsidy funds."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_03b9": {
+    "entity": "Apex Tours",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 15,
+    "unit": "coaches",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_c8d9": {
+    "entity": "Apex Tours",
+    "kind": "number",
+    "quantity": "safety evaluation score",
+    "value": 92,
+    "unit": "points",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_efaf": {
+    "entity": "Apex Tours",
+    "kind": "credential",
+    "quantity": "Commercial Passenger Transport Licence",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_9416": {
+    "entity": "Apex Tours",
+    "kind": "credential",
+    "quantity": "24-hour roadside assistance coverage",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_cecb": {
+    "entity": "Horizon Charter",
+    "kind": "number",
+    "quantity": "on-time arrival rate",
+    "value": 98,
+    "unit": "percent",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "e_d52f": {
+    "entity": "Sol Express",
+    "kind": "credential",
+    "quantity": "Green Transit Certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "u_5ce3": {
+    "entity": "Apex Tours",
+    "kind": "number",
+    "quantity": "safety evaluation score",
+    "value": 78,
+    "unit": "points",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_76d0": [
+    {
+     "premise": "e_03b9",
+     "kind": "number",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "coaches",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_c8d9",
+     "kind": "number",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "safety evaluation score",
+     "comparator": ">=",
+     "threshold": 85,
+     "unit": "points",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "e_efaf",
+     "kind": "credential",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "Commercial Passenger Transport Licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_58c3": [
+    {
+     "premise": "m_76d0",
+     "kind": "conclusion",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "carrier preferred designation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_9416",
+     "kind": "credential",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "24-hour roadside assistance coverage",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_29fa": [
+    {
+     "premise": "e_cecb",
+     "kind": "number",
+     "entity": "Horizon Charter",
+     "relation": null,
+     "quantity": "on-time arrival rate",
+     "comparator": ">=",
+     "threshold": 95,
+     "unit": "percent",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "m_c464": [
+    {
+     "premise": "e_d52f",
+     "kind": "credential",
+     "entity": "Sol Express",
+     "relation": null,
+     "quantity": "Green Transit Certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

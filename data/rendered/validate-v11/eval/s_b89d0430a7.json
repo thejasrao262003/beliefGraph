@@ -1,0 +1,230 @@
+{
+ "scenario": "s_b89d0430a7",
+ "source_scenario": "F6-007",
+ "family": "F6",
+ "meta": {
+  "variant": "low_reliability",
+  "has_alternative": false,
+  "depth": 2
+ },
+ "idmap": {
+  "E1": "e_30d2",
+  "B1": "m_5d65",
+  "B2": "m_886f",
+  "D1": "m_7d81",
+  "E2": "e_ad50",
+  "B3": "m_7c6f",
+  "E3": "e_7288",
+  "B4": "m_3c17",
+  "U1": "u_c874"
+ },
+ "groups": {
+  "e_30d2": 1,
+  "m_5d65": 1,
+  "m_886f": 1,
+  "m_7d81": 1,
+  "e_ad50": 2,
+  "m_7c6f": 2,
+  "e_7288": 3,
+  "m_3c17": 3
+ },
+ "policy_of": {
+  "p_9a41": "m_5d65",
+  "p_882f": "m_886f",
+  "p_25d6": "m_7d81",
+  "p_6f11": "m_7c6f",
+  "p_7ba6": "m_3c17"
+ },
+ "gold": {
+  "e_30d2": "uncertain",
+  "e_ad50": "keep",
+  "e_7288": "keep",
+  "m_5d65": "uncertain",
+  "m_7c6f": "keep",
+  "m_3c17": "keep",
+  "m_886f": "uncertain",
+  "m_7d81": "uncertain"
+ },
+ "justifications": {
+  "m_5d65": [
+   [
+    "e_30d2"
+   ]
+  ],
+  "m_886f": [
+   [
+    "m_5d65"
+   ]
+  ],
+  "m_7d81": [
+   [
+    "m_886f"
+   ]
+  ],
+  "m_7c6f": [
+   [
+    "e_ad50"
+   ]
+  ],
+  "m_3c17": [
+   [
+    "e_7288"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_c874": {
+   "target": "e_30d2",
+   "relation": "retracts",
+   "reliability": "low"
+  }
+ },
+ "decoy_policies": [
+  "p_3c91",
+  "p_28cd"
+ ],
+ "after_updates": {
+  "m_5d65": "undetermined",
+  "m_886f": "undetermined",
+  "m_7d81": "undetermined",
+  "m_7c6f": "holds",
+  "m_3c17": "holds"
+ },
+ "final_state": {
+  "m_5d65": "undetermined",
+  "m_7c6f": "holds",
+  "m_3c17": "holds",
+  "m_886f": "undetermined",
+  "m_7d81": "undetermined"
+ },
+ "world": "Travel logistics operations are being reviewed to select charter carriers, ferry providers, and land transit contractors.",
+ "rationale": {
+  "m_5d65": [
+   "Vanguard Air Charter holds an active IATA ground handling certification, satisfying the policy requirement for ground safety compliance."
+  ],
+  "m_886f": [
+   "Vanguard Air Charter meets ground safety compliance requirements, which qualifies it for expedited flight scheduling under the policy."
+  ],
+  "m_7d81": [
+   "Vanguard Air Charter possesses expedited flight scheduling, satisfying the policy requirement for high-priority corporate flight bookings."
+  ],
+  "m_7c6f": [
+   "BlueWave Ferries operates 12 passenger vessels, exceeding the policy threshold of 10 vessels for regional transport capacity benchmarks."
+  ],
+  "m_3c17": [
+   "Summit Overland logged 150000 quarterly passenger trips, exceeding the policy requirement of 100000 trips for high-tier operator status."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_30d2": {
+    "entity": "Vanguard Air Charter",
+    "kind": "credential",
+    "quantity": "IATA ground handling certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_ad50": {
+    "entity": "BlueWave Ferries",
+    "kind": "number",
+    "quantity": "passenger vessel fleet size",
+    "value": 12,
+    "unit": "vessels",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_7288": {
+    "entity": "Summit Overland",
+    "kind": "number",
+    "quantity": "quarterly completed passenger trips",
+    "value": 150000,
+    "unit": "trips",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "u_c874": {
+    "entity": "Vanguard Air Charter",
+    "kind": "credential",
+    "quantity": "IATA ground handling certification",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_5d65": [
+    {
+     "premise": "e_30d2",
+     "kind": "credential",
+     "entity": "Vanguard Air Charter",
+     "relation": null,
+     "quantity": "IATA ground handling certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_886f": [
+    {
+     "premise": "m_5d65",
+     "kind": "conclusion",
+     "entity": "Vanguard Air Charter",
+     "relation": null,
+     "quantity": "ground safety compliance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_7d81": [
+    {
+     "premise": "m_886f",
+     "kind": "conclusion",
+     "entity": "Vanguard Air Charter",
+     "relation": null,
+     "quantity": "expedited flight scheduling",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_7c6f": [
+    {
+     "premise": "e_ad50",
+     "kind": "number",
+     "entity": "BlueWave Ferries",
+     "relation": null,
+     "quantity": "passenger vessel fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "vessels",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_3c17": [
+    {
+     "premise": "e_7288",
+     "kind": "number",
+     "entity": "Summit Overland",
+     "relation": null,
+     "quantity": "quarterly completed passenger trips",
+     "comparator": ">=",
+     "threshold": 100000,
+     "unit": "trips",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

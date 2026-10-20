@@ -1132,3 +1132,61 @@ F1 recovery by set type, policy-assisted:
 | Budget | **Hard cap $3.00.** Measured 40-run cost ≈ $0.12 per scenario incl. repairs, so expected ≈ $1.6–2.0 (v11's stricter checks may add repairs). The guard's worst case is ≈ $0.14 per call |
 | Review | Claude's C1–C13 review (labelled AI), kept separate from the human sample (§21c) |
 | Then | Propose the ≥ 100-scenario evaluation pilot with the results, family-level and pooled leakage, κ if the human sample is done, cost and a cap, for separate approval |
+
+## 22. Fresh validation of render-v11 (2026-10-20): fixes confirmed; acceptance criterion missed (11/13)
+
+**Approved by the user:** the 13 fresh seed-1 scenarios of §21d, hard cap $3.00, criteria fixed in advance.
+
+**Run:** exactly the §21d command (commit `409448f`). Outputs are in `data/rendered/validate-v11/`: 12 renders, 5 repair records with diffs, `review.md`, `review.csv`, `leak-report.json`, `spend.json`.
+
+**Interruption:**
+- **F3-000 was not rendered:** the provider dropped the connection ("Server disconnected without sending a response") on its first call.
+- The runner recorded the failure and continued (the fix from §20). Under the conditions, **no retry was made**.
+- That call is not in the guard's log. If it was billed, it cost at most the guard's worst case (≈ $0.14).
+
+**Spend:** **$1.29 of $3.00** (17 calls: 12 renders + 5 repairs).
+
+**Repairs** (each changing only its mapped fields):
+- **F1-008:** time windows aligned across texts, records and policies; a decoy reworded.
+- **F2-002:** a policy↔memory echo.
+- **F2-003:** a record scope.
+- **F3-001:** "reliability" in a memory; a policy echo.
+- **F6-001:** a time-window mismatch.
+
+**Review (Claude, delegated; labelled AI):**
+- **11 accept:** F1-004, F1-008, F2-003, F2-004, F3-001, F6-000, F6-001, F6-004, F6-005, F6-007, F6-008.
+- **1 revise:** **F2-002 (C3/C10).** The two OR routes are two measurements of the *same* quantity (lab efficiency 22%, field efficiency 21%). The update revises the field figure to 18%, and a reader can take that as the panel's efficiency, so gold "keep" is not the only reasonable reading. This is a **new failure mode**: OR alternatives over one quantity.
+
+| Predeclared criterion (§21d) | Result |
+|---|---|
+| ≥ 12/13 accepted | **11/13: not met** (1 revise; 1 not rendered due to the provider) |
+| 0 hard flags in accepted views | **0: met** |
+| 0 `final_state_mismatch` in the 5 no-alternative F6 | **0: met.** F6-001, F6-004, F6-005, F6-007 and F6-008 all judged "undetermined" for every uncertain memory, **on the first attempt, with no final-state repair** |
+| 0 `update_window_introduced` in accepted views | **0: met** |
+| Pooled worse-heuristic ≤ 0.50 | **0.37: met** (accepted 11; 0.38 over all 12 rendered) |
+
+**Leakage, reported alongside the gate:**
+
+| Set | Worse heuristic | Chain-only |
+|---|---|---|
+| Accepted (11) | 0.37 | 0.12 |
+| F1 (2) | 0.33 | 0.11 |
+| F2 (2) | 0.36 | 0.00 |
+| F3 (1) | 0.50 | 0.00 |
+| F6 (6) | 0.44 | 0.21 |
+
+The family subsets are small (1–6 scenarios), so these are indicative only.
+
+**Soft flags:** 39 (35 policy↔evidence echoes, 4 reported-speech retractions).
+
+**Reading:**
+- **Both v11 fixes work on unseen scenarios.** The weak-source rule produced the right "undetermined" judgement in 5/5 cases without needing the repair backstop, and no update introduced a window.
+- **The acceptance criterion was missed** by one AI-revise case of a new kind, plus one infrastructure failure.
+- **Two remaining semantic gaps that no check covers:**
+  - OR alternatives that are measurements of the same quantity;
+  - a *retraction* that adds a window ("… this year") to an unwindowed fact (F1-008 note; the v11 check covers only superseding updates).
+
+**Not done (needs a decision):**
+- re-running F3-000, which would be an extra attempt;
+- a check for same-quantity OR alternatives, for which the records already carry the quantity label;
+- the ≥ 100-scenario proposal, which is premature until this criterion is met.

@@ -1,0 +1,265 @@
+{
+ "scenario": "F2-003",
+ "repair": 1,
+ "prompt_version": "render-v11",
+ "permitted": {
+  "facts.E5": "record_scope_not_in_text 'record none, text international'",
+  "nodes.E5.text": "record_scope_not_in_text 'record none, text international'",
+  "nodes.E5.source": "record_scope_not_in_text 'record none, text international'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"nodes.E5.text\": \"Meridian Charter holds an active international charter licence.\",\n  \"nodes.E5.source\": \"Civil aviation authority portal.\",\n  \"facts.E5\": {\n   \"entity\": \"Meridian Charter\",\n   \"kind\": \"credential\",\n   \"quantity\": \"international charter licence\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"international\"\n  }\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 5936,
+   "output_tokens": 2267,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 5936,
+    "completion_tokens": 2267
+   }
+  },
+  "est_usd": 0.03885975,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "facts.E5.scope"
+ ],
+ "merged": {
+  "world": "Travel logistics evaluation for regional transit operators and charter services.",
+  "nodes": {
+   "E1": {
+    "text": "Apex Expeditions earned a customer satisfaction score of 94 this year.",
+    "source": "Official client feedback system record."
+   },
+   "E2": {
+    "text": "Apex Expeditions maintains a fleet size of 18 vehicles.",
+    "source": "National transport registry listing."
+   },
+   "E3": {
+    "text": "Apex Expeditions completed 520 transfers this year.",
+    "source": "Annual dispatch log summary."
+   },
+   "E4": {
+    "text": "Apex Expeditions maintains liability insurance coverage of 5,000,000 USD.",
+    "source": "Signed insurer certificate."
+   },
+   "E5": {
+    "text": "Meridian Charter holds an active international charter licence.",
+    "source": "Civil aviation authority portal."
+   },
+   "B1": {
+    "text": "Apex Expeditions is granted priority dispatch status."
+   },
+   "D1": {
+    "text": "Apex Expeditions is selected for the municipal contract."
+   },
+   "B2": {
+    "text": "Meridian Charter is approved for cross-border routes."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Apex Expeditions completed 410 transfers this year.",
+    "source": "Audited financial review report."
+   },
+   "U2": {
+    "text": "Apex Expeditions received a customer satisfaction score of 82 this year.",
+    "source": "Revised annual audit release."
+   },
+   "U3": {
+    "text": "Apex Expeditions operates a fleet size of 10 vehicles.",
+    "source": "Updated motor carrier inspection report."
+   }
+  },
+  "policies": {
+   "B1": "Priority routing status is assigned to a travel agency that attains a customer satisfaction score of 90 or more annually, maintains a fleet size of at least 15 vehicles, or completes 500 transfers per year.",
+   "D1": "A charter firm is chosen for civic service contracts provided it holds priority routing status and carries liability insurance coverage of 5,000,000 USD or higher.",
+   "B2": "Cross-border route authorization is granted to any transport vendor possessing an active international charter licence."
+  },
+  "decoy_policies": [
+   "An air cargo handler qualifies for expedited customs processing by maintaining a certified cargo handling facility and completing at least 1,000 freight movements annually.",
+   "A marine ferry operator receives a harbour docking permit if it maintains an emergency response rating of 85 or above."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "D1": "fails",
+   "B2": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Apex Expeditions",
+    "kind": "number",
+    "quantity": "customer satisfaction score",
+    "value": 94,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Apex Expeditions",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 18,
+    "unit": "vehicles",
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Apex Expeditions",
+    "kind": "number",
+    "quantity": "transfers",
+    "value": 520,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Apex Expeditions",
+    "kind": "number",
+    "quantity": "liability insurance coverage",
+    "value": 5000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Meridian Charter",
+    "kind": "credential",
+    "quantity": "international charter licence",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "international"
+   },
+   "U1": {
+    "entity": "Apex Expeditions",
+    "kind": "number",
+    "quantity": "transfers",
+    "value": 410,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "U2": {
+    "entity": "Apex Expeditions",
+    "kind": "number",
+    "quantity": "customer satisfaction score",
+    "value": 82,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "U3": {
+    "entity": "Apex Expeditions",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 10,
+    "unit": "vehicles",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Apex Expeditions",
+     "relation": null,
+     "quantity": "customer satisfaction score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Apex Expeditions",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 15,
+     "unit": "vehicles",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Apex Expeditions",
+     "relation": null,
+     "quantity": "transfers",
+     "comparator": ">=",
+     "threshold": 500,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Apex Expeditions",
+     "relation": null,
+     "quantity": "priority routing status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Apex Expeditions",
+     "relation": null,
+     "quantity": "liability insurance coverage",
+     "comparator": ">=",
+     "threshold": 5000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "Meridian Charter",
+     "relation": null,
+     "quantity": "international charter licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Apex Expeditions satisfies the priority routing rule by achieving a customer satisfaction score of 94 this year, which meets the threshold of 90.",
+    "Apex Expeditions satisfies the priority routing rule by operating 18 vehicles, exceeding the fleet size requirement of 15.",
+    "Apex Expeditions satisfies the priority routing rule by logging 520 transfers this year, exceeding the threshold of 500."
+   ],
+   "D1": [
+    "Apex Expeditions qualifies for municipal contract selection because it holds priority routing status and maintains liability insurance coverage of 5,000,000 USD."
+   ],
+   "B2": [
+    "Meridian Charter satisfies the cross-border route criteria by holding an active international charter licence."
+   ]
+  }
+ }
+}

@@ -1,0 +1,272 @@
+{
+ "scenario": "F3-001",
+ "repair": 1,
+ "prompt_version": "render-v11",
+ "permitted": {
+  "nodes.B2.text": "reliability_word 'reliability' (the word 'reliability' may not appear in any text)",
+  "policies.B3": "policy_echoes_memory 'for local eco-subsidy; local eco-subsidy funds' (a policy may not share a 3-word phrase with any memory)"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"nodes.B2.text\": \"Horizon Charter secures premier service standing.\",\n  \"policies.B3\": \"Access to municipal environmental subsidies requires a transportation firm to maintain a valid Green Transit Certification.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 5933,
+   "output_tokens": 2256,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 5933,
+    "completion_tokens": 2256
+   }
+  },
+  "est_usd": 0.03872925,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "nodes.B2.text",
+  "policies.B3"
+ ],
+ "merged": {
+  "world": "Evaluations and contract decisions for passenger transportation and fleet logistics providers.",
+  "nodes": {
+   "E1": {
+    "text": "Apex Tours maintains an active fleet size of 15 coaches.",
+    "source": "Official fleet registry from the Department of Transportation."
+   },
+   "E2": {
+    "text": "Apex Tours earned a safety evaluation score of 92 points this year.",
+    "source": "Annual safety audit report issued by the Transit Safety Board."
+   },
+   "E3": {
+    "text": "Apex Tours holds an active Commercial Passenger Transport Licence.",
+    "source": "State licensing authority database entry."
+   },
+   "E4": {
+    "text": "Apex Tours maintains active 24-hour roadside assistance coverage.",
+    "source": "Service level agreement from Fleet Support Services."
+   },
+   "E5": {
+    "text": "Horizon Charter recorded an on-time arrival rate of 98 percent this quarter.",
+    "source": "Quarterly performance log submitted by dispatch operations."
+   },
+   "E6": {
+    "text": "Sol Express holds an active Green Transit Certification.",
+    "source": "Official registry entry from the Municipal Environmental Board."
+   },
+   "B1": {
+    "text": "Apex Tours achieves preferred carrier status."
+   },
+   "D1": {
+    "text": "Apex Tours receives the corporate transit contract."
+   },
+   "B2": {
+    "text": "Horizon Charter secures premier service standing."
+   },
+   "B3": {
+    "text": "Sol Express qualifies for local eco-subsidy funds."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Apex Tours earned a revised safety evaluation score of 78 points this year.",
+    "source": "Revised safety audit report from the Transit Safety Board."
+   }
+  },
+  "policies": {
+   "B1": "Carrier preferred designation is granted when an operator maintains a minimum active fleet size of 10 coaches, receives an annual safety evaluation score of at least 85 points, and holds a valid Commercial Passenger Transport Licence.",
+   "D1": "Assignment to corporate transit agreements mandates an operator with carrier preferred designation who also maintains active 24-hour roadside assistance coverage.",
+   "B2": "Top-tier service rating is awarded if a travel provider demonstrates a quarterly on-time arrival rate of 95 percent or higher.",
+   "B3": "Access to municipal environmental subsidies requires a transportation firm to maintain a valid Green Transit Certification."
+  },
+  "decoy_policies": [
+   "A maritime transport firm obtains international route clearance provided it maintains a vessel cargo volume of at least 5000 tons and holds a Maritime Safety Certificate.",
+   "Passenger rail operators obtain express corridor clearance if their automated braking efficiency measures 99 percent or greater."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "D1": "fails",
+   "B2": "holds",
+   "B3": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Apex Tours",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 15,
+    "unit": "coaches",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Apex Tours",
+    "kind": "number",
+    "quantity": "safety evaluation score",
+    "value": 92,
+    "unit": "points",
+    "window": "year",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Apex Tours",
+    "kind": "credential",
+    "quantity": "Commercial Passenger Transport Licence",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Apex Tours",
+    "kind": "credential",
+    "quantity": "24-hour roadside assistance coverage",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Horizon Charter",
+    "kind": "number",
+    "quantity": "on-time arrival rate",
+    "value": 98,
+    "unit": "percent",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Sol Express",
+    "kind": "credential",
+    "quantity": "Green Transit Certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Apex Tours",
+    "kind": "number",
+    "quantity": "safety evaluation score",
+    "value": 78,
+    "unit": "points",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "coaches",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "safety evaluation score",
+     "comparator": ">=",
+     "threshold": 85,
+     "unit": "points",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "Commercial Passenger Transport Licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "carrier preferred designation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "credential",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "24-hour roadside assistance coverage",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Horizon Charter",
+     "relation": null,
+     "quantity": "on-time arrival rate",
+     "comparator": ">=",
+     "threshold": 95,
+     "unit": "percent",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E6",
+     "kind": "credential",
+     "entity": "Sol Express",
+     "relation": null,
+     "quantity": "Green Transit Certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Apex Tours has a fleet size of 15 coaches, a safety evaluation score of 92 points this year, and a Commercial Passenger Transport Licence, satisfying the requirement for carrier preferred designation."
+   ],
+   "D1": [
+    "Apex Tours achieves carrier preferred designation and holds 24-hour roadside assistance coverage, satisfying the criteria for corporate transit agreements."
+   ],
+   "B2": [
+    "Horizon Charter achieved an on-time arrival rate of 98 percent this quarter, satisfying the condition for top-tier service rating."
+   ],
+   "B3": [
+    "Sol Express holds a Green Transit Certification, satisfying the condition for local eco-subsidy funds."
+   ]
+  }
+ }
+}

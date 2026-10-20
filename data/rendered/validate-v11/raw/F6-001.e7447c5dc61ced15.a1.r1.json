@@ -1,0 +1,262 @@
+{
+ "scenario": "F6-001",
+ "repair": 1,
+ "prompt_version": "render-v11",
+ "permitted": {
+  "policies.B4": "record_window_not_in_policy 'quarter'",
+  "conditions.B4": "record_window_not_in_policy 'quarter'",
+  "facts.E5": "record_window_not_in_policy 'quarter'",
+  "nodes.E5.text": "record_window_not_in_policy 'quarter'",
+  "nodes.E5.source": "record_window_not_in_policy 'quarter'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B4\": [\n   {\n    \"premise\": \"E5\",\n    \"kind\": \"number\",\n    \"entity\": \"Zenith Couriers\",\n    \"relation\": null,\n    \"quantity\": \"average transit delay\",\n    \"comparator\": \"<\",\n    \"threshold\": 15,\n    \"unit\": \"minutes\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E5\": {\n   \"entity\": \"Zenith Couriers\",\n   \"kind\": \"number\",\n   \"quantity\": \"average transit delay\",\n   \"value\": 12,\n   \"unit\": \"minutes\",\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E5.source\": \"Operations performance database for Zenith Couriers\",\n  \"nodes.E5.text\": \"Zenith Couriers achieved an average transit delay of 12 minutes.\",\n  \"policies.B4\": \"Punctuality standard compliance is recognized when a transport provider maintains a mean delay duration under 15 minutes.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6062,
+   "output_tokens": 2701,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6062,
+    "completion_tokens": 2701
+   }
+  },
+  "est_usd": 0.04402575,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.B4[0].window",
+  "facts.E5.window",
+  "nodes.E5.text",
+  "policies.B4"
+ ],
+ "merged": {
+  "world": "An evaluation of travel logistics service providers and charter contractors based on performance metrics, fleet capabilities, and safety certifications.",
+  "nodes": {
+   "E1": {
+    "text": "Vanguard Travel completed 150 VIP transport assignments this year.",
+    "source": "Official quarterly audit register of Vanguard Travel"
+   },
+   "E2": {
+    "text": "Vanguard Travel holds active liability coverage of $5,000,000.",
+    "source": "Central insurance registry certificate for Vanguard Travel"
+   },
+   "B1": {
+    "text": "Vanguard Travel achieves premier carrier designation."
+   },
+   "D1": {
+    "text": "Vanguard Travel will be selected for the executive retreat charter contract."
+   },
+   "E3": {
+    "text": "Crestline Transport operates a fleet size of 40 luxury coaches.",
+    "source": "Department of Transportation motor carrier database"
+   },
+   "B2": {
+    "text": "Crestline Transport qualifies for high-capacity fleet classification."
+   },
+   "E4": {
+    "text": "Solis Charter holds a valid ISO 9001 certification.",
+    "source": "International Accreditation Forum official registry"
+   },
+   "B3": {
+    "text": "Solis Charter meets standardized quality management requirements."
+   },
+   "E5": {
+    "text": "Zenith Couriers achieved an average transit delay of 12 minutes.",
+    "source": "Operations performance database for Zenith Couriers"
+   },
+   "B4": {
+    "text": "Zenith Couriers satisfies punctual delivery performance criteria."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An official compliance review memo notes that several of Vanguard Travel's annual transport figures are unverified and undergoing re-audit.",
+    "source": "Official internal compliance audit memo"
+   }
+  },
+  "policies": {
+   "B1": "Carrier status at the premier level requires completing a minimum threshold of 100 VIP transport assignments in a year.",
+   "D1": "An agency with premier carrier status is chosen for executive charter routing provided it maintains liability insurance of at least $2,000,000.",
+   "B2": "Qualification for high-volume transport fleet status is granted to operators maintaining a vehicle inventory of 30 or more coaches.",
+   "B3": "Compliance with quality benchmarks requires holding an active ISO 9001 certification.",
+   "B4": "Punctuality standard compliance is recognized when a transport provider maintains a mean delay duration under 15 minutes."
+  },
+  "decoy_policies": [
+   "A maritime agency earns preferred partner status if it maintains an annual booking volume of 500 voyages and holds a maritime operation license.",
+   "Luggage handling certification is awarded to ground handlers with a quarterly baggage error rate under 0.5 percent."
+  ],
+  "after_updates": {
+   "B1": "undetermined",
+   "D1": "undetermined",
+   "B2": "holds",
+   "B3": "holds",
+   "B4": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Vanguard Travel",
+    "kind": "number",
+    "quantity": "VIP transport assignments",
+    "value": 150,
+    "unit": "assignments",
+    "window": "year",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Vanguard Travel",
+    "kind": "number",
+    "quantity": "liability coverage",
+    "value": 5000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Crestline Transport",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 40,
+    "unit": "coaches",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Solis Charter",
+    "kind": "credential",
+    "quantity": "ISO 9001 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Zenith Couriers",
+    "kind": "number",
+    "quantity": "average transit delay",
+    "value": 12,
+    "unit": "minutes",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Vanguard Travel",
+    "kind": "number",
+    "quantity": "VIP transport assignments",
+    "value": null,
+    "unit": "assignments",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Vanguard Travel",
+     "relation": null,
+     "quantity": "VIP transport assignments",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "assignments",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Vanguard Travel",
+     "relation": null,
+     "quantity": "premier carrier status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Vanguard Travel",
+     "relation": null,
+     "quantity": "liability coverage",
+     "comparator": ">=",
+     "threshold": 2000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Crestline Transport",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 30,
+     "unit": "coaches",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E4",
+     "kind": "credential",
+     "entity": "Solis Charter",
+     "relation": null,
+     "quantity": "ISO 9001 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Zenith Couriers",
+     "relation": null,
+     "quantity": "average transit delay",
+     "comparator": "<",
+     "threshold": 15,
+     "unit": "minutes",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Vanguard Travel completed 150 VIP transport assignments this year, meeting the requirement of at least 100 assignments."
+   ],
+   "D1": [
+    "Vanguard Travel holds premier carrier status and maintains $5,000,000 in liability coverage, satisfying the required $2,000,000 threshold."
+   ],
+   "B2": [
+    "Crestline Transport operates 40 luxury coaches, satisfying the requirement of at least 30 coaches."
+   ],
+   "B3": [
+    "Solis Charter holds an active ISO 9001 certification, satisfying the certification requirement."
+   ],
+   "B4": [
+    "Zenith Couriers achieved an average transit delay of 12 minutes this quarter, which is below the 15-minute threshold."
+   ]
+  }
+ }
+}

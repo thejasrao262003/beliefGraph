@@ -1,0 +1,255 @@
+{
+ "scenario": "s_793edb6c07",
+ "source_scenario": "F6-000",
+ "family": "F6",
+ "meta": {
+  "variant": "low_reliability",
+  "has_alternative": true,
+  "depth": 1
+ },
+ "idmap": {
+  "E1": "e_735b",
+  "E2": "e_613e",
+  "B1": "m_dda8",
+  "E3": "e_589b",
+  "D1": "m_5066",
+  "E4": "e_5c64",
+  "B2": "m_d2dd",
+  "E5": "e_63cb",
+  "B3": "m_ab27",
+  "U1": "u_35b5"
+ },
+ "groups": {
+  "e_735b": 1,
+  "m_dda8": 1,
+  "e_613e": 1,
+  "m_5066": 1,
+  "e_589b": 1,
+  "e_5c64": 2,
+  "m_d2dd": 2,
+  "e_63cb": 3,
+  "m_ab27": 3
+ },
+ "policy_of": {
+  "p_3f5f": "m_dda8",
+  "p_c15c": "m_5066",
+  "p_30a2": "m_d2dd",
+  "p_6b28": "m_ab27"
+ },
+ "gold": {
+  "e_735b": "uncertain",
+  "e_613e": "keep",
+  "e_589b": "keep",
+  "e_5c64": "keep",
+  "e_63cb": "keep",
+  "m_dda8": "keep",
+  "m_d2dd": "keep",
+  "m_ab27": "keep",
+  "m_5066": "keep"
+ },
+ "justifications": {
+  "m_dda8": [
+   [
+    "e_735b"
+   ],
+   [
+    "e_613e"
+   ]
+  ],
+  "m_5066": [
+   [
+    "m_dda8",
+    "e_589b"
+   ]
+  ],
+  "m_d2dd": [
+   [
+    "e_5c64"
+   ]
+  ],
+  "m_ab27": [
+   [
+    "e_63cb"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_35b5": {
+   "target": "e_735b",
+   "relation": "retracts",
+   "reliability": "low"
+  }
+ },
+ "decoy_policies": [
+  "p_2b0b",
+  "p_eaaf"
+ ],
+ "after_updates": {
+  "m_dda8": "holds",
+  "m_5066": "holds",
+  "m_d2dd": "holds",
+  "m_ab27": "holds"
+ },
+ "final_state": {
+  "m_dda8": "holds",
+  "m_d2dd": "holds",
+  "m_ab27": "holds",
+  "m_5066": "holds"
+ },
+ "world": "An assistant tracks supplier credentials, product certifications, and contract eligibility across health, energy, and food sector vendors.",
+ "rationale": {
+  "m_dda8": [
+   "Nexus Medical holds an active ISO 13485 certification, satisfying the credential requirement for healthcare supplier approval.",
+   "Nexus Medical achieves a quality audit score of 95 points this year, meeting the minimum score threshold of 90 points for healthcare supplier approval."
+  ],
+  "m_5066": [
+   "Nexus Medical is approved as a healthcare supplier and maintains product liability coverage of 5,000,000 dollars, fulfilling both requirements for a major clinical supply contract."
+  ],
+  "m_d2dd": [
+   "Solaria Energy achieves an efficiency rating of 22 percent this year, meeting the minimum threshold of 20 percent for sustainable technology grants."
+  ],
+  "m_ab27": [
+   "Crestview Foods holds a Grade A food hygiene certificate, satisfying the requirement for wholesale market distribution approval."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_735b": {
+    "entity": "Nexus Medical",
+    "kind": "credential",
+    "quantity": "ISO 13485 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_613e": {
+    "entity": "Nexus Medical",
+    "kind": "number",
+    "quantity": "quality audit score",
+    "value": 95,
+    "unit": "points",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_589b": {
+    "entity": "Nexus Medical",
+    "kind": "number",
+    "quantity": "product liability coverage",
+    "value": 5000000,
+    "unit": "dollars",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_5c64": {
+    "entity": "Solaria Energy",
+    "kind": "number",
+    "quantity": "efficiency rating",
+    "value": 22,
+    "unit": "percent",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_63cb": {
+    "entity": "Crestview Foods",
+    "kind": "credential",
+    "quantity": "Grade A food hygiene certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "u_35b5": {
+    "entity": "Nexus Medical",
+    "kind": "credential",
+    "quantity": "ISO 13485 certification",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_dda8": [
+    {
+     "premise": "e_735b",
+     "kind": "credential",
+     "entity": "Nexus Medical",
+     "relation": null,
+     "quantity": "ISO 13485 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_613e",
+     "kind": "number",
+     "entity": "Nexus Medical",
+     "relation": null,
+     "quantity": "quality audit score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "points",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "m_5066": [
+    {
+     "premise": "m_dda8",
+     "kind": "conclusion",
+     "entity": "Nexus Medical",
+     "relation": null,
+     "quantity": "healthcare supplier approval",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_589b",
+     "kind": "number",
+     "entity": "Nexus Medical",
+     "relation": null,
+     "quantity": "product liability coverage",
+     "comparator": ">=",
+     "threshold": 5000000,
+     "unit": "dollars",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_d2dd": [
+    {
+     "premise": "e_5c64",
+     "kind": "number",
+     "entity": "Solaria Energy",
+     "relation": null,
+     "quantity": "efficiency rating",
+     "comparator": ">=",
+     "threshold": 20,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "m_ab27": [
+    {
+     "premise": "e_63cb",
+     "kind": "credential",
+     "entity": "Crestview Foods",
+     "relation": null,
+     "quantity": "Grade A food hygiene certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

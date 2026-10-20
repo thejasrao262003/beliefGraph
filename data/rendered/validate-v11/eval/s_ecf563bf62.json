@@ -1,0 +1,275 @@
+{
+ "scenario": "s_ecf563bf62",
+ "source_scenario": "F2-003",
+ "family": "F2",
+ "meta": {
+  "fan_in": 3,
+  "revised_supports": 3,
+  "preserved": false,
+  "depth": 1,
+  "relation": "supersedes"
+ },
+ "idmap": {
+  "E1": "e_c747",
+  "E2": "e_8195",
+  "E3": "e_5638",
+  "B1": "m_f286",
+  "E4": "e_2b00",
+  "D1": "m_a25e",
+  "E5": "e_0c87",
+  "B2": "m_0abd",
+  "U1": "u_1194",
+  "U2": "u_4e74",
+  "U3": "u_68a2"
+ },
+ "groups": {
+  "e_c747": 1,
+  "m_f286": 1,
+  "e_8195": 1,
+  "m_a25e": 1,
+  "e_2b00": 1,
+  "e_5638": 1,
+  "e_0c87": 2,
+  "m_0abd": 2
+ },
+ "policy_of": {
+  "p_8374": "m_f286",
+  "p_4b4f": "m_a25e",
+  "p_dc1a": "m_0abd"
+ },
+ "gold": {
+  "e_c747": "supersede",
+  "e_8195": "supersede",
+  "e_5638": "supersede",
+  "e_2b00": "keep",
+  "e_0c87": "keep",
+  "m_f286": "recompute",
+  "m_0abd": "keep",
+  "m_a25e": "recompute"
+ },
+ "justifications": {
+  "m_f286": [
+   [
+    "e_c747"
+   ],
+   [
+    "e_8195"
+   ],
+   [
+    "e_5638"
+   ]
+  ],
+  "m_a25e": [
+   [
+    "m_f286",
+    "e_2b00"
+   ]
+  ],
+  "m_0abd": [
+   [
+    "e_0c87"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_1194": {
+   "target": "e_5638",
+   "relation": "supersedes",
+   "reliability": "high"
+  },
+  "u_4e74": {
+   "target": "e_c747",
+   "relation": "supersedes",
+   "reliability": "high"
+  },
+  "u_68a2": {
+   "target": "e_8195",
+   "relation": "supersedes",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_a11e",
+  "p_d123"
+ ],
+ "after_updates": {
+  "m_f286": "fails",
+  "m_a25e": "fails",
+  "m_0abd": "holds"
+ },
+ "final_state": {
+  "m_f286": "fails",
+  "m_0abd": "holds",
+  "m_a25e": "fails"
+ },
+ "world": "Travel logistics evaluation for regional transit operators and charter services.",
+ "rationale": {
+  "m_f286": [
+   "Apex Expeditions satisfies the priority routing rule by achieving a customer satisfaction score of 94 this year, which meets the threshold of 90.",
+   "Apex Expeditions satisfies the priority routing rule by operating 18 vehicles, exceeding the fleet size requirement of 15.",
+   "Apex Expeditions satisfies the priority routing rule by logging 520 transfers this year, exceeding the threshold of 500."
+  ],
+  "m_a25e": [
+   "Apex Expeditions qualifies for municipal contract selection because it holds priority routing status and maintains liability insurance coverage of 5,000,000 USD."
+  ],
+  "m_0abd": [
+   "Meridian Charter satisfies the cross-border route criteria by holding an active international charter licence."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_c747": {
+    "entity": "Apex Expeditions",
+    "kind": "number",
+    "quantity": "customer satisfaction score",
+    "value": 94,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "e_8195": {
+    "entity": "Apex Expeditions",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 18,
+    "unit": "vehicles",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_5638": {
+    "entity": "Apex Expeditions",
+    "kind": "number",
+    "quantity": "transfers",
+    "value": 520,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "e_2b00": {
+    "entity": "Apex Expeditions",
+    "kind": "number",
+    "quantity": "liability insurance coverage",
+    "value": 5000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_0c87": {
+    "entity": "Meridian Charter",
+    "kind": "credential",
+    "quantity": "international charter licence",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "international"
+   },
+   "u_1194": {
+    "entity": "Apex Expeditions",
+    "kind": "number",
+    "quantity": "transfers",
+    "value": 410,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "u_4e74": {
+    "entity": "Apex Expeditions",
+    "kind": "number",
+    "quantity": "customer satisfaction score",
+    "value": 82,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "u_68a2": {
+    "entity": "Apex Expeditions",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 10,
+    "unit": "vehicles",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_f286": [
+    {
+     "premise": "e_c747",
+     "kind": "number",
+     "entity": "Apex Expeditions",
+     "relation": null,
+     "quantity": "customer satisfaction score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "e_8195",
+     "kind": "number",
+     "entity": "Apex Expeditions",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 15,
+     "unit": "vehicles",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_5638",
+     "kind": "number",
+     "entity": "Apex Expeditions",
+     "relation": null,
+     "quantity": "transfers",
+     "comparator": ">=",
+     "threshold": 500,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "m_a25e": [
+    {
+     "premise": "m_f286",
+     "kind": "conclusion",
+     "entity": "Apex Expeditions",
+     "relation": null,
+     "quantity": "priority routing status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_2b00",
+     "kind": "number",
+     "entity": "Apex Expeditions",
+     "relation": null,
+     "quantity": "liability insurance coverage",
+     "comparator": ">=",
+     "threshold": 5000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_0abd": [
+    {
+     "premise": "e_0c87",
+     "kind": "credential",
+     "entity": "Meridian Charter",
+     "relation": null,
+     "quantity": "international charter licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}
