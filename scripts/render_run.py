@@ -202,7 +202,9 @@ def main() -> None:
             except BudgetExceeded as e:
                 print(f"STOP: {e}", file=sys.stderr)
                 break
-            except ValueError as e:
+            except Exception as e:  # noqa: BLE001 -- a provider error (e.g. HTTP 502) fails this scenario, not the run
+                if not isinstance(e, ValueError):
+                    e = ValueError(f"{type(e).__name__}: {str(e)[:200]}")
                 failures[s.id] = str(e)
                 print(f"FAIL {s.id}: {e}", file=sys.stderr)
                 if args.stop_on_failure:
