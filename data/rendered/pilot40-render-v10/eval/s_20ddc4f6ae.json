@@ -1,0 +1,270 @@
+{
+ "scenario": "s_20ddc4f6ae",
+ "source_scenario": "F6-003",
+ "family": "F6",
+ "meta": {
+  "variant": "low_reliability",
+  "has_alternative": true,
+  "depth": 1
+ },
+ "idmap": {
+  "E1": "e_80df",
+  "E2": "e_c34b",
+  "B1": "m_b9ef",
+  "D1": "m_4787",
+  "E3": "e_e6e4",
+  "B2": "m_2cfb",
+  "E4": "e_ee33",
+  "B3": "m_64fd",
+  "E5": "e_cadb",
+  "B4": "m_258e",
+  "U1": "u_4eb9"
+ },
+ "groups": {
+  "e_80df": 1,
+  "m_b9ef": 1,
+  "m_4787": 1,
+  "e_c34b": 1,
+  "e_e6e4": 2,
+  "m_2cfb": 2,
+  "e_ee33": 3,
+  "m_64fd": 3,
+  "e_cadb": 4,
+  "m_258e": 4
+ },
+ "policy_of": {
+  "p_8b9f": "m_b9ef",
+  "p_cfb3": "m_4787",
+  "p_44d3": "m_2cfb",
+  "p_fcc6": "m_64fd",
+  "p_1dfb": "m_258e"
+ },
+ "gold": {
+  "e_80df": "uncertain",
+  "e_c34b": "keep",
+  "e_e6e4": "keep",
+  "e_ee33": "keep",
+  "e_cadb": "keep",
+  "m_b9ef": "keep",
+  "m_2cfb": "keep",
+  "m_64fd": "keep",
+  "m_258e": "keep",
+  "m_4787": "keep"
+ },
+ "justifications": {
+  "m_b9ef": [
+   [
+    "e_80df"
+   ],
+   [
+    "e_c34b"
+   ]
+  ],
+  "m_4787": [
+   [
+    "m_b9ef"
+   ]
+  ],
+  "m_2cfb": [
+   [
+    "e_e6e4"
+   ]
+  ],
+  "m_64fd": [
+   [
+    "e_ee33"
+   ]
+  ],
+  "m_258e": [
+   [
+    "e_cadb"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_4eb9": {
+   "target": "e_80df",
+   "relation": "retracts",
+   "reliability": "low"
+  }
+ },
+ "decoy_policies": [
+  "p_f7e2",
+  "p_5b73"
+ ],
+ "after_updates": {
+  "m_b9ef": "holds",
+  "m_4787": "holds",
+  "m_2cfb": "holds",
+  "m_64fd": "holds",
+  "m_258e": "holds"
+ },
+ "final_state": {
+  "m_b9ef": "holds",
+  "m_2cfb": "holds",
+  "m_64fd": "holds",
+  "m_258e": "holds",
+  "m_4787": "holds"
+ },
+ "world": "Regional travel logistics assessments evaluate transport service providers across road, maritime, rail, and air sectors.",
+ "rationale": {
+  "m_b9ef": [
+   "Apex Transit maintains an active fleet size of 45 vehicles, satisfying the requirement of at least 40 vehicles under the policy.",
+   "Apex Transit holds an ISO 39001 road traffic safety accreditation, satisfying the safety credential branch of the policy."
+  ],
+  "m_4787": [
+   "Apex Transit holds preferred regional carrier status, satisfying the supplier requirement under the policy for shuttle operations management."
+  ],
+  "m_2cfb": [
+   "BlueWave Express logged quarterly freight tonnage of 12000 metric tons, exceeding the 10000 metric tons threshold required by the policy."
+  ],
+  "m_64fd": [
+   "Crestline Rail holds a Class A safety license, fulfilling the credential requirement under the policy."
+  ],
+  "m_258e": [
+   "Skyward Charter completed 300 annual flights, exceeding the 250 flights threshold mandated by the policy."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_80df": {
+    "entity": "Apex Transit",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 45,
+    "unit": "vehicles",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_c34b": {
+    "entity": "Apex Transit",
+    "kind": "credential",
+    "quantity": "ISO 39001 road traffic safety accreditation",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "u_4eb9": {
+    "entity": "Apex Transit",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": null,
+    "unit": "vehicles",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_e6e4": {
+    "entity": "BlueWave Express",
+    "kind": "number",
+    "quantity": "freight tonnage",
+    "value": 12000,
+    "unit": "metric tons",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "e_ee33": {
+    "entity": "Crestline Rail",
+    "kind": "credential",
+    "quantity": "Class A safety license",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_cadb": {
+    "entity": "Skyward Charter",
+    "kind": "number",
+    "quantity": "flight completions",
+    "value": 300,
+    "unit": "flights",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_b9ef": [
+    {
+     "premise": "e_80df",
+     "kind": "number",
+     "entity": "Apex Transit",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 40,
+     "unit": "vehicles",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_c34b",
+     "kind": "credential",
+     "entity": "Apex Transit",
+     "relation": null,
+     "quantity": "ISO 39001 road traffic safety accreditation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_4787": [
+    {
+     "premise": "m_b9ef",
+     "kind": "conclusion",
+     "entity": "Apex Transit",
+     "relation": null,
+     "quantity": "preferred regional carrier status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_2cfb": [
+    {
+     "premise": "e_e6e4",
+     "kind": "number",
+     "entity": "BlueWave Express",
+     "relation": null,
+     "quantity": "freight tonnage",
+     "comparator": ">=",
+     "threshold": 10000,
+     "unit": "metric tons",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "m_64fd": [
+    {
+     "premise": "e_ee33",
+     "kind": "credential",
+     "entity": "Crestline Rail",
+     "relation": null,
+     "quantity": "Class A safety license",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_258e": [
+    {
+     "premise": "e_cadb",
+     "kind": "number",
+     "entity": "Skyward Charter",
+     "relation": null,
+     "quantity": "flight completions",
+     "comparator": ">=",
+     "threshold": 250,
+     "unit": "flights",
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

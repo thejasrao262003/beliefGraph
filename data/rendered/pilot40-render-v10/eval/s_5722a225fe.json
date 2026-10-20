@@ -1,0 +1,251 @@
+{
+ "scenario": "s_5722a225fe",
+ "source_scenario": "F1-004",
+ "family": "F1",
+ "meta": {
+  "depth": 2,
+  "relation": "retracts"
+ },
+ "idmap": {
+  "E1": "e_edab",
+  "E2": "e_ac57",
+  "B1": "m_3838",
+  "E3": "e_c40d",
+  "D1": "m_cb22",
+  "E4": "e_b88d",
+  "B2": "m_b0eb",
+  "E5": "e_bec5",
+  "B3": "m_9458",
+  "U1": "u_fa43"
+ },
+ "groups": {
+  "e_edab": 1,
+  "m_3838": 1,
+  "m_cb22": 1,
+  "e_c40d": 1,
+  "e_ac57": 1,
+  "e_b88d": 2,
+  "m_b0eb": 2,
+  "e_bec5": 3,
+  "m_9458": 3
+ },
+ "policy_of": {
+  "p_50a5": "m_3838",
+  "p_34d1": "m_cb22",
+  "p_055a": "m_b0eb",
+  "p_7221": "m_9458"
+ },
+ "gold": {
+  "e_edab": "withdraw",
+  "e_ac57": "keep",
+  "e_c40d": "keep",
+  "e_b88d": "keep",
+  "e_bec5": "keep",
+  "m_3838": "withdraw",
+  "m_b0eb": "keep",
+  "m_9458": "keep",
+  "m_cb22": "withdraw"
+ },
+ "justifications": {
+  "m_3838": [
+   [
+    "e_edab",
+    "e_ac57"
+   ]
+  ],
+  "m_cb22": [
+   [
+    "m_3838",
+    "e_c40d"
+   ]
+  ],
+  "m_b0eb": [
+   [
+    "e_b88d"
+   ]
+  ],
+  "m_9458": [
+   [
+    "e_bec5"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_fa43": {
+   "target": "e_edab",
+   "relation": "retracts",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_c90a",
+  "p_43fe"
+ ],
+ "after_updates": {
+  "m_3838": "fails",
+  "m_cb22": "fails",
+  "m_b0eb": "holds",
+  "m_9458": "holds"
+ },
+ "final_state": {
+  "m_3838": "fails",
+  "m_b0eb": "holds",
+  "m_9458": "holds",
+  "m_cb22": "fails"
+ },
+ "world": "An evaluation assistant assesses consumer hardware products for compliance and catalog eligibility across multiple retail distribution channels.",
+ "rationale": {
+  "m_3838": [
+   "Apex Pro Headset has an acoustic safety rating of 85 points (meeting the 80 point threshold) and holds a CE mark certification, satisfying the requirements for regional safety compliance."
+  ],
+  "m_cb22": [
+   "Apex Pro Headset meets regional safety compliance and has a customer returns rate of 2 percent this year (at or below the 5 percent limit), qualifying for retail distribution placement."
+  ],
+  "m_b0eb": [
+   "Lumina Smart Ring has a battery standby time of 12 days, exceeding the 10-day threshold required for long-life power endorsement."
+  ],
+  "m_9458": [
+   "Solis Solar Charger possesses an IP67 waterproof certification, satisfying the rule for outdoor durability approval."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_edab": {
+    "entity": "Apex Pro Headset",
+    "kind": "number",
+    "quantity": "acoustic safety rating",
+    "value": 85,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_ac57": {
+    "entity": "Apex Pro Headset",
+    "kind": "credential",
+    "quantity": "CE mark certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_c40d": {
+    "entity": "Apex Pro Headset",
+    "kind": "number",
+    "quantity": "customer returns rate",
+    "value": 2,
+    "unit": "percent",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_b88d": {
+    "entity": "Lumina Smart Ring",
+    "kind": "number",
+    "quantity": "battery standby time",
+    "value": 12,
+    "unit": "days",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_bec5": {
+    "entity": "Solis Solar Charger",
+    "kind": "credential",
+    "quantity": "IP67 waterproof certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "u_fa43": {
+    "entity": "Apex Pro Headset",
+    "kind": "number",
+    "quantity": "acoustic safety rating",
+    "value": null,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_3838": [
+    {
+     "premise": "e_edab",
+     "kind": "number",
+     "entity": "Apex Pro Headset",
+     "relation": null,
+     "quantity": "acoustic safety rating",
+     "comparator": ">=",
+     "threshold": 80,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_ac57",
+     "kind": "credential",
+     "entity": "Apex Pro Headset",
+     "relation": null,
+     "quantity": "CE mark certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_cb22": [
+    {
+     "premise": "m_3838",
+     "kind": "conclusion",
+     "entity": "Apex Pro Headset",
+     "relation": null,
+     "quantity": "regional safety compliance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_c40d",
+     "kind": "number",
+     "entity": "Apex Pro Headset",
+     "relation": null,
+     "quantity": "customer returns rate",
+     "comparator": "<=",
+     "threshold": 5,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "m_b0eb": [
+    {
+     "premise": "e_b88d",
+     "kind": "number",
+     "entity": "Lumina Smart Ring",
+     "relation": null,
+     "quantity": "battery standby time",
+     "comparator": ">",
+     "threshold": 10,
+     "unit": "days",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_9458": [
+    {
+     "premise": "e_bec5",
+     "kind": "credential",
+     "entity": "Solis Solar Charger",
+     "relation": null,
+     "quantity": "IP67 waterproof certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

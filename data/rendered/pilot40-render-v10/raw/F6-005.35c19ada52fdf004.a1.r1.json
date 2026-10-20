@@ -1,0 +1,267 @@
+{
+ "scenario": "F6-005",
+ "repair": 1,
+ "prompt_version": "render-v10",
+ "permitted": {
+  "policies.D1": "policy_echoes_memory 'exclusive summit shuttle; for exclusive summit' (a policy may not share a 3-word phrase with any memory)"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"policies.D1\": \"A passenger carrier is assigned to premier summit transit duties provided it holds priority carrier recognition and maintains a passenger safety rating of at least 4.5 points.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 5756,
+   "output_tokens": 2540,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 5756,
+    "completion_tokens": 2540
+   }
+  },
+  "est_usd": 0.041526,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "policies.D1"
+ ],
+ "merged": {
+  "world": "A travel logistics assistant evaluates transport service providers, emergency preparedness, and delivery performance across regional operations.",
+  "nodes": {
+   "E1": {
+    "text": "Vance Chartering holds a valid commercial transport licence.",
+    "source": "Official state transport department registry extract."
+   },
+   "E2": {
+    "text": "Vance Chartering manages an active fleet count of 15 vehicles.",
+    "source": "Verified fleet management database audit."
+   },
+   "E3": {
+    "text": "Vance Chartering maintains a passenger safety score of 4.8 points.",
+    "source": "Annual transit safety board report."
+   },
+   "E4": {
+    "text": "Solaria Express holds an emergency response protocol certification.",
+    "source": "National transit safety authority record."
+   },
+   "E5": {
+    "text": "AeroJet Logistics recorded a quarterly on-time delivery rate of 96 percent.",
+    "source": "Quarterly logistics audit report."
+   },
+   "B1": {
+    "text": "Vance Chartering maintains standard operational clearance."
+   },
+   "B2": {
+    "text": "Vance Chartering holds preferred carrier designation."
+   },
+   "D1": {
+    "text": "Vance Chartering is chosen for exclusive summit shuttle operations."
+   },
+   "B3": {
+    "text": "Solaria Express meets critical incident preparedness benchmarks."
+   },
+   "B4": {
+    "text": "AeroJet Logistics qualifies for premium route priority."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An anonymous forum posting states Vance Chartering never held a valid commercial transport licence.",
+    "source": "Unverified online transport blog comment."
+   }
+  },
+  "policies": {
+   "B1": "A transit agency obtains standard operational authorization provided it holds a valid commercial transport licence.",
+   "B2": "A transit agency gains preferred carrier status if it holds standard operational authorization and manages an active fleet count of 10 vehicles or more.",
+   "D1": "A passenger carrier is assigned to premier summit transit duties provided it holds priority carrier recognition and maintains a passenger safety rating of at least 4.5 points.",
+   "B3": "A regional carrier satisfies emergency readiness criteria once it obtains an emergency response protocol certification.",
+   "B4": "A freight operator earns high-priority dispatch handling when demonstrating a quarterly on-time delivery rate of 90 percent or higher."
+  },
+  "decoy_policies": [
+   "A maritime shipping firm receives deepwater docking authorization provided it possesses a total cargo capacity of 50000 tons.",
+   "An aviation vendor earns flight corridor permission when logging zero safety infractions over a two year period."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "B2": "fails",
+   "D1": "fails",
+   "B3": "holds",
+   "B4": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Vance Chartering",
+    "kind": "credential",
+    "quantity": "commercial transport licence",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Vance Chartering",
+    "kind": "number",
+    "quantity": "active fleet count",
+    "value": 15,
+    "unit": "vehicles",
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Vance Chartering",
+    "kind": "number",
+    "quantity": "passenger safety score",
+    "value": 4.8,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Solaria Express",
+    "kind": "credential",
+    "quantity": "emergency response protocol certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "AeroJet Logistics",
+    "kind": "number",
+    "quantity": "on-time delivery rate",
+    "value": 96,
+    "unit": "percent",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Vance Chartering",
+    "kind": "credential",
+    "quantity": "commercial transport licence",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "credential",
+     "entity": "Vance Chartering",
+     "relation": null,
+     "quantity": "commercial transport licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Vance Chartering",
+     "relation": null,
+     "quantity": "standard operational authorization",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Vance Chartering",
+     "relation": null,
+     "quantity": "active fleet count",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "vehicles",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Vance Chartering",
+     "relation": null,
+     "quantity": "preferred carrier status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Vance Chartering",
+     "relation": null,
+     "quantity": "passenger safety score",
+     "comparator": ">=",
+     "threshold": 4.5,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E4",
+     "kind": "credential",
+     "entity": "Solaria Express",
+     "relation": null,
+     "quantity": "emergency response protocol certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "AeroJet Logistics",
+     "relation": null,
+     "quantity": "on-time delivery rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Vance Chartering holds a valid commercial transport licence, satisfying the requirement for standard operational authorization."
+   ],
+   "B2": [
+    "Vance Chartering possesses standard operational authorization and operates 15 active fleet vehicles, meeting the 10-vehicle threshold for preferred carrier status."
+   ],
+   "D1": [
+    "Vance Chartering has attained preferred carrier status and recorded a passenger safety score of 4.8 points, exceeding the required 4.5 points threshold."
+   ],
+   "B3": [
+    "Solaria Express holds an active emergency response protocol certification, fulfilling the standard for emergency readiness."
+   ],
+   "B4": [
+    "AeroJet Logistics registered a quarterly on-time delivery rate of 96 percent, exceeding the 90 percent threshold for high-priority dispatch handling."
+   ]
+  }
+ }
+}

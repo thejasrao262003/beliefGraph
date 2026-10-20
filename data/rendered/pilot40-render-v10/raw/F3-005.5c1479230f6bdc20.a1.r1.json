@@ -1,0 +1,266 @@
+{
+ "scenario": "F3-005",
+ "repair": 1,
+ "prompt_version": "render-v10",
+ "permitted": {
+  "policies.D1": "policy_echoes_memory 'holds executive clearance' (a policy may not share a 3-word phrase with any memory); record_threshold_not_in_policy '25'",
+  "facts.E4": "record_value_not_in_text '50'; record_threshold_not_in_policy '25'",
+  "nodes.E4.text": "record_value_not_in_text '50'; record_threshold_not_in_policy '25'",
+  "nodes.E4.source": "record_value_not_in_text '50'; record_threshold_not_in_policy '25'",
+  "conditions.D1": "record_threshold_not_in_policy '25'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.D1\": [\n   {\n    \"premise\": \"B2\",\n    \"kind\": \"conclusion\",\n    \"entity\": \"AeroJet Logistics\",\n    \"relation\": null,\n    \"quantity\": \"executive clearance\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E4\",\n    \"kind\": \"number\",\n    \"entity\": \"AeroJet Logistics\",\n    \"relation\": null,\n    \"quantity\": \"guaranteed liability coverage\",\n    \"comparator\": \">=\",\n    \"threshold\": 25000000,\n    \"unit\": \"USD\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E4\": {\n   \"entity\": \"AeroJet Logistics\",\n   \"kind\": \"number\",\n   \"quantity\": \"guaranteed liability coverage\",\n   \"value\": 50000000,\n   \"unit\": \"USD\",\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E4.source\": \"Underwriter certificate of insurance, filed last week.\",\n  \"nodes.E4.text\": \"AeroJet Logistics holds guaranteed liability coverage of $50,000,000.\",\n  \"policies.D1\": \"An air provider receives lead status if it possesses executive clearance and maintains guaranteed liability coverage of at least $25,000,000.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6063,
+   "output_tokens": 7100,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6063,
+    "completion_tokens": 7100
+   }
+  },
+  "est_usd": 0.09351675,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.D1[1].threshold",
+  "conditions.D1[1].unit",
+  "facts.E4.unit",
+  "facts.E4.value",
+  "nodes.E4.text",
+  "policies.D1"
+ ],
+ "merged": {
+  "world": "Evaluating corporate charter flight and ground transit provider qualifications for corporate logistics planning.",
+  "nodes": {
+   "E1": {
+    "text": "AeroJet Logistics currently maintains an active fleet size of 15 aircraft.",
+    "source": "Civil Aviation Authority register entry, checked last month."
+   },
+   "E2": {
+    "text": "AeroJet Logistics holds a valid ARGUS Platinum certification.",
+    "source": "Aviation Safety Network database extract, dated last week."
+   },
+   "E3": {
+    "text": "AeroJet Logistics recorded an annual flight delay rate of 2.5 percent this year.",
+    "source": "Department of Transportation annual performance summary, issued last week."
+   },
+   "E4": {
+    "text": "AeroJet Logistics holds guaranteed liability coverage of $50,000,000.",
+    "source": "Underwriter certificate of insurance, filed last week."
+   },
+   "E5": {
+    "text": "BlueWave Tours currently operates a motorcoach fleet size of 20 buses.",
+    "source": "State Transport Board fleet registry, published last month."
+   },
+   "B1": {
+    "text": "AeroJet Logistics holds premier status."
+   },
+   "B2": {
+    "text": "AeroJet Logistics holds executive clearance."
+   },
+   "D1": {
+    "text": "AeroJet Logistics holds lead status."
+   },
+   "B3": {
+    "text": "BlueWave Tours holds transit clearance."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "AeroJet Logistics now maintains an active fleet size of 8 aircraft.",
+    "source": "Official fleet audit report, published recently."
+   }
+  },
+  "policies": {
+   "B1": "A carrier achieves premier status if it maintains an active fleet size of at least 10 aircraft, holds ARGUS Platinum certification, and keeps an annual flight delay rate of 5.0 percent or lower.",
+   "B2": "An air supplier secures executive clearance by maintaining premier status.",
+   "D1": "An air provider receives lead status if it possesses executive clearance and maintains guaranteed liability coverage of at least $25,000,000.",
+   "B3": "A travel vendor receives transit clearance when operating a motorcoach fleet size of 15 buses or greater."
+  },
+  "decoy_policies": [
+   "Maritime passenger endorsement is granted to any vessel operator maintaining a fleet of at least 5 cruise ships and holding Solas Safety Certification.",
+   "Regional cargo priority is assigned to freight companies that record a yearly lost shipment percentage below 1.0 percent."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "B2": "fails",
+   "D1": "fails",
+   "B3": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "AeroJet Logistics",
+    "kind": "number",
+    "quantity": "active fleet size",
+    "value": 15,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "AeroJet Logistics",
+    "kind": "credential",
+    "quantity": "ARGUS Platinum certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "AeroJet Logistics",
+    "kind": "number",
+    "quantity": "annual flight delay rate",
+    "value": 2.5,
+    "unit": "percent",
+    "window": "year",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "AeroJet Logistics",
+    "kind": "number",
+    "quantity": "guaranteed liability coverage",
+    "value": 50000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "BlueWave Tours",
+    "kind": "number",
+    "quantity": "motorcoach fleet size",
+    "value": 20,
+    "unit": "buses",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "AeroJet Logistics",
+    "kind": "number",
+    "quantity": "active fleet size",
+    "value": 8,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "AeroJet Logistics",
+     "relation": null,
+     "quantity": "active fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "credential",
+     "entity": "AeroJet Logistics",
+     "relation": null,
+     "quantity": "ARGUS Platinum certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "AeroJet Logistics",
+     "relation": null,
+     "quantity": "annual flight delay rate",
+     "comparator": "<=",
+     "threshold": 5.0,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "AeroJet Logistics",
+     "relation": null,
+     "quantity": "premier status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "AeroJet Logistics",
+     "relation": null,
+     "quantity": "executive clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "AeroJet Logistics",
+     "relation": null,
+     "quantity": "guaranteed liability coverage",
+     "comparator": ">=",
+     "threshold": 25000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "BlueWave Tours",
+     "relation": null,
+     "quantity": "motorcoach fleet size",
+     "comparator": ">=",
+     "threshold": 15,
+     "unit": "buses",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "AeroJet Logistics has an active fleet size of 15 aircraft (meeting the 10 aircraft threshold), holds ARGUS Platinum certification, and records an annual flight delay rate of 2.5 percent (below the 5.0 percent maximum), satisfying the premier status rule."
+   ],
+   "B2": [
+    "AeroJet Logistics holds premier status, satisfying the condition for executive clearance."
+   ],
+   "D1": [
+    "AeroJet Logistics holds executive clearance and maintains guaranteed liability coverage of 50 million dollars (exceeding the 25 million dollars requirement), satisfying the lead status rule."
+   ],
+   "B3": [
+    "BlueWave Tours operates a motorcoach fleet size of 20 buses, exceeding the 15 buses threshold for transit clearance."
+   ]
+  }
+ }
+}

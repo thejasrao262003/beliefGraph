@@ -1,0 +1,259 @@
+{
+ "scenario": "F1-006",
+ "repair": 1,
+ "prompt_version": "render-v10",
+ "permitted": {
+  "nodes.B1.text": "reliability_word 'reliability' (the word 'reliability' may not appear in any text)",
+  "policies.B1": "reliability_word 'reliability' (the word 'reliability' may not appear in any text)",
+  "policies.D1": "reliability_word 'reliability' (the word 'reliability' may not appear in any text)"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"nodes.B1.text\": \"Vortex 500 Lab Centrifuge satisfies premier operational standards.\",\n  \"policies.B1\": \"An item attains premier operational status whenever its quarterly proportion of operational failures remains below 0.05% and it possesses a valid ISO 9001 credential.\",\n  \"policies.D1\": \"An equipment model is eligible for placement with Clinical Supply Network provided the item earns premier operational status.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 5862,
+   "output_tokens": 1818,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 5862,
+    "completion_tokens": 1818
+   }
+  },
+  "est_usd": 0.033642,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "nodes.B1.text",
+  "policies.B1",
+  "policies.D1"
+ ],
+ "merged": {
+  "world": "An AI assistant tracks product specifications and certification data to determine eligibility for various distribution networks, quality badges, and retail programs.",
+  "nodes": {
+   "E1": {
+    "text": "Vortex 500 Lab Centrifuge recorded a failure rate of 0.02% during the last quarter.",
+    "source": "Quality Assurance Database"
+   },
+   "E2": {
+    "text": "Vortex 500 Lab Centrifuge holds an active ISO 9001 credential.",
+    "source": "International Standards Registry"
+   },
+   "E3": {
+    "text": "Biolabs NanoGrip Surgical Glove contains verified organic latex content of 92%.",
+    "source": "Materials Testing Laboratory Report"
+   },
+   "E4": {
+    "text": "AeroHelmet Pro sustained impact resistance of 450 joules during safety testing.",
+    "source": "National Safety Compliance Board"
+   },
+   "E5": {
+    "text": "SunPure Purifier holds an active Energy Star certification.",
+    "source": "Energy Efficiency Program Portal"
+   },
+   "B1": {
+    "text": "Vortex 500 Lab Centrifuge satisfies premier operational standards."
+   },
+   "D1": {
+    "text": "Vortex 500 Lab Centrifuge is cleared for Clinical Supply Network placement."
+   },
+   "B2": {
+    "text": "Biolabs NanoGrip Surgical Glove qualifies for EcoHealth certification."
+   },
+   "B3": {
+    "text": "AeroHelmet Pro satisfies standard safety criteria."
+   },
+   "B4": {
+    "text": "SunPure Purifier meets efficiency program guidelines."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "The compliance board confirmed that Vortex 500 Lab Centrifuge recorded no valid failure rate during the last quarter due to logging failures.",
+    "source": "Annual Quality Audit Audit Summary"
+   }
+  },
+  "policies": {
+   "B1": "An item attains premier operational status whenever its quarterly proportion of operational failures remains below 0.05% and it possesses a valid ISO 9001 credential.",
+   "D1": "An equipment model is eligible for placement with Clinical Supply Network provided the item earns premier operational status.",
+   "B2": "A medical item gains EcoHealth certification provided its organic latex content reaches at least 90%.",
+   "B3": "Headwear earns safety clearance if its impact resistance measures 400 joules or higher.",
+   "B4": "An appliance complies with energy guidelines when it possesses an active Energy Star certification."
+  },
+  "decoy_policies": [
+   "An industrial lubricant receives Premium Fleet Approval when its viscosity index exceeds 110 and its flash point reaches at least 200 degrees Celsius.",
+   "A commercial lighting fixture earns Sustainable Building Rebates if its annual energy consumption remains under 50 kilowatt-hours."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "D1": "fails",
+   "B2": "holds",
+   "B3": "holds",
+   "B4": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Vortex 500 Lab Centrifuge",
+    "kind": "number",
+    "quantity": "failure rate",
+    "value": 0.02,
+    "unit": "%",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Vortex 500 Lab Centrifuge",
+    "kind": "credential",
+    "quantity": "ISO 9001 credential",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Biolabs NanoGrip Surgical Glove",
+    "kind": "number",
+    "quantity": "organic latex content",
+    "value": 92,
+    "unit": "%",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "AeroHelmet Pro",
+    "kind": "number",
+    "quantity": "impact resistance",
+    "value": 450,
+    "unit": "joules",
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "SunPure Purifier",
+    "kind": "credential",
+    "quantity": "Energy Star certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Vortex 500 Lab Centrifuge",
+    "kind": "number",
+    "quantity": "failure rate",
+    "value": null,
+    "unit": "%",
+    "window": "quarter",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Vortex 500 Lab Centrifuge",
+     "relation": null,
+     "quantity": "failure rate",
+     "comparator": "<=",
+     "threshold": 0.05,
+     "unit": "%",
+     "window": "quarter",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "credential",
+     "entity": "Vortex 500 Lab Centrifuge",
+     "relation": null,
+     "quantity": "ISO 9001 credential",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Vortex 500 Lab Centrifuge",
+     "relation": null,
+     "quantity": "high-reliability status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Biolabs NanoGrip Surgical Glove",
+     "relation": null,
+     "quantity": "organic latex content",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "%",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "AeroHelmet Pro",
+     "relation": null,
+     "quantity": "impact resistance",
+     "comparator": ">=",
+     "threshold": 400,
+     "unit": "joules",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "SunPure Purifier",
+     "relation": null,
+     "quantity": "Energy Star certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Vortex 500 Lab Centrifuge registered a failure rate of 0.02% during the last quarter, which is below the 0.05% threshold, and holds a active ISO 9001 credential."
+   ],
+   "D1": [
+    "Vortex 500 Lab Centrifuge earns high-reliability status, making it eligible for placement with Clinical Supply Network."
+   ],
+   "B2": [
+    "Biolabs NanoGrip Surgical Glove contains 92% organic latex content, satisfying the minimum requirement of 90%."
+   ],
+   "B3": [
+    "AeroHelmet Pro achieved an impact resistance of 450 joules, exceeding the 400 joules requirement."
+   ],
+   "B4": [
+    "SunPure Purifier holds an active Energy Star certification, satisfying the program guideline."
+   ]
+  }
+ }
+}

@@ -1,0 +1,207 @@
+{
+ "scenario": "s_3d821bdd07",
+ "source_scenario": "F2-000",
+ "family": "F2",
+ "meta": {
+  "fan_in": 2,
+  "revised_supports": 2,
+  "preserved": false,
+  "depth": 1,
+  "relation": "supersedes"
+ },
+ "idmap": {
+  "E1": "e_e50c",
+  "E2": "e_dfe6",
+  "B1": "m_2075",
+  "D1": "m_7743",
+  "E3": "e_1552",
+  "B2": "m_36f2",
+  "U1": "u_a152",
+  "U2": "u_41fa"
+ },
+ "groups": {
+  "e_e50c": 1,
+  "m_2075": 1,
+  "m_7743": 1,
+  "e_dfe6": 1,
+  "e_1552": 2,
+  "m_36f2": 2
+ },
+ "policy_of": {
+  "p_d10e": "m_2075",
+  "p_3b4c": "m_7743",
+  "p_4091": "m_36f2"
+ },
+ "gold": {
+  "e_e50c": "supersede",
+  "e_dfe6": "supersede",
+  "e_1552": "keep",
+  "m_2075": "recompute",
+  "m_36f2": "keep",
+  "m_7743": "recompute"
+ },
+ "justifications": {
+  "m_2075": [
+   [
+    "e_e50c"
+   ],
+   [
+    "e_dfe6"
+   ]
+  ],
+  "m_7743": [
+   [
+    "m_2075"
+   ]
+  ],
+  "m_36f2": [
+   [
+    "e_1552"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_a152": {
+   "target": "e_e50c",
+   "relation": "supersedes",
+   "reliability": "high"
+  },
+  "u_41fa": {
+   "target": "e_dfe6",
+   "relation": "supersedes",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_e525",
+  "p_8779"
+ ],
+ "after_updates": {
+  "m_2075": "fails",
+  "m_7743": "fails",
+  "m_36f2": "holds"
+ },
+ "final_state": {
+  "m_2075": "fails",
+  "m_36f2": "holds",
+  "m_7743": "fails"
+ },
+ "world": "Assessment of commercial partners for product distribution and discount eligibility based on audited figures and certified credentials.",
+ "rationale": {
+  "m_2075": [
+   "ValenTech's annual sales revenue of 2,000,000 USD meets the required threshold of 1,500,000 USD for approved supplier qualification.",
+   "ValenTech holds a Tier-1 Supplier License, satisfying the alternative requirement for approved supplier qualification."
+  ],
+  "m_7743": [
+   "ValenTech satisfies approved supplier standards, granting it placement on the top vendor registry."
+  ],
+  "m_36f2": [
+   "Orion Dynamics maintains 50 commercial vehicles, exceeding the threshold of 30 required for fleet rate reductions."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_e50c": {
+    "entity": "ValenTech",
+    "kind": "number",
+    "quantity": "annual sales revenue",
+    "value": 2000000,
+    "unit": "USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_dfe6": {
+    "entity": "ValenTech",
+    "kind": "credential",
+    "quantity": "Tier-1 Supplier License",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_1552": {
+    "entity": "Orion Dynamics",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 50,
+    "unit": "commercial vehicles",
+    "window": "none",
+    "scope": "none"
+   },
+   "u_a152": {
+    "entity": "ValenTech",
+    "kind": "number",
+    "quantity": "annual sales revenue",
+    "value": 1000000,
+    "unit": "USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "u_41fa": {
+    "entity": "ValenTech",
+    "kind": "credential",
+    "quantity": "Tier-1 Supplier License",
+    "value": false,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_2075": [
+    {
+     "premise": "e_e50c",
+     "kind": "number",
+     "entity": "ValenTech",
+     "relation": null,
+     "quantity": "annual sales revenue",
+     "comparator": ">=",
+     "threshold": 1500000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "e_dfe6",
+     "kind": "credential",
+     "entity": "ValenTech",
+     "relation": null,
+     "quantity": "Tier-1 Supplier License",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_7743": [
+    {
+     "premise": "m_2075",
+     "kind": "conclusion",
+     "entity": "ValenTech",
+     "relation": null,
+     "quantity": "approved supplier criteria",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_36f2": [
+    {
+     "premise": "e_1552",
+     "kind": "number",
+     "entity": "Orion Dynamics",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 30,
+     "unit": "commercial vehicles",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

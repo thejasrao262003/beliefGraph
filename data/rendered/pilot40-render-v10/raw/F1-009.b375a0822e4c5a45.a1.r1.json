@@ -1,0 +1,364 @@
+{
+ "scenario": "F1-009",
+ "repair": 1,
+ "prompt_version": "render-v10",
+ "permitted": {
+  "policies.D1": "policy_echoes_memory 'high-capacity contract authorization' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B5": "policy_echoes_memory 'for regional route' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B2": "record_scope_not_in_policy 'national'",
+  "conditions.B2": "record_scope_not_in_policy 'national'",
+  "facts.E2": "record_scope_not_in_policy 'national'",
+  "nodes.E2.text": "record_scope_not_in_policy 'national'",
+  "nodes.E2.source": "record_scope_not_in_policy 'national'",
+  "policies.B6": "record_scope_not_in_policy 'international'",
+  "conditions.B6": "record_scope_not_in_policy 'international'",
+  "facts.E5": "record_scope_not_in_policy 'international'",
+  "nodes.E5.text": "record_scope_not_in_policy 'international'",
+  "nodes.E5.source": "record_scope_not_in_policy 'international'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B2\": [\n   {\n    \"premise\": \"B1\",\n    \"kind\": \"conclusion\",\n    \"entity\": \"Vanguard Logistics\",\n    \"relation\": null,\n    \"quantity\": \"fleet-scale operator classification\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E2\",\n    \"kind\": \"number\",\n    \"entity\": \"Vanguard Logistics\",\n    \"relation\": null,\n    \"quantity\": \"safety compliance score\",\n    \"comparator\": \">=\",\n    \"threshold\": 90,\n    \"unit\": \"percent\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"conditions.B6\": [\n   {\n    \"premise\": \"E5\",\n    \"kind\": \"credential\",\n    \"entity\": \"Meridian Charters\",\n    \"relation\": null,\n    \"quantity\": \"ISO 9001 certification\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E2\": {\n   \"entity\": \"Vanguard Logistics\",\n   \"kind\": \"number\",\n   \"quantity\": \"safety compliance score\",\n   \"value\": 95,\n   \"unit\": \"percent\",\n   \"window\": \"year\",\n   \"scope\": \"none\"\n  },\n  \"facts.E5\": {\n   \"entity\": \"Meridian Charters\",\n   \"kind\": \"credential\",\n   \"quantity\": \"ISO 9001 certification\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E2.source\": \"Transport safety board annual report.\",\n  \"nodes.E2.text\": \"Vanguard Logistics achieved a yearly safety compliance score of 95 percent.\",\n  \"nodes.E5.source\": \"Quality standards organization registry.\",\n  \"nodes.E5.text\": \"Meridian Charters holds ISO 9001 quality management certification.\",\n  \"policies.B2\": \"Premium carrier status is awarded to a fleet-scale operator whose yearly safety audit rating is 90 percent or higher.\",\n  \"policies.B5\": \"Approval for regional territory expansion is granted to transit operators carrying a yearly passenger count exceeding 400000 travelers.\",\n  \"policies.B6\": \"Standard quality assurance recognition is accorded to any provider maintaining ISO 9001 certification.\",\n  \"policies.D1\": \"Diplomatic travel missions are assigned to enterprise carriers with major scale contract clearance.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 7149,
+   "output_tokens": 6900,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 7149,
+    "completion_tokens": 6900
+   }
+  },
+  "est_usd": 0.09371025,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.B2[1].scope",
+  "conditions.B6[0].scope",
+  "facts.E2.scope",
+  "facts.E5.scope",
+  "nodes.E2.source",
+  "nodes.E5.source",
+  "policies.B5",
+  "policies.D1"
+ ],
+ "merged": {
+  "world": "Travel logistics firm compliance evaluations, operator accreditations, and route expansion authorisations.",
+  "nodes": {
+   "E1": {
+    "text": "Vanguard Logistics operates an active fleet of 15 charter aircraft.",
+    "source": "Aviation fleet audit registry."
+   },
+   "E2": {
+    "text": "Vanguard Logistics achieved a yearly safety compliance score of 95 percent.",
+    "source": "Transport safety board annual report."
+   },
+   "E3": {
+    "text": "Vanguard Logistics holds corporate escrow reserves of 2000000 USD.",
+    "source": "Certified bank balance statement."
+   },
+   "E4": {
+    "text": "Horizon Express recorded an annual passenger volume of 500000 travelers this year.",
+    "source": "Regional transit authority report."
+   },
+   "E5": {
+    "text": "Meridian Charters holds ISO 9001 quality management certification.",
+    "source": "Quality standards organization registry."
+   },
+   "E6": {
+    "text": "Solis Freight maintains a total vehicle count of 50 cargo trucks.",
+    "source": "Department of Transportation commercial vehicle register."
+   },
+   "B1": {
+    "text": "Vanguard Logistics holds fleet-scale operator classification."
+   },
+   "B2": {
+    "text": "Vanguard Logistics satisfies premium carrier credentials."
+   },
+   "B3": {
+    "text": "Vanguard Logistics earns elite transit vendor designation."
+   },
+   "B4": {
+    "text": "Vanguard Logistics secures high-capacity contract authorization."
+   },
+   "D1": {
+    "text": "Vanguard Logistics receives diplomatic transport assignment approval."
+   },
+   "B5": {
+    "text": "Horizon Express qualifies for regional route expansion clearance."
+   },
+   "B6": {
+    "text": "Meridian Charters attains international Quality Assurance standard compliance."
+   },
+   "B7": {
+    "text": "Solis Freight meets national cargo logistics provider eligibility."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Vanguard Logistics now operates an active fleet of 8 charter aircraft.",
+    "source": "Updated aviation fleet audit registry."
+   }
+  },
+  "policies": {
+   "B1": "An operator receives fleet-scale classification provided their active charter aircraft tally reaches 10 units or more.",
+   "B2": "Premium carrier status is awarded to a fleet-scale operator whose yearly safety audit rating is 90 percent or higher.",
+   "B3": "Vendor designation at the elite level is conferred on any organization possessing premium carrier status.",
+   "B4": "Authorization for high-capacity operations requires elite vendor standing combined with liquid corporate reserves reaching at least 1500000 USD.",
+   "D1": "Diplomatic travel missions are assigned to enterprise carriers with major scale contract clearance.",
+   "B5": "Approval for regional territory expansion is granted to transit operators carrying a yearly passenger count exceeding 400000 travelers.",
+   "B6": "Standard quality assurance recognition is accorded to any provider maintaining ISO 9001 certification.",
+   "B7": "Logistics provider eligibility nationwide requires a minimum commercial vehicle fleet size of 30 trucks."
+  },
+  "decoy_policies": [
+   "Deep-sea harbor access is granted to shipping companies maintaining an annual container volume above 1000000 TEU.",
+   "Express rail service privileges require a punctual arrival percentage of at least 98 percent over the preceding quarter."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "B2": "fails",
+   "B3": "fails",
+   "B4": "fails",
+   "D1": "fails",
+   "B5": "holds",
+   "B6": "holds",
+   "B7": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Vanguard Logistics",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 15,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Vanguard Logistics",
+    "kind": "number",
+    "quantity": "safety compliance score",
+    "value": 95,
+    "unit": "percent",
+    "window": "year",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Vanguard Logistics",
+    "kind": "number",
+    "quantity": "escrow reserves",
+    "value": 2000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Horizon Express",
+    "kind": "number",
+    "quantity": "passenger volume",
+    "value": 500000,
+    "unit": "travelers",
+    "window": "year",
+    "scope": "regional"
+   },
+   "E5": {
+    "entity": "Meridian Charters",
+    "kind": "credential",
+    "quantity": "ISO 9001 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Solis Freight",
+    "kind": "number",
+    "quantity": "vehicle count",
+    "value": 50,
+    "unit": "trucks",
+    "window": "none",
+    "scope": "national"
+   },
+   "U1": {
+    "entity": "Vanguard Logistics",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 8,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Vanguard Logistics",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Vanguard Logistics",
+     "relation": null,
+     "quantity": "fleet-scale operator classification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Vanguard Logistics",
+     "relation": null,
+     "quantity": "safety compliance score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Vanguard Logistics",
+     "relation": null,
+     "quantity": "premium carrier credentials",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Vanguard Logistics",
+     "relation": null,
+     "quantity": "elite transit vendor designation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Vanguard Logistics",
+     "relation": null,
+     "quantity": "escrow reserves",
+     "comparator": ">=",
+     "threshold": 1500000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B4",
+     "kind": "conclusion",
+     "entity": "Vanguard Logistics",
+     "relation": null,
+     "quantity": "high-capacity contract authorization",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Horizon Express",
+     "relation": null,
+     "quantity": "passenger volume",
+     "comparator": ">",
+     "threshold": 400000,
+     "unit": "travelers",
+     "window": "year",
+     "scope": "regional"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "Meridian Charters",
+     "relation": null,
+     "quantity": "ISO 9001 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B7": [
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Solis Freight",
+     "relation": null,
+     "quantity": "vehicle count",
+     "comparator": ">=",
+     "threshold": 30,
+     "unit": "trucks",
+     "window": "none",
+     "scope": "national"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Vanguard Logistics operates 15 charter aircraft, which meets the policy threshold of at least 10 active units."
+   ],
+   "B2": [
+    "Vanguard Logistics holds fleet-scale operator classification and achieved a 95 percent safety score, surpassing the 90 percent policy requirement."
+   ],
+   "B3": [
+    "Vanguard Logistics satisfies premium carrier credentials, fulfilling the sole requirement for elite vendor status."
+   ],
+   "B4": [
+    "Vanguard Logistics holds elite transit vendor designation and has 2000000 USD in escrow, exceeding the 1500000 USD reserve requirement."
+   ],
+   "D1": [
+    "Vanguard Logistics possesses high-capacity contract authorization, satisfying the single condition for diplomatic assignment clearance."
+   ],
+   "B5": [
+    "Horizon Express recorded 500000 yearly passengers, exceeding the required threshold of 400000 travelers."
+   ],
+   "B6": [
+    "Meridian Charters holds ISO 9001 certification, fulfilling the credential requirement for Quality Assurance compliance."
+   ],
+   "B7": [
+    "Solis Freight maintains 50 cargo trucks, satisfying the threshold of at least 30 commercial vehicles."
+   ]
+  }
+ }
+}

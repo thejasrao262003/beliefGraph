@@ -1,0 +1,190 @@
+{
+ "scenario": "s_43bbc7e02a",
+ "source_scenario": "F6-006",
+ "family": "F6",
+ "meta": {
+  "variant": "low_reliability",
+  "has_alternative": true,
+  "depth": 1
+ },
+ "idmap": {
+  "E1": "e_594f",
+  "E2": "e_8e03",
+  "B1": "m_136e",
+  "D1": "m_2e3c",
+  "E3": "e_46f7",
+  "B2": "m_641a",
+  "U1": "u_64fe"
+ },
+ "groups": {
+  "e_594f": 1,
+  "m_136e": 1,
+  "m_2e3c": 1,
+  "e_8e03": 1,
+  "e_46f7": 2,
+  "m_641a": 2
+ },
+ "policy_of": {
+  "p_3ba7": "m_136e",
+  "p_73ff": "m_2e3c",
+  "p_da85": "m_641a"
+ },
+ "gold": {
+  "e_594f": "uncertain",
+  "e_8e03": "keep",
+  "e_46f7": "keep",
+  "m_136e": "keep",
+  "m_641a": "keep",
+  "m_2e3c": "keep"
+ },
+ "justifications": {
+  "m_136e": [
+   [
+    "e_594f"
+   ],
+   [
+    "e_8e03"
+   ]
+  ],
+  "m_2e3c": [
+   [
+    "m_136e"
+   ]
+  ],
+  "m_641a": [
+   [
+    "e_46f7"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_64fe": {
+   "target": "e_594f",
+   "relation": "retracts",
+   "reliability": "low"
+  }
+ },
+ "decoy_policies": [
+  "p_29dd",
+  "p_4622"
+ ],
+ "after_updates": {
+  "m_136e": "holds",
+  "m_2e3c": "holds",
+  "m_641a": "holds"
+ },
+ "final_state": {
+  "m_136e": "holds",
+  "m_641a": "holds",
+  "m_2e3c": "holds"
+ },
+ "world": "An evaluation of commercial partners is being conducted to assign procurement preferences and safety compliance ratings.",
+ "rationale": {
+  "m_136e": [
+   "Apex Dynamics holds an ISO 9001 certification, satisfying the condition to achieve preferred supplier status.",
+   "Apex Dynamics holds an ISO 27001 certification, satisfying the condition to achieve preferred supplier status."
+  ],
+  "m_2e3c": [
+   "Apex Dynamics is designated a preferred supplier, satisfying the requirement for strategic procurement eligibility."
+  ],
+  "m_641a": [
+   "Vortex Industries recorded a safety compliance rating of 92%, which meets the minimum threshold of 90% for high safety performance recognition."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_594f": {
+    "entity": "Apex Dynamics",
+    "kind": "credential",
+    "quantity": "ISO 9001 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_8e03": {
+    "entity": "Apex Dynamics",
+    "kind": "credential",
+    "quantity": "ISO 27001 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_46f7": {
+    "entity": "Vortex Industries",
+    "kind": "number",
+    "quantity": "safety compliance rating",
+    "value": 92,
+    "unit": "%",
+    "window": "none",
+    "scope": "none"
+   },
+   "u_64fe": {
+    "entity": "Apex Dynamics",
+    "kind": "credential",
+    "quantity": "ISO 9001 certification",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_136e": [
+    {
+     "premise": "e_594f",
+     "kind": "credential",
+     "entity": "Apex Dynamics",
+     "relation": null,
+     "quantity": "ISO 9001 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_8e03",
+     "kind": "credential",
+     "entity": "Apex Dynamics",
+     "relation": null,
+     "quantity": "ISO 27001 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_2e3c": [
+    {
+     "premise": "m_136e",
+     "kind": "conclusion",
+     "entity": "Apex Dynamics",
+     "relation": null,
+     "quantity": "preferred supplier status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_641a": [
+    {
+     "premise": "e_46f7",
+     "kind": "number",
+     "entity": "Vortex Industries",
+     "relation": null,
+     "quantity": "safety compliance rating",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "%",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

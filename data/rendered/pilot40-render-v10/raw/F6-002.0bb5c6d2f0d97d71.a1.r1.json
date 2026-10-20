@@ -1,0 +1,282 @@
+{
+ "scenario": "F6-002",
+ "repair": 1,
+ "prompt_version": "render-v10",
+ "permitted": {
+  "policies.B1": "record_scope_not_in_policy 'global'; record_scope_not_in_policy 'national'",
+  "conditions.B1": "record_scope_not_in_policy 'global'; record_scope_not_in_policy 'national'",
+  "facts.E1": "record_scope_not_in_policy 'global'",
+  "nodes.E1.text": "record_scope_not_in_policy 'global'",
+  "nodes.E1.source": "record_scope_not_in_policy 'global'",
+  "facts.E2": "record_scope_not_in_policy 'national'",
+  "nodes.E2.text": "record_scope_not_in_policy 'national'",
+  "nodes.E2.source": "record_scope_not_in_policy 'national'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B1\": [\n   {\n    \"premise\": \"E1\",\n    \"kind\": \"credential\",\n    \"entity\": \"SurgiShield XL\",\n    \"relation\": null,\n    \"quantity\": \"ISO 13485 certification\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E2\",\n    \"kind\": \"credential\",\n    \"entity\": \"SurgiShield XL\",\n    \"relation\": null,\n    \"quantity\": \"FDA Class II clearance\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E1\": {\n   \"entity\": \"SurgiShield XL\",\n   \"kind\": \"credential\",\n   \"quantity\": \"ISO 13485 certification\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"facts.E2\": {\n   \"entity\": \"SurgiShield XL\",\n   \"kind\": \"credential\",\n   \"quantity\": \"FDA Class II clearance\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E1.source\": \"Medical Device Registry entry\",\n  \"nodes.E1.text\": \"SurgiShield XL holds an active ISO 13485 credential according to the medical device registry.\",\n  \"nodes.E2.source\": \"FDA Clearance Database record\",\n  \"nodes.E2.text\": \"SurgiShield XL obtained FDA Class II clearance as documented in the clearance register.\",\n  \"policies.B1\": \"A product meets primary safety compliance requirements if it holds active ISO 13485 certification or maintains FDA Class II clearance.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6287,
+   "output_tokens": 3827,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6287,
+    "completion_tokens": 3827
+   }
+  },
+  "est_usd": 0.0571995,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.B1[0].scope",
+  "conditions.B1[1].scope",
+  "facts.E1.scope",
+  "facts.E2.scope",
+  "nodes.E1.source",
+  "nodes.E1.text",
+  "nodes.E2.source",
+  "nodes.E2.text"
+ ],
+ "merged": {
+  "world": "An assessment of medical product eligibility and vendor listing standards across commercial medical device suppliers.",
+  "nodes": {
+   "E1": {
+    "text": "SurgiShield XL holds an active ISO 13485 credential according to the medical device registry.",
+    "source": "Medical Device Registry entry"
+   },
+   "E2": {
+    "text": "SurgiShield XL obtained FDA Class II clearance as documented in the clearance register.",
+    "source": "FDA Clearance Database record"
+   },
+   "E3": {
+    "text": "SurgiShield XL recorded a defect rate of 0.02% over the last year according to the quality audit.",
+    "source": "Annual Quality Control Audit report"
+   },
+   "B1": {
+    "text": "SurgiShield XL fulfills primary requirements for safety compliance."
+   },
+   "B2": {
+    "text": "SurgiShield XL is qualified for medical hospital distribution."
+   },
+   "D1": {
+    "text": "SurgiShield XL shall be included in the vendor catalog."
+   },
+   "E4": {
+    "text": "OptiLube Ultra attained a customer satisfaction score of 88% over the last quarter in the client survey.",
+    "source": "Quarterly Client Feedback Report"
+   },
+   "B3": {
+    "text": "OptiLube Ultra satisfies preferred vendor criteria."
+   },
+   "E5": {
+    "text": "VeloCart comes with a structural warranty of 5 years as recorded in the specification sheet.",
+    "source": "Manufacturer Product Specification sheet"
+   },
+   "B4": {
+    "text": "VeloCart fulfills extended durability benchmarks."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An unverified forum post claims SurgiShield XL never held an active ISO 13485 credential.",
+    "source": "Industry forum message board post"
+   }
+  },
+  "policies": {
+   "B1": "A product meets primary safety compliance requirements if it holds active ISO 13485 certification or maintains FDA Class II clearance.",
+   "B2": "An item secures qualification for clinical hospital placement when an applicant cleared on primary safety compliance requirements also maintains a yearly defect rate of 0.05% or lower.",
+   "D1": "A product is listed in the master vendor catalog provided that it qualifies for hospital distribution.",
+   "B3": "A product meets preferred vendor standards if its quarterly customer satisfaction score reaches 80% or higher.",
+   "B4": "A product meets extended durability standards if it provides a structural warranty of at least 5 years."
+  },
+  "decoy_policies": [
+   "A device gains priority export approval if it maintains international freight insurance covering at least $100,000 per shipment.",
+   "An equipment model receives green manufacturing status provided that its annual energy consumption remains below 50 kWh."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "holds",
+   "D1": "holds",
+   "B3": "holds",
+   "B4": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "SurgiShield XL",
+    "kind": "credential",
+    "quantity": "ISO 13485 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "SurgiShield XL",
+    "kind": "credential",
+    "quantity": "FDA Class II clearance",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "SurgiShield XL",
+    "kind": "number",
+    "quantity": "defect rate",
+    "value": 0.02,
+    "unit": "%",
+    "window": "year",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "SurgiShield XL",
+    "kind": "credential",
+    "quantity": "ISO 13485 certification",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "OptiLube Ultra",
+    "kind": "number",
+    "quantity": "customer satisfaction score",
+    "value": 88,
+    "unit": "%",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "VeloCart",
+    "kind": "number",
+    "quantity": "structural warranty",
+    "value": 5,
+    "unit": "years",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "credential",
+     "entity": "SurgiShield XL",
+     "relation": null,
+     "quantity": "ISO 13485 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "credential",
+     "entity": "SurgiShield XL",
+     "relation": null,
+     "quantity": "FDA Class II clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "SurgiShield XL",
+     "relation": null,
+     "quantity": "primary safety compliance standards",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "SurgiShield XL",
+     "relation": null,
+     "quantity": "defect rate",
+     "comparator": "<=",
+     "threshold": 0.05,
+     "unit": "%",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "SurgiShield XL",
+     "relation": null,
+     "quantity": "qualification for clinical hospital placement",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "OptiLube Ultra",
+     "relation": null,
+     "quantity": "customer satisfaction score",
+     "comparator": ">=",
+     "threshold": 80,
+     "unit": "%",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "VeloCart",
+     "relation": null,
+     "quantity": "structural warranty",
+     "comparator": ">=",
+     "threshold": 5,
+     "unit": "years",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Holding ISO 13485 certification fulfills the primary safety compliance standards requirement.",
+    "Holding FDA Class II clearance fulfills the primary safety compliance standards requirement."
+   ],
+   "B2": [
+    "Meeting primary safety compliance standards together with an annual defect rate of 0.02%, which is below the 0.05% maximum threshold, qualifies SurgiShield XL for hospital distribution."
+   ],
+   "D1": [
+    "Being qualified for hospital distribution satisfies the rule for inclusion in the master vendor catalog."
+   ],
+   "B3": [
+    "A quarterly customer satisfaction score of 88% exceeds the required 80% threshold to meet preferred vendor standards."
+   ],
+   "B4": [
+    "A 5-year structural warranty satisfies the requirement for extended durability standards."
+   ]
+  }
+ }
+}

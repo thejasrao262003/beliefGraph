@@ -1,0 +1,218 @@
+{
+ "scenario": "s_ed05733e74",
+ "source_scenario": "F6-001",
+ "family": "F6",
+ "meta": {
+  "variant": "hedge",
+  "has_alternative": true,
+  "depth": 2
+ },
+ "idmap": {
+  "E1": "e_ad97",
+  "E2": "e_2481",
+  "B1": "m_af9d",
+  "B2": "m_2075",
+  "D1": "m_4bf1",
+  "E3": "e_6bbd",
+  "B3": "m_6cfe",
+  "U1": "u_3b06"
+ },
+ "groups": {
+  "e_ad97": 1,
+  "m_af9d": 1,
+  "m_2075": 1,
+  "m_4bf1": 1,
+  "e_2481": 1,
+  "e_6bbd": 2,
+  "m_6cfe": 2
+ },
+ "policy_of": {
+  "p_d5fb": "m_af9d",
+  "p_3a2e": "m_2075",
+  "p_2245": "m_4bf1",
+  "p_8b31": "m_6cfe"
+ },
+ "gold": {
+  "e_ad97": "uncertain",
+  "e_2481": "keep",
+  "e_6bbd": "keep",
+  "m_af9d": "keep",
+  "m_6cfe": "keep",
+  "m_2075": "keep",
+  "m_4bf1": "keep"
+ },
+ "justifications": {
+  "m_af9d": [
+   [
+    "e_ad97"
+   ],
+   [
+    "e_2481"
+   ]
+  ],
+  "m_2075": [
+   [
+    "m_af9d"
+   ]
+  ],
+  "m_4bf1": [
+   [
+    "m_2075"
+   ]
+  ],
+  "m_6cfe": [
+   [
+    "e_6bbd"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_3b06": {
+   "target": "e_ad97",
+   "relation": "hedges",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_25f6",
+  "p_adb9"
+ ],
+ "after_updates": {
+  "m_af9d": "holds",
+  "m_2075": "holds",
+  "m_4bf1": "holds",
+  "m_6cfe": "holds"
+ },
+ "final_state": {
+  "m_af9d": "holds",
+  "m_6cfe": "holds",
+  "m_2075": "holds",
+  "m_4bf1": "holds"
+ },
+ "world": "Evaluating charter carrier qualifications and regional transport operators for upcoming travel logistics agreements.",
+ "rationale": {
+  "m_af9d": [
+   "AeroLuxe Charters holds an active FAA Part 135 certificate as required by the policy.",
+   "AeroLuxe Charters has a fleet safety rating of 4.9 stars, which meets the 4.8 stars requirement."
+  ],
+  "m_2075": [
+   "AeroLuxe Charters holds premier flight status, satisfying the condition for executive charter clearance."
+  ],
+  "m_4bf1": [
+   "AeroLuxe Charters is authorized for corporate VIP charter contracts, satisfying the policy requirement for summit booking."
+  ],
+  "m_6cfe": [
+   "Mariner Tours recorded an annual passenger volume of 150,000 customers, exceeding the 100,000 threshold."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_ad97": {
+    "entity": "AeroLuxe Charters",
+    "kind": "credential",
+    "quantity": "FAA Part 135 certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_2481": {
+    "entity": "AeroLuxe Charters",
+    "kind": "number",
+    "quantity": "fleet safety rating",
+    "value": 4.9,
+    "unit": "stars",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_6bbd": {
+    "entity": "Mariner Tours",
+    "kind": "number",
+    "quantity": "annual passenger volume",
+    "value": 150000,
+    "unit": "customers",
+    "window": "year",
+    "scope": "none"
+   },
+   "u_3b06": {
+    "entity": "AeroLuxe Charters",
+    "kind": "credential",
+    "quantity": "FAA Part 135 certificate",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_af9d": [
+    {
+     "premise": "e_ad97",
+     "kind": "credential",
+     "entity": "AeroLuxe Charters",
+     "relation": null,
+     "quantity": "FAA Part 135 certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_2481",
+     "kind": "number",
+     "entity": "AeroLuxe Charters",
+     "relation": null,
+     "quantity": "fleet safety rating",
+     "comparator": ">=",
+     "threshold": 4.8,
+     "unit": "stars",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_2075": [
+    {
+     "premise": "m_af9d",
+     "kind": "conclusion",
+     "entity": "AeroLuxe Charters",
+     "relation": null,
+     "quantity": "premier flight status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_4bf1": [
+    {
+     "premise": "m_2075",
+     "kind": "conclusion",
+     "entity": "AeroLuxe Charters",
+     "relation": null,
+     "quantity": "corporate VIP charter contracts authorization",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_6cfe": [
+    {
+     "premise": "e_6bbd",
+     "kind": "number",
+     "entity": "Mariner Tours",
+     "relation": null,
+     "quantity": "annual passenger volume",
+     "comparator": ">=",
+     "threshold": 100000,
+     "unit": "customers",
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

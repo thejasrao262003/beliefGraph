@@ -1,0 +1,29 @@
+{
+ "scenario": "F6-009",
+ "attempt": 1,
+ "prompt_version": "render-v10",
+ "model": "gemini-3.5-flash",
+ "feedback": [],
+ "response": "```json\n{\n  \"world\": \"A regional transport authority evaluates charter fleet providers and service operators for annual executive contracts.\",\n  \"nodes\": {\n    \"E1\": {\n      \"text\": \"Vanguard Travel maintains a vehicle count of 20 coaches.\",\n      \"source\": \"Official transport audit report\"\n    },\n    \"B1\": {\n      \"text\": \"Vanguard Travel qualifies for high-capacity carrier status.\"\n    },\n    \"B2\": {\n      \"text\": \"Vanguard Travel achieves Tier-1 Logistics Vendor designation.\"\n    },\n    \"D1\": {\n      \"text\": \"Vanguard Travel is assigned to manage the European Executive Shuttle contract.\"\n    },\n    \"E2\": {\n      \"text\": \"Meridian Shuttles holds an ISO 9001 quality management certification.\",\n      \"source\": \"Official ISO registry portal\"\n    },\n    \"B3\": {\n      \"text\": \"Meridian Shuttles fulfills the premier safety criteria.\"\n    }\n  },\n  \"updates\": {\n    \"U1\": {\n      \"text\": \"An anonymous blog post asserts Vanguard Travel no longer maintains any coaches.\",\n      \"source\": \"Unverified online forum comment\"\n    }\n  },\n  \"policies\": {\n    \"B1\": \"High-capacity transport authorization is granted to any carrier maintaining a vehicle count of at least 15 coaches.\",\n    \"B2\": \"Tier-1 partner classification requires an entity to hold high-capacity transport authorization.\",\n    \"D1\": \"Allocation of the European Executive Shuttle route requires a firm with Tier-1 partner classification.\",\n    \"B3\": \"Premier safety approval is awarded to transport providers holding an ISO 9001 quality management certification.\"\n  },\n  \"decoy_policies\": [\n    \"VIP charter registration requires a driver staffing count of at least 50 licensed chauffeurs.\",\n    \"Express freight clearance is granted to companies maintaining annual fuel reserves of 100,000 liters.\"\n  ],\n  \"after_updates\": {\n    \"B1\": \"fails\",\n    \"B2\": \"fails\",\n    \"D1\": \"fails\",\n    \"B3\": \"holds\"\n  },\n  \"facts\": {\n    \"E1\": {\n      \"entity\": \"Vanguard Travel\",\n      \"kind\": \"number\",\n      \"quantity\": \"vehicle count\",\n      \"value\": 20,\n      \"unit\": \"coaches\",\n      \"window\": \"none\",\n      \"scope\": \"none\"\n    },\n    \"E2\": {\n      \"entity\": \"Meridian Shuttles\",\n      \"kind\": \"credential\",\n      \"quantity\": \"ISO 9001 quality management certification\",\n      \"value\": true,\n      \"unit\": null,\n      \"window\": \"none\",\n      \"scope\": \"none\"\n    },\n    \"U1\": {\n      \"entity\": \"Vanguard Travel\",\n      \"kind\": \"number\",\n      \"quantity\": \"vehicle count\",\n      \"value\": null,\n      \"unit\": \"coaches\",\n      \"window\": \"none\",\n      \"scope\": \"none\"\n    }\n  },\n  \"conditions\": {\n    \"B1\": [\n      {\n        \"premise\": \"E1\",\n        \"kind\": \"number\",\n        \"entity\": \"Vanguard Travel\",\n        \"relation\": null,\n        \"quantity\": \"vehicle count\",\n        \"comparator\": \">=\",\n        \"threshold\": 15,\n        \"unit\": \"coaches\",\n        \"window\": \"none\",\n        \"scope\": \"none\"\n      }\n    ],\n    \"B2\": [\n      {\n        \"premise\": \"B1\",\n        \"kind\": \"conclusion\",\n        \"entity\": \"Vanguard Travel\",\n        \"relation\": null,\n        \"quantity\": \"high-capacity transport authorization\",\n        \"comparator\": null,\n        \"threshold\": null,\n        \"unit\": null,\n        \"window\": \"none\",\n        \"scope\": \"none\"\n      }\n    ],\n    \"D1\": [\n      {\n        \"premise\": \"B2\",\n        \"kind\": \"conclusion\",\n        \"entity\": \"Vanguard Travel\",\n        \"relation\": null,\n        \"quantity\": \"Tier-1 partner classification\",\n        \"comparator\": null,\n        \"threshold\": null,\n        \"unit\": null,\n        \"window\": \"none\",\n        \"scope\": \"none\"\n      }\n    ],\n    \"B3\": [\n      {\n        \"premise\": \"E2\",\n        \"kind\": \"credential\",\n        \"entity\": \"Meridian Shuttles\",\n        \"relation\": null,\n        \"quantity\": \"ISO 9001 quality management certification\",\n        \"comparator\": null,\n        \"threshold\": null,\n        \"unit\": null,\n        \"window\": \"none\",\n        \"scope\": \"none\"\n      }\n    ]\n  },\n  \"rationale\": {\n    \"B1\": [\n      \"Vanguard Travel maintains 20 coaches, which exceeds the required threshold of 15 coaches.\"\n    ],\n    \"B2\": [\n      \"Vanguard Travel qualifies for high-capacity carrier status, fulfilling the condition for Tier-1 partner classification.\"\n    ],\n    \"D1\": [\n      \"Vanguard Travel holds Tier-1 Logistics Vendor designation, satisfying the prerequisite for the European Executive Shuttle route.\"\n    ],\n    \"B3\": [\n      \"Meridian Shuttles possesses the ISO 9001 quality management certification necessary for premier safety approval.\"\n    ]\n  }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 3769,
+   "output_tokens": 4125,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 3769,
+    "completion_tokens": 4125
+   }
+  },
+  "est_usd": 0.0548865,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ }
+}

@@ -1,0 +1,280 @@
+{
+ "scenario": "s_1b054ddf3e",
+ "source_scenario": "F6-005",
+ "family": "F6",
+ "meta": {
+  "variant": "low_reliability",
+  "has_alternative": false,
+  "depth": 2
+ },
+ "idmap": {
+  "E1": "e_97bc",
+  "B1": "m_6731",
+  "E2": "e_a5c7",
+  "B2": "m_081b",
+  "E3": "e_16ec",
+  "D1": "m_6a60",
+  "E4": "e_6746",
+  "B3": "m_80fd",
+  "E5": "e_24b3",
+  "B4": "m_23ff",
+  "U1": "u_2653"
+ },
+ "groups": {
+  "e_97bc": 1,
+  "m_6731": 1,
+  "m_081b": 1,
+  "m_6a60": 1,
+  "e_16ec": 1,
+  "e_a5c7": 1,
+  "e_6746": 2,
+  "m_80fd": 2,
+  "e_24b3": 3,
+  "m_23ff": 3
+ },
+ "policy_of": {
+  "p_60fc": "m_6731",
+  "p_3fa2": "m_081b",
+  "p_a6f9": "m_6a60",
+  "p_0297": "m_80fd",
+  "p_9317": "m_23ff"
+ },
+ "gold": {
+  "e_97bc": "uncertain",
+  "e_a5c7": "keep",
+  "e_16ec": "keep",
+  "e_6746": "keep",
+  "e_24b3": "keep",
+  "m_6731": "uncertain",
+  "m_80fd": "keep",
+  "m_23ff": "keep",
+  "m_081b": "uncertain",
+  "m_6a60": "uncertain"
+ },
+ "justifications": {
+  "m_6731": [
+   [
+    "e_97bc"
+   ]
+  ],
+  "m_081b": [
+   [
+    "m_6731",
+    "e_a5c7"
+   ]
+  ],
+  "m_6a60": [
+   [
+    "m_081b",
+    "e_16ec"
+   ]
+  ],
+  "m_80fd": [
+   [
+    "e_6746"
+   ]
+  ],
+  "m_23ff": [
+   [
+    "e_24b3"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_2653": {
+   "target": "e_97bc",
+   "relation": "retracts",
+   "reliability": "low"
+  }
+ },
+ "decoy_policies": [
+  "p_47ca",
+  "p_9803"
+ ],
+ "after_updates": {
+  "m_6731": "fails",
+  "m_081b": "fails",
+  "m_6a60": "fails",
+  "m_80fd": "holds",
+  "m_23ff": "holds"
+ },
+ "final_state": {
+  "m_6731": "undetermined",
+  "m_80fd": "holds",
+  "m_23ff": "holds",
+  "m_081b": "undetermined",
+  "m_6a60": "undetermined"
+ },
+ "world": "A travel logistics assistant evaluates transport service providers, emergency preparedness, and delivery performance across regional operations.",
+ "rationale": {
+  "m_6731": [
+   "Vance Chartering holds a valid commercial transport licence, satisfying the requirement for standard operational authorization."
+  ],
+  "m_081b": [
+   "Vance Chartering possesses standard operational authorization and operates 15 active fleet vehicles, meeting the 10-vehicle threshold for preferred carrier status."
+  ],
+  "m_6a60": [
+   "Vance Chartering has attained preferred carrier status and recorded a passenger safety score of 4.8 points, exceeding the required 4.5 points threshold."
+  ],
+  "m_80fd": [
+   "Solaria Express holds an active emergency response protocol certification, fulfilling the standard for emergency readiness."
+  ],
+  "m_23ff": [
+   "AeroJet Logistics registered a quarterly on-time delivery rate of 96 percent, exceeding the 90 percent threshold for high-priority dispatch handling."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_97bc": {
+    "entity": "Vance Chartering",
+    "kind": "credential",
+    "quantity": "commercial transport licence",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_a5c7": {
+    "entity": "Vance Chartering",
+    "kind": "number",
+    "quantity": "active fleet count",
+    "value": 15,
+    "unit": "vehicles",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_16ec": {
+    "entity": "Vance Chartering",
+    "kind": "number",
+    "quantity": "passenger safety score",
+    "value": 4.8,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_6746": {
+    "entity": "Solaria Express",
+    "kind": "credential",
+    "quantity": "emergency response protocol certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_24b3": {
+    "entity": "AeroJet Logistics",
+    "kind": "number",
+    "quantity": "on-time delivery rate",
+    "value": 96,
+    "unit": "percent",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "u_2653": {
+    "entity": "Vance Chartering",
+    "kind": "credential",
+    "quantity": "commercial transport licence",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_6731": [
+    {
+     "premise": "e_97bc",
+     "kind": "credential",
+     "entity": "Vance Chartering",
+     "relation": null,
+     "quantity": "commercial transport licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_081b": [
+    {
+     "premise": "m_6731",
+     "kind": "conclusion",
+     "entity": "Vance Chartering",
+     "relation": null,
+     "quantity": "standard operational authorization",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_a5c7",
+     "kind": "number",
+     "entity": "Vance Chartering",
+     "relation": null,
+     "quantity": "active fleet count",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "vehicles",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_6a60": [
+    {
+     "premise": "m_081b",
+     "kind": "conclusion",
+     "entity": "Vance Chartering",
+     "relation": null,
+     "quantity": "preferred carrier status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_16ec",
+     "kind": "number",
+     "entity": "Vance Chartering",
+     "relation": null,
+     "quantity": "passenger safety score",
+     "comparator": ">=",
+     "threshold": 4.5,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_80fd": [
+    {
+     "premise": "e_6746",
+     "kind": "credential",
+     "entity": "Solaria Express",
+     "relation": null,
+     "quantity": "emergency response protocol certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_23ff": [
+    {
+     "premise": "e_24b3",
+     "kind": "number",
+     "entity": "AeroJet Logistics",
+     "relation": null,
+     "quantity": "on-time delivery rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

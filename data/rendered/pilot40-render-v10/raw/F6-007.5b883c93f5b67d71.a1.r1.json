@@ -1,0 +1,226 @@
+{
+ "scenario": "F6-007",
+ "repair": 1,
+ "prompt_version": "render-v10",
+ "permitted": {
+  "policies.B2": "record_window_not_in_policy 'quarter'",
+  "conditions.B2": "record_window_not_in_policy 'quarter'",
+  "facts.E3": "record_window_not_in_policy 'quarter'",
+  "nodes.E3.text": "record_window_not_in_policy 'quarter'",
+  "nodes.E3.source": "record_window_not_in_policy 'quarter'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B2\": [\n   {\n    \"premise\": \"E3\",\n    \"kind\": \"number\",\n    \"entity\": \"Horizon Rail\",\n    \"relation\": null,\n    \"quantity\": \"on-time arrival rate\",\n    \"comparator\": \">=\",\n    \"threshold\": 90,\n    \"unit\": \"percent\",\n    \"window\": \"quarter\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E3\": {\n   \"entity\": \"Horizon Rail\",\n   \"kind\": \"number\",\n   \"quantity\": \"on-time arrival rate\",\n   \"value\": 94,\n   \"unit\": \"percent\",\n   \"window\": \"quarter\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E3.source\": \"National Rail Operations quarterly performance database.\",\n  \"nodes.E3.text\": \"Horizon Rail recorded a quarterly on-time arrival rate of 94 percent.\",\n  \"policies.B2\": \"A railway company fulfills top-tier passenger train criteria when its quarterly on-time arrival rate is 90 percent or higher.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 5588,
+   "output_tokens": 3640,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 5588,
+    "completion_tokens": 3640
+   }
+  },
+  "est_usd": 0.053523,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "nodes.E3.text",
+  "policies.B2"
+ ],
+ "merged": {
+  "world": "Evaluations of transport service providers across bus, rail, and maritime sectors for enterprise logistics contracts.",
+  "nodes": {
+   "E1": {
+    "text": "Apex Charters holds a Class A Passenger Transport Permit.",
+    "source": "State Licensing Authority official portal extract."
+   },
+   "E2": {
+    "text": "Apex Charters maintains an active fleet size of 15 luxury coaches.",
+    "source": "Annual audit summary by Fleet Inspectorate."
+   },
+   "B1": {
+    "text": "Apex Charters meets executive ground mobility requirements."
+   },
+   "D1": {
+    "text": "Select Apex Charters for the corporate retreat transport contract."
+   },
+   "E3": {
+    "text": "Horizon Rail recorded a quarterly on-time arrival rate of 94 percent.",
+    "source": "National Rail Operations quarterly performance database."
+   },
+   "B2": {
+    "text": "Horizon Rail meets premier passenger train benchmarks."
+   },
+   "E4": {
+    "text": "BlueWave Marine holds an active ISO 14001 environmental certification.",
+    "source": "International Maritime Standards Registry."
+   },
+   "B3": {
+    "text": "BlueWave Marine satisfies sustainable maritime fleet standards."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "A regulatory inquiry has raised questions regarding the validity of Apex Charters' Class A Passenger Transport Permit.",
+    "source": "Department of Transportation public advisory bulletin."
+   }
+  },
+  "policies": {
+   "B1": "A transport firm satisfies executive ground travel specifications either by securing a Class A Passenger Transport Permit or by maintaining a luxury coach fleet size of at least 10 coaches.",
+   "D1": "A transit vendor fulfilling executive ground travel specifications is awarded corporate excursion transport agreements.",
+   "B2": "A railway company fulfills top-tier passenger train criteria when its quarterly on-time arrival rate is 90 percent or higher.",
+   "B3": "A cargo shipping company fulfills sustainable ocean fleet criteria if it holds an active ISO 14001 environmental certification."
+  },
+  "decoy_policies": [
+   "An aviation provider gains fast-track customs clearance when its annual flight safety index exceeds 98 points.",
+   "A logistics company receives expedited cargo privileges if its audited damage rate stays below 1 percent."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "D1": "holds",
+   "B2": "holds",
+   "B3": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Apex Charters",
+    "kind": "credential",
+    "quantity": "Class A Passenger Transport Permit",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Apex Charters",
+    "kind": "number",
+    "quantity": "luxury coach fleet size",
+    "value": 15,
+    "unit": "coaches",
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Horizon Rail",
+    "kind": "number",
+    "quantity": "on-time arrival rate",
+    "value": 94,
+    "unit": "percent",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "BlueWave Marine",
+    "kind": "credential",
+    "quantity": "ISO 14001 environmental certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Apex Charters",
+    "kind": "credential",
+    "quantity": "Class A Passenger Transport Permit",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "credential",
+     "entity": "Apex Charters",
+     "relation": null,
+     "quantity": "Class A Passenger Transport Permit",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Apex Charters",
+     "relation": null,
+     "quantity": "luxury coach fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "coaches",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Apex Charters",
+     "relation": null,
+     "quantity": "executive ground travel specifications",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Horizon Rail",
+     "relation": null,
+     "quantity": "on-time arrival rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E4",
+     "kind": "credential",
+     "entity": "BlueWave Marine",
+     "relation": null,
+     "quantity": "ISO 14001 environmental certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Apex Charters holds a Class A Passenger Transport Permit, satisfying the permit requirement.",
+    "Apex Charters maintains a luxury coach fleet size of 15 coaches, exceeding the minimum threshold of 10 coaches."
+   ],
+   "D1": [
+    "Apex Charters satisfies executive ground travel specifications, qualifying it for corporate excursion transport agreements."
+   ],
+   "B2": [
+    "Horizon Rail achieved an on-time arrival rate of 94 percent last quarter, exceeding the 90 percent threshold."
+   ],
+   "B3": [
+    "BlueWave Marine holds an active ISO 14001 environmental certification, meeting sustainable ocean fleet criteria."
+   ]
+  }
+ }
+}

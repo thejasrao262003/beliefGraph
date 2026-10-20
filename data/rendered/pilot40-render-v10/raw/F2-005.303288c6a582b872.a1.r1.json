@@ -1,0 +1,384 @@
+{
+ "scenario": "F2-005",
+ "repair": 1,
+ "prompt_version": "render-v10",
+ "permitted": {
+  "policies.D1": "policy_echoes_memory 'global freight agreement' (a policy may not share a 3-word phrase with any memory); record_threshold_not_in_policy '5'",
+  "facts.E5": "record_value_not_in_text '6'; record_threshold_not_in_policy '5'",
+  "nodes.E5.text": "record_value_not_in_text '6'; record_threshold_not_in_policy '5'",
+  "nodes.E5.source": "record_value_not_in_text '6'; record_threshold_not_in_policy '5'",
+  "conditions.D1": "record_threshold_not_in_policy '5'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.D1\": [\n   {\n    \"premise\": \"B3\",\n    \"kind\": \"conclusion\",\n    \"entity\": \"AeroSwift Logistics\",\n    \"relation\": null,\n    \"quantity\": \"international dispatch qualification\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E5\",\n    \"kind\": \"number\",\n    \"entity\": \"AeroSwift Logistics\",\n    \"relation\": null,\n    \"quantity\": \"transit liability insurance coverage\",\n    \"comparator\": \">=\",\n    \"threshold\": 5000000,\n    \"unit\": \"USD\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E5\": {\n   \"entity\": \"AeroSwift Logistics\",\n   \"kind\": \"number\",\n   \"quantity\": \"transit liability insurance coverage\",\n   \"value\": 6000000,\n   \"unit\": \"USD\",\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E5.source\": \"Certificate of insurance provided by Commercial Maritime & Aviation Insurers.\",\n  \"nodes.E5.text\": \"AeroSwift Logistics holds transit liability insurance coverage of $6,000,000.\",\n  \"policies.D1\": \"Awarding of a worldwide logistics charter is recommended for a freight company cleared for international dispatch that maintains transit liability insurance coverage of at least $5,000,000.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 7197,
+   "output_tokens": 4683,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 7197,
+    "completion_tokens": 4683
+   }
+  },
+  "est_usd": 0.068877,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.D1[1].threshold",
+  "conditions.D1[1].unit",
+  "facts.E5.unit",
+  "facts.E5.value",
+  "nodes.E5.text",
+  "policies.D1"
+ ],
+ "merged": {
+  "world": "A evaluation of air, overland, and maritime shipping logistics providers for compliance and charter contract allocations.",
+  "nodes": {
+   "E1": {
+    "text": "AeroSwift Logistics maintains an active fleet size of 18 aircraft.",
+    "source": "Official fleet register report from the Civil Aviation Authority."
+   },
+   "E2": {
+    "text": "AeroSwift Logistics completed a monthly shipment volume of 110 cargo flights in December.",
+    "source": "Verified monthly dispatch summary from the flight operations desk."
+   },
+   "E3": {
+    "text": "AeroSwift Logistics maintains a customs compliance score of 94 percent.",
+    "source": "Annual audit report issued by the Customs Bureau."
+   },
+   "E4": {
+    "text": "AeroSwift Logistics retains a safety supervisor headcount of 4 officers.",
+    "source": "Certified payroll and staffing log from the safety compliance department."
+   },
+   "E5": {
+    "text": "AeroSwift Logistics holds transit liability insurance coverage of $6,000,000.",
+    "source": "Certificate of insurance provided by Commercial Maritime & Aviation Insurers."
+   },
+   "E6": {
+    "text": "Zenith Express maintains a warehouse temperature control rating of 98 percent.",
+    "source": "Cold storage facility audit report by Quality Standards Inspection."
+   },
+   "E7": {
+    "text": "Portside Haulage operates an active heavy vehicle fleet of 25 trucks.",
+    "source": "Vehicle registration database from the Department of Transportation."
+   },
+   "E8": {
+    "text": "BlueWave Logistics possesses a maritime hazard handling permit.",
+    "source": "Official permit registry of the Port Safety Authority."
+   },
+   "B1": {
+    "text": "AeroSwift Logistics holds Preferred Transit Status."
+   },
+   "B2": {
+    "text": "AeroSwift Logistics is cleared for expedited border routing."
+   },
+   "B3": {
+    "text": "AeroSwift Logistics meets international dispatch prerequisites."
+   },
+   "D1": {
+    "text": "AeroSwift Logistics should be selected for the global freight agreement."
+   },
+   "B4": {
+    "text": "Zenith Express achieves cold-chain authorization."
+   },
+   "B5": {
+    "text": "Portside Haulage fulfills overland freight criteria."
+   },
+   "B6": {
+    "text": "BlueWave Logistics is designated for hazmat transit."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "A revised flight operations audit indicates AeroSwift Logistics completed a monthly shipment volume of 85 cargo flights in December.",
+    "source": "Corrected quarterly audit from the Civil Aviation Authority."
+   }
+  },
+  "policies": {
+   "B1": "Transit status at the preferred level is awarded when a freight enterprise maintains an active fleet size of at least 15 aircraft or completes a monthly shipment volume of at least 100 cargo flights.",
+   "B2": "Expedited border pass authorization is granted to a company with preferred level transit status that maintains a customs compliance score of at least 90 percent.",
+   "B3": "Qualification for international dispatch services requires a freight firm with expedited border pass authorization to retain a safety supervisor headcount of at least 3 officers.",
+   "D1": "Awarding of a worldwide logistics charter is recommended for a freight company cleared for international dispatch that maintains transit liability insurance coverage of at least $5,000,000.",
+   "B4": "Cold-chain operating approval is granted when a logistics firm maintains a warehouse temperature control rating of at least 95 percent.",
+   "B5": "Overland freight qualification is established when a transport company operates an active heavy vehicle fleet of at least 20 trucks.",
+   "B6": "Hazardous cargo transit clearance is issued when a shipping enterprise possesses a maritime hazard handling permit."
+  },
+  "decoy_policies": [
+   "An aviation provider receives high-altitude flight approval when maintaining an annual crew safety score of at least 90 points.",
+   "A rail transport operator secures trackway access rights by maintaining a network line length of at least 500 kilometers."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "holds",
+   "B3": "holds",
+   "D1": "holds",
+   "B4": "holds",
+   "B5": "holds",
+   "B6": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "AeroSwift Logistics",
+    "kind": "number",
+    "quantity": "active fleet size",
+    "value": 18,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "AeroSwift Logistics",
+    "kind": "number",
+    "quantity": "monthly shipment volume",
+    "value": 110,
+    "unit": "cargo flights",
+    "window": "month",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "AeroSwift Logistics",
+    "kind": "number",
+    "quantity": "customs compliance score",
+    "value": 94,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "AeroSwift Logistics",
+    "kind": "number",
+    "quantity": "safety supervisor headcount",
+    "value": 4,
+    "unit": "officers",
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "AeroSwift Logistics",
+    "kind": "number",
+    "quantity": "transit liability insurance coverage",
+    "value": 6000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Zenith Express",
+    "kind": "number",
+    "quantity": "warehouse temperature control rating",
+    "value": 98,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Portside Haulage",
+    "kind": "number",
+    "quantity": "active heavy vehicle fleet",
+    "value": 25,
+    "unit": "trucks",
+    "window": "none",
+    "scope": "none"
+   },
+   "E8": {
+    "entity": "BlueWave Logistics",
+    "kind": "credential",
+    "quantity": "maritime hazard handling permit",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "AeroSwift Logistics",
+    "kind": "number",
+    "quantity": "monthly shipment volume",
+    "value": 85,
+    "unit": "cargo flights",
+    "window": "month",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "AeroSwift Logistics",
+     "relation": null,
+     "quantity": "active fleet size",
+     "comparator": ">=",
+     "threshold": 15,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "AeroSwift Logistics",
+     "relation": null,
+     "quantity": "monthly shipment volume",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "cargo flights",
+     "window": "month",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "AeroSwift Logistics",
+     "relation": null,
+     "quantity": "preferred level transit status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "AeroSwift Logistics",
+     "relation": null,
+     "quantity": "customs compliance score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "AeroSwift Logistics",
+     "relation": null,
+     "quantity": "expedited border pass authorization",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "AeroSwift Logistics",
+     "relation": null,
+     "quantity": "safety supervisor headcount",
+     "comparator": ">=",
+     "threshold": 3,
+     "unit": "officers",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "AeroSwift Logistics",
+     "relation": null,
+     "quantity": "international dispatch qualification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "AeroSwift Logistics",
+     "relation": null,
+     "quantity": "transit liability insurance coverage",
+     "comparator": ">=",
+     "threshold": 5000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Zenith Express",
+     "relation": null,
+     "quantity": "warehouse temperature control rating",
+     "comparator": ">=",
+     "threshold": 95,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "Portside Haulage",
+     "relation": null,
+     "quantity": "active heavy vehicle fleet",
+     "comparator": ">=",
+     "threshold": 20,
+     "unit": "trucks",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "E8",
+     "kind": "credential",
+     "entity": "BlueWave Logistics",
+     "relation": null,
+     "quantity": "maritime hazard handling permit",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "AeroSwift Logistics maintains an active fleet size of 18 aircraft, which meets the requirement of at least 15 aircraft.",
+    "AeroSwift Logistics completed a monthly shipment volume of 110 cargo flights, which meets the requirement of at least 100 cargo flights."
+   ],
+   "B2": [
+    "AeroSwift Logistics holds Preferred Transit Status and maintains a customs compliance score of 94 percent, satisfying both prerequisites for expedited border pass authorization."
+   ],
+   "B3": [
+    "AeroSwift Logistics is cleared for expedited border routing and retains a safety supervisor headcount of 4 officers, fulfilling all conditions for international dispatch qualification."
+   ],
+   "D1": [
+    "AeroSwift Logistics meets international dispatch prerequisites and holds transit liability insurance coverage of 6 million dollars, meeting all criteria for global freight agreement selection."
+   ],
+   "B4": [
+    "Zenith Express maintains a warehouse temperature control rating of 98 percent, exceeding the 95 percent threshold required for cold-chain operating approval."
+   ],
+   "B5": [
+    "Portside Haulage operates an active heavy vehicle fleet of 25 trucks, meeting the 20 truck threshold for overland freight qualification."
+   ],
+   "B6": [
+    "BlueWave Logistics possesses a maritime hazard handling permit, satisfying the credential requirement for hazardous cargo transit clearance."
+   ]
+  }
+ }
+}

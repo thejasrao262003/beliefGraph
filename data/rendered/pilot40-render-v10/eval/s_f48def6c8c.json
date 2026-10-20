@@ -1,0 +1,190 @@
+{
+ "scenario": "s_f48def6c8c",
+ "source_scenario": "F6-009",
+ "family": "F6",
+ "meta": {
+  "variant": "low_reliability",
+  "has_alternative": false,
+  "depth": 2
+ },
+ "idmap": {
+  "E1": "e_1207",
+  "B1": "m_67e3",
+  "B2": "m_f770",
+  "D1": "m_eeb4",
+  "E2": "e_b475",
+  "B3": "m_49d1",
+  "U1": "u_00ef"
+ },
+ "groups": {
+  "e_1207": 1,
+  "m_67e3": 1,
+  "m_f770": 1,
+  "m_eeb4": 1,
+  "e_b475": 2,
+  "m_49d1": 2
+ },
+ "policy_of": {
+  "p_2d03": "m_67e3",
+  "p_b203": "m_f770",
+  "p_1ae8": "m_eeb4",
+  "p_d895": "m_49d1"
+ },
+ "gold": {
+  "e_1207": "uncertain",
+  "e_b475": "keep",
+  "m_67e3": "uncertain",
+  "m_49d1": "keep",
+  "m_f770": "uncertain",
+  "m_eeb4": "uncertain"
+ },
+ "justifications": {
+  "m_67e3": [
+   [
+    "e_1207"
+   ]
+  ],
+  "m_f770": [
+   [
+    "m_67e3"
+   ]
+  ],
+  "m_eeb4": [
+   [
+    "m_f770"
+   ]
+  ],
+  "m_49d1": [
+   [
+    "e_b475"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_00ef": {
+   "target": "e_1207",
+   "relation": "retracts",
+   "reliability": "low"
+  }
+ },
+ "decoy_policies": [
+  "p_6f71",
+  "p_c084"
+ ],
+ "after_updates": {
+  "m_67e3": "fails",
+  "m_f770": "fails",
+  "m_eeb4": "fails",
+  "m_49d1": "holds"
+ },
+ "final_state": {
+  "m_67e3": "undetermined",
+  "m_49d1": "holds",
+  "m_f770": "undetermined",
+  "m_eeb4": "undetermined"
+ },
+ "world": "A regional transport authority evaluates charter fleet providers and service operators for annual executive contracts.",
+ "rationale": {
+  "m_67e3": [
+   "Vanguard Travel maintains 20 coaches, which exceeds the required threshold of 15 coaches."
+  ],
+  "m_f770": [
+   "Vanguard Travel qualifies for high-capacity carrier status, fulfilling the condition for Tier-1 partner classification."
+  ],
+  "m_eeb4": [
+   "Vanguard Travel holds Tier-1 Logistics Vendor designation, satisfying the prerequisite for the European Executive Shuttle route."
+  ],
+  "m_49d1": [
+   "Meridian Shuttles possesses the ISO 9001 quality management certification necessary for premier safety approval."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_1207": {
+    "entity": "Vanguard Travel",
+    "kind": "number",
+    "quantity": "vehicle count",
+    "value": 20,
+    "unit": "coaches",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_b475": {
+    "entity": "Meridian Shuttles",
+    "kind": "credential",
+    "quantity": "ISO 9001 quality management certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "u_00ef": {
+    "entity": "Vanguard Travel",
+    "kind": "number",
+    "quantity": "vehicle count",
+    "value": null,
+    "unit": "coaches",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_67e3": [
+    {
+     "premise": "e_1207",
+     "kind": "number",
+     "entity": "Vanguard Travel",
+     "relation": null,
+     "quantity": "vehicle count",
+     "comparator": ">=",
+     "threshold": 15,
+     "unit": "coaches",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_f770": [
+    {
+     "premise": "m_67e3",
+     "kind": "conclusion",
+     "entity": "Vanguard Travel",
+     "relation": null,
+     "quantity": "high-capacity transport authorization",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_eeb4": [
+    {
+     "premise": "m_f770",
+     "kind": "conclusion",
+     "entity": "Vanguard Travel",
+     "relation": null,
+     "quantity": "Tier-1 partner classification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_49d1": [
+    {
+     "premise": "e_b475",
+     "kind": "credential",
+     "entity": "Meridian Shuttles",
+     "relation": null,
+     "quantity": "ISO 9001 quality management certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

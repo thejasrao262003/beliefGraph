@@ -1,0 +1,208 @@
+{
+ "scenario": "F6-001",
+ "repair": 1,
+ "prompt_version": "render-v10",
+ "permitted": {
+  "decoy_policies[1]": "decoy_shares_memory_word 'travel' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"decoy_policies[1]\": \"Preferred hotel alliance privileges are granted to lodging agencies with annual booking revenue exceeding 2,000,000 dollars.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 5353,
+   "output_tokens": 1388,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 5353,
+    "completion_tokens": 1388
+   }
+  },
+  "est_usd": 0.02765925,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "decoy_policies[1]"
+ ],
+ "merged": {
+  "world": "Evaluating charter carrier qualifications and regional transport operators for upcoming travel logistics agreements.",
+  "nodes": {
+   "E1": {
+    "text": "AeroLuxe Charters holds an active FAA Part 135 certificate.",
+    "source": "Federal Aviation Administration registry, January 2026."
+   },
+   "E2": {
+    "text": "AeroLuxe Charters achieved a fleet safety rating of 4.9 stars.",
+    "source": "Aviation Safety Council annual review, January 2026."
+   },
+   "B1": {
+    "text": "AeroLuxe Charters holds premier flight status."
+   },
+   "B2": {
+    "text": "AeroLuxe Charters is authorized for corporate VIP charter contracts."
+   },
+   "D1": {
+    "text": "AeroLuxe Charters will handle executive travel for the upcoming summit."
+   },
+   "E3": {
+    "text": "Mariner Tours recorded an annual passenger volume of 150,000 customers this year.",
+    "source": "Maritime Travel Association annual report, January 2026."
+   },
+   "B3": {
+    "text": "Mariner Tours qualifies as a major regional ferry provider."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "A recent audit inquiry has raised questions regarding whether AeroLuxe Charters holds an active FAA Part 135 certificate.",
+    "source": "Industry bulletin report, January 2026."
+   }
+  },
+  "policies": {
+   "B1": "Flight status at the premier level is awarded to an operator maintaining an active FAA Part 135 certificate, or securing a fleet safety rating of 4.8 stars or higher.",
+   "B2": "An air carrier cleared for executive charter work must possess flight status at the premier level.",
+   "D1": "Booking an airline operator for global conference transportation requires a service provider cleared for executive charter work.",
+   "B3": "Major regional transport provider status is granted to a marine line recording an annual passenger volume of at least 100,000 customers."
+  },
+  "decoy_policies": [
+   "Priority customs clearance is extended to freight forwarders processing at least 500 metric tons of cargo per quarter.",
+   "Preferred hotel alliance privileges are granted to lodging agencies with annual booking revenue exceeding 2,000,000 dollars."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "holds",
+   "D1": "holds",
+   "B3": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "AeroLuxe Charters",
+    "kind": "credential",
+    "quantity": "FAA Part 135 certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "AeroLuxe Charters",
+    "kind": "number",
+    "quantity": "fleet safety rating",
+    "value": 4.9,
+    "unit": "stars",
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Mariner Tours",
+    "kind": "number",
+    "quantity": "annual passenger volume",
+    "value": 150000,
+    "unit": "customers",
+    "window": "year",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "AeroLuxe Charters",
+    "kind": "credential",
+    "quantity": "FAA Part 135 certificate",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "credential",
+     "entity": "AeroLuxe Charters",
+     "relation": null,
+     "quantity": "FAA Part 135 certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "AeroLuxe Charters",
+     "relation": null,
+     "quantity": "fleet safety rating",
+     "comparator": ">=",
+     "threshold": 4.8,
+     "unit": "stars",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "AeroLuxe Charters",
+     "relation": null,
+     "quantity": "premier flight status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "AeroLuxe Charters",
+     "relation": null,
+     "quantity": "corporate VIP charter contracts authorization",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Mariner Tours",
+     "relation": null,
+     "quantity": "annual passenger volume",
+     "comparator": ">=",
+     "threshold": 100000,
+     "unit": "customers",
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "AeroLuxe Charters holds an active FAA Part 135 certificate as required by the policy.",
+    "AeroLuxe Charters has a fleet safety rating of 4.9 stars, which meets the 4.8 stars requirement."
+   ],
+   "B2": [
+    "AeroLuxe Charters holds premier flight status, satisfying the condition for executive charter clearance."
+   ],
+   "D1": [
+    "AeroLuxe Charters is authorized for corporate VIP charter contracts, satisfying the policy requirement for summit booking."
+   ],
+   "B3": [
+    "Mariner Tours recorded an annual passenger volume of 150,000 customers, exceeding the 100,000 threshold."
+   ]
+  }
+ }
+}

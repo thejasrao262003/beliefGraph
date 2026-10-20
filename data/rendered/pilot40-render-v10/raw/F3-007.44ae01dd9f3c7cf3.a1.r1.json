@@ -1,0 +1,317 @@
+{
+ "scenario": "F3-007",
+ "repair": 1,
+ "prompt_version": "render-v10",
+ "permitted": {
+  "facts.E6": "record_value_not_in_text '50'; record_threshold_not_in_policy '30'",
+  "nodes.E6.text": "record_value_not_in_text '50'; record_threshold_not_in_policy '30'",
+  "nodes.E6.source": "record_value_not_in_text '50'; record_threshold_not_in_policy '30'",
+  "policies.B2": "record_threshold_not_in_policy '30'",
+  "conditions.B2": "record_threshold_not_in_policy '30'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B2\": [\n   {\n    \"premise\": \"B1\",\n    \"kind\": \"conclusion\",\n    \"entity\": \"AeroSkies Charter\",\n    \"relation\": null,\n    \"quantity\": \"Approved Flight Supplier status\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E6\",\n    \"kind\": \"number\",\n    \"entity\": \"AeroSkies Charter\",\n    \"relation\": null,\n    \"quantity\": \"passenger liability coverage\",\n    \"comparator\": \">=\",\n    \"threshold\": 30000000,\n    \"unit\": \"USD\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E6\": {\n   \"entity\": \"AeroSkies Charter\",\n   \"kind\": \"number\",\n   \"quantity\": \"passenger liability coverage\",\n   \"value\": 50000000,\n   \"unit\": \"USD\",\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E6.source\": \"Insurance certificate filed with Commercial Aviation Risk Management.\",\n  \"nodes.E6.text\": \"AeroSkies Charter maintains passenger liability coverage of 50,000,000 USD.\",\n  \"policies.B2\": \"An air transport carrier is cleared for executive charter contracts if it holds preferred provider designation and maintains minimum passenger liability coverage of 30,000,000 USD.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6524,
+   "output_tokens": 4849,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6524,
+    "completion_tokens": 4849
+   }
+  },
+  "est_usd": 0.06923025,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.B2[1].threshold",
+  "conditions.B2[1].unit",
+  "facts.E6.unit",
+  "facts.E6.value",
+  "nodes.E6.text",
+  "policies.B2"
+ ],
+ "merged": {
+  "world": "A corporate travel management platform evaluates flight charter suppliers and ground shuttle partners for corporate transport contracts.",
+  "nodes": {
+   "E1": {
+    "text": "AeroSkies Charter achieved an on-time arrival rate of 92% this year.",
+    "source": "Annual performance report from the Flight Monitoring Bureau."
+   },
+   "E2": {
+    "text": "AeroSkies Charter operates a fleet size of 15 aircraft.",
+    "source": "Official fleet register from the Civil Aviation Authority."
+   },
+   "E3": {
+    "text": "AeroSkies Charter holds an active ISO 9001 quality management certification.",
+    "source": "Certification directory of the International Standards Audit."
+   },
+   "E4": {
+    "text": "AeroSkies Charter logged a total of 0 safety violations this year.",
+    "source": "Safety audit summary from the National Transport Safety Board."
+   },
+   "E5": {
+    "text": "AeroSkies Charter holds an active Platinum Flight Operations Accreditation.",
+    "source": "Global Aviation Alliance partner database."
+   },
+   "E6": {
+    "text": "AeroSkies Charter maintains passenger liability coverage of 50,000,000 USD.",
+    "source": "Insurance certificate filed with Commercial Aviation Risk Management."
+   },
+   "E7": {
+    "text": "Horizon Express maintains a passenger satisfaction rating of 4.8 points.",
+    "source": "Customer survey report published by Regional Travel Analytics."
+   },
+   "B1": {
+    "text": "AeroSkies Charter holds Approved Flight Supplier status."
+   },
+   "B2": {
+    "text": "AeroSkies Charter meets executive flight contracting criteria."
+   },
+   "D1": {
+    "text": "AeroSkies Charter is assigned to manage corporate transport services."
+   },
+   "B3": {
+    "text": "Horizon Express holds Premier Shuttle Partner status."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "AeroSkies Charter operates a fleet size of 8 aircraft.",
+    "source": "Updated fleet register from the Civil Aviation Authority."
+   }
+  },
+  "policies": {
+   "B1": "An air transport carrier is awarded preferred provider designation either by demonstrating a yearly punctuality percentage of at least 90%, operating an active aircraft count of no fewer than 10, holding valid ISO 9001 quality management certification, and recording under 2 yearly safety infractions, or by holding valid Platinum Flight Operations Accreditation.",
+   "B2": "An air transport carrier is cleared for executive charter contracts if it holds preferred provider designation and maintains minimum passenger liability coverage of 30,000,000 USD.",
+   "D1": "An air transport carrier is selected to handle corporate travel operations provided it is cleared for executive charter contracts.",
+   "B3": "A ground transit provider gains top-tier shuttle endorsement when its customer feedback score reaches at least 4.5 points."
+  },
+  "decoy_policies": [
+   "A lodging venue qualifies for luxury listing if it maintains an accommodation rating of at least 4.5 stars and provides 24-hour desk coverage.",
+   "A freight distributor receives priority customs clearance when maintaining a fleet compliance score above 95% and zero cargo loss incidents over 12 months."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "holds",
+   "D1": "holds",
+   "B3": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "AeroSkies Charter",
+    "kind": "number",
+    "quantity": "on-time arrival rate",
+    "value": 92,
+    "unit": "%",
+    "window": "year",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "AeroSkies Charter",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 15,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "AeroSkies Charter",
+    "kind": "credential",
+    "quantity": "ISO 9001 quality management certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "AeroSkies Charter",
+    "kind": "number",
+    "quantity": "safety violations",
+    "value": 0,
+    "unit": "violations",
+    "window": "year",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "AeroSkies Charter",
+    "kind": "credential",
+    "quantity": "Platinum Flight Operations Accreditation",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "AeroSkies Charter",
+    "kind": "number",
+    "quantity": "passenger liability coverage",
+    "value": 50000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Horizon Express",
+    "kind": "number",
+    "quantity": "passenger satisfaction rating",
+    "value": 4.8,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "AeroSkies Charter",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 8,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "AeroSkies Charter",
+     "relation": null,
+     "quantity": "on-time arrival rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "%",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "AeroSkies Charter",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "AeroSkies Charter",
+     "relation": null,
+     "quantity": "ISO 9001 quality management certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "AeroSkies Charter",
+     "relation": null,
+     "quantity": "safety violations",
+     "comparator": "<=",
+     "threshold": 2,
+     "unit": "violations",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "AeroSkies Charter",
+     "relation": null,
+     "quantity": "Platinum Flight Operations Accreditation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "AeroSkies Charter",
+     "relation": null,
+     "quantity": "Approved Flight Supplier status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "AeroSkies Charter",
+     "relation": null,
+     "quantity": "passenger liability coverage",
+     "comparator": ">=",
+     "threshold": 30000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "AeroSkies Charter",
+     "relation": null,
+     "quantity": "executive flight contracting criteria",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "Horizon Express",
+     "relation": null,
+     "quantity": "passenger satisfaction rating",
+     "comparator": ">=",
+     "threshold": 4.5,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "AeroSkies Charter initially met set 1 with a 92% on-time arrival rate, 15 aircraft, ISO 9001 certification, and 0 safety violations.",
+    "AeroSkies Charter holds Platinum Flight Operations Accreditation, satisfying set 2 independently."
+   ],
+   "B2": [
+    "AeroSkies Charter holds Approved Flight Supplier status and maintains 50 million USD in passenger liability coverage."
+   ],
+   "D1": [
+    "AeroSkies Charter meets executive flight contracting criteria."
+   ],
+   "B3": [
+    "Horizon Express has a passenger satisfaction rating of 4.8 points, meeting the required threshold of 4.5 points."
+   ]
+  }
+ }
+}

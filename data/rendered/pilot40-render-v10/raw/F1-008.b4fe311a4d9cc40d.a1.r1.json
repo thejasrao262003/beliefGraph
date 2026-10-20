@@ -1,0 +1,283 @@
+{
+ "scenario": "F1-008",
+ "repair": 1,
+ "prompt_version": "render-v10",
+ "permitted": {
+  "nodes.B1.text": "reliability_word 'reliability' (the word 'reliability' may not appear in any text)",
+  "policies.B1": "reliability_word 'reliability' (the word 'reliability' may not appear in any text)",
+  "policies.B2": "reliability_word 'reliability' (the word 'reliability' may not appear in any text)",
+  "decoy_policies[0]": "decoy_shares_memory_word 'safety' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"decoy_policies[0]\": \"A commercial enterprise receives preferred contractor status if its staff compliance score exceeds 90 points.\",\n  \"nodes.B1.text\": \"Lumina Medical satisfies the hardware durability standard.\",\n  \"policies.B1\": \"Equipment approval on durability grounds requires a yearly failure proportion of 1.0% or less.\",\n  \"policies.B2\": \"An entity gains top-tier quality certification provided it meets equipment approval on durability grounds.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6038,
+   "output_tokens": 3151,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6038,
+    "completion_tokens": 3151
+   }
+  },
+  "est_usd": 0.04903425,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "decoy_policies[0]",
+  "nodes.B1.text",
+  "policies.B1",
+  "policies.B2"
+ ],
+ "merged": {
+  "world": "Assessment of commercial product eligibility, grant qualifications, and vendor tier approvals across various industry sectors.",
+  "nodes": {
+   "E1": {
+    "text": "Lumina Medical records a manufacturing defect rate of 0.4% this year.",
+    "source": "Central Audit Registry annual inspection document"
+   },
+   "E2": {
+    "text": "Lumina Medical retains an indemnity protection limit of $10,000,000.",
+    "source": "Corporate Insurance Portal policy record"
+   },
+   "E3": {
+    "text": "Novagen Pharma holds an active FDA Clean Facility Certification.",
+    "source": "FDA Official Registry listing"
+   },
+   "E4": {
+    "text": "Zenith Robotics records an annual research expenditure of $12,000,000 this year.",
+    "source": "Zenith Robotics Annual Financial Audit"
+   },
+   "E5": {
+    "text": "Apex Agritech maintains a solar energy share of 60% this year.",
+    "source": "Green Power Verification Board report"
+   },
+   "B1": {
+    "text": "Lumina Medical satisfies the hardware durability standard."
+   },
+   "B2": {
+    "text": "Lumina Medical holds Tier-1 Quality Approval."
+   },
+   "D1": {
+    "text": "Lumina Medical is approved for Fast-Track Distribution."
+   },
+   "B3": {
+    "text": "Novagen Pharma meets clinical safety requirements."
+   },
+   "B4": {
+    "text": "Zenith Robotics qualifies for the Tech Innovation Grant."
+   },
+   "B5": {
+    "text": "Apex Agritech achieves Green Vendor Designation."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Lumina Medical records a manufacturing defect rate of 2.1% this year.",
+    "source": "Updated Central Audit Registry inspection report"
+   }
+  },
+  "policies": {
+   "B1": "Equipment approval on durability grounds requires a yearly failure proportion of 1.0% or less.",
+   "B2": "An entity gains top-tier quality certification provided it meets equipment approval on durability grounds.",
+   "D1": "Priority marketplace entry is granted to a supplier with top-tier quality certification that maintains an indemnity protection limit of at least $5,000,000.",
+   "B3": "A firm attains clinical safety validation if it possesses valid regulatory sanitary site authorization.",
+   "B4": "An enterprise is eligible for technology funding if its yearly turnover dedicated to research reaches at least $10,000,000.",
+   "B5": "A supplier gains eco-friendly provider status if its yearly renewable power fraction reaches at least 50%."
+  },
+  "decoy_policies": [
+   "A commercial enterprise receives preferred contractor status if its staff compliance score exceeds 90 points.",
+   "Commercial partners receive expedited customs clearance if they hold an active ISO 14001 certification."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "B2": "fails",
+   "D1": "fails",
+   "B3": "holds",
+   "B4": "holds",
+   "B5": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Lumina Medical",
+    "kind": "number",
+    "quantity": "manufacturing defect rate",
+    "value": 0.4,
+    "unit": "%",
+    "window": "year",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Lumina Medical",
+    "kind": "number",
+    "quantity": "indemnity protection limit",
+    "value": 10000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Novagen Pharma",
+    "kind": "credential",
+    "quantity": "FDA Clean Facility Certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Zenith Robotics",
+    "kind": "number",
+    "quantity": "annual research expenditure",
+    "value": 12000000,
+    "unit": "USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Apex Agritech",
+    "kind": "number",
+    "quantity": "solar energy share",
+    "value": 60,
+    "unit": "%",
+    "window": "year",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Lumina Medical",
+    "kind": "number",
+    "quantity": "manufacturing defect rate",
+    "value": 2.1,
+    "unit": "%",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Lumina Medical",
+     "relation": null,
+     "quantity": "manufacturing defect rate",
+     "comparator": "<=",
+     "threshold": 1.0,
+     "unit": "%",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Lumina Medical",
+     "relation": null,
+     "quantity": "hardware reliability standard",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Lumina Medical",
+     "relation": null,
+     "quantity": "Tier-1 Quality Approval",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Lumina Medical",
+     "relation": null,
+     "quantity": "indemnity protection limit",
+     "comparator": ">=",
+     "threshold": 5000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "Novagen Pharma",
+     "relation": null,
+     "quantity": "FDA Clean Facility Certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Zenith Robotics",
+     "relation": null,
+     "quantity": "annual research expenditure",
+     "comparator": ">=",
+     "threshold": 10000000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Apex Agritech",
+     "relation": null,
+     "quantity": "solar energy share",
+     "comparator": ">=",
+     "threshold": 50,
+     "unit": "%",
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Lumina Medical's defect rate of 0.4% meets the requirement of being 1.0% or less."
+   ],
+   "B2": [
+    "Lumina Medical satisfies the hardware reliability standard, fulfilling the prerequisite for top-tier quality certification."
+   ],
+   "D1": [
+    "Lumina Medical holds Tier-1 Quality Approval and maintains an indemnity protection limit of $10,000,000, meeting the $5,000,000 threshold."
+   ],
+   "B3": [
+    "Novagen Pharma holds an FDA Clean Facility Certification, satisfying the regulatory sanitary site condition."
+   ],
+   "B4": [
+    "Zenith Robotics has an annual research expenditure of $12,000,000, which exceeds the $10,000,000 minimum."
+   ],
+   "B5": [
+    "Apex Agritech achieves a 60% solar energy share, surpassing the 50% threshold for eco-friendly status."
+   ]
+  }
+ }
+}

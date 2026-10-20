@@ -1,0 +1,266 @@
+{
+ "scenario": "s_064a1a325a",
+ "source_scenario": "F3-006",
+ "family": "F3",
+ "meta": {
+  "conj_size": 2,
+  "has_alternative": false,
+  "depth": 2,
+  "relation": "supersedes"
+ },
+ "idmap": {
+  "E1": "e_3e7b",
+  "E2": "e_02f2",
+  "B1": "m_2bb5",
+  "E3": "e_fbb4",
+  "B2": "m_8983",
+  "E4": "e_312f",
+  "D1": "m_a13d",
+  "E5": "e_882c",
+  "B3": "m_e36a",
+  "U1": "u_479a"
+ },
+ "groups": {
+  "e_3e7b": 1,
+  "m_2bb5": 1,
+  "m_8983": 1,
+  "e_fbb4": 1,
+  "m_a13d": 1,
+  "e_312f": 1,
+  "e_02f2": 1,
+  "e_882c": 2,
+  "m_e36a": 2
+ },
+ "policy_of": {
+  "p_6e8c": "m_2bb5",
+  "p_fefc": "m_8983",
+  "p_2629": "m_a13d",
+  "p_8fc6": "m_e36a"
+ },
+ "gold": {
+  "e_3e7b": "supersede",
+  "e_02f2": "keep",
+  "e_fbb4": "keep",
+  "e_312f": "keep",
+  "e_882c": "keep",
+  "m_2bb5": "recompute",
+  "m_e36a": "keep",
+  "m_8983": "recompute",
+  "m_a13d": "recompute"
+ },
+ "justifications": {
+  "m_2bb5": [
+   [
+    "e_3e7b",
+    "e_02f2"
+   ]
+  ],
+  "m_8983": [
+   [
+    "m_2bb5",
+    "e_fbb4"
+   ]
+  ],
+  "m_a13d": [
+   [
+    "m_8983",
+    "e_312f"
+   ]
+  ],
+  "m_e36a": [
+   [
+    "e_882c"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_479a": {
+   "target": "e_3e7b",
+   "relation": "supersedes",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_9feb",
+  "p_0b97"
+ ],
+ "after_updates": {
+  "m_2bb5": "fails",
+  "m_8983": "fails",
+  "m_a13d": "fails",
+  "m_e36a": "holds"
+ },
+ "final_state": {
+  "m_2bb5": "fails",
+  "m_e36a": "holds",
+  "m_8983": "fails",
+  "m_a13d": "fails"
+ },
+ "world": "An evaluation assistant assesses commercial energy and cooling systems for government equipment procurement and vendor registries.",
+ "rationale": {
+  "m_2bb5": [
+   "AeroGrid Station has a peak output of 150 kW and an operational efficiency rating of 92%, satisfying the requirements for Tier-1 Power Unit status."
+  ],
+  "m_8983": [
+   "AeroGrid Station is a Tier-1 Power Unit and holds a CE mark credential, satisfying European Commercial Grid certification."
+  ],
+  "m_a13d": [
+   "AeroGrid Station holds European Commercial Grid certification and has recorded 0 critical safety failures over the last year, qualifying it for the Municipal Procurement Register."
+  ],
+  "m_e36a": [
+   "Boreas Chill System recorded gross revenue of $2500000 this year, meeting the threshold for High-Volume Market Vendor designation."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_3e7b": {
+    "entity": "AeroGrid Station",
+    "kind": "number",
+    "quantity": "peak output",
+    "value": 150,
+    "unit": "kW",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_02f2": {
+    "entity": "AeroGrid Station",
+    "kind": "number",
+    "quantity": "operational efficiency rating",
+    "value": 92,
+    "unit": "%",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_fbb4": {
+    "entity": "AeroGrid Station",
+    "kind": "credential",
+    "quantity": "CE mark credential",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_312f": {
+    "entity": "AeroGrid Station",
+    "kind": "number",
+    "quantity": "critical safety failures",
+    "value": 0,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "e_882c": {
+    "entity": "Boreas Chill System",
+    "kind": "number",
+    "quantity": "gross revenue",
+    "value": 2500000,
+    "unit": "USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "u_479a": {
+    "entity": "AeroGrid Station",
+    "kind": "number",
+    "quantity": "peak output",
+    "value": 80,
+    "unit": "kW",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_2bb5": [
+    {
+     "premise": "e_3e7b",
+     "kind": "number",
+     "entity": "AeroGrid Station",
+     "relation": null,
+     "quantity": "peak output",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "kW",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_02f2",
+     "kind": "number",
+     "entity": "AeroGrid Station",
+     "relation": null,
+     "quantity": "operational efficiency rating",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "%",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_8983": [
+    {
+     "premise": "m_2bb5",
+     "kind": "conclusion",
+     "entity": "AeroGrid Station",
+     "relation": null,
+     "quantity": "Tier-1 Power Unit status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_fbb4",
+     "kind": "credential",
+     "entity": "AeroGrid Station",
+     "relation": null,
+     "quantity": "CE mark credential",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_a13d": [
+    {
+     "premise": "m_8983",
+     "kind": "conclusion",
+     "entity": "AeroGrid Station",
+     "relation": null,
+     "quantity": "European Commercial Grid certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_312f",
+     "kind": "number",
+     "entity": "AeroGrid Station",
+     "relation": null,
+     "quantity": "critical safety failures",
+     "comparator": "<=",
+     "threshold": 0,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "m_e36a": [
+    {
+     "premise": "e_882c",
+     "kind": "number",
+     "entity": "Boreas Chill System",
+     "relation": null,
+     "quantity": "gross revenue",
+     "comparator": ">=",
+     "threshold": 2000000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

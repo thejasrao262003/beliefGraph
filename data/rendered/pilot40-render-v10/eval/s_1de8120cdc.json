@@ -1,0 +1,283 @@
+{
+ "scenario": "s_1de8120cdc",
+ "source_scenario": "F6-008",
+ "family": "F6",
+ "meta": {
+  "variant": "low_reliability",
+  "has_alternative": true,
+  "depth": 2
+ },
+ "idmap": {
+  "E1": "e_2854",
+  "E2": "e_7785",
+  "B1": "m_c94c",
+  "E3": "e_9437",
+  "B2": "m_5b70",
+  "D1": "m_6583",
+  "E4": "e_7327",
+  "B3": "m_88bd",
+  "E5": "e_a28b",
+  "B4": "m_6305",
+  "U1": "u_b3d8"
+ },
+ "groups": {
+  "e_2854": 1,
+  "m_c94c": 1,
+  "m_5b70": 1,
+  "e_9437": 1,
+  "m_6583": 1,
+  "e_7785": 1,
+  "e_7327": 2,
+  "m_88bd": 2,
+  "e_a28b": 3,
+  "m_6305": 3
+ },
+ "policy_of": {
+  "p_5bad": "m_c94c",
+  "p_06e0": "m_5b70",
+  "p_0b59": "m_6583",
+  "p_b49c": "m_88bd",
+  "p_f1fe": "m_6305"
+ },
+ "gold": {
+  "e_2854": "uncertain",
+  "e_7785": "keep",
+  "e_9437": "keep",
+  "e_7327": "keep",
+  "e_a28b": "keep",
+  "m_c94c": "keep",
+  "m_88bd": "keep",
+  "m_6305": "keep",
+  "m_5b70": "keep",
+  "m_6583": "keep"
+ },
+ "justifications": {
+  "m_c94c": [
+   [
+    "e_2854"
+   ],
+   [
+    "e_7785"
+   ]
+  ],
+  "m_5b70": [
+   [
+    "m_c94c",
+    "e_9437"
+   ]
+  ],
+  "m_6583": [
+   [
+    "m_5b70"
+   ]
+  ],
+  "m_88bd": [
+   [
+    "e_7327"
+   ]
+  ],
+  "m_6305": [
+   [
+    "e_a28b"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_b3d8": {
+   "target": "e_2854",
+   "relation": "retracts",
+   "reliability": "low"
+  }
+ },
+ "decoy_policies": [
+  "p_d0b7",
+  "p_8eca"
+ ],
+ "after_updates": {
+  "m_c94c": "holds",
+  "m_5b70": "holds",
+  "m_6583": "holds",
+  "m_88bd": "holds",
+  "m_6305": "holds"
+ },
+ "final_state": {
+  "m_c94c": "holds",
+  "m_88bd": "holds",
+  "m_6305": "holds",
+  "m_5b70": "holds",
+  "m_6583": "holds"
+ },
+ "world": "An evaluation assistant assesses healthcare and environmental products for procurement standards and regulatory clearance.",
+ "rationale": {
+  "m_c94c": [
+   "AuraScan Pro meets fundamental quality standards because its 95% clinical trial accuracy rate this year satisfies the minimum requirement of 90%.",
+   "AuraScan Pro meets fundamental quality standards because it holds an ISO 13485 certification."
+  ],
+  "m_5b70": [
+   "AuraScan Pro attains preferred hospital procurement status because it satisfies core benchmark criteria and its 0.5% defect rate this year is below the maximum allowed threshold of 1.0%."
+  ],
+  "m_6583": [
+   "AuraScan Pro is recommended for national hospital group supply contracts because it has gained premier health network approval."
+  ],
+  "m_88bd": [
+   "BioPure Filter is eligible for municipal water contract bidding because its 99.8% microparticle filtration efficiency this year exceeds the required threshold of 95%."
+  ],
+  "m_6305": [
+   "ThermaGel Patch is cleared for commercial distribution across Europe because it holds a European CE mark authorization."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_2854": {
+    "entity": "AuraScan Pro",
+    "kind": "number",
+    "quantity": "clinical trial accuracy rate",
+    "value": 95,
+    "unit": "%",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_7785": {
+    "entity": "AuraScan Pro",
+    "kind": "credential",
+    "quantity": "ISO 13485 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_9437": {
+    "entity": "AuraScan Pro",
+    "kind": "number",
+    "quantity": "defect rate",
+    "value": 0.5,
+    "unit": "%",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_7327": {
+    "entity": "BioPure Filter",
+    "kind": "number",
+    "quantity": "microparticle filtration efficiency",
+    "value": 99.8,
+    "unit": "%",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_a28b": {
+    "entity": "ThermaGel Patch",
+    "kind": "credential",
+    "quantity": "CE mark authorization",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "u_b3d8": {
+    "entity": "AuraScan Pro",
+    "kind": "number",
+    "quantity": "clinical trial accuracy rate",
+    "value": null,
+    "unit": "%",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_c94c": [
+    {
+     "premise": "e_2854",
+     "kind": "number",
+     "entity": "AuraScan Pro",
+     "relation": null,
+     "quantity": "clinical trial accuracy rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "%",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "e_7785",
+     "kind": "credential",
+     "entity": "AuraScan Pro",
+     "relation": null,
+     "quantity": "ISO 13485 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_5b70": [
+    {
+     "premise": "m_c94c",
+     "kind": "conclusion",
+     "entity": "AuraScan Pro",
+     "relation": null,
+     "quantity": "core benchmark criteria",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_9437",
+     "kind": "number",
+     "entity": "AuraScan Pro",
+     "relation": null,
+     "quantity": "defect rate",
+     "comparator": "<",
+     "threshold": 1.0,
+     "unit": "%",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "m_6583": [
+    {
+     "premise": "m_5b70",
+     "kind": "conclusion",
+     "entity": "AuraScan Pro",
+     "relation": null,
+     "quantity": "premier health network approval",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_88bd": [
+    {
+     "premise": "e_7327",
+     "kind": "number",
+     "entity": "BioPure Filter",
+     "relation": null,
+     "quantity": "microparticle filtration efficiency",
+     "comparator": ">",
+     "threshold": 95,
+     "unit": "%",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "m_6305": [
+    {
+     "premise": "e_a28b",
+     "kind": "credential",
+     "entity": "ThermaGel Patch",
+     "relation": null,
+     "quantity": "CE mark authorization",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

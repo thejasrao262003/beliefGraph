@@ -1041,3 +1041,39 @@ The stored renders have no records, so the tests use **hand-annotated record fix
   - fix effort: $0.3181 (cap $5.00);
   - total for the v9/v10 work: $1.43.
 - **Next:** the 40-scenario validation run (§1, §7) needs its own budget. Measured cost is ≈ $0.08–0.12 per render plus ≈ $0.04 per repair.
+
+## 20. 40-scenario validation run (2026-10-20): render-v10, all §7 criteria met
+
+**Approved by the user:** the 40-scenario run under a hard $8.00 cap, with the tested renderer and checks.
+
+**Run:** `render_run.py --run pilot40-render-v10 --prompt-version render-v10 --max-attempts 2 --max-repairs 2 --budget-usd 8.00` (commit `962a62e`). Outputs are in `data/rendered/pilot40-render-v10/`: 40 renders and 19 repair records, each with its diff, `review.md`, `review.csv`, `leak-report.json` and `spend.json`.
+
+**Deviation (recorded):**
+- The first pass stopped after F6-004 on a **Lyzr HTTP 502** (F6-005 attempt 1), before reports were written.
+- Fix `d9ec2b2`: a provider error now fails one scenario instead of the run; no check or prompt change.
+- Resumed in the same directory with `--prior-spend-usd 4.55`: $4.405 recorded, plus a conservative $0.143 for the 502 call in case it was billed. The 35 cached scenarios were reused at no cost.
+
+**Results:**
+- **Rendered:** 40 / 40, all on the first whole attempt. 19 scenarios needed one or more targeted repairs (F1 4, F2 4, F3 6, F6 5); 0 needed a re-render.
+- **Spend:** **$5.06 of $8.00**, including the conservative $0.14 for the 502 call.
+- **Review (Claude, delegated; not human):** **37 accept, 3 revise.**
+  - **F2-001 (C4/C10/C13):** the original transfer count has no window; the update "8 … this quarter" can be read as a quarterly figure, not a correction.
+  - **F6-005 and F6-009 (C13):** a low-reliability retraction of the only support (no alternative). Gold "uncertain" follows from the text, but the renderer's `after_updates` says "fails" (`final_state_mismatch`). **Both** no-alternative F6 cases in the run show this, so it is systematic: the renderer treats a weak source as decisive.
+
+| §7 criterion | Result |
+|---|---|
+| 1. ≥ 90% accepted after ≤ 2 regenerations | **92.5%** (37/40) with **no** regenerations of the revise cases |
+| 2. 0 hard flags in accepted system views | **0** (0 in all 40 under the current checks) |
+| 3. Lexical heuristic justification-set F1 ≤ 0.50 (accepted set) | **0.437** (policy-assisted; word-only 0.359): **pass** |
+| 4. No unresolved template-repetition flags | **none** |
+| 5. κ ≥ 0.6 with a second reviewer | **not available:** single reviewer, and that reviewer is Claude by delegation rather than a human (§6 limitation) |
+
+**Diagnostics (not gated):**
+- **Per-family worse-heuristic F1:** F1 **0.61**, F2 0.37, F3 0.42, F6 0.38. F1's single-entity deep chains are the most lexically recoverable; if F1 were scored alone it would fail the gate, so it is the family to watch at scale.
+- **Premise-overlap AUC:** 0.86.
+- **Soft flags:** 152, including 119 policy↔evidence echoes (standard measurement terms, judged under C7/C11), 16 `subject_uncertain` (sentence-form detector limit), 6 `final_state_mismatch` (the two F6 revises), and 4 reported-speech retractions.
+
+**Open items (nothing applied):**
+- **F6 "uncertain" cases:** make the prompt's `after_updates` rule state explicitly that a low-reliability retraction or a hedge of the only support leaves the conclusion "undetermined", not "fails". Promoting `final_state_mismatch` to a repairable hard flag is an option.
+- **F2-001-type windows:** consider making `update_window_unstated` hard when the target's window is "none" and the update states one.
+- **F1 lexical recoverability (0.61):** monitor it in the ≥ 100-scenario evaluation pilot (§8B), which needs its own budget and approval.

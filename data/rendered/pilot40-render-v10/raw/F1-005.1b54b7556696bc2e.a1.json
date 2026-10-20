@@ -1,0 +1,29 @@
+{
+ "scenario": "F1-005",
+ "attempt": 1,
+ "prompt_version": "render-v10",
+ "model": "gemini-3.5-flash",
+ "feedback": [],
+ "response": "```json\n{\n  \"world\": \"The assistant tracks operational qualifications, port logistics performance, and safety compliance across various commercial transport providers.\",\n  \"nodes\": {\n    \"E1\": {\n      \"text\": \"According to the civil aviation register, Horizon Charters operates an active fleet size of 12 aircraft.\",\n      \"source\": \"Civil Aviation Authority Fleet Registry\"\n    },\n    \"D1\": {\n      \"text\": \"Horizon Charters is assigned to enterprise flight contracts.\"\n    },\n    \"E2\": {\n      \"text\": \"Port authority records show Pacific Maritime reported a port dwell time of 18 hours last month.\",\n      \"source\": \"Port Authority Monthly Operations Log\"\n    },\n    \"B1\": {\n      \"text\": \"Pacific Maritime maintains optimal cargo turnaround performance.\"\n    },\n    \"E3\": {\n      \"text\": \"Official records from the national transport agency confirm Transit Link holds Safety First Certification.\",\n      \"source\": \"National Transport Safety Board Registry\"\n    },\n    \"B2\": {\n      \"text\": \"Transit Link fulfills mandatory passenger safety standards.\"\n    }\n  },\n  \"updates\": {\n    \"U1\": {\n      \"text\": \"An updated filing from the civil aviation authority indicates Horizon Charters currently has an active fleet size of 8 aircraft.\",\n      \"source\": \"Civil Aviation Authority Updated Fleet Registry\"\n    }\n  },\n  \"policies\": {\n    \"D1\": \"Charter service providers qualify for heavy corporate transit agreements when maintaining an active fleet size of 10 aircraft or more.\",\n    \"B1\": \"A shipping line achieves fast-track logistics status if its average port dwell time remains under 24 hours per container monthly.\",\n    \"B2\": \"Travel operators satisfy core security requirements provided they hold Safety First Certification on a national level.\"\n  },\n  \"decoy_policies\": [\n    \"A freight dispatcher earns green routing compliance if annual fuel efficiency exceeds 15 kilometers per liter across regional operations.\",\n    \"Baggage handling service providers qualify for tier-one priority access with an annual incident rate under 5 claims per ten thousand bags.\"\n  ],\n  \"after_updates\": {\n    \"D1\": \"fails\",\n    \"B1\": \"holds\",\n    \"B2\": \"holds\"\n  },\n  \"facts\": {\n    \"E1\": {\n      \"entity\": \"Horizon Charters\",\n      \"kind\": \"number\",\n      \"quantity\": \"active fleet size\",\n      \"value\": 12,\n      \"unit\": \"aircraft\",\n      \"window\": \"none\",\n      \"scope\": \"none\"\n    },\n    \"U1\": {\n      \"entity\": \"Horizon Charters\",\n      \"kind\": \"number\",\n      \"quantity\": \"active fleet size\",\n      \"value\": 8,\n      \"unit\": \"aircraft\",\n      \"window\": \"none\",\n      \"scope\": \"none\"\n    },\n    \"E2\": {\n      \"entity\": \"Pacific Maritime\",\n      \"kind\": \"number\",\n      \"quantity\": \"port dwell time\",\n      \"value\": 18,\n      \"unit\": \"hours\",\n      \"window\": \"month\",\n      \"scope\": \"none\"\n    },\n    \"E3\": {\n      \"entity\": \"Transit Link\",\n      \"kind\": \"credential\",\n      \"quantity\": \"Safety First Certification\",\n      \"value\": true,\n      \"unit\": null,\n      \"window\": \"none\",\n      \"scope\": \"national\"\n    }\n  },\n  \"conditions\": {\n    \"D1\": [\n      {\n        \"premise\": \"E1\",\n        \"kind\": \"number\",\n        \"entity\": \"Horizon Charters\",\n        \"relation\": null,\n        \"quantity\": \"active fleet size\",\n        \"comparator\": \">=\",\n        \"threshold\": 10,\n        \"unit\": \"aircraft\",\n        \"window\": \"none\",\n        \"scope\": \"none\"\n      }\n    ],\n    \"B1\": [\n      {\n        \"premise\": \"E2\",\n        \"kind\": \"number\",\n        \"entity\": \"Pacific Maritime\",\n        \"relation\": null,\n        \"quantity\": \"port dwell time\",\n        \"comparator\": \"<\",\n        \"threshold\": 24,\n        \"unit\": \"hours\",\n        \"window\": \"month\",\n        \"scope\": \"none\"\n      }\n    ],\n    \"B2\": [\n      {\n        \"premise\": \"E3\",\n        \"kind\": \"credential\",\n        \"entity\": \"Transit Link\",\n        \"relation\": null,\n        \"quantity\": \"Safety First Certification\",\n        \"comparator\": null,\n        \"threshold\": null,\n        \"unit\": null,\n        \"window\": \"none\",\n        \"scope\": \"national\"\n      }\n    ]\n  },\n  \"rationale\": {\n    \"D1\": [\n      \"Horizon Charters meets the policy requirement because its active fleet size of 12 aircraft is at least the required 10 aircraft.\"\n    ],\n    \"B1\": [\n      \"Pacific Maritime meets the policy requirement because its port dwell time of 18 hours is less than the 24 hours monthly threshold.\"\n    ],\n    \"B2\": [\n      \"Transit Link meets the policy requirement because it holds Safety First Certification at the national level.\"\n    ]\n  }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 3761,
+   "output_tokens": 3722,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 3761,
+    "completion_tokens": 3722
+   }
+  },
+  "est_usd": 0.05033475,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ }
+}

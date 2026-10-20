@@ -1,0 +1,173 @@
+{
+ "scenario": "s_cdfd15e143",
+ "source_scenario": "F1-005",
+ "family": "F1",
+ "meta": {
+  "depth": 1,
+  "relation": "supersedes"
+ },
+ "idmap": {
+  "E1": "e_49bc",
+  "D1": "m_23c9",
+  "E2": "e_549f",
+  "B1": "m_7952",
+  "E3": "e_01d4",
+  "B2": "m_300a",
+  "U1": "u_bd7b"
+ },
+ "groups": {
+  "e_49bc": 1,
+  "m_23c9": 1,
+  "e_549f": 2,
+  "m_7952": 2,
+  "e_01d4": 3,
+  "m_300a": 3
+ },
+ "policy_of": {
+  "p_d329": "m_23c9",
+  "p_d77b": "m_7952",
+  "p_c299": "m_300a"
+ },
+ "gold": {
+  "e_49bc": "supersede",
+  "e_549f": "keep",
+  "e_01d4": "keep",
+  "m_23c9": "recompute",
+  "m_7952": "keep",
+  "m_300a": "keep"
+ },
+ "justifications": {
+  "m_23c9": [
+   [
+    "e_49bc"
+   ]
+  ],
+  "m_7952": [
+   [
+    "e_549f"
+   ]
+  ],
+  "m_300a": [
+   [
+    "e_01d4"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_bd7b": {
+   "target": "e_49bc",
+   "relation": "supersedes",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_0f0d",
+  "p_d4ba"
+ ],
+ "after_updates": {
+  "m_23c9": "fails",
+  "m_7952": "holds",
+  "m_300a": "holds"
+ },
+ "final_state": {
+  "m_23c9": "fails",
+  "m_7952": "holds",
+  "m_300a": "holds"
+ },
+ "world": "The assistant tracks operational qualifications, port logistics performance, and safety compliance across various commercial transport providers.",
+ "rationale": {
+  "m_23c9": [
+   "Horizon Charters meets the policy requirement because its active fleet size of 12 aircraft is at least the required 10 aircraft."
+  ],
+  "m_7952": [
+   "Pacific Maritime meets the policy requirement because its port dwell time of 18 hours is less than the 24 hours monthly threshold."
+  ],
+  "m_300a": [
+   "Transit Link meets the policy requirement because it holds Safety First Certification at the national level."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_49bc": {
+    "entity": "Horizon Charters",
+    "kind": "number",
+    "quantity": "active fleet size",
+    "value": 12,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "u_bd7b": {
+    "entity": "Horizon Charters",
+    "kind": "number",
+    "quantity": "active fleet size",
+    "value": 8,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_549f": {
+    "entity": "Pacific Maritime",
+    "kind": "number",
+    "quantity": "port dwell time",
+    "value": 18,
+    "unit": "hours",
+    "window": "month",
+    "scope": "none"
+   },
+   "e_01d4": {
+    "entity": "Transit Link",
+    "kind": "credential",
+    "quantity": "Safety First Certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "national"
+   }
+  },
+  "conditions": {
+   "m_23c9": [
+    {
+     "premise": "e_49bc",
+     "kind": "number",
+     "entity": "Horizon Charters",
+     "relation": null,
+     "quantity": "active fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_7952": [
+    {
+     "premise": "e_549f",
+     "kind": "number",
+     "entity": "Pacific Maritime",
+     "relation": null,
+     "quantity": "port dwell time",
+     "comparator": "<",
+     "threshold": 24,
+     "unit": "hours",
+     "window": "month",
+     "scope": "none"
+    }
+   ],
+   "m_300a": [
+    {
+     "premise": "e_01d4",
+     "kind": "credential",
+     "entity": "Transit Link",
+     "relation": null,
+     "quantity": "Safety First Certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "national"
+    }
+   ]
+  }
+ }
+}

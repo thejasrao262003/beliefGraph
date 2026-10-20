@@ -1,0 +1,285 @@
+{
+ "scenario": "s_0415d9554b",
+ "source_scenario": "F2-007",
+ "family": "F2",
+ "meta": {
+  "fan_in": 3,
+  "revised_supports": 1,
+  "preserved": true,
+  "depth": 1,
+  "relation": "retracts"
+ },
+ "idmap": {
+  "E1": "e_b1d8",
+  "E2": "e_c062",
+  "E3": "e_7b91",
+  "B1": "m_0dba",
+  "E4": "e_a800",
+  "D1": "m_f69f",
+  "E5": "e_e594",
+  "B2": "m_f9b0",
+  "E6": "e_42f8",
+  "B3": "m_81f8",
+  "U1": "u_17bd"
+ },
+ "groups": {
+  "e_b1d8": 1,
+  "m_0dba": 1,
+  "e_7b91": 1,
+  "m_f69f": 1,
+  "e_a800": 1,
+  "e_c062": 1,
+  "e_e594": 2,
+  "m_f9b0": 2,
+  "e_42f8": 3,
+  "m_81f8": 3
+ },
+ "policy_of": {
+  "p_8243": "m_0dba",
+  "p_a8e0": "m_f69f",
+  "p_4819": "m_f9b0",
+  "p_0e69": "m_81f8"
+ },
+ "gold": {
+  "e_b1d8": "withdraw",
+  "e_c062": "keep",
+  "e_7b91": "keep",
+  "e_a800": "keep",
+  "e_e594": "keep",
+  "e_42f8": "keep",
+  "m_0dba": "keep",
+  "m_f9b0": "keep",
+  "m_81f8": "keep",
+  "m_f69f": "keep"
+ },
+ "justifications": {
+  "m_0dba": [
+   [
+    "e_b1d8"
+   ],
+   [
+    "e_c062"
+   ],
+   [
+    "e_7b91"
+   ]
+  ],
+  "m_f69f": [
+   [
+    "m_0dba",
+    "e_a800"
+   ]
+  ],
+  "m_f9b0": [
+   [
+    "e_e594"
+   ]
+  ],
+  "m_81f8": [
+   [
+    "e_42f8"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_17bd": {
+   "target": "e_b1d8",
+   "relation": "retracts",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_b598",
+  "p_3641"
+ ],
+ "after_updates": {
+  "m_0dba": "holds",
+  "m_f69f": "holds",
+  "m_f9b0": "holds",
+  "m_81f8": "holds"
+ },
+ "final_state": {
+  "m_0dba": "holds",
+  "m_f9b0": "holds",
+  "m_81f8": "holds",
+  "m_f69f": "holds"
+ },
+ "world": "Travel logistics evaluation for regional passenger charter operators, shuttle services, and cruise lines.",
+ "rationale": {
+  "m_0dba": [
+   "Apex Charters maintains an operational fleet count of 15 motorcoaches, satisfying the threshold of at least 10 motorcoaches.",
+   "Apex Charters possesses Gold Safety Transport Accreditation, satisfying the accreditation requirement.",
+   "Apex Charters recorded a client satisfaction score of 4.8 points, meeting the threshold of at least 4.5 points."
+  ],
+  "m_f69f": [
+   "Apex Charters holds approved transit operator status and carries indemnification protection of 10000000 USD, exceeding the 5000000 USD threshold."
+  ],
+  "m_f9b0": [
+   "Horizon Express achieved a quarterly punctuality rate of 96 percent, exceeding the 90 percent threshold."
+  ],
+  "m_81f8": [
+   "Solstice Cruises maintains a certified maritime safety record, satisfying the safety credential requirement."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_b1d8": {
+    "entity": "Apex Charters",
+    "kind": "number",
+    "quantity": "operational fleet count",
+    "value": 15,
+    "unit": "motorcoaches",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_c062": {
+    "entity": "Apex Charters",
+    "kind": "credential",
+    "quantity": "Gold Safety Transport Accreditation",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_7b91": {
+    "entity": "Apex Charters",
+    "kind": "number",
+    "quantity": "client satisfaction score",
+    "value": 4.8,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_a800": {
+    "entity": "Apex Charters",
+    "kind": "number",
+    "quantity": "indemnification protection",
+    "value": 10000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_e594": {
+    "entity": "Horizon Express",
+    "kind": "number",
+    "quantity": "punctuality rate",
+    "value": 96,
+    "unit": "percent",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "e_42f8": {
+    "entity": "Solstice Cruises",
+    "kind": "credential",
+    "quantity": "certified maritime safety record",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "u_17bd": {
+    "entity": "Apex Charters",
+    "kind": "number",
+    "quantity": "operational fleet count",
+    "value": null,
+    "unit": "motorcoaches",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_0dba": [
+    {
+     "premise": "e_b1d8",
+     "kind": "number",
+     "entity": "Apex Charters",
+     "relation": null,
+     "quantity": "operational fleet count",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "motorcoaches",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_c062",
+     "kind": "credential",
+     "entity": "Apex Charters",
+     "relation": null,
+     "quantity": "Gold Safety Transport Accreditation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_7b91",
+     "kind": "number",
+     "entity": "Apex Charters",
+     "relation": null,
+     "quantity": "client satisfaction score",
+     "comparator": ">=",
+     "threshold": 4.5,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_f69f": [
+    {
+     "premise": "m_0dba",
+     "kind": "conclusion",
+     "entity": "Apex Charters",
+     "relation": null,
+     "quantity": "approved transit operator status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_a800",
+     "kind": "number",
+     "entity": "Apex Charters",
+     "relation": null,
+     "quantity": "indemnification protection",
+     "comparator": ">=",
+     "threshold": 5000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_f9b0": [
+    {
+     "premise": "e_e594",
+     "kind": "number",
+     "entity": "Horizon Express",
+     "relation": null,
+     "quantity": "punctuality rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "m_81f8": [
+    {
+     "premise": "e_42f8",
+     "kind": "credential",
+     "entity": "Solstice Cruises",
+     "relation": null,
+     "quantity": "certified maritime safety record",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,230 @@
+{
+ "scenario": "s_09ce161ca2",
+ "source_scenario": "F6-007",
+ "family": "F6",
+ "meta": {
+  "variant": "hedge",
+  "has_alternative": true,
+  "depth": 1
+ },
+ "idmap": {
+  "E1": "e_da98",
+  "E2": "e_9abc",
+  "B1": "m_e6ca",
+  "D1": "m_828c",
+  "E3": "e_f1ad",
+  "B2": "m_0aac",
+  "E4": "e_4530",
+  "B3": "m_d46f",
+  "U1": "u_53ca"
+ },
+ "groups": {
+  "e_da98": 1,
+  "m_e6ca": 1,
+  "m_828c": 1,
+  "e_9abc": 1,
+  "e_f1ad": 2,
+  "m_0aac": 2,
+  "e_4530": 3,
+  "m_d46f": 3
+ },
+ "policy_of": {
+  "p_b79b": "m_e6ca",
+  "p_bb0a": "m_828c",
+  "p_5c03": "m_0aac",
+  "p_eb34": "m_d46f"
+ },
+ "gold": {
+  "e_da98": "uncertain",
+  "e_9abc": "keep",
+  "e_f1ad": "keep",
+  "e_4530": "keep",
+  "m_e6ca": "keep",
+  "m_0aac": "keep",
+  "m_d46f": "keep",
+  "m_828c": "keep"
+ },
+ "justifications": {
+  "m_e6ca": [
+   [
+    "e_da98"
+   ],
+   [
+    "e_9abc"
+   ]
+  ],
+  "m_828c": [
+   [
+    "m_e6ca"
+   ]
+  ],
+  "m_0aac": [
+   [
+    "e_f1ad"
+   ]
+  ],
+  "m_d46f": [
+   [
+    "e_4530"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_53ca": {
+   "target": "e_da98",
+   "relation": "hedges",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_9142",
+  "p_6d55"
+ ],
+ "after_updates": {
+  "m_e6ca": "holds",
+  "m_828c": "holds",
+  "m_0aac": "holds",
+  "m_d46f": "holds"
+ },
+ "final_state": {
+  "m_e6ca": "holds",
+  "m_0aac": "holds",
+  "m_d46f": "holds",
+  "m_828c": "holds"
+ },
+ "world": "Evaluations of transport service providers across bus, rail, and maritime sectors for enterprise logistics contracts.",
+ "rationale": {
+  "m_e6ca": [
+   "Apex Charters holds a Class A Passenger Transport Permit, satisfying the permit requirement.",
+   "Apex Charters maintains a luxury coach fleet size of 15 coaches, exceeding the minimum threshold of 10 coaches."
+  ],
+  "m_828c": [
+   "Apex Charters satisfies executive ground travel specifications, qualifying it for corporate excursion transport agreements."
+  ],
+  "m_0aac": [
+   "Horizon Rail achieved an on-time arrival rate of 94 percent last quarter, exceeding the 90 percent threshold."
+  ],
+  "m_d46f": [
+   "BlueWave Marine holds an active ISO 14001 environmental certification, meeting sustainable ocean fleet criteria."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_da98": {
+    "entity": "Apex Charters",
+    "kind": "credential",
+    "quantity": "Class A Passenger Transport Permit",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_9abc": {
+    "entity": "Apex Charters",
+    "kind": "number",
+    "quantity": "luxury coach fleet size",
+    "value": 15,
+    "unit": "coaches",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_f1ad": {
+    "entity": "Horizon Rail",
+    "kind": "number",
+    "quantity": "on-time arrival rate",
+    "value": 94,
+    "unit": "percent",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "e_4530": {
+    "entity": "BlueWave Marine",
+    "kind": "credential",
+    "quantity": "ISO 14001 environmental certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "u_53ca": {
+    "entity": "Apex Charters",
+    "kind": "credential",
+    "quantity": "Class A Passenger Transport Permit",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_e6ca": [
+    {
+     "premise": "e_da98",
+     "kind": "credential",
+     "entity": "Apex Charters",
+     "relation": null,
+     "quantity": "Class A Passenger Transport Permit",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_9abc",
+     "kind": "number",
+     "entity": "Apex Charters",
+     "relation": null,
+     "quantity": "luxury coach fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "coaches",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_828c": [
+    {
+     "premise": "m_e6ca",
+     "kind": "conclusion",
+     "entity": "Apex Charters",
+     "relation": null,
+     "quantity": "executive ground travel specifications",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_0aac": [
+    {
+     "premise": "e_f1ad",
+     "kind": "number",
+     "entity": "Horizon Rail",
+     "relation": null,
+     "quantity": "on-time arrival rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "m_d46f": [
+    {
+     "premise": "e_4530",
+     "kind": "credential",
+     "entity": "BlueWave Marine",
+     "relation": null,
+     "quantity": "ISO 14001 environmental certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

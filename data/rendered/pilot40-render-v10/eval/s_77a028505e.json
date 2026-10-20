@@ -1,0 +1,226 @@
+{
+ "scenario": "s_77a028505e",
+ "source_scenario": "F1-003",
+ "family": "F1",
+ "meta": {
+  "depth": 2,
+  "relation": "supersedes"
+ },
+ "idmap": {
+  "E1": "e_d70d",
+  "E2": "e_99aa",
+  "B1": "m_5ffd",
+  "D1": "m_dcef",
+  "E3": "e_ca9d",
+  "B2": "m_0082",
+  "E4": "e_33ad",
+  "B3": "m_50ea",
+  "U1": "u_9335"
+ },
+ "groups": {
+  "e_d70d": 1,
+  "m_5ffd": 1,
+  "m_dcef": 1,
+  "e_99aa": 1,
+  "e_ca9d": 2,
+  "m_0082": 2,
+  "e_33ad": 3,
+  "m_50ea": 3
+ },
+ "policy_of": {
+  "p_9bc5": "m_5ffd",
+  "p_2c54": "m_dcef",
+  "p_b6c4": "m_0082",
+  "p_42e5": "m_50ea"
+ },
+ "gold": {
+  "e_d70d": "supersede",
+  "e_99aa": "keep",
+  "e_ca9d": "keep",
+  "e_33ad": "keep",
+  "m_5ffd": "recompute",
+  "m_0082": "keep",
+  "m_50ea": "keep",
+  "m_dcef": "recompute"
+ },
+ "justifications": {
+  "m_5ffd": [
+   [
+    "e_d70d",
+    "e_99aa"
+   ]
+  ],
+  "m_dcef": [
+   [
+    "m_5ffd"
+   ]
+  ],
+  "m_0082": [
+   [
+    "e_ca9d"
+   ]
+  ],
+  "m_50ea": [
+   [
+    "e_33ad"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_9335": {
+   "target": "e_d70d",
+   "relation": "supersedes",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_a25d",
+  "p_ec25"
+ ],
+ "after_updates": {
+  "m_5ffd": "fails",
+  "m_dcef": "fails",
+  "m_0082": "holds",
+  "m_50ea": "holds"
+ },
+ "final_state": {
+  "m_5ffd": "fails",
+  "m_0082": "holds",
+  "m_50ea": "holds",
+  "m_dcef": "fails"
+ },
+ "world": "Assessment of commercial transport operators across air, rail, and maritime logistics networks.",
+ "rationale": {
+  "m_5ffd": [
+   "AeroSwift Freight operates an active fleet size of 15 aircraft, which meets the threshold of 10 or more aircraft, and holds an IATA Safety Audit certificate, satisfying the policy requirements for recognized flight authority status."
+  ],
+  "m_dcef": [
+   "AeroSwift Freight holds recognized flight authority status, which fulfills the policy requirement for allocation of urgent cargo routing."
+  ],
+  "m_0082": [
+   "Vanguard Rail Systems maintains an emergency response time of 25 minutes, which satisfies the policy threshold of 30 minutes or less for rapid incident response criteria."
+  ],
+  "m_50ea": [
+   "Pacific Maritime Logistics holds an ISO 28000 security certification, which meets the policy condition for entry into restricted dock facilities."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_d70d": {
+    "entity": "AeroSwift Freight",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 15,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_99aa": {
+    "entity": "AeroSwift Freight",
+    "kind": "credential",
+    "quantity": "IATA Safety Audit certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_ca9d": {
+    "entity": "Vanguard Rail Systems",
+    "kind": "number",
+    "quantity": "emergency response time",
+    "value": 25,
+    "unit": "minutes",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_33ad": {
+    "entity": "Pacific Maritime Logistics",
+    "kind": "credential",
+    "quantity": "ISO 28000 security certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "u_9335": {
+    "entity": "AeroSwift Freight",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 8,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_5ffd": [
+    {
+     "premise": "e_d70d",
+     "kind": "number",
+     "entity": "AeroSwift Freight",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_99aa",
+     "kind": "credential",
+     "entity": "AeroSwift Freight",
+     "relation": null,
+     "quantity": "IATA Safety Audit certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_dcef": [
+    {
+     "premise": "m_5ffd",
+     "kind": "conclusion",
+     "entity": "AeroSwift Freight",
+     "relation": null,
+     "quantity": "official flight operator authorization",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_0082": [
+    {
+     "premise": "e_ca9d",
+     "kind": "number",
+     "entity": "Vanguard Rail Systems",
+     "relation": null,
+     "quantity": "emergency response time",
+     "comparator": "<=",
+     "threshold": 30,
+     "unit": "minutes",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_50ea": [
+    {
+     "premise": "e_33ad",
+     "kind": "credential",
+     "entity": "Pacific Maritime Logistics",
+     "relation": null,
+     "quantity": "ISO 28000 security certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

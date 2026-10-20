@@ -1,0 +1,198 @@
+{
+ "scenario": "s_4b1b069c1f",
+ "source_scenario": "F1-007",
+ "family": "F1",
+ "meta": {
+  "depth": 1,
+  "relation": "retracts"
+ },
+ "idmap": {
+  "E1": "e_a4b0",
+  "E2": "e_31c2",
+  "D1": "m_7f83",
+  "E3": "e_a030",
+  "B1": "m_e1c4",
+  "E4": "e_905a",
+  "B2": "m_66a7",
+  "U1": "u_870a"
+ },
+ "groups": {
+  "e_a4b0": 1,
+  "m_7f83": 1,
+  "e_31c2": 1,
+  "e_a030": 2,
+  "m_e1c4": 2,
+  "e_905a": 3,
+  "m_66a7": 3
+ },
+ "policy_of": {
+  "p_c32e": "m_7f83",
+  "p_8e63": "m_e1c4",
+  "p_fa6d": "m_66a7"
+ },
+ "gold": {
+  "e_a4b0": "withdraw",
+  "e_31c2": "keep",
+  "e_a030": "keep",
+  "e_905a": "keep",
+  "m_7f83": "withdraw",
+  "m_e1c4": "keep",
+  "m_66a7": "keep"
+ },
+ "justifications": {
+  "m_7f83": [
+   [
+    "e_a4b0",
+    "e_31c2"
+   ]
+  ],
+  "m_e1c4": [
+   [
+    "e_a030"
+   ]
+  ],
+  "m_66a7": [
+   [
+    "e_905a"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_870a": {
+   "target": "e_a4b0",
+   "relation": "retracts",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_d9af",
+  "p_0ed9"
+ ],
+ "after_updates": {
+  "m_7f83": "fails",
+  "m_e1c4": "holds",
+  "m_66a7": "holds"
+ },
+ "final_state": {
+  "m_7f83": "fails",
+  "m_e1c4": "holds",
+  "m_66a7": "holds"
+ },
+ "world": "An AI assistant updates its evaluation of regional passenger transport companies and excursion operators based on safety records, capacity data, and sustainability certifications.",
+ "rationale": {
+  "m_7f83": [
+   "Skyward Charters maintains a fleet size of 12 aircraft, meeting the minimum required threshold of 10, and possesses an active Aviation Safety Certificate."
+  ],
+  "m_e1c4": [
+   "Solis Express recorded an annual passenger transit of 450,000 travelers, satisfying the threshold of 400,000 travelers."
+  ],
+  "m_66a7": [
+   "Nomad Tours holds an official Eco Tourism Accreditation."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_a4b0": {
+    "entity": "Skyward Charters",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 12,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_31c2": {
+    "entity": "Skyward Charters",
+    "kind": "credential",
+    "quantity": "Aviation Safety Certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_a030": {
+    "entity": "Solis Express",
+    "kind": "number",
+    "quantity": "annual passenger transit",
+    "value": 450000,
+    "unit": "travelers",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_905a": {
+    "entity": "Nomad Tours",
+    "kind": "credential",
+    "quantity": "Eco Tourism Accreditation",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "u_870a": {
+    "entity": "Skyward Charters",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": null,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_7f83": [
+    {
+     "premise": "e_a4b0",
+     "kind": "number",
+     "entity": "Skyward Charters",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_31c2",
+     "kind": "credential",
+     "entity": "Skyward Charters",
+     "relation": null,
+     "quantity": "Aviation Safety Certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_e1c4": [
+    {
+     "premise": "e_a030",
+     "kind": "number",
+     "entity": "Solis Express",
+     "relation": null,
+     "quantity": "annual passenger transit",
+     "comparator": ">=",
+     "threshold": 400000,
+     "unit": "travelers",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "m_66a7": [
+    {
+     "premise": "e_905a",
+     "kind": "credential",
+     "entity": "Nomad Tours",
+     "relation": null,
+     "quantity": "Eco Tourism Accreditation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

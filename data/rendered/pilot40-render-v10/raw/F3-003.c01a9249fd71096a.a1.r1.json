@@ -1,0 +1,389 @@
+{
+ "scenario": "F3-003",
+ "repair": 1,
+ "prompt_version": "render-v10",
+ "permitted": {
+  "policies.B1": "policy_echoes_memory 'attains elite operator' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B4": "record_scope_not_in_policy 'international'",
+  "conditions.B4": "record_scope_not_in_policy 'international'",
+  "facts.E8": "record_scope_not_in_policy 'international'",
+  "nodes.E8.text": "record_scope_not_in_policy 'international'",
+  "nodes.E8.source": "record_scope_not_in_policy 'international'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B4\": [\n   {\n    \"premise\": \"E8\",\n    \"kind\": \"credential\",\n    \"entity\": \"Crestview Logistics\",\n    \"relation\": null,\n    \"quantity\": \"ISO 28000 Certification\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E8\": {\n   \"entity\": \"Crestview Logistics\",\n   \"kind\": \"credential\",\n   \"quantity\": \"ISO 28000 Certification\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E8.source\": \"Security standards registry\",\n  \"nodes.E8.text\": \"Crestview Logistics maintains ISO 28000 Certification.\",\n  \"policies.B1\": \"An organization earns elite operator recognition either by logging 400 or more annual charter flights together with managing at least 10 annual operational bases, keeping an annual luggage loss rate of 0.5 percent or less, and maintaining an annual punctuality score of 90 percent or higher, or by holding Premier Carrier Certification.\",\n  \"policies.B4\": \"A carrier fulfills secure supply network standards if it possesses ISO 28000 Certification.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 7073,
+   "output_tokens": 2948,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 7073,
+    "completion_tokens": 2948
+   }
+  },
+  "est_usd": 0.04907925,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.B4[0].quantity",
+  "conditions.B4[0].scope",
+  "facts.E8.quantity",
+  "facts.E8.scope",
+  "nodes.E8.text",
+  "policies.B1",
+  "policies.B4"
+ ],
+ "merged": {
+  "world": "A travel logistics management system evaluates transport providers and partners for routing privileges, priority dispatch, and security classifications based on performance metrics and certifications.",
+  "nodes": {
+   "E1": {
+    "text": "Apex Global Travel logged 500 annual charter flights.",
+    "source": "Civil Aviation Authority filing"
+   },
+   "E2": {
+    "text": "Apex Global Travel manages 12 annual operational bases.",
+    "source": "Fleet operations log"
+   },
+   "E3": {
+    "text": "Apex Global Travel reported an annual luggage loss rate of 0.2 percent.",
+    "source": "Baggage handling audit"
+   },
+   "E4": {
+    "text": "Apex Global Travel recorded an annual punctuality score of 95 percent.",
+    "source": "Flight tracking database"
+   },
+   "E5": {
+    "text": "Apex Global Travel holds Premier Carrier Certification.",
+    "source": "Transport Licensing Board"
+   },
+   "E6": {
+    "text": "Apex Global Travel deposited a security bond of 200000 USD.",
+    "source": "Financial escrow registry"
+   },
+   "E7": {
+    "text": "Blue Sky Express recorded an annual passenger volume of 800000 travelers.",
+    "source": "Transport statistics office"
+   },
+   "E8": {
+    "text": "Crestview Logistics maintains ISO 28000 Certification.",
+    "source": "Security standards registry"
+   },
+   "E9": {
+    "text": "Delta Way Transit achieved an annual fleet electrification rate of 60 percent.",
+    "source": "Fleet sustainability audit"
+   },
+   "B1": {
+    "text": "Apex Global Travel attains elite operator status."
+   },
+   "B2": {
+    "text": "Apex Global Travel holds preferred routing access."
+   },
+   "D1": {
+    "text": "Apex Global Travel is assigned top-priority dispatch slots."
+   },
+   "B3": {
+    "text": "Blue Sky Express secures major hub priority."
+   },
+   "B4": {
+    "text": "Crestview Logistics meets secure supply chain criteria."
+   },
+   "B5": {
+    "text": "Delta Way Transit gains green fleet designation."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "A revised audit revealed Apex Global Travel maintains no operational bases.",
+    "source": "Central aviation regulatory record"
+   }
+  },
+  "policies": {
+   "B1": "An organization earns elite operator recognition either by logging 400 or more annual charter flights together with managing at least 10 annual operational bases, keeping an annual luggage loss rate of 0.5 percent or less, and maintaining an annual punctuality score of 90 percent or higher, or by holding Premier Carrier Certification.",
+   "B2": "An agency receives preferred routing privileges provided the entity reaches elite operator standing.",
+   "D1": "A enterprise gets top-priority dispatch allocations provided it maintains preferred route access along with a security bond of no less than 150000 USD.",
+   "B3": "A provider obtains major terminal priority when its annual passenger volume reaches 500000 travelers or more.",
+   "B4": "A carrier fulfills secure supply network standards if it possesses ISO 28000 Certification.",
+   "B5": "An operator acquires green fleet authorization when achieving an annual fleet electrification rate of at least 50 percent."
+  },
+  "decoy_policies": [
+   "A freight forwarder achieves rapid customs clearance if its annual customs declaration volume exceeds 10000 filings.",
+   "A maritime contractor obtains deepwater berth rights when managing 15 or more commercial vessels."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "holds",
+   "D1": "holds",
+   "B3": "holds",
+   "B4": "holds",
+   "B5": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Apex Global Travel",
+    "kind": "number",
+    "quantity": "charter flights",
+    "value": 500,
+    "unit": "flights",
+    "window": "year",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Apex Global Travel",
+    "kind": "number",
+    "quantity": "operational bases",
+    "value": 12,
+    "unit": "bases",
+    "window": "year",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Apex Global Travel",
+    "kind": "number",
+    "quantity": "luggage loss rate",
+    "value": 0.2,
+    "unit": "percent",
+    "window": "year",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Apex Global Travel",
+    "kind": "number",
+    "quantity": "punctuality score",
+    "value": 95,
+    "unit": "percent",
+    "window": "year",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Apex Global Travel",
+    "kind": "credential",
+    "quantity": "Premier Carrier Certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Apex Global Travel",
+    "kind": "number",
+    "quantity": "security bond",
+    "value": 200000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Blue Sky Express",
+    "kind": "number",
+    "quantity": "passenger volume",
+    "value": 800000,
+    "unit": "travelers",
+    "window": "year",
+    "scope": "none"
+   },
+   "E8": {
+    "entity": "Crestview Logistics",
+    "kind": "credential",
+    "quantity": "ISO 28000 Certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E9": {
+    "entity": "Delta Way Transit",
+    "kind": "number",
+    "quantity": "fleet electrification rate",
+    "value": 60,
+    "unit": "percent",
+    "window": "year",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Apex Global Travel",
+    "kind": "number",
+    "quantity": "operational bases",
+    "value": null,
+    "unit": "bases",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Apex Global Travel",
+     "relation": null,
+     "quantity": "charter flights",
+     "comparator": ">=",
+     "threshold": 400,
+     "unit": "flights",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Apex Global Travel",
+     "relation": null,
+     "quantity": "operational bases",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "bases",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Apex Global Travel",
+     "relation": null,
+     "quantity": "luggage loss rate",
+     "comparator": "<=",
+     "threshold": 0.5,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Apex Global Travel",
+     "relation": null,
+     "quantity": "punctuality score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "Apex Global Travel",
+     "relation": null,
+     "quantity": "Premier Carrier Certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Apex Global Travel",
+     "relation": null,
+     "quantity": "elite operator status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Apex Global Travel",
+     "relation": null,
+     "quantity": "preferred routing access",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Apex Global Travel",
+     "relation": null,
+     "quantity": "security bond",
+     "comparator": ">=",
+     "threshold": 150000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "Blue Sky Express",
+     "relation": null,
+     "quantity": "passenger volume",
+     "comparator": ">=",
+     "threshold": 500000,
+     "unit": "travelers",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E8",
+     "kind": "credential",
+     "entity": "Crestview Logistics",
+     "relation": null,
+     "quantity": "ISO 28000 Certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E9",
+     "kind": "number",
+     "entity": "Delta Way Transit",
+     "relation": null,
+     "quantity": "fleet electrification rate",
+     "comparator": ">=",
+     "threshold": 50,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Apex Global Travel meets the multi-part requirement with 500 annual charter flights, 12 annual operational bases, a 0.2 percent annual luggage loss rate, and a 95 percent annual punctuality score.",
+    "Apex Global Travel holds Premier Carrier Certification, which independently satisfies the policy criteria."
+   ],
+   "B2": [
+    "Apex Global Travel attains elite operator status, satisfying the condition for preferred routing access."
+   ],
+   "D1": [
+    "Apex Global Travel holds preferred routing access and maintains a security bond of 200000 USD, meeting the criteria for top-priority dispatch slots."
+   ],
+   "B3": [
+    "Blue Sky Express achieves an annual passenger volume of 800000 travelers, exceeding the threshold of 500000 travelers required for major hub priority."
+   ],
+   "B4": [
+    "Crestview Logistics maintains International ISO 28000 Certification, fulfilling the secure supply chain criteria."
+   ],
+   "B5": [
+    "Delta Way Transit achieves an annual fleet electrification rate of 60 percent, satisfying the threshold for green fleet designation."
+   ]
+  }
+ }
+}

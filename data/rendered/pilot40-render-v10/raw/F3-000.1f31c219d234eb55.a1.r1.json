@@ -1,0 +1,250 @@
+{
+ "scenario": "F3-000",
+ "repair": 1,
+ "prompt_version": "render-v10",
+ "permitted": {
+  "policies.B1": "record_window_not_in_policy 'year'",
+  "conditions.B1": "record_window_not_in_policy 'year'",
+  "facts.E2": "record_window_not_in_policy 'year'",
+  "nodes.E2.text": "record_window_not_in_policy 'year'",
+  "nodes.E2.source": "record_window_not_in_policy 'year'",
+  "policies.D1": "record_window_not_in_policy 'year'",
+  "conditions.D1": "record_window_not_in_policy 'year'",
+  "facts.E4": "record_window_not_in_policy 'year'",
+  "nodes.E4.text": "record_window_not_in_policy 'year'",
+  "nodes.E4.source": "record_window_not_in_policy 'year'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B1\": [\n   {\n    \"premise\": \"E1\",\n    \"kind\": \"number\",\n    \"entity\": \"AuraSense Pro\",\n    \"relation\": null,\n    \"quantity\": \"laboratory rating\",\n    \"comparator\": \">=\",\n    \"threshold\": 90,\n    \"unit\": \"points\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E2\",\n    \"kind\": \"number\",\n    \"entity\": \"AuraSense Pro\",\n    \"relation\": null,\n    \"quantity\": \"failure percentage\",\n    \"comparator\": \"<=\",\n    \"threshold\": 2.0,\n    \"unit\": \"%\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E3\",\n    \"kind\": \"credential\",\n    \"entity\": \"AuraSense Pro\",\n    \"relation\": null,\n    \"quantity\": \"ISO 13485 credential\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"conditions.D1\": [\n   {\n    \"premise\": \"B1\",\n    \"kind\": \"conclusion\",\n    \"entity\": \"AuraSense Pro\",\n    \"relation\": null,\n    \"quantity\": \"listing safety clearance\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E4\",\n    \"kind\": \"number\",\n    \"entity\": \"AuraSense Pro\",\n    \"relation\": null,\n    \"quantity\": \"distribution volume\",\n    \"comparator\": \">=\",\n    \"threshold\": 10000,\n    \"unit\": \"units\",\n    \"window\": \"year\",\n    \"scope\": \"regional\"\n   }\n  ],\n  \"facts.E2\": {\n   \"entity\": \"AuraSense Pro\",\n   \"kind\": \"number\",\n   \"quantity\": \"failure percentage\",\n   \"value\": 1.5,\n   \"unit\": \"%\",\n   \"window\": \"year\",\n   \"scope\": \"none\"\n  },\n  \"facts.E4\": {\n   \"entity\": \"AuraSense Pro\",\n   \"kind\": \"number\",\n   \"quantity\": \"distribution volume\",\n   \"value\": 12000,\n   \"unit\": \"units\",\n   \"window\": \"year\",\n   \"scope\": \"regional\"\n  },\n  \"nodes.E2.source\": \"Annual factory quality control system log\",\n  \"nodes.E2.text\": \"AuraSense Pro recorded an annual failure percentage of 1.5%.\",\n  \"nodes.E4.source\": \"Annual regional distribution report\",\n  \"nodes.E4.text\": \"AuraSense Pro reached an annual regional distribution volume of 12,000 units.\",\n  \"policies.B1\": \"An item achieves listing safety clearance either by securing a laboratory rating of at least 90 points together with an annual failure percentage of no more than 2.0%, or by maintaining valid ISO 13485 credentials.\",\n  \"policies.D1\": \"A device gains top promotional feature positioning when it achieves listing safety clearance and records an annual regional distribution volume of at least 10,000 units.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6303,
+   "output_tokens": 6960,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6303,
+    "completion_tokens": 6960
+   }
+  },
+  "est_usd": 0.09248175,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "nodes.E2.source",
+  "nodes.E2.text",
+  "nodes.E4.source",
+  "nodes.E4.text",
+  "policies.B1",
+  "policies.D1"
+ ],
+ "merged": {
+  "world": "An evaluation of device sales channels and retail program eligibility for consumer electronics products.",
+  "nodes": {
+   "E1": {
+    "text": "AuraSense Pro achieved a laboratory rating of 94 points in quality testing.",
+    "source": "National Testing Labs official audit report"
+   },
+   "E2": {
+    "text": "AuraSense Pro recorded an annual failure percentage of 1.5%.",
+    "source": "Annual factory quality control system log"
+   },
+   "E3": {
+    "text": "AuraSense Pro maintains a valid ISO 13485 credential.",
+    "source": "Standards Council registry database"
+   },
+   "E4": {
+    "text": "AuraSense Pro reached an annual regional distribution volume of 12,000 units.",
+    "source": "Annual regional distribution report"
+   },
+   "E5": {
+    "text": "Lumina Light Bar maintains a certified IP67 ingress rating.",
+    "source": "Marine Testing Institute certificate"
+   },
+   "B1": {
+    "text": "AuraSense Pro satisfies catalog listing safety criteria."
+   },
+   "D1": {
+    "text": "AuraSense Pro is selected for prime showcase placement."
+   },
+   "B2": {
+    "text": "Lumina Light Bar is approved for aquatic trade distribution."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "AuraSense Pro recorded a failure percentage of 2.8% over one year.",
+    "source": "Factory quality control system log"
+   }
+  },
+  "policies": {
+   "B1": "An item achieves listing safety clearance either by securing a laboratory rating of at least 90 points together with an annual failure percentage of no more than 2.0%, or by maintaining valid ISO 13485 credentials.",
+   "D1": "A device gains top promotional feature positioning when it achieves listing safety clearance and records an annual regional distribution volume of at least 10,000 units.",
+   "B2": "An accessory gains aquatic trade approval provided it holds a certified IP67 ingress rating."
+  },
+  "decoy_policies": [
+   "A commercial appliance achieves energy efficiency endorsement when it demonstrates a thermal coefficient of at least 85% and maintains an operating voltage under 240 volts.",
+   "A food container obtains commercial packaging certification if it holds an active FDA compliance seal."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "D1": "holds",
+   "B2": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "AuraSense Pro",
+    "kind": "number",
+    "quantity": "laboratory rating",
+    "value": 94,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "AuraSense Pro",
+    "kind": "number",
+    "quantity": "failure percentage",
+    "value": 1.5,
+    "unit": "%",
+    "window": "year",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "AuraSense Pro",
+    "kind": "credential",
+    "quantity": "ISO 13485 credential",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "AuraSense Pro",
+    "kind": "number",
+    "quantity": "distribution volume",
+    "value": 12000,
+    "unit": "units",
+    "window": "year",
+    "scope": "regional"
+   },
+   "E5": {
+    "entity": "Lumina Light Bar",
+    "kind": "credential",
+    "quantity": "IP67 ingress rating",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "AuraSense Pro",
+    "kind": "number",
+    "quantity": "failure percentage",
+    "value": 2.8,
+    "unit": "%",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "AuraSense Pro",
+     "relation": null,
+     "quantity": "laboratory rating",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "AuraSense Pro",
+     "relation": null,
+     "quantity": "failure percentage",
+     "comparator": "<=",
+     "threshold": 2.0,
+     "unit": "%",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "AuraSense Pro",
+     "relation": null,
+     "quantity": "ISO 13485 credential",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "AuraSense Pro",
+     "relation": null,
+     "quantity": "listing safety clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "AuraSense Pro",
+     "relation": null,
+     "quantity": "distribution volume",
+     "comparator": ">=",
+     "threshold": 10000,
+     "unit": "units",
+     "window": "year",
+     "scope": "regional"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "Lumina Light Bar",
+     "relation": null,
+     "quantity": "IP67 ingress rating",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "AuraSense Pro achieves listing safety clearance under its policy because its laboratory rating of 94 points meets the 90 point threshold and its 1.5% failure percentage is within the 2.0% limit over one year.",
+    "AuraSense Pro achieves listing safety clearance under its policy because it holds a valid ISO 13485 credential."
+   ],
+   "D1": [
+    "AuraSense Pro gains top promotional feature positioning under its policy because it achieves listing safety clearance and its regional distribution volume of 12,000 units over one year meets the 10,000 unit requirement."
+   ],
+   "B2": [
+    "Lumina Light Bar gains aquatic trade approval under its policy because it holds a certified IP67 ingress rating."
+   ]
+  }
+ }
+}

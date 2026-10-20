@@ -1,0 +1,292 @@
+{
+ "scenario": "F1-002",
+ "repair": 1,
+ "prompt_version": "render-v10",
+ "permitted": {
+  "decoy_policies[0]": "decoy_shares_memory_word 'energy' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"decoy_policies[0]\": \"An industrial chiller obtains Green Ventilation Certification if it records an annual seasonal performance ratio of at least 15 and maintains an operational noise level under 50 dB.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6160,
+   "output_tokens": 1464,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6160,
+    "completion_tokens": 1464
+   }
+  },
+  "est_usd": 0.03033,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "decoy_policies[0]"
+ ],
+ "merged": {
+  "world": "An assistant evaluates product eligibility across distinct commercial compliance frameworks and product catalogs.",
+  "nodes": {
+   "E1": {
+    "text": "Apex Drone X1 logged 120 test flight hours this year.",
+    "source": "Official flight operations logbook."
+   },
+   "E2": {
+    "text": "Apex Drone X1 holds an active ISO 9001 quality certificate.",
+    "source": "Official ISO registry database."
+   },
+   "B1": {
+    "text": "Apex Drone X1 fulfills baseline manufacturing safety criteria."
+   },
+   "E3": {
+    "text": "Apex Drone X1 maintains a maximum payload weight capacity of 25 kg.",
+    "source": "Manufacturer technical datasheet."
+   },
+   "B2": {
+    "text": "Apex Drone X1 secures heavy-duty commercial deployment authorization."
+   },
+   "E4": {
+    "text": "Apex Drone X1 carries third-party liability insurance coverage of $5,000,000 this year.",
+    "source": "Certified insurance policy schedule."
+   },
+   "D1": {
+    "text": "Apex Drone X1 is granted entry into the EU Commercial Fleet Listing."
+   },
+   "E5": {
+    "text": "Solis Solar Panel Model S4 generates peak power output of 450 W.",
+    "source": "Certified laboratory test report."
+   },
+   "B3": {
+    "text": "Solis Solar Panel Model S4 achieves High-Output Energy Tier designation."
+   },
+   "E6": {
+    "text": "Vortex Water Pump V2 holds an active IP68 ingress protection rating.",
+    "source": "Accredited testing facility certificate."
+   },
+   "B4": {
+    "text": "Vortex Water Pump V2 meets all-weather submersion criteria."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Apex Drone X1 logged 60 test flight hours this year.",
+    "source": "Audited flight log registry."
+   }
+  },
+  "policies": {
+   "B1": "A device meets foundational production safety norms when it completes a minimum of 100 test flight hours per year while holding an ISO 9001 quality certificate.",
+   "B2": "An equipment model is granted commercial deployment status for heavy-duty uses if it fulfills foundational production safety norms and carries a maximum payload weight capacity of at least 20 kg.",
+   "D1": "Authorization for the EU Commercial Fleet Listing is conferred when a candidate has commercial deployment status for heavy-duty uses and holds third-party liability insurance coverage of at least $3,000,000 in a year.",
+   "B3": "Designation under the High-Output Energy Tier is awarded to panels providing a peak power output of 400 W or greater.",
+   "B4": "An apparatus satisfies all-weather submersion standards provided that it maintains an IP68 ingress protection rating."
+  },
+  "decoy_policies": [
+   "An industrial chiller obtains Green Ventilation Certification if it records an annual seasonal performance ratio of at least 15 and maintains an operational noise level under 50 dB.",
+   "An industrial battery system qualifies for Grid Reserve Status when its nominal storage capacity exceeds 500 kWh."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "B2": "fails",
+   "D1": "fails",
+   "B3": "holds",
+   "B4": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Apex Drone X1",
+    "kind": "number",
+    "quantity": "test flight hours",
+    "value": 120,
+    "unit": "hours",
+    "window": "year",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Apex Drone X1",
+    "kind": "credential",
+    "quantity": "ISO 9001 quality certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Apex Drone X1",
+    "kind": "number",
+    "quantity": "maximum payload weight capacity",
+    "value": 25,
+    "unit": "kg",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Apex Drone X1",
+    "kind": "number",
+    "quantity": "third-party liability insurance coverage",
+    "value": 5000000,
+    "unit": "USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Solis Solar Panel Model S4",
+    "kind": "number",
+    "quantity": "peak power output",
+    "value": 450,
+    "unit": "W",
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Vortex Water Pump V2",
+    "kind": "credential",
+    "quantity": "IP68 ingress protection rating",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Apex Drone X1",
+    "kind": "number",
+    "quantity": "test flight hours",
+    "value": 60,
+    "unit": "hours",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Apex Drone X1",
+     "relation": null,
+     "quantity": "test flight hours",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "hours",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "credential",
+     "entity": "Apex Drone X1",
+     "relation": null,
+     "quantity": "ISO 9001 quality certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Apex Drone X1",
+     "relation": null,
+     "quantity": "baseline manufacturing safety criteria",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Apex Drone X1",
+     "relation": null,
+     "quantity": "maximum payload weight capacity",
+     "comparator": ">=",
+     "threshold": 20,
+     "unit": "kg",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Apex Drone X1",
+     "relation": null,
+     "quantity": "heavy-duty commercial deployment authorization",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Apex Drone X1",
+     "relation": null,
+     "quantity": "third-party liability insurance coverage",
+     "comparator": ">=",
+     "threshold": 3000000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Solis Solar Panel Model S4",
+     "relation": null,
+     "quantity": "peak power output",
+     "comparator": ">=",
+     "threshold": 400,
+     "unit": "W",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E6",
+     "kind": "credential",
+     "entity": "Vortex Water Pump V2",
+     "relation": null,
+     "quantity": "IP68 ingress protection rating",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Apex Drone X1 completed 120 test flight hours this year, meeting the 100-hour threshold, and maintains an ISO 9001 quality certificate, fulfilling baseline manufacturing safety criteria."
+   ],
+   "B2": [
+    "Apex Drone X1 fulfills baseline manufacturing safety criteria and features a maximum payload weight capacity of 25 kg, exceeding the 20 kg minimum required for heavy-duty commercial deployment authorization."
+   ],
+   "D1": [
+    "Apex Drone X1 holds heavy-duty commercial deployment authorization and maintains $5,000,000 in third-party liability insurance coverage, exceeding the $3,000,000 requirement for EU Commercial Fleet Listing."
+   ],
+   "B3": [
+    "Solis Solar Panel Model S4 produces a peak power output of 450 W, satisfying the 400 W requirement for High-Output Energy Tier designation."
+   ],
+   "B4": [
+    "Vortex Water Pump V2 holds an IP68 ingress protection rating, fulfilling all-weather submersion criteria."
+   ]
+  }
+ }
+}
