@@ -568,3 +568,28 @@ The redesign is in how F6 is **worded**, via render-v7:
 | **Budget** | **New pilot-2 cap: $0.60 cumulative** (`--budget-usd 0.60`; later runs in pilot-2 count against it via `--prior-spend-usd`). Guard worst case is $0.141 per call (3 first attempts $0.42; all 6 attempts $0.85). Observed v5/v6 calls cost $0.062–$0.110 (mean ≈ $0.08). Expected ≈ $0.25 if all three pass first time. $0.60 allows the three first attempts plus about one retry under the guard's worst-case rule; the guard stays authoritative and refuses any call that could exceed the cap |
 
 **Option B (cheaper, not recommended):** render only F6 under v7 (cap $0.30: two worst-case attempts = $0.283) and pool it with F1 (v5) and F2 (v5b). This reuses accepted reviews, but the gate would mix prompt versions and leave render-v7 untested on F1/F2.
+
+### 17d. Pilot-2 render (2026-10-20): 3/3 rendered on the first attempt; gate 0.31
+
+Approved by the user: Option A, with the controls in §17c, enforced as: guard cap $0.60 cumulative, `--max-attempts 2`, `--stop-on-failure` (added for this run), render-v7 prompt pinned in tests (SHA-256 `83b02a66039a981fba0fd4aa6cf098d69dd313496b42c1e04da0958468f5f402`).
+
+Command: `uv run --group lyzr python scripts/render_run.py --run smoke-render-v7 --prompt-version render-v7 --only F1-000 F2-000 F6-000 --max-attempts 2 --budget-usd 0.60 --stop-on-failure`. Outputs are in `data/rendered/smoke-render-v7/`.
+
+| Scenario | Attempt | Tokens in / out | Guard-charged | Hard flags | Soft flags | Word-only set F1 | Policy-assisted set F1 |
+|---|---|---|---|---|---|---|---|
+| F1-000 `s_d13e3034f6` | 1 | 3,254 / 5,629 | $0.0706 | 0 | 2 `policy_echoes_evidence` ("holds an active … medical device permit"; "zero major safety incidents"), 1 `order_cue` ("initial") | 0.00 | 0.33 |
+| F2-000 `s_3d821bdd07` | 1 | 3,045 / 4,304 | $0.0553 | 0 | 0 | 0.29 | 0.29 |
+| F6-000 `s_c41a0870a2` | 1 | 3,357 / 6,138 | $0.0766 | 0 | 1 `policy_echoes_evidence` ("quality management certification") | 0.18 | 0.31 |
+| **Pooled (the predeclared gate)** | | | **$0.2025 of $0.60** | **0** | **4** | 0.14 | **0.31 ≤ 0.50: pass** |
+
+- 3 calls, no retries.
+- Per-scenario scores are diagnostic only.
+- Premise-overlap AUC (reported only): F1 0.73, F2 0.86, F6 0.80.
+- No template trigrams.
+
+**Status:** automated stage passed. **Pilot-2 is not accepted.** That needs a human review of all three (`smoke-render-v7/review.md` → `review.csv`), each `accept` with C8 and C10 passing. Any fail or `revise` stops the pilot (§17c). Pilot-1 reviews do not carry over.
+
+**Pre-review by Claude (not the human review; for the reviewer to confirm or reject):**
+- **F6, likely C8/C9/C10 problem.** B2 and D1 are about *BioGlow Diagnostic Kit*, but their co-premises E3 and E4 are about *Apex Medical Corp* (ISO 13485; $5M liability cover). The policies say "provided **the producer** maintains …", yet nothing visible says Apex Medical Corp produces BioGlow. Only the hidden rationale makes that link. A system reading only the system view could fairly treat Apex as an unrelated distractor (the distractors are also separate named products), so the link B2 ⇐ B1 AND E3 is not inferable. The retraction (flat denial, anonymous forum post) and the FDA 510(k) alternative keeping B1 are correct.
+- **F1, C7 to judge.** The memory "secures **initial** supplier status" and its policy "**Initial** vendor accreditation" use a stage word, flagged as `order_cue`. Here it is the outcome's name, but it hints at the chain's first rung. The chain logic is consistent: warranty 24 → 6 months, below the 12-month minimum, so every chain memory fails; the Zenith distractor holds. The two evidence echoes are standard terms ("Class II medical device permit", "zero major safety incidents").
+- **F2, C10 to judge.** The policy requires an *annual* audit count of 1,000. The fact gives 1,200 "over the preceding year", but the update's 850 is "during the evaluation period". This is probably the same period, but worded differently. The ISO 13485 revocation is a supersede with a new status. "quarterly vendor index" ↔ "distribution database indexing" is a looser outcome match than the others.
