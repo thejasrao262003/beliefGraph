@@ -1077,3 +1077,58 @@ The stored renders have no records, so the tests use **hand-annotated record fix
 - **F6 "uncertain" cases:** make the prompt's `after_updates` rule state explicitly that a low-reliability retraction or a hedge of the only support leaves the conclusion "undetermined", not "fails". Promoting `final_state_mismatch` to a repairable hard flag is an option.
 - **F2-001-type windows:** consider making `update_window_unstated` hard when the target's window is "none" and the update states one.
 - **F1 lexical recoverability (0.61):** monitor it in the ≥ 100-scenario evaluation pilot (§8B), which needs its own budget and approval.
+
+## 21. Fixes after the 40-scenario run, F1 leakage analysis, blind human sample, validation proposal (2026-10-20)
+
+*No model calls in this section.* The 40-scenario run and its verdicts stand as recorded (§20). The new checks are gated to render-v11 and do not re-judge it.
+
+### 21a. Fixes (render-v11; commit `ae9c3a0`; 151 tests pass)
+
+| Issue (§20) | Fix | Severity |
+|---|---|---|
+| F6-005/F6-009: renderer `after_updates` "fails" where a weak source challenges the only support (gold "uncertain") | **Prompt:** a weak-source retraction or hedge only casts doubt. If it challenges the only support, the result is "undetermined", never "fails"; with another support remaining, "holds"; only a credible source can make a conclusion fail. **Check:** `final_state_mismatch` / `recompute_unresolved` are **hard** from v11 and repairable | Hard |
+| F2-001: "15 coach transfers" → "8 … this quarter" | **Prompt:** if the fact states no window, a replacing update states none ("a corrected count of 8"). **Check:** `update_window_introduced` (hard) when a superseding update of a **number** fact (from the records) gains a window its target lacks. Credentials are exempt ("expired last month" is a date). An update keeping the same window, or stating none, passes | Hard |
+
+**Repair mapping:** a final-state flag permits the memory's `after_updates` value **and** the update texts and sources, so a repair cannot flip the label while the wording says otherwise. A window flag permits the update's text, source and record.
+
+**Regression on the stored 40-run:** the v11 checks flag **exactly** F2-001 (`update_window_introduced`) and F6-005 and F6-009 (`final_state_mismatch` ×3 each), and **none of the 37 accepted**. Edge cases: same window kept; a replacement stated without a window; a credential date.
+
+### 21b. F1 leakage (0.61) analysis: stored data, no gate change
+
+| Family | Declared measure (worse heuristic) | Entities masked | Echoes stripped | Both | **Chain groups only** (word / policy) |
+|---|---|---|---|---|---|
+| F1 | 0.61 | 0.56 | 0.59 | 0.43 | **0.05 / 0.37** |
+| F2 | 0.37 | 0.37 | 0.35 | 0.28 | 0.03 / 0.13 |
+| F3 | 0.42 | 0.32 | 0.34 | 0.13 | 0.00 / 0.23 |
+| F6 | 0.38 | 0.40 | 0.37 | 0.34 | 0.03 / 0.23 |
+| All | 0.44 | 0.41 | 0.41 | 0.29 | **0.02 / 0.22** |
+
+F1 recovery by set type, policy-assisted:
+- distractor single-fact sets: **19/25**;
+- chain sets with a conclusion premise: **6/15**;
+- chain sets with evidence-only premises: **2/7**.
+
+**Reading:**
+- **F1's score is driven mostly by distractors.** Each distractor is about its own uniquely named entity by design (§3, C6), so word matching links it by entity identity. Word-only recovery falls from 0.47 to 0.04 when entity names are masked. F1 has the highest share of distractor sets.
+- **The 119 echoes are a secondary contributor.** Stripping them moves F1 only from 0.61 to 0.59. They are mostly standard measurement terms.
+- **The structural residual is chain links, F1 0.37 chain-only.** A downstream policy names the upstream conclusion's outcome (OUTCOME NAMING, v5), which is needed for C8.
+- **The declared gate is unchanged:** pooled, worse heuristic, ≤ 0.50. From now on reports carry **family-level** scores and the **chain-only diagnostic** next to it.
+
+### 21c. Independent human review sample (blind), prepared, not done
+
+- **Packet:** `pilot40-render-v10/human-review-sample.md`, with a blank `human-review-sample.csv`. 11 scenarios: a seeded sample (`random.Random(2026)`) of 2 AI-accepted per family, plus the 3 AI-revise cases, shuffled.
+- **Blinding:** the AI verdicts and this composition are not shown in the packet.
+- **Agreement:** κ will be computed only from these independent human decisions against the existing AI verdicts. The AI reviews are not relabelled.
+- **Composition, for after the review:** F6-009, F2-004, F1-006, F2-009, F1-004, F2-001, F6-005, F6-001, F3-002, F3-001, F6-000 (AI-revise: F2-001, F6-005, F6-009).
+
+### 21d. Proposed fresh validation set (for approval; nothing runs before it)
+
+| Item | Proposal |
+|---|---|
+| Prompt and checks | render-v11 (hash pinned in tests), current checks, targeted repair as the retry step (`--max-attempts 2 --max-repairs 2`) |
+| Scenarios | **Fresh seed 1** (unseen), 13 chosen to stress the fixes: **F6-001, F6-004, F6-005, F6-007, F6-008** (all no-alternative: gold "uncertain"); **F6-000** (with an alternative, control); **F2-002, F2-003, F2-004** (superseded numeric facts: window risk); **F1-004, F1-008** (deep chains, depth 5 and 4: leakage watch); **F3-000, F3-001** |
+| Command | `render_run.py --run validate-v11 --prompt-version render-v11 --seed 1 --only F1-004 F1-008 F2-002 F2-003 F2-004 F3-000 F3-001 F6-000 F6-001 F6-004 F6-005 F6-007 F6-008 --max-attempts 2 --max-repairs 2 --budget-usd 3.00` |
+| Predeclared success | (1) 0 hard flags in accepted views; (2) **0 `final_state_mismatch`** in the 5 no-alternative F6 (the fix target); (3) **0 `update_window_introduced`** in accepted views; (4) review acceptance ≥ 90% (≥ 12/13); (5) pooled worse-heuristic ≤ 0.50, reported with family-level and chain-only scores; (6) any new failure mode is documented, not patched mid-run |
+| Budget | **Hard cap $3.00.** Measured 40-run cost ≈ $0.12 per scenario incl. repairs, so expected ≈ $1.6–2.0 (v11's stricter checks may add repairs). The guard's worst case is ≈ $0.14 per call |
+| Review | Claude's C1–C13 review (labelled AI), kept separate from the human sample (§21c) |
+| Then | Propose the ≥ 100-scenario evaluation pilot with the results, family-level and pooled leakage, κ if the human sample is done, cost and a cap, for separate approval |
