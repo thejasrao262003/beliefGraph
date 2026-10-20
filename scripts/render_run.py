@@ -17,6 +17,7 @@ from __future__ import annotations
 import argparse
 import hashlib
 import json
+import re
 import sys
 from pathlib import Path
 
@@ -71,9 +72,9 @@ def render_one(s, renderer: LyzrRenderer | None, raw_dir: Path, model: str, max_
         if hard:
             inv = {v: k for k, v in evaluation["idmap"].items()}
             def name(item):
-                return "~".join(inv.get(x, x) for x in item.split("~"))
+                return re.sub(r"[empu]_[0-9a-f]{4}", lambda m: inv.get(m.group(0), m.group(0)), item)
 
-            feedback = [f"text of {name(f.item)} contains forbidden {f.kind}: '{f.match}'" for f in hard]
+            feedback = [f"{name(f.item)} has forbidden {f.kind}: '{name(f.match)}'" for f in hard]
             continue
         return r, system, evaluation, attempt
     raise ValueError(f"{s.id}: no valid rendering after {max_attempts} attempts; last problems: {feedback}")
