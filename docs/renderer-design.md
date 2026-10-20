@@ -834,3 +834,16 @@ An external AI assistant, supplied by the user, reviewed the repaired F1. It is 
 - **Passes:** C12 (the repaired decoy is inert). C5 and C7 pass with qualifications.
 - **Relation to the repair:** the repair worked as designed (one field, 0 hard flags), but it could only touch the flagged decoy, so it could not fix a mismatch that no check flags. This is the C10 point Claude's pre-review (§18i) raised as "to judge". The AI review rates it a fail.
 - **Status:** the stop rule turns on the human verdict. No further repair or re-render of this scenario is authorised.
+
+### 18k. Human review of the repaired F1 (2026-10-20): revise
+
+- **Recorded in:** `smoke-render-v8-repair/review.csv`, reviewer `thejasrao262003`, validated by `read_decisions`. The verdicts are the user's own, given per criterion.
+- **Decision: revise.** Failed: C2, C8, C9, C10 and C13 (a "local" spare-parts inventory in the fact and update vs a "regional" one in the policy condition). Passed: C1, C3 (vacuous), C4, C5 (sources fit their claims, though not independent), C6, C7, C11, C12 (the repaired decoy and the eco-label decoy are inert).
+- **Reading:**
+  - **The repair mechanism worked as specified:** exactly the permitted field changed, the unchanged hard checks passed, $0.0207 spent.
+  - **The scenario failed on a semantic mismatch that no hard check detects:** the geographic scope of a quantity. This is the same class as pilot-2's reference failures (entity, time window), now on location. A scope check alongside the window check, and a matching prompt rule, are a candidate for a future proposal; nothing is applied.
+- **Status:**
+  - The repaired F1 is **not accepted**.
+  - No further repair or re-render of it.
+  - Pilot-3 remains failed; F2, F3 and F6 remain unrun; the 40-scenario run stays blocked.
+  - Total spent on pilot-3 and the repair: $0.1352 + $0.0207 = $0.1559.
