@@ -824,3 +824,13 @@ Approved by the user: one call, cap $0.20, scope `decoy_policies[0]` only. Comma
 - **C10:** the policy says "**regional** spare parts inventory", the fact says "**local**". These are probably the same, but the words differ.
 - **C5:** two high-reliability sources are VeloTech's own records ("Warranty Term Sheet, signed"; "Warehouse Management System"). Whether a company's own system of record reads as authoritative is the reviewer's call.
 - **C7/C11:** the two shared phrases are the standard names of the quantities. Every VeloTech memory ends "for the Velo-X1", which is uniform but names the product rather than a support.
+
+### 18j. External AI pre-review of the repaired F1 (2026-10-20); human review outstanding
+
+An external AI assistant, supplied by the user, reviewed the repaired F1. It is stored verbatim as `smoke-render-v8-repair/ai-prereview.md`. **It is not the human review;** `review.csv` stays blank.
+
+- **AI disposition:** revise.
+- **Fails:** C2, C8, C9, C10 and C13. The policy requires a **regional** spare-parts inventory, while the fact and update state a **local** one, so the inventory condition is not established as written.
+- **Passes:** C12 (the repaired decoy is inert). C5 and C7 pass with qualifications.
+- **Relation to the repair:** the repair worked as designed (one field, 0 hard flags), but it could only touch the flagged decoy, so it could not fix a mismatch that no check flags. This is the C10 point Claude's pre-review (§18i) raised as "to judge". The AI review rates it a fail.
+- **Status:** the stop rule turns on the human verdict. No further repair or re-render of this scenario is authorised.
