@@ -593,3 +593,19 @@ Command: `uv run --group lyzr python scripts/render_run.py --run smoke-render-v7
 - **F6, likely C8/C9/C10 problem.** B2 and D1 are about *BioGlow Diagnostic Kit*, but their co-premises E3 and E4 are about *Apex Medical Corp* (ISO 13485; $5M liability cover). The policies say "provided **the producer** maintains …", yet nothing visible says Apex Medical Corp produces BioGlow. Only the hidden rationale makes that link. A system reading only the system view could fairly treat Apex as an unrelated distractor (the distractors are also separate named products), so the link B2 ⇐ B1 AND E3 is not inferable. The retraction (flat denial, anonymous forum post) and the FDA 510(k) alternative keeping B1 are correct.
 - **F1, C7 to judge.** The memory "secures **initial** supplier status" and its policy "**Initial** vendor accreditation" use a stage word, flagged as `order_cue`. Here it is the outcome's name, but it hints at the chain's first rung. The chain logic is consistent: warranty 24 → 6 months, below the 12-month minimum, so every chain memory fails; the Zenith distractor holds. The two evidence echoes are standard terms ("Class II medical device permit", "zero major safety incidents").
 - **F2, C10 to judge.** The policy requires an *annual* audit count of 1,000. The fact gives 1,200 "over the preceding year", but the update's 850 is "during the evaluation period". This is probably the same period, but worded differently. The ISO 13485 revocation is a supersede with a new status. "quarterly vendor index" ↔ "distribution database indexing" is a looser outcome match than the others.
+
+### 17e. External AI pre-review of pilot-2 (2026-10-20); human review outstanding
+
+An external AI assistant, supplied by the user, reviewed the three v7 sheets. It is **not the human review**. It is stored verbatim as `smoke-render-v7/ai-prereview-v7.tsv`. `review.csv` stays blank and is reserved for the human review.
+
+| Scenario | AI decision | Failed items | Finding |
+|---|---|---|---|
+| F1 | accept | none | "initial" is a soft C7 consideration, not a fail; the echoes are generic terms |
+| F2 | revise | C4, C10, C13 | the update's 850 audits are "during the evaluation period", but the policy needs an *annual* count, and nothing equates the two |
+| F6 | revise | C6, C8, C9, C10, C13 | the Apex Medical Corp facts (ISO 13485, $5M cover) are never linked to BioGlow Diagnostic Kit in the system view ("the producer" does not establish it) |
+
+- **Agreement with Claude's pre-review (§17d):** both name the F6 entity-link gap and the F2 period wording. They differ on F2 severity: Claude rated it "to judge"; the AI rates it fail.
+- **Status:**
+  - Pilot-2 stays at the automated stage. No calls are made in the meantime.
+  - The stop rule in §17c is triggered by a **human** fail or `revise`, so it turns on the human review.
+  - If the human review confirms either finding, pilot-2 stops as failed. A redesign or retry would then need a new approval.
