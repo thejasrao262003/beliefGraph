@@ -183,3 +183,27 @@ def test_score_with_perfect_predictions_is_perfect_and_cascade_over_invalidates(
     assert res["revision"]["P"]["accuracy"] == 1.0 and res["graph_extraction"]["justification_set_f1"] == 1.0
     assert res["update_reading_exact"] == 1.0 and res["source_reliability_accuracy"] == 1.0
     assert res["revision"]["naive-cascade"]["over_invalidation_rate"] > 0
+
+
+def test_llm_direct_baseline_parses_and_defaults_missing_to_keep():
+    from beliefbench.llm_baselines import DIRECT_PROMPT, direct_message, llm_direct
+
+    seen = []
+
+    def llm(system, message, note=""):
+        seen.append((system, message))
+        return json.dumps({"actions": {"m_1": "keep", "m_2": "bogus"}})
+
+    actions, errors = llm_direct(llm, VIEW)
+    assert actions == {"m_1": Action.KEEP, "m_2": Action.KEEP} and "bogus" in errors[0]
+    assert seen[0][0] == DIRECT_PROMPT and "Acme now has 6 trucks" in direct_message(VIEW)  # it sees the updates
+
+
+def test_score_includes_llm_direct_when_present():
+    items = []
+    for sv, ev, seed in load_accepted(RENDERED / "validate-v12")[:3]:
+        gj, grel, gread = gold_inputs(sv, ev, seed)
+        items.append({"sv": sv, "ev": ev, "seed": seed, "graph": {"justifications": gj, "reliability": grel},
+                      "readings": gread, "direct": {m: Action.KEEP for m in memory_gold(ev)}})
+    res = score(items)
+    assert res["revision"]["LLM-direct"]["n"] > 0 and res["revision"]["P"]["accuracy"] == 1.0

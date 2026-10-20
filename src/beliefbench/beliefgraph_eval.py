@@ -9,6 +9,8 @@ each update and the gold actions. Variants isolate where errors come from:
 - ``P-oracle-readings`` induced graph + gold readings (removes update-reading error)
 - ``P-oracle``          gold graph + gold readings (must equal gold: a harness check)
 - ``naive-cascade`` / ``direct-only``: no-LLM baselines on the gold graph and readings
+- ``LLM-direct``        the same model labels each memory itself, without a graph
+                        (scored when the item carries ``direct`` actions)
 """
 
 from __future__ import annotations
@@ -64,8 +66,9 @@ def score(items: list[dict]) -> dict:
     (``graph`` with justifications + reliability, ``readings``). Returns per-variant
     revision scores on memories, plus graph-extraction and update-reading accuracy."""
     rev = {k: RevisionScore() for k in ("P", "P-oracle-graph", "P-oracle-readings", "P-oracle",
-                                         "naive-cascade", "direct-only")}
+                                         "naive-cascade", "direct-only", "LLM-direct")}
     by_family: dict[str, RevisionScore] = {}
+    direct_by_family: dict[str, RevisionScore] = {}
     ext = ExtractionScore()
     reading_ok = reading_n = rel_ok = rel_n = 0
     for it in items:
@@ -85,6 +88,9 @@ def score(items: list[dict]) -> dict:
         for k, actions in variants.items():
             rev[k].add(gold, _memories(actions))
         by_family.setdefault(ev["family"], RevisionScore()).add(gold, _memories(variants["P"]))
+        if it.get("direct") is not None:
+            rev["LLM-direct"].add(gold, it["direct"])
+            direct_by_family.setdefault(ev["family"], RevisionScore()).add(gold, it["direct"])
         ext.add({m: j for m, j in gj.items()}, ij)
         for uid, g in gread.items():
             r = iread.get(uid)
@@ -97,6 +103,7 @@ def score(items: list[dict]) -> dict:
         "scenarios": len(items),
         "revision": {k: v.summary() for k, v in rev.items()},
         "revision_P_by_family": {k: v.summary() for k, v in sorted(by_family.items())},
+        "revision_LLM_direct_by_family": {k: v.summary() for k, v in sorted(direct_by_family.items())},
         "graph_extraction": ext.summary(),
         "update_reading_exact": reading_ok / reading_n if reading_n else None,
         "source_reliability_accuracy": rel_ok / rel_n if rel_n else None,

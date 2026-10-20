@@ -17,6 +17,7 @@ from dataclasses import asdict
 from pathlib import Path
 
 from beliefbench.beliefgraph_eval import load_accepted, score
+from beliefbench.llm_baselines import DIRECT_VERSION, llm_direct
 from beliefgraph.core import BeliefGraph, Graph, UpdateReading
 from beliefgraph.llm import PROVIDERS, make_llm
 from beliefgraph.prompts import BUILD_VERSION, READ_VERSION
@@ -29,6 +30,8 @@ class CachedLLM:
         self.llm, self.raw_dir, self.calls = llm, raw_dir, 0
 
     def __call__(self, system: str, message: str, note: str = "") -> str:
+        # The system prompt text identifies the prompt (and its version); keep this key stable so
+        # cached responses are never re-billed.
         key = hashlib.sha256(f"{BUILD_VERSION}|{READ_VERSION}|{getattr(self.llm, 'model', '')}|{system}|{message}"
                              .encode()).hexdigest()[:16]
         path = self.raw_dir / f"{note.replace(' ', '.')}.{key}.json"
@@ -51,12 +54,14 @@ def main() -> None:
     ap.add_argument("--budget-usd", type=float, default=3.0)
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--runs", nargs="+", default=RUNS, help="rendered runs to evaluate on")
+    ap.add_argument("--no-direct", action="store_true", help="skip the LLM-direct baseline (1 extra call each)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
     data = [x for r in args.runs for x in load_accepted(Path("data/rendered") / r)]
     data = data[: args.limit] if args.limit else data
-    print(f"{len(data)} accepted scenarios from {args.runs}; 2 LLM calls each (build, read)")
+    print(f"{len(data)} accepted scenarios from {args.runs}; {2 if args.no_direct else 3} LLM calls each "
+          f"(build, read{'' if args.no_direct else ', LLM-direct baseline'})")
     if args.dry_run:
         return
     out = Path("data/beliefgraph") / args.run
@@ -66,7 +71,7 @@ def main() -> None:
 
         load_dotenv()
     llm = make_llm(args.provider, model=args.model, base_url=args.base_url, budget_usd=args.budget_usd,
-                   max_calls=2 * len(data) + 10)
+                   max_calls=3 * len(data) + 10)
     cached = CachedLLM(llm, out / "raw")
     bg = BeliefGraph(cached)
     items, failures = [], {}
@@ -76,6 +81,7 @@ def main() -> None:
             try:
                 graph = bg.build(sv)
                 readings, rerr = bg.read_updates(sv)
+                direct, derr = (None, []) if args.no_direct else llm_direct(cached, sv)
             except Exception as e:  # noqa: BLE001 -- budget refusals and provider errors end this scenario
                 failures[name] = f"{type(e).__name__}: {str(e)[:200]}"
                 print(f"FAIL {name}: {failures[name]}")
@@ -83,13 +89,13 @@ def main() -> None:
                     break
                 continue
             items.append({"sv": sv, "ev": ev, "seed": seed, "graph": asdict(graph), "readings": readings,
-                          "errors": graph.errors + rerr})
-            print(f"ok {name} ({len(graph.errors) + len(rerr)} parse notes)")
+                          "direct": direct, "errors": graph.errors + rerr + derr})
+            print(f"ok {name} ({len(graph.errors) + len(rerr) + len(derr)} parse notes)")
     finally:
         if hasattr(llm, "close"):
             llm.close()
     result = score(items) | {"provider": args.provider, "model": llm.model, "build_prompt": BUILD_VERSION,
-                             "read_prompt": READ_VERSION, "failures": failures, "new_calls": cached.calls,
+                             "read_prompt": READ_VERSION, "direct_prompt": DIRECT_VERSION, "failures": failures, "new_calls": cached.calls,
                              "usage": llm.usage}
     if args.provider == "lyzr":
         result["est_usd_conservative"] = round(llm.client["guard"].spent_usd, 4)
@@ -97,12 +103,15 @@ def main() -> None:
     (out / "predictions.json").write_text(json.dumps(
         [{"scenario": f"{it['ev']['source_scenario']}@{it['seed']}", "opaque": it["sv"]["scenario"],
           "graph": it["graph"], "readings": {k: asdict(v) for k, v in it["readings"].items()},
+          "direct": {k: v.value for k, v in (it["direct"] or {}).items()},
           "errors": it["errors"]} for it in items], indent=1))
     show = {k: result[k] for k in ("scenarios", "graph_extraction", "update_reading_exact",
                                    "source_reliability_accuracy", "failures")}
     print(json.dumps(show, indent=1, default=str))
     for k, v in result["revision"].items():
-        print(f"{k:18s} acc {v['accuracy']:.3f}  stale {v['stale_rate']}  over-inval {v['over_invalidation_rate']}")
+        if v["n"]:
+            print(f"{k:18s} acc {v['accuracy']:.3f}  macro-F1 {v['macro_f1']:.3f}  stale {v['stale_rate']}  "
+                  f"over-inval {v['over_invalidation_rate']}")
     if "est_usd_conservative" in result:
         print("spent ≈ $", result["est_usd_conservative"])
 
