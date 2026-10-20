@@ -186,3 +186,46 @@ def test_render_one_falls_back_to_a_whole_attempt_when_the_repair_oversteps(tmp_
     _, _, _, k = rr.render_one(s, renderer, tmp_path, "gemini-3.5-flash", 2, seed=0, version="render-v8",
                                repairer=repairer, max_repairs=1)
     assert k == 2 and len(agent.messages) == 2
+
+
+class FlakyAgent(FakeAgent):
+    """Raises the given errors first, then answers."""
+
+    def __init__(self, errors, replies):
+        super().__init__(replies)
+        self.errors = list(errors)
+
+    def run(self, message, session_id=None):
+        if self.errors:
+            self.messages.append((message, session_id))
+            raise self.errors.pop(0)
+        return super().run(message, session_id)
+
+
+def test_provider_error_is_charged_at_worst_case_and_retried_once():
+    agent = FlakyAgent([ConnectionError("Server disconnected")], ["ok"])
+    guard = SpendGuard(1.0, 10)
+    r = LyzrRenderer(guard, studio=FakeStudio(agent), system_prompt="p")
+    text, _ = r.call("hello", note="x")
+    assert text == "ok" and len(agent.messages) == 2
+    failed = [c for c in guard.log if c["basis"] == "failed_call_worst_case"]
+    assert len(failed) == 1 and failed[0]["est_usd"] == pytest.approx(guard.worst_case(len("p") + len("hello")), abs=1e-6)
+
+
+def test_second_provider_error_is_raised_and_both_charged():
+    agent = FlakyAgent([ConnectionError("a"), ConnectionError("b")], [])
+    guard = SpendGuard(1.0, 10)
+    r = LyzrRenderer(guard, studio=FakeStudio(agent), system_prompt="p")
+    with pytest.raises(ConnectionError):
+        r.call("hello")
+    assert sum(c["basis"] == "failed_call_worst_case" for c in guard.log) == 2
+
+
+def test_provider_retry_never_exceeds_the_cap():
+    agent = FlakyAgent([ConnectionError("a")], ["ok"])
+    guard = SpendGuard(0.0, 10)
+    guard.budget_usd = guard.worst_case(len("p") + len("hello")) * 1.5  # room for one worst case only
+    r = LyzrRenderer(guard, studio=FakeStudio(agent), system_prompt="p")
+    with pytest.raises(BudgetExceeded):
+        r.call("hello")
+    assert len(agent.messages) == 1

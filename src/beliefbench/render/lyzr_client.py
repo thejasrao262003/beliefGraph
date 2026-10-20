@@ -115,6 +115,16 @@ class SpendGuard:
                          "est_usd": round(cost, 6)})
         return cost
 
+    def charge_failed(self, prompt_chars: int, note: str, error: str) -> float:
+        """A provider error (HTTP 5xx, dropped connection) may still have been billed: charge
+        the call's worst case, so the cap holds whatever the provider did."""
+        cost = self.worst_case(prompt_chars)
+        self.calls += 1
+        self.spent_usd += cost
+        self.log.append({"call": self.calls, "note": note, "prompt_chars": prompt_chars, "basis": "failed_call_worst_case",
+                         "error": error[:200], "est_usd": round(cost, 6)})
+        return cost
+
 
 class BudgetExceeded(RuntimeError):
     pass
@@ -156,7 +166,7 @@ class LyzrRenderer:
     """Thin wrapper: one Lyzr agent whose instructions are the renderer system prompt."""
 
     def __init__(self, guard: SpendGuard, studio: Any = None, temperature: float = 0.9,
-                 prompt_version: str = PROMPT_VERSION, system_prompt: str | None = None):
+                 prompt_version: str = PROMPT_VERSION, system_prompt: str | None = None, provider_retries: int = 1):
         if guard.model not in MODEL_PRICES:
             raise ValueError(f"model {guard.model!r} has no price entry; add one before using it")
         self.guard = guard
@@ -166,6 +176,7 @@ class LyzrRenderer:
         self.prompt_version = prompt_version
         # A version not in PROMPTS (e.g. "repair-v1") must bring its own pinned prompt.
         self.system_prompt = system_prompt if system_prompt is not None else PROMPTS[prompt_version]
+        self.provider_retries = provider_retries
 
     @property
     def agent(self):
@@ -189,10 +200,21 @@ class LyzrRenderer:
         return self._agent
 
     def call(self, message: str, note: str = "") -> tuple[str, dict]:
-        """One billed call. Raises BudgetExceeded *before* calling if it might not fit."""
+        """One billed call. Raises BudgetExceeded *before* calling if it might not fit. A
+        provider error is charged at worst case and the identical request is retried once
+        (``provider_retries``), again only if the guard allows it; then the error is raised."""
         prompt_chars = len(self.system_prompt) + len(message)
-        self.guard.check(prompt_chars)
-        resp = self.agent.run(message, session_id=f"render-{uuid.uuid4().hex[:12]}")
+        for attempt in range(self.provider_retries + 1):
+            self.guard.check(prompt_chars)
+            try:
+                resp = self.agent.run(message, session_id=f"render-{uuid.uuid4().hex[:12]}")
+                break
+            except BudgetExceeded:
+                raise
+            except Exception as e:  # noqa: BLE001 -- provider/transport failure
+                self.guard.charge_failed(prompt_chars, f"{note} (provider error, try {attempt + 1})", repr(e))
+                if attempt == self.provider_retries:
+                    raise
         text = getattr(resp, "response", None) or str(resp)
         meta = dict(getattr(resp, "metadata", None) or {})
         raw = getattr(resp, "raw_response", None) or {}

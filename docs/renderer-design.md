@@ -1190,3 +1190,54 @@ The family subsets are small (1–6 scenarios), so these are indicative only.
 - re-running F3-000, which would be an extra attempt;
 - a check for same-quantity OR alternatives, for which the records already carry the quantity label;
 - the ≥ 100-scenario proposal, which is premature until this criterion is met.
+
+## 23. F3-000 recovery retry, render-v12 checks, provider-error policy, second validation proposal (2026-10-20)
+
+**Approved by the user:** one F3-000 retry (≤ $0.15, reported separately); the two checks as model-free work; a proposal (not a run) for a second fresh validation.
+
+### 23a. F3-000 infrastructure-recovery retry: reported separately, does not change §22
+
+- **Run:** `validate-v11-f3-retry`. Same scenario, seed 1, render-v11 and flags; separate $0.15 cap.
+- **Result:** rendered on the first attempt, 0 hard flags, **$0.0979**.
+- **Claude review: accept.** Carbon offsets 600 → 400 break the 4-way AND set, and the ISO 14001 alternative keeps the chain. Its single-scenario lexical 0.62 comes from entity-matched distractors plus one chain link.
+- **§22 stands as recorded: 11/13, criterion not met.** The recovery shows only that F3-000 renders and passes review when the provider responds.
+- **Note:** the retry process was running while the v12 code was being edited. Everything new is gated to v12, so the run's v11 behaviour is the same either way.
+
+### 23b. render-v12 checks (commit `fd654ec`; gated to v12, so v10/v11 are not re-judged)
+
+| Gap | Check | Severity |
+|---|---|---|
+| A. OR alternatives over one quantity (validate-v11 F2-002) | `or_alternatives_same_condition`: premises in two different justification sets satisfy an **identical condition** (same quantity, or same base quantity once measurement-context words such as lab/field/tested are removed, and the same comparator, threshold and unit) | **Hard** |
+| | `or_alternatives_same_quantity`: same base quantity under **different** conditions (possibly legitimate context-specific measurements) | Soft (C3/C10) |
+| | No records: nothing is claimed | — |
+| B. Retraction introducing a window (validate-v11 F1-008) | `update_window_introduced` extended from supersedes to **retracts**, for number facts only. Credentials and dated events are exempt as before; a retraction keeping the fact's window passes | **Hard** |
+
+- **Prompt:** render-v12 = v11 + two sentences: alternatives must be different quantities or credentials; a retraction adds no window. Hash pinned.
+- **Repair:** a same-condition flag permits both facts (text, source, record), the policy and its condition records.
+
+**Regression over every stored record-bearing run** (pilot40, validate-v11, the F3 retry): the v12 checks flag **exactly** validate-v11 F2-002 (hard same-condition) and F1-008 (hard retraction window). **0 of the 48 other accepted scenarios** get any new flag, hard or soft.
+
+**Edge cases tested:**
+- identical conditions → hard;
+- lab vs field efficiency under the same condition → hard;
+- under different thresholds → soft;
+- different quantities → none;
+- no records → none;
+- retraction keeping the window, or credential dates → none.
+
+### 23c. Provider-error policy (declared before the next run)
+
+`LyzrRenderer.call` now charges a provider or transport failure at the call's **worst case**, since it may have been billed, and retries the **identical request once**, only if the guard still allows it. A second failure fails the scenario, recorded with its error; the run continues and reports are always written. No manual retries. Tested: a retry after one failure; two failures raised and both charged; a retry refused when the cap cannot cover it.
+
+### 23d. Proposed second fresh validation (for approval; nothing runs before it)
+
+| Item | Proposal |
+|---|---|
+| Prompt and checks | render-v12 (hash pinned), all current checks, targeted repair as the retry step |
+| Sample | **Fresh seed 2**, 16 scenarios, 4 per family, by `scripts/sample_validation.py --seed 2 --rng 20261020` (quota-stratified, random within quotas, reproducible): **F1-001, F1-002, F1-008, F1-004, F2-009, F2-004, F2-002, F2-000, F3-009, F3-005, F3-004, F3-007, F6-002, F6-005, F6-009, F6-000** |
+| Stress coverage | **Retraction windows:** F1-001 and F1-002 (retracts, depth 4–5), F2-009, F2-002, F3-004, F3-007. **OR alternatives:** all F2 (fan-in 2–4, preserved and not), F3-009 and F3-005 (with an alternative), F6-009 and F6-000. **Uncertain:** F6-002 (hedge) and F6-005 (low reliability), both with no alternative. **Deep chains:** F1-002 and F1-008 (depth 5) |
+| Command | `render_run.py --run validate-v12 --prompt-version render-v12 --seed 2 --only <the 16> --max-attempts 2 --max-repairs 2 --budget-usd 4.00` |
+| Predeclared success | (1) **≥ 15/16 accepted** (≥ 90%), with every scenario counted, including infrastructure failures that survive the one automatic retry; (2) 0 hard flags in accepted views; (3) 0 `final_state_mismatch`; (4) 0 `update_window_introduced` (updates and retractions) and 0 `or_alternatives_same_condition` in accepted views; (5) pooled worse-heuristic ≤ 0.50, reported with family-level and chain-only scores; (6) soft `or_alternatives_same_quantity` reported with the reviewer's judgement on each; (7) no mid-run changes, no regenerations to raise acceptance, and any new failure mode is documented |
+| Budget | **Hard cap $4.00.** Measured ≈ $0.12–0.14 per scenario including repairs, so expected ≈ $2.0–2.5. Stricter checks may add repairs, and failed calls are charged at worst case (≈ $0.14 each) |
+| Preservation | Raw renders and repairs (with diffs and merged responses), records, all flags, per-call costs including failed calls, review decisions |
+| Review | Claude's C1–C13 review, labelled AI. The blind human sample (§21c) is still outstanding and separate |
