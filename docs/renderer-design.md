@@ -631,3 +631,68 @@ An external AI assistant, supplied by the user, reviewed the three v7 sheets. It
 - **F6:** the renderer split one subject into two entities (a product and its maker) without stating the relation. No current check looks for this. A *subject-continuity* check could catch it: within a justification set, every premise must be about the conclusion's entity or one explicitly linked to it in the visible text. Possible hard-check candidate; a prompt rule would also be needed.
 - **F2:** a superseding value must be stated over the same period or unit as the fact and the policy threshold. This extends the v4 "same unit" rule to time windows. A prompt rule, judged by the reviewer under C4/C10.
 - Both are **semantic** failures that the lexical gate cannot see. That confirms the decision to make C8/C10 acceptance independent of the gate.
+
+## 18. render-v8 proposal (2026-10-20): subject and time-window continuity
+
+*Proposal only. **Nothing here is implemented, and no calls are authorised.** Pilot-2 stays recorded as failed (§17f), and pilot-1 as recorded (§16h–16j).*
+
+**Why the current checks missed both failures:** every automated check is lexical (shared phrases, shared words, bag-of-words recovery). The F2 and F6 failures are about *reference*: which entity a fact is about, and which time window a number covers. Two text pairs can share no wording and still disagree on reference.
+
+### 18a. Check 1: subject continuity (proposed hard)
+
+**Rule:** for every derived memory *m* and every **evidence** premise *e* in any of *m*'s justification sets (from the eval view, as the decoy check already does), *e*'s text must name *m*'s entity. A premise about a different entity passes only if *e*'s own text states the link (e.g. "Apex Medical Corp, maker of the BioGlow Diagnostic Kit, …"). A derived premise (a memory used as a condition) must have the same entity as *m*.
+
+- **Why the link must sit in the premise itself:** the frozen generator fixes the number of evidence items, so the renderer cannot add a separate "Apex makes BioGlow" fact. The link has to live inside the premise.
+- **Entity detection needs a new extractor.** `subject_names` returns nothing for "The Kestrel 800 device" (it skips a leading "The"), and treats "Vortex Solar Inc's Helios Panel" as a single name. Proposed: capitalised spans anywhere in the text, possessives split into owner + item, so both "Vortex Solar Inc" and "Helios Panel" count.
+- **Hard or soft:** **hard** when both texts contain a detected name and they share none. **Soft** (for C6/C8 review) when either side has no detectable name. A false hard flag costs one retry; a missed link costs a failed human review.
+- **Prompt rule (v8):** "SUBJECT CONTINUITY: every fact that supports a conclusion names the conclusion's entity. If a fact is about a related entity (maker, parent, owner), state the relation inside that fact."
+
+### 18b. Check 2: time-window continuity (proposed hard for a mismatch, soft for an unknown window)
+
+**Rule:** for every `supersedes` update, the time window of its new value must match the window of the target fact and of the threshold in the governing policy.
+
+- **Window detection:** normalise phrases to {year, quarter, month, multi-year N, unknown}:
+  - annual / yearly / per year / over the preceding year / last year → year;
+  - "quarterly" and "this quarter" → quarter, and so on;
+  - vague windows ("the evaluation period", "recently") → **unknown**.
+- **Value vs window:** a duration that *is* the quantity ("warranty period of 24 months → 6 months", "fleet age of 5.8 years") is the measured value, not a window, and must not trigger the check. Only window phrases attached to a count or amount ("during", "over", "per", "in the …") count.
+- **Hard or soft:** **hard** if the fact or policy has a window and the update states a **different** one. **Soft** (C4/C10) if the fact has a window and the update's is **unknown or missing**.
+  - The F2 case ("over the preceding year" vs "during the evaluation period") is the *unknown* case, so under this design it would be soft: the reviewer still decides, but the sheet now points at it.
+  - Making the unknown case hard instead is a choice for you. It catches more, at the cost of extra retries.
+- **Prompt rule (v8):** "An update that replaces a value states it over the same time window as the original fact (if the fact is annual, the new value is annual)."
+
+### 18c. Tests (to be written before any check code is trusted)
+
+Regressions from stored outputs (no calls):
+
+| Test | Input | Expected |
+|---|---|---|
+| R1 | v7 F6: `e_3dc4`, `e_45ef` (Apex Medical Corp) under BioGlow memories | **subject flag (hard)** on both |
+| R2 | v7 F2: `u_a152` "during the evaluation period" vs fact "over the preceding year" and policy "annual" | **window flag (soft, unknown)** |
+| C1 | v7 F2 `e_e50c` "Apex Medical logged … audits **for the Kestrel 800 device**" | no subject flag: the premise names the conclusion's entity |
+| C2 | v5 F1, v5b F2, v5b F6 (all premises name the same company), v7 F1 | no flags from either check |
+| C3 | v7 F1 update "warranty coverage period to 6 months"; v5b F2 "vehicle age of 5.8 years" | no window flag (value, not window) |
+| C4 | v5b F6 update "… $650,000 … during the previous year" (a retraction) | not checked: only `supersedes` is |
+| S1 | synthetic: "Apex Medical Corp, maker of the BioGlow Diagnostic Kit, holds …" | no subject flag |
+| S2 | synthetic: fact "annual revenue of $2M", update "revenue last quarter of $400k" | **window flag (hard, mismatch)** |
+| S3 | synthetic: "The Kestrel 800 device …" and a possessive "Vortex Solar Inc's Helios Panel …" | extractor finds "Kestrel 800"; "Helios Panel" matches a memory naming only the panel |
+| S4 | distractor facts in no justification set | never subject-checked |
+
+Before any call, I will also report what both checks flag on **every stored run** (smoke v1–v7), so you can see their false-positive rate on real output.
+
+### 18d. Proposed pilot-3: scope, gate, budget (for approval after the code and tests are reviewed)
+
+| Item | Proposal |
+|---|---|
+| Prompt | render-v8 = verbatim v7 (pinned) + the two prompt rules above; v8 hash pinned before the run |
+| Scope | **Option A:** F1-000, F2-000, F6-000 fresh under v8 (same as pilot-2). **Option B:** also add **F3-000**. The 40-scenario run includes F3 (10 scenarios, the AND-heavy family), and F3 has not been rendered since smoke test 3 (render-v3). I recommend B |
+| Per-scenario acceptance | 0 hard flags (including both new checks) within 2 attempts; human review of C1–C13; `accept` with C8 and C10 passing |
+| Gate | Worse heuristic's justification-set F1 ≤ 0.50, pooled over exactly the declared set; per-scenario numbers and soft-flag counts reported alongside |
+| Stop rule | As in pilot-2: an automated failure after 2 attempts, a guard refusal, or any human fail/`revise` stops the pilot. No scope change, no criteria change |
+| Budget | New pilot-3 cap, cumulative. **A: $0.60** (3 × $0.141 first attempts + about one retry). **B: $0.80** (4 × $0.141 + about one retry). Expected ≈ $0.21 (A) / ≈ $0.28 (B), at the pilot-2 rate of ≈ $0.068 per call |
+| History | Pilot-1 and pilot-2 stay recorded as they are; no review carries over |
+
+**Decisions needed, in order:**
+1. Approve implementing §18a–18c (code + tests + the stored-output report). Still no calls.
+2. Choose hard or soft for the *unknown window* case.
+3. After reviewing the code and report: choose scope A or B and approve the cap.
