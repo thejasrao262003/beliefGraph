@@ -154,3 +154,35 @@ def test_find_usage_and_charge_on_reported_tokens():
 def test_unverified_price_gets_safety_factor():
     g = SpendGuard(1.0, 5, model="gemini-3.5-flash")
     assert g.prices == pytest.approx((1.50 * 1.5, 7.50 * 1.5))
+
+
+def test_render_one_repairs_only_the_flagged_field_before_any_rerender(tmp_path):
+    rr = _load_script()
+    s = generate_suite(1, seed=0, families=["F2"])[0]
+    first_mem = next(n.id for n in s.nodes if not n.is_evidence)
+    agent = FakeAgent([good_response(s, leak="Per E1 this holds.")])
+    fix = json.dumps({"replacements": {f"nodes.{first_mem}.text": "The item holds."}})
+    rep_agent = FakeAgent([fix])
+    guard = SpendGuard(1.0, 10)
+    renderer = LyzrRenderer(guard, studio=FakeStudio(agent))
+    repairer = LyzrRenderer(guard, studio=FakeStudio(rep_agent), system_prompt="repair")
+    r, system, _, k = rr.render_one(s, renderer, tmp_path, "gemini-3.5-flash", 2, seed=0, version="render-v8",
+                                    repairer=repairer, max_repairs=1)
+    assert k == 1 and len(agent.messages) == 1 and len(rep_agent.messages) == 1  # no whole re-render
+    assert r.texts[first_mem] == "The item holds."
+    rec = json.loads(next(tmp_path.glob("*.a1.r1.json")).read_text())
+    assert rec["diff"] == [f"nodes.{first_mem}.text"] and rec["merge_errors"] == []
+
+
+def test_render_one_falls_back_to_a_whole_attempt_when_the_repair_oversteps(tmp_path):
+    rr = _load_script()
+    s = generate_suite(1, seed=0, families=["F2"])[0]
+    first_mem = next(n.id for n in s.nodes if not n.is_evidence)
+    agent = FakeAgent([good_response(s, leak="Per E1 this holds."), good_response(s)])
+    overstep = json.dumps({"replacements": {f"nodes.{first_mem}.text": "Fine.", "world": "changed"}})
+    guard = SpendGuard(1.0, 10)
+    renderer = LyzrRenderer(guard, studio=FakeStudio(agent))
+    repairer = LyzrRenderer(guard, studio=FakeStudio(FakeAgent([overstep])), system_prompt="repair")
+    _, _, _, k = rr.render_one(s, renderer, tmp_path, "gemini-3.5-flash", 2, seed=0, version="render-v8",
+                               repairer=repairer, max_repairs=1)
+    assert k == 2 and len(agent.messages) == 2

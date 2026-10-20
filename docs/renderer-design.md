@@ -995,3 +995,18 @@ The stored renders have no records, so the tests use **hand-annotated record fix
 - **Observations (nothing applied):**
   - **Check bug:** scope words in an *outcome name* ("national inventory schedules", "international commercial readiness") can be attributed to a condition. Candidate fixes: make "record none vs a scope word in the clause" soft (a stated *different* scope stays hard), or split clauses at "granted to / awarded to / with". Either must be declared before the next run and must not be used to re-judge this one.
   - **The word-level hard checks remain the main cause of rejection:** pilot-3 F1 ("sales", "reliability"), pilot-4b F1 attempt 1, F6 attempt 2. Each whole-scenario retry re-rolls every check (§18g). Using the targeted repair (§18h, shown to work once) as attempt 2 would address this.
+
+### 19i. Fix-until-it-works effort (user, 2026-10-20): $5.00 cap; two pipeline changes, declared before any call
+
+**User decision:** keep running until F6 is fixed, with a **$5.00 cap** for this effort, counted from $0 via a fresh guard. Pilot-4/4b spend ($1.1098) is recorded separately. Claude reviews the scenarios (labelled as such).
+
+**Changes made before any call in this effort; 141 tests pass:**
+1. **Scope word in a policy clause vs a record scope of "none" → soft** (`record_scope_word_in_policy_clause`, judged under C10). This is the pilot-4b F6 attempt-1 false positive ("Listing in **national** inventory schedules …"). A stated *different* scope (`record_scope_mismatch`, `record_scope_not_in_policy` when the record names a scope) stays hard. A regression test pins both. This does **not** re-judge pilot-4b: that run stays failed as recorded.
+2. **Targeted repair as the retry step** (`render_run --max-repairs N`). A render rejected by hard checks gets up to N repairs, each changing only the fields its flags map to, before the next whole-scenario attempt.
+   - For record flags, the mapped fields are the texts and records of the items involved (e.g. scope mismatch E1→B1: `nodes.E1.text`, `facts.E1`, `policies.B1`, `conditions.B1`).
+   - Records are replaced as whole JSON values of the same shape. The diff gate allows only changes under the mapped fields, and every hard check re-runs after each merge.
+   - The repair prompt is the render prompt + the repair instructions (+ a records note for v9+). `repair-v1` for v8 is unchanged and pinned.
+   - Each repair is cached as `<attempt>.r<k>.json` with its permitted fields, raw reply, merge errors, diff and merged response.
+   - Tests cover: repair before re-render, fallback to a whole attempt when a repair oversteps, record-field mapping, records and text replaced together, the wrong shape refused, and the prompt variants.
+
+**Run plan:** F6 fresh under render-v10, `--max-attempts 3 --max-repairs 2`, guard cap $5.00. Then Claude's C1–C13 review. Iterate on failures within the cap. If F6 is accepted, the four-scenario gate is pooled over F1–F3 (pilot-4b, unchanged) + this F6. F1–F3 had 0 hard flags under both check versions, and the mix is disclosed.

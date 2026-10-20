@@ -741,7 +741,11 @@ def record_flags(system: dict, evaluation: dict) -> list[Flag]:
             if c["scope"] != "none" and c["scope"] not in scopes_in(pol):
                 hard(item, "record_scope_not_in_policy", c["scope"])
             elif c["scope"] == "none" and clause is not None and scopes_in(clause):
-                hard(item, "record_scope_not_in_policy", f"record none, clause {'/'.join(sorted(scopes_in(clause)))}")
+                # Soft (2026-10-20, pilot-4b F6 attempt 1): outcome names often carry scope
+                # words ("Listing in national inventory schedules"), which clause splitting
+                # cannot always separate from the condition. A stated different scope stays hard.
+                soft(item, "record_scope_word_in_policy_clause",
+                     f"record none, clause {'/'.join(sorted(scopes_in(clause)))}")
 
     # Updates: a superseding value keeps the target's quantity, unit, window and scope.
     targets = evaluation.get("update_targets") or {}

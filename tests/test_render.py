@@ -950,3 +950,64 @@ def test_v10_is_v9_plus_the_wording_clarification():
     assert hashlib.sha256(PROMPTS["render-v9"].encode()).hexdigest() == V9_SHA256
     assert hashlib.sha256(PROMPTS["render-v10"].encode()).hexdigest() == V10_SHA256
     assert "Records are labels for checking only" in PROMPTS["render-v10"]
+
+
+# ── 2026-10-20 after pilot-4b F6: scope word in an outcome name is soft; repairs reach records ──
+
+
+def test_scope_word_in_an_outcome_name_is_soft_pilot4b_f6_attempt1():
+    rec = json.loads(next((RENDERED / "pilot4b-render-v10-f6" / "raw").glob("*.a1.json")).read_text())
+    s = next(x for x in generate_suite(10, 0) if x.id == "F6-000")
+    sv, ev = build_views(s, parse_response(s, rec["response"], version="render-v10"), seed=0)
+    flags = leakcheck.record_flags(sv, ev)
+    assert not [f for f in flags if f.hard]
+    assert "record_scope_word_in_policy_clause" in {f.kind for f in flags}
+
+
+def test_stated_different_scope_stays_hard():
+    flags, _, _ = _with_records("v8_F1_repaired_revise_scope")
+    assert ("record_scope_mismatch", "E1->B1", True) in flags
+
+
+def _records_base():
+    f = json.loads(FIXTURES.read_text())["v8_F1_repaired_revise_scope"]
+    rec = json.loads((RENDERED / f["raw"]).read_text())
+    obj = repair.load_response(rec["response"]) | {"facts": f["facts"], "conditions": f["conditions"]}
+    s = _f1()
+    r = parse_response(s, json.dumps(obj), version="render-v10")
+    sv, ev = build_views(s, r, seed=0)
+    return s, obj, sv, ev
+
+
+def test_record_flag_maps_to_the_texts_and_records_involved():
+    _, obj, sv, ev = _records_base()
+    hard = [f for f in leakcheck.record_flags(sv, ev) if f.hard]
+    assert sorted(repair.editable_paths(hard, ev, obj)) == ["conditions.B1", "facts.E1", "nodes.E1.text", "policies.B1"]
+
+
+def test_repair_can_replace_records_and_text_together():
+    s, obj, sv, ev = _records_base()
+    hard = [f for f in leakcheck.record_flags(sv, ev) if f.hard]
+    problems = repair.editable_paths(hard, ev, obj)
+    conds = copy.deepcopy(obj["conditions"]["B1"])
+    conds[0]["scope"] = "local"
+    policy = obj["policies"]["B1"].replace("regional", "local")
+    merged, errors = repair.apply_repair(obj, json.dumps({"replacements": {
+        "conditions.B1": conds, "policies.B1": policy, "facts.E1": obj["facts"]["E1"],
+        "nodes.E1.text": obj["nodes"]["E1"]["text"]}}), problems)
+    assert errors == [] and repair.changed_paths(obj, merged) <= {"policies.B1", "conditions.B1[0].scope"}
+    r = parse_response(s, json.dumps(merged), version="render-v10")
+    sv2, ev2 = build_views(s, r, seed=0)
+    assert not [f for f in leakcheck.record_flags(sv2, ev2) if f.hard]
+
+
+def test_repair_refuses_a_record_replaced_by_the_wrong_shape():
+    _, obj, sv, ev = _records_base()
+    problems = repair.editable_paths([f for f in leakcheck.record_flags(sv, ev) if f.hard], ev, obj)
+    reply = {p: repair.get_path(obj, p) for p in problems} | {"conditions.B1": "regional"}
+    merged, errors = repair.apply_repair(obj, json.dumps({"replacements": reply}), problems)
+    assert merged is None and any("must be a list" in e for e in errors)
+
+
+def test_repair_prompt_for_record_versions_mentions_records_and_v8_stays_pinned():
+    assert "facts.<id>" in repair.repair_prompt("render-v10") and "facts.<id>" not in repair.REPAIR_PROMPTS["repair-v1"]

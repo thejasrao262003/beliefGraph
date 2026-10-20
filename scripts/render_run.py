@@ -33,6 +33,7 @@ from beliefbench.render.lyzr_client import (
     SpendGuard,
 )
 from beliefbench.render.prompt import PROMPT_VERSION, PROMPTS, parse_response, user_message
+from beliefbench.render import repair
 from beliefbench.render.review import review_sheet, write_csv_template
 from beliefbench.render.views import build_views
 
@@ -48,9 +49,47 @@ def attempt_message(s, feedback: list[str], seed: int = 0) -> str:
     return msg
 
 
+def repair_loop(s, base_response: dict, system: dict, evaluation: dict, hard: list, repairer, raw_dir: Path,
+                cache_stem: str, max_repairs: int, seed: int, version: str):
+    """Targeted repairs (repair.py) of one rejected rendering: each call may change only the
+    fields its hard flags map to; every hard check is re-run after each merge. Returns
+    (rendering, system, evaluation) on success, else None. Each repair is cached as
+    <stem>.r<k>.json next to the attempt it repairs."""
+    response = base_response
+    for k in range(1, max_repairs + 1):
+        try:
+            problems = repair.editable_paths(hard, evaluation, response)
+        except ValueError:
+            return None  # a flag that maps to no field: not repairable
+        cache = raw_dir / f"{cache_stem}.r{k}.json"
+        if cache.exists():
+            rec = json.loads(cache.read_text())
+        else:
+            if repairer is None:
+                return None
+            text, meta = repairer.call(repair.repair_message(response, problems), note=f"{s.id} {cache_stem[-2:]} repair {k}")
+            rec = {"scenario": s.id, "repair": k, "prompt_version": version, "permitted": problems,
+                   "response": text, "metadata": meta}
+        merged, errors = repair.apply_repair(response, rec["response"], problems)
+        rec["merge_errors"] = errors
+        if merged is not None:
+            rec["diff"] = sorted(repair.changed_paths(response, merged))
+            rec["merged"] = merged
+        cache.write_text(json.dumps(rec, indent=1, default=str))
+        if merged is None:
+            return None
+        r, system, evaluation, hard = repair.verify(s, merged, version, seed)
+        if not hard:
+            return r, system, evaluation
+        response = merged
+    return None
+
+
 def render_one(s, renderer: LyzrRenderer | None, raw_dir: Path, model: str, max_attempts: int, seed: int,
-               version: str = PROMPT_VERSION):
-    """Returns (rendering, system, evaluation, attempts) or raises after max_attempts."""
+               version: str = PROMPT_VERSION, repairer: LyzrRenderer | None = None, max_repairs: int = 0):
+    """Returns (rendering, system, evaluation, attempts) or raises after max_attempts. With
+    max_repairs > 0, a rendering rejected by hard checks gets up to that many targeted
+    repairs before the next whole-scenario attempt."""
     feedback: list[str] = []
     for attempt in range(1, max_attempts + 1):
         cache = raw_dir / f"{s.id}.{payload_hash(s, model, seed, version)}.a{attempt}.json"
@@ -69,6 +108,11 @@ def render_one(s, renderer: LyzrRenderer | None, raw_dir: Path, model: str, max_
             continue
         system, evaluation = build_views(s, r, seed=seed)
         hard = leakcheck.hard_flags(system, evaluation, version)
+        if hard and max_repairs:
+            fixed = repair_loop(s, repair.load_response(rec["response"]), system, evaluation, hard, repairer, raw_dir,
+                                cache.stem, max_repairs, seed, version)
+            if fixed:
+                return (*fixed, attempt)
         if hard:
             inv = {v: k for k, v in evaluation["idmap"].items()}
             def name(item):
@@ -93,6 +137,8 @@ def main() -> None:
                     help="spend already charged against this budget by earlier runs (makes the cap cumulative)")
     ap.add_argument("--max-attempts", type=int, default=3)
     ap.add_argument("--only", nargs="+", default=None, help="render only these scenario ids (e.g. F1-000 F6-000)")
+    ap.add_argument("--max-repairs", type=int, default=0,
+                    help="targeted repairs of a rejected rendering before the next whole attempt")
     ap.add_argument("--stop-on-failure", action="store_true",
                     help="stop the whole run when a scenario fails all its attempts (pilot-2 control)")
     ap.add_argument("--dry-run", action="store_true")
@@ -111,7 +157,7 @@ def main() -> None:
         missing = set(args.only) - {s.id for s in suite}
         if missing:
             sys.exit(f"unknown scenario ids: {sorted(missing)}")
-    max_calls = len(suite) * args.max_attempts
+    max_calls = len(suite) * args.max_attempts * (1 + args.max_repairs)
     guard = SpendGuard(budget_usd=args.budget_usd, max_calls=max_calls, model=args.model,
                        spent_usd=args.prior_spend_usd)
     out = Path("data/rendered") / (args.run or f"pilot-{args.prompt_version}")
@@ -145,12 +191,14 @@ def main() -> None:
     for d in ("raw", "system", "eval"):
         (out / d).mkdir(parents=True, exist_ok=True)
     renderer = LyzrRenderer(guard, prompt_version=args.prompt_version)
+    repairer = (LyzrRenderer(guard, temperature=repair.REPAIR_TEMPERATURE, prompt_version=args.prompt_version,
+                             system_prompt=repair.repair_prompt(args.prompt_version)) if args.max_repairs else None)
     pairs, failures, attempts = [], {}, {}
     try:
         for s in suite:
             try:
                 r, system, evaluation, k = render_one(s, renderer, raw_dir, args.model, args.max_attempts, args.seed,
-                                                      args.prompt_version)
+                                                      args.prompt_version, repairer, args.max_repairs)
             except BudgetExceeded as e:
                 print(f"STOP: {e}", file=sys.stderr)
                 break
@@ -168,6 +216,8 @@ def main() -> None:
             print(f"ok {s.id} -> {system['scenario']} (attempt {k}, spent≈${guard.spent_usd:.4f})")
     finally:
         renderer.close()
+        if repairer:
+            repairer.close()
 
     rep = leakcheck.check(pairs, leakcheck.evidence_echo_hard(args.prompt_version),
                           leakcheck.continuity_enforced(args.prompt_version)) if pairs else None

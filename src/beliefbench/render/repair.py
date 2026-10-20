@@ -45,7 +45,21 @@ OUTPUT: a single JSON object, no prose, exactly:
 {"replacements": {"<field path>": "<new text>"}}
 with one entry for each listed field path and no other entries.
 """
-REPAIR_PROMPTS = {REPAIR_VERSION: PROMPTS["render-v8"] + "\n" + _REPAIR_INSTRUCTIONS}
+_RECORDS_NOTE = """\
+A field path that names a record ("facts.<id>" or "conditions.<id>") is replaced as a whole \
+JSON value of the same shape (an object for facts, a list for conditions). After the repair, \
+the texts and the records must agree with each other.
+"""
+
+
+def repair_prompt(version: str) -> str:
+    """The repair system prompt for a rendering made under ``version``."""
+    from beliefbench.render.prompt import RECORD_VERSIONS
+
+    return PROMPTS[version] + "\n" + _REPAIR_INSTRUCTIONS + (_RECORDS_NOTE if version in RECORD_VERSIONS else "")
+
+
+REPAIR_PROMPTS = {REPAIR_VERSION: repair_prompt("render-v8")}
 
 
 def load_response(raw: str) -> dict:
@@ -71,7 +85,21 @@ def changed_paths(before: dict, after: dict) -> set[str]:
     return {p for p in a.keys() | b.keys() if a.get(p) != b.get(p)}
 
 
-def _set(obj: dict, path: str, value: str) -> None:
+def _parts(path: str) -> list:
+    return [int(p[1:-1]) if p.startswith("[") else p for p in re.findall(r"[^.\[\]]+|\[\d+\]", path)]
+
+
+def get_path(obj, path: str):
+    for key in _parts(path):
+        obj = obj[key]
+    return obj
+
+
+def _under(path: str, permitted: set[str]) -> bool:
+    return any(path == p or path.startswith(p + ".") or path.startswith(p + "[") for p in permitted)
+
+
+def _set(obj: dict, path: str, value) -> None:
     parts = re.findall(r"[^.\[\]]+|\[\d+\]", path)
     cur = obj
     for i, part in enumerate(parts):
@@ -101,7 +129,15 @@ WHY = {
                                   "or state its relation to it inside the same fact",
     "update_window_mismatch": "an update must state its value over the same time window as the original fact",
     "fact_policy_window_mismatch": "a condition must use the same time window as the fact it is compared with",
+    "record_scope_mismatch": "the fact's scope must be the scope the condition requires",
+    "record_condition_not_met": "the fact's value must satisfy the condition's threshold",
+    "relation_not_stated_in_fact": "a fact about a related entity must state the relation inside the fact",
+    "record_outcome_mismatch": "after_updates must follow from the records and the updates",
 }
+# Record-check kinds (render-v9+): the problem can sit in a text or in its record, so the
+# repair may change the texts and records of the items involved, and nothing else.
+_RECORD_PREFIXES = ("record_", "relation_not_stated", "conclusion_about_other", "update_entity_", "update_kind_",
+                    "update_quantity_", "update_unit_", "update_scope_")
 
 
 def editable_paths(flags: list[leakcheck.Flag], evaluation: dict, response: dict) -> dict[str, str]:
@@ -124,9 +160,38 @@ def editable_paths(flags: list[leakcheck.Flag], evaluation: dict, response: dict
         field = "source" if match and match not in item.get("text", "") and match in item.get("source", "") else "text"
         return f"{section}.{orig}.{field}"
 
+    has_records = "facts" in response and "conditions" in response
+    node_of = inv
+
+    def record_paths(f) -> list[str]:
+        if "->" in f.item:
+            p, m = (node_of.get(x) for x in f.item.split("->"))
+            if p is None or m is None:
+                raise ValueError(f"cannot map flagged item {f.item!r}")
+            paths = [f"policies.{m}", f"conditions.{m}"]
+            if p in response["facts"]:
+                paths += [f"facts.{p}", f"{'updates' if p.startswith('U') else 'nodes'}.{p}.text"]
+            if f.kind == "record_entity_not_in_memory":
+                paths.append(f"nodes.{m}.text")
+            return paths
+        x = node_of.get(f.item)
+        if x is None:
+            raise ValueError(f"cannot map flagged item {f.item!r}")
+        if f.kind == "record_outcome_mismatch":
+            return [f"after_updates.{x}", f"conditions.{x}", f"policies.{x}"]
+        if x.startswith("U") and f.kind.startswith("update_"):  # an update disagreeing with its target
+            target = node_of[evaluation["update_targets"][f.item]["target"]]
+            return [f"facts.{x}", f"updates.{x}.text", f"facts.{target}"]
+        return [f"facts.{x}", f"{'updates' if x.startswith('U') else 'nodes'}.{x}.text"]
+
     out: dict[str, str] = {}
     for f in flags:
         if not f.hard:
+            continue
+        why = f"{f.kind} '{f.match}'" + (f" ({WHY[f.kind]})" if f.kind in WHY else "")
+        if has_records and f.kind.startswith(_RECORD_PREFIXES):
+            for path in record_paths(f):
+                out[path] = (out[path] + "; " if path in out else "") + why
             continue
         if "~" in f.item:  # echo / window pairs: the policy side is the one to reword
             target = f.item.split("~")[1]
@@ -135,13 +200,12 @@ def editable_paths(flags: list[leakcheck.Flag], evaluation: dict, response: dict
         else:
             target = f.item
         path = path_of(target, f.match)
-        why = f"{f.kind} '{f.match}'" + (f" ({WHY[f.kind]})" if f.kind in WHY else "")
         out[path] = (out[path] + "; " if path in out else "") + why
     return out
 
 
 def repair_message(response: dict, problems: dict[str, str]) -> str:
-    fields = "\n".join(f'- "{p}": current text {json.dumps(_flatten(response)[p])}; problem: {why}'
+    fields = "\n".join(f'- "{p}": current value {json.dumps(get_path(response, p))}; problem: {why}'
                        for p, why in sorted(problems.items()))
     return ("Repair this scenario.\n\nSCENARIO (as you wrote it):\n" + json.dumps(response, indent=1)
             + "\n\nFIELDS YOU MAY CHANGE, AND WHY:\n" + fields)
@@ -161,17 +225,21 @@ def apply_repair(response: dict, repair_raw: str, problems: dict[str, str]) -> t
     if set(repl) != set(problems):
         errors.append(f"replacement fields {sorted(repl)} != permitted fields {sorted(problems)}")
     for p, v in repl.items():
-        if not isinstance(v, str) or not v.strip():
+        try:
+            old = get_path(response, p)
+        except (KeyError, IndexError, TypeError):
+            errors.append(f"{p}: no such field in the frozen response")
+            continue
+        if isinstance(old, str) and (not isinstance(v, str) or not v.strip()):
             errors.append(f"{p}: replacement must be non-empty text")
+        elif not isinstance(old, str) and type(v) is not type(old):
+            errors.append(f"{p}: replacement must be a {type(old).__name__} like the original")
     if errors:
         return None, errors
     merged = copy.deepcopy(response)
     for p, v in repl.items():
-        try:
-            _set(merged, p, v.strip())
-        except (KeyError, IndexError, TypeError):
-            return None, [f"{p}: no such field in the frozen response"]
-    outside = changed_paths(response, merged) - set(problems)
+        _set(merged, p, v.strip() if isinstance(v, str) else v)
+    outside = {c for c in changed_paths(response, merged) if not _under(c, set(problems))}
     if outside:
         return None, [f"changes outside the permitted fields: {sorted(outside)}"]
     return merged, []
