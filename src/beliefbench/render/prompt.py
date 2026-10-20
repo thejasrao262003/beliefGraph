@@ -24,7 +24,7 @@ from dataclasses import dataclass, field
 from beliefbench.render.views import timeline
 from beliefbench.schema import Scenario
 
-PROMPT_VERSION = "render-v9"
+PROMPT_VERSION = "render-v10"
 
 # Exactly the text used for smoke test 2 (commit 896d366). Do not edit.
 SYSTEM_PROMPT_V2 = """\
@@ -439,7 +439,7 @@ def _v9_from_v8(v8: str) -> str:
 
 
 SYSTEM_PROMPT_V9 = _v9_from_v8(SYSTEM_PROMPT_V8)
-RECORD_VERSIONS = {"render-v9"}
+RECORD_VERSIONS = {"render-v9", "render-v10"}
 WINDOWS_ALLOWED = {"none", "year", "quarter", "month", "week"}
 SCOPES_ALLOWED = {"none", "local", "regional", "national", "international", "global"}
 COMPARATORS = {">=", ">", "<=", "<", "=="}
@@ -501,9 +501,38 @@ def validate_records(s: Scenario, facts: dict, conditions: dict) -> list[str]:
     return errors
 
 
+# render-v10 = v9 + one clarification (pilot-4: v9's "same quantity name" for records leaked
+# into policy text; policy<->evidence echoes went from 4 in pilot-2 to 12, gate 0.59).
+_V10_EDITS = [
+    (
+        """record that disagrees with its fact, its condition or its own text is rejected.
+""",
+        """record that disagrees with its fact, its condition or its own text is rejected.
+Records are labels for checking only; they never change how the texts are worded. The \
+"quantity" label is shared between a fact and its condition record, but the policy TEXT \
+still follows FACT WORDING IN POLICIES: name the condition with a clear equivalent of \
+the fact's quantity (fact "customer safety score" -> condition "safety rating given by \
+customers"; fact "research spending" -> condition "R&D outlay"), and copy the fact's \
+phrase only when the standard term is the only clear name.
+""",
+    ),
+]
+
+
+def _v10_from_v9(v9: str) -> str:
+    out = v9
+    for old, new in _V10_EDITS:
+        assert out.count(old) == 1, f"v10 anchor not found exactly once: {old[:60]!r}"
+        out = out.replace(old, new)
+    return out
+
+
+SYSTEM_PROMPT_V10 = _v10_from_v9(SYSTEM_PROMPT_V9)
+
 PROMPTS = {"render-v2": SYSTEM_PROMPT_V2, "render-v3": SYSTEM_PROMPT_V3, "render-v4": SYSTEM_PROMPT_V4,
            "render-v5": SYSTEM_PROMPT_V5, "render-v6": SYSTEM_PROMPT_V6, "render-v7": SYSTEM_PROMPT_V7,
-           "render-v8": SYSTEM_PROMPT_V8, "render-v9": SYSTEM_PROMPT_V9}
+           "render-v8": SYSTEM_PROMPT_V8, "render-v9": SYSTEM_PROMPT_V9,
+           "render-v10": SYSTEM_PROMPT_V10}
 SYSTEM_PROMPT = PROMPTS[PROMPT_VERSION]
 AFTER_UPDATE_STATES = {"holds", "fails", "undetermined"}
 

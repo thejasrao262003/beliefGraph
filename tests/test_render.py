@@ -103,7 +103,7 @@ def test_payload_carries_dates_but_no_gold_or_family():
     assert groups["B3"] != groups["B1"]
     obs = {e["id"]: e["observed"] for e in payload["evidence"]} | {u["id"]: u["observed"] for u in payload["updates"]}
     assert obs == timeline(s, 0)
-    assert PROMPT_VERSION == "render-v9" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
+    assert PROMPT_VERSION == "render-v10" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
     assert "justification_sets" in user_message(s)
 
 
@@ -371,7 +371,7 @@ def test_v3_prompt_is_kept_verbatim_and_v4_extends_it():
 
     assert hashlib.sha256(PROMPTS["render-v3"].encode()).hexdigest() == V3_SHA256
     assert "HARD RULE" in PROMPTS["render-v4"] and "flatly states" in PROMPTS["render-v4"]
-    assert current == "render-v9"
+    assert current == "render-v10"
 
 
 def _system(memories, policies, evidence=()):
@@ -937,3 +937,16 @@ def test_v9_is_v8_plus_the_records_section():
     assert hashlib.sha256(PROMPTS["render-v8"].encode()).hexdigest() == V8_SHA256
     assert hashlib.sha256(PROMPTS["render-v9"].encode()).hexdigest() == V9_SHA256
     assert '"conditions"' in PROMPTS["render-v9"] and "RECORDS" in PROMPTS["render-v9"]
+
+
+V10_SHA256 = "62cbb2a68aebebc6a9463abb797718aa55329a2aff5064906828fd77b32ba6ca"
+
+
+def test_v10_is_v9_plus_the_wording_clarification():
+    import hashlib
+
+    from beliefbench.render.prompt import PROMPTS
+
+    assert hashlib.sha256(PROMPTS["render-v9"].encode()).hexdigest() == V9_SHA256
+    assert hashlib.sha256(PROMPTS["render-v10"].encode()).hexdigest() == V10_SHA256
+    assert "Records are labels for checking only" in PROMPTS["render-v10"]
