@@ -24,7 +24,7 @@ from dataclasses import dataclass, field
 from beliefbench.render.views import timeline
 from beliefbench.schema import Scenario
 
-PROMPT_VERSION = "render-v11"
+PROMPT_VERSION = "render-v12"
 
 # Exactly the text used for smoke test 2 (commit 896d366). Do not edit.
 SYSTEM_PROMPT_V2 = """\
@@ -439,7 +439,7 @@ def _v9_from_v8(v8: str) -> str:
 
 
 SYSTEM_PROMPT_V9 = _v9_from_v8(SYSTEM_PROMPT_V8)
-RECORD_VERSIONS = {"render-v9", "render-v10", "render-v11"}
+RECORD_VERSIONS = {"render-v9", "render-v10", "render-v11", "render-v12"}
 WINDOWS_ALLOWED = {"none", "year", "quarter", "month", "week"}
 SCOPES_ALLOWED = {"none", "local", "regional", "national", "international", "global"}
 COMPARATORS = {">=", ">", "<=", "<", "=="}
@@ -566,10 +566,43 @@ def _v11_from_v10(v10: str) -> str:
 
 SYSTEM_PROMPT_V11 = _v11_from_v10(SYSTEM_PROMPT_V10)
 
+# render-v12 = v11 + two rules (fresh v11 validation: F2-002's OR routes were lab and field
+# measurements of one efficiency; F1-008's retraction added "this year" to an unwindowed fact).
+_V12_EDITS = [
+    (
+        """genuinely different facts, so losing one set leaves the conclusion supported by another.
+""",
+        """genuinely different facts, so losing one set leaves the conclusion supported by another.
+- Alternative sets must concern different quantities or credentials, never two \
+measurements of the same quantity against the same condition (not a "lab efficiency" and \
+a "field efficiency" both compared with one efficiency threshold).
+""",
+    ),
+    (
+        """an update that introduces a window is rejected.
+""",
+        """an update that introduces a window is rejected. The same holds for a retraction: it \
+denies the fact as stated, without adding a window the fact did not have.
+""",
+    ),
+]
+
+
+def _v12_from_v11(v11: str) -> str:
+    out = v11
+    for old, new in _V12_EDITS:
+        assert out.count(old) == 1, f"v12 anchor not found exactly once: {old[:60]!r}"
+        out = out.replace(old, new)
+    return out
+
+
+SYSTEM_PROMPT_V12 = _v12_from_v11(SYSTEM_PROMPT_V11)
+
 PROMPTS = {"render-v2": SYSTEM_PROMPT_V2, "render-v3": SYSTEM_PROMPT_V3, "render-v4": SYSTEM_PROMPT_V4,
            "render-v5": SYSTEM_PROMPT_V5, "render-v6": SYSTEM_PROMPT_V6, "render-v7": SYSTEM_PROMPT_V7,
            "render-v8": SYSTEM_PROMPT_V8, "render-v9": SYSTEM_PROMPT_V9,
-           "render-v10": SYSTEM_PROMPT_V10, "render-v11": SYSTEM_PROMPT_V11}
+           "render-v10": SYSTEM_PROMPT_V10, "render-v11": SYSTEM_PROMPT_V11,
+           "render-v12": SYSTEM_PROMPT_V12}
 SYSTEM_PROMPT = PROMPTS[PROMPT_VERSION]
 AFTER_UPDATE_STATES = {"holds", "fails", "undetermined"}
 

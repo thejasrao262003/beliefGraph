@@ -809,7 +809,13 @@ def semantic_enforced(prompt_version: str) -> bool:
     return prompt_version not in PRE_CONTINUITY_VERSIONS | {"render-v8", "render-v9", "render-v10"}
 
 
-def semantic_flags(system: dict, evaluation: dict) -> list[Flag]:
+def v12_enforced(prompt_version: str) -> bool:
+    """render-v12 additions (fresh v11 validation): OR alternatives over one quantity, and
+    windows introduced by retractions. Earlier versions are not re-judged."""
+    return semantic_enforced(prompt_version) and prompt_version != "render-v11"
+
+
+def semantic_flags(system: dict, evaluation: dict, v12: bool = False) -> list[Flag]:
     """Hard from render-v11: (1) the renderer's after-update state contradicts gold
     (final_state_mismatch / recompute_unresolved, soft before); (2) a superseding update
     of a number fact states a window its target does not ("update_window_introduced").
@@ -819,13 +825,57 @@ def semantic_flags(system: dict, evaluation: dict) -> list[Flag]:
     text = {x["id"]: x["text"] for x in system["evidence"] + system["updates"]}
     for uid, u in (evaluation.get("update_targets") or {}).items():
         target = facts.get(u["target"])
-        if u["relation"] != "supersedes" or not target or target.get("kind") != "number":
+        relations = ("supersedes", "retracts") if v12 else ("supersedes",)
+        if u["relation"] not in relations or not target or target.get("kind") != "number":
             continue
         before = windows(text.get(u["target"], "")) - {"unknown"}
         after = windows(text.get(uid, "")) - {"unknown"}
         if not before and after:
             flags.append(Flag(system["scenario"], uid, "update_window_introduced",
-                              f"fact none, update {'/'.join(sorted(after))}", True))
+                              f"fact none, {u['relation']} {'/'.join(sorted(after))}", True))
+    return flags
+
+
+# Words that describe how or where a quantity was measured, not what it is: "lab efficiency"
+# and "field efficiency" are one quantity measured twice (validate-v11 F2-002).
+MEASUREMENT_CONTEXT = {"lab", "laboratory", "field", "test", "tested", "testing", "measured", "independent",
+                       "official", "certified", "verified", "audited", "reported", "recorded", "documented", "trial"}
+
+
+def _base_quantity(label: str) -> str:
+    return " ".join(w for w in re.findall(r"[a-z0-9]+", str(label).lower()) if w not in MEASUREMENT_CONTEXT)
+
+
+def or_alternative_flags(system: dict, evaluation: dict) -> list[Flag]:
+    """render-v12: alternative justification sets must rest on genuinely different facts (C3).
+    Hard when premises in two different sets satisfy an identical condition (same quantity,
+    comparator, threshold, unit): one quantity measured twice, so revising one measurement
+    leaves the reader unsure which counts. Soft when they share a base quantity under
+    different conditions (possibly legitimate context-specific measurements; reviewer
+    judges C3/C10). Without records nothing is claimed."""
+    conds = (evaluation.get("records") or {}).get("conditions") or {}
+    flags = []
+    for mid, sets in evaluation["justifications"].items():
+        if len(sets) < 2 or mid not in conds:
+            continue
+        by_premise = {c["premise"]: c for c in conds[mid] if c.get("kind") in ("number", "credential")}
+        for i, a in enumerate(sets):
+            for b in sets[i + 1:]:
+                for pa in a:
+                    for pb in b:
+                        ca, cb = by_premise.get(pa), by_premise.get(pb)
+                        if not ca or not cb or pa == pb:
+                            continue
+                        same_q = _norm(ca["quantity"]) == _norm(cb["quantity"])
+                        same_base = _base_quantity(ca["quantity"]) == _base_quantity(cb["quantity"])
+                        same_cond = all(_norm(ca.get(k)) == _norm(cb.get(k)) for k in ("comparator", "threshold", "unit"))
+                        item = f"{pa}|{pb}->{mid}"
+                        if (same_q or same_base) and same_cond:
+                            flags.append(Flag(system["scenario"], item, "or_alternatives_same_condition",
+                                              ca["quantity"], True))
+                        elif same_base:
+                            flags.append(Flag(system["scenario"], item, "or_alternatives_same_quantity",
+                                              f"{ca['quantity']} / {cb['quantity']}", False))
     return flags
 
 def hard_flags(system: dict, evaluation: dict, prompt_version: str) -> list[Flag]:
@@ -835,7 +885,9 @@ def hard_flags(system: dict, evaluation: dict, prompt_version: str) -> list[Flag
              + decoy_word_flags(system, evaluation)
              + (continuity_flags(system, evaluation) if continuity_enforced(prompt_version) else [])
              + record_flags(system, evaluation)
-             + (semantic_flags(system, evaluation) if semantic_enforced(prompt_version) else []))
+             + (semantic_flags(system, evaluation, v12_enforced(prompt_version))
+                if semantic_enforced(prompt_version) else [])
+             + (or_alternative_flags(system, evaluation) if v12_enforced(prompt_version) else []))
     return [f for f in flags if f.hard]
 
 

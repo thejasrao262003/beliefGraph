@@ -103,7 +103,7 @@ def test_payload_carries_dates_but_no_gold_or_family():
     assert groups["B3"] != groups["B1"]
     obs = {e["id"]: e["observed"] for e in payload["evidence"]} | {u["id"]: u["observed"] for u in payload["updates"]}
     assert obs == timeline(s, 0)
-    assert PROMPT_VERSION == "render-v11" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
+    assert PROMPT_VERSION == "render-v12" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
     assert "justification_sets" in user_message(s)
 
 
@@ -371,7 +371,7 @@ def test_v3_prompt_is_kept_verbatim_and_v4_extends_it():
 
     assert hashlib.sha256(PROMPTS["render-v3"].encode()).hexdigest() == V3_SHA256
     assert "HARD RULE" in PROMPTS["render-v4"] and "flatly states" in PROMPTS["render-v4"]
-    assert current == "render-v11"
+    assert current == "render-v12"
 
 
 def _system(memories, policies, evidence=()):
@@ -1109,3 +1109,101 @@ def _window_records(fact, update, kind="number"):
 ])
 def test_update_window_introduced_only_when_a_number_fact_gains_a_window(fact, update, kind, expected):
     assert _window_records(fact, update, kind) == expected
+
+
+# ── render-v12: OR alternatives over one quantity; windows introduced by retractions ──
+
+V12_SHA256 = "137759fe9c5fdf249ca93c015a6ba8c07c6666d96df23694343d14bf36f594b0"
+
+
+def _stored_runs(*runs):
+    import csv as _csv
+
+    for run in runs:
+        decisions = {r["scenario"]: r["decision"] for r in _csv.DictReader((RENDERED / run / "review.csv").open())}
+        for f in sorted((RENDERED / run / "system").glob("*.json")):
+            sv = json.loads(f.read_text())
+            ev = json.loads((RENDERED / run / "eval" / f.name).read_text())
+            yield run, ev["source_scenario"], decisions[sv["scenario"]], sv, ev
+
+
+def _v12_new(sv, ev):
+    return [(f.kind, f.hard) for f in leakcheck.or_alternative_flags(sv, ev) + leakcheck.semantic_flags(sv, ev, v12=True)
+            if f.kind.startswith("or_alternatives") or (f.kind == "update_window_introduced" and "retracts" in f.match)]
+
+
+def test_v12_is_v11_plus_the_two_rules():
+    import hashlib
+
+    from beliefbench.render.prompt import PROMPTS
+
+    assert hashlib.sha256(PROMPTS["render-v11"].encode()).hexdigest() == V11_SHA256
+    assert hashlib.sha256(PROMPTS["render-v12"].encode()).hexdigest() == V12_SHA256
+    assert "never two" in PROMPTS["render-v12"] and "The same holds for a retraction" in PROMPTS["render-v12"]
+
+
+def test_v12_checks_catch_f2_002_and_f1_008_and_no_accepted_control():
+    flagged, controls = {}, 0
+    for run, src, decision, sv, ev in _stored_runs("pilot40-render-v10", "validate-v11", "validate-v11-f3-retry"):
+        new = _v12_new(sv, ev)
+        if new:
+            flagged[(run, src)] = new
+        elif decision == "accept":
+            controls += 1
+    assert flagged == {("validate-v11", "F2-002"): [("or_alternatives_same_condition", True)],
+                       ("validate-v11", "F1-008"): [("update_window_introduced", True)]}
+    assert controls == 48  # every other accepted scenario (37 + 10 + 1) is untouched
+
+
+def test_v12_does_not_rejudge_v11():
+    assert not leakcheck.v12_enforced("render-v11") and leakcheck.v12_enforced("render-v12")
+    for _, src, _, sv, ev in _stored_runs("validate-v11"):
+        if src in ("F2-002", "F1-008"):
+            assert leakcheck.hard_flags(sv, ev, "render-v11") == [] and leakcheck.hard_flags(sv, ev, "render-v12")
+
+
+def _or_case(cond_a, cond_b):
+    base = {"kind": "number", "comparator": ">=", "unit": "%", "window": "none", "scope": "none"}
+    evaluation = {"justifications": {"m_0001": [["e_0001"], ["e_0002"]]},
+                  "records": {"conditions": {"m_0001": [base | {"premise": "e_0001"} | cond_a,
+                                                        base | {"premise": "e_0002"} | cond_b]}}}
+    return [(f.kind, f.hard) for f in leakcheck.or_alternative_flags({"scenario": "s_x"}, evaluation)]
+
+
+@pytest.mark.parametrize("a,b,expected", [
+    ({"quantity": "power conversion efficiency", "threshold": 20}, {"quantity": "power conversion efficiency", "threshold": 20},
+     [("or_alternatives_same_condition", True)]),
+    ({"quantity": "lab efficiency", "threshold": 20}, {"quantity": "field efficiency", "threshold": 20},
+     [("or_alternatives_same_condition", True)]),
+    # context-specific measurements under separately defined conditions: for the reviewer, not rejected
+    ({"quantity": "lab efficiency", "threshold": 22}, {"quantity": "field efficiency", "threshold": 18},
+     [("or_alternatives_same_quantity", False)]),
+    ({"quantity": "annual revenue", "threshold": 20}, {"quantity": "fleet size", "threshold": 20}, []),
+])
+def test_or_alternatives_same_quantity_rules(a, b, expected):
+    assert _or_case(a, b) == expected
+
+
+def test_or_check_claims_nothing_without_records():
+    assert leakcheck.or_alternative_flags({"scenario": "s_x"}, {"justifications": {"m_1": [["e_1"], ["e_2"]]}}) == []
+
+
+def _retract_case(fact, retraction, kind="number"):
+    system = {"scenario": "s_x", "domain": "d", "policies": [], "memories": [],
+              "evidence": [{"id": "e_0001", "observed": "2026-01-08", "source": "Registry", "text": fact}],
+              "updates": [{"id": "u_0001", "observed": "2026-01-20", "source": "Registry", "text": retraction}]}
+    evaluation = {"gold": {}, "after_updates": {}, "update_targets": {"u_0001": {"target": "e_0001", "relation": "retracts"}},
+                  "records": {"facts": {"e_0001": {"kind": kind}}, "conditions": {}}}
+    return [f.kind for f in leakcheck.semantic_flags(system, evaluation, v12=True)]
+
+
+@pytest.mark.parametrize("fact,retraction,kind,expected", [
+    ("Veloce 500 logged continuous run time of 500 hours.", "Veloce 500 did not complete 500 hours this year.", "number",
+     ["update_window_introduced"]),
+    ("Veloce 500 logged continuous run time of 500 hours.", "Veloce 500 never logged 500 hours of continuous run time.",
+     "number", []),
+    ("Acme logged 120 hours this year.", "Acme did not log 120 hours this year.", "number", []),
+    ("Acme holds an ISO 9001 certificate.", "The certificate was withdrawn last month.", "credential", []),
+])
+def test_retraction_window_rules(fact, retraction, kind, expected):
+    assert _retract_case(fact, retraction, kind) == expected

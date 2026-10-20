@@ -137,6 +137,8 @@ WHY = {
                             "retraction or hedge of the only support leaves the conclusion undetermined, never fails",
     "recompute_unresolved": "after_updates must resolve to holds or fails here",
     "update_window_introduced": "an update replacing a figure stated without a time window must not introduce one",
+    "or_alternatives_same_condition": "alternative justification sets must rest on different quantities or credentials, "
+                                      "not two measurements of the same quantity against one condition",
 }
 # Record-check kinds (render-v9+): the problem can sit in a text or in its record, so the
 # repair may change the texts and records of the items involved, and nothing else.
@@ -208,6 +210,16 @@ def editable_paths(flags: list[leakcheck.Flag], evaluation: dict, response: dict
         if not f.hard:
             continue
         why = f"{f.kind} '{f.match}'" + (f" ({WHY[f.kind]})" if f.kind in WHY else "")
+        if f.kind == "or_alternatives_same_condition":  # "pa|pb->m": both facts, their records, the policy
+            premises, m = f.item.split("->")
+            mm = node_of[m]
+            paths = [f"policies.{mm}", f"conditions.{mm}"]
+            for p in premises.split("|"):
+                pp = node_of[p]
+                paths += [f"nodes.{pp}.text", f"nodes.{pp}.source", f"facts.{pp}"]
+            for path in paths:
+                out[path] = (out[path] + "; " if path in out else "") + why
+            continue
         if f.kind in ("final_state_mismatch", "recompute_unresolved", "update_window_introduced"):
             for path in semantic_paths(f):
                 out[path] = (out[path] + "; " if path in out else "") + why
