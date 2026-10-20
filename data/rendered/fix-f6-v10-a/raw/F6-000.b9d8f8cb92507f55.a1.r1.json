@@ -1,0 +1,334 @@
+{
+ "scenario": "F6-000",
+ "repair": 1,
+ "prompt_version": "render-v10",
+ "permitted": {
+  "policies.D1": "policy_echoes_memory 'for government procurement' (a policy may not share a 3-word phrase with any memory)",
+  "facts.E3": "record_scope_not_in_text 'record none, text national'",
+  "nodes.E3.text": "record_scope_not_in_text 'record none, text national'",
+  "facts.E5": "record_scope_not_in_text 'record none, text international'",
+  "nodes.E5.text": "record_scope_not_in_text 'record none, text international'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"facts.E3\": {\n   \"entity\": \"AeroFlyer Pro\",\n   \"kind\": \"number\",\n   \"quantity\": \"flight testing hours\",\n   \"value\": 150,\n   \"unit\": \"hours\",\n   \"window\": \"year\",\n   \"scope\": \"none\"\n  },\n  \"facts.E5\": {\n   \"entity\": \"Solaris PowerPack\",\n   \"kind\": \"credential\",\n   \"quantity\": \"ISO 9001 quality audit\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E3.text\": \"A certified summary from the Central Flight Test Center confirms AeroFlyer Pro completed 150 hours of flight testing this year.\",\n  \"nodes.E5.text\": \"An official registry entry from the Quality Standards Registry confirms Solaris PowerPack holds an ISO 9001 quality audit.\",\n  \"policies.D1\": \"An item is approved for public sector acquisition if it has commercial pilot clearance and maintains a unit price not exceeding $5000.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6673,
+   "output_tokens": 2991,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6673,
+    "completion_tokens": 2991
+   }
+  },
+  "est_usd": 0.048663,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "nodes.E3.text",
+  "nodes.E5.text",
+  "policies.D1"
+ ],
+ "merged": {
+  "world": "Evaluations of product qualification and eligibility across various technical and commercial items.",
+  "nodes": {
+   "E1": {
+    "text": "An official log from the Aviation Safety Board shows AeroFlyer Pro recorded an overall safety score of 92 points on its evaluation.",
+    "source": "Aviation Safety Board official evaluation log"
+   },
+   "E2": {
+    "text": "Official records from the European Union Aviation Safety Agency confirm AeroFlyer Pro holds an EU Aviation Safety Certificate.",
+    "source": "European Union Aviation Safety Agency database"
+   },
+   "E3": {
+    "text": "A certified summary from the Central Flight Test Center confirms AeroFlyer Pro completed 150 hours of flight testing this year.",
+    "source": "National Flight Test Center certified summary"
+   },
+   "E4": {
+    "text": "An official price sheet from the manufacturer lists AeroFlyer Pro at a unit price of $4500.",
+    "source": "AeroFlyer official commercial price sheet"
+   },
+   "E5": {
+    "text": "An official registry entry from the Quality Standards Registry confirms Solaris PowerPack holds an ISO 9001 quality audit.",
+    "source": "International Standards Registry official registry"
+   },
+   "E6": {
+    "text": "An official report from the Appliance Testing Laboratory states Vortex Air Purifier recorded a clean air delivery rate of 350 cubic feet per minute.",
+    "source": "Appliance Testing Laboratory official report"
+   },
+   "E7": {
+    "text": "A laboratory analysis from the Chemical Inspection Agency confirms BioShield Hand Sanitizer maintains an alcohol concentration of 75 percent.",
+    "source": "Chemical Inspection Agency laboratory analysis"
+   },
+   "B1": {
+    "text": "AeroFlyer Pro meets regional flight operation standards."
+   },
+   "B2": {
+    "text": "AeroFlyer Pro qualifies for commercial pilot usage."
+   },
+   "D1": {
+    "text": "AeroFlyer Pro is recommended for government procurement."
+   },
+   "B3": {
+    "text": "Solaris PowerPack qualifies for long-term warranty support."
+   },
+   "B4": {
+    "text": "Vortex Air Purifier meets high-efficiency filtration benchmarks."
+   },
+   "B5": {
+    "text": "BioShield Hand Sanitizer complies with hospital hygiene standards."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An anonymous online post claims AeroFlyer Pro never recorded an overall safety score of 92 points on its evaluation.",
+    "source": "Anonymous online forum posting"
+   }
+  },
+  "policies": {
+   "B1": "An item satisfies regional flight criteria either by achieving an aviation evaluation score of 90 points or higher, or by holding an EU Aviation Safety Certificate.",
+   "B2": "A model receives commercial pilot clearance if an item satisfies regional flight criteria and logs a minimum of 100 testing hours in a year.",
+   "D1": "An item is approved for public sector acquisition if it has commercial pilot clearance and maintains a unit price not exceeding $5000.",
+   "B3": "A device gains extended warranty coverage if it passes an ISO 9001 quality audit.",
+   "B4": "An appliance achieves high-efficiency filtration status if its clean air delivery rate reaches at least 300 cubic feet per minute.",
+   "B5": "A formula satisfies medical hygiene criteria if its alcohol concentration is 70 percent or higher."
+  },
+  "decoy_policies": [
+   "A commercial vehicle receives eco-badge certification if its annual carbon dioxide emissions remain below 120 grams per kilometer.",
+   "An industrial pump is certified for undersea deployment provided it maintains an operational pressure threshold of 50 bar."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "holds",
+   "D1": "holds",
+   "B3": "holds",
+   "B4": "holds",
+   "B5": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "AeroFlyer Pro",
+    "kind": "number",
+    "quantity": "safety score",
+    "value": 92,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "AeroFlyer Pro",
+    "kind": "credential",
+    "quantity": "EU Aviation Safety Certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "AeroFlyer Pro",
+    "kind": "number",
+    "quantity": "flight testing hours",
+    "value": 150,
+    "unit": "hours",
+    "window": "year",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "AeroFlyer Pro",
+    "kind": "number",
+    "quantity": "unit price",
+    "value": 4500,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Solaris PowerPack",
+    "kind": "credential",
+    "quantity": "ISO 9001 quality audit",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Vortex Air Purifier",
+    "kind": "number",
+    "quantity": "clean air delivery rate",
+    "value": 350,
+    "unit": "cubic feet per minute",
+    "window": "none",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "BioShield Hand Sanitizer",
+    "kind": "number",
+    "quantity": "alcohol concentration",
+    "value": 75,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "AeroFlyer Pro",
+    "kind": "number",
+    "quantity": "safety score",
+    "value": null,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "AeroFlyer Pro",
+     "relation": null,
+     "quantity": "safety score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "credential",
+     "entity": "AeroFlyer Pro",
+     "relation": null,
+     "quantity": "EU Aviation Safety Certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "AeroFlyer Pro",
+     "relation": null,
+     "quantity": "regional flight criteria",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "AeroFlyer Pro",
+     "relation": null,
+     "quantity": "flight testing hours",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "hours",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "AeroFlyer Pro",
+     "relation": null,
+     "quantity": "commercial pilot clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "AeroFlyer Pro",
+     "relation": null,
+     "quantity": "unit price",
+     "comparator": "<=",
+     "threshold": 5000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "Solaris PowerPack",
+     "relation": null,
+     "quantity": "ISO 9001 quality audit",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Vortex Air Purifier",
+     "relation": null,
+     "quantity": "clean air delivery rate",
+     "comparator": ">=",
+     "threshold": 300,
+     "unit": "cubic feet per minute",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "BioShield Hand Sanitizer",
+     "relation": null,
+     "quantity": "alcohol concentration",
+     "comparator": ">=",
+     "threshold": 70,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "A safety score of 92 points satisfies the requirement of an evaluation score of 90 points or higher.",
+    "Holding an EU Aviation Safety Certificate satisfies the certification requirement directly."
+   ],
+   "B2": [
+    "Satisfying regional flight criteria together with 150 flight testing hours meets the requirement of 100 testing hours in a year."
+   ],
+   "D1": [
+    "Having commercial pilot clearance with a unit price of $4500 satisfies the threshold of $5000 or less."
+   ],
+   "B3": [
+    "Passing the ISO 9001 quality audit satisfies the quality requirement."
+   ],
+   "B4": [
+    "A clean air delivery rate of 350 cubic feet per minute satisfies the threshold of 300 cubic feet per minute."
+   ],
+   "B5": [
+    "An alcohol concentration of 75 percent satisfies the threshold of 70 percent or higher."
+   ]
+  }
+ }
+}

@@ -170,7 +170,8 @@ def editable_paths(flags: list[leakcheck.Flag], evaluation: dict, response: dict
                 raise ValueError(f"cannot map flagged item {f.item!r}")
             paths = [f"policies.{m}", f"conditions.{m}"]
             if p in response["facts"]:
-                paths += [f"facts.{p}", f"{'updates' if p.startswith('U') else 'nodes'}.{p}.text"]
+                sec = "updates" if p.startswith("U") else "nodes"
+                paths += [f"facts.{p}", f"{sec}.{p}.text", f"{sec}.{p}.source"]
             if f.kind == "record_entity_not_in_memory":
                 paths.append(f"nodes.{m}.text")
             return paths
@@ -181,8 +182,11 @@ def editable_paths(flags: list[leakcheck.Flag], evaluation: dict, response: dict
             return [f"after_updates.{x}", f"conditions.{x}", f"policies.{x}"]
         if x.startswith("U") and f.kind.startswith("update_"):  # an update disagreeing with its target
             target = node_of[evaluation["update_targets"][f.item]["target"]]
-            return [f"facts.{x}", f"updates.{x}.text", f"facts.{target}"]
-        return [f"facts.{x}", f"{'updates' if x.startswith('U') else 'nodes'}.{x}.text"]
+            return [f"facts.{x}", f"updates.{x}.text", f"updates.{x}.source", f"facts.{target}"]
+        # A fact's text and its source description move together, so a repair cannot make
+        # the text cite a different body than its source (fix-f6-v10-a).
+        sec = "updates" if x.startswith("U") else "nodes"
+        return [f"facts.{x}", f"{sec}.{x}.text", f"{sec}.{x}.source"]
 
     out: dict[str, str] = {}
     for f in flags:

@@ -619,7 +619,10 @@ def numbers_in(text: str) -> list[float]:
 
 
 def scopes_in(text: str) -> set[str]:
-    return {SCOPE_WORDS[m.lower()] for m in _SCOPE_RE.findall(text)}
+    """Scope words used as scope ("a regional inventory"), not inside a proper name
+    ("National Flight Test Center", "International Standards Registry"): only lower-case
+    occurrences count (2026-10-20, fix-f6-v10-a)."""
+    return {SCOPE_WORDS[m] for m in _SCOPE_RE.findall(text) if m.islower()}
 
 
 def _has_number(text: str, v) -> bool:

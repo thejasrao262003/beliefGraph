@@ -1010,3 +1010,10 @@ The stored renders have no records, so the tests use **hand-annotated record fix
    - Tests cover: repair before re-render, fallback to a whole attempt when a repair oversteps, record-field mapping, records and text replaced together, the wrong shape refused, and the prompt variants.
 
 **Run plan:** F6 fresh under render-v10, `--max-attempts 3 --max-repairs 2`, guard cap $5.00. Then Claude's C1–C13 review. Iterate on failures within the cap. If F6 is accepted, the four-scenario gate is pooled over F1–F3 (pilot-4b, unchanged) + this F6. F1–F3 had 0 hard flags under both check versions, and the mix is disclosed.
+
+**Iteration A** (`data/rendered/fix-f6-v10-a/`, $0.1774):
+- **What ran:** attempt 1 was rejected (a policy↔memory echo "for government procurement"; scope flags on "National Flight Test Center" and "International Standards Registry"). One targeted repair cleared all hard flags; the F6 diagnostic score is 0.46.
+- **Claude review: revise (C1, C5).** To clear the scope flags, which were false positives on organisation names, the repair renamed the bodies inside the fact texts. The source descriptions were not editable and kept the old names, so each fact contradicts its own source. Everything else is sound.
+- **Fixes, made before the next call; 143 tests pass:**
+  - `scopes_in` counts only lower-case scope words, so scope words inside proper names are ignored;
+  - record repairs that may edit a fact's text may also edit its source.

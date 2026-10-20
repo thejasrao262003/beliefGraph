@@ -982,7 +982,8 @@ def _records_base():
 def test_record_flag_maps_to_the_texts_and_records_involved():
     _, obj, sv, ev = _records_base()
     hard = [f for f in leakcheck.record_flags(sv, ev) if f.hard]
-    assert sorted(repair.editable_paths(hard, ev, obj)) == ["conditions.B1", "facts.E1", "nodes.E1.text", "policies.B1"]
+    assert sorted(repair.editable_paths(hard, ev, obj)) == ["conditions.B1", "facts.E1", "nodes.E1.source",
+                                                            "nodes.E1.text", "policies.B1"]
 
 
 def test_repair_can_replace_records_and_text_together():
@@ -994,7 +995,7 @@ def test_repair_can_replace_records_and_text_together():
     policy = obj["policies"]["B1"].replace("regional", "local")
     merged, errors = repair.apply_repair(obj, json.dumps({"replacements": {
         "conditions.B1": conds, "policies.B1": policy, "facts.E1": obj["facts"]["E1"],
-        "nodes.E1.text": obj["nodes"]["E1"]["text"]}}), problems)
+        "nodes.E1.text": obj["nodes"]["E1"]["text"], "nodes.E1.source": obj["nodes"]["E1"]["source"]}}), problems)
     assert errors == [] and repair.changed_paths(obj, merged) <= {"policies.B1", "conditions.B1[0].scope"}
     r = parse_response(s, json.dumps(merged), version="render-v10")
     sv2, ev2 = build_views(s, r, seed=0)
@@ -1011,3 +1012,17 @@ def test_repair_refuses_a_record_replaced_by_the_wrong_shape():
 
 def test_repair_prompt_for_record_versions_mentions_records_and_v8_stays_pinned():
     assert "facts.<id>" in repair.repair_prompt("render-v10") and "facts.<id>" not in repair.REPAIR_PROMPTS["repair-v1"]
+
+
+def test_scope_words_inside_proper_names_are_not_scopes():
+    assert leakcheck.scopes_in("A summary from the National Flight Test Center confirms 150 hours.") == set()
+    assert leakcheck.scopes_in("An entry from the International Standards Registry confirms it.") == set()
+    assert leakcheck.scopes_in("It maintains a local spare parts inventory.") == {"local"}
+    assert leakcheck.scopes_in("a regional spare parts inventory of at least $150,000") == {"regional"}
+
+
+def test_fix_f6_v10_a_attempt1_raises_no_scope_flag_on_organisation_names():
+    rec = json.loads(next((RENDERED / "fix-f6-v10-a" / "raw").glob("*.a1.json")).read_text())
+    s = next(x for x in generate_suite(10, 0) if x.id == "F6-000")
+    sv, ev = build_views(s, parse_response(s, rec["response"], version="render-v10"), seed=0)
+    assert not [f for f in leakcheck.record_flags(sv, ev) if "scope" in f.kind]
