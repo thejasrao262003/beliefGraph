@@ -1241,3 +1241,43 @@ The family subsets are small (1–6 scenarios), so these are indicative only.
 | Budget | **Hard cap $4.00.** Measured ≈ $0.12–0.14 per scenario including repairs, so expected ≈ $2.0–2.5. Stricter checks may add repairs, and failed calls are charged at worst case (≈ $0.14 each) |
 | Preservation | Raw renders and repairs (with diffs and merged responses), records, all flags, per-call costs including failed calls, review decisions |
 | Review | Claude's C1–C13 review, labelled AI. The blind human sample (§21c) is still outstanding and separate |
+
+## 24. Second fresh validation, render-v12 (2026-10-20): 14/16 accepted; criterion not met
+
+**Approved by the user:** §23d as written, hard cap $4.00.
+
+**Run:** exactly the §23d command (commit `4dd6804`). Outputs are in `data/rendered/validate-v12/`: 15 renders, 9 repair records, all flags and costs.
+
+**Spend:** **$2.56 of $4.00** (29 calls), including **3 failed provider calls charged at worst case** under §23c ($0.44):
+- **F2-009:** one timeout, then the automatic identical retry **succeeded**.
+- **F6-009:** attempt 1 had a hard flag (a record window not in its policy). Repair 1 merged but left a hard flag. Repair 2 hit **two provider disconnects** in a row, so under the declared policy **the scenario failed**. Not retried.
+
+**Other events:** F2-000 needed a second whole attempt (attempt 1 was invalid JSON). 8 scenarios were fixed by one targeted repair.
+
+**Review (Claude, delegated; labelled AI):**
+- **14 accept.**
+- **1 revise: F1-002 (C1/C10), caused by a check bug.** The fact "minimum operating temperature of **−20** °C" was correct, but `numbers_in` drops the minus sign. `record_value_not_in_text` fired falsely, and the repair "fixed" it by rewriting the physics: the fact became **+20 °C** and the cold condition became "25 °C or lower". Every automated check then passed. The scenario is meaningless as a cold-climate test.
+
+| Predeclared criterion (§23d) | Result |
+|---|---|
+| ≥ 15/16 accepted (infrastructure failures count) | **14/16: not met** (1 revise caused by a check bug; 1 provider failure) |
+| 0 hard flags in accepted views | **0: met** |
+| 0 `final_state_mismatch` | **0: met.** F6-002 (hedge) and F6-005 (low reliability) "undetermined" on the first attempt |
+| 0 `update_window_introduced` (incl. retractions) and 0 `or_alternatives_same_condition` | **0: met.** None fired in any rendered scenario. Retractions kept their windows (F1-001 "last year", F2-002 "this quarter"); every OR set used different quantities |
+| Pooled worse-heuristic ≤ 0.50 | **0.37: met** (accepted 14; chain-only 0.18) |
+| Soft `or_alternatives_same_quantity` judged | none fired |
+
+**Leakage alongside the gate:** F1 0.47 (chain-only 0.22, n=3), F2 0.29 (0.18, n=4), F3 0.44 (0.00, n=4), F6 0.50 (0.38, n=3). The family subsets are small and indicative only.
+
+**Reading:**
+- **Every semantic target held on unseen data:** uncertain cases, OR alternatives, retraction and update windows.
+- **Both misses come from the pipeline, not the renderer's semantics:**
+  - **Check bug, negative numbers:** a false hard flag invited a repair that changed a correct value. This exposes a second weakness: **a repair is allowed to change a fact's numeric value**, the scenario's ground truth, to satisfy a check.
+  - **Provider reliability:** 3 of 29 calls failed across this run, plus 1 in each of the previous two runs.
+
+**Not done (needs a decision):**
+- fix `numbers_in` to read negative numbers (and "minus");
+- forbid repairs from changing a fact record's value or a condition's threshold, so the texts must be aligned to the records instead;
+- whether to reduce exposure to provider failures (e.g. two automatic retries, or backoff);
+- a third validation;
+- the ≥ 100-scenario proposal, which stays premature until the acceptance criterion is met.

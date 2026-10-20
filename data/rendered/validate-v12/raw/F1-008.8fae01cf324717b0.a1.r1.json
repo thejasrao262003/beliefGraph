@@ -1,0 +1,321 @@
+{
+ "scenario": "F1-008",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.B6": "policy_echoes_memory 'for outdoor installation' (a policy may not share a 3-word phrase with any memory)"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"policies.B6\": \"Solar hardware is approved for exterior deployment provided it possesses an IP67 weatherproof rating.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6534,
+   "output_tokens": 798,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6534,
+    "completion_tokens": 798
+   }
+  },
+  "est_usd": 0.023679,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "policies.B6"
+ ],
+ "merged": {
+  "world": "An evaluation assistant assesses product eligibility and cataloging classifications across various hardware lines based on technical test results and certifications.",
+  "nodes": {
+   "E1": {
+    "text": "Apex Drone Model X1 has an operational flight ceiling of 4,500 meters.",
+    "source": "Official Manufacturer Specification Sheet, updated January 14, 2026"
+   },
+   "E2": {
+    "text": "Apex Drone Model X1 maintains an encrypted transmission distance of 15 kilometers.",
+    "source": "Defense Testing Bureau Registry, logged January 11, 2026"
+   },
+   "B1": {
+    "text": "Apex Drone Model X1 is rated for high-altitude flight operations."
+   },
+   "B2": {
+    "text": "Apex Drone Model X1 satisfies extreme climate durability requirements."
+   },
+   "B3": {
+    "text": "Apex Drone Model X1 qualifies for severe weather operational clearance."
+   },
+   "B4": {
+    "text": "Apex Drone Model X1 meets specialized defense deployment standards."
+   },
+   "D1": {
+    "text": "Include Apex Drone Model X1 in the high-altitude surveillance procurement catalog."
+   },
+   "E3": {
+    "text": "BioPure Water Filter produces a daily purified volume of 800 liters.",
+    "source": "National Sanitation Foundation Certificate, issued January 17, 2026"
+   },
+   "B5": {
+    "text": "BioPure Water Filter earns eco-label certification."
+   },
+   "E4": {
+    "text": "Solis Solar Panel Kit holds an IP67 weatherproof rating.",
+    "source": "Electrical Safety Compliance Audit, published January 8, 2026"
+   },
+   "B6": {
+    "text": "Solis Solar Panel Kit is designated for outdoor installation."
+   },
+   "E5": {
+    "text": "AeroGlide Electric Scooter has a peak motor output of 750 watts.",
+    "source": "Transport Certification Agency Report, logged January 20, 2026"
+   },
+   "B7": {
+    "text": "AeroGlide Electric Scooter qualifies as a heavy-duty commuter vehicle."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Apex Drone Model X1 has an operational flight ceiling of 3,200 meters.",
+    "source": "Revised Flight Test Registry, issued January 23, 2026"
+   }
+  },
+  "policies": {
+   "B1": "Aerial equipment achieves high-altitude rating when its maximum service ceiling reaches or exceeds 4,000 meters.",
+   "B2": "A vehicle receives extreme climate designation provided it has an approved high-altitude rating.",
+   "B3": "Severe weather clearance is granted to hardware demonstrating extreme climate designation.",
+   "B4": "An item secures defense deployment status if it holds severe weather clearance.",
+   "D1": "Cataloging for remote surveillance programs requires defense deployment status along with a transmission distance of at least 10 kilometers.",
+   "B5": "A filtration unit gains eco-certification if its daily purified volume reaches 500 liters or more.",
+   "B6": "Solar hardware is approved for exterior deployment provided it possesses an IP67 weatherproof rating.",
+   "B7": "Personal mobility devices qualify for heavy-duty commuter classification when peak motor output is at least 500 watts."
+  },
+  "decoy_policies": [
+   "Commercial transport trailers are granted priority logistics routing when maximum payload capacity exceeds 10,000 kilograms.",
+   "Industrial heat pumps receive energy efficiency endorsement if seasonal performance factor is at least 4.0."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "B2": "fails",
+   "B3": "fails",
+   "B4": "fails",
+   "D1": "fails",
+   "B5": "holds",
+   "B6": "holds",
+   "B7": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Apex Drone Model X1",
+    "kind": "number",
+    "quantity": "flight ceiling",
+    "value": 4500,
+    "unit": "meters",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Apex Drone Model X1",
+    "kind": "number",
+    "quantity": "transmission distance",
+    "value": 15,
+    "unit": "kilometers",
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "BioPure Water Filter",
+    "kind": "number",
+    "quantity": "daily purified volume",
+    "value": 800,
+    "unit": "liters",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Solis Solar Panel Kit",
+    "kind": "credential",
+    "quantity": "IP67 weatherproof rating",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "AeroGlide Electric Scooter",
+    "kind": "number",
+    "quantity": "peak motor output",
+    "value": 750,
+    "unit": "watts",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Apex Drone Model X1",
+    "kind": "number",
+    "quantity": "flight ceiling",
+    "value": 3200,
+    "unit": "meters",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Apex Drone Model X1",
+     "relation": null,
+     "quantity": "flight ceiling",
+     "comparator": ">=",
+     "threshold": 4000,
+     "unit": "meters",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Apex Drone Model X1",
+     "relation": null,
+     "quantity": "high-altitude rating",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Apex Drone Model X1",
+     "relation": null,
+     "quantity": "extreme climate designation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Apex Drone Model X1",
+     "relation": null,
+     "quantity": "severe weather clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B4",
+     "kind": "conclusion",
+     "entity": "Apex Drone Model X1",
+     "relation": null,
+     "quantity": "defense deployment status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Apex Drone Model X1",
+     "relation": null,
+     "quantity": "transmission distance",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "kilometers",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "BioPure Water Filter",
+     "relation": null,
+     "quantity": "daily purified volume",
+     "comparator": ">=",
+     "threshold": 500,
+     "unit": "liters",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "E4",
+     "kind": "credential",
+     "entity": "Solis Solar Panel Kit",
+     "relation": null,
+     "quantity": "IP67 weatherproof rating",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B7": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "AeroGlide Electric Scooter",
+     "relation": null,
+     "quantity": "peak motor output",
+     "comparator": ">=",
+     "threshold": 500,
+     "unit": "watts",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Apex Drone Model X1 has a flight ceiling of 4,500 meters, meeting the 4,000-meter minimum threshold for high-altitude rating."
+   ],
+   "B2": [
+    "Apex Drone Model X1 holds a high-altitude rating, fulfilling the requirement for extreme climate designation."
+   ],
+   "B3": [
+    "Apex Drone Model X1 possesses extreme climate designation, satisfying the prerequisite for severe weather clearance."
+   ],
+   "B4": [
+    "Apex Drone Model X1 maintains severe weather clearance, qualifying it for defense deployment status."
+   ],
+   "D1": [
+    "Apex Drone Model X1 holds defense deployment status and has a transmission distance of 15 kilometers, satisfying both prerequisites for cataloging."
+   ],
+   "B5": [
+    "BioPure Water Filter yields a daily purified volume of 800 liters, exceeding the 500-liter requirement for eco-certification."
+   ],
+   "B6": [
+    "Solis Solar Panel Kit maintains an IP67 weatherproof rating, satisfying the credential needed for outdoor installation."
+   ],
+   "B7": [
+    "AeroGlide Electric Scooter features a peak motor output of 750 watts, exceeding the 500-watt requirement for heavy-duty commuter status."
+   ]
+  }
+ }
+}

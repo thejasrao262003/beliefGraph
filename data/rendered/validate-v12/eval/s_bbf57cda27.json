@@ -1,0 +1,255 @@
+{
+ "scenario": "s_bbf57cda27",
+ "source_scenario": "F6-005",
+ "family": "F6",
+ "meta": {
+  "variant": "low_reliability",
+  "has_alternative": false,
+  "depth": 2
+ },
+ "idmap": {
+  "E1": "e_7ede",
+  "B1": "m_dc31",
+  "E2": "e_7f8b",
+  "B2": "m_23c2",
+  "D1": "m_45d3",
+  "E3": "e_ffd4",
+  "B3": "m_f35c",
+  "E4": "e_3734",
+  "B4": "m_63e7",
+  "U1": "u_5c81"
+ },
+ "groups": {
+  "e_7ede": 1,
+  "m_dc31": 1,
+  "m_23c2": 1,
+  "e_7f8b": 1,
+  "m_45d3": 1,
+  "e_ffd4": 2,
+  "m_f35c": 2,
+  "e_3734": 3,
+  "m_63e7": 3
+ },
+ "policy_of": {
+  "p_be59": "m_dc31",
+  "p_e192": "m_23c2",
+  "p_0504": "m_45d3",
+  "p_cccd": "m_f35c",
+  "p_b055": "m_63e7"
+ },
+ "gold": {
+  "e_7ede": "uncertain",
+  "e_7f8b": "keep",
+  "e_ffd4": "keep",
+  "e_3734": "keep",
+  "m_dc31": "uncertain",
+  "m_f35c": "keep",
+  "m_63e7": "keep",
+  "m_23c2": "uncertain",
+  "m_45d3": "uncertain"
+ },
+ "justifications": {
+  "m_dc31": [
+   [
+    "e_7ede"
+   ]
+  ],
+  "m_23c2": [
+   [
+    "m_dc31",
+    "e_7f8b"
+   ]
+  ],
+  "m_45d3": [
+   [
+    "m_23c2"
+   ]
+  ],
+  "m_f35c": [
+   [
+    "e_ffd4"
+   ]
+  ],
+  "m_63e7": [
+   [
+    "e_3734"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_5c81": {
+   "target": "e_7ede",
+   "relation": "retracts",
+   "reliability": "low"
+  }
+ },
+ "decoy_policies": [
+  "p_5aca",
+  "p_7006"
+ ],
+ "after_updates": {
+  "m_dc31": "undetermined",
+  "m_23c2": "undetermined",
+  "m_45d3": "undetermined",
+  "m_f35c": "holds",
+  "m_63e7": "holds"
+ },
+ "final_state": {
+  "m_dc31": "undetermined",
+  "m_f35c": "holds",
+  "m_63e7": "holds",
+  "m_23c2": "undetermined",
+  "m_45d3": "undetermined"
+ },
+ "world": "Travel logistics operators are evaluated for dispatch privileges, passenger flight clearances, and terminal dock access.",
+ "rationale": {
+  "m_dc31": [
+   "Having an active fleet size of 15 aircraft satisfies the minimum fleet threshold of 10 aircraft to qualify as a heavy fleet carrier."
+  ],
+  "m_23c2": [
+   "Being designated as a heavy fleet operator along with an annual safety compliance rating of 98 percent satisfies the 95 percent threshold required for tier-one dispatch clearance."
+  ],
+  "m_45d3": [
+   "Holding tier-one flight dispatch approval satisfies the policy requirement to be selected for the priority freight contract."
+  ],
+  "m_f35c": [
+   "Holding an active international tour operator license meets the mandate for cross-border travel authorization."
+  ],
+  "m_63e7": [
+   "Handling an annual volume of 50000 metric tons of cargo exceeds the 40000 metric tons minimum threshold required for deep-water dock privileges."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_7ede": {
+    "entity": "AeroGlobe Logistics",
+    "kind": "number",
+    "quantity": "active fleet size",
+    "value": 15,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_7f8b": {
+    "entity": "AeroGlobe Logistics",
+    "kind": "number",
+    "quantity": "annual safety compliance rating",
+    "value": 98,
+    "unit": "percent",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_ffd4": {
+    "entity": "Solis Expeditions",
+    "kind": "credential",
+    "quantity": "international tour operator license",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "international"
+   },
+   "e_3734": {
+    "entity": "Vantage Freight",
+    "kind": "number",
+    "quantity": "annual volume of cargo handled",
+    "value": 50000,
+    "unit": "metric tons",
+    "window": "year",
+    "scope": "none"
+   },
+   "u_5c81": {
+    "entity": "AeroGlobe Logistics",
+    "kind": "number",
+    "quantity": "active fleet size",
+    "value": null,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_dc31": [
+    {
+     "premise": "e_7ede",
+     "kind": "number",
+     "entity": "AeroGlobe Logistics",
+     "relation": null,
+     "quantity": "active fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_23c2": [
+    {
+     "premise": "m_dc31",
+     "kind": "conclusion",
+     "entity": "AeroGlobe Logistics",
+     "relation": null,
+     "quantity": "heavy fleet status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_7f8b",
+     "kind": "number",
+     "entity": "AeroGlobe Logistics",
+     "relation": null,
+     "quantity": "annual safety compliance rating",
+     "comparator": ">=",
+     "threshold": 95,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "m_45d3": [
+    {
+     "premise": "m_23c2",
+     "kind": "conclusion",
+     "entity": "AeroGlobe Logistics",
+     "relation": null,
+     "quantity": "tier-one flight dispatch approval",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_f35c": [
+    {
+     "premise": "e_ffd4",
+     "kind": "credential",
+     "entity": "Solis Expeditions",
+     "relation": null,
+     "quantity": "international tour operator license",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "international"
+    }
+   ],
+   "m_63e7": [
+    {
+     "premise": "e_3734",
+     "kind": "number",
+     "entity": "Vantage Freight",
+     "relation": null,
+     "quantity": "annual volume of cargo handled",
+     "comparator": ">=",
+     "threshold": 40000,
+     "unit": "metric tons",
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

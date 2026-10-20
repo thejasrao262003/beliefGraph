@@ -1,0 +1,198 @@
+{
+ "scenario": "s_f0bd308356",
+ "source_scenario": "F1-004",
+ "family": "F1",
+ "meta": {
+  "depth": 1,
+  "relation": "supersedes"
+ },
+ "idmap": {
+  "E1": "e_07ec",
+  "E2": "e_8872",
+  "D1": "m_0e02",
+  "E3": "e_3c6e",
+  "B1": "m_0ae4",
+  "E4": "e_f394",
+  "B2": "m_017e",
+  "U1": "u_b601"
+ },
+ "groups": {
+  "e_07ec": 1,
+  "m_0e02": 1,
+  "e_8872": 1,
+  "e_3c6e": 2,
+  "m_0ae4": 2,
+  "e_f394": 3,
+  "m_017e": 3
+ },
+ "policy_of": {
+  "p_9039": "m_0e02",
+  "p_e9e1": "m_0ae4",
+  "p_07b3": "m_017e"
+ },
+ "gold": {
+  "e_07ec": "supersede",
+  "e_8872": "keep",
+  "e_3c6e": "keep",
+  "e_f394": "keep",
+  "m_0e02": "recompute",
+  "m_0ae4": "keep",
+  "m_017e": "keep"
+ },
+ "justifications": {
+  "m_0e02": [
+   [
+    "e_07ec",
+    "e_8872"
+   ]
+  ],
+  "m_0ae4": [
+   [
+    "e_3c6e"
+   ]
+  ],
+  "m_017e": [
+   [
+    "e_f394"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_b601": {
+   "target": "e_07ec",
+   "relation": "supersedes",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_b478",
+  "p_c4e4"
+ ],
+ "after_updates": {
+  "m_0e02": "fails",
+  "m_0ae4": "holds",
+  "m_017e": "holds"
+ },
+ "final_state": {
+  "m_0e02": "fails",
+  "m_0ae4": "holds",
+  "m_017e": "holds"
+ },
+ "world": "Assessment of commercial product eligibility and regulatory compliance across three distinct hardware product lines.",
+ "rationale": {
+  "m_0e02": [
+   "AeroGlide Scooter satisfies the policy by having a top speed of 25 km/h, which is within the 30 km/h maximum limit, and maintaining an active European Conformity certificate."
+  ],
+  "m_0ae4": [
+   "Titan Battery Pack fulfills the rule by demonstrating an energy density of 280 Wh/kg, exceeding the required threshold of 250 Wh/kg."
+  ],
+  "m_017e": [
+   "Lumina Medical Monitor meets the policy condition by completing 12 quality control audits this year, surpassing the required minimum of 10."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_07ec": {
+    "entity": "AeroGlide Scooter",
+    "kind": "number",
+    "quantity": "top speed",
+    "value": 25,
+    "unit": "km/h",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_8872": {
+    "entity": "AeroGlide Scooter",
+    "kind": "credential",
+    "quantity": "European Conformity certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_3c6e": {
+    "entity": "Titan Battery Pack",
+    "kind": "number",
+    "quantity": "energy density",
+    "value": 280,
+    "unit": "Wh/kg",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_f394": {
+    "entity": "Lumina Medical Monitor",
+    "kind": "number",
+    "quantity": "quality control audits",
+    "value": 12,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "u_b601": {
+    "entity": "AeroGlide Scooter",
+    "kind": "number",
+    "quantity": "top speed",
+    "value": 38,
+    "unit": "km/h",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_0e02": [
+    {
+     "premise": "e_07ec",
+     "kind": "number",
+     "entity": "AeroGlide Scooter",
+     "relation": null,
+     "quantity": "top speed",
+     "comparator": "<=",
+     "threshold": 30,
+     "unit": "km/h",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_8872",
+     "kind": "credential",
+     "entity": "AeroGlide Scooter",
+     "relation": null,
+     "quantity": "European Conformity certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_0ae4": [
+    {
+     "premise": "e_3c6e",
+     "kind": "number",
+     "entity": "Titan Battery Pack",
+     "relation": null,
+     "quantity": "energy density",
+     "comparator": ">=",
+     "threshold": 250,
+     "unit": "Wh/kg",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_017e": [
+    {
+     "premise": "e_f394",
+     "kind": "number",
+     "entity": "Lumina Medical Monitor",
+     "relation": null,
+     "quantity": "quality control audits",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

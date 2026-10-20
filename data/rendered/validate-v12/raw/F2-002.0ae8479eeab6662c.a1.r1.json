@@ -1,0 +1,190 @@
+{
+ "scenario": "F2-002",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.B1": "record_window_not_in_policy 'quarter'",
+  "conditions.B1": "record_window_not_in_policy 'quarter'",
+  "facts.E2": "record_window_not_in_policy 'quarter'",
+  "nodes.E2.text": "record_window_not_in_policy 'quarter'",
+  "nodes.E2.source": "record_window_not_in_policy 'quarter'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B1\": [\n   {\n    \"premise\": \"E1\",\n    \"kind\": \"credential\",\n    \"entity\": \"AeroGlide Drone\",\n    \"relation\": null,\n    \"quantity\": \"FCC Class B broadcast permit\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E2\",\n    \"kind\": \"number\",\n    \"entity\": \"AeroGlide Drone\",\n    \"relation\": null,\n    \"quantity\": \"flight safety evaluation rating\",\n    \"comparator\": \">=\",\n    \"threshold\": 90,\n    \"unit\": \"points\",\n    \"window\": \"quarter\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E2\": {\n   \"entity\": \"AeroGlide Drone\",\n   \"kind\": \"number\",\n   \"quantity\": \"flight safety evaluation rating\",\n   \"value\": 92,\n   \"unit\": \"points\",\n   \"window\": \"quarter\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E2.source\": \"AeroGlide Flight Analytics Center\",\n  \"nodes.E2.text\": \"AeroGlide Drone recorded a flight safety evaluation rating of 92 points this quarter.\",\n  \"policies.B1\": \"Market deployment authorization is granted to an uncrewed aircraft if it holds an official broadcast permit or achieves a quarterly flight safety evaluation rating of at least 90 points.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 5563,
+   "output_tokens": 3580,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 5563,
+    "completion_tokens": 3580
+   }
+  },
+  "est_usd": 0.05279175,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "policies.B1"
+ ],
+ "merged": {
+  "world": "The assistant evaluates commercial authorization and operational assignments for unmanned delivery hardware and network equipment.",
+  "nodes": {
+   "E1": {
+    "text": "AeroGlide Drone possesses an active FCC Class B broadcast permit.",
+    "source": "Federal Communications Commission Licensing Database"
+   },
+   "E2": {
+    "text": "AeroGlide Drone recorded a flight safety evaluation rating of 92 points this quarter.",
+    "source": "AeroGlide Flight Analytics Center"
+   },
+   "E3": {
+    "text": "SentryGuard Hub secured an official UL 2900 cybersecurity certification.",
+    "source": "Underwriters Laboratories Certification Registry"
+   },
+   "B1": {
+    "text": "AeroGlide Drone qualifies for commercial deployment status."
+   },
+   "D1": {
+    "text": "AeroGlide Drone is selected for regional delivery operations."
+   },
+   "B2": {
+    "text": "SentryGuard Hub meets enterprise network insertion standards."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An official audit memo confirms that AeroGlide Drone never recorded a flight safety evaluation rating of 92 points this quarter.",
+    "source": "AeroGlide Quality Assurance Registry"
+   }
+  },
+  "policies": {
+   "B1": "Market deployment authorization is granted to an uncrewed aircraft if it holds an official broadcast permit or achieves a quarterly flight safety evaluation rating of at least 90 points.",
+   "D1": "A delivery vehicle is approved for regional distribution tasks provided it has received market deployment authorization.",
+   "B2": "An IoT hardware platform attains enterprise network clearance upon receiving a UL 2900 cybersecurity certification."
+  },
+  "decoy_policies": [
+   "An industrial power supply obtains heavy utility approval when it demonstrates an operational efficiency score of at least 95 percent over six months.",
+   "A thermal insulation panel gains eco-friendly building compliance if it maintains a heat resistance factor of at least 40 units."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "D1": "holds",
+   "B2": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "AeroGlide Drone",
+    "kind": "credential",
+    "quantity": "FCC Class B broadcast permit",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "AeroGlide Drone",
+    "kind": "number",
+    "quantity": "flight safety evaluation rating",
+    "value": 92,
+    "unit": "points",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "SentryGuard Hub",
+    "kind": "credential",
+    "quantity": "UL 2900 cybersecurity certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "AeroGlide Drone",
+    "kind": "number",
+    "quantity": "flight safety evaluation rating",
+    "value": null,
+    "unit": "points",
+    "window": "quarter",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "credential",
+     "entity": "AeroGlide Drone",
+     "relation": null,
+     "quantity": "FCC Class B broadcast permit",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "AeroGlide Drone",
+     "relation": null,
+     "quantity": "flight safety evaluation rating",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "points",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "AeroGlide Drone",
+     "relation": null,
+     "quantity": "commercial deployment status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "SentryGuard Hub",
+     "relation": null,
+     "quantity": "UL 2900 cybersecurity certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "AeroGlide Drone holds an FCC Class B broadcast permit, which satisfies the broadcast permit requirement for market deployment authorization.",
+    "AeroGlide Drone earned a flight safety evaluation rating of 92 points this quarter, meeting the minimum 90 points threshold for market deployment authorization."
+   ],
+   "D1": [
+    "AeroGlide Drone has market deployment authorization, fulfilling the requirement for regional distribution task assignment."
+   ],
+   "B2": [
+    "SentryGuard Hub secured a UL 2900 cybersecurity certification, satisfying the criterion for enterprise network clearance."
+   ]
+  }
+ }
+}

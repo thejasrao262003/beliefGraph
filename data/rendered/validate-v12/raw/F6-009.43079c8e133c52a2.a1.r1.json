@@ -1,0 +1,225 @@
+{
+ "scenario": "F6-009",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.B1": "record_window_not_in_policy 'quarter'",
+  "conditions.B1": "record_window_not_in_policy 'quarter'",
+  "facts.E1": "record_window_not_in_policy 'quarter'",
+  "nodes.E1.text": "record_window_not_in_policy 'quarter'",
+  "nodes.E1.source": "record_window_not_in_policy 'quarter'",
+  "policies.D1": "record_window_not_in_policy 'quarter'",
+  "conditions.D1": "record_window_not_in_policy 'quarter'",
+  "facts.E3": "record_window_not_in_policy 'quarter'",
+  "nodes.E3.text": "record_window_not_in_policy 'quarter'",
+  "nodes.E3.source": "record_window_not_in_policy 'quarter'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B1\": [\n   {\n    \"comparator\": \">=\",\n    \"entity\": \"Apex Horizon Travel\",\n    \"kind\": \"number\",\n    \"premise\": \"E1\",\n    \"quantity\": \"international flight bookings\",\n    \"relation\": null,\n    \"scope\": \"international\",\n    \"threshold\": 1000,\n    \"unit\": \"bookings\",\n    \"window\": \"quarter\"\n   },\n   {\n    \"comparator\": null,\n    \"entity\": \"Apex Horizon Travel\",\n    \"kind\": \"credential\",\n    \"premise\": \"E2\",\n    \"quantity\": \"Grade A Aviation Safety Certification\",\n    \"relation\": null,\n    \"scope\": \"none\",\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\"\n   }\n  ],\n  \"conditions.D1\": [\n   {\n    \"comparator\": null,\n    \"entity\": \"Apex Horizon Travel\",\n    \"kind\": \"conclusion\",\n    \"premise\": \"B1\",\n    \"quantity\": \"Preferred Flight Partner status\",\n    \"relation\": null,\n    \"scope\": \"none\",\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\"\n   },\n   {\n    \"comparator\": \">=\",\n    \"entity\": \"Apex Horizon Travel\",\n    \"kind\": \"number\",\n    \"premise\": \"E3\",\n    \"quantity\": \"customer satisfaction score\",\n    \"relation\": null,\n    \"scope\": \"none\",\n    \"threshold\": 90,\n    \"unit\": \"percent\",\n    \"window\": \"quarter\"\n   }\n  ],\n  \"facts.E1\": {\n   \"entity\": \"Apex Horizon Travel\",\n   \"kind\": \"number\",\n   \"quantity\": \"international flight bookings\",\n   \"scope\": \"international\",\n   \"unit\": \"bookings\",\n   \"value\": 1500,\n   \"window\": \"quarter\"\n  },\n  \"facts.E3\": {\n   \"entity\": \"Apex Horizon Travel\",\n   \"kind\": \"number\",\n   \"quantity\": \"customer satisfaction score\",\n   \"scope\": \"none\",\n   \"unit\": \"percent\",\n   \"value\": 92,\n   \"window\": \"quarter\"\n  },\n  \"nodes.E1.source\": \"Official booking audit report for the quarter signed by the chief auditor.\",\n  \"nodes.E1.text\": \"Apex Horizon Travel processed 1500 international flight bookings during the quarter.\",\n  \"nodes.E3.source\": \"Client survey report for the quarter published by Quality Metrics Inc.\",\n  \"nodes.E3.text\": \"Apex Horizon Travel achieved a customer satisfaction rating of 92 percent during the quarter.\",\n  \"policies.B1\": \"An agency attains partnership at the preferred flight level either by processing at least 1000 cross-border flight reservations in a quarter or by obtaining a Grade A Aviation Safety Certification.\",\n  \"policies.D1\": \"A client organization qualifies for executive aviation charter dispatch if approved as a preferred flight partner and attaining a client approval rating of at least 90 percent in a quarter.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6119,
+   "output_tokens": 8842,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6119,
+    "completion_tokens": 8842
+   }
+  },
+  "est_usd": 0.11324025,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "nodes.E1.source",
+  "nodes.E1.text",
+  "nodes.E3.source",
+  "nodes.E3.text",
+  "policies.B1",
+  "policies.D1"
+ ],
+ "merged": {
+  "world": "Travel logistics management evaluating agency credentials and service authorizations.",
+  "nodes": {
+   "E1": {
+    "text": "Apex Horizon Travel processed 1500 international flight bookings during the quarter.",
+    "source": "Official booking audit report for the quarter signed by the chief auditor."
+   },
+   "E2": {
+    "text": "Apex Horizon Travel holds a Grade A Aviation Safety Certification.",
+    "source": "Civil Aviation Authority registry database."
+   },
+   "E3": {
+    "text": "Apex Horizon Travel achieved a customer satisfaction rating of 92 percent during the quarter.",
+    "source": "Client survey report for the quarter published by Quality Metrics Inc."
+   },
+   "E4": {
+    "text": "Veloce Transit operates a fleet of 25 express cargo vans.",
+    "source": "Department of Transportation commercial vehicle register."
+   },
+   "B1": {
+    "text": "Apex Horizon Travel maintains Preferred Flight Partner status."
+   },
+   "D1": {
+    "text": "Apex Horizon Travel receives approval for the Executive Jet Charter program."
+   },
+   "B2": {
+    "text": "Veloce Transit gains Priority Courier Authorization."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An unverified blog entry asserts that Apex Horizon Travel did not process 1500 international flight bookings last quarter.",
+    "source": "Anonymous travel gossip blog post."
+   }
+  },
+  "policies": {
+   "B1": "An agency attains partnership at the preferred flight level either by processing at least 1000 cross-border flight reservations in a quarter or by obtaining a Grade A Aviation Safety Certification.",
+   "D1": "A client organization qualifies for executive aviation charter dispatch if approved as a preferred flight partner and attaining a client approval rating of at least 90 percent in a quarter.",
+   "B2": "A carrier earns express dispatch privileges provided it maintains an active inventory of at least 20 express cargo vans."
+  },
+  "decoy_policies": [
+   "A maritime operator receives Deepwater Navigation Clearance when operating at least 5 container vessels registered under a national flag.",
+   "A ground transport provider qualifies for Regional Shuttle Licensing if maintaining an emergency response time under 15 minutes."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "D1": "holds",
+   "B2": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Apex Horizon Travel",
+    "kind": "number",
+    "quantity": "international flight bookings",
+    "scope": "international",
+    "unit": "bookings",
+    "value": 1500,
+    "window": "quarter"
+   },
+   "E2": {
+    "entity": "Apex Horizon Travel",
+    "kind": "credential",
+    "quantity": "Grade A Aviation Safety Certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Apex Horizon Travel",
+    "kind": "number",
+    "quantity": "customer satisfaction score",
+    "scope": "none",
+    "unit": "percent",
+    "value": 92,
+    "window": "quarter"
+   },
+   "E4": {
+    "entity": "Veloce Transit",
+    "kind": "number",
+    "quantity": "express cargo vans",
+    "value": 25,
+    "unit": "vans",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Apex Horizon Travel",
+    "kind": "number",
+    "quantity": "international flight bookings",
+    "value": null,
+    "unit": "bookings",
+    "window": "quarter",
+    "scope": "international"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "comparator": ">=",
+     "entity": "Apex Horizon Travel",
+     "kind": "number",
+     "premise": "E1",
+     "quantity": "international flight bookings",
+     "relation": null,
+     "scope": "international",
+     "threshold": 1000,
+     "unit": "bookings",
+     "window": "quarter"
+    },
+    {
+     "comparator": null,
+     "entity": "Apex Horizon Travel",
+     "kind": "credential",
+     "premise": "E2",
+     "quantity": "Grade A Aviation Safety Certification",
+     "relation": null,
+     "scope": "none",
+     "threshold": null,
+     "unit": null,
+     "window": "none"
+    }
+   ],
+   "D1": [
+    {
+     "comparator": null,
+     "entity": "Apex Horizon Travel",
+     "kind": "conclusion",
+     "premise": "B1",
+     "quantity": "Preferred Flight Partner status",
+     "relation": null,
+     "scope": "none",
+     "threshold": null,
+     "unit": null,
+     "window": "none"
+    },
+    {
+     "comparator": ">=",
+     "entity": "Apex Horizon Travel",
+     "kind": "number",
+     "premise": "E3",
+     "quantity": "customer satisfaction score",
+     "relation": null,
+     "scope": "none",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "quarter"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Veloce Transit",
+     "relation": null,
+     "quantity": "express cargo vans",
+     "comparator": ">=",
+     "threshold": 20,
+     "unit": "vans",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Apex Horizon Travel meets the booking volume requirement of 1000 international flight bookings in a quarter.",
+    "Apex Horizon Travel holds a Grade A Aviation Safety Certification."
+   ],
+   "D1": [
+    "Apex Horizon Travel holds Preferred Flight Partner status and achieves a quarterly customer satisfaction score of 92 percent, meeting the 90 percent threshold."
+   ],
+   "B2": [
+    "Veloce Transit operates 25 express cargo vans, satisfying the requirement of at least 20 vans."
+   ]
+  }
+ }
+}

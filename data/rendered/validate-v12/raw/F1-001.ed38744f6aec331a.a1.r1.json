@@ -1,0 +1,289 @@
+{
+ "scenario": "F1-001",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "nodes.B1.text": "label_word 'gold standard' (graph or label vocabulary may not appear in any text)"
+ },
+ "response": "```json\n{\n  \"replacements\": {\n    \"nodes.B1.text\": \"Meridian Charters maintains premier transit safety compliance.\"\n  }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6289,
+   "output_tokens": 2144,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6289,
+    "completion_tokens": 2144
+   }
+  },
+  "est_usd": 0.03827025,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "nodes.B1.text"
+ ],
+ "merged": {
+  "world": "Assessment of transport operator safety standards, bidding qualifications, and service authorizations across regional travel logistics networks.",
+  "nodes": {
+   "E1": {
+    "text": "Meridian Charters maintained a vehicle fleet safety inspection pass rate of 98 percent last year nationally.",
+    "source": "Official audit certificate issued by the National Transit Authority on January 11, 2026."
+   },
+   "E2": {
+    "text": "Meridian Charters logged 12 driver safety training sessions this year.",
+    "source": "Certified annual record from the Transport Regulatory Board on January 17, 2026."
+   },
+   "E3": {
+    "text": "Meridian Charters submitted performance bonding coverage of $5,000,000.",
+    "source": "Verified financial filing from City Commerce Bank on January 14, 2026."
+   },
+   "E4": {
+    "text": "Pacific Rail Express maintains an on-time arrival rate of 92 percent this quarter.",
+    "source": "Quarterly operational log published by the Rail Logistics Oversight Committee on January 20, 2026."
+   },
+   "E5": {
+    "text": "Summit Alpine Shuttles possesses a winter road operation licence.",
+    "source": "Official permit record from the Regional Transport Department on January 8, 2026."
+   },
+   "B1": {
+    "text": "Meridian Charters maintains premier transit safety compliance."
+   },
+   "B2": {
+    "text": "Meridian Charters holds preferred passenger carrier designation."
+   },
+   "B3": {
+    "text": "Meridian Charters qualifies for municipal transit contract bidding."
+   },
+   "D1": {
+    "text": "Award the regional school route contract to Meridian Charters."
+   },
+   "B4": {
+    "text": "Pacific Rail Express fulfills priority cargo dispatch standards."
+   },
+   "B5": {
+    "text": "Summit Alpine Shuttles operates as an authorized mountain route vendor."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "The National Transit Authority issued a formal revocation notice stating that Meridian Charters did not maintain a vehicle fleet safety inspection pass rate of 98 percent last year nationally.",
+    "source": "Official revocation bulletin from the National Transit Authority on January 23, 2026."
+   }
+  },
+  "policies": {
+   "B1": "A transport provider achieves top-tier safety compliance when maintaining an annual vehicle safety inspection rating of at least 95 percent across national operations alongside at least 10 annual driver instruction seminars.",
+   "B2": "A carrier receives preferred transit status when holding top-tier safety compliance.",
+   "B3": "An agency is eligible for city service procurement upon obtaining preferred transit status.",
+   "D1": "A transit contract for regional educational transport shall be assigned to an operator eligible for city service procurement that provides performance guarantee indemnity of at least $5,000,000.",
+   "B4": "A railway carrier achieves expedited freight service status by maintaining a quarterly punctuality metric of 90 percent or higher.",
+   "B5": "A shuttle agency gains recognized alpine transport endorsement provided it holds valid cold-season transit authorization."
+  },
+  "decoy_policies": [
+   "A maritime charter company obtains deep-sea navigation clearance if it conducts 15 crew emergency drills annually.",
+   "A car rental company earns eco-fleet certification when electric vehicles represent at least 40 percent of its total inventory."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "B2": "fails",
+   "B3": "fails",
+   "D1": "fails",
+   "B4": "holds",
+   "B5": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Meridian Charters",
+    "kind": "number",
+    "quantity": "vehicle fleet safety inspection pass rate",
+    "value": 98,
+    "unit": "%",
+    "window": "year",
+    "scope": "national"
+   },
+   "E2": {
+    "entity": "Meridian Charters",
+    "kind": "number",
+    "quantity": "driver safety training sessions",
+    "value": 12,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Meridian Charters",
+    "kind": "number",
+    "quantity": "performance bonding coverage",
+    "value": 5000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Pacific Rail Express",
+    "kind": "number",
+    "quantity": "on-time arrival rate",
+    "value": 92,
+    "unit": "%",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Summit Alpine Shuttles",
+    "kind": "credential",
+    "quantity": "winter road operation licence",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Meridian Charters",
+    "kind": "number",
+    "quantity": "vehicle fleet safety inspection pass rate",
+    "value": null,
+    "unit": "%",
+    "window": "year",
+    "scope": "national"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Meridian Charters",
+     "relation": null,
+     "quantity": "vehicle fleet safety inspection pass rate",
+     "comparator": ">=",
+     "threshold": 95,
+     "unit": "%",
+     "window": "year",
+     "scope": "national"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Meridian Charters",
+     "relation": null,
+     "quantity": "driver safety training sessions",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Meridian Charters",
+     "relation": null,
+     "quantity": "top-tier safety compliance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Meridian Charters",
+     "relation": null,
+     "quantity": "preferred transit status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Meridian Charters",
+     "relation": null,
+     "quantity": "eligible for city service procurement",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Meridian Charters",
+     "relation": null,
+     "quantity": "performance bonding coverage",
+     "comparator": ">=",
+     "threshold": 5000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Pacific Rail Express",
+     "relation": null,
+     "quantity": "on-time arrival rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "%",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "Summit Alpine Shuttles",
+     "relation": null,
+     "quantity": "winter road operation licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Meridian Charters meets gold standard transport safety protocols because its 98 percent national vehicle inspection rate satisfies the 95 percent threshold and its 12 driver safety training sessions meet the requirement of 10."
+   ],
+   "B2": [
+    "Meridian Charters holds preferred passenger carrier designation because it meets gold standard transport safety protocols."
+   ],
+   "B3": [
+    "Meridian Charters qualifies for municipal transit contract bidding because it holds preferred passenger carrier designation."
+   ],
+   "D1": [
+    "Awarding the regional school route contract to Meridian Charters is supported because the company qualifies for municipal transit contract bidding and provides $5,000,000 in performance bonding coverage."
+   ],
+   "B4": [
+    "Pacific Rail Express fulfills priority cargo dispatch standards because its quarterly on-time arrival rate of 92 percent meets the 90 percent requirement."
+   ],
+   "B5": [
+    "Summit Alpine Shuttles operates as an authorized mountain route vendor because it holds a winter road operation licence."
+   ]
+  }
+ }
+}

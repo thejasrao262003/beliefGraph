@@ -1,0 +1,198 @@
+{
+ "scenario": "F1-004",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "decoy_policies[1]": "decoy_shares_memory_word 'clearance' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)"
+ },
+ "response": "```json\n{\n  \"replacements\": {\n    \"decoy_policies[1]\": \"An industrial lubricant gets environmental certification if its biodegradable fraction exceeds 85 percent.\"\n  }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 5397,
+   "output_tokens": 942,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 5397,
+    "completion_tokens": 942
+   }
+  },
+  "est_usd": 0.02274075,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "decoy_policies[1]"
+ ],
+ "merged": {
+  "world": "Assessment of commercial product eligibility and regulatory compliance across three distinct hardware product lines.",
+  "nodes": {
+   "E1": {
+    "text": "AeroGlide Scooter recorded a top speed of 25 km/h during safety testing.",
+    "source": "Official test results from the National Safety Testing Laboratory."
+   },
+   "E2": {
+    "text": "AeroGlide Scooter holds an active European Conformity certificate.",
+    "source": "Official European Conformity registry database entry."
+   },
+   "E3": {
+    "text": "Titan Battery Pack demonstrated an energy density of 280 Wh/kg.",
+    "source": "Signed laboratory test certificate from Energy Analytics Institute."
+   },
+   "E4": {
+    "text": "Lumina Medical Monitor completed 12 quality control audits this year.",
+    "source": "Annual audit report signed by Quality Management Services."
+   },
+   "D1": {
+    "text": "AeroGlide Scooter is approved for urban retail distribution."
+   },
+   "B1": {
+    "text": "Titan Battery Pack qualifies for commercial transport clearance."
+   },
+   "B2": {
+    "text": "Lumina Medical Monitor maintains ISO 13485 compliance status."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An official re-test showed AeroGlide Scooter achieved a top speed of 38 km/h.",
+    "source": "Official follow-up audit report from the National Safety Testing Laboratory."
+   }
+  },
+  "policies": {
+   "D1": "An electric mobility device receives authorization for city retail sales when its maximum velocity does not exceed 30 km/h alongside an active European Conformity certificate.",
+   "B1": "An energy storage product earns approval for freight transport provided its energy concentration reaches at least 250 Wh/kg.",
+   "B2": "A healthcare instrument secures ISO 13485 regulatory certification if it undergoes a minimum of 10 quality control audits per year."
+  },
+  "decoy_policies": [
+   "A personal protection garment achieves heavy-duty classification when its tear resistance measures at least 150 Newtons.",
+   "An industrial lubricant gets environmental certification if its biodegradable fraction exceeds 85 percent."
+  ],
+  "after_updates": {
+   "D1": "fails",
+   "B1": "holds",
+   "B2": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "AeroGlide Scooter",
+    "kind": "number",
+    "quantity": "top speed",
+    "value": 25,
+    "unit": "km/h",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "AeroGlide Scooter",
+    "kind": "credential",
+    "quantity": "European Conformity certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Titan Battery Pack",
+    "kind": "number",
+    "quantity": "energy density",
+    "value": 280,
+    "unit": "Wh/kg",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Lumina Medical Monitor",
+    "kind": "number",
+    "quantity": "quality control audits",
+    "value": 12,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "AeroGlide Scooter",
+    "kind": "number",
+    "quantity": "top speed",
+    "value": 38,
+    "unit": "km/h",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "D1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "AeroGlide Scooter",
+     "relation": null,
+     "quantity": "top speed",
+     "comparator": "<=",
+     "threshold": 30,
+     "unit": "km/h",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "credential",
+     "entity": "AeroGlide Scooter",
+     "relation": null,
+     "quantity": "European Conformity certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B1": [
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Titan Battery Pack",
+     "relation": null,
+     "quantity": "energy density",
+     "comparator": ">=",
+     "threshold": 250,
+     "unit": "Wh/kg",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Lumina Medical Monitor",
+     "relation": null,
+     "quantity": "quality control audits",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "D1": [
+    "AeroGlide Scooter satisfies the policy by having a top speed of 25 km/h, which is within the 30 km/h maximum limit, and maintaining an active European Conformity certificate."
+   ],
+   "B1": [
+    "Titan Battery Pack fulfills the rule by demonstrating an energy density of 280 Wh/kg, exceeding the required threshold of 250 Wh/kg."
+   ],
+   "B2": [
+    "Lumina Medical Monitor meets the policy condition by completing 12 quality control audits this year, surpassing the required minimum of 10."
+   ]
+  }
+ }
+}

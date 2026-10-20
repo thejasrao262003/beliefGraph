@@ -1,0 +1,332 @@
+{
+ "scenario": "F3-007",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "decoy_policies[0]": "decoy_shares_memory_word 'transit' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)",
+  "facts.E7": "record_scope_not_in_text 'record none, text international'",
+  "nodes.E7.text": "record_scope_not_in_text 'record none, text international'",
+  "nodes.E7.source": "record_scope_not_in_text 'record none, text international'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"decoy_policies[0]\": \"A regional rail operator receives green railway certification when its yearly electrification ratio exceeds 80 percent.\",\n  \"facts.E7\": {\n   \"entity\": \"Apex Cargo\",\n   \"kind\": \"credential\",\n   \"quantity\": \"international freight permit\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"international\"\n  },\n  \"nodes.E7.source\": \"International logistics authorization database.\",\n  \"nodes.E7.text\": \"Apex Cargo holds an active international freight permit.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6671,
+   "output_tokens": 3638,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6671,
+    "completion_tokens": 3638
+   }
+  },
+  "est_usd": 0.05593725,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "decoy_policies[0]",
+  "facts.E7.scope",
+  "nodes.E7.source"
+ ],
+ "merged": {
+  "world": "The assistant evaluates compliance, licensing, and operational metrics to assign transit service contracts and carrier accreditations.",
+  "nodes": {
+   "E1": {
+    "text": "Vanguard Coaches operates a certified driver fatigue monitoring system.",
+    "source": "Official safety inspection report filed on January 22, 2026."
+   },
+   "E2": {
+    "text": "Vanguard Coaches completed 150 safety audits this year.",
+    "source": "Department of Transportation annual compliance record."
+   },
+   "E3": {
+    "text": "Vanguard Coaches maintains an active fleet size of 25 vehicles.",
+    "source": "Municipal transit vehicle registry export."
+   },
+   "E4": {
+    "text": "Vanguard Coaches holds an official passenger transit licence.",
+    "source": "State licensing board database entry."
+   },
+   "E5": {
+    "text": "Horizon Charters logged a baggage misplacement rate of 0.2 percent this quarter.",
+    "source": "Quarterly baggage operations audit."
+   },
+   "E6": {
+    "text": "BlueWave Ferries recorded an on-time arrival rate of 92 percent this month.",
+    "source": "Maritime transit punctuality portal."
+   },
+   "E7": {
+    "text": "Apex Cargo holds an active international freight permit.",
+    "source": "International logistics authorization database."
+   },
+   "B1": {
+    "text": "Vanguard Coaches achieves tier-one transport compliance standing."
+   },
+   "B2": {
+    "text": "Vanguard Coaches is authorized for major urban transit routes."
+   },
+   "D1": {
+    "text": "Vanguard Coaches shall be selected for the downtown express route."
+   },
+   "B3": {
+    "text": "Horizon Charters maintains elite luggage handling status."
+   },
+   "B4": {
+    "text": "BlueWave Ferries qualifies for preferred maritime partner status."
+   },
+   "B5": {
+    "text": "Apex Cargo is eligible for cross-border logistics dispatch."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Vanguard Coaches does not maintain an active fleet size of 25 vehicles.",
+    "source": "Updated municipal vehicle registry audit dated January 29, 2026."
+   }
+  },
+  "policies": {
+   "B1": "A transit provider attains first-level regulatory clearance if it utilizes an automated driver fatigue monitoring system, completes at least 100 safety audits a year, and maintains an active fleet size of at least 20 vehicles.",
+   "B2": "A carrier with first-level regulatory clearance gains approval for high-capacity city transit lines provided it holds an official passenger transit licence.",
+   "D1": "Allocation to the central express transit contract is open to any carrier with approval for high-capacity city transit lines.",
+   "B3": "A charter enterprise earns premier baggage service standing when its baggage misplacement rate is no greater than 0.5 percent this quarter.",
+   "B4": "A sea transport company achieves priority water carrier ranking provided its monthly on-time arrival rate reaches 90 percent or higher.",
+   "B5": "A shipping firm gains clearance for international transport assignment when it maintains an active international freight permit."
+  },
+  "decoy_policies": [
+   "A regional rail operator receives green railway certification when its yearly electrification ratio exceeds 80 percent.",
+   "An aviation vendor obtains priority slot reservation if its annual safety incident count remains below two."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "B2": "fails",
+   "D1": "fails",
+   "B3": "holds",
+   "B4": "holds",
+   "B5": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Vanguard Coaches",
+    "kind": "credential",
+    "quantity": "driver fatigue monitoring system",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Vanguard Coaches",
+    "kind": "number",
+    "quantity": "safety audits",
+    "value": 150,
+    "unit": "audits",
+    "window": "year",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Vanguard Coaches",
+    "kind": "number",
+    "quantity": "active fleet size",
+    "value": 25,
+    "unit": "vehicles",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Vanguard Coaches",
+    "kind": "credential",
+    "quantity": "passenger transit licence",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Horizon Charters",
+    "kind": "number",
+    "quantity": "baggage misplacement rate",
+    "value": 0.2,
+    "unit": "%",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "BlueWave Ferries",
+    "kind": "number",
+    "quantity": "on-time arrival rate",
+    "value": 92,
+    "unit": "%",
+    "window": "month",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Apex Cargo",
+    "kind": "credential",
+    "quantity": "international freight permit",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "international"
+   },
+   "U1": {
+    "entity": "Vanguard Coaches",
+    "kind": "number",
+    "quantity": "active fleet size",
+    "value": null,
+    "unit": "vehicles",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "credential",
+     "entity": "Vanguard Coaches",
+     "relation": null,
+     "quantity": "driver fatigue monitoring system",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Vanguard Coaches",
+     "relation": null,
+     "quantity": "safety audits",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "audits",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Vanguard Coaches",
+     "relation": null,
+     "quantity": "active fleet size",
+     "comparator": ">=",
+     "threshold": 20,
+     "unit": "vehicles",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Vanguard Coaches",
+     "relation": null,
+     "quantity": "tier-one transport compliance standing",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "credential",
+     "entity": "Vanguard Coaches",
+     "relation": null,
+     "quantity": "passenger transit licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Vanguard Coaches",
+     "relation": null,
+     "quantity": "authorization for major urban transit routes",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Horizon Charters",
+     "relation": null,
+     "quantity": "baggage misplacement rate",
+     "comparator": "<=",
+     "threshold": 0.5,
+     "unit": "%",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "BlueWave Ferries",
+     "relation": null,
+     "quantity": "on-time arrival rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "%",
+     "window": "month",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E7",
+     "kind": "credential",
+     "entity": "Apex Cargo",
+     "relation": null,
+     "quantity": "international freight permit",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Vanguard Coaches meets tier-one transport compliance standing by operating a driver fatigue monitoring system, completing 150 safety audits this year (meeting the threshold of 100), and maintaining an active fleet size of 25 vehicles (meeting the threshold of 20)."
+   ],
+   "B2": [
+    "Vanguard Coaches is authorized for major urban transit routes because it holds tier-one transport compliance standing and possesses an official passenger transit licence."
+   ],
+   "D1": [
+    "Vanguard Coaches is selected for the downtown express route because it is authorized for major urban transit routes."
+   ],
+   "B3": [
+    "Horizon Charters maintains elite luggage handling status because its quarterly baggage misplacement rate of 0.2 percent is at or below 0.5 percent."
+   ],
+   "B4": [
+    "BlueWave Ferries qualifies for preferred maritime partner status because its monthly on-time arrival rate of 92 percent reaches the required 90 percent threshold."
+   ],
+   "B5": [
+    "Apex Cargo is eligible for cross-border logistics dispatch because it holds an active international freight permit."
+   ]
+  }
+ }
+}
