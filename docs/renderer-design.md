@@ -506,3 +506,11 @@ The v5 prompt already says conditions must be "never in the fact's words", but t
 - **Measured leakage:** the predeclared pooled gate over the declared scenario set.
 - **Semantic quality:** C8 and C10, which no lexical score replaces. F6 attempt 2 shows that a render can pass the automated checks while getting harder to interpret ("balance credits" for "carbon offsets").
 - **Scenario design:** consider an F6 variant with fewer independent named quantities.
+
+### 16i. F1 human review recorded (2026-10-20)
+
+- **Result:** `smoke-render-v5/review.csv`, reviewer `thejasrao262003`: all 13 checks pass; decision **accept**.
+- **Provenance:** an AI assistant drafted the analysis. The user reviewed F1 against C1–C13 and confirmed it as their own verdict.
+- **Normalised to the validator's format:** C3 "N/A" became `pass` (vacuous, since there are no OR sets); the decision "PASS" became `accept`.
+- **Notes cover:** C3, C4 and C13 only. C7, C8, C10 and C11 pass without specific notes.
+- **Still open:** F2 human review (with the ISO 22000 C7/C11 question). The gate stays unscored: F6 is excluded, and the predeclared F1+F2+F6 scope is not re-scoped. The 40-scenario run stays blocked.
