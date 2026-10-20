@@ -847,3 +847,92 @@ An external AI assistant, supplied by the user, reviewed the repaired F1. It is 
   - No further repair or re-render of it.
   - Pilot-3 remains failed; F2, F3 and F6 remain unrun; the 40-scenario run stays blocked.
   - Total spent on pilot-3 and the repair: $0.1352 + $0.0207 = $0.1559.
+
+## 19. Proposal: structured condition records (render-v9) and pilot-4
+
+*Proposal only. **Nothing is implemented, and no calls are authorised.** Pilots 1–3 and the repair stay as recorded.*
+
+### 19a. Why
+
+Six renders have had a human review. Three were accepted (v5 F1, v5b F2, v7 F1). Three came back as revise, and **all three were reference mismatches between a fact and the policy condition it is meant to satisfy**:
+
+| Render | Mismatch | Dimension |
+|---|---|---|
+| v7 F6 | facts about Apex Medical Corp support memories about BioGlow Diagnostic Kit | entity |
+| v7 F2 | annual audit count vs an update "during the evaluation period" | time window |
+| v8 F1 (repaired) | "local" inventory vs a "regional" inventory condition | scope |
+
+The lexical checks cannot see these, and each new check (§18) has covered only the dimension that had just failed. The proposal is to make the renderer **declare** what each fact and condition refers to, and to check all dimensions at once, in code, against both the other record and the text.
+
+### 19b. Records (eval view only; never shown to the evaluated system)
+
+render-v9 = verbatim v8 + one output section. For every evidence item and update, a **fact record**. For every premise of every justification set, a **condition record** in the governing policy:
+
+```json
+"facts": {
+  "E1": {"entity": "VeloTech Mobility", "kind": "number", "quantity": "spare parts inventory value",
+         "value": 200000, "unit": "USD", "window": "none", "scope": "local"},
+  "U1": {"entity": "VeloTech Mobility", "kind": "number", "quantity": "spare parts inventory value",
+         "value": 80000, "unit": "USD", "window": "none", "scope": "local"}
+},
+"conditions": {
+  "B1": [{"premise": "E1", "entity": "same", "kind": "number", "quantity": "spare parts inventory value",
+          "comparator": ">=", "threshold": 150000, "unit": "USD", "window": "none", "scope": "regional"}]
+}
+```
+
+- **Field values:**
+  - `kind`: number or credential (yes/no).
+  - `window`: year, quarter, month, week, N years, or none (point-in-time).
+  - `scope`: a controlled list: none, local, regional, national, international, or a named area.
+  - `entity`: "same", or a relation ("maker of", "parent of", "owner of") that must then be stated in the fact.
+  - A conclusion used as a condition gets `{"premise": "B1", "kind": "conclusion"}`.
+- **Where they go:** records are parsed into the eval view next to the rationale. The system view is unchanged (`SYSTEM_VIEW_KEYS` and its test enforce this).
+
+### 19c. Checks
+
+| Check | What it compares | Severity |
+|---|---|---|
+| **Record agreement** | Each premise's fact record vs its condition record: quantity label, unit, window, scope equal; entity "same" or a declared relation | **Hard.** The renderer has declared a mismatch itself (the repaired F1 would fail here, on local ≠ regional) |
+| **Satisfaction** | value *comparator* threshold must hold for every original fact. After applying each update's record, the comparisons must reproduce the renderer's `after_updates` and therefore the gold final state | **Hard.** An automated C13: it checks the arithmetic the reviewer now does by hand |
+| **Text grounding: numbers** | The record's value and threshold appear in the fact and policy text (numbers normalised: $, commas, %, units) | **Hard** |
+| **Text grounding: entity** | The record's entity string appears in the fact text. A declared relation must be stated in that fact (§18a rule) | **Hard** (v7 F6 fails here) |
+| **Text grounding: window** | `windows(text)` agrees with the record: a known text window must equal the record's; a record window ≠ none must appear in the text; a vague text window fails | **Hard** (v7 F2 fails here). The extractor exists and is tested (§18e) |
+| **Text grounding: scope** | The record's scope word (local, regional, …) appears in both texts; scope none means neither text uses a scope word | **Hard** |
+| **Quantity label vs text** | The quantity label vs the wording in the fact and policy | **Soft** (paraphrase is allowed and cannot be checked lexically; the reviewer judges under C10) |
+
+The §18 subject and window checks stay as an independent second line. All existing hard checks are unchanged.
+
+### 19d. Tests (written before any render)
+
+The stored renders have no records, so the tests use **hand-annotated record fixtures** for six renders. They test the *checker*, not whether the renderer fills records honestly:
+- **Must fail:** v7 F6 (entity grounding), v7 F2 (window grounding), v8-repair F1 (record agreement on scope, *or* scope grounding if the records hide it).
+- **Must pass:** v5 F1, v5b F2, v7 F1. These are the human-accepted controls; satisfaction must reproduce their gold final states.
+- **Synthetic cases:**
+  - a record that agrees with its pair but contradicts its own text (grounding must catch it);
+  - a value that does not satisfy its threshold;
+  - an update whose new value flips the outcome against `after_updates`;
+  - a declared relation that is not stated in the fact;
+  - a credential condition;
+  - a conclusion condition.
+- **View test:** no record field reaches the system view.
+
+### 19e. Limits (stated now, not discovered later)
+
+- **The renderer could write records that agree with each other while the text says otherwise.** Grounding catches this for numbers, entity names, windows and scope words, not for quantity names (soft only). The "balance credits" for "carbon offsets" case (v5d attempt 2, never human-reviewed) would only be a soft flag.
+- **Records add output tokens.** An estimated +20–40% per call, roughly $0.08–0.10 instead of $0.07.
+- **Records do not replace review.** Human review of C1–C13 stays mandatory.
+
+### 19f. Pilot-4 (for approval after the code and tests are reviewed)
+
+| Item | Proposal |
+|---|---|
+| Prompt | render-v9 = verbatim v8 (`1239470d…`) + the record section, pinned before any call |
+| Scope | F1-000, F2-000, F3-000, F6-000, fresh |
+| Retry | **Decision needed.** (a) As before: up to 2 whole-scenario attempts. (b) Attempt 2 = a **targeted repair** (§18h) of only the flagged fields, text and record together; a flag that cannot be mapped to fields stops the scenario. Recommend (b): pilot-3 showed whole re-rolls trade one failure for another, and the repair mechanism worked as specified |
+| Acceptance, gate, stop rule | Unchanged: 0 hard flags; a fresh human review of all four; `accept` with C8 and C10; pooled worse-heuristic set F1 ≤ 0.50 over the four; any fail or `revise` stops the pilot |
+| Budget | New cap **$0.80**, cumulative. Guard worst case ≈ $0.14 per call; expected ≈ $0.35–0.40 |
+
+**Decisions needed, in order:**
+1. Approve implementing §19b–19d (the parser, checks and fixtures; no calls).
+2. After reviewing the code and test results: approve the exact v9 prompt text, the retry mode (a or b), and the cap.
