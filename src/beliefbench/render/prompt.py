@@ -24,7 +24,7 @@ from dataclasses import dataclass, field
 from beliefbench.render.views import timeline
 from beliefbench.schema import Scenario
 
-PROMPT_VERSION = "render-v10"
+PROMPT_VERSION = "render-v11"
 
 # Exactly the text used for smoke test 2 (commit 896d366). Do not edit.
 SYSTEM_PROMPT_V2 = """\
@@ -439,7 +439,7 @@ def _v9_from_v8(v8: str) -> str:
 
 
 SYSTEM_PROMPT_V9 = _v9_from_v8(SYSTEM_PROMPT_V8)
-RECORD_VERSIONS = {"render-v9", "render-v10"}
+RECORD_VERSIONS = {"render-v9", "render-v10", "render-v11"}
 WINDOWS_ALLOWED = {"none", "year", "quarter", "month", "week"}
 SCOPES_ALLOWED = {"none", "local", "regional", "national", "international", "global"}
 COMPARATORS = {">=", ">", "<=", "<", "=="}
@@ -529,10 +529,47 @@ def _v10_from_v9(v9: str) -> str:
 
 SYSTEM_PROMPT_V10 = _v10_from_v9(SYSTEM_PROMPT_V9)
 
+# render-v11 = v10 + two semantic rules (40-scenario run: F6-005/F6-009 judged a weak-source
+# challenge to the only support as "fails"; F2-001 updated "15 transfers" to "8 this quarter").
+_V11_EDITS = [
+    (
+        """that remain credible ("undetermined" if the updates leave it genuinely open).
+""",
+        """that remain credible ("undetermined" if the updates leave it genuinely open). A \
+retraction or hedge from a weak source (anonymous, unverified, hearsay) does not make a \
+fact false; it only casts doubt on it. If such an update challenges the ONLY support of \
+a conclusion, the conclusion is "undetermined", never "fails"; if another support \
+remains, it "holds". Only a credible source can make a conclusion "fail".
+""",
+    ),
+    (
+        """vague one ("during the evaluation \
+period") fails review.
+""",
+        """vague one ("during the evaluation \
+period") fails review. If the original fact states no window, an update that replaces it \
+states none either ("a corrected count of 8 transfers", not "8 transfers this quarter"), \
+so it reads unmistakably as a replacement of the same figure; an update that introduces \
+a window is rejected.
+""",
+    ),
+]
+
+
+def _v11_from_v10(v10: str) -> str:
+    out = v10
+    for old, new in _V11_EDITS:
+        assert out.count(old) == 1, f"v11 anchor not found exactly once: {old[:60]!r}"
+        out = out.replace(old, new)
+    return out
+
+
+SYSTEM_PROMPT_V11 = _v11_from_v10(SYSTEM_PROMPT_V10)
+
 PROMPTS = {"render-v2": SYSTEM_PROMPT_V2, "render-v3": SYSTEM_PROMPT_V3, "render-v4": SYSTEM_PROMPT_V4,
            "render-v5": SYSTEM_PROMPT_V5, "render-v6": SYSTEM_PROMPT_V6, "render-v7": SYSTEM_PROMPT_V7,
            "render-v8": SYSTEM_PROMPT_V8, "render-v9": SYSTEM_PROMPT_V9,
-           "render-v10": SYSTEM_PROMPT_V10}
+           "render-v10": SYSTEM_PROMPT_V10, "render-v11": SYSTEM_PROMPT_V11}
 SYSTEM_PROMPT = PROMPTS[PROMPT_VERSION]
 AFTER_UPDATE_STATES = {"holds", "fails", "undetermined"}
 

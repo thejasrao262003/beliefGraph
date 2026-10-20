@@ -103,7 +103,7 @@ def test_payload_carries_dates_but_no_gold_or_family():
     assert groups["B3"] != groups["B1"]
     obs = {e["id"]: e["observed"] for e in payload["evidence"]} | {u["id"]: u["observed"] for u in payload["updates"]}
     assert obs == timeline(s, 0)
-    assert PROMPT_VERSION == "render-v10" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
+    assert PROMPT_VERSION == "render-v11" and "DECOY POLICIES" in SYSTEM_PROMPT and "never shown" in SYSTEM_PROMPT
     assert "justification_sets" in user_message(s)
 
 
@@ -371,7 +371,7 @@ def test_v3_prompt_is_kept_verbatim_and_v4_extends_it():
 
     assert hashlib.sha256(PROMPTS["render-v3"].encode()).hexdigest() == V3_SHA256
     assert "HARD RULE" in PROMPTS["render-v4"] and "flatly states" in PROMPTS["render-v4"]
-    assert current == "render-v10"
+    assert current == "render-v11"
 
 
 def _system(memories, policies, evidence=()):
@@ -1026,3 +1026,86 @@ def test_fix_f6_v10_a_attempt1_raises_no_scope_flag_on_organisation_names():
     s = next(x for x in generate_suite(10, 0) if x.id == "F6-000")
     sv, ev = build_views(s, parse_response(s, rec["response"], version="render-v10"), seed=0)
     assert not [f for f in leakcheck.record_flags(sv, ev) if "scope" in f.kind]
+
+
+# ── render-v11 semantic checks (40-scenario run: F6-005/F6-009 final state, F2-001 window) ──
+
+V11_SHA256 = "8cc0733093bca82aed40c56c37a20e844237c9a4d2fa94a61f5440c77b5353d1"
+PILOT40 = RENDERED / "pilot40-render-v10"
+
+
+def _pilot40():
+    import csv as _csv
+
+    decisions = {r["scenario"]: r["decision"] for r in _csv.DictReader((PILOT40 / "review.csv").open())}
+    for f in sorted((PILOT40 / "system").glob("*.json")):
+        sv = json.loads(f.read_text())
+        ev = json.loads((PILOT40 / "eval" / f.name).read_text())
+        yield ev["source_scenario"], decisions[sv["scenario"]], sv, ev
+
+
+def test_v11_is_v10_plus_the_two_semantic_rules():
+    import hashlib
+
+    from beliefbench.render.prompt import PROMPTS
+
+    assert hashlib.sha256(PROMPTS["render-v10"].encode()).hexdigest() == V10_SHA256
+    assert hashlib.sha256(PROMPTS["render-v11"].encode()).hexdigest() == V11_SHA256
+    v11 = PROMPTS["render-v11"]
+    assert 'never "fails"' in v11 and "an update that introduces" in v11
+
+
+def test_v11_semantic_checks_flag_exactly_the_three_revise_cases_of_the_40_run():
+    flagged = {}
+    for src, decision, sv, ev in _pilot40():
+        kinds = {f.kind for f in leakcheck.semantic_flags(sv, ev)}
+        if kinds:
+            flagged[src] = kinds
+        if decision == "accept":
+            assert not kinds, src  # no new hard flag on any of the 37 accepted scenarios
+    assert flagged == {"F2-001": {"update_window_introduced"}, "F6-005": {"final_state_mismatch"},
+                       "F6-009": {"final_state_mismatch"}}
+
+
+def test_v11_checks_do_not_rejudge_v10_runs():
+    assert not leakcheck.semantic_enforced("render-v10") and leakcheck.semantic_enforced("render-v11")
+    for src, _, sv, ev in _pilot40():
+        if src in ("F2-001", "F6-005", "F6-009"):
+            assert leakcheck.hard_flags(sv, ev, "render-v10") == []
+            assert leakcheck.hard_flags(sv, ev, "render-v11")
+
+
+def test_v11_flags_map_to_label_and_update_text_not_a_bare_label_flip():
+    for src, _, sv, ev in _pilot40():
+        if src not in ("F6-005", "F2-001"):
+            continue
+        raw = next((PILOT40 / "raw").glob(f"{src}.*.a1.json"))
+        rec = json.loads(raw.read_text())
+        obj = repair.load_response(rec["response"])
+        r1 = sorted((PILOT40 / "raw").glob(f"{src}.*.a1.r*.json"))
+        if r1:  # the accepted view is the repaired response
+            obj = json.loads(r1[-1].read_text())["merged"]
+        paths = set(repair.editable_paths(leakcheck.semantic_flags(sv, ev), ev, obj))
+        if src == "F6-005":
+            assert {"after_updates.B1", "after_updates.B2", "after_updates.D1", "updates.U1.text"} <= paths
+        else:
+            assert paths == {"updates.U1.text", "updates.U1.source", "facts.U1"}
+
+
+def _window_records(fact, update, kind="number"):
+    system = {"scenario": "s_x", "domain": "d", "policies": [], "memories": [],
+              "evidence": [{"id": "e_0001", "observed": "2026-01-08", "source": "Registry", "text": fact}],
+              "updates": [{"id": "u_0001", "observed": "2026-01-20", "source": "Registry", "text": update}]}
+    evaluation = {"gold": {}, "after_updates": {}, "update_targets": {"u_0001": {"target": "e_0001", "relation": "supersedes"}},
+                  "records": {"facts": {"e_0001": {"kind": kind}}, "conditions": {}}}
+    return [f.kind for f in leakcheck.semantic_flags(system, evaluation)]
+
+
+@pytest.mark.parametrize("fact,update,kind,expected", [
+    ("Acme booked 15 coach transfers.", "Acme booked 8 coach transfers this quarter.", "number", ["update_window_introduced"]),
+    ("Acme booked 15 coach transfers.", "A corrected count shows Acme booked 8 coach transfers.", "number", []),
+    ("Acme reported annual revenue of 2M.", "Acme restated its annual revenue to 1M.", "number", []),
+    ("Acme holds an ISO 22000 certificate.", "The certificate expired last month.", "credential", []),
+])
+def test_update_window_introduced_only_when_a_number_fact_gains_a_window(fact, update, kind, expected):
+    assert _window_records(fact, update, kind) == expected

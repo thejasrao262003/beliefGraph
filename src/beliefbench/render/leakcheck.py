@@ -798,13 +798,44 @@ def record_flags(system: dict, evaluation: dict) -> list[Flag]:
     return flags
 
 
+# ── render-v11: semantic-correctness checks (40-scenario run, 2026-10-20) ──
+# F6-005/F6-009: the renderer judged "fails" where a weak source challenged the only
+# support (gold "uncertain"); F2-001: an update stated "8 ... this quarter" for a fact with
+# no window, so it could be read as a quarterly subset rather than a replacement.
+SEMANTIC_V11_FROM = "render-v11"
+
+
+def semantic_enforced(prompt_version: str) -> bool:
+    return prompt_version not in PRE_CONTINUITY_VERSIONS | {"render-v8", "render-v9", "render-v10"}
+
+
+def semantic_flags(system: dict, evaluation: dict) -> list[Flag]:
+    """Hard from render-v11: (1) the renderer's after-update state contradicts gold
+    (final_state_mismatch / recompute_unresolved, soft before); (2) a superseding update
+    of a number fact states a window its target does not ("update_window_introduced").
+    Credentials are exempt from (2): "expired last month" is a date, not a window."""
+    flags = [Flag(f.scenario, f.item, f.kind, f.match, True) for f in consistency_flags(system, evaluation)]
+    facts = (evaluation.get("records") or {}).get("facts", {})
+    text = {x["id"]: x["text"] for x in system["evidence"] + system["updates"]}
+    for uid, u in (evaluation.get("update_targets") or {}).items():
+        target = facts.get(u["target"])
+        if u["relation"] != "supersedes" or not target or target.get("kind") != "number":
+            continue
+        before = windows(text.get(u["target"], "")) - {"unknown"}
+        after = windows(text.get(uid, "")) - {"unknown"}
+        if not before and after:
+            flags.append(Flag(system["scenario"], uid, "update_window_introduced",
+                              f"fact none, update {'/'.join(sorted(after))}", True))
+    return flags
+
 def hard_flags(system: dict, evaluation: dict, prompt_version: str) -> list[Flag]:
     """The hard checks a rendering under ``prompt_version`` must pass to be accepted (the
     same set for a fresh rendering and for a targeted repair)."""
     flags = (text_flags(system) + echo_flags(system, evidence_echo_hard(prompt_version))
              + decoy_word_flags(system, evaluation)
              + (continuity_flags(system, evaluation) if continuity_enforced(prompt_version) else [])
-             + record_flags(system, evaluation))
+             + record_flags(system, evaluation)
+             + (semantic_flags(system, evaluation) if semantic_enforced(prompt_version) else []))
     return [f for f in flags if f.hard]
 
 

@@ -133,6 +133,10 @@ WHY = {
     "record_condition_not_met": "the fact's value must satisfy the condition's threshold",
     "relation_not_stated_in_fact": "a fact about a related entity must state the relation inside the fact",
     "record_outcome_mismatch": "after_updates must follow from the records and the updates",
+    "final_state_mismatch": "after_updates must follow from the policies and the credible facts: a weak-source "
+                            "retraction or hedge of the only support leaves the conclusion undetermined, never fails",
+    "recompute_unresolved": "after_updates must resolve to holds or fails here",
+    "update_window_introduced": "an update replacing a figure stated without a time window must not introduce one",
 }
 # Record-check kinds (render-v9+): the problem can sit in a text or in its record, so the
 # repair may change the texts and records of the items involved, and nothing else.
@@ -188,11 +192,26 @@ def editable_paths(flags: list[leakcheck.Flag], evaluation: dict, response: dict
         sec = "updates" if x.startswith("U") else "nodes"
         return [f"facts.{x}", f"{sec}.{x}.text", f"{sec}.{x}.source"]
 
+    def semantic_paths(f) -> list[str]:  # render-v11 kinds
+        x = node_of.get(f.item)
+        if x is None:
+            raise ValueError(f"cannot map flagged item {f.item!r}")
+        if f.kind == "update_window_introduced":
+            return [f"updates.{x}.text", f"updates.{x}.source"] + ([f"facts.{x}"] if has_records else [])
+        # The after-update judgement, and the updates whose wording it depends on, so a
+        # repair cannot just flip the label while the text says otherwise.
+        return [f"after_updates.{x}"] + [p for u in response.get("updates", {}) for p in
+                                         (f"updates.{u}.text", f"updates.{u}.source")]
+
     out: dict[str, str] = {}
     for f in flags:
         if not f.hard:
             continue
         why = f"{f.kind} '{f.match}'" + (f" ({WHY[f.kind]})" if f.kind in WHY else "")
+        if f.kind in ("final_state_mismatch", "recompute_unresolved", "update_window_introduced"):
+            for path in semantic_paths(f):
+                out[path] = (out[path] + "; " if path in out else "") + why
+            continue
         if has_records and f.kind.startswith(_RECORD_PREFIXES):
             for path in record_paths(f):
                 out[path] = (out[path] + "; " if path in out else "") + why
