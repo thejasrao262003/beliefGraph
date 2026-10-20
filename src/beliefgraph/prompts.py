@@ -1,6 +1,7 @@
 """Prompts for BeliefGraph's two LLM steps. Versioned; any edit means a new version."""
 
 BUILD_VERSION = "bg-build-v1"
+RETRY_VERSION = "bg-build-retry-v1"
 READ_VERSION = "bg-read-v1"
 
 BUILD_PROMPT = """\
@@ -54,3 +55,12 @@ OUTPUT: a single JSON object, no prose:
 {"updates": {"<update id>": {"target": "<fact id>", "relation": "retracts" | "supersedes" | "hedges", \
 "reliability": "high" | "medium" | "low"}}}
 """
+
+# v0.1: a memory left without any justification is asked about once more, on its own.
+RETRY_NOTE = """\
+Your previous answer gave NO justification for the memories listed under "unsupported". \
+Every stored memory was derived from something in this snapshot: a fact, another memory, \
+or both, under one of the policies. A policy may name the memory's outcome with different \
+words (for example "fleet catalog" for "registry listing"); match by meaning. Give the \
+justification sets for these memories only, in the same JSON format; leave a memory empty \
+only if nothing in the snapshot could have produced it."""

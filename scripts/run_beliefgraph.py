@@ -45,6 +45,27 @@ class CachedLLM:
         return text
 
 
+def cost_by_method(raw_dir: Path, opaque_ids: set[str]) -> dict:
+    """Tokens and estimated dollars per method, from every cached call (new or reused) of the
+    scenarios in this run: BeliefGraph = build + retry + read; LLM-direct = direct."""
+    out = {"BeliefGraph": {"calls": 0, "input_tokens": 0, "output_tokens": 0, "est_usd": 0.0},
+           "LLM-direct": {"calls": 0, "input_tokens": 0, "output_tokens": 0, "est_usd": 0.0}}
+    for f in raw_dir.glob("*.json"):
+        rec = json.loads(f.read_text())
+        sid, _, stage = rec["note"].partition(" ")
+        if sid not in opaque_ids:
+            continue
+        m = out["LLM-direct" if stage == "direct" else "BeliefGraph"]
+        u = rec.get("usage") or {}
+        m["calls"] += 1
+        m["input_tokens"] += u.get("input_tokens") or 0
+        m["output_tokens"] += u.get("output_tokens") or 0
+        m["est_usd"] += u.get("est_usd") or 0.0
+    for m in out.values():
+        m["est_usd"] = round(m["est_usd"], 4)
+    return out
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--provider", default="lyzr", choices=PROVIDERS)
@@ -94,7 +115,7 @@ def main() -> None:
     finally:
         if hasattr(llm, "close"):
             llm.close()
-    result = score(items) | {"provider": args.provider, "model": llm.model, "build_prompt": BUILD_VERSION,
+    result = score(items) | {"cost_by_method": cost_by_method(out / "raw", {it["sv"]["scenario"] for it in items}),"provider": args.provider, "model": llm.model, "build_prompt": BUILD_VERSION,
                              "read_prompt": READ_VERSION, "direct_prompt": DIRECT_VERSION, "failures": failures, "new_calls": cached.calls,
                              "usage": llm.usage}
     if args.provider == "lyzr":
@@ -106,7 +127,8 @@ def main() -> None:
           "direct": {k: v.value for k, v in (it["direct"] or {}).items()},
           "errors": it["errors"]} for it in items], indent=1))
     show = {k: result[k] for k in ("scenarios", "graph_extraction", "update_reading_exact",
-                                   "source_reliability_accuracy", "failures")}
+                                   "source_reliability_accuracy", "unsupported_memories", "failures",
+                                   "paired_P_vs_LLM_direct", "cost_by_method")}
     print(json.dumps(show, indent=1, default=str))
     for k, v in result["revision"].items():
         if v["n"]:

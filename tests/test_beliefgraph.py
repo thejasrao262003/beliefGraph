@@ -207,3 +207,62 @@ def test_score_includes_llm_direct_when_present():
                       "readings": gread, "direct": {m: Action.KEEP for m in memory_gold(ev)}})
     res = score(items)
     assert res["revision"]["LLM-direct"]["n"] > 0 and res["revision"]["P"]["accuracy"] == 1.0
+
+
+# ── v0.1: unsupported-memory retry; paired statistics; cost by method ──
+
+
+def test_unsupported_memory_is_asked_about_once_more_and_then_reported():
+    first = {"justifications": {"m_1": [["e_1"], ["e_2"]], "m_2": []}, "reliability": GRAPH["reliability"]}
+    retry = {"justifications": {"m_2": [["m_1", "e_3"]]}, "reliability": GRAPH["reliability"]}
+    calls = []
+
+    def llm(system, message, note=""):
+        calls.append(note)
+        return json.dumps(retry if note.endswith("retry") else first)
+
+    g = BeliefGraph(llm).build(VIEW)
+    assert calls == ["s_demo build", "s_demo retry"] and g.justifications["m_2"] == [["e_3", "m_1"]]
+    assert g.unsupported == []
+
+    g2 = BeliefGraph(lambda s, m, n="": json.dumps(first)).build(VIEW)
+    assert g2.unsupported == ["m_2"]  # still empty after the retry: reported, not hidden
+    assert BeliefGraph(lambda s, m, n="": json.dumps(GRAPH)).build(VIEW).unsupported == []
+
+
+def test_retry_message_names_only_the_unsupported_memories():
+    seen = {}
+
+    def llm(system, message, note=""):
+        seen[note] = message
+        return json.dumps({"justifications": {"m_1": [["e_1"]], "m_2": []}, "reliability": GRAPH["reliability"]})
+
+    BeliefGraph(llm).build(VIEW)
+    retry = json.loads(seen["s_demo retry"].split("\n\n")[0])
+    assert retry["unsupported"] == ["m_2"]
+
+
+def test_paired_statistics():
+    from beliefbench.beliefgraph_eval import paired
+
+    K, W = Action.KEEP, Action.WITHDRAW
+    items = [{"gold": {"m_1": K, "m_2": W}, "pred_P": {"m_1": K, "m_2": W}, "direct": {"m_1": K, "m_2": K}}
+             for _ in range(5)]
+    res = paired(items, resamples=200)
+    assert res["P_right_direct_wrong"] == 5 and res["direct_right_P_wrong"] == 0
+    assert res["accuracy_diff"] == 0.5 and res["mcnemar_exact_p"] == pytest.approx(0.0625)
+    assert res["ci95"][0] <= 0.5 <= res["ci95"][1]
+
+
+def test_cost_by_method_splits_graph_and_direct_calls(tmp_path):
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("run_bg", Path(__file__).parents[1] / "scripts" / "run_beliefgraph.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    for note, usd in (("s_a build", 0.01), ("s_a read", 0.02), ("s_a direct", 0.05), ("s_b direct", 9.0)):
+        (tmp_path / f"{note.replace(' ', '.')}.json").write_text(json.dumps(
+            {"note": note, "usage": {"input_tokens": 10, "output_tokens": 1, "est_usd": usd}}))
+    cost = mod.cost_by_method(tmp_path, {"s_a"})
+    assert cost["BeliefGraph"]["calls"] == 2 and cost["BeliefGraph"]["est_usd"] == 0.03
+    assert cost["LLM-direct"]["calls"] == 1 and cost["LLM-direct"]["est_usd"] == 0.05

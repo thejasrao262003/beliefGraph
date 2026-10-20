@@ -10,7 +10,7 @@ from dataclasses import dataclass, field
 
 from beliefbench.labeler import gold_actions, topo_order
 from beliefbench.schema import Action, Kind, Node, Relation, Scenario, Update
-from beliefgraph.prompts import BUILD_PROMPT, READ_PROMPT
+from beliefgraph.prompts import BUILD_PROMPT, READ_PROMPT, RETRY_NOTE
 
 LEVELS = ("high", "medium", "low")
 RELATIONS = {r.value for r in Relation}
@@ -23,6 +23,7 @@ class Graph:
     justifications: dict[str, list[list[str]]]  # memory id -> OR of AND sets
     reliability: dict[str, str]  # fact id -> high | medium | low
     errors: list[str] = field(default_factory=list)
+    unsupported: list[str] = field(default_factory=list)  # memories still without any justification
 
 
 @dataclass
@@ -151,8 +152,21 @@ class BeliefGraph:
     def __init__(self, llm: LLM):
         self.llm = llm
 
-    def build(self, view: dict) -> Graph:
-        return parse_graph(self.llm(BUILD_PROMPT, build_message(view), f"{view['scenario']} build"), view)
+    def build(self, view: dict, retry_unsupported: bool = True) -> Graph:
+        """Build the graph. A memory left with no justification is asked about once more on
+        its own (v0.1); any still unsupported is reported in ``Graph.unsupported`` rather than
+        silently treated as established."""
+        graph = parse_graph(self.llm(BUILD_PROMPT, build_message(view), f"{view['scenario']} build"), view)
+        empty = sorted(m for m, sets in graph.justifications.items() if not sets)
+        if empty and retry_unsupported:
+            message = json.dumps(json.loads(build_message(view)) | {"unsupported": empty}, indent=1) + "\n\n" + RETRY_NOTE
+            again = parse_graph(self.llm(BUILD_PROMPT, message, f"{view['scenario']} retry"), view)
+            for m in empty:
+                if again.justifications.get(m):
+                    graph.justifications[m] = again.justifications[m]
+            graph.errors += [f"retry: {e}" for e in again.errors if e.split(":")[0] in empty]
+        graph.unsupported = sorted(m for m, sets in graph.justifications.items() if not sets)
+        return graph
 
     def read_updates(self, view: dict) -> tuple[dict[str, UpdateReading], list[str]]:
         if not view["updates"]:
