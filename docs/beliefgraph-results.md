@@ -37,3 +37,47 @@
   2. per-update cost (BeliefGraph reads only the update, while LLM-direct re-reads the whole store);
   3. weaker or cheaper models;
   4. auditability: which facts each decision rests on.
+
+## v0.1: model × method (2026-10-20)
+
+**v0.1 change:**
+- A memory the graph builder leaves without any justification is asked about once more on its own (`bg-build-retry-v1`).
+- Any memory still unsupported is reported, not silently kept.
+- The harness adds a paired exact McNemar test, a scenario-level bootstrap 95% CI, and cost per method counted from every call.
+
+**Runs:**
+- **Opus 5.5:** `bg-opus55-v1`, rescored under v0.1. The cached calls were reused and only the retry was new, at $0.034. v0 results are kept as `results-v0.json`.
+- **Haiku 5.5:** `bg-haiku55-v01` (all 63 scenarios), $0.13 for the run plus $0.0013 to complete one scenario that a call cap too small for the retry step had skipped (the cap has since been fixed).
+- **Settings:** both via Lyzr, with Haiku 5.5 priced at $0.10/$0.50 per M tokens (Claude API reference). The same prompts, scenarios and label definitions were used for both methods.
+
+| Model | Method | Accuracy | Macro-F1 | Stale | Over-inv. | Uncertain recall | Est. cost (63 scen.) |
+|---|---|---|---|---|---|---|---|
+| Opus 5.5 | **BeliefGraph** | **0.993** | 0.994 | 0 | 0.010 | 1.00 | $1.74 |
+| Opus 5.5 | LLM-direct | 0.993 | 0.994 | 0 | 0.010 | 1.00 | $0.83 |
+| Haiku 5.5 | **BeliefGraph** | **0.980** | 0.968 | 0.020 | 0.010 | 0.95 | **$0.083** |
+| Haiku 5.5 | LLM-direct | 0.917 | 0.822 | **0.112** | 0 | 0.63 | $0.041 |
+
+**Paired, BeliefGraph minus LLM-direct, 301 memories:**
+- **Opus:** 0.000 (0 discordant memories; McNemar p = 1.0). The predictions are identical. The only error left is the ambiguous F3-009 policy, which both systems read the same way.
+- **Haiku:** **+0.063, 95% CI [+0.013, +0.120]**. BeliefGraph right and LLM-direct wrong on 23 memories, the reverse on 4; **McNemar exact p = 0.0003**.
+
+**Haiku accuracy by family (BeliefGraph / LLM-direct):**
+- **F1** (chains): 0.987 / 0.987.
+- **F2** (multiple supports, OR): **1.000 / 0.803**.
+- **F3** (AND + alternative): 0.948 / 0.961.
+- **F6** (ambiguous or weak updates): **0.987 / 0.909**.
+
+**Haiku's BeliefGraph components:**
+- graph set-F1 0.938, AND/OR typing 0.986;
+- update reading exact 0.80;
+- 2 memories still unsupported after the retry.
+- Isolating each step: a perfect graph gives 0.993 (P-oracle-graph); perfect update readings give 0.987.
+
+**Reading:**
+1. **The graph's advantage depends on the model.** A frontier model re-reads small memories as well as the graph propagates; a smaller model does not. Haiku-direct mainly **leaves conclusions stale** (11% vs 2%) and **misses "uncertain"** (recall 0.63 vs 0.95). Its largest losses are in F2, where it must notice that *every* alternative support is gone, and in F6, where weak-source updates should leave conclusions uncertain rather than kept.
+2. **Building the graph is easier than revising directly.** Haiku builds an imperfect graph (set-F1 0.94), but propagation over it still beats Haiku reasoning over the whole memory at once.
+3. **Cost:** on these small stores BeliefGraph costs about 2× LLM-direct for the same model (2–3 calls vs 1). But **Haiku + BeliefGraph (0.980, $0.083) comes within 1.3 points of Opus (0.993) at about one-tenth of Opus-direct's cost ($0.83) and one-twentieth of Opus + BeliefGraph's ($1.74).**
+4. **Scope:** 63 small scenarios (3–12 memories, every update applied at once), one domain, one renderer. **Not yet tested:**
+   - large stores and sequential update streams, where BeliefGraph reads only each update but LLM-direct must re-read everything;
+   - other model families;
+   - the F3 gap (Haiku-built AND sets).

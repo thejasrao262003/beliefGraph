@@ -92,7 +92,7 @@ def main() -> None:
 
         load_dotenv()
     llm = make_llm(args.provider, model=args.model, base_url=args.base_url, budget_usd=args.budget_usd,
-                   max_calls=3 * len(data) + 10)
+                   max_calls=4 * len(data) + 10)  # build, retry, read, direct
     cached = CachedLLM(llm, out / "raw")
     bg = BeliefGraph(cached)
     items, failures = [], {}
