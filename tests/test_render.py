@@ -20,6 +20,9 @@ from beliefbench.render.views import SYSTEM_VIEW_KEYS, build_views, timeline
 from beliefbench.schema import Kind, Node, Relation, Scenario, Update
 
 
+# Hand-written responses below carry no render-v9 records; they test the record-free pipeline.
+NO_RECORDS = "render-v8"
+
 V2_SHA256 = "3c5920c2487ba6147ec71679ee789a152d8f6d2f145109787c81d083f1828d3e"
 
 
@@ -75,7 +78,7 @@ GOOD = {
 
 def views(resp=GOOD, s=None, seed=0):
     s = s or spec_example()
-    return build_views(s, parse_response(s, json.dumps(resp)), seed=seed)
+    return build_views(s, parse_response(s, json.dumps(resp), version=NO_RECORDS), seed=seed)
 
 
 def fake_response(s):
@@ -115,18 +118,18 @@ def test_renderer_dates_match_system_view_dates():
 
 def test_parse_response_requires_policies_and_validates():
     s = spec_example()
-    assert parse_response(s, json.dumps(GOOD)).ok
+    assert parse_response(s, json.dumps(GOOD), version=NO_RECORDS).ok
     bad = copy.deepcopy(GOOD)
     del bad["nodes"]["B2"]
     del bad["policies"]["D1"]
     bad["rationale"]["B1"] = ["only one"]
     bad["policies"]["E1"] = "evidence cannot have a policy"
-    errs = parse_response(s, json.dumps(bad)).errors
+    errs = parse_response(s, json.dumps(bad), version=NO_RECORDS).errors
     assert any("B2: missing text" in e for e in errs)
     assert any("D1: missing policy" in e for e in errs)
     assert any("B1: expected 2 rationale" in e for e in errs)
     assert any("unknown ids" in e and "E1" in e for e in errs)
-    assert parse_response(s, "not json").errors[0].startswith("invalid JSON")
+    assert parse_response(s, "not json", version=NO_RECORDS).errors[0].startswith("invalid JSON")
 
 
 # ── separation ──
@@ -148,7 +151,7 @@ def test_system_view_hides_structure_and_eval_view_keeps_it():
 
 def test_timestamp_permutation_never_changes_gold():
     for s in generate_suite(10, seed=0):
-        system, evaluation = build_views(s, parse_response(s, json.dumps(fake_response(s))), seed=3)
+        system, evaluation = build_views(s, parse_response(s, json.dumps(fake_response(s)), version=NO_RECORDS), seed=3)
         inv = {v: k for k, v in evaluation["idmap"].items()}
         assert {inv[k]: v for k, v in evaluation["gold"].items()} == {k: v.value for k, v in s.gold.items()}
 
@@ -159,7 +162,7 @@ def test_view_refuses_scenarios_whose_gold_depends_on_recency():
     s.validate()
     s.gold = gold_actions(s)  # outdated update: everything kept
     with pytest.raises(ValueError, match="changed gold"):
-        build_views(s, parse_response(s, json.dumps(fake_response(s))))
+        build_views(s, parse_response(s, json.dumps(fake_response(s)), version=NO_RECORDS))
 
 
 # ── leak checks: regression tests for smoke-test-1 problems P2-P6 ──
@@ -308,7 +311,7 @@ def test_v3_requires_decoys_and_after_updates_but_v2_does_not():
     bad = copy.deepcopy(GOOD)
     del bad["decoy_policies"]
     bad["after_updates"]["B2"] = "maybe"
-    errs = parse_response(s, json.dumps(bad)).errors
+    errs = parse_response(s, json.dumps(bad), version=NO_RECORDS).errors
     assert any("decoy" in e for e in errs) and any("B2: after_updates" in e for e in errs)
     assert parse_response(s, json.dumps(bad), version="render-v2").ok
 
@@ -332,7 +335,7 @@ def test_recompute_final_state_comes_from_rederivation():
     for n in s.nodes:  # distractors are kept, so they hold
         if not n.is_evidence and s.gold[n.id].value == "keep":
             resp["after_updates"][n.id] = "holds"
-    system, evaluation = build_views(s, parse_response(s, json.dumps(resp)))
+    system, evaluation = build_views(s, parse_response(s, json.dumps(resp), version=NO_RECORDS))
     inv = {v: k for k, v in evaluation["idmap"].items()}
     for m, st in evaluation["final_state"].items():
         action = s.gold[inv[m]].value

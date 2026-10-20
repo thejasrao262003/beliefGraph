@@ -109,11 +109,11 @@ def test_render_one_retries_on_hard_leak_then_caches(tmp_path):
     s = generate_suite(1, seed=0, families=["F2"])[0]
     agent = FakeAgent([good_response(s, leak="Per E1 this holds."), good_response(s)])
     renderer = LyzrRenderer(SpendGuard(1.0, 10), studio=FakeStudio(agent))
-    r, system, evaluation, k = rr.render_one(s, renderer, tmp_path, "gemini-3.5-flash", 3, seed=0)
+    r, system, evaluation, k = rr.render_one(s, renderer, tmp_path, "gemini-3.5-flash", 3, seed=0, version="render-v8")
     assert k == 2 and len(agent.messages) == 2
     assert "forbidden graph_id" in agent.messages[1][0]  # feedback sent on retry
     # Second run is fully cached: no renderer needed, nothing billed.
-    r2, system2, _, k2 = rr.render_one(s, None, tmp_path, "gemini-3.5-flash", 3, seed=0)
+    r2, system2, _, k2 = rr.render_one(s, None, tmp_path, "gemini-3.5-flash", 3, seed=0, version="render-v8")
     assert k2 == 2 and system2 == system
 
 
@@ -123,7 +123,7 @@ def test_render_one_gives_up_after_max_attempts(tmp_path):
     agent = FakeAgent(["not json"] * 2)
     renderer = LyzrRenderer(SpendGuard(1.0, 10), studio=FakeStudio(agent))
     with pytest.raises(ValueError, match="no valid rendering after 2"):
-        rr.render_one(s, renderer, tmp_path, "gemini-3.5-flash", 2, seed=0)
+        rr.render_one(s, renderer, tmp_path, "gemini-3.5-flash", 2, seed=0, version="render-v8")
 
 
 def test_register_gemini_model_makes_sdk_accept_current_models():
