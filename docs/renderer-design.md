@@ -609,3 +609,25 @@ An external AI assistant, supplied by the user, reviewed the three v7 sheets. It
   - Pilot-2 stays at the automated stage. No calls are made in the meantime.
   - The stop rule in §17c is triggered by a **human** fail or `revise`, so it turns on the human review.
   - If the human review confirms either finding, pilot-2 stops as failed. A redesign or retry would then need a new approval.
+
+### 17f. Human review of pilot-2 (2026-10-20): F2 and F6 revise; pilot-2 stopped as failed
+
+- **Recorded in:** `smoke-render-v7/review.csv`, reviewer `thejasrao262003`, validated by `read_decisions`.
+- **Provenance:** the user verified the external AI pre-review (§17e) against the sheets and adopts its verdicts as their own human review.
+- **Normalised to the validator's format:** PASS/FAIL became lowercase; F1's C3 "N/A" became `pass` (vacuous; noted); the "AI pre-review, not a human verdict" prefix was removed from the notes. The verbatim AI file is kept unchanged.
+
+| Scenario | Decision | Failed items |
+|---|---|---|
+| F1 `s_d13e3034f6` | **accept** | none |
+| F2 `s_3d821bdd07` | **revise** | C4, C10, C13 (annual threshold vs an update "during the evaluation period") |
+| F6 `s_c41a0870a2` | **revise** | C6, C8, C9, C10, C13 (no visible link between Apex Medical Corp and BioGlow Diagnostic Kit) |
+
+**Outcome under the predeclared rule (§17c):** a human `revise` stops the pilot. **Pilot-2 has failed.**
+- No regeneration, no further calls (spend stays $0.2025 of $0.60), no change to checks or acceptance criteria.
+- The automated gate (0.31) is reported as measured, but it does not rescue the pilot: acceptance required all three to be accepted.
+- Pilot-1 and pilot-2 are both recorded as they stand. **The 40-scenario run stays blocked.**
+
+**What the failures show** (for the next design decision, nothing applied):
+- **F6:** the renderer split one subject into two entities (a product and its maker) without stating the relation. No current check looks for this. A *subject-continuity* check could catch it: within a justification set, every premise must be about the conclusion's entity or one explicitly linked to it in the visible text. Possible hard-check candidate; a prompt rule would also be needed.
+- **F2:** a superseding value must be stated over the same period or unit as the fact and the policy threshold. This extends the v4 "same unit" rule to time windows. A prompt rule, judged by the reviewer under C4/C10.
+- Both are **semantic** failures that the lexical gate cannot see. That confirms the decision to make C8/C10 acceptance independent of the gate.
