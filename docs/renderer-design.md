@@ -798,3 +798,29 @@ Tests cover the base mapping to `decoy_policies[0]`, an attempt-2-style memory f
 | Acceptance | Then a fresh human review of the repaired F1 on C1–C13: `accept`, C8 and C10 passing, and **C12 checked specifically** (the new decoy must still govern nothing). The AI pre-review stays separate |
 | What it does and does not establish | It tests whether a bounded repair can clear a word-level hard failure without disturbing an otherwise sound scenario. It is **not** a pilot pass: one scenario, no pooled gate. F2, F3 and F6 stay unrun. Using repair as the retry step in a future pilot would need its own approval, scope, gate and cap |
 | Record | `repair.json` (base hash, permitted fields, raw reply, diff, hard flags after), `spend.json`; review files only if the automated stage passes |
+
+### 18i. Targeted repair result (2026-10-20): automated stage passed; human review outstanding
+
+Approved by the user: one call, cap $0.20, scope `decoy_policies[0]` only. Command run exactly as approved. Outputs are in `data/rendered/smoke-render-v8-repair/`: `repair.json` (base hash, permitted field, raw reply, diff, hard flags after), `spend.json`, `system/`, `eval/`, `leak-report.json`, `review.md`, and a blank `review.csv`. The frozen base is byte-identical to its committed version.
+
+| Item | Result |
+|---|---|
+| Call | 1; 4,368 in / 968 out tokens; **$0.0207 of $0.20** |
+| Diff gate | **Passed:** the reply replaced exactly `decoy_policies[0]`; nothing else changed |
+| Before | "A distributor achieves preferred vendor status if annual **sales volume** exceeds $10,000,000 or if a five-year clean **trade history** is verified." |
+| After | "A distributor achieves preferred vendor status if annual **revenue** exceeds $10,000,000 or if a five-year clean **track record** is verified." Inside the permitted field the model also reworded "trade history"; nothing outside it changed |
+| Hard checks (render-v8, unchanged; including subject and window continuity) | **0** |
+| Soft flags | 2 `policy_echoes_evidence` ("spare parts inventory"; "carries general liability"), both judged under C7/C11. Unchanged from the base |
+| Lexical heuristics (diagnostic; one scenario, no pooled gate) | Worse heuristic set F1 0.17; word-only 0.17; premise-overlap AUC 0.71 |
+
+**Status:**
+- The repair cleared a word-level hard failure without rewriting the scenario or changing any check.
+- The repaired F1 is **not accepted** until a fresh human review (C1–C13; C8 and C10 must pass; C12 confirmed explicitly).
+- Pilot-3 remains failed. F2, F3 and F6 remain unrun. Using repair as a retry step in a future pilot needs its own approval.
+
+**Pre-review by Claude** (not a human verdict; points for the reviewer):
+- **C12:** the new decoy concerns "preferred vendor status" (no memory states it). Its conditions (annual revenue, a five-year track record) match no fact in the scenario, so it looks inert.
+- **C13:** the chain logic is consistent. The spare-parts inventory goes from $200,000 to $80,000, below the $150,000 minimum, so every VeloTech memory fails on recomputation; the Apex Medical Supplies distractor holds. The inventory is a point-in-time value, so no time window is needed.
+- **C10:** the policy says "**regional** spare parts inventory", the fact says "**local**". These are probably the same, but the words differ.
+- **C5:** two high-reliability sources are VeloTech's own records ("Warranty Term Sheet, signed"; "Warehouse Management System"). Whether a company's own system of record reads as authoritative is the reviewer's call.
+- **C7/C11:** the two shared phrases are the standard names of the quantities. Every VeloTech memory ends "for the Velo-X1", which is uniform but names the product rather than a support.
