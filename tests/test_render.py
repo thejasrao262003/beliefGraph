@@ -764,3 +764,83 @@ def test_v8_is_v7_plus_exactly_the_two_approved_insertions():
     assert hashlib.sha256(v8.encode()).hexdigest() == V8_SHA256
     assert "SUBJECT CONTINUITY" in v8 and "TIME WINDOWS" in v8 and "Norland Labs" in v8
     assert leakcheck.continuity_enforced("render-v8") and not leakcheck.evidence_echo_hard("render-v8")
+
+
+# ── targeted repair (design doc §18h): change only flagged fields, re-run every hard check ──
+
+from beliefbench.render import repair  # noqa: E402
+
+REPAIR_V1_SHA256 = "a49158f20a2d464de75d018757ed44cb5e7ed0ac588efbec88cc6d4b885ef7ac"
+V8_BASE = RENDERED / "smoke-render-v8" / "raw" / "F1-000.46ddd88bb57031c7.a1.json"
+V8_ATTEMPT2 = RENDERED / "smoke-render-v8" / "raw" / "F1-000.46ddd88bb57031c7.a2.json"
+CLEAN_DECOY = "A distributor earns preferred vendor standing if yearly order volume exceeds 20,000 units."
+
+
+def _f1():
+    return next(x for x in generate_suite(10, 0) if x.id == "F1-000")
+
+
+def _base_plan(path=V8_BASE):
+    rec = json.loads(path.read_text())
+    return repair.plan(_f1(), rec["response"], rec["prompt_version"])
+
+
+def test_repair_prompt_is_pinned_and_built_on_v8():
+    import hashlib
+
+    from beliefbench.render.prompt import PROMPTS
+
+    p = repair.REPAIR_PROMPTS["repair-v1"]
+    assert hashlib.sha256(p.encode()).hexdigest() == REPAIR_V1_SHA256
+    assert p.startswith(PROMPTS["render-v8"]) and '{"replacements"' in p
+
+
+def test_pilot3_base_maps_to_exactly_the_flagged_decoy():
+    response, _, _, problems = _base_plan()
+    assert list(problems) == ["decoy_policies[0]"] and "sale" in problems["decoy_policies[0]"]
+    assert "sales volume" in response["decoy_policies"][0]
+
+
+def test_memory_flag_maps_to_that_memory_text():
+    _, _, _, problems = _base_plan(V8_ATTEMPT2)
+    assert list(problems) == ["nodes.B2.text"] and "reliability" in problems["nodes.B2.text"]
+
+
+def test_clean_repair_changes_only_the_permitted_field_and_passes_every_hard_check():
+    response, _, _, problems = _base_plan()
+    merged, errors = repair.apply_repair(response, json.dumps({"replacements": {"decoy_policies[0]": CLEAN_DECOY}}),
+                                         problems)
+    assert errors == [] and repair.changed_paths(response, merged) == {"decoy_policies[0]"}
+    _, system, evaluation, hard = repair.verify(_f1(), merged, "render-v8")
+    assert hard == []
+    assert not [f for f in leakcheck.continuity_flags(system, evaluation) if f.hard]
+
+
+def test_repair_that_keeps_the_problem_still_fails_the_unchanged_check():
+    response, _, _, problems = _base_plan()
+    still = "A distributor earns preferred vendor standing if yearly sales exceed ,000,000."
+    merged, errors = repair.apply_repair(response, json.dumps({"replacements": {"decoy_policies[0]": still}}), problems)
+    assert errors == []
+    _, _, _, hard = repair.verify(_f1(), merged, "render-v8")
+    assert [f.kind for f in hard] == ["decoy_shares_memory_word"]
+
+
+@pytest.mark.parametrize("reply,why", [
+    ('{"replacements": {"decoy_policies[0]": "%s", "nodes.B1.text": "x"}}' % CLEAN_DECOY, "permitted fields"),
+    ('{"replacements": {}}', "permitted fields"),
+    ('{"replacements": {"decoy_policies[0]": "  "}}', "non-empty"),
+    ('{"replacements": {"decoy_policies[0]": "%s"}, "note": "done"}' % CLEAN_DECOY, "exactly"),
+    ("not json", "valid JSON"),
+])
+def test_anything_but_the_exact_permitted_edit_is_refused(reply, why):
+    response, _, _, problems = _base_plan()
+    merged, errors = repair.apply_repair(response, reply, problems)
+    assert merged is None and any(why in e for e in errors)
+
+
+def test_repair_never_modifies_the_frozen_base():
+    before = V8_BASE.read_bytes()
+    response, _, _, problems = _base_plan()
+    snapshot = json.dumps(response, sort_keys=True)
+    repair.apply_repair(response, json.dumps({"replacements": {"decoy_policies[0]": CLEAN_DECOY}}), problems)
+    assert json.dumps(response, sort_keys=True) == snapshot and V8_BASE.read_bytes() == before

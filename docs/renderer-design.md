@@ -771,3 +771,30 @@ Approved by the user: render-v8 = v7 + exactly the two insertions (SHA-256 `1239
 - **A retry rewrites the whole scenario.** Attempt 2 is a different world (Aura Diagnostic System, not VeloTech): it fixed the attempt-1 flag but rolled the dice on every other check, and introduced a new hard failure. With 2 attempts per scenario and 4 scenarios, the chance that every scenario clears every hard check is the binding constraint, separate from semantic quality.
 - **Detector limit, seen on new output.** Attempt 2's evidence opens with source phrasing ("An audit log from Apex Medical confirms that the Aura Diagnostic System …"), so `evidence_entities` found no subject names. The result was 9 soft `subject_uncertain` flags and no hard ones; the premises do name the system. This is conservative as designed, but it shows the uncertain rate depends on sentence form.
 - **Attempt 1 otherwise looked sound** on the continuity rules, but it was rejected under the rules in force and is not counted.
+
+### 18h. Targeted repair: mechanism (implemented, model-free) and proposal for one call
+
+**Approved by the user on 2026-10-20:** the targeted-repair *direction*, with pilot-3 F1 attempt 1 as the base, existing checks unchanged, and a single attempt. **Not approved:** the call itself, pending this mechanism and cap. Pilot-3 stays recorded as failed (§18g); nothing below changes that.
+
+**Why:** a retry under `render_run` regenerates the whole scenario, so fixing one flag re-rolls every other check. Pilot-3 F1 attempt 2 was a different world with a new hard failure.
+
+**Mechanism** (`render/repair.py`, `scripts/repair_run.py`; 121 tests pass, 11 of them new):
+1. **Frozen base.** `data/rendered/smoke-render-v8/raw/F1-000.46ddd88bb57031c7.a1.json` (SHA-256 `390a14ae…`). It is read, never written (tested). It is parsed and checked exactly as the pipeline does.
+2. **Permitted fields come from the hard flags.** `editable_paths` maps each hard flag to one field of the original JSON; a flag that cannot be mapped makes the base unrepairable. For this base it yields **exactly one field, `decoy_policies[0]`** ("A distributor achieves preferred vendor status if annual **sales** volume exceeds $10,000,000 or if a five-year clean trade history is verified"), with the reason in plain words.
+3. **One call, prompt `repair-v1`** (SHA-256 `a49158f2…`, pinned in tests) = the full pinned render-v8 prompt + repair instructions: return only `{"replacements": {field: text}}` for exactly the listed fields; keep each field's role (a decoy still governs nothing); introduce no new problem. Temperature 0.3, one fresh agent, `max_calls=1`.
+4. **Merge and diff gate.** `apply_repair` refuses any reply that is not exactly the permitted edit: an extra or missing field, an empty text, a wrapper key, invalid JSON, or any change outside the permitted fields after merging. All are tested.
+5. **All hard checks re-run, unchanged.** `leakcheck.hard_flags` is now the single definition used by both `render_run` and the repair: lexical checks, decoy words, reliability/label words, and subject and window continuity under render-v8. Soft flags are all kept and appear on the review sheet.
+6. **No fallback.** If the repair is refused or any hard flag remains, the experiment stops. There is no second repair, no whole-scenario re-render, and no check change. The run directory must not already exist (one shot).
+
+Tests cover the base mapping to `decoy_policies[0]`, an attempt-2-style memory flag mapping to `nodes.B2.text`, a clean replacement passing every hard check with a diff equal to exactly the one field, a replacement that keeps "sales" still failing the unchanged decoy check, and five malformed or over-broad replies being refused.
+
+**Proposed execution (needs approval):**
+
+| Item | Proposal |
+|---|---|
+| Command | `uv run --group lyzr python scripts/repair_run.py --base data/rendered/smoke-render-v8/raw/F1-000.46ddd88bb57031c7.a1.json --run smoke-render-v8-repair --budget-usd 0.20` |
+| Hard cap | **$0.20**, 1 call. The guard's worst case for this call is **$0.1444** (12,000 output tokens assumed), so it refuses anything that could exceed the cap. Expected ≈ $0.02–0.04: ≈ 4k input tokens; the reply is one sentence plus any reasoning |
+| Automated success | The reply is exactly the permitted edit (diff = `decoy_policies[0]`) **and** 0 hard flags under render-v8 |
+| Acceptance | Then a fresh human review of the repaired F1 on C1–C13: `accept`, C8 and C10 passing, and **C12 checked specifically** (the new decoy must still govern nothing). The AI pre-review stays separate |
+| What it does and does not establish | It tests whether a bounded repair can clear a word-level hard failure without disturbing an otherwise sound scenario. It is **not** a pilot pass: one scenario, no pooled gate. F2, F3 and F6 stay unrun. Using repair as the retry step in a future pilot would need its own approval, scope, gate and cap |
+| Record | `repair.json` (base hash, permitted fields, raw reply, diff, hard flags after), `spend.json`; review files only if the automated stage passes |

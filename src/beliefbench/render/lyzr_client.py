@@ -156,7 +156,7 @@ class LyzrRenderer:
     """Thin wrapper: one Lyzr agent whose instructions are the renderer system prompt."""
 
     def __init__(self, guard: SpendGuard, studio: Any = None, temperature: float = 0.9,
-                 prompt_version: str = PROMPT_VERSION):
+                 prompt_version: str = PROMPT_VERSION, system_prompt: str | None = None):
         if guard.model not in MODEL_PRICES:
             raise ValueError(f"model {guard.model!r} has no price entry; add one before using it")
         self.guard = guard
@@ -164,7 +164,8 @@ class LyzrRenderer:
         self._agent = None
         self.temperature = temperature
         self.prompt_version = prompt_version
-        self.system_prompt = PROMPTS[prompt_version]
+        # A version not in PROMPTS (e.g. "repair-v1") must bring its own pinned prompt.
+        self.system_prompt = system_prompt if system_prompt is not None else PROMPTS[prompt_version]
 
     @property
     def agent(self):

@@ -592,6 +592,15 @@ def template_flags(systems: list[dict], max_share: float = 0.25, min_scenarios: 
     )
 
 
+def hard_flags(system: dict, evaluation: dict, prompt_version: str) -> list[Flag]:
+    """The hard checks a rendering under ``prompt_version`` must pass to be accepted (the
+    same set for a fresh rendering and for a targeted repair)."""
+    flags = (text_flags(system) + echo_flags(system, evidence_echo_hard(prompt_version))
+             + decoy_word_flags(system, evaluation)
+             + (continuity_flags(system, evaluation) if continuity_enforced(prompt_version) else []))
+    return [f for f in flags if f.hard]
+
+
 LEXICAL_GATE = 0.50  # prespecified: max justification-set F1 of either heuristic
 
 
