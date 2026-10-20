@@ -750,3 +750,24 @@ Before any call, I will also report what both checks flag on **every stored run*
 | Stop rule | Unchanged: a failure after 2 attempts, a guard refusal, or any human fail/`revise` stops the pilot. No scope or criteria change after results |
 | Budget | New pilot-3 cap, cumulative: **B $0.80**, **A $0.60**. Guard worst case $0.141 per call. Expected ≈ $0.27 (B) / ≈ $0.20 (A), at the pilot-2 rate of ≈ $0.068 per call |
 | History | Pilot-1 and pilot-2 remain as recorded; no review carries over |
+
+### 18g. Pilot-3 (2026-10-20): stopped. F1 failed both attempts on existing hard checks
+
+Approved by the user: render-v8 = v7 + exactly the two insertions (SHA-256 `1239470d…`, pinned; commit `7fa11ee`); scope F1, F2, F3, F6; 2 attempts each; cap $0.80; `--stop-on-failure`. Command run as approved, unchanged. Outputs are in `data/rendered/smoke-render-v8/`; both raw responses are kept.
+
+| Call | Tokens in / out | Guard-charged | Result |
+|---|---|---|---|
+| F1 attempt 1 | 3,458 / 5,561 | $0.0703 | **Rejected:** HARD `decoy_shares_memory_word` "sale". Decoy "…if annual **sales** volume exceeds $10,000,000…" vs memory "meets post-**sales** support standards". Soft: 2 policy↔evidence echoes ("spare parts inventory", "carries general liability"). Continuity checks: **clean** (every premise names VeloTech Mobility; the update keeps the point-in-time inventory value) |
+| F1 attempt 2 (with the attempt-1 feedback) | 3,494 / 5,063 | $0.0648 | **Rejected:** HARD `reliability_word` in memory B2 "achieves clinical **reliability** authorization". Soft: 1 policy↔evidence echo; 9 `subject_uncertain` (see below) |
+| **Total** | | **$0.1352 of $0.80** | **F1 failed; run stopped.** F2, F3, F6 not attempted |
+
+**Outcome under the predeclared rule:** a hard failure after 2 attempts stops the pilot. **Pilot-3 has failed.**
+- 0 scenarios rendered; the gate is unscored; nothing to review.
+- No third attempt, no re-render, no change to any check, no budget change.
+- Pilots 1–2 stay as recorded. The 40-scenario run stays blocked.
+
+**Observations** (for the next decision; nothing applied):
+- **Neither rejection came from the new v8 rules.** Both are long-standing hard checks catching a word used in another sense: "sales" (a decoy's sales volume vs post-sales support) and "reliability" (a clinical outcome name vs the ban on reliability labels). This is the same class as pilot-2-era "security".
+- **A retry rewrites the whole scenario.** Attempt 2 is a different world (Aura Diagnostic System, not VeloTech): it fixed the attempt-1 flag but rolled the dice on every other check, and introduced a new hard failure. With 2 attempts per scenario and 4 scenarios, the chance that every scenario clears every hard check is the binding constraint, separate from semantic quality.
+- **Detector limit, seen on new output.** Attempt 2's evidence opens with source phrasing ("An audit log from Apex Medical confirms that the Aura Diagnostic System …"), so `evidence_entities` found no subject names. The result was 9 soft `subject_uncertain` flags and no hard ones; the premises do name the system. This is conservative as designed, but it shows the uncertain rate depends on sentence form.
+- **Attempt 1 otherwise looked sound** on the continuity rules, but it was rejected under the rules in force and is not counted.
