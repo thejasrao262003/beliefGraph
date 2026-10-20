@@ -94,6 +94,8 @@ def main() -> None:
                     help="spend already charged against this budget by earlier runs (makes the cap cumulative)")
     ap.add_argument("--max-attempts", type=int, default=3)
     ap.add_argument("--only", nargs="+", default=None, help="render only these scenario ids (e.g. F1-000 F6-000)")
+    ap.add_argument("--stop-on-failure", action="store_true",
+                    help="stop the whole run when a scenario fails all its attempts (pilot-2 control)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -156,6 +158,9 @@ def main() -> None:
             except ValueError as e:
                 failures[s.id] = str(e)
                 print(f"FAIL {s.id}: {e}", file=sys.stderr)
+                if args.stop_on_failure:
+                    print("STOP: --stop-on-failure", file=sys.stderr)
+                    break
                 continue
             attempts[s.id] = k
             (out / "system" / f"{system['scenario']}.json").write_text(json.dumps(system, indent=1))

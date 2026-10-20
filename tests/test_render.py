@@ -583,3 +583,14 @@ def test_review_sheet_labels_soft_flags_with_their_checklist_item():
     system, evaluation = views()
     flag = leakcheck.Flag(system["scenario"], "e_0000~p_0000", "policy_echoes_evidence", "carbon offsets", False)
     assert "(judge under C7/C11)" in review_sheet(system, evaluation, [flag])
+
+
+V7_SHA256 = "83b02a66039a981fba0fd4aa6cf098d69dd313496b42c1e04da0958468f5f402"
+
+
+def test_v7_prompt_is_pinned_for_pilot_2():
+    import hashlib
+
+    from beliefbench.render.prompt import PROMPTS
+
+    assert hashlib.sha256(PROMPTS["render-v7"].encode()).hexdigest() == V7_SHA256
