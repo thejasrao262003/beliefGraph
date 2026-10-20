@@ -30,11 +30,27 @@ MODEL_PRICES: dict[str, tuple[float, float]] = {
     "gemini-3.5-flash": (1.50, 7.50),
     "gemini-3.1-pro-preview": (2.00, 12.00),
     "gemini-2.5-flash": (0.30, 2.50),  # outdated (index 13); kept so smoke test 1 stays reproducible
+    # BeliefGraph (the system under test) runs on Claude, a different family from the
+    # renderer. Anthropic first-party list prices (claude-api reference, cached 2026-10-06).
+    "anthropic/claude-opus-5-5": (4.00, 20.00),
+    "anthropic/claude-sonnet-5-5": (2.00, 10.00),
+    "anthropic/claude-haiku-5-5": (0.10, 0.50),
 }
 DEFAULT_MODEL = "gemini-3.5-flash"
 # Prices not verified against a published price for that exact model get this multiplier
 # in the spend guard, so the cap holds even if the proxy is somewhat low.
-PRICE_VERIFIED = {"gemini-3.5-flash": False, "gemini-3.1-pro-preview": True, "gemini-2.5-flash": True}
+PRICE_VERIFIED = {"gemini-3.5-flash": False, "gemini-3.1-pro-preview": True, "gemini-2.5-flash": True,
+                  "anthropic/claude-opus-5-5": True, "anthropic/claude-sonnet-5-5": True,
+                  "anthropic/claude-haiku-5-5": True}
+# Model key -> (Lyzr provider prefix, credential). Bare names are Gemini (the renderer).
+_PROVIDERS = {"gemini": ("Google", "lyzr_google"), "anthropic": ("Anthropic", "lyzr_anthropic")}
+
+
+def provider_of(model: str) -> tuple[str, str, str]:
+    """(lyzr provider string, SDK provider name, credential id) for a MODEL_PRICES key."""
+    prefix, name = model.split("/", 1) if "/" in model else ("gemini", model)
+    sdk_name, cred = _PROVIDERS[prefix]
+    return f"{prefix}/{name}", sdk_name, cred
 UNVERIFIED_SAFETY = 1.5
 CATALOGUE_URL = "https://agent-prod.studio.lyzr.ai/v3/providers/type"
 
@@ -48,6 +64,18 @@ def lyzr_catalogue(api_key: str) -> dict[str, dict]:
     r.raise_for_status()
     return {m["name"]: {**m, "provider": p["provider_id"], "credential_id": (p.get("meta_data") or {}).get("credential_id")}
             for p in r.json() for m in (p.get("meta_data") or {}).get("models") or []}
+
+
+def register_model(model: str, context_window: int = 1_000_000) -> None:
+    """lyzr-adk's local registry predates current models; add this one under its provider."""
+    from lyzr.providers import _PROVIDERS_DATA, ModelInfo, ProviderName
+
+    _, sdk_name, _ = provider_of(model)
+    name = model.split("/", 1)[1] if "/" in model else model
+    models = _PROVIDERS_DATA[ProviderName(sdk_name)].models
+    if name not in models:
+        models[name] = ModelInfo(name=name, capability_score=5, speed_score=4,
+                                 context_window=context_window, model_type="Reasoning")
 
 
 def register_gemini_model(model: str, context_window: int = 1_000_000) -> None:
@@ -165,8 +193,10 @@ def find_usage(raw) -> dict | None:
 class LyzrRenderer:
     """Thin wrapper: one Lyzr agent whose instructions are the renderer system prompt."""
 
-    def __init__(self, guard: SpendGuard, studio: Any = None, temperature: float = 0.9,
-                 prompt_version: str = PROMPT_VERSION, system_prompt: str | None = None, provider_retries: int = 1):
+    def __init__(self, guard: SpendGuard, studio: Any = None, temperature: float | None = 0.9,
+                 prompt_version: str = PROMPT_VERSION, system_prompt: str | None = None, provider_retries: int = 1,
+                 agent_name: str = "beliefbench-renderer", role: str = "Benchmark scenario writer",
+                 goal: str = "Render abstract dependency graphs as realistic natural-language scenarios as strict JSON."):
         if guard.model not in MODEL_PRICES:
             raise ValueError(f"model {guard.model!r} has no price entry; add one before using it")
         self.guard = guard
@@ -177,6 +207,7 @@ class LyzrRenderer:
         # A version not in PROMPTS (e.g. "repair-v1") must bring its own pinned prompt.
         self.system_prompt = system_prompt if system_prompt is not None else PROMPTS[prompt_version]
         self.provider_retries = provider_retries
+        self.agent_name, self.role, self.goal = agent_name, role, goal
 
     @property
     def agent(self):
@@ -185,17 +216,20 @@ class LyzrRenderer:
                 from lyzr import Studio  # imported lazily: tests and dry runs need no key
 
                 self._studio = Studio(log="warning")
-            register_gemini_model(self.guard.model)
+            provider, _, cred = provider_of(self.guard.model)
+            register_model(self.guard.model)
+            # Sampling parameters only where the model accepts them: current Claude models
+            # reject non-default temperature/top_p (temperature=None leaves them unset).
+            sampling = {} if self.temperature is None else {"temperature": self.temperature, "top_p": 0.95}
             self._agent = self._studio.create_agent(
-                name=f"beliefbench-renderer-{self.prompt_version}",
-                provider=f"gemini/{self.guard.model}",
-                role="Benchmark scenario writer",
-                goal="Render abstract dependency graphs as realistic natural-language scenarios as strict JSON.",
+                name=f"{self.agent_name}-{self.prompt_version}",
+                provider=provider,
+                role=self.role,
+                goal=self.goal,
                 instructions=self.system_prompt,
-                temperature=self.temperature,
-                top_p=0.95,
                 store_messages=False,
-                llm_credential_id="lyzr_google",
+                llm_credential_id=cred,
+                **sampling,
             )
         return self._agent
 
