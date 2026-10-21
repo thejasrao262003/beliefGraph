@@ -11,38 +11,18 @@ model and input), so a rerun never re-bills. Results: data/beliefgraph/<run>/res
 from __future__ import annotations
 
 import argparse
-import hashlib
 import json
 from dataclasses import asdict
 from pathlib import Path
 
 from beliefbench.beliefgraph_eval import load_accepted, score
 from beliefbench.llm_baselines import DIRECT_VERSION, llm_direct
-from beliefgraph.core import BeliefGraph, Graph, UpdateReading
+from beliefgraph.cache import CachedLLM
+from beliefgraph.core import BeliefGraph
 from beliefgraph.llm import PROVIDERS, make_llm
 from beliefgraph.prompts import BUILD_VERSION, READ_VERSION
 
 RUNS = ["pilot40-render-v10", "validate-v11", "validate-v11-f3-retry", "validate-v12"]
-
-
-class CachedLLM:
-    def __init__(self, llm, raw_dir: Path):
-        self.llm, self.raw_dir, self.calls = llm, raw_dir, 0
-
-    def __call__(self, system: str, message: str, note: str = "") -> str:
-        # The system prompt text identifies the prompt (and its version); keep this key stable so
-        # cached responses are never re-billed.
-        key = hashlib.sha256(f"{BUILD_VERSION}|{READ_VERSION}|{getattr(self.llm, 'model', '')}|{system}|{message}"
-                             .encode()).hexdigest()[:16]
-        path = self.raw_dir / f"{note.replace(' ', '.')}.{key}.json"
-        if path.exists():
-            return json.loads(path.read_text())["response"]
-        text = self.llm(system, message, note)
-        self.calls += 1
-        usage = self.llm.usage[-1] if getattr(self.llm, "usage", None) else {}
-        path.write_text(json.dumps({"note": note, "model": getattr(self.llm, "model", ""), "response": text,
-                                    "usage": usage}, indent=1, default=str))
-        return text
 
 
 def cost_by_method(raw_dir: Path, opaque_ids: set[str]) -> dict:

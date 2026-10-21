@@ -10,7 +10,7 @@ from dataclasses import dataclass, field
 
 from beliefbench.labeler import gold_actions, topo_order
 from beliefbench.schema import Action, Kind, Node, Relation, Scenario, Update
-from beliefgraph.prompts import BUILD_PROMPT, READ_PROMPT, RETRY_NOTE
+from beliefgraph.prompts import BATCH_NOTE, BUILD_PROMPT, READ_PROMPT, RETRY_NOTE
 
 LEVELS = ("high", "medium", "low")
 RELATIONS = {r.value for r in Relation}
@@ -152,11 +152,25 @@ class BeliefGraph:
     def __init__(self, llm: LLM):
         self.llm = llm
 
-    def build(self, view: dict, retry_unsupported: bool = True) -> Graph:
+    def build(self, view: dict, retry_unsupported: bool = True, batch_size: int | None = None) -> Graph:
         """Build the graph. A memory left with no justification is asked about once more on
         its own (v0.1); any still unsupported is reported in ``Graph.unsupported`` rather than
-        silently treated as established."""
-        graph = parse_graph(self.llm(BUILD_PROMPT, build_message(view), f"{view['scenario']} build"), view)
+        silently treated as established. With ``batch_size``, memories are built in batches
+        (every fact and memory stays a candidate premise), for stores too large for one answer."""
+        mems = [m["id"] for m in view["memories"]]
+        if batch_size and len(mems) > batch_size:
+            base = json.loads(build_message(view))
+            graph = None
+            for i in range(0, len(mems), batch_size):
+                chunk = mems[i : i + batch_size]
+                message = json.dumps(base | {"build_for": chunk}, indent=1) + "\n\n" + BATCH_NOTE
+                part = parse_graph(self.llm(BUILD_PROMPT, message, f"{view['scenario']} build{i // batch_size}"), view)
+                if graph is None:
+                    graph = Graph({}, part.reliability, [])  # reliabilities from the first batch
+                graph.justifications.update({m: part.justifications.get(m, []) for m in chunk})
+                graph.errors += [e for e in part.errors if e.split(":")[0] in chunk]
+        else:
+            graph = parse_graph(self.llm(BUILD_PROMPT, build_message(view), f"{view['scenario']} build"), view)
         empty = sorted(m for m, sets in graph.justifications.items() if not sets)
         if empty and retry_unsupported:
             message = json.dumps(json.loads(build_message(view)) | {"unsupported": empty}, indent=1) + "\n\n" + RETRY_NOTE

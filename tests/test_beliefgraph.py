@@ -266,3 +266,70 @@ def test_cost_by_method_splits_graph_and_direct_calls(tmp_path):
     cost = mod.cost_by_method(tmp_path, {"s_a"})
     assert cost["BeliefGraph"]["calls"] == 2 and cost["BeliefGraph"]["est_usd"] == 0.03
     assert cost["LLM-direct"]["calls"] == 1 and cost["LLM-direct"]["est_usd"] == 0.05
+
+
+# ── large stores with sequential updates ──
+
+
+def _pool():
+    return [x for r in ALL_RUNS for x in load_accepted(RENDERED / r)]
+
+
+def test_merged_store_gold_matches_each_scenario_and_oracle_at_every_step():
+    from beliefbench.stream import gold_after, merge, step_view
+
+    items = _pool()[:8]
+    store, comps = merge(items, seed=1)
+    ids = [x["id"] for sec in ("evidence", "memories", "updates") for x in store[sec]]
+    assert len(ids) == len(set(ids))  # re-namespacing keeps ids unique across scenarios
+    dates = [u["observed"] for u in store["updates"]]
+    assert dates == sorted(dates) and min(dates) > max(e["observed"] for e in store["evidence"])
+    # each scenario's own updates keep their order inside the stream
+    for c in comps:
+        mine = [u["id"] for u in store["updates"] if u["id"] in c["back"]]
+        own = [c["back"][u] for u in mine]
+        assert own == [u["id"] for u in sorted(c["sv"]["updates"], key=lambda u: (u["observed"], u["id"]))]
+    # after the full stream, store gold == every scenario's own gold
+    union = {}
+    for c in comps:
+        fwd = {v: k for k, v in c["back"].items()}
+        union.update({fwd[m]: a for m, a in memory_gold(c["ev"]).items()})
+    assert gold_after(store, comps, len(store["updates"])) == union
+    # before any update nothing changes
+    assert set(gold_after(store, comps, 0).values()) == {Action.KEEP}
+    assert step_view(store, 2, only_last=True)["updates"] == store["updates"][1:2]
+
+
+def test_stream_step_score():
+    import importlib.util
+
+    spec = importlib.util.spec_from_file_location("run_stream", Path(__file__).parents[1] / "scripts" / "run_stream.py")
+    mod = importlib.util.module_from_spec(spec)
+    spec.loader.exec_module(mod)
+    K, W = Action.KEEP, Action.WITHDRAW
+    gold = {"m_1": K, "m_2": W, "m_3": K}
+    s = mod.step_score(gold, {"m_1": K, "m_2": K, "m_3": W}, {"m_1", "m_2"})
+    assert s["acc_all"] == 1 / 3 and s["acc_touched"] == 0.5 and s["stale"] == 1.0 and s["over_invalidation"] == 0.5
+
+
+def test_batched_build_asks_only_for_each_batch_and_keeps_every_candidate():
+    seen = []
+
+    def llm(system, message, note=""):
+        body = json.loads(message.split("\n\n")[0])
+        seen.append(body)
+        js = {m: ([["e_1"]] if m == "m_1" else [["m_1", "e_3"]]) for m in body.get("build_for", [])}
+        return json.dumps({"justifications": js, "reliability": GRAPH["reliability"]})
+
+    g = BeliefGraph(llm).build(VIEW, batch_size=1)
+    assert [b["build_for"] for b in seen] == [["m_1"], ["m_2"]]
+    assert all(len(b["memories"]) == 2 and len(b["facts"]) == 3 for b in seen)  # every candidate visible
+    assert g.justifications == {"m_1": [["e_1"]], "m_2": [["e_3", "m_1"]]} and g.unsupported == []
+
+
+def test_direct_store_baseline_lists_only_changes():
+    from beliefbench.llm_baselines import DIRECT_STORE_PROMPT, llm_direct_store
+
+    out, errors = llm_direct_store(lambda s, m, n="": json.dumps({"changes": {"m_2": "withdraw", "m_9": "keep"}}), VIEW)
+    assert out == {"m_1": Action.KEEP, "m_2": Action.WITHDRAW} and "unknown memory" in errors[0]
+    assert '"changes"' in DIRECT_STORE_PROMPT

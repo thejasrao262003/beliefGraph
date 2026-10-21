@@ -64,3 +64,11 @@ or both, under one of the policies. A policy may name the memory's outcome with 
 words (for example "fleet catalog" for "registry listing"); match by meaning. Give the \
 justification sets for these memories only, in the same JSON format; leave a memory empty \
 only if nothing in the snapshot could have produced it."""
+
+# Large stores: the graph is built in batches of memories (as memories are written over
+# time). Every fact and memory stays a candidate premise; only the listed ones are asked for.
+BATCH_NOTE = """\
+This store is large, so build the graph in parts: give justification sets ONLY for the \
+memories listed under "build_for". Every other fact and memory in the snapshot remains a \
+valid premise for them. Still rate the reliability of every fact. This overrides "every \
+memory id must appear" in the output rules."""

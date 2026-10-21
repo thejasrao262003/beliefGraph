@@ -64,3 +64,37 @@ def parse_direct(raw: str, view: dict) -> tuple[dict[str, Action], list[str]]:
 
 def llm_direct(llm, view: dict) -> tuple[dict[str, Action], list[str]]:
     return parse_direct(llm(DIRECT_PROMPT, direct_message(view), f"{view['scenario']} direct"), view)
+
+
+# Store mode (large memories): same definitions, but the answer lists only memories whose
+# action is not "keep", so a 300-memory store does not need a 300-line answer.
+DIRECT_STORE_VERSION = "llm-direct-store-v1"
+DIRECT_STORE_PROMPT = DIRECT_PROMPT.replace(
+    """OUTPUT: a single JSON object, no prose:
+{"actions": {"<memory id>": "keep" | "withdraw" | "recompute" | "uncertain"}}
+Every memory id must appear exactly once.
+""",
+    """OUTPUT: a single JSON object, no prose, listing ONLY the memories whose action is not "keep" \
+(every memory not listed is kept):
+{"changes": {"<memory id>": "withdraw" | "recompute" | "uncertain"}}
+""")
+assert DIRECT_STORE_PROMPT != DIRECT_PROMPT
+
+
+def llm_direct_store(llm, view: dict, note: str = "") -> tuple[dict[str, Action], list[str]]:
+    raw = llm(DIRECT_STORE_PROMPT, direct_message(view), note or f"{view['scenario']} direct")
+    errors: list[str] = []
+    try:
+        changes = _load_json(raw).get("changes") or {}
+    except (json.JSONDecodeError, ValueError) as e:
+        changes, errors = {}, [f"invalid JSON: {e}"]
+    out = {m["id"]: Action.KEEP for m in view["memories"]}
+    for mid, v in changes.items():
+        if mid not in out:
+            errors.append(f"unknown memory {mid!r}")
+            continue
+        try:
+            out[mid] = Action(v)
+        except ValueError:
+            errors.append(f"{mid}: action {v!r} -> keep")
+    return out, errors

@@ -36,6 +36,7 @@ OPENAI_COMPATIBLE = {
     "openrouter": ("https://openrouter.ai/api/v1", "OPENROUTER_API_KEY"),
     "perplexity": ("https://api.perplexity.ai", "PERPLEXITY_API_KEY"),
     "ollama": ("http://localhost:11434/v1", None),
+    "modal": (None, "BELIEFGRAPH_VLLM_KEY"),  # self-hosted vLLM on Modal (deploy/modal_qwen.py); URL in BELIEFGRAPH_VLLM_URL
     "openai-compatible": (None, "OPENAI_COMPATIBLE_API_KEY"),  # any other server: pass base_url
 }
 KEY_ENV = {"anthropic": ("ANTHROPIC_API_KEY",), "openai": ("OPENAI_API_KEY",),
@@ -154,7 +155,8 @@ def make_llm(provider: str, model: str | None = None, api_key: str | None = None
         if provider in OPENAI_COMPATIBLE:
             import openai
 
-            url = base_url or OPENAI_COMPATIBLE[provider][0]
+            url = base_url or OPENAI_COMPATIBLE[provider][0] or (
+                os.environ.get("BELIEFGRAPH_VLLM_URL") if provider == "modal" else None)
             if not url:
                 raise ValueError(f"{provider}: pass base_url=<server URL>")
             client = openai.OpenAI(api_key=_key(provider, api_key), base_url=url)
