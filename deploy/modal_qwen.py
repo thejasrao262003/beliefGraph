@@ -42,7 +42,7 @@ app = modal.App("beliefgraph-qwen35-9b")
 
 @app.server(
     image=image,
-    gpu="L40S",  # 48 GB: 9B weights in BF16 plus KV cache for long stores
+    gpu="H100",  # 80 GB: fast prefill and decoding for long stores and thinking outputs
     port=PORT,
     volumes={"/root/.cache/huggingface": hf_cache, "/root/.cache/vllm": vllm_cache},
     secrets=secrets,

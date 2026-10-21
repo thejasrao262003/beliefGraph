@@ -56,6 +56,7 @@ def main() -> None:
     ap.add_argument("--limit", type=int, default=None)
     ap.add_argument("--runs", nargs="+", default=RUNS, help="rendered runs to evaluate on")
     ap.add_argument("--no-direct", action="store_true", help="skip the LLM-direct baseline (1 extra call each)")
+    ap.add_argument("--workers", type=int, default=1, help="scenarios in parallel (not for lyzr: its guard is serial)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -67,31 +68,41 @@ def main() -> None:
         return
     out = Path("data/beliefgraph") / args.run
     (out / "raw").mkdir(parents=True, exist_ok=True)
-    if args.provider == "lyzr":
+    try:  # keys and URLs (LYZR_API_KEY, BELIEFGRAPH_VLLM_KEY / _URL, ...) from the git-ignored .env
         from dotenv import load_dotenv
 
         load_dotenv()
+    except ImportError:
+        pass
+    if args.provider == "lyzr" and args.workers > 1:
+        raise SystemExit("--workers > 1 is not supported for lyzr (its spend guard is serial)")
     llm = make_llm(args.provider, model=args.model, base_url=args.base_url, budget_usd=args.budget_usd,
                    max_calls=4 * len(data) + 10)  # build, retry, read, direct
     cached = CachedLLM(llm, out / "raw")
     bg = BeliefGraph(cached)
     items, failures = [], {}
+
+    def one(sv, ev, seed):
+        graph = bg.build(sv)
+        readings, rerr = bg.read_updates(sv)
+        direct, derr = (None, []) if args.no_direct else llm_direct(cached, sv)
+        return {"sv": sv, "ev": ev, "seed": seed, "graph": asdict(graph), "readings": readings,
+                "direct": direct, "errors": graph.errors + rerr + derr}
+
     try:
-        for sv, ev, seed in data:
-            name = f"{ev['source_scenario']}@{seed}"
-            try:
-                graph = bg.build(sv)
-                readings, rerr = bg.read_updates(sv)
-                direct, derr = (None, []) if args.no_direct else llm_direct(cached, sv)
-            except Exception as e:  # noqa: BLE001 -- budget refusals and provider errors end this scenario
-                failures[name] = f"{type(e).__name__}: {str(e)[:200]}"
-                print(f"FAIL {name}: {failures[name]}")
-                if type(e).__name__ == "BudgetExceeded":
-                    break
-                continue
-            items.append({"sv": sv, "ev": ev, "seed": seed, "graph": asdict(graph), "readings": readings,
-                          "direct": direct, "errors": graph.errors + rerr + derr})
-            print(f"ok {name} ({len(graph.errors) + len(rerr) + len(derr)} parse notes)")
+        from concurrent.futures import ThreadPoolExecutor
+
+        with ThreadPoolExecutor(max_workers=args.workers) as pool:
+            futures = [(f"{ev['source_scenario']}@{seed}", pool.submit(one, sv, ev, seed)) for sv, ev, seed in data]
+            for name, fut in futures:
+                try:
+                    it = fut.result()
+                except Exception as e:  # noqa: BLE001 -- budget refusals and provider errors end this scenario
+                    failures[name] = f"{type(e).__name__}: {str(e)[:200]}"
+                    print(f"FAIL {name}: {failures[name]}")
+                    continue
+                items.append(it)
+                print(f"ok {name} ({len(it['errors'])} parse notes)")
     finally:
         if hasattr(llm, "close"):
             llm.close()

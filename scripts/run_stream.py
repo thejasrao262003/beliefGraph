@@ -69,6 +69,7 @@ def main() -> None:
     ap.add_argument("--batch-size", type=int, default=25, help="memories per graph-building call")
     ap.add_argument("--run", default="stream-run")
     ap.add_argument("--budget-usd", type=float, default=2.0, help="hard cap (lyzr provider)")
+    ap.add_argument("--workers", type=int, default=1, help="parallel calls (not for lyzr: its guard is serial)")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -85,10 +86,14 @@ def main() -> None:
               f"LLM-direct {len(store['updates'])} whole-store calls")
     if args.dry_run:
         return
-    if args.provider == "lyzr":
+    try:
         from dotenv import load_dotenv
 
         load_dotenv()
+    except ImportError:
+        pass
+    if args.provider == "lyzr" and args.workers > 1:
+        raise SystemExit("--workers > 1 is not supported for lyzr (its spend guard is serial)")
     out = Path("data/beliefgraph") / args.run
     total_calls = sum(-(-len(s["memories"]) // args.batch_size) * 2 + 2 * len(s["updates"]) for _, s, _ in plans)
     llm = make_llm(args.provider, model=args.model, base_url=args.base_url, budget_usd=args.budget_usd,
@@ -101,12 +106,24 @@ def main() -> None:
         for k, store, comps in plans:
             sid = store["scenario"]
             graph = bg.build(step_view(store, 0), batch_size=args.batch_size)
+            n_up = len(store["updates"])
+            # Every per-update call is independent of the others (BeliefGraph reads one update;
+            # LLM-direct sees the store after n updates), so they can run concurrently.
+            from concurrent.futures import ThreadPoolExecutor
+
+            with ThreadPoolExecutor(max_workers=args.workers) as pool:
+                reads = [pool.submit(bg.read_updates, step_view(store, n, only_last=True) | {"scenario": sid})
+                         for n in range(1, n_up + 1)]
+                directs = [pool.submit(llm_direct_store, cached, step_view(store, n), f"{sid} direct{n}")
+                           for n in range(1, n_up + 1)]
+                reads = [f.result() for f in reads]
+                directs = [f.result() for f in directs]
             readings, steps = {}, []
-            for n in range(1, len(store["updates"]) + 1):
-                r, rerr = bg.read_updates(step_view(store, n, only_last=True) | {"scenario": sid})
+            for n in range(1, n_up + 1):
+                r, rerr = reads[n - 1]
                 readings.update(r)
                 p_actions = revise(step_view(store, n), graph.justifications, graph.reliability, readings)
-                d_actions, derr = llm_direct_store(cached, step_view(store, n), note=f"{sid} direct{n}")
+                d_actions, derr = directs[n - 1]
                 gold = gold_after(store, comps, n)
                 focus = touched(store, comps, n)
                 steps.append({"n": n, "BeliefGraph": step_score(gold, p_actions, focus),
