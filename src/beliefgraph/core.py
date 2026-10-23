@@ -14,6 +14,7 @@ from beliefbench.schema import Action, Kind, Node, Relation, Scenario, Update
 from beliefgraph.prompts import (
     BATCH_NOTE,
     BUILD_PROMPT,
+    ADJUDICATE_PROMPT,
     GROUND_PROMPT,
     OUTCOME_PROMPT,
     READ_PROMPT,
@@ -257,18 +258,35 @@ class DecomposedBeliefGraph(BeliefGraph):
     produce it (else the most frequent complete set). Then a store-level constraint: two
     memories that take the same policy on overlapping premises cannot both be right (one is
     usually a downstream conclusion routed to the rule that grants its premise), so the one with
-    fewer votes is re-routed with that policy excluded.
+    fewer votes is re-routed with that policy excluded (``resolve_conflicts``; off by default:
+    on a 93-memory hard subset it fired once and changed nothing).
+
+    Vote share is calibrated (there, 62% of memories with split votes had a wrong graph, 10%
+    of unanimous ones), so split-vote memories get one more step (``adjudicate``): every
+    voted policy is grounded and the candidates are compared side by side, each with the
+    items that satisfy it.
     """
 
     def __init__(self, llm: LLM, k_policies: int = 12, k_items: int = 16, k_read: int = 5, workers: int = 8,
                  reliability_batch: int = 40, max_reroutes: int = 2, outcome_routing: bool = False,
-                 outcome_batch: int = 20, samples: int = 3, resolve_conflicts: bool = True, conflict_rounds: int = 2):
+                 outcome_batch: int = 20, samples: int = 3, resolve_conflicts: bool = False, conflict_rounds: int = 2,
+                 adjudicate: bool = True):
         super().__init__(llm)
         self.samples, self.resolve_conflicts, self.conflict_rounds = samples, resolve_conflicts, conflict_rounds
+        self.adjudicate = adjudicate
         self.outcome_routing, self.outcome_batch = outcome_routing, outcome_batch
         self.max_reroutes = max_reroutes
         self.k_policies, self.k_items, self.k_read = k_policies, k_items, k_read
         self.workers, self.reliability_batch = workers, reliability_batch
+
+    def _samples(self, fn):
+        """``fn(k)`` for every sample k, concurrently (samples of one memory are independent)."""
+        if self.samples == 1:
+            return [fn(0)]
+        from concurrent.futures import ThreadPoolExecutor
+
+        with ThreadPoolExecutor(max_workers=self.samples) as pool:
+            return list(pool.map(fn, range(self.samples)))
 
     def _map(self, fn, xs):
         from concurrent.futures import ThreadPoolExecutor
@@ -324,7 +342,10 @@ class DecomposedBeliefGraph(BeliefGraph):
                 out[pid] = {"gives": v["gives"], "requires": str(v.get("requires") or "")}
         return out, errors
 
-    def build(self, view: dict, retry_unsupported: bool = True, batch_size: int | None = None) -> Graph:
+    def build(self, view: dict, retry_unsupported: bool = True, batch_size: int | None = None,
+              only: list[str] | None = None) -> Graph:
+        """``only``: build just these memories (e.g. ones written since the last build); every
+        fact and memory of the store stays a candidate premise."""
         from beliefgraph.retrieve import DenseIndex
 
         sid = view["scenario"]
@@ -401,8 +422,7 @@ class DecomposedBeliefGraph(BeliefGraph):
             """Sets produced by most samples; failing that, the most frequent complete sets."""
             counts: dict[tuple, int] = {}
             errs: list[str] = []
-            for k in range(self.samples):
-                sets, e = ground(mid, policy, tag, k)
+            for k, (sets, e) in enumerate(self._samples(lambda k: ground(mid, policy, tag, k))):
                 errs += [f"s{k}: {x}" for x in e] if self.samples > 1 else e
                 for st in sets:
                     counts[tuple(st)] = counts.get(tuple(st), 0) + 1
@@ -419,7 +439,7 @@ class DecomposedBeliefGraph(BeliefGraph):
             ranked, tried, errs = rank_policies(mems[mid]["text"]), set(banned), []
             for attempt in range(self.max_reroutes + 1):
                 tag = tag0 + ("" if attempt == 0 else f"r{attempt}")
-                picks = [route(mid, ranked, tried, tag, k) for k in range(self.samples)]
+                picks = self._samples(lambda k: route(mid, ranked, frozenset(tried), tag, k))
                 votes = Counter(p for p in picks if p is not None)
                 if not votes:
                     errs.append("no policy routed")
@@ -428,13 +448,51 @@ class DecomposedBeliefGraph(BeliefGraph):
                     sets, gerrs = voted_ground(mid, policy, tag)
                     errs += gerrs
                     if sets:
-                        return {"policy": policy, "share": n / self.samples, "sets": sets, "errs": errs}
+                        return {"policy": policy, "share": n / self.samples, "sets": sets, "errs": errs,
+                                "votes": dict(votes), "tag": tag}
                     tried.add(policy)
                     errs.append(f"policy {policy} could not be grounded; re-routing")
             return {"policy": None, "share": 0.0, "sets": [], "errs": errs}
 
-        out = dict(zip(mems, self._map(one, list(mems))))
-        banned: dict[str, set[str]] = {m: set() for m in mems}
+        def adjudicate(mid: str) -> dict:
+            """Split votes: ground every voted policy and let the model compare them, each with
+            the items that satisfy it. Keeps the first choice unless a majority picks another."""
+            r = out[mid]
+            cands = []
+            for policy in sorted(r["votes"], key=lambda p: -r["votes"][p]):
+                sets, _ = voted_ground(mid, policy, r["tag"])
+                if sets:
+                    cands.append((policy, sets))
+            if len(cands) < 2:
+                return r
+            msg = json.dumps({"memory": mems[mid]["text"], "policies": {
+                str(n + 1): {"policy": pols[p]["text"],
+                             "premises": [(facts.get(x) or mems.get(x))["text"] for x in sorted({x for st in sets for x in st})]}
+                for n, (p, sets) in enumerate(cands)}}, indent=1)
+
+            def pick(k):
+                try:
+                    v = _load_json(self.llm(ADJUDICATE_PROMPT, msg, sample_note(f"{sid} adjudicate.{mid}", k))).get("policy")
+                except (json.JSONDecodeError, ValueError, AttributeError):
+                    return None
+                v = int(v) if isinstance(v, str) and v.strip().isdigit() else v
+                return v if isinstance(v, int) and 1 <= v <= len(cands) else None
+
+            votes = Counter(v for v in self._samples(pick) if v is not None)
+            if not votes:
+                return r
+            (best, n), = votes.most_common(1)
+            policy, sets = cands[best - 1]
+            if policy == r["policy"] or 2 * n <= self.samples:
+                return r
+            return dict(r, policy=policy, sets=sets, share=n / self.samples,
+                        errs=r["errs"] + [f"adjudicated {r['policy']} -> {policy}"])
+
+        todo = [m for m in mems if only is None or m in set(only)]
+        out = dict(zip(todo, self._map(one, todo)))
+        split = [m for m in todo if out[m]["policy"] and out[m]["share"] < 1] if self.adjudicate and self.samples > 1 else []
+        out.update(zip(split, self._map(adjudicate, split)))
+        banned: dict[str, set[str]] = {m: set() for m in todo}
         conflict_errs: list[str] = []
         for rnd in range(self.conflict_rounds if self.resolve_conflicts else 0):
             losers = self._conflict_losers(out, mems, pols)

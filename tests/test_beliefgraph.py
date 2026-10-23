@@ -543,3 +543,28 @@ def test_v04_conflict_reroutes_the_lower_voted_memory():
     mems = {m: {"text": m} for m in out}
     pols = {"p_1": {"text": "x"}, "p_2": {"text": "y"}}
     assert DecomposedBeliefGraph._conflict_losers(out, mems, pols) == ["m_b", "m_d"]
+
+
+def test_v04_adjudicates_split_votes_with_grounded_candidates(tfidf):
+    from beliefgraph.core import DecomposedBeliefGraph
+    from beliefgraph.prompts import ADJUDICATE_PROMPT, GROUND_PROMPT, ROUTE_PROMPT
+
+    shown = []
+
+    def llm(system, message, note=""):
+        body = json.loads(message)
+        if system == ROUTE_PROMPT:
+            if "contract" not in body["memory"]:
+                return json.dumps({"policy": next(int(k) for k, t in body["policies"].items() if "trucks" in t)})
+            wrong = next(int(k) for k, t in body["policies"].items() if "trucks" in t)  # 2 of 3 samples err
+            return json.dumps({"policy": 3 - wrong if note.endswith("~s2") else wrong})
+        if system == GROUND_PROMPT:
+            return json.dumps({"groups": [[c["id"]] for c in body["candidates"] if c["id"] == "e_1"]})
+        if system == ADJUDICATE_PROMPT:
+            shown.append(body["policies"])
+            return json.dumps({"policy": next(int(k) for k, v in body["policies"].items() if "Contracts" in v["policy"])})
+        return json.dumps({"reliability": {}})
+
+    g = DecomposedBeliefGraph(llm, workers=1).build(VIEW)
+    assert shown and all("premises" in v for v in shown[0].values())
+    assert any("adjudicated" in e for e in g.errors) and g.confidence["m_2"] == 1.0

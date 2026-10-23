@@ -86,6 +86,7 @@ ROUTE_VERSION = "bg-route-v2"
 GROUND_VERSION = "bg-ground-v2"
 RELIABILITY_VERSION = "bg-rel-v1"
 OUTCOME_VERSION = "bg-outcome-v1"
+ADJUDICATE_VERSION = "bg-adjudicate-v1"
 ROUTE_OUTCOME_VERSION = "bg-route-outcome-v1"
 
 ROUTE_PROMPT = """\
@@ -150,4 +151,21 @@ rule that builds on it: never pick it for that reason. Use "facts_about_it" only
 between policies that give the same thing. Answer null if no policy gives this conclusion.
 
 OUTPUT: a single JSON object, no prose: {"policy": <number or null>}
+"""
+
+# v0.4: when routing samples disagree, the candidate policies are compared side by side, each
+# with the stored items that satisfy it.
+ADJUDICATE_PROMPT = """\
+You are BeliefGraph. An AI assistant stored a MEMORY (a conclusion or plan) by applying one of \
+its POLICIES (general rules) to stored facts and conclusions. Several candidate policies are \
+numbered below, each with the stored items that satisfy its conditions ("premises").
+
+Pick the policy the assistant applied:
+- its outcome must BE the memory's conclusion, possibly in other words;
+- a policy whose outcome is one of this memory's premises (a conclusion it builds on) is NOT \
+it: that rule produced the premise, not the memory;
+- a policy whose conditions merely mention the same topic as the memory is not it either;
+- between policies with the same outcome, prefer the one whose premises are complete.
+
+OUTPUT: a single JSON object, no prose: {"policy": <number>}
 """
