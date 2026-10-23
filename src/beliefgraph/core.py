@@ -77,7 +77,8 @@ def parse_graph(raw: str, view: dict) -> Graph:
             sets = []
         clean = []
         for j in sets if isinstance(sets, list) else []:
-            items = [x for x in (j if isinstance(j, list) else [j]) if x in facts | mems and x != mid]
+            items = [x for x in (j if isinstance(j, list) else [j])
+                     if isinstance(x, str) and x in facts | mems and x != mid]  # small models emit odd shapes
             if len(items) != len(j if isinstance(j, list) else [j]):
                 errors.append(f"{mid}: dropped unknown or self ids in {j}")
             if items and sorted(set(items)) not in [sorted(c) for c in clean]:

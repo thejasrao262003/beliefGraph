@@ -333,3 +333,10 @@ def test_direct_store_baseline_lists_only_changes():
     out, errors = llm_direct_store(lambda s, m, n="": json.dumps({"changes": {"m_2": "withdraw", "m_9": "keep"}}), VIEW)
     assert out == {"m_1": Action.KEEP, "m_2": Action.WITHDRAW} and "unknown memory" in errors[0]
     assert '"changes"' in DIRECT_STORE_PROMPT
+
+
+def test_parse_graph_ignores_non_string_items_from_small_models():
+    raw = json.dumps({"justifications": {"m_1": [["e_1", {"id": "e_2"}], [{"x": 1}]], "m_2": [["m_1", "e_3"]]},
+                      "reliability": GRAPH["reliability"]})
+    g = parse_graph(raw, VIEW)
+    assert g.justifications["m_1"] == [["e_1"]] and g.justifications["m_2"] == [["e_3", "m_1"]]

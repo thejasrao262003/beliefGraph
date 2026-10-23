@@ -81,3 +81,37 @@
    - large stores and sequential update streams, where BeliefGraph reads only each update but LLM-direct must re-read everything;
    - other model families;
    - the F3 gap (Haiku-built AND sets).
+
+## v0.1 on a self-hosted 9B model: Qwen3.5-9B (2026-10-23)
+
+**Setup:**
+- **Model and hosting:** `Qwen/Qwen3.5-9B` (Apache-2.0, released Feb 2026; thinking mode on), served by vLLM 0.21.0 on one Modal H100 (`deploy/modal_qwen.py`), through BeliefGraph's `modal` provider.
+- **Run:** `scripts/run_beliefgraph.py --provider modal --model qwen3.5-9b --workers 16 --run bg-qwen35-9b-v01`. Same 63 scenarios, prompts and scoring as for Opus and Haiku.
+- **Cold start fixed from 17+ min to 4 min:** `--gdn-prefill-backend triton` (Qwen3.5's Gated-DeltaNet layers otherwise JIT-compile a FlashInfer kernel on every boot), all caches on volumes, `--max-model-len 65536`.
+- **Parser fix:** a small-model answer once put an object where an id belonged; `parse_graph` now ignores such items (tested).
+
+| Model | Method | Accuracy | Macro-F1 | Stale | Over-inv. | Uncertain recall |
+|---|---|---|---|---|---|---|
+| Qwen3.5-9B | **BeliefGraph** | **0.970** | 0.945 | 0.051 | 0.010 | 0.79 |
+| Qwen3.5-9B | LLM-direct | 0.834 | 0.657 | 0.092 | 0.025 | 0.58 |
+
+- **Paired (301 memories):** **+0.136, 95% CI [+0.067, +0.210]**. BeliefGraph right and LLM-direct wrong on 48 memories, the reverse on 7; **McNemar exact p = 1.3 × 10⁻⁸**.
+- **By family (BeliefGraph / LLM-direct):** F1 0.987 / 0.855, F2 1.000 / 0.817, F3 0.948 / 0.805, F6 0.948 / 0.857. BeliefGraph is better in every family.
+- **BeliefGraph components:**
+  - graph set-F1 0.818, AND/OR typing 0.978;
+  - update reading exact 0.75;
+  - 5 memories still unsupported after the retry.
+  - With a perfect graph P reaches 0.993; with perfect update readings, 0.977. Graph building is Qwen's main error source, yet the imperfect graph still beats direct revision by 13.6 points.
+- **Tokens:** BeliefGraph 145k in / 567k out over 138 calls; LLM-direct 77k in / 414k out over 63 calls. Output is mostly thinking.
+
+### Model × method summary (63 scenarios, 301 memories)
+
+| Model | BeliefGraph | LLM-direct | Paired difference | McNemar p |
+|---|---|---|---|---|
+| Claude Opus 5.5 | 0.993 | 0.993 | 0.000 | 1.0 |
+| Claude Haiku 5.5 | 0.980 | 0.917 | +0.063 [+0.013, +0.120] | 3 × 10⁻⁴ |
+| Qwen3.5-9B | 0.970 | 0.834 | **+0.136 [+0.067, +0.210]** | 1 × 10⁻⁸ |
+
+**Reading:**
+- **The weaker the model, the larger the gain from an explicit graph.** BeliefGraph lets a 9B open model revise beliefs nearly as well as a frontier model (0.970 vs 0.993), while the same 9B model asked directly reaches only 0.834.
+- **Building a graph is a better use of a small model than reasoning over the whole memory at once.** Its graphs are imperfect (set-F1 0.82) but propagation over them is robust.
