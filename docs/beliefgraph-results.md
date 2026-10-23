@@ -115,3 +115,83 @@
 **Reading:**
 - **The weaker the model, the larger the gain from an explicit graph.** BeliefGraph lets a 9B open model revise beliefs nearly as well as a frontier model (0.970 vs 0.993), while the same 9B model asked directly reaches only 0.834.
 - **Building a graph is a better use of a small model than reasoning over the whole memory at once.** Its graphs are imperfect (set-F1 0.82) but propagation over them is robust.
+
+## Large stores: sequential updates with Qwen3.5-9B (2026-10-23 – 24)
+
+**Setup:**
+- **Stores:** K accepted scenarios are merged into one store (`beliefbench.stream`), with ids re-namespaced and items shuffled. Many product names repeat across scenarios, and so do look-alike policies. Updates arrive one at a time.
+  - K=10: 45 memories, 12 updates.
+  - K=30: 143 memories, 43 updates.
+  - K=63: 301 memories, 342 facts, 84 updates.
+- **Gold:** exact after every step.
+- **Touched:** the memories of scenarios that have received an update. "Touched (mean)" averages touched accuracy over all steps; "final" is accuracy over all memories after the last update.
+- **Model and scripts:** Qwen3.5-9B on Modal throughout. `scripts/run_stream.py` runs BeliefGraph and the LLM-direct baseline. `scripts/eval_stream_variants.py` compares builder variants, replaying cached calls.
+
+### Versions
+
+| Version | What changed |
+|---|---|
+| v0.1 | One graph-building call per batch of 25 memories. |
+| v0.2 | Policy-anchored decomposition. Each memory's policy is routed from dense-retrieved candidates, and grounded as OR-of-AND conditions against its 16 nearest items. Each update is read against its 5 nearest facts. |
+| v0.2.1 | Re-routes when a policy cannot be grounded; shows the router the memory's nearest facts; tolerant parsing. |
+| read-v2 | The update reader decides the relation from what the update asserts, not from its source. A weak-source flat denial is still `retracts`, and "does not hold" is not `supersedes`. |
+| v0.4 | Sample, vote, constrain (after AbsCon, Chen et al. 2025, arXiv 2508.00255). Routing and grounding are each sampled 3 times with per-call seeds. Policies are tried in vote order and accepted only if they ground; justification sets are kept by majority. Memories whose routing votes split go to an adjudication call that compares the voted policies side by side, each with the items that satisfy it. |
+
+### Results
+
+| Store | Method | Graph set-F1 | Unsupported | Touched (mean) | Final, all | Stale | Over-inval. |
+|---|---|---|---|---|---|---|---|
+| 45 memories | LLM-direct | — | — | 0.821 | — | — | — |
+| | v0.1 | — | — | 0.817 | 0.733 | — | 0.235 |
+| | v0.2.1 + read-v2 | 0.889 | 1 | 0.994 | 0.933 | 0.27 | 0.000 |
+| | **v0.4** | **0.917** | **0** | **1.000** | **1.000** | **0.00** | **0.000** |
+| 143 memories | LLM-direct | — | — | 0.706 | 0.671 | 1.00 | — |
+| | v0.1 | — | 12 | 0.749 | 0.685 | 0.74 | — |
+| | v0.2.1 (read-v1) | 0.888 | 4 | 0.864 | 0.853 | 0.13 | 0.083 |
+| | v0.2.1 + read-v2 | 0.888 | 4 | 0.932 | 0.902 | 0.13 | 0.083 |
+| | **v0.4** | **0.919** | **1** | **0.947** | **0.930** | **0.06** | **0.073** |
+| 301 memories | v0.2.1 + read-v2 | 0.786 | 9 | 0.891 | 0.847 | 0.20 | 0.094 |
+| | **v0.4** | **0.805** | **2** | **0.905** | **0.857** | **0.17** | 0.099 |
+
+**LLM-direct at 301 memories:** this baseline (the same model labelling the whole store at every step) was stopped after 32 of 84 steps, because each call carries about 45k tokens of store. On those 32 steps, v0.4 reaches touched 0.922 against 0.754 for LLM-direct, with stale 0.18 against 0.90.
+
+LLM-direct's answers are mostly empty at every size: 29 of 32 at 301 memories, 40 of 43 at 143 and 11 of 12 at 45. Thinking uses up the 16k output budget, so LLM-direct falls back to "keep everything".
+
+### Error diagnosis (143 memories)
+
+Errors were attributed from cached calls, at no cost, by swapping in the gold graph or the gold readings.
+
+**v0.2.1 with read-v1: 21 final-step errors.**
+- About 14 come from the graph and about 7 from update readings.
+- Every update found the right target fact (43 of 43).
+- The readings that went wrong confused the relation:
+  - 6 weak-source denials were read as `hedges`;
+  - 5 retractions were read as `supersedes`.
+- read-v2 brought exact readings from 28/43 to 37/43, and from 8/12 to 12/12 at 45 memories.
+- With read-v2, the gold graph leaves 0 errors. The remaining reading misses change no final action. Three of them are wording the benchmark itself labels inconsistently ("no longer holds" or "holds no" is labelled `supersedes`, while "does not hold" elsewhere is labelled `retracts`).
+
+**Graph errors (v0.2.1, 20 of 143 memories).**
+- **Wrong policy, 11.** The usual pattern is that the memory is routed to the policy that grants its premise rather than the one that grants the memory itself. For example, "selected for the urgent government contract" goes to "priority dispatch rights are granted if …".
+- **Right policy, wrong grounding, 5.**
+- **No graph, 4.**
+
+**Hard-subset ablation.** The subset is the 16 scenarios with v0.2.1 graph errors plus 4 clean ones, 93 memories, in the 143-memory store.
+
+| Variant | Graphs right | Fixed | Broke | Unsupported |
+|---|---|---|---|---|
+| v0.2.1 | 73 | — | — | 4 |
+| Voting | 77 | 4 | 0 | 1 |
+| Voting + adjudication | 78 | 5 | 0 | 1 |
+
+**Vote share is calibrated.** Split votes had a wrong graph 8 times out of 13; unanimous votes, 8 times out of 80. `Graph.confidence` records the vote share for later use.
+
+### What did not help
+
+- **v0.3, outcome-anchored routing.** Policies are summarised as gives/requires and routed on what they give. The first pick was right 35/45 against 41/45 for v0.2.1: the short summaries lose wording the router relied on. It is kept behind `outcome_routing=False`.
+- **Overlap-conflict constraint.** Two memories on the same policy with overlapping premises: the lower-voted one is re-routed. It fired once on the hard subset and changed nothing, so it is kept behind `resolve_conflicts=False`.
+
+### Reading
+
+- **An explicit graph keeps a 9B model accurate as the store grows.** On touched memories, v0.4 scores 1.000, 0.947 and 0.905 at 45, 143 and 301 memories. LLM-direct scores 0.82, 0.71 and 0.75; on 301 memories it was run for 32 of 84 steps only, and mostly returns nothing at large sizes.
+- **Graph quality is now the limit, and it falls with store size:** graph set-F1 is 0.92 at 143 memories and 0.81 at 301.
+- **Voting removes noise but not a systematic bias.** For most remaining wrong routes, the right policy gets no vote at all. This matches the self-consistency literature. The likely next lever is training: LoRA fine-tuning of the small model on generator data, on seeds disjoint from evaluation.

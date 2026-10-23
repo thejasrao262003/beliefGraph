@@ -21,7 +21,7 @@ MODEL = "Qwen/Qwen3.5-9B"  # Apache-2.0; 262k native context; thinking + non-thi
 SERVED_NAME = "qwen3.5-9b"
 PORT = 8000
 MINUTES = 60
-MAX_MODEL_LEN = 65536  # the full 301-memory store (~45k tokens) plus room to think
+MAX_MODEL_LEN = 131072  # LLM-direct on the full store: ~50k-token prompt + 16k output, with headroom
 
 image = (
     modal.Image.from_registry("nvidia/cuda:12.9.0-devel-ubuntu22.04", add_python="3.12")
