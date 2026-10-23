@@ -18,7 +18,7 @@ from pathlib import Path
 from beliefbench.beliefgraph_eval import load_accepted, score
 from beliefbench.llm_baselines import DIRECT_VERSION, llm_direct
 from beliefgraph.cache import CachedLLM
-from beliefgraph.core import BeliefGraph
+from beliefgraph.core import BeliefGraph, DecomposedBeliefGraph
 from beliefgraph.llm import PROVIDERS, make_llm
 from beliefgraph.prompts import BUILD_VERSION, READ_VERSION
 
@@ -57,6 +57,9 @@ def main() -> None:
     ap.add_argument("--runs", nargs="+", default=RUNS, help="rendered runs to evaluate on")
     ap.add_argument("--no-direct", action="store_true", help="skip the LLM-direct baseline (1 extra call each)")
     ap.add_argument("--workers", type=int, default=1, help="scenarios in parallel (not for lyzr: its guard is serial)")
+    ap.add_argument("--algo", default="v0.1", choices=["v0.1", "v0.2"],
+                    help="v0.1: one graph-building call per store or batch; v0.2: policy-anchored decomposition")
+    ap.add_argument("--max-output-tokens", type=int, default=16000)
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -76,10 +79,11 @@ def main() -> None:
         pass
     if args.provider == "lyzr" and args.workers > 1:
         raise SystemExit("--workers > 1 is not supported for lyzr (its spend guard is serial)")
-    llm = make_llm(args.provider, model=args.model, base_url=args.base_url, budget_usd=args.budget_usd,
+    llm = make_llm(args.provider, model=args.model, base_url=args.base_url, budget_usd=args.budget_usd, max_output_tokens=args.max_output_tokens,
                    max_calls=4 * len(data) + 10)  # build, retry, read, direct
     cached = CachedLLM(llm, out / "raw")
-    bg = BeliefGraph(cached)
+    bg = (DecomposedBeliefGraph(cached, workers=max(1, args.workers)) if args.algo == "v0.2"
+          else BeliefGraph(cached))
     items, failures = [], {}
 
     def one(sv, ev, seed):
@@ -107,7 +111,7 @@ def main() -> None:
         if hasattr(llm, "close"):
             llm.close()
     result = score(items) | {"cost_by_method": cost_by_method(out / "raw", {it["sv"]["scenario"] for it in items}),"provider": args.provider, "model": llm.model, "build_prompt": BUILD_VERSION,
-                             "read_prompt": READ_VERSION, "direct_prompt": DIRECT_VERSION, "failures": failures, "new_calls": cached.calls,
+                             "read_prompt": READ_VERSION, "direct_prompt": DIRECT_VERSION, "algo": args.algo, "failures": failures, "new_calls": cached.calls,
                              "usage": llm.usage}
     if args.provider == "lyzr":
         result["est_usd_conservative"] = round(llm.client["guard"].spent_usd, 4)

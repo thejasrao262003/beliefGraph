@@ -25,7 +25,7 @@ from beliefbench.llm_baselines import DIRECT_STORE_VERSION, llm_direct_store
 from beliefbench.schema import Action
 from beliefbench.stream import gold_after, merge, step_view, touched
 from beliefgraph.cache import CachedLLM
-from beliefgraph.core import BeliefGraph, revise
+from beliefgraph.core import BeliefGraph, DecomposedBeliefGraph, revise
 from beliefgraph.llm import PROVIDERS, make_llm
 from beliefgraph.prompts import BUILD_VERSION, READ_VERSION
 
@@ -70,6 +70,9 @@ def main() -> None:
     ap.add_argument("--run", default="stream-run")
     ap.add_argument("--budget-usd", type=float, default=2.0, help="hard cap (lyzr provider)")
     ap.add_argument("--workers", type=int, default=1, help="parallel calls (not for lyzr: its guard is serial)")
+    ap.add_argument("--algo", default="v0.1", choices=["v0.1", "v0.2"],
+                    help="v0.1: one graph-building call per store or batch; v0.2: policy-anchored decomposition")
+    ap.add_argument("--max-output-tokens", type=int, default=16000)
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
@@ -96,11 +99,12 @@ def main() -> None:
         raise SystemExit("--workers > 1 is not supported for lyzr (its spend guard is serial)")
     out = Path("data/beliefgraph") / args.run
     total_calls = sum(-(-len(s["memories"]) // args.batch_size) * 2 + 2 * len(s["updates"]) for _, s, _ in plans)
-    llm = make_llm(args.provider, model=args.model, base_url=args.base_url, budget_usd=args.budget_usd,
+    llm = make_llm(args.provider, model=args.model, base_url=args.base_url, budget_usd=args.budget_usd, max_output_tokens=args.max_output_tokens,
                    max_calls=total_calls + 20)
     cached = CachedLLM(llm, out / "raw")
-    bg = BeliefGraph(cached)
-    results = {"provider": args.provider, "model": llm.model, "prompts": [BUILD_VERSION, READ_VERSION, DIRECT_STORE_VERSION],
+    bg = (DecomposedBeliefGraph(cached, workers=max(1, args.workers)) if args.algo == "v0.2"
+          else BeliefGraph(cached))
+    results = {"algo": args.algo, "max_output_tokens": args.max_output_tokens, "provider": args.provider, "model": llm.model, "prompts": [BUILD_VERSION, READ_VERSION, DIRECT_STORE_VERSION],
                "seed": args.seed, "batch_size": args.batch_size, "sizes": {}}
     try:
         for k, store, comps in plans:

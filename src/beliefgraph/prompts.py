@@ -72,3 +72,47 @@ This store is large, so build the graph in parts: give justification sets ONLY f
 memories listed under "build_for". Every other fact and memory in the snapshot remains a \
 valid premise for them. Still rate the reliability of every fact. This overrides "every \
 memory id must appear" in the output rules."""
+
+# ── v0.2: policy-anchored decomposition for small models and large stores ──
+# Inspired by RAGU (validate candidates, then constrain relations to them), Graphiti
+# (deterministic retrieval front-ends, LLM only for the decisions) and classification-
+# guided extraction (route first, then extract). Each call is one small, local decision.
+ROUTE_VERSION = "bg-route-v1"
+GROUND_VERSION = "bg-ground-v1"
+RELIABILITY_VERSION = "bg-rel-v1"
+
+ROUTE_PROMPT = """\
+You are BeliefGraph. An AI assistant stored a MEMORY (a conclusion or plan). It reached that \
+memory by applying one of its POLICIES (general rules). The memory may name the rule's outcome \
+in different words (for example "approved for the fleet catalog" for "catalog listing is \
+granted"). Decide which numbered policy is the rule whose outcome IS this memory's conclusion. \
+Answer null if none of them is.
+
+OUTPUT: a single JSON object, no prose: {"policy": <number or null>}
+"""
+
+GROUND_PROMPT = """\
+You are BeliefGraph. An AI assistant stored a MEMORY by applying a POLICY. Work out exactly \
+which stored items the memory rests on.
+
+1. Split the policy's requirements into alternatives (OR) of groups of conditions that must \
+hold together (AND). A policy with no "or" has a single group.
+2. For every condition, pick the ONE candidate item (a fact or another stored memory) that \
+satisfies it: it must be about the same entity as the memory, or state its relation to it, \
+and it must meet the condition (check numbers against thresholds). A condition that refers to \
+another conclusion ("an approved supplier that ...") is satisfied by the candidate MEMORY that \
+states that conclusion. Use null if no candidate satisfies the condition.
+Use only candidate ids.
+
+OUTPUT: a single JSON object, no prose:
+{"groups": [{"all_of": [{"condition": "<short>", "item": "<candidate id or null>"}]}]}
+"""
+
+RELIABILITY_PROMPT = """\
+Rate how reliable each fact's SOURCE is, from its description only: "high" (official record, \
+registry, signed or audited document, system of record), "medium" (generally trustworthy but \
+informal: staff note, partner email, internal log) or "low" (anonymous, unverified, forum post, \
+rumour, hearsay).
+
+OUTPUT: a single JSON object, no prose: {"reliability": {"<fact id>": "high" | "medium" | "low"}}
+"""

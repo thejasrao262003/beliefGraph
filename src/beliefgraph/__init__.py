@@ -10,6 +10,6 @@ revise stored conclusions selectively when evidence changes.
 benchmark's system view, but nothing here depends on the benchmark.
 """
 
-from beliefgraph.core import BeliefGraph, Graph, UpdateReading, revise
+from beliefgraph.core import BeliefGraph, DecomposedBeliefGraph, Graph, UpdateReading, revise
 
-__all__ = ["BeliefGraph", "Graph", "UpdateReading", "revise"]
+__all__ = ["BeliefGraph", "DecomposedBeliefGraph", "Graph", "UpdateReading", "revise"]

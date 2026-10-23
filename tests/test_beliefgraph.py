@@ -340,3 +340,93 @@ def test_parse_graph_ignores_non_string_items_from_small_models():
                       "reliability": GRAPH["reliability"]})
     g = parse_graph(raw, VIEW)
     assert g.justifications["m_1"] == [["e_1"]] and g.justifications["m_2"] == [["e_3", "m_1"]]
+
+
+# ── v0.2: policy-anchored decomposition ──
+
+
+@pytest.fixture
+def tfidf(monkeypatch):
+    monkeypatch.setenv("BELIEFGRAPH_RETRIEVAL", "tfidf")  # offline: no embedding model download
+
+
+def _v02_llm(calls):
+    from beliefgraph.prompts import GROUND_PROMPT, RELIABILITY_PROMPT, ROUTE_PROMPT
+
+    def llm(system, message, note=""):
+        calls.append(note)
+        body = json.loads(message)
+        if system == ROUTE_PROMPT:
+            target = "trucks" if "approved carrier" in body["memory"] else "zero incidents"
+            n = next(k for k, t in body["policies"].items() if target.split()[0] in t or "Contracts" in t and target == "zero incidents")
+            return json.dumps({"policy": int(n)})
+        if system == GROUND_PROMPT:
+            ids = {c["text"]: c["id"] for c in body["candidates"]}
+            if "approved carrier" in body["memory"]:
+                return json.dumps({"groups": [{"all_of": [{"condition": "10+ trucks", "item": ids["Acme has 15 trucks."]}]},
+                                              {"all_of": [{"condition": "ISO 9001", "item": ids["Acme holds ISO 9001."]}]}]})
+            return json.dumps({"groups": [{"all_of": [
+                {"condition": "approved carrier", "item": ids["Acme is an approved carrier."]},
+                {"condition": "zero incidents", "item": ids["Acme logged 0 incidents."]}]}]})
+        if system == RELIABILITY_PROMPT:
+            return json.dumps({"reliability": {e["id"]: "high" for e in body}})
+        return json.dumps(READ)
+    return llm
+
+
+def test_v02_builds_the_graph_from_routing_and_grounding(tfidf):
+    from beliefgraph.core import DecomposedBeliefGraph
+
+    calls = []
+    bg = DecomposedBeliefGraph(_v02_llm(calls), workers=2)
+    g = bg.build(VIEW)
+    assert g.justifications == {"m_1": [["e_1"], ["e_2"]], "m_2": [["e_3", "m_1"]]} and g.unsupported == []
+    assert g.reliability == {"e_1": "high", "e_2": "high", "e_3": "high"}
+    readings, _ = bg.read_updates(VIEW)
+    assert revise(VIEW, g.justifications, g.reliability, readings)["m_1"] is Action.KEEP
+    assert sum(c.startswith("s_demo route") for c in calls) == 2 and sum(c.startswith("s_demo ground") for c in calls) == 2
+
+
+def test_v02_drops_alternatives_with_an_unmet_condition_and_reports_unsupported(tfidf):
+    from beliefgraph.core import DecomposedBeliefGraph
+    from beliefgraph.prompts import GROUND_PROMPT, ROUTE_PROMPT
+
+    def llm(system, message, note=""):
+        if system == ROUTE_PROMPT:
+            return json.dumps({"policy": 1})
+        if system == GROUND_PROMPT:
+            return json.dumps({"groups": [{"all_of": [{"condition": "c", "item": None}]},
+                                          {"all_of": [{"condition": "c", "item": "e_not_a_candidate"}]}]})
+        return json.dumps({"reliability": {}})
+
+    g = DecomposedBeliefGraph(llm, workers=1).build(VIEW)
+    assert g.justifications == {"m_1": [], "m_2": []} and g.unsupported == ["m_1", "m_2"]
+
+
+def test_v02_routes_to_a_wider_tier_when_none_fits(tfidf):
+    from beliefgraph.core import DecomposedBeliefGraph
+    from beliefgraph.prompts import ROUTE_PROMPT
+
+    seen = []
+
+    def llm(system, message, note=""):
+        if system == ROUTE_PROMPT:
+            seen.append(note)
+            return json.dumps({"policy": None})
+        return json.dumps({"reliability": {}, "groups": []})
+
+    DecomposedBeliefGraph(llm, k_policies=1, workers=1).build(VIEW)
+    assert any("route0" in n for n in seen) and any("route1" in n for n in seen)
+
+
+def test_v02_reads_each_update_against_its_nearest_facts(tfidf):
+    from beliefgraph.core import DecomposedBeliefGraph
+
+    seen = []
+
+    def llm(system, message, note=""):
+        seen.append(json.loads(message))
+        return json.dumps(READ)
+
+    readings, _ = DecomposedBeliefGraph(llm, k_read=1, workers=1).read_updates(VIEW)
+    assert readings["u_1"].target == "e_1" and [f["id"] for f in seen[0]["facts"]] == ["e_1"]

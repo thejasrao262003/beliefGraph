@@ -10,7 +10,15 @@ from dataclasses import dataclass, field
 
 from beliefbench.labeler import gold_actions, topo_order
 from beliefbench.schema import Action, Kind, Node, Relation, Scenario, Update
-from beliefgraph.prompts import BATCH_NOTE, BUILD_PROMPT, READ_PROMPT, RETRY_NOTE
+from beliefgraph.prompts import (
+    BATCH_NOTE,
+    BUILD_PROMPT,
+    GROUND_PROMPT,
+    READ_PROMPT,
+    RELIABILITY_PROMPT,
+    RETRY_NOTE,
+    ROUTE_PROMPT,
+)
 
 LEVELS = ("high", "medium", "low")
 RELATIONS = {r.value for r in Relation}
@@ -187,3 +195,126 @@ class BeliefGraph:
         if not view["updates"]:
             return {}, []
         return parse_readings(self.llm(READ_PROMPT, read_message(view), f"{view['scenario']} read"), view)
+
+
+class DecomposedBeliefGraph(BeliefGraph):
+    """v0.2: build the graph one memory at a time from small, constrained decisions, so a
+    small model never has to read the whole store.
+
+    - reliability: source descriptions rated in batches;
+    - route: the memory's policy chosen from the ``k_policies`` nearest (dense retrieval),
+      with a second, wider tier if the model says none fits;
+    - ground: that policy split into OR-of-AND conditions, each matched to one of the
+      ``k_items`` nearest facts and memories (ids only), assembled into justification sets;
+    - read: each update read against its ``k_read`` nearest facts.
+    """
+
+    def __init__(self, llm: LLM, k_policies: int = 12, k_items: int = 16, k_read: int = 5, workers: int = 8,
+                 reliability_batch: int = 40):
+        super().__init__(llm)
+        self.k_policies, self.k_items, self.k_read = k_policies, k_items, k_read
+        self.workers, self.reliability_batch = workers, reliability_batch
+
+    def _map(self, fn, xs):
+        from concurrent.futures import ThreadPoolExecutor
+
+        with ThreadPoolExecutor(max_workers=self.workers) as pool:
+            return list(pool.map(fn, xs))
+
+    def _reliability(self, view: dict) -> tuple[dict, list[str]]:
+        facts = view["evidence"]
+        chunks = [facts[i : i + self.reliability_batch] for i in range(0, len(facts), self.reliability_batch)]
+
+        def rate(args):
+            i, chunk = args
+            msg = json.dumps([{"id": e["id"], "source": e["source"]} for e in chunk], indent=1)
+            try:
+                got = (_load_json(self.llm(RELIABILITY_PROMPT, msg, f"{view['scenario']} rel{i}")).get("reliability")
+                       or {})
+            except (json.JSONDecodeError, ValueError):
+                got = {}
+            return {e["id"]: got.get(e["id"]) for e in chunk}
+
+        rel, errors = {}, []
+        for part in self._map(rate, list(enumerate(chunks))):
+            for fid, v in part.items():
+                if v not in LEVELS:
+                    errors.append(f"{fid}: reliability {v!r} -> high")
+                    v = "high"
+                rel[fid] = v
+        return rel, errors
+
+    def build(self, view: dict, retry_unsupported: bool = True, batch_size: int | None = None) -> Graph:
+        from beliefgraph.retrieve import DenseIndex
+
+        sid = view["scenario"]
+        facts = {e["id"]: e for e in view["evidence"]}
+        mems = {m["id"]: m for m in view["memories"]}
+        pols = {p["id"]: p for p in view.get("policies", [])}
+        pidx = DenseIndex([(p, x["text"]) for p, x in pols.items()])
+        iidx = DenseIndex([(i, x["text"]) for i, x in {**facts, **mems}.items()])
+
+        def one(mid: str) -> tuple[str, list[list[str]], list[str]]:
+            text, errs = mems[mid]["text"], []
+            ranked = pidx.rank(text)
+            policy = None
+            for tier, cands in enumerate((ranked[: self.k_policies], ranked[self.k_policies : 2 * self.k_policies])):
+                if not cands:
+                    break
+                msg = json.dumps({"memory": text, "policies": {str(n + 1): pols[p]["text"] for n, p in enumerate(cands)}},
+                                 indent=1)
+                try:
+                    pick = _load_json(self.llm(ROUTE_PROMPT, msg, f"{sid} route{tier}.{mid}")).get("policy")
+                except (json.JSONDecodeError, ValueError):
+                    pick = None
+                if isinstance(pick, str) and pick.isdigit():
+                    pick = int(pick)
+                if isinstance(pick, int) and 1 <= pick <= len(cands):
+                    policy = cands[pick - 1]
+                    break
+            if policy is None:
+                return mid, [], ["no policy routed"]
+            cands = iidx.rank(text + " " + pols[policy]["text"], exclude={mid})[: self.k_items]
+            msg = json.dumps({"memory": text, "policy": pols[policy]["text"],
+                              "candidates": [{"id": c, "kind": "memory" if c in mems else "fact",
+                                              "text": (facts.get(c) or mems.get(c))["text"]} for c in cands]}, indent=1)
+            try:
+                groups = _load_json(self.llm(GROUND_PROMPT, msg, f"{sid} ground.{mid}")).get("groups") or []
+            except (json.JSONDecodeError, ValueError) as e:
+                return mid, [], [f"ground: invalid JSON: {e}"]
+            sets = []
+            for g in groups if isinstance(groups, list) else []:
+                conds = (g or {}).get("all_of") if isinstance(g, dict) else None
+                items = [c.get("item") for c in conds or [] if isinstance(c, dict)]
+                if not items or any(not isinstance(x, str) or x not in cands for x in items):
+                    errs.append(f"dropped a group with an unmatched condition: {items}")
+                    continue  # an alternative with an unmet condition supports nothing
+                key = sorted(set(items))
+                if key not in sets:
+                    sets.append(key)
+            return mid, sets, errs
+
+        results = self._map(one, list(mems))
+        rel, rerr = self._reliability(view)
+        justs = {mid: sets for mid, sets, _ in results}
+        errors = [f"{mid}: {e}" for mid, _, errs in results for e in errs] + rerr
+        try:
+            topo_order(sorted(set(facts) | set(mems)), justs)
+        except ValueError as e:
+            errors.append(f"cycle: {e}")
+            for mid in [m for m in mems if m in str(e)]:
+                justs[mid] = []
+        return Graph(justs, rel, errors, sorted(m for m, sets in justs.items() if not sets))
+
+    def read_updates(self, view: dict) -> tuple[dict[str, UpdateReading], list[str]]:
+        from beliefgraph.retrieve import facts_near
+
+        def one(u):
+            small = facts_near(view, u["text"], self.k_read) | {"updates": [u]}
+            return parse_readings(self.llm(READ_PROMPT, read_message(small), f"{view['scenario']} read.{u['id']}"), small)
+
+        readings, errors = {}, []
+        for r, e in self._map(one, view["updates"]):
+            readings.update(r)
+            errors += e
+        return readings, errors
