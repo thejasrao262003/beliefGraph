@@ -72,7 +72,9 @@ def test_parse_graph_drops_unknown_and_self_ids_and_breaks_cycles():
     raw = json.dumps({"justifications": {"m_1": [["e_1", "e_99"], ["m_1"], ["m_2"]], "m_2": [["m_1"]]},
                       "reliability": {"e_1": "high", "e_2": "maybe"}})
     g = parse_graph(raw, VIEW)
-    assert any("cycle" in e for e in g.errors) and g.justifications == {"m_1": [], "m_2": []}
+    # m_1 keeps its fact-only set (e_1, the unknown e_99 dropped) and gives up the set that
+    # closes the cycle; m_2 keeps its support on m_1
+    assert any("cycle" in e for e in g.errors) and g.justifications == {"m_1": [["e_1"]], "m_2": [["m_1"]]}
     assert g.reliability["e_2"] == "high" and g.reliability["e_3"] == "high"
     assert parse_graph("not json", VIEW).errors[0].startswith("invalid JSON")
 
@@ -436,7 +438,7 @@ def test_v021_reroutes_when_the_chosen_policy_cannot_be_grounded(tfidf):
     from beliefgraph.core import DecomposedBeliefGraph
     from beliefgraph.prompts import GROUND_PROMPT, ROUTE_PROMPT
 
-    routes = []
+    routes, grounded = [], set()
 
     def llm(system, message, note=""):
         body = json.loads(message)
@@ -444,9 +446,10 @@ def test_v021_reroutes_when_the_chosen_policy_cannot_be_grounded(tfidf):
             routes.append(note)
             return json.dumps({"policy": 1})  # always the first remaining candidate
         if system == GROUND_PROMPT:
-            if "10+ trucks" in body["policy"] or "zero incidents" in body["policy"]:
-                ids = [c["id"] for c in body["candidates"]]
+            if note.rsplit(".", 1)[1] in grounded:  # every memory's second grounding finds its premise
+                ids = [c["id"] for c in body["candidates"] if c["id"].startswith("e_")]
                 return json.dumps({"groups": [[{"condition": "c", "item": ids[0]}]]})  # bare-list group shape
+            grounded.add(note.rsplit(".", 1)[1])
             return json.dumps({"groups": [{"all_of": [{"condition": "c", "item": None}]}]})  # a decoy-like miss
         return json.dumps({"reliability": {}})
 
@@ -454,3 +457,13 @@ def test_v021_reroutes_when_the_chosen_policy_cannot_be_grounded(tfidf):
     assert all(g.justifications[m] for m in ("m_1", "m_2")) and g.unsupported == []
     assert any(".r1" in n or "r1" in n.split(" ")[1] for n in routes)  # at least one re-route happened
     assert any("re-routing" in e for e in g.errors)
+
+
+def test_cycle_breaking_drops_only_the_closing_set():
+    from beliefgraph.core import break_cycles
+
+    justs = {"m_1": [["m_2"], ["e_1"]], "m_2": [["m_1"]], "m_3": [["m_2", "e_2"]]}
+    errors = []
+    break_cycles(justs, errors)
+    assert justs == {"m_1": [["e_1"]], "m_2": [["m_1"]], "m_3": [["m_2", "e_2"]]}
+    assert len(errors) == 1 and "m_1" in errors[0]

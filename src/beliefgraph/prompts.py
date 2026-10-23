@@ -2,7 +2,7 @@
 
 BUILD_VERSION = "bg-build-v1"
 RETRY_VERSION = "bg-build-retry-v1"
-READ_VERSION = "bg-read-v1"
+READ_VERSION = "bg-read-v2"
 
 BUILD_PROMPT = """\
 You are BeliefGraph. You maintain an AI assistant's memory as a dependency graph.
@@ -40,15 +40,20 @@ You are BeliefGraph. New information has arrived for an AI assistant's memory.
 You receive the facts the assistant had observed (id, observed date, source, text) and \
 the UPDATES that arrived later (id, observed date, source, text). For every update decide:
 - "target": the id of the ONE fact it is about;
-- "relation":
-  - "retracts": it states that the fact is not, or was never, true, and gives no new value;
-  - "supersedes": it gives a new value or state for the same thing (a new figure, a \
-revocation or expiry, a corrected status);
-  - "hedges": it questions or casts doubt on the fact without settling it (under review, \
-allegations, irregularities, unconfirmed concerns);
+- "relation", from what the update ASSERTS about that fact:
+  - "retracts": it states that the fact is not, or was never, true ("does not hold", \
+"lacks", "never had", "no valid figure", "was revoked") and gives no new figure in its place;
+  - "supersedes": it gives a new, specific value for the same thing (a different figure, \
+count, rate or date);
+  - "hedges": it does not assert that the fact is false; it only questions it or reports \
+doubt (under review, questions raised, an inquiry, concerns, possible irregularities).
+  The relation does not depend on the source: a weak or anonymous source that flatly \
+denies the fact ("an unverified post claims X never had Y") still "retracts"; its weakness \
+goes in "reliability".
 - "reliability" of the update's SOURCE, from its description: "high" (official, \
-authoritative, audited, registry), "medium" (generally trustworthy but informal) or \
-"low" (anonymous, unverified, forum, blog, rumour).
+authoritative, audited, registry, a revised or updated filing or record by the company or \
+an authority), "medium" (generally trustworthy but informal: staff note, partner email, \
+newsletter) or "low" (anonymous, unverified, forum, blog, rumour).
 Judge each update by its wording and source; do not reason about any conclusions.
 
 OUTPUT: a single JSON object, no prose:

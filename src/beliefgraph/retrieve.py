@@ -109,7 +109,8 @@ class DenseIndex:
         return X / np.linalg.norm(X, axis=1, keepdims=True)
 
     def rank(self, text: str, exclude: set[str] = frozenset()) -> list[str]:
-        if self.np is None:
-            return self.tfidf.top(text, len(self.tfidf.ids), exclude)
+        if self.np is None:  # a full ranking, as the dense one: no-overlap items come last
+            top = self.tfidf.top(text, len(self.tfidf.ids), exclude)
+            return top + [i for i in self.ids if i not in exclude and i not in set(top)]
         order = self.np.argsort(-(self.vecs @ self._embed([text])[0]))
         return [self.ids[j] for j in order if self.ids[j] not in exclude]

@@ -7,7 +7,7 @@ import json
 import time
 from pathlib import Path
 
-from beliefgraph.prompts import BUILD_VERSION, READ_VERSION
+_KEY_PREFIX = "bg-build-v1|bg-read-v1"
 
 
 class CachedLLM:
@@ -18,9 +18,10 @@ class CachedLLM:
         self.raw_dir.mkdir(parents=True, exist_ok=True)
 
     def __call__(self, system: str, message: str, note: str = "") -> str:
-        # The system prompt text identifies the prompt (and its version). The key format is
-        # kept stable so earlier cached responses stay valid.
-        key = hashlib.sha256(f"{BUILD_VERSION}|{READ_VERSION}|{getattr(self.llm, 'model', '')}|{system}|{message}"
+        # The system prompt text identifies the prompt (and its version). The key prefix is
+        # frozen at the first versions' names so earlier cached responses stay valid when a
+        # prompt is revised (the revised text alone changes its own calls' keys).
+        key = hashlib.sha256(f"{_KEY_PREFIX}|{getattr(self.llm, 'model', '')}|{system}|{message}"
                              .encode()).hexdigest()[:16]
         path = self.raw_dir / f"{note.replace(' ', '.')}.{key}.json"
         if path.exists():

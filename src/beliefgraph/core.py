@@ -66,10 +66,43 @@ def read_message(view: dict) -> str:
     }, indent=1)
 
 
+def break_cycles(justs: dict[str, list[list[str]]], errors: list[str]) -> None:
+    """Drop only the justification sets that close a dependency cycle (in place). Sets are
+    admitted one at a time, fact-only sets first; a set that would make a memory depend on
+    itself through other memories is dropped and reported, and the rest of the graph stays.
+    A memory that also has fact-only support gives way first: it loses an alternative, not
+    all of its support."""
+    deps: dict[str, set[str]] = {m: set() for m in justs}
+
+    def reaches(a: str, b: str) -> bool:  # does a depend, transitively, on b?
+        seen, stack = set(), [a]
+        while stack:
+            x = stack.pop()
+            if x == b:
+                return True
+            if x not in seen:
+                seen.add(x)
+                stack += deps.get(x, ())
+        return False
+
+    grounded = {m for m, sets in justs.items() if any(not any(x in justs for x in j) for j in sets)}
+    order = sorted((n := sum(x in justs for x in j), n > 0 and m in grounded, m, i)
+                   for m, sets in justs.items() for i, j in enumerate(sets))
+    keep: dict[str, list[int]] = {m: [] for m in justs}
+    for *_, m, i in order:
+        j = justs[m][i]
+        if any(x in justs and reaches(x, m) for x in j):
+            errors.append(f"cycle: dropped {m} <- {j}")
+            continue
+        keep[m].append(i)
+        deps[m] |= {x for x in j if x in justs}
+    for m in justs:
+        justs[m] = [justs[m][i] for i in sorted(keep[m])]
+
+
 def parse_graph(raw: str, view: dict) -> Graph:
     """Validate the LLM's graph against the snapshot. Unknown ids, self-references and
-    empty sets are dropped; cycles are broken by removing the cycle members' sets (they
-    are then treated as unsupported claims, which propagation leaves standing)."""
+    empty sets are dropped; cycles are broken by dropping only the sets that close them."""
     facts = {e["id"] for e in view["evidence"]}
     mems = {m["id"] for m in view["memories"]}
     errors: list[str] = []
@@ -92,12 +125,7 @@ def parse_graph(raw: str, view: dict) -> Graph:
             if items and sorted(set(items)) not in [sorted(c) for c in clean]:
                 clean.append(sorted(set(items)))
         justs[mid] = clean
-    try:
-        topo_order(sorted(facts | mems), justs)
-    except ValueError as e:
-        errors.append(f"cycle: {e}")
-        for mid in [m for m in mems if m in str(e)]:
-            justs[mid] = []
+    break_cycles(justs, errors)
     rel = {}
     for fid in facts:
         v = (obj.get("reliability") or {}).get(fid)
@@ -319,12 +347,7 @@ class DecomposedBeliefGraph(BeliefGraph):
         rel, rerr = self._reliability(view)
         justs = {mid: sets for mid, sets, _ in results}
         errors = [f"{mid}: {e}" for mid, _, errs in results for e in errs] + rerr
-        try:
-            topo_order(sorted(set(facts) | set(mems)), justs)
-        except ValueError as e:
-            errors.append(f"cycle: {e}")
-            for mid in [m for m in mems if m in str(e)]:
-                justs[mid] = []
+        break_cycles(justs, errors)
         return Graph(justs, rel, errors, sorted(m for m, sets in justs.items() if not sets))
 
     def read_updates(self, view: dict) -> tuple[dict[str, UpdateReading], list[str]]:
