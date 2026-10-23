@@ -77,16 +77,18 @@ memory id must appear" in the output rules."""
 # Inspired by RAGU (validate candidates, then constrain relations to them), Graphiti
 # (deterministic retrieval front-ends, LLM only for the decisions) and classification-
 # guided extraction (route first, then extract). Each call is one small, local decision.
-ROUTE_VERSION = "bg-route-v1"
-GROUND_VERSION = "bg-ground-v1"
+ROUTE_VERSION = "bg-route-v2"
+GROUND_VERSION = "bg-ground-v2"
 RELIABILITY_VERSION = "bg-rel-v1"
 
 ROUTE_PROMPT = """\
 You are BeliefGraph. An AI assistant stored a MEMORY (a conclusion or plan). It reached that \
 memory by applying one of its POLICIES (general rules). The memory may name the rule's outcome \
 in different words (for example "approved for the fleet catalog" for "catalog listing is \
-granted"). Decide which numbered policy is the rule whose outcome IS this memory's conclusion. \
-Answer null if none of them is.
+granted"). Some numbered policies are unrelated rules about other things. The right policy has \
+an outcome that IS this memory's conclusion, and conditions about the kinds of facts listed \
+under "facts_about_it" (or about another conclusion the memory builds on). Decide which \
+numbered policy it is. Answer null if none of them is.
 
 OUTPUT: a single JSON object, no prose: {"policy": <number or null>}
 """
@@ -96,13 +98,14 @@ You are BeliefGraph. An AI assistant stored a MEMORY by applying a POLICY. Work 
 which stored items the memory rests on.
 
 1. Split the policy's requirements into alternatives (OR) of groups of conditions that must \
-hold together (AND). A policy with no "or" has a single group.
+hold together (AND). A policy with no "or" has a single group. List only the requirements, never
+the policy's outcome (that is the memory itself).
 2. For every condition, pick the ONE candidate item (a fact or another stored memory) that \
 satisfies it: it must be about the same entity as the memory, or state its relation to it, \
 and it must meet the condition (check numbers against thresholds). A condition that refers to \
 another conclusion ("an approved supplier that ...") is satisfied by the candidate MEMORY that \
 states that conclusion. Use null if no candidate satisfies the condition.
-Use only candidate ids.
+Use only candidate ids, exactly as given.
 
 OUTPUT: a single JSON object, no prose:
 {"groups": [{"all_of": [{"condition": "<short>", "item": "<candidate id or null>"}]}]}

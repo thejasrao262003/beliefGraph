@@ -430,3 +430,27 @@ def test_v02_reads_each_update_against_its_nearest_facts(tfidf):
 
     readings, _ = DecomposedBeliefGraph(llm, k_read=1, workers=1).read_updates(VIEW)
     assert readings["u_1"].target == "e_1" and [f["id"] for f in seen[0]["facts"]] == ["e_1"]
+
+
+def test_v021_reroutes_when_the_chosen_policy_cannot_be_grounded(tfidf):
+    from beliefgraph.core import DecomposedBeliefGraph
+    from beliefgraph.prompts import GROUND_PROMPT, ROUTE_PROMPT
+
+    routes = []
+
+    def llm(system, message, note=""):
+        body = json.loads(message)
+        if system == ROUTE_PROMPT:
+            routes.append(note)
+            return json.dumps({"policy": 1})  # always the first remaining candidate
+        if system == GROUND_PROMPT:
+            if "10+ trucks" in body["policy"] or "zero incidents" in body["policy"]:
+                ids = [c["id"] for c in body["candidates"]]
+                return json.dumps({"groups": [[{"condition": "c", "item": ids[0]}]]})  # bare-list group shape
+            return json.dumps({"groups": [{"all_of": [{"condition": "c", "item": None}]}]})  # a decoy-like miss
+        return json.dumps({"reliability": {}})
+
+    g = DecomposedBeliefGraph(llm, workers=1).build(VIEW)
+    assert all(g.justifications[m] for m in ("m_1", "m_2")) and g.unsupported == []
+    assert any(".r1" in n or "r1" in n.split(" ")[1] for n in routes)  # at least one re-route happened
+    assert any("re-routing" in e for e in g.errors)

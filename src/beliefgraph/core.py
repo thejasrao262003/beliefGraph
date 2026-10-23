@@ -210,8 +210,9 @@ class DecomposedBeliefGraph(BeliefGraph):
     """
 
     def __init__(self, llm: LLM, k_policies: int = 12, k_items: int = 16, k_read: int = 5, workers: int = 8,
-                 reliability_batch: int = 40):
+                 reliability_batch: int = 40, max_reroutes: int = 2):
         super().__init__(llm)
+        self.max_reroutes = max_reroutes
         self.k_policies, self.k_items, self.k_read = k_policies, k_items, k_read
         self.workers, self.reliability_batch = workers, reliability_batch
 
@@ -254,45 +255,65 @@ class DecomposedBeliefGraph(BeliefGraph):
         pidx = DenseIndex([(p, x["text"]) for p, x in pols.items()])
         iidx = DenseIndex([(i, x["text"]) for i, x in {**facts, **mems}.items()])
 
-        def one(mid: str) -> tuple[str, list[list[str]], list[str]]:
-            text, errs = mems[mid]["text"], []
-            ranked = pidx.rank(text)
-            policy = None
-            for tier, cands in enumerate((ranked[: self.k_policies], ranked[self.k_policies : 2 * self.k_policies])):
+        def route(mid: str, ranked: list[str], tried: set[str], tag: str) -> str | None:
+            text = mems[mid]["text"]
+            near_facts = [f for f in iidx.rank(text, exclude={mid}) if f in facts][:5]
+            pool = [p for p in ranked if p not in tried]
+            for tier, cands in enumerate((pool[: self.k_policies], pool[self.k_policies : 2 * self.k_policies])):
                 if not cands:
                     break
-                msg = json.dumps({"memory": text, "policies": {str(n + 1): pols[p]["text"] for n, p in enumerate(cands)}},
-                                 indent=1)
+                msg = json.dumps({"memory": text, "facts_about_it": [facts[f]["text"] for f in near_facts],
+                                  "policies": {str(n + 1): pols[p]["text"] for n, p in enumerate(cands)}}, indent=1)
                 try:
-                    pick = _load_json(self.llm(ROUTE_PROMPT, msg, f"{sid} route{tier}.{mid}")).get("policy")
-                except (json.JSONDecodeError, ValueError):
+                    pick = _load_json(self.llm(ROUTE_PROMPT, msg, f"{sid} route{tag}{tier}.{mid}")).get("policy")
+                except (json.JSONDecodeError, ValueError, AttributeError):
                     pick = None
-                if isinstance(pick, str) and pick.isdigit():
+                if isinstance(pick, str) and pick.strip().isdigit():
                     pick = int(pick)
                 if isinstance(pick, int) and 1 <= pick <= len(cands):
-                    policy = cands[pick - 1]
-                    break
-            if policy is None:
-                return mid, [], ["no policy routed"]
+                    return cands[pick - 1]
+            return None
+
+        def ground(mid: str, policy: str, tag: str) -> tuple[list[list[str]], list[str]]:
+            text, errs = mems[mid]["text"], []
             cands = iidx.rank(text + " " + pols[policy]["text"], exclude={mid})[: self.k_items]
             msg = json.dumps({"memory": text, "policy": pols[policy]["text"],
                               "candidates": [{"id": c, "kind": "memory" if c in mems else "fact",
                                               "text": (facts.get(c) or mems.get(c))["text"]} for c in cands]}, indent=1)
             try:
-                groups = _load_json(self.llm(GROUND_PROMPT, msg, f"{sid} ground.{mid}")).get("groups") or []
-            except (json.JSONDecodeError, ValueError) as e:
-                return mid, [], [f"ground: invalid JSON: {e}"]
+                groups = _load_json(self.llm(GROUND_PROMPT, msg, f"{sid} ground{tag}.{mid}")).get("groups") or []
+            except (json.JSONDecodeError, ValueError, AttributeError) as e:
+                return [], [f"ground: invalid JSON: {e}"]
             sets = []
             for g in groups if isinstance(groups, list) else []:
-                conds = (g or {}).get("all_of") if isinstance(g, dict) else None
-                items = [c.get("item") for c in conds or [] if isinstance(c, dict)]
+                # Accept {"all_of": [...]} or a bare list; conditions as {"item": id} or bare ids.
+                conds = g.get("all_of") if isinstance(g, dict) else g if isinstance(g, list) else None
+                items = [c.get("item") if isinstance(c, dict) else c for c in conds or []]
                 if not items or any(not isinstance(x, str) or x not in cands for x in items):
                     errs.append(f"dropped a group with an unmatched condition: {items}")
                     continue  # an alternative with an unmet condition supports nothing
                 key = sorted(set(items))
                 if key not in sets:
                     sets.append(key)
-            return mid, sets, errs
+            return sets, errs
+
+        def one(mid: str) -> tuple[str, list[list[str]], list[str]]:
+            """Route, ground, and when grounding finds no complete justification, re-route with
+            that policy excluded: a decoy or wrong rule cannot be grounded in the facts."""
+            ranked, tried, errs = pidx.rank(mems[mid]["text"]), set(), []
+            for attempt in range(self.max_reroutes + 1):
+                tag = "" if attempt == 0 else f"r{attempt}"
+                policy = route(mid, ranked, tried, tag)
+                if policy is None:
+                    errs.append("no policy routed")
+                    break
+                sets, gerrs = ground(mid, policy, tag)
+                errs += gerrs
+                if sets:
+                    return mid, sets, errs
+                tried.add(policy)
+                errs.append(f"policy {policy} could not be grounded; re-routing")
+            return mid, [], errs
 
         results = self._map(one, list(mems))
         rel, rerr = self._reliability(view)
