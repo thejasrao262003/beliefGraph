@@ -354,13 +354,16 @@ def tfidf(monkeypatch):
 
 def _v02_llm(calls):
     from beliefgraph.prompts import GROUND_PROMPT, RELIABILITY_PROMPT, ROUTE_PROMPT
+    from beliefgraph.prompts import ROUTE_OUTCOME_PROMPT
+
+    ROUTERS = (ROUTE_PROMPT, ROUTE_OUTCOME_PROMPT)
 
     def llm(system, message, note=""):
         calls.append(note)
         body = json.loads(message)
-        if system == ROUTE_PROMPT:
+        if system in ROUTERS:
             target = "trucks" if "approved carrier" in body["memory"] else "zero incidents"
-            n = next(k for k, t in body["policies"].items() if target.split()[0] in t or "Contracts" in t and target == "zero incidents")
+            n = next(k for k, t in body["policies"].items() if target.split()[0] in str(t) or "Contracts" in str(t) and target == "zero incidents")
             return json.dumps({"policy": int(n)})
         if system == GROUND_PROMPT:
             ids = {c["text"]: c["id"] for c in body["candidates"]}
@@ -380,7 +383,7 @@ def test_v02_builds_the_graph_from_routing_and_grounding(tfidf):
     from beliefgraph.core import DecomposedBeliefGraph
 
     calls = []
-    bg = DecomposedBeliefGraph(_v02_llm(calls), workers=2)
+    bg = DecomposedBeliefGraph(_v02_llm(calls), workers=2, samples=1)
     g = bg.build(VIEW)
     assert g.justifications == {"m_1": [["e_1"], ["e_2"]], "m_2": [["e_3", "m_1"]]} and g.unsupported == []
     assert g.reliability == {"e_1": "high", "e_2": "high", "e_3": "high"}
@@ -392,9 +395,12 @@ def test_v02_builds_the_graph_from_routing_and_grounding(tfidf):
 def test_v02_drops_alternatives_with_an_unmet_condition_and_reports_unsupported(tfidf):
     from beliefgraph.core import DecomposedBeliefGraph
     from beliefgraph.prompts import GROUND_PROMPT, ROUTE_PROMPT
+    from beliefgraph.prompts import ROUTE_OUTCOME_PROMPT
+
+    ROUTERS = (ROUTE_PROMPT, ROUTE_OUTCOME_PROMPT)
 
     def llm(system, message, note=""):
-        if system == ROUTE_PROMPT:
+        if system in ROUTERS:
             return json.dumps({"policy": 1})
         if system == GROUND_PROMPT:
             return json.dumps({"groups": [{"all_of": [{"condition": "c", "item": None}]},
@@ -408,11 +414,14 @@ def test_v02_drops_alternatives_with_an_unmet_condition_and_reports_unsupported(
 def test_v02_routes_to_a_wider_tier_when_none_fits(tfidf):
     from beliefgraph.core import DecomposedBeliefGraph
     from beliefgraph.prompts import ROUTE_PROMPT
+    from beliefgraph.prompts import ROUTE_OUTCOME_PROMPT
+
+    ROUTERS = (ROUTE_PROMPT, ROUTE_OUTCOME_PROMPT)
 
     seen = []
 
     def llm(system, message, note=""):
-        if system == ROUTE_PROMPT:
+        if system in ROUTERS:
             seen.append(note)
             return json.dumps({"policy": None})
         return json.dumps({"reliability": {}, "groups": []})
@@ -437,12 +446,15 @@ def test_v02_reads_each_update_against_its_nearest_facts(tfidf):
 def test_v021_reroutes_when_the_chosen_policy_cannot_be_grounded(tfidf):
     from beliefgraph.core import DecomposedBeliefGraph
     from beliefgraph.prompts import GROUND_PROMPT, ROUTE_PROMPT
+    from beliefgraph.prompts import ROUTE_OUTCOME_PROMPT
+
+    ROUTERS = (ROUTE_PROMPT, ROUTE_OUTCOME_PROMPT)
 
     routes, grounded = [], set()
 
     def llm(system, message, note=""):
         body = json.loads(message)
-        if system == ROUTE_PROMPT:
+        if system in ROUTERS:
             routes.append(note)
             return json.dumps({"policy": 1})  # always the first remaining candidate
         if system == GROUND_PROMPT:
@@ -467,3 +479,67 @@ def test_cycle_breaking_drops_only_the_closing_set():
     break_cycles(justs, errors)
     assert justs == {"m_1": [["e_1"]], "m_2": [["m_1"]], "m_3": [["m_2", "e_2"]]}
     assert len(errors) == 1 and "m_1" in errors[0]
+
+
+def test_v03_routes_on_what_each_policy_gives(tfidf):
+    from beliefgraph.core import DecomposedBeliefGraph
+    from beliefgraph.prompts import GROUND_PROMPT, OUTCOME_PROMPT, ROUTE_OUTCOME_PROMPT
+
+    shown = []
+
+    def llm(system, message, note=""):
+        body = json.loads(message)
+        if system == OUTCOME_PROMPT:  # splits only the trucks policy; the other keeps its full text
+            return json.dumps({"policies": {pid: {"gives": "approved carrier", "requires": "10+ trucks or ISO 9001"}
+                                            for pid, text in body.items() if "trucks" in text}})
+        if system == ROUTE_OUTCOME_PROMPT:
+            shown.append(body["policies"])
+            return json.dumps({"policy": 1})
+        if system == GROUND_PROMPT:
+            return json.dumps({"groups": [[body["candidates"][0]["id"]]]})
+        return json.dumps({"reliability": {}})
+
+    g = DecomposedBeliefGraph(llm, workers=1, outcome_batch=1, outcome_routing=True).build(VIEW)
+    gives = {p["gives"] for pols in shown for p in pols.values()}
+    assert "approved carrier" in gives and any("zero incidents" in x for x in gives)
+    assert all(set(p) == {"gives", "requires"} for pols in shown for p in pols.values())
+    assert any("no outcome split" in e for e in g.errors)
+
+
+def test_v04_votes_on_routing_and_keeps_majority_sets(tfidf):
+    from beliefgraph.core import DecomposedBeliefGraph
+    from beliefgraph.prompts import GROUND_PROMPT, ROUTE_PROMPT
+
+    def llm(system, message, note=""):
+        body = json.loads(message)
+        if system == ROUTE_PROMPT:
+            want = "trucks" if "approved carrier" in body["memory"] else "zero incidents"
+            right = next(int(k) for k, t in body["policies"].items() if want in t)
+            return json.dumps({"policy": right if not note.endswith("~s2") else 3 - right})  # one sample disagrees
+        if system == GROUND_PROMPT:
+            ids = {c["text"]: c["id"] for c in body["candidates"]}
+            if "trucks" in body["policy"]:
+                noisy = "~s1" in note  # one sample adds a spurious alternative
+                return json.dumps({"groups": [[ids["Acme has 15 trucks."]], [ids["Acme holds ISO 9001."]]]
+                                   + ([[ids["Acme logged 0 incidents."]]] if noisy else [])})
+            return json.dumps({"groups": [[ids["Acme logged 0 incidents."], next(c["id"] for c in body["candidates"]
+                                                                                  if c["id"].startswith("m_"))]]})
+        return json.dumps({"reliability": {}})
+
+    g = DecomposedBeliefGraph(llm, workers=1, samples=3).build(VIEW)
+    m1 = next(m["id"] for m in VIEW["memories"] if "approved carrier" in m["text"])
+    assert len(g.justifications[m1]) == 2  # the 1-of-3 spurious set is voted out
+    assert g.confidence[m1] == 2 / 3
+
+
+def test_v04_conflict_reroutes_the_lower_voted_memory():
+    from beliefgraph.core import DecomposedBeliefGraph
+
+    out = {"m_a": {"policy": "p_1", "share": 1.0, "sets": [["e_1"]]},
+           "m_b": {"policy": "p_1", "share": 2 / 3, "sets": [["e_1", "e_2"]]},
+           "m_c": {"policy": "p_1", "share": 1 / 3, "sets": [["e_9"]]},  # same rule, other facts: no conflict
+           "m_d": {"policy": "p_2", "share": 1.0, "sets": [["m_e"]]},
+           "m_e": {"policy": "p_2", "share": 1.0, "sets": [["e_3"]]}}  # m_d rests on m_e: m_d loses
+    mems = {m: {"text": m} for m in out}
+    pols = {"p_1": {"text": "x"}, "p_2": {"text": "y"}}
+    assert DecomposedBeliefGraph._conflict_losers(out, mems, pols) == ["m_b", "m_d"]

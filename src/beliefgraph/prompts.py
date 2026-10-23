@@ -85,6 +85,8 @@ memory id must appear" in the output rules."""
 ROUTE_VERSION = "bg-route-v2"
 GROUND_VERSION = "bg-ground-v2"
 RELIABILITY_VERSION = "bg-rel-v1"
+OUTCOME_VERSION = "bg-outcome-v1"
+ROUTE_OUTCOME_VERSION = "bg-route-outcome-v1"
 
 ROUTE_PROMPT = """\
 You are BeliefGraph. An AI assistant stored a MEMORY (a conclusion or plan). It reached that \
@@ -123,4 +125,29 @@ informal: staff note, partner email, internal log) or "low" (anonymous, unverifi
 rumour, hearsay).
 
 OUTPUT: a single JSON object, no prose: {"reliability": {"<fact id>": "high" | "medium" | "low"}}
+"""
+
+# v0.3: route on what a policy GIVES, not on everything it mentions. A rule whose condition
+# names a memory's concept ("... requires priority dispatch rights") is not that memory's rule;
+# the rule that grants it is.
+OUTCOME_PROMPT = """\
+For each POLICY (a general rule), separate what it GIVES from what it REQUIRES:
+- "gives": the status, decision or action the rule grants or produces, in a few words \
+("top-tier service rating", "selected for high-priority corporate bookings");
+- "requires": the conditions it checks, in a few words.
+
+OUTPUT: a single JSON object, no prose:
+{"policies": {"<policy id>": {"gives": "<short>", "requires": "<short>"}}}
+"""
+
+ROUTE_OUTCOME_PROMPT = """\
+You are BeliefGraph. An AI assistant stored a MEMORY (a conclusion or plan). It reached that \
+memory by applying one of its POLICIES (general rules). Each numbered policy is shown as what \
+it GIVES and what it REQUIRES. The right policy is the one whose "gives" IS this memory's \
+conclusion, possibly in other words ("approved for the fleet catalog" for "catalog listing"). \
+A policy that merely REQUIRES the memory's conclusion, or something close to it, is a different \
+rule that builds on it: never pick it for that reason. Use "facts_about_it" only to break a tie \
+between policies that give the same thing. Answer null if no policy gives this conclusion.
+
+OUTPUT: a single JSON object, no prose: {"policy": <number or null>}
 """

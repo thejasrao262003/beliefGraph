@@ -47,6 +47,16 @@ PROVIDERS = sorted(KEY_ENV)
 _FALLBACK_MODELS = {"claude-fable-5-1", "claude-opus-5-5", "claude-opus-5", "claude-sonnet-5-5"}
 
 
+# Self-hosted servers (vLLM, Ollama) honour a per-request sampling seed.
+SEEDED = {"modal", "ollama", "openai-compatible"}
+
+
+def _seed(note: str) -> int:
+    import hashlib
+
+    return int(hashlib.sha256(note.encode()).hexdigest()[:8], 16) & 0x7FFFFFFF
+
+
 class RefusalError(RuntimeError):
     """The model declined the request."""
 
@@ -62,8 +72,11 @@ class ProviderLLM:
     usage: list[dict] = field(default_factory=list)
 
     def __call__(self, system: str, message: str, note: str = "") -> str:
-        method = "_chat" if self.provider in OPENAI_COMPATIBLE else f"_{self.provider}"
-        text, usage = getattr(self, method)(system, message)
+        if self.provider in SEEDED:  # self-hosted: a seed per call name makes each sample reproducible
+            text, usage = self._chat(system, message, seed=_seed(note))
+        else:
+            method = "_chat" if self.provider in OPENAI_COMPATIBLE else f"_{self.provider}"
+            text, usage = getattr(self, method)(system, message)
         self.usage.append({"note": note, "model": self.model, **usage})
         return text
 
@@ -90,11 +103,12 @@ class ProviderLLM:
         return resp.output_text, {"input_tokens": getattr(u, "input_tokens", None),
                                   "output_tokens": getattr(u, "output_tokens", None)}
 
-    def _chat(self, system: str, message: str) -> tuple[str, dict]:
+    def _chat(self, system: str, message: str, seed: int | None = None) -> tuple[str, dict]:
         """OpenAI Chat Completions protocol (xAI, DeepSeek, Mistral, Groq, ... , Ollama)."""
         resp = self.client.chat.completions.create(
             model=self.model, max_tokens=self.max_output_tokens,
-            messages=[{"role": "system", "content": system}, {"role": "user", "content": message}])
+            messages=[{"role": "system", "content": system}, {"role": "user", "content": message}],
+            **({"seed": seed} if seed is not None else {}))
         choice = resp.choices[0]
         if getattr(choice, "finish_reason", None) == "content_filter":
             raise RefusalError(f"{self.provider}/{self.model} filtered the response")
