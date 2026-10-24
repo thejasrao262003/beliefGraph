@@ -60,6 +60,9 @@ _SUITES: dict[int, dict] = {}
 
 def gold_inputs(sv: dict, ev: dict, seed: int) -> tuple[dict, dict, dict[str, UpdateReading]]:
     """Gold graph, gold source reliabilities and gold update readings, in opaque ids."""
+    if "reliability" in ev:  # converted datasets (e.g. ProofWriter) carry their gold directly
+        readings = {uid: UpdateReading(u["target"], u["relation"], u["reliability"]) for uid, u in ev["update_targets"].items()}
+        return ev["justifications"], ev["reliability"], readings
     if seed not in _SUITES:  # each scenario has its own RNG stream, so a longer suite keeps the first ones
         from beliefbench.generate import FAMILIES, LONG_FAMILIES
 
