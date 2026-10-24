@@ -96,6 +96,7 @@ def main() -> None:
     ap.add_argument("--thinking", default="default", choices=["default", "on", "off"],
                     help="self-hosted Qwen-style models: force thinking on/off (same for every method)")
     ap.add_argument("--runs", nargs="+", default=None, help="rendered runs (default: the accepted pilot runs)")
+    ap.add_argument("--store-workers", type=int, default=6, help="--per-scenario: stores processed concurrently")
     ap.add_argument("--per-scenario", action="store_true",
                     help="each scenario is its own store (long dossiers); results are pooled over scenarios")
     ap.add_argument("--dry-run", action="store_true")
@@ -138,41 +139,48 @@ def main() -> None:
           else BeliefGraph(cached))
     results = {"algo": args.algo, "max_output_tokens": args.max_output_tokens, "provider": args.provider, "model": llm.model, "prompts": [BUILD_VERSION, READ_VERSION, DIRECT_STORE_VERSION],
                "seed": args.seed, "batch_size": args.batch_size, "sizes": {}}
-    try:
-        for k, store, comps in plans:
-            sid = store["scenario"]
-            graph = bg.build(step_view(store, 0), batch_size=args.batch_size)
-            n_up = len(store["updates"])
-            # Every per-update call is independent of the others (BeliefGraph reads one update;
-            # LLM-direct sees the store after n updates), so they can run concurrently.
-            from concurrent.futures import ThreadPoolExecutor
+    def one_store(plan):
+        k, store, comps = plan
+        sid = store["scenario"]
+        graph = bg.build(step_view(store, 0), batch_size=args.batch_size)
+        n_up = len(store["updates"])
+        # Every per-update call is independent of the others (BeliefGraph reads one update;
+        # LLM-direct sees the store after n updates), so they can run concurrently.
+        from concurrent.futures import ThreadPoolExecutor
 
-            with ThreadPoolExecutor(max_workers=args.workers) as pool:
-                reads = [pool.submit(bg.read_updates, step_view(store, n, only_last=True) | {"scenario": sid})
-                         for n in range(1, n_up + 1)]
-                directs = [pool.submit(llm_direct_store, cached, step_view(store, n), f"{sid} direct{n}")
-                           for n in range(1, n_up + 1)]
-                reads = [f.result() for f in reads]
-                directs = [f.result() for f in directs]
-            readings, steps = {}, []
-            for n in range(1, n_up + 1):
-                r, rerr = reads[n - 1]
-                readings.update(r)
-                p_actions = revise(step_view(store, n), graph.justifications, graph.reliability, readings)
-                d_actions, derr = directs[n - 1]
-                gold = gold_after(store, comps, n)
-                focus = touched(store, comps, n)
-                steps.append({"n": n, "BeliefGraph": step_score(gold, p_actions, focus),
-                              "LLM-direct": step_score(gold, d_actions, focus), "errors": rerr + derr})
-                print(f"K={k} step {n}/{len(store['updates'])}: BG {steps[-1]['BeliefGraph']['acc_touched']:.3f} "
-                      f"direct {steps[-1]['LLM-direct']['acc_touched']:.3f} (touched)")
-            mean = {m: sum(s[m]["acc_touched"] for s in steps) / len(steps) for m in ("BeliefGraph", "LLM-direct")}
-            results["sizes"][str(k)] = {
-                "memories": len(store["memories"]), "facts": len(store["evidence"]), "updates": len(store["updates"]),
-                "graph_unsupported": len(graph.unsupported), "mean_acc_touched": mean,
-                "final": {m: steps[-1][m] for m in ("BeliefGraph", "LLM-direct")},
-                "usage": usage_of(out / "raw", sid), "steps": steps}
-            (out / "results.json").write_text(json.dumps(results, indent=1, default=str))
+        with ThreadPoolExecutor(max_workers=args.workers) as pool:
+            reads = [pool.submit(bg.read_updates, step_view(store, n, only_last=True) | {"scenario": sid})
+                     for n in range(1, n_up + 1)]
+            directs = [pool.submit(llm_direct_store, cached, step_view(store, n), f"{sid} direct{n}")
+                       for n in range(1, n_up + 1)]
+            reads = [f.result() for f in reads]
+            directs = [f.result() for f in directs]
+        readings, steps = {}, []
+        for n in range(1, n_up + 1):
+            r, rerr = reads[n - 1]
+            readings.update(r)
+            p_actions = revise(step_view(store, n), graph.justifications, graph.reliability, readings)
+            d_actions, derr = directs[n - 1]
+            gold = gold_after(store, comps, n)
+            focus = touched(store, comps, n)
+            steps.append({"n": n, "BeliefGraph": step_score(gold, p_actions, focus),
+                          "LLM-direct": step_score(gold, d_actions, focus), "errors": rerr + derr})
+            print(f"K={k} step {n}/{len(store['updates'])}: BG {steps[-1]['BeliefGraph']['acc_touched']:.3f} "
+                  f"direct {steps[-1]['LLM-direct']['acc_touched']:.3f} (touched)", flush=True)
+        mean = {m: sum(s[m]["acc_touched"] for s in steps) / len(steps) for m in ("BeliefGraph", "LLM-direct")}
+        return str(k), {
+            "memories": len(store["memories"]), "facts": len(store["evidence"]), "updates": len(store["updates"]),
+            "graph_unsupported": len(graph.unsupported), "mean_acc_touched": mean,
+            "final": {m: steps[-1][m] for m in ("BeliefGraph", "LLM-direct")},
+            "usage": usage_of(out / "raw", sid), "steps": steps}
+
+    try:
+        from concurrent.futures import ThreadPoolExecutor
+
+        with ThreadPoolExecutor(max_workers=args.store_workers if args.per_scenario else 1) as stores:
+            for key, entry in stores.map(one_store, plans):
+                results["sizes"][key] = entry
+                (out / "results.json").write_text(json.dumps(results, indent=1, default=str))
     finally:
         if hasattr(llm, "close"):
             llm.close()
