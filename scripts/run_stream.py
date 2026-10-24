@@ -164,8 +164,17 @@ def main() -> None:
             rags = [pool.submit(llm_rag_store, cached, step_view(store, n), f"{sid} rag{n}")
                     for n in range(1, n_up + 1)] if args.rag else []
             reads = [f.result() for f in reads]
-            directs = [f.result() for f in directs]
-            rags = [f.result() for f in rags]
+
+            def outcome(f, view_n):
+                # a baseline call that fails (e.g. the store exceeds the model's context) answers
+                # nothing: every memory is kept, and the error is recorded
+                try:
+                    return f.result()
+                except Exception as e:  # noqa: BLE001
+                    return {m["id"]: Action.KEEP for m in step_view(store, view_n)["memories"]}, [f"call failed: {str(e)[:160]}"]
+
+            directs = [outcome(f, n + 1) for n, f in enumerate(directs)]
+            rags = [outcome(f, n + 1) for n, f in enumerate(rags)]
         readings, steps = {}, []
         for n in range(1, n_up + 1):
             r, rerr = reads[n - 1]
