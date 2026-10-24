@@ -1,0 +1,12 @@
+{
+ "note": "dossier009 direct1",
+ "model": "granite-4.1-8b",
+ "response": "**Step\u2011by\u2011step reasoning**\n\n1. **Identify relevant facts**  \n   - `e_00e4cb`: \u201cDave is furry.\u201d  \n   - `u_00bf5a`: \u201cDave is *not* furry.\u201d (observed later, so it retracts the earlier fact).\n\n2. **Determine which memories depend on the fact about Dave's fur**  \n\n   | Memory | Text | Supporting fact(s) | Dependency on \u201cDave is furry\u201d |\n   |--------|------|--------------------|-------------------------------|\n   | `m_008202` | \u201cCharlie is rough.\u201d | `e_008202` (inference) \u2013 not about Dave | **No** |\n   | `m_00dec0` | \u201cDave is young.\u201d | `e_00dec0` requires *Dave is furry* (policy \u201cAll furry people are big.\u201d \u2192 *big* \u2192 *young*) | **Yes** |\n   | `m_00e4e0` | \u201cDave is big.\u201d | *Derived* from \u201cDave is furry\u201d (policy \u201cAll furry people are big.\u201d) | **Yes** |\n   | `m_00459d` | \u201cCharlie is green.\u201d | From \u201cCharlie is big\u201d + \u201cAll big people are young.\u201d; not about Dave | **No** |\n   | Others (`m_00a0a2`, `m_00b157`, `m_005730`, `m_008202`, `m_00ca17`, `m_00752c`, `m_007121`, `m_00fec1`, etc.) | Do not directly depend on Dave\u2019s fur and are supported by other facts (color, age, etc.). | **No** |\n\n3. **Apply the update**  \n   - The update `u_00bf5a` credibly retracts the fact \u201cDave is furry.\u201d  \n   - Consequently, any memory that **requires** that fact can no longer be justified.  \n   - Since `m_00dec0` (\u201cDave is young.\u201d) and `m_00e4e0` (\u201cDave is big.\u201d) both rely exclusively on \u201cDave is furry\u201d (they have no other independent support), they must be withdrawn.  \n\n4. **Check other memories**  \n   - All other memories retain their support (e.g., color facts about Anne and Charlie, age facts about Gary, etc.) and are therefore **kept**.  \n\n5. **Select memories whose status is *not* \u201ckeep\u201d**  \n   - `m_00dec0` \u2192 withdraw  \n   - `m_00e4e0` \u2192 withdraw  \n\n**Resulting JSON**\n\n```json\n{\n  \"changes\": {\n    \"m_00dec0\": \"withdraw\",\n    \"m_00e4e0\": \"withdraw\"\n  }\n}\n```",
+ "usage": {
+  "note": "dossier009 direct1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 1216,
+  "output_tokens": 597,
+  "seconds": 22.61
+ }
+}

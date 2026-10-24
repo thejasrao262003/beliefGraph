@@ -1,0 +1,12 @@
+{
+ "note": "dossier003 rag1",
+ "model": "granite-4.1-8b",
+ "response": "The update \"u_00cd84\" (observed 2026-03-01) retracts the earlier observation that \"Bob is cold\" (fact e_00ba60) and replaces it with \"Bob is now blue\". The memory \"m_00036a\" (\"Bob is red\") relies on the older observation that \"Bob is blue\" (fact e_00820b) along with \"Bob is rough\" (fact e_004631) to infer that Bob is red, according to the policy: \"Nice people with blue and rough skin are very young and cannot be trusted with responsibility.\" Since the update directly alters a key fact (changing \"cold\" to \"blue\") that supports the inference for \"Bob is red\", this memory now rests on uncertain ground because the new observation (e_00cd84) directly contradicts the previous basis for the red inference. Therefore, the appropriate action is to mark this memory as **uncertain**.\n\nOther memories (\"m_00e5f9\" - \"Bob is young\" and \"m_00faa4\" - \"Bob is nice\") do not directly rely on the retracted fact and thus remain unaffected.\n\n**Output:**\n```json\n{\n  \"changes\": {\n    \"m_00036a\": \"uncertain\"\n  }\n}\n```",
+ "usage": {
+  "note": "dossier003 rag1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 781,
+  "output_tokens": 274,
+  "seconds": 9.43
+ }
+}

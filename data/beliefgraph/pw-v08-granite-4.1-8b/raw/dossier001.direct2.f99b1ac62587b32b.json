@@ -1,0 +1,12 @@
+{
+ "note": "dossier001 direct2",
+ "model": "granite-4.1-8b",
+ "response": "To determine the fate of each memory in the context of the provided updates, we analyze the dependencies and the nature of the updates:\n\n1. **Fact ID `e_007776`** states \"The squirrel is cold.\"  \n   - **Update ID `u_000adf`** claims this is false but is unverified.  \n   - **Update ID `u_00642c`** makes the cold status uncertain and re-checking is ongoing.  \n\n   The key memory that depends on this fact is **`m_0063ab`**: \"The squirrel is kind.\"  \n   - Policy \"All cold people are kind.\" makes `m_0063ab` dependent on `e_007776`.  \n   - Since `e_007776` is now uncertain, `m_0063ab` becomes uncertain as well.\n\n2. **Fact ID `e_0082f3`** states \"The tiger eats the bear.\"  \n   - No direct update affects this, so memories dependent on it remain unchanged.\n\n3. Other memories (`m_004a58`, `m_008d21`, `m_009294`, `m_00c78d`, `m_00ed48`) do not have direct factual dependencies that are affected by the updates. They remain supported by other facts and policies.\n\nThus, only the memory **`m_0063ab`** is affected by the uncertainty around `e_007776` and should be marked as \"uncertain\". All other memories are retained as they are still supported by credible facts under the policies.\n\n### JSON Result:\n```json\n{\n  \"changes\": {\n    \"m_0063ab\": \"uncertain\"\n  }\n}\n```",
+ "usage": {
+  "note": "dossier001 direct2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 1057,
+  "output_tokens": 354,
+  "seconds": 11.35
+ }
+}

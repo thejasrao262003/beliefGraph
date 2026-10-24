@@ -1,0 +1,12 @@
+{
+ "note": "dossier015 ground.m_004289",
+ "model": "granite-4.1-8b",
+ "response": "The policy \"If someone is quiet then they are white.\" can be split into a single group of conditions (no alternatives):\n\n1. **Condition:** \"someone is quiet\"  \n   **Satisfied by:** A fact stating that the person is quiet. The relevant facts are:\n   - \"Fiona is quiet.\" (id: `e_00bbd1`)\n   - \"Anne is quiet.\" (id: `e_0054ff`)\n   - \"Bob is quiet.\" (id: `m_00436d`)\n   - \"Gary is quiet.\" (id: `m_001347`)\n\n2. **Condition:** \"someone is white\"  \n   **Satisfied by:** A fact stating that the person is white. The relevant facts are:\n   - \"Fiona is white.\" (id: `m_00f52b` - this is the memory we are explaining)\n   - \"Anne is white.\" (id: `e_00325e`)\n   - \"Bob is white.\" (id: `e_00db6e`)\n   - \"Gary is white.\" (id: `e_00c103`)\n\nFor the memory \"Fiona is white.\" (id: `m_00f52b`), the relevant satisfying conditions are:\n\n- **Quiet:** \"Fiona is quiet.\" (id: `e_00bbd1`)\n- **White:** The memory itself \"Fiona is white.\" (id: `m_00f52b`)\n\nThus, the JSON object representing the groups of conditions that support the memory \"Fiona is white.\" is:\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Fiona is quiet\",\n          \"item\": \"e_00bbd1\"\n        },\n        {\n          \"condition\": \"Fiona is white\",\n          \"item\": \"m_00f52b\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON object lists the exact candidate items (`e_00bbd1` for \"Fiona is quiet\" and `m_00f52b` for the memory itself) that satisfy the conditions of the policy for the memory \"Fiona is white.\"",
+ "usage": {
+  "note": "dossier015 ground.m_004289",
+  "model": "granite-4.1-8b",
+  "input_tokens": 758,
+  "output_tokens": 465,
+  "seconds": 18.24
+ }
+}

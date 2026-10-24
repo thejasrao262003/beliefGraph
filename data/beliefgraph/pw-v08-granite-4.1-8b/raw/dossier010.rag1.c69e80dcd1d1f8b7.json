@@ -1,0 +1,12 @@
+{
+ "note": "dossier010 rag1",
+ "model": "granite-4.1-8b",
+ "response": "The update claims that Bob is **not** big, contradicting the fact observed on 2026-01-06 that \"Bob is big.\" This retraction directly affects memories that depend on Bob being big:\n\n- Memory **m_00da1e** (\"Bob is white.\") relies on the policy \"If Bob is white then Bob is young,\" which in turn is supported by the fact \"Bob is big\" (the policy \"If Bob is rough and Bob is quiet then Bob is nice\" also depends on knowing Bob's state, but without the big fact the white implication is unsupported).\n- Memory **m_004ca8** (\"Bob is nice.\") depends on the policy \"If Bob is rough and Bob is quiet then Bob is nice.\" While the policy itself doesn't require Bob to be big, the overall context of Bob's physical descriptors (big, rough, quiet) is now inconsistent. Since the only support for \"Bob is nice\" in this context is the rough & quiet condition, and those conditions are now uncertain without the big fact, the memory loses its primary support.\n\nThus, both memories lose their principal support due to the credible retraction of \"Bob is big.\" According to the policies and the nature of the update, these memories must be withdrawn.\n\n```json\n{\n  \"changes\": {\n    \"m_00da1e\": \"withdraw\",\n    \"m_004ca8\": \"withdraw\"\n  }\n}\n```",
+ "usage": {
+  "note": "dossier010 rag1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 694,
+  "output_tokens": 296,
+  "seconds": 13.14
+ }
+}
