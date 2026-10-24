@@ -1,0 +1,12 @@
+{
+ "note": "dossier010 ground.m_00a285~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Split the policy into conditions**\n\nPolicy: \"Priority transport assignment is granted if annual flight investment reaches at least $400,000 **while maintaining a valid ISO 27001 Security Certification**.\"\n\nThis can be expressed as a single group of conditions that must both hold:\n- Annual flight investment \u2265 $400,000  \n- Valid ISO 27001 Security Certification  \n\nSince there is no \"or\" in the policy, we have one group containing both conditions.\n\n**Step 2: Match each condition to a candidate item**\n\n- **Condition 1: Annual flight investment \u2265 $400,000**  \n  Candidate: `e_00843e` (Vanguard Mobility recorded an annual flight investment of $500,000 this year) satisfies this condition because $500,000 \u2265 $400,000.\n\n- **Condition 2: Valid ISO 27001 Security Certification**  \n  Candidate: `e_002094` (Vanguard Mobility holds a valid ISO 27001 Security Certification) satisfies this condition.\n\n**Step 3: Construct the JSON output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"annual flight investment \u2265 $400,000\",\n          \"item\": \"e_00843e\"\n        },\n        {\n          \"condition\": \"valid ISO 27001 Security Certification\",\n          \"item\": \"e_002094\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely captures the requirements of the policy and the candidate items that satisfy each condition for the memory \"Vanguard Mobility is approved for corporate priority routing.\"",
+ "usage": {
+  "note": "dossier010 ground.m_00a285~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 918,
+  "output_tokens": 332,
+  "seconds": 16.45
+ }
+}

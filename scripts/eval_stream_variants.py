@@ -33,6 +33,7 @@ VARIANTS = {
     "v0.5-route-only": dict(route_mode="verify"),
     "v0.5s": dict(route_mode="score", entity_ground=True),  # relative 0-10 scoring of the 5 nearest policies
     "v0.5s-route-only": dict(route_mode="score"),
+    "v0.6": dict(resolve_conflicts=True, conflict_mode="entity"),  # one policy per entity: re-route duplicates
     "v0.5-ground-only": dict(entity_ground=True),
 }
 

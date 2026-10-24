@@ -1,0 +1,12 @@
+{
+ "note": "dossier014 ground.m_0095bd~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Interpret the policy into conditions**\n\nThe policy states:\n- A corporate entity is fiscally solvent if **both**:\n  1. It possesses **paid-in capital of at least 5,000,000 USD**.\n  2. It undergoes **at least 1 external audit review per year**.\n\nThus, we have two conditions that must both hold (AND). There are no OR alternatives in the policy.\n\n**Step 2: Match each condition to a candidate item**\n\n- **Condition 1**: Paid-in capital \u2265 5,000,000 USD  \n  - Candidate: **e_00382a** \u2013 \u201cFinancial statements indicate Apex Capital Corp maintains paid-in capital of 10,000,000 USD.\u201d (satisfies the threshold).\n\n- **Condition 2**: External audit review \u2265 1 per year  \n  - No candidate explicitly mentions external audit reviews.  \n  - Candidates that discuss audits or compliance do not specify the required frequency.  \n  - Therefore, **null** satisfies this condition (i.e., the condition is not met by any stored item).\n\n**Step 3: Construct the JSON output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Paid-in capital \u2265 5,000,000 USD\",\n          \"item\": \"e_00382a\"\n        },\n        {\n          \"condition\": \"External audit review \u2265 1 per year\",\n          \"item\": null\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON reflects the policy's requirements split into conditions, with the matching candidate items (or `null` where no match exists).",
+ "usage": {
+  "note": "dossier014 ground.m_0095bd~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 917,
+  "output_tokens": 347,
+  "seconds": 20.98
+ }
+}

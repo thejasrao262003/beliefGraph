@@ -1,0 +1,12 @@
+{
+ "note": "dossier023 ground.m_008548~s1",
+ "model": "granite-4.1-8b",
+ "response": "To determine which stored items the memory \"Delta Aviation satisfies air service consistency standards.\" rests on, we apply the given policy: \"An airline meets flight performance standards either by achieving an on-time arrival rate of at least 90 percent this quarter **or** by holding an IATA Operational Safety Audit certification.\" \n\nThe policy can be split into two alternative groups of conditions:\n1. **Group 1**: The airline achieves an on-time arrival rate of at least 90 percent this quarter.\n2. **Group 2**: The airline holds an IATA Operational Safety Audit certification.\n\nFor each condition, we identify the candidate item that satisfies it:\n\n- **Condition 1**: Achieve an on-time arrival rate of at least 90 percent this quarter.\n  - **Candidate**: `{ \"id\": \"e_008101\", \"kind\": \"fact\", \"text\": \"Delta Aviation achieved an on-time arrival rate of 92 percent this quarter.\" }`\n  - The on-time arrival rate of 92% meets the threshold of 90%.\n\n- **Condition 2**: Hold an IATA Operational Safety Audit certification.\n  - **Candidate**: `{ \"id\": \"e_00ff9a\", \"kind\": \"fact\", \"text\": \"Delta Aviation holds an IATA Operational Safety Audit certification.\" }`\n  - This fact explicitly states the certification.\n\nThus, the memory rests on either of these two satisfying conditions, as per the policy's OR logic.\n\n**Output JSON:**\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"achieved on-time arrival rate >= 90% this quarter\",\n          \"item\": \"e_008101\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds IATA Operational Safety Audit certification\",\n          \"item\": \"e_00ff9a\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier023 ground.m_008548~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 885,
+  "output_tokens": 400,
+  "seconds": 17.93
+ }
+}

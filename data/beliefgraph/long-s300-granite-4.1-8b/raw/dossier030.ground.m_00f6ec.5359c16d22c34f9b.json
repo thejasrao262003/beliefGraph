@@ -1,0 +1,12 @@
+{
+ "note": "dossier030 ground.m_00f6ec",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Policy Analysis**\n\nThe policy states:  \n\"Verification credibility status is established if **a firm generates turnover of at least 10,000,000 USD per year, **or** holds a commercial banking charter, **or** maintains an international credit rating of at least 75 points.\"  \n\n**Conditions (OR groups):**  \n1. Turnover \u2265 10,000,000 USD  \n2. Holds a commercial banking charter  \n3. International credit rating \u2265 75 points  \n\n**Step 2: Candidate Item Matching**\n\nFor each condition, identify the candidate item that satisfies it:\n\n- **Turnover \u2265 10,000,000 USD**  \n  - Candidate: `e_00fbdc` (\"Beacon Holdings LLC recorded annual turnover of 15,000,000 USD.\") \u2192 satisfies the condition.  \n\n- **Holds a commercial banking charter**  \n  - Candidate: `e_00b38b` (\"Beacon Holdings LLC holds an active commercial banking charter.\") \u2192 satisfies the condition.  \n\n- **International credit rating \u2265 75 points**  \n  - Candidate: `e_003fc6` (\"Beacon Holdings LLC maintains an international credit rating of 80 points.\") \u2192 satisfies the condition.  \n\nNo candidate is needed for conditions not met (none in this case).\n\n**Step 3: Output JSON**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Turnover \u2265 10,000,000 USD\",\n          \"item\": \"e_00fbdc\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Holds a commercial banking charter\",\n          \"item\": \"e_00b38b\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"International credit rating \u2265 75 points\",\n          \"item\": \"e_003fc6\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON reflects that Beacon Holdings LLC's verification credibility status can be established via any one of the three satisfied conditions, each supported by a specific candidate fact.",
+ "usage": {
+  "note": "dossier030 ground.m_00f6ec",
+  "model": "granite-4.1-8b",
+  "input_tokens": 923,
+  "output_tokens": 445,
+  "seconds": 22.65
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier002 ground.m_00ee85~s1",
+ "model": "granite-4.1-8b",
+ "response": "To determine which stored items the memory \"Marcus Vance reaches standard onboarding status.\" rests on, we need to apply the given policy:\n\n**Policy:** A candidate establishes fundamental role readiness either by:\n- Completing **no fewer than 5 training modules** **and** presenting **at least 4 years of relevant work history**, **or**\n- Possessing a **Senior Specialist Certification**.\n\n**Extracted Conditions:**\n1. **OR** condition:\n   - **AND** condition 1: Completes **\u2265 5 training modules**.\n   - **AND** condition 2: Has **\u2265 4 years of relevant work history**.\n   - **OR** condition 2: Holds a **Senior Specialist Certification**.\n\n**Identify Satisfying Candidates:**\n\n1. **OR condition 1** (\u2265 5 training modules AND \u2265 4 years work history):\n   - **Training modules**: \n     - `e_002c0d` states \"Marcus Vance completed 8 compliance modules.\" (satisfies \u2265 5 modules).\n   - **Work history**:\n     - `e_001515` states \"Marcus Vance recorded 6 years of industry experience.\" (satisfies \u2265 4 years).\n   - Both conditions are satisfied with candidates `e_002c0d` and `e_001515`.\n\n2. **OR condition 2** (Senior Specialist Certification):\n   - `e_00dc10` states \"Marcus Vance holds a Senior Specialist Certification.\" (satisfies this condition).\n\n**Conclusion:**\n- The memory rests on the satisfaction of either path in the policy. Specifically:\n  - Path 1: `e_002c0d` (training modules) and `e_001515` (work history).\n  - Path 2: `e_00dc10` (Senior Specialist Certification).\n\n**JSON Output:**\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        { \"condition\": \"Completes >=5 training modules\", \"item\": \"e_002c0d\" },\n        { \"condition\": \"Has >=4 years relevant work history\", \"item\": \"e_001515\" }\n      ]\n    },\n    {\n      \"all_of\": [\n        { \"condition\": \"Possesses Senior Specialist Certification\", \"item\": \"e_00dc10\" }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON object succinctly captures the logical dependencies of the memory based on the policy's conditions.",
+ "usage": {
+  "note": "dossier002 ground.m_00ee85~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 854,
+  "output_tokens": 520,
+  "seconds": 18.32
+ }
+}

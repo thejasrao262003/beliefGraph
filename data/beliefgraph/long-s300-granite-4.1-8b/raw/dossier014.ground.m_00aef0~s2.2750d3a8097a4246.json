@@ -1,0 +1,12 @@
+{
+ "note": "dossier014 ground.m_00aef0~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy into alternatives (OR) of groups (AND).**\n\nThe policy states:\n> \"An entity achieves low risk regulatory status either with yearly compliance training coverage reaching at least 90 percent, **or** by maintaining active ISO 37001 certification.\"\n\nThis yields two alternatives (OR):\n\n- **Alternative 1:** Group of conditions that must all hold together:\n  - Condition A: Yearly compliance training coverage \u2265 90%.\n- **Alternative 2:** Group of conditions that must all hold together:\n  - Condition B: Active ISO 37001 certification.\n\n**Step 2: Identify candidate items for each condition.**\n\n- **Condition A (training coverage \u2265 90%):**\n  - Candidate: `e_00a2df` (fact stating \"Compliance records show Apex Capital Corp maintains annual compliance training coverage of 95 percent.\")\n  - This satisfies the condition (95% \u2265 90%).\n\n- **Condition B (active ISO 37001 certification):**\n  - Candidate: `e_00342e` (fact stating \"Regulatory filings confirm Apex Capital Corp holds valid ISO 37001 certification.\")\n  - This satisfies the condition.\n\n**Step 3: Assemble the JSON output.**\n\nEach alternative is represented as a group with its respective conditions and their satisfying candidates.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Yearly compliance training coverage \u2265 90%\",\n          \"item\": \"e_00a2df\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Active ISO 37001 certification\",\n          \"item\": \"e_00342e\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON object precisely captures the logical structure of the policy and maps each condition to the appropriate candidate item.",
+ "usage": {
+  "note": "dossier014 ground.m_00aef0~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 916,
+  "output_tokens": 388,
+  "seconds": 18.53
+ }
+}

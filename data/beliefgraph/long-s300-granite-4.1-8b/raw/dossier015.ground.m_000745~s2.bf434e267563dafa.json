@@ -1,0 +1,12 @@
+{
+ "note": "dossier015 ground.m_000745~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Interpret the policy**\n\nThe policy states that Cultural patron status is conferred when **all three** of the following conditions are satisfied:\n\n1. The individual has an art collection valued at **$800,000 or higher**.\n2. The individual holds a protective deposit of **at least $25,000**.\n3. The individual completes **4 or more annual foundation audits**.\n\n**Step 2: Match each condition to candidate items**\n\n- **Condition 1:** Art collection valued at $800,000 or higher  \n  Candidate: **e_009ef4** \u2013 \"Arthur Pendelton's private art collection valuation is $1,000,000.\" (satisfies the condition)\n\n- **Condition 2:** Protective deposit of at least $25,000  \n  Candidate: **e_00b308** \u2013 \"Arthur Pendelton's private security deposit balance is $30,000.\" (satisfies the condition)\n\n- **Condition 3:** Completes 4 or more annual foundation audits  \n  Candidate: **e_000cdc** \u2013 \"Arthur Pendelton has completed 5 cultural foundation audits this year.\" (satisfies the condition)\n\n**Step 3: Format the output**\n\nAll three conditions must hold together, so they belong to a single group labeled `\"all_of\"`.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"art collection valuation \u2265 $800,000\",\n          \"item\": \"e_009ef4\"\n        },\n        {\n          \"condition\": \"protective deposit \u2265 $25,000\",\n          \"item\": \"e_00b308\"\n        },\n        {\n          \"condition\": \"completed \u2265 4 annual foundation audits\",\n          \"item\": \"e_000cdc\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON object precisely captures the requirements of the policy as satisfied by the candidate items.",
+ "usage": {
+  "note": "dossier015 ground.m_000745~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 947,
+  "output_tokens": 402,
+  "seconds": 23.91
+ }
+}

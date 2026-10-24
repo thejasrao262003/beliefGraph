@@ -1,0 +1,12 @@
+{
+ "note": "dossier014 ground.m_0095bd~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Split the policy into alternatives (AND groups).**  \nThe policy states: *\u201cA corporate entity is determined to be fiscally solvent if it possesses paid-in capital of at least 5000000 USD **and** undergoes at least 1 external audit review per year.\u201d*  \nThis yields a single group with two conditions (no OR alternatives).\n\n**Step 2: Identify candidate items for each condition.**  \n\n- **Condition 1:** \u201cpossesses paid-in capital of at least 5000000 USD.\u201d  \n  - **Candidate:** `e_00382a` (states paid-in capital of 10,000,000 USD, which satisfies the threshold).  \n\n- **Condition 2:** \u201cundergoes at least 1 external audit review per year.\u201d  \n  - No candidate in the list explicitly mentions external audit reviews.  \n  - Therefore, the candidate is `null`.\n\n**Step 3: Construct the JSON output.**  \n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"paid-in capital \u2265 5,000,000 USD\",\n          \"item\": \"e_00382a\"\n        },\n        {\n          \"condition\": \"\u2265 1 external audit review per year\",\n          \"item\": null\n        }\n      ]\n    }\n  ]\n}\n```\n\n**JSON Response:**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"paid-in capital \u2265 5,000,000 USD\",\n          \"item\": \"e_00382a\"\n        },\n        {\n          \"condition\": \"\u2265 1 external audit review per year\",\n          \"item\": null\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier014 ground.m_0095bd~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 917,
+  "output_tokens": 373,
+  "seconds": 25.92
+ }
+}

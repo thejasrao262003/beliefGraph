@@ -1,0 +1,12 @@
+{
+ "note": "dossier004 ground.m_003e95",
+ "model": "granite-4.1-8b",
+ "response": "The policy states that Key vendor status is granted to any entity meeting one of two conditions:\n1. A yearly SLA performance score of 90% or higher.\n2. An annual client approval rating exceeding 80%.\n\nFor each condition, we identify the candidate item that satisfies it for Apex Industrial:\n\n1. **SLA performance score of 90% or higher:**\n   - Fact `e_0054ab` reports \"Apex Industrial reported an annual SLA compliance rate of 96%.\"\n   - This satisfies the condition (96% \u2265 90%).\n\n2. **Annual client approval rating exceeding 80%:**\n   - Fact `e_001e99` states \"Apex Industrial logged a customer satisfaction rating of 92% this year.\"\n   - This satisfies the condition (92% > 80%).\n\nThus, the policy is satisfied by either of these facts, representing the two alternatives (OR) of groups of conditions (AND).\n\n**Output JSON:**\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"annual SLA performance score of 90% or higher\",\n          \"item\": \"e_0054ab\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"annual client approval rating exceeding 80%\",\n          \"item\": \"e_001e99\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier004 ground.m_003e95",
+  "model": "granite-4.1-8b",
+  "input_tokens": 905,
+  "output_tokens": 297,
+  "seconds": 11.08
+ }
+}

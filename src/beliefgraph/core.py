@@ -292,13 +292,16 @@ class DecomposedBeliefGraph(BeliefGraph):
                  reliability_batch: int = 40, max_reroutes: int = 2, outcome_routing: bool = False,
                  outcome_batch: int = 20, samples: int = 3, resolve_conflicts: bool = False, conflict_rounds: int = 2,
                  adjudicate: bool = True, route_mode: str = "choose", k_verify: int = 5,
-                 entity_ground: bool = False, k_ground: int = 8):
+                 entity_ground: bool = False, k_ground: int = 8, conflict_mode: str = "overlap"):
         super().__init__(llm)
         self.samples, self.resolve_conflicts, self.conflict_rounds = samples, resolve_conflicts, conflict_rounds
         self.adjudicate = adjudicate
         if route_mode not in ("choose", "verify", "score"):
             raise ValueError(f"route_mode must be 'choose', 'verify' or 'score', not {route_mode!r}")
         self.route_mode, self.k_verify, self.entity_ground, self.k_ground = route_mode, k_verify, entity_ground, k_ground
+        if conflict_mode not in ("overlap", "entity"):
+            raise ValueError(f"conflict_mode must be 'overlap' or 'entity', not {conflict_mode!r}")
+        self.conflict_mode = conflict_mode
         self.outcome_routing, self.outcome_batch = outcome_routing, outcome_batch
         self.max_reroutes = max_reroutes
         self.k_policies, self.k_items, self.k_read = k_policies, k_items, k_read
@@ -614,11 +617,15 @@ class DecomposedBeliefGraph(BeliefGraph):
         banned: dict[str, set[str]] = {m: set() for m in todo}
         conflict_errs: list[str] = []
         for rnd in range(self.conflict_rounds if self.resolve_conflicts else 0):
-            losers = self._conflict_losers(out, mems, pols)
+            if self.conflict_mode == "entity":
+                losers, claimed = self._entity_conflicts(out, mems, pidx)
+            else:
+                losers, claimed = self._conflict_losers(out, mems, pols), {}
             if not losers:
                 break
             for m in losers:
                 banned[m].add(out[m]["policy"])
+                banned[m] |= claimed.get(m, set())
             redo = self._map(lambda m: one(m, frozenset(banned[m]), f"c{rnd + 1}"), losers)
             for m, r in zip(losers, redo):
                 if r["sets"]:
@@ -632,6 +639,49 @@ class DecomposedBeliefGraph(BeliefGraph):
         break_cycles(justs, errors)
         return Graph(justs, rel, errors, sorted(m for m, sets in justs.items() if not sets),
                      {m: r["share"] for m, r in out.items()})
+
+    @staticmethod
+    def _entity_conflicts(out: dict, mems: dict, pidx) -> tuple[list[str], dict[str, set[str]]]:
+        """v0.6: for one entity, a policy produces at most one memory. Memories that name a
+        common entity form a group; when several in a group hold the same policy, the one with
+        the larger vote share keeps it (ties: the one whose retrieval ranks the policy higher)
+        and the others lose. Returns the losers and, for each, the policies its group already
+        holds (excluded when it is re-routed, so it chooses among unclaimed ones)."""
+        names = {m: entity_names(mems[m]["text"]) for m in out}
+        parent = {m: m for m in out}
+
+        def find(x):
+            while parent[x] != x:
+                parent[x] = parent[parent[x]]
+                x = parent[x]
+            return x
+
+        by_name: dict[str, str] = {}
+        for m, ns in names.items():
+            for n in ns:
+                if n in by_name:
+                    parent[find(m)] = find(by_name[n])
+                else:
+                    by_name[n] = m
+        groups: dict[str, list[str]] = {}
+        for m in out:
+            if out[m]["policy"]:
+                groups.setdefault(find(m), []).append(m)
+        losers, claimed = [], {}
+        for ms in groups.values():
+            holders: dict[str, list[str]] = {}
+            for m in ms:
+                holders.setdefault(out[m]["policy"], []).append(m)
+            for policy, hs in holders.items():
+                if len(hs) < 2:
+                    continue
+                rank = {m: (pidx.rank(mems[m]["text"]) + [policy]).index(policy) for m in hs}
+                keeper = max(hs, key=lambda m: (out[m]["share"], -rank[m]))
+                for m in hs:
+                    if m != keeper:
+                        losers.append(m)
+                        claimed[m] = {out[x]["policy"] for x in ms if x != m}
+        return sorted(losers), claimed
 
     @staticmethod
     def _conflict_losers(out: dict, mems: dict, pols: dict) -> list[str]:

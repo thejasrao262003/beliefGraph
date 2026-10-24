@@ -1,0 +1,12 @@
+{
+ "note": "dossier030 ground.m_00f6ec~s2",
+ "model": "granite-4.1-8b",
+ "response": "The policy states that verification credibility status is established if **any** of the following conditions are met (OR relationship):\n\n1. **Condition A**: The firm generates turnover of at least 10,000,000 USD per year.\n   - **Candidate**: `e_00fbdc` (Beacon Holdings LLC recorded annual turnover of 15,000,000 USD.)\n\n2. **Condition B**: The firm holds a commercial banking charter.\n   - **Candidate**: `e_00b38b` (Beacon Holdings LLC holds an active commercial banking charter.)\n\n3. **Condition C**: The firm maintains an international credit rating of at least 75 points.\n   - **Candidate**: `e_003fc6` (Beacon Holdings LLC maintains an international credit rating of 80 points.)\n\nEach condition forms a group by itself (since there are no additional conditions tied to each other with AND within each alternative). Therefore, the JSON representation is:\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"turnover >= 10,000,000 USD\",\n          \"item\": \"e_00fbdc\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds a commercial banking charter\",\n          \"item\": \"e_00b38b\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"international credit rating >= 75 points\",\n          \"item\": \"e_003fc6\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier030 ground.m_00f6ec~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 923,
+  "output_tokens": 328,
+  "seconds": 17.38
+ }
+}

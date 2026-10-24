@@ -625,3 +625,20 @@ def test_load_json_repairs_small_model_syntax():
 
     assert _load_json('```json\n{"a": [1, 2,], "b": 1, , "c": 2}\n```') == {"a": [1, 2], "b": 1, "c": 2}
     assert _load_json('{"groups": [{"all_of": [{"condition": "x", , "item": "e_1"}]}]}')["groups"][0]["all_of"][0]["item"] == "e_1"
+
+
+def test_v06_entity_conflicts_keep_the_stronger_claim_and_exclude_claimed_policies(tfidf):
+    from beliefgraph.core import DecomposedBeliefGraph
+    from beliefgraph.retrieve import DenseIndex
+
+    mems = {"m_a": {"text": "Acme holds priority dispatch rights."},
+            "m_b": {"text": "Acme is selected for the government contract."},
+            "m_c": {"text": "Acme passed the audit."},
+            "m_d": {"text": "Zenco holds priority dispatch rights."}}
+    out = {"m_a": {"policy": "p_1", "share": 1.0, "sets": [["e_1"]]},
+           "m_b": {"policy": "p_1", "share": 2 / 3, "sets": [["e_1"]]},  # same entity, same rule: loses
+           "m_c": {"policy": "p_3", "share": 1.0, "sets": [["e_3"]]},
+           "m_d": {"policy": "p_1", "share": 1 / 3, "sets": [["e_9"]]}}  # other entity: no conflict
+    pidx = DenseIndex([("p_1", "dispatch rights"), ("p_2", "government contract"), ("p_3", "audit")])
+    losers, claimed = DecomposedBeliefGraph._entity_conflicts(out, mems, pidx)
+    assert losers == ["m_b"] and claimed["m_b"] == {"p_1", "p_3"}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier030 direct2",
+ "model": "gemma-4-12b-it",
+ "response": "```json\n{\n  \"changes\": {\n    \"m_00310c\": \"keep\",\n    \"m_0096aa\": \"keep\",\n    \"m_006894\": \"keep\",\n    \"m_0041e5\": \"keep\",\n    \"m_00b742\": \"keep\",\n    \"m_00d74c\": \"recompute\"\n  }\n}\n```\n\n**Reasoning:**\n- **m_00d74c** (Apex Trading Ltd holds capital reserve compliance status) is recomputed because its supporting fact (e_00d4dd: ISO 27001) was retracted by update u_00150b. However, update u_0036d0 provides a new fact (paid-in equity of 4,000,000 USD), which satisfies the policy for \"capital reserve qualification\". Since the state has changed to a new value that requires re-evaluation of the memory, \"recompute\" is the correct action.\n- **m_00310c** (Baseline onboarding) remains \"keep\" because even though the ISO 27001 fact was lost, the company still holds an international brokerage licence (e_00e52b) and the new paid-in equity (u_0036d0) both satisfy the policy.\n- **m_0096aa** (Cross-border authorization), **m_006894** (Corporate account access), **m_0041e5** (International account permission), and **m_00b742** (Overseas market participant) all stay \"keep\" as their underlying requirements (licences, cash reserves, and compliance officer counts) remain valid.",
+ "usage": {
+  "note": "dossier030 direct2",
+  "model": "gemma-4-12b-it",
+  "input_tokens": 2849,
+  "output_tokens": 405,
+  "seconds": 18.75
+ }
+}

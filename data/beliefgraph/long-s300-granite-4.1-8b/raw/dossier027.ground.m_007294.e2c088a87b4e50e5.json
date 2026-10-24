@@ -1,0 +1,12 @@
+{
+ "note": "dossier027 ground.m_007294",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Extract conditions from the policy**\n\nPolicy: *\"Fast-track leadership placement requires senior tier classification alongside an evaluation mark of at least 85 points on leadership testing.\"*\n\nConditions:\n- Senior tier classification (entity = Clara Vance)\n- Evaluation mark \u2265 85 points on leadership testing (entity = Clara Vance)\n\n**Step 2: Identify candidate items satisfying each condition**\n\n1. **Condition:** Senior tier classification  \n   - Candidate: **m_002cf9** (states \"Clara Vance is designated as a senior tier hire.\")  \n   - No better candidate; m_002cf9 directly satisfies the condition.\n\n2. **Condition:** Evaluation mark \u2265 85 points on leadership testing  \n   - Candidate: **e_003175** (states \"Clara Vance achieved a leadership assessment score of 90 points.\")  \n   - 90 \u2265 85, so this satisfies the condition. No other candidate mentions a leadership test score.\n\n**Step 3: Map conditions to candidate IDs**\n\n- Both conditions belong to the same logical group (must hold together).\n\n**Step 4: Construct the JSON output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"senior tier classification\",\n          \"item\": \"m_002cf9\"\n        },\n        {\n          \"condition\": \"leadership test score \u2265 85\",\n          \"item\": \"e_003175\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Note:** The JSON output follows the required format, using exact condition descriptions and candidate IDs.",
+ "usage": {
+  "note": "dossier027 ground.m_007294",
+  "model": "granite-4.1-8b",
+  "input_tokens": 874,
+  "output_tokens": 326,
+  "seconds": 15.36
+ }
+}
