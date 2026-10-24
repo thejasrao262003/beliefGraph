@@ -74,12 +74,30 @@ class ProviderLLM:
 
     def __call__(self, system: str, message: str, note: str = "") -> str:
         if self.provider in SEEDED:  # self-hosted: a seed per call name makes each sample reproducible
-            text, usage = self._chat(system, message, seed=_seed(note))
+            text, usage = self._cold_start_retry(lambda: self._chat(system, message, seed=_seed(note)))
         else:
             method = "_chat" if self.provider in OPENAI_COMPATIBLE else f"_{self.provider}"
             text, usage = getattr(self, method)(system, message)
         self.usage.append({"note": note, "model": self.model, **usage})
         return text
+
+    @staticmethod
+    def _cold_start_retry(fn, wait_s: int = 900):
+        """A scaled-to-zero self-hosted server answers 503 (or refuses connections) while it
+        boots: wait it out instead of failing the run."""
+        import time
+
+        import openai
+
+        deadline = time.monotonic() + wait_s
+        while True:
+            try:
+                return fn()
+            except (openai.InternalServerError, openai.APIConnectionError) as e:
+                boot = isinstance(e, openai.APIConnectionError) or "503" in str(e) or "no upstreams" in str(e)
+                if not boot or time.monotonic() > deadline:
+                    raise
+                time.sleep(15)
 
     def _anthropic(self, system: str, message: str) -> tuple[str, dict]:
         kwargs: dict[str, Any] = {"model": self.model, "max_tokens": self.max_output_tokens, "system": system,

@@ -87,6 +87,7 @@ GROUND_VERSION = "bg-ground-v2"
 RELIABILITY_VERSION = "bg-rel-v1"
 OUTCOME_VERSION = "bg-outcome-v1"
 ADJUDICATE_VERSION = "bg-adjudicate-v1"
+VERIFY_VERSION = "bg-verify-v1"
 ROUTE_OUTCOME_VERSION = "bg-route-outcome-v1"
 
 ROUTE_PROMPT = """\
@@ -168,4 +169,18 @@ it: that rule produced the premise, not the memory;
 - between policies with the same outcome, prefer the one whose premises are complete.
 
 OUTPUT: a single JSON object, no prose: {"policy": <number>}
+"""
+
+# v0.5 (small models): routing as independent yes/no checks of the few nearest policies,
+# instead of one choice among many.
+VERIFY_PROMPT = """\
+You are BeliefGraph. An AI assistant stored a MEMORY (a conclusion or plan). Decide whether \
+the assistant reached this memory by applying the given RULE.
+
+Answer yes only if the rule's outcome IS the memory's conclusion, possibly in other words \
+(for example "approved for the fleet catalog" for "catalog listing is granted"). Answer no if \
+the rule is about something else, or if it merely REQUIRES something like the memory, or if it \
+grants one of the memory's own premises.
+
+OUTPUT: a single JSON object, no prose: {"answer": "yes" | "no"}
 """

@@ -10,6 +10,7 @@ from collections.abc import Callable
 from dataclasses import dataclass, field
 
 from beliefbench.labeler import gold_actions, topo_order
+from beliefgraph.retrieve import entity_names
 from beliefbench.schema import Action, Kind, Node, Relation, Scenario, Update
 from beliefgraph.prompts import (
     BATCH_NOTE,
@@ -22,6 +23,7 @@ from beliefgraph.prompts import (
     RETRY_NOTE,
     ROUTE_OUTCOME_PROMPT,
     ROUTE_PROMPT,
+    VERIFY_PROMPT,
 )
 
 LEVELS = ("high", "medium", "low")
@@ -265,15 +267,27 @@ class DecomposedBeliefGraph(BeliefGraph):
     of unanimous ones), so split-vote memories get one more step (``adjudicate``): every
     voted policy is grounded and the candidates are compared side by side, each with the
     items that satisfy it.
+
+    v0.5, small-model mode (``route_mode="verify"``, ``entity_ground=True``): every call is an
+    easy one. Routing checks the ``k_verify`` nearest policies one by one with a yes/no question
+    (in parallel) instead of asking for one choice among many; grounding sees only the items
+    that name the memory's entity, topped up with the nearest items to ``k_ground``. On a
+    45-memory store, 0.8-4B models picked the right policy among 12 only 24-61% of the time,
+    worse than embedding top-1 (62%); the name filter keeps 92-98% of true premises at ~3
+    candidates instead of 16.
     """
 
     def __init__(self, llm: LLM, k_policies: int = 12, k_items: int = 16, k_read: int = 5, workers: int = 8,
                  reliability_batch: int = 40, max_reroutes: int = 2, outcome_routing: bool = False,
                  outcome_batch: int = 20, samples: int = 3, resolve_conflicts: bool = False, conflict_rounds: int = 2,
-                 adjudicate: bool = True):
+                 adjudicate: bool = True, route_mode: str = "choose", k_verify: int = 5,
+                 entity_ground: bool = False, k_ground: int = 8):
         super().__init__(llm)
         self.samples, self.resolve_conflicts, self.conflict_rounds = samples, resolve_conflicts, conflict_rounds
         self.adjudicate = adjudicate
+        if route_mode not in ("choose", "verify"):
+            raise ValueError(f"route_mode must be 'choose' or 'verify', not {route_mode!r}")
+        self.route_mode, self.k_verify, self.entity_ground, self.k_ground = route_mode, k_verify, entity_ground, k_ground
         self.outcome_routing, self.outcome_batch = outcome_routing, outcome_batch
         self.max_reroutes = max_reroutes
         self.k_policies, self.k_items, self.k_read = k_policies, k_items, k_read
@@ -287,6 +301,15 @@ class DecomposedBeliefGraph(BeliefGraph):
 
         with ThreadPoolExecutor(max_workers=self.samples) as pool:
             return list(pool.map(fn, range(self.samples)))
+
+    def _map_inner(self, fn, xs):
+        """Parallel map for the checks of one memory (kept separate from the memory-level pool)."""
+        from concurrent.futures import ThreadPoolExecutor
+
+        if not xs:
+            return []
+        with ThreadPoolExecutor(max_workers=len(xs)) as pool:
+            return list(pool.map(fn, xs))
 
     def _map(self, fn, xs):
         from concurrent.futures import ThreadPoolExecutor
@@ -394,9 +417,35 @@ class DecomposedBeliefGraph(BeliefGraph):
                     return cands[pick - 1]
             return None
 
+        def ground_candidates(mid: str, policy: str) -> list[str]:
+            ranked = iidx.rank(mems[mid]["text"] + " " + pols[policy]["text"], exclude={mid})
+            if not self.entity_ground:
+                return ranked[: self.k_items]
+            names = entity_names(mems[mid]["text"])
+            named = [i for i in ranked if names & entity_names((facts.get(i) or mems.get(i))["text"])]
+            return (named + [i for i in ranked if i not in set(named)])[: max(self.k_ground, len(named))]
+
+        def verify(mid: str, policy: str, tag: str) -> float:
+            """Share of samples that answer yes to "did this rule produce this memory?"."""
+            msg = json.dumps({"memory": mems[mid]["text"], "rule": pols[policy]["text"]}, indent=1)
+
+            def ask(k):
+                try:
+                    raw = self.llm(VERIFY_PROMPT, msg, sample_note(f"{sid} verify{tag}.{mid}.{policy}", k))
+                except Exception:  # noqa: BLE001 -- one failed check counts as "no"
+                    return False
+                try:
+                    v = str(_load_json(raw).get("answer", "")).strip().lower()
+                except (json.JSONDecodeError, ValueError, AttributeError):
+                    v = raw.strip().lower()
+                return v.startswith("yes")
+
+            got = self._samples(ask)
+            return sum(got) / len(got)
+
         def ground(mid: str, policy: str, tag: str, k: int = 0) -> tuple[list[list[str]], list[str]]:
             text, errs = mems[mid]["text"], []
-            cands = iidx.rank(text + " " + pols[policy]["text"], exclude={mid})[: self.k_items]
+            cands = ground_candidates(mid, policy)
             msg = json.dumps({"memory": text, "policy": pols[policy]["text"],
                               "candidates": [{"id": c, "kind": "memory" if c in mems else "fact",
                                               "text": (facts.get(c) or mems.get(c))["text"]} for c in cands]}, indent=1)
@@ -437,6 +486,27 @@ class DecomposedBeliefGraph(BeliefGraph):
             """Route (voted), ground the voted policies in order, and when none grounds, re-route
             with them excluded: a decoy or wrong rule cannot be grounded in the facts."""
             ranked, tried, errs = rank_policies(mems[mid]["text"]), set(banned), []
+            if self.route_mode == "verify":
+                # windows of k_verify policies in retrieval order; within a window, every "yes"
+                # (majority of samples) is grounded in order of its yes-share, then rank
+                for w in range(self.max_reroutes + 1):
+                    window = [p for p in ranked if p not in tried][: self.k_verify]
+                    if not window:
+                        break
+                    tag = tag0 + ("" if w == 0 else f"w{w}")
+                    shares = dict(zip(window, self._map_inner(lambda p: verify(mid, p, tag0), window)))
+                    yes = sorted((p for p in window if 2 * shares[p] > 1 or (self.samples == 1 and shares[p] == 1)),
+                                 key=lambda p: (-shares[p], window.index(p)))
+                    for policy in yes:
+                        sets, gerrs = voted_ground(mid, policy, tag)
+                        errs += gerrs
+                        if sets:
+                            return {"policy": policy, "share": shares[policy], "sets": sets, "errs": errs,
+                                    "votes": {}, "tag": tag}
+                        errs.append(f"policy {policy} could not be grounded")
+                    tried.update(window)
+                errs.append("no policy verified and grounded")
+                return {"policy": None, "share": 0.0, "sets": [], "errs": errs}
             for attempt in range(self.max_reroutes + 1):
                 tag = tag0 + ("" if attempt == 0 else f"r{attempt}")
                 picks = self._samples(lambda k: route(mid, ranked, frozenset(tried), tag, k))

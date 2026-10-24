@@ -19,6 +19,7 @@ from run_stream import RUNS, step_score  # noqa: E402
 
 from beliefbench.beliefgraph_eval import gold_inputs, load_accepted  # noqa: E402
 from beliefbench.metrics import ExtractionScore  # noqa: E402
+from beliefbench.schema import Action  # noqa: E402
 from beliefbench.stream import gold_after, merge, step_view, touched  # noqa: E402
 from beliefgraph.cache import CachedLLM  # noqa: E402
 from beliefgraph.core import DecomposedBeliefGraph, revise  # noqa: E402
@@ -28,6 +29,9 @@ VARIANTS = {
     "v0.2.1": dict(samples=1, adjudicate=False),
     "v0.4": dict(),  # 3 seeded samples for routing and grounding, adjudication of split votes
     "v0.4-vote-only": dict(adjudicate=False),
+    "v0.5": dict(route_mode="verify", entity_ground=True),  # small-model mode: yes/no routing, named items
+    "v0.5-route-only": dict(route_mode="verify"),
+    "v0.5-ground-only": dict(entity_ground=True),
 }
 
 
@@ -39,6 +43,9 @@ def main() -> None:
     ap.add_argument("--model", default="qwen3.5-9b")
     ap.add_argument("--run", default="stream-qwen35-9b")
     ap.add_argument("--workers", type=int, default=24)
+    ap.add_argument("--base-url", default=None)
+    ap.add_argument("--thinking", default="default", choices=["default", "on", "off"])
+    ap.add_argument("--max-output-tokens", type=int, default=16000)
     args = ap.parse_args()
     try:
         from dotenv import load_dotenv
@@ -46,7 +53,9 @@ def main() -> None:
         load_dotenv(Path.cwd() / ".env")
     except ImportError:
         pass
-    llm = CachedLLM(make_llm(args.provider, model=args.model, max_output_tokens=16000, max_calls=5000),
+    llm = CachedLLM(make_llm(args.provider, model=args.model, base_url=args.base_url, max_calls=20000,
+                             max_output_tokens=args.max_output_tokens,
+                             thinking={"default": None, "on": True, "off": False}[args.thinking]),
                     Path("data/beliefgraph") / args.run / "raw")
     pool = [x for r in RUNS for x in load_accepted(Path("data/rendered") / r)]
     for k in args.sizes:
@@ -68,10 +77,14 @@ def main() -> None:
                 v = step_view(store, i)
                 applied = {u["id"] for u in v["updates"]}
                 P = revise(v, g.justifications, g.reliability, {u: r for u, r in readings.items() if u in applied})
-                steps.append(step_score(gold_after(store, comps, i), {m: a for m, a in P.items() if m.startswith("m_")},
-                                        touched(store, comps, i)))
+                steps_gold = gold_after(store, comps, i)
+                P_last = {m: a for m, a in P.items() if m.startswith("m_")}
+                steps.append(step_score(steps_gold, P_last, touched(store, comps, i)))
             f = steps[-1]
-            print(f"K={k} ({len(gj)} memories) {name:15s} graph set-F1 {ext.summary()['justification_set_f1']:.3f}  "
+            rev = [m for m, a in steps_gold.items() if a is not Action.KEEP]
+            keep = [m for m, a in steps_gold.items() if a is Action.KEEP]
+            bal = (sum(P_last[m] is not Action.KEEP for m in rev) / len(rev) + sum(P_last[m] is Action.KEEP for m in keep) / len(keep)) / 2
+            print(f"K={k} ({len(gj)} memories) {args.model} {name:15s} balanced {bal:.3f}  graph set-F1 {ext.summary()['justification_set_f1']:.3f}  "
                   f"unsupported {len(g.unsupported):2d}  touched(mean) {sum(s['acc_touched'] for s in steps) / n:.3f}  "
                   f"final all {f['acc_all']:.3f}  stale {f['stale']:.2f}  over {f['over_invalidation']:.3f}", flush=True)
     print("new calls", llm.calls)

@@ -21,6 +21,23 @@ def _tokens(text: str) -> list[str]:
     return out
 
 
+_NAME_STOP = {"The", "A", "An", "This", "That", "Its", "It", "According", "Official", "In", "On", "At", "For",
+              "If", "When", "Each", "Every", "Any", "All", "No", "New", "Our", "We"}
+
+
+def entity_names(text: str) -> set[str]:
+    """Capitalised word runs (product and organisation names), without sentence-initial
+    function words. Items about the same entity share a name; memories name their subject."""
+    out = set()
+    for m in re.finditer(r"(?:[A-Z][\w\-]*)(?:\s+(?:[A-Z0-9][\w\-]*))*", text):
+        words = m.group(0).split()
+        sentence_start = m.start() == 0 or text[: m.start()].rstrip().endswith((".", "!", "?", ":"))
+        if sentence_start and len(words) > 1:  # "Give Acme ..." : the first word may be a capitalised verb
+            out.add(" ".join(words[1:]))
+        out.add(" ".join(words))
+    return {r for r in out if r.split()[0] not in _NAME_STOP and len(r) > 2}
+
+
 class Index:
     """TF-IDF index over (id, text) items."""
 

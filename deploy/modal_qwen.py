@@ -1,5 +1,9 @@
-"""Serve a small open model (Qwen3.5-9B) on Modal with vLLM's OpenAI-compatible API, for
-BeliefGraph's `modal` provider.
+"""Serve a small open model on Modal with vLLM's OpenAI-compatible API, for BeliefGraph's
+`modal` provider. The model is chosen at deploy time (default Qwen3.5-9B); each model gets its
+own app, so several can be evaluated at once:
+
+    BG_MODEL=Qwen/Qwen3.5-4B uv run --group modal modal deploy deploy/modal_qwen.py
+    # -> app beliefgraph-qwen3-5-4b, served model name qwen3.5-4b
 
     export BELIEFGRAPH_VLLM_KEY=$(python -c "import secrets; print(secrets.token_urlsafe(32))")
     uv run --group modal modal secret create beliefgraph-vllm VLLM_API_KEY=$BELIEFGRAPH_VLLM_KEY
@@ -17,17 +21,23 @@ import subprocess
 
 import modal
 
-MODEL = "Qwen/Qwen3.5-9B"  # Apache-2.0; 262k native context; thinking + non-thinking modes
-SERVED_NAME = "qwen3.5-9b"
+import os
+import re
+
+MODEL = os.environ.get("BG_MODEL", "Qwen/Qwen3.5-9B")  # read at deploy time, baked into the image env
+SERVED_NAME = MODEL.split("/")[-1].lower().replace("-instruct", "")
+SLUG = re.sub(r"[^a-z0-9]+", "-", SERVED_NAME).strip("-")
+QWEN35 = "qwen3.5" in MODEL.lower()  # hybrid Gated-DeltaNet architecture, multimodal checkpoint
 PORT = 8000
 MINUTES = 60
-MAX_MODEL_LEN = 131072  # LLM-direct on the full store: ~50k-token prompt + 16k output, with headroom
+MAX_MODEL_LEN = int(os.environ.get("BG_MAX_MODEL_LEN", 131072 if QWEN35 else 65536))
+GPU = "H100" if "9b" in MODEL.lower() or "8b" in MODEL.lower() else "L40S"  # <=4B fits a 48 GB L40S
 
 image = (
     modal.Image.from_registry("nvidia/cuda:12.9.0-devel-ubuntu22.04", add_python="3.12")
     .entrypoint([])
     .uv_pip_install("vllm==0.21.0")
-    .env({"HF_XET_HIGH_PERFORMANCE": "1"})
+    .env({"HF_XET_HIGH_PERFORMANCE": "1", "BG_MODEL": MODEL, "BG_MAX_MODEL_LEN": str(MAX_MODEL_LEN)})
 )
 hf_cache = modal.Volume.from_name("huggingface-cache", create_if_missing=True)
 vllm_cache = modal.Volume.from_name("vllm-cache", create_if_missing=True)
@@ -38,12 +48,12 @@ flashinfer_cache = modal.Volume.from_name("flashinfer-cache", create_if_missing=
 #   modal secret create beliefgraph-vllm VLLM_API_KEY=$BELIEFGRAPH_VLLM_KEY
 secrets = [modal.Secret.from_name("beliefgraph-vllm", required_keys=["VLLM_API_KEY"])]
 
-app = modal.App("beliefgraph-qwen35-9b")
+app = modal.App("beliefgraph-qwen35-9b" if MODEL == "Qwen/Qwen3.5-9B" else f"beliefgraph-{SLUG}")
 
 
 @app.server(
     image=image,
-    gpu="H100",  # 80 GB: fast prefill and decoding for long stores and thinking outputs
+    gpu=GPU,
     port=PORT,
     # Weights, torch.compile artifacts and FlashInfer JIT kernels persist across cold starts.
     volumes={"/root/.cache/huggingface": hf_cache, "/root/.cache/vllm": vllm_cache,
@@ -57,16 +67,19 @@ app = modal.App("beliefgraph-qwen35-9b")
 class Server:
     @modal.enter()
     def start(self):
-        self.proc = subprocess.Popen([
-            "vllm", "serve", MODEL,
-            "--served-model-name", SERVED_NAME,
-            "--host", "0.0.0.0", "--port", str(PORT),
-            "--max-model-len", str(MAX_MODEL_LEN),
+        qwen35 = [
             "--reasoning-parser", "qwen3",  # thinking goes to reasoning_content, the answer to content
             "--language-model-only",
             # Qwen3.5's Gated-DeltaNet layers otherwise JIT-compile a FlashInfer prefill kernel on
             # every cold start (vLLM's own log suggests this flag to avoid it).
             "--gdn-prefill-backend", "triton",
+        ]
+        self.proc = subprocess.Popen([
+            "vllm", "serve", MODEL,
+            "--served-model-name", SERVED_NAME,
+            "--host", "0.0.0.0", "--port", str(PORT),
+            "--max-model-len", str(MAX_MODEL_LEN),
+            *(qwen35 if QWEN35 else []),
         ])
 
     @modal.exit()

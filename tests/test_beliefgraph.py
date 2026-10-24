@@ -585,3 +585,36 @@ def test_cache_separates_thinking_modes(tmp_path):
     assert CachedLLM(Fake(None), tmp_path)("s", "x", "n") == "thinking=None"
     assert CachedLLM(Fake(False), tmp_path)("s", "x", "n") == "thinking=False"  # not the cached default answer
     assert CachedLLM(Fake(None), tmp_path)("s", "x", "n") == "thinking=None"
+
+
+def test_entity_names_pick_out_subjects():
+    from beliefgraph.retrieve import entity_names
+
+    assert "Apex Charters" in entity_names("Apex Charters holds corporate flight clearance.")
+    assert entity_names("The audit was signed.") == set()
+
+
+def test_v05_routes_by_yes_no_checks_and_grounds_on_named_items(tfidf):
+    from beliefgraph.core import DecomposedBeliefGraph
+    from beliefgraph.prompts import GROUND_PROMPT, VERIFY_PROMPT
+
+    seen_cands = []
+
+    def llm(system, message, note=""):
+        body = json.loads(message)
+        if system == VERIFY_PROMPT:
+            right = ("approved carrier" in body["memory"]) == ("trucks" in body["rule"])
+            return json.dumps({"answer": "yes" if right else "no"})
+        if system == GROUND_PROMPT:
+            seen_cands.append([c["id"] for c in body["candidates"]])
+            ids = {c["text"]: c["id"] for c in body["candidates"]}
+            if "trucks" in body["policy"]:
+                return json.dumps({"groups": [[ids["Acme has 15 trucks."]], [ids["Acme holds ISO 9001."]]]})
+            m1 = next(c["id"] for c in body["candidates"] if c["id"].startswith("m_"))
+            return json.dumps({"groups": [[ids["Acme logged 0 incidents."], m1]]})
+        return json.dumps({"reliability": {}})
+
+    g = DecomposedBeliefGraph(llm, workers=1, samples=1, route_mode="verify", entity_ground=True,
+                              k_ground=2).build(VIEW)
+    assert g.justifications == {"m_1": [["e_1"], ["e_2"]], "m_2": [["e_3", "m_1"]]}
+    assert all(len(c) >= 3 for c in seen_cands)  # every item names Acme, so none is cut below k_ground
