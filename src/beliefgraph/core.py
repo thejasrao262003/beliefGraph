@@ -23,6 +23,7 @@ from beliefgraph.prompts import (
     RELIABILITY_PROMPT,
     RETRY_NOTE,
     ROUTE_OUTCOME_PROMPT,
+    ROUTE_LETTER_PROMPT,
     ROUTE_PROMPT,
     RULE_PARSE_PROMPT,
     SCORE_PROMPT,
@@ -120,6 +121,46 @@ def _tie_rank(memory_text: str, policy_text: str) -> float:
 
     a, b = set(_tokens(memory_text)), set(_tokens(policy_text))
     return -len(a & b) / (len(a) or 1)
+
+
+def _assign_by_entity(dists: dict[str, dict[str, float]], texts: dict[str, str]) -> dict[str, str]:
+    """Memories that share an entity name form a group; within a group each memory gets one
+    policy and a policy goes to at most one memory, maximising the summed log-probability
+    (Hungarian algorithm). A group with more memories than candidate policies leaves the rest
+    on their own most likely policy."""
+    import math
+
+    from scipy.optimize import linear_sum_assignment
+
+    ids = list(dists)
+    names = {m: entity_names(texts[m]) for m in ids}
+    parent = {m: m for m in ids}
+
+    def find(x):
+        while parent[x] != x:
+            parent[x] = parent[parent[x]]
+            x = parent[x]
+        return x
+
+    first: dict[str, str] = {}
+    for m in ids:
+        for n in names[m]:
+            if n in first:
+                parent[find(m)] = find(first[n])
+            else:
+                first[n] = m
+    groups: dict[str, list[str]] = {}
+    for m in ids:
+        groups.setdefault(find(m), []).append(m)
+    out = {m: max(dists[m], key=dists[m].get) for m in ids if dists[m]}
+    for ms in groups.values():
+        rules = sorted({p for m in ms for p in dists[m]})
+        if len(ms) < 2 or not rules:
+            continue
+        cost = [[-math.log(dists[m].get(p, 0.0) + 1e-9) for p in rules] for m in ms]
+        for r, c in zip(*linear_sum_assignment(cost)):
+            out[ms[r]] = rules[c]
+    return out
 
 
 def break_cycles(justs: dict[str, list[list[str]]], errors: list[str]) -> None:
@@ -327,8 +368,8 @@ class DecomposedBeliefGraph(BeliefGraph):
         super().__init__(llm)
         self.samples, self.resolve_conflicts, self.conflict_rounds = samples, resolve_conflicts, conflict_rounds
         self.adjudicate = adjudicate
-        if route_mode not in ("choose", "verify", "score"):
-            raise ValueError(f"route_mode must be 'choose', 'verify' or 'score', not {route_mode!r}")
+        if route_mode not in ("choose", "verify", "score", "assign"):
+            raise ValueError(f"route_mode must be 'choose', 'verify', 'score' or 'assign', not {route_mode!r}")
         self.route_mode, self.k_verify, self.entity_ground, self.k_ground = route_mode, k_verify, entity_ground, k_ground
         if conflict_mode not in ("overlap", "entity"):
             raise ValueError(f"conflict_mode must be 'overlap' or 'entity', not {conflict_mode!r}")
@@ -664,9 +705,54 @@ class DecomposedBeliefGraph(BeliefGraph):
             return dict(r, policy=policy, sets=sets, share=n / self.samples,
                         errs=r["errs"] + [f"adjudicated {r['policy']} -> {policy}"])
 
+        def assign_all(todo: list[str]) -> dict[str, dict]:
+            """v0.8: a distribution over each memory's candidates from token probabilities (two
+            option orders, averaged), then one joint assignment per entity group (a rule produces
+            at most one memory per entity), then grounding in assignment order."""
+            letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
+
+            def dist(mid):
+                text = mems[mid]["text"]
+                near = [f for f in iidx.rank(text, exclude={mid}) if f in facts][:5]
+                cands = rank_policies(text)[: min(self.k_policies, len(letters))]
+                tot = {p: 0.0 for p in cands}
+                for o, order in enumerate((cands, cands[::-1])):
+                    msg = json.dumps({"memory": text, "facts_about_it": [facts[f]["text"] for f in near],
+                                      "policies": {letters[k]: pols[p]["text"] for k, p in enumerate(order)}}, indent=1)
+                    try:
+                        probs = self.llm.choice_probs(ROUTE_LETTER_PROMPT, msg, '{"policy": "', letters[: len(order)],
+                                                      f"{sid} choice{o}.{mid}")
+                    except Exception:  # noqa: BLE001 -- a failed pass contributes nothing
+                        probs = {}
+                    for k, v in probs.items():
+                        tot[order[letters.index(k)]] += v
+                z = sum(tot.values())
+                return mid, {p: v / z for p, v in tot.items()} if z else {p: 1 / len(cands) for p in cands}
+
+            dists = dict(self._map(dist, todo))
+            assigned = _assign_by_entity(dists, {m: mems[m]["text"] for m in todo})
+
+            def finish(mid):
+                order = [assigned[mid]] + [p for p in sorted(dists[mid], key=lambda p: -dists[mid][p]) if p != assigned[mid]]
+                errs = []
+                for policy in order[:3]:
+                    sets, gerrs = voted_ground(mid, policy, "")
+                    errs += gerrs
+                    if sets:
+                        return mid, {"policy": policy, "share": dists[mid].get(policy, 0.0), "sets": sets, "errs": errs,
+                                     "votes": {}, "tag": ""}
+                    errs.append(f"policy {policy} could not be grounded")
+                return mid, {"policy": None, "share": 0.0, "sets": [], "errs": errs + ["no assigned policy grounded"]}
+
+            return dict(self._map(finish, todo))
+
         todo = [m for m in mems if only is None or m in set(only)]
-        out = dict(zip(todo, self._map(one, todo)))
-        split = [m for m in todo if out[m]["policy"] and out[m]["share"] < 1] if self.adjudicate and self.samples > 1 else []
+        if self.route_mode == "assign" and getattr(self.llm, "supports_choice_probs", False) and pols:
+            out = assign_all(todo)
+        else:
+            out = dict(zip(todo, self._map(one, todo)))
+        split = ([m for m in todo if out[m]["policy"] and out[m]["share"] < 1]
+                 if self.adjudicate and self.samples > 1 and self.route_mode != "assign" else [])
         out.update(zip(split, self._map(adjudicate, split)))
         banned: dict[str, set[str]] = {m: set() for m in todo}
         conflict_errs: list[str] = []

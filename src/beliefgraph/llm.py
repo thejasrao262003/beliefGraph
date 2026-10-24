@@ -123,6 +123,33 @@ class ProviderLLM:
         return resp.output_text, {"input_tokens": getattr(u, "input_tokens", None),
                                   "output_tokens": getattr(u, "output_tokens", None)}
 
+    @property
+    def supports_choice_probs(self) -> bool:
+        return self.provider in OPENAI_COMPATIBLE
+
+    def choice_probs(self, system: str, message: str, prefill: str, labels: str, note: str = "") -> dict[str, float]:
+        """Probability of each one-token label right after ``prefill`` (the start of the assistant's
+        answer), from one forward pass: {label: probability} over the labels found in the top 20.
+        OpenAI-compatible servers only (vLLM continues the prefilled assistant message)."""
+        import math
+
+        extra = {"continue_final_message": True, "add_generation_prompt": False}
+        if self.thinking is not None:
+            extra["chat_template_kwargs"] = {"enable_thinking": self.thinking}
+        resp = self._cold_start_retry(lambda: self.client.chat.completions.create(
+            model=self.model, max_tokens=1, logprobs=True, top_logprobs=20, temperature=0,
+            messages=[{"role": "system", "content": system}, {"role": "user", "content": message},
+                      {"role": "assistant", "content": prefill}], extra_body=extra))
+        out: dict[str, float] = {}
+        for t in resp.choices[0].logprobs.content[0].top_logprobs:
+            k = t.token.strip()
+            if len(k) == 1 and k in labels:
+                out[k] = out.get(k, 0.0) + math.exp(t.logprob)
+        u = resp.usage
+        self.usage.append({"note": note, "model": self.model, "input_tokens": getattr(u, "prompt_tokens", None),
+                           "output_tokens": getattr(u, "completion_tokens", None)})
+        return out
+
     def _chat(self, system: str, message: str, seed: int | None = None) -> tuple[str, dict]:
         """OpenAI Chat Completions protocol (xAI, DeepSeek, Mistral, Groq, ... , Ollama)."""
         resp = self.client.chat.completions.create(

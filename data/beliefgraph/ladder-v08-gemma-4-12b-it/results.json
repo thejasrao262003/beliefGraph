@@ -1,0 +1,1818 @@
+{
+ "algo": "v0.2",
+ "variant": "v0.8",
+ "max_output_tokens": 4000,
+ "provider": "modal",
+ "model": "gemma-4-12b-it",
+ "prompts": [
+  "bg-build-v1",
+  "bg-read-v2",
+  "llm-direct-store-v1"
+ ],
+ "seed": 0,
+ "batch_size": 25,
+ "sizes": {
+  "10": {
+   "memories": 45,
+   "facts": 48,
+   "updates": 12,
+   "graph_unsupported": 1,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.9962962962962963,
+    "LLM-direct": 0.6328091834021625
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.9555555555555556,
+     "acc_touched": 0.9555555555555556,
+     "balanced": 0.9090909090909092,
+     "stale": 0.18181818181818182,
+     "over_invalidation": 0.0,
+     "n_revising": 11
+    },
+    "LLM-direct": {
+     "acc_all": 0.6222222222222222,
+     "acc_touched": 0.6222222222222222,
+     "balanced": 0.624331550802139,
+     "stale": 0.5454545454545454,
+     "over_invalidation": 0.20588235294117646,
+     "n_revising": 11
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 407,
+     "input_tokens": 335982,
+     "output_tokens": 17164,
+     "seconds": 4631.870000000002,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 12,
+     "input_tokens": 10708,
+     "output_tokens": 527,
+     "seconds": 71.96,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 12,
+     "input_tokens": 94641,
+     "output_tokens": 2463,
+     "seconds": 150.42999999999998,
+     "est_usd": 0
+    },
+    "LLM-RAG": {}
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": null,
+      "stale": null,
+      "over_invalidation": 0.0,
+      "n_revising": 0
+     },
+     "LLM-direct": {
+      "acc_all": 0.9777777777777777,
+      "acc_touched": 0.6666666666666666,
+      "balanced": null,
+      "stale": null,
+      "over_invalidation": 0.022222222222222223,
+      "n_revising": 0
+     },
+     "errors": []
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": null,
+      "stale": null,
+      "over_invalidation": 0.0,
+      "n_revising": 0
+     },
+     "LLM-direct": {
+      "acc_all": 0.9555555555555556,
+      "acc_touched": 0.75,
+      "balanced": null,
+      "stale": null,
+      "over_invalidation": 0.044444444444444446,
+      "n_revising": 0
+     },
+     "errors": []
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.9111111111111111,
+      "acc_touched": 0.6666666666666666,
+      "balanced": 0.6428571428571428,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.047619047619047616,
+      "n_revising": 3
+     },
+     "errors": []
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.8666666666666667,
+      "acc_touched": 0.6470588235294118,
+      "balanced": 0.6190476190476191,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.09523809523809523,
+      "n_revising": 3
+     },
+     "errors": []
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.7777777777777778,
+      "acc_touched": 0.5454545454545454,
+      "balanced": 0.5714285714285714,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.19047619047619047,
+      "n_revising": 3
+     },
+     "errors": []
+    },
+    {
+     "n": 6,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.8222222222222222,
+      "acc_touched": 0.6363636363636364,
+      "balanced": 0.5952380952380952,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 3
+     },
+     "errors": []
+    },
+    {
+     "n": 7,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.7555555555555555,
+      "acc_touched": 0.5769230769230769,
+      "balanced": 0.8,
+      "stale": 0.2,
+      "over_invalidation": 0.2,
+      "n_revising": 5
+     },
+     "errors": []
+    },
+    {
+     "n": 8,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 8
+     },
+     "LLM-direct": {
+      "acc_all": 0.7111111111111111,
+      "acc_touched": 0.5806451612903226,
+      "balanced": 0.6689189189189189,
+      "stale": 0.5,
+      "over_invalidation": 0.16216216216216217,
+      "n_revising": 8
+     },
+     "errors": []
+    },
+    {
+     "n": 9,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 8
+     },
+     "LLM-direct": {
+      "acc_all": 0.7555555555555555,
+      "acc_touched": 0.7222222222222222,
+      "balanced": 0.7043918918918919,
+      "stale": 0.375,
+      "over_invalidation": 0.21621621621621623,
+      "n_revising": 8
+     },
+     "errors": []
+    },
+    {
+     "n": 10,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 8
+     },
+     "LLM-direct": {
+      "acc_all": 0.6666666666666666,
+      "acc_touched": 0.6153846153846154,
+      "balanced": 0.5793918918918919,
+      "stale": 0.625,
+      "over_invalidation": 0.21621621621621623,
+      "n_revising": 8
+     },
+     "errors": []
+    },
+    {
+     "n": 11,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 8
+     },
+     "LLM-direct": {
+      "acc_all": 0.6222222222222222,
+      "acc_touched": 0.5641025641025641,
+      "balanced": 0.6638513513513513,
+      "stale": 0.375,
+      "over_invalidation": 0.2972972972972973,
+      "n_revising": 8
+     },
+     "errors": []
+    },
+    {
+     "n": 12,
+     "BeliefGraph": {
+      "acc_all": 0.9555555555555556,
+      "acc_touched": 0.9555555555555556,
+      "balanced": 0.9090909090909092,
+      "stale": 0.18181818181818182,
+      "over_invalidation": 0.0,
+      "n_revising": 11
+     },
+     "LLM-direct": {
+      "acc_all": 0.6222222222222222,
+      "acc_touched": 0.6222222222222222,
+      "balanced": 0.624331550802139,
+      "stale": 0.5454545454545454,
+      "over_invalidation": 0.20588235294117646,
+      "n_revising": 11
+     },
+     "errors": []
+    }
+   ]
+  },
+  "30": {
+   "memories": 143,
+   "facts": 165,
+   "updates": 43,
+   "graph_unsupported": 9,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.9326686673270268,
+    "LLM-direct": 0.6551961053359574
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.9370629370629371,
+     "acc_touched": 0.9370629370629371,
+     "balanced": 0.9368351063829787,
+     "stale": 0.06382978723404255,
+     "over_invalidation": 0.0625,
+     "n_revising": 47
+    },
+    "LLM-direct": {
+     "acc_all": 0.6713286713286714,
+     "acc_touched": 0.6713286713286714,
+     "balanced": 0.5,
+     "stale": 1.0,
+     "over_invalidation": 0.0,
+     "n_revising": 47
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 1354,
+     "input_tokens": 1131959,
+     "output_tokens": 64837,
+     "seconds": 6955.059999999996,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 43,
+     "input_tokens": 38380,
+     "output_tokens": 1841,
+     "seconds": 403.05000000000007,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 43,
+     "input_tokens": 1085375,
+     "output_tokens": 115969,
+     "seconds": 7294.720000000002,
+     "est_usd": 0
+    },
+    "LLM-RAG": {}
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.993006993006993,
+      "acc_touched": 0.8,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     },
+     "errors": []
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.993006993006993,
+      "acc_touched": 0.9,
+      "balanced": 0.9,
+      "stale": 0.2,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.972027972027972,
+      "acc_touched": 0.6,
+      "balanced": 0.6,
+      "stale": 0.8,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": []
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.993006993006993,
+      "acc_touched": 0.9230769230769231,
+      "balanced": 0.9,
+      "stale": 0.2,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.9790209790209791,
+      "acc_touched": 0.7692307692307693,
+      "balanced": 0.7,
+      "stale": 0.6,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": []
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.993006993006993,
+      "acc_touched": 0.9411764705882353,
+      "balanced": 0.9,
+      "stale": 0.2,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.958041958041958,
+      "acc_touched": 0.6470588235294118,
+      "balanced": 0.5927536231884059,
+      "stale": 0.8,
+      "over_invalidation": 0.014492753623188406,
+      "n_revising": 5
+     },
+     "errors": [
+      "unknown memory 'm_1197ce'"
+     ]
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.993006993006993,
+      "acc_touched": 0.9523809523809523,
+      "balanced": 0.9,
+      "stale": 0.2,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.965034965034965,
+      "acc_touched": 0.7619047619047619,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    },
+    {
+     "n": 6,
+     "BeliefGraph": {
+      "acc_all": 0.993006993006993,
+      "acc_touched": 0.9629629629629629,
+      "balanced": 0.9444444444444444,
+      "stale": 0.1111111111111111,
+      "over_invalidation": 0.0,
+      "n_revising": 9
+     },
+     "LLM-direct": {
+      "acc_all": 0.8951048951048951,
+      "acc_touched": 0.5555555555555556,
+      "balanced": 0.5812603648424544,
+      "stale": 0.7777777777777778,
+      "over_invalidation": 0.05970149253731343,
+      "n_revising": 9
+     },
+     "errors": [
+      "unknown memory 'm_17f842'"
+     ]
+    },
+    {
+     "n": 7,
+     "BeliefGraph": {
+      "acc_all": 0.9790209790209791,
+      "acc_touched": 0.90625,
+      "balanced": 0.9369817578772802,
+      "stale": 0.1111111111111111,
+      "over_invalidation": 0.014925373134328358,
+      "n_revising": 9
+     },
+     "LLM-direct": {
+      "acc_all": 0.9090909090909091,
+      "acc_touched": 0.625,
+      "balanced": 0.5887230514096186,
+      "stale": 0.7777777777777778,
+      "over_invalidation": 0.04477611940298507,
+      "n_revising": 9
+     },
+     "errors": []
+    },
+    {
+     "n": 8,
+     "BeliefGraph": {
+      "acc_all": 0.9790209790209791,
+      "acc_touched": 0.918918918918919,
+      "balanced": 0.9369817578772802,
+      "stale": 0.1111111111111111,
+      "over_invalidation": 0.014925373134328358,
+      "n_revising": 9
+     },
+     "LLM-direct": {
+      "acc_all": 0.3986013986013986,
+      "acc_touched": 0.35135135135135137,
+      "balanced": 0.6902985074626866,
+      "stale": 0.0,
+      "over_invalidation": 0.6194029850746269,
+      "n_revising": 9
+     },
+     "errors": [
+      "unknown memory 'm_21a38b'",
+      "unknown memory 'm_21e7d1'",
+      "unknown memory 'm_02d565'",
+      "unknown memory 'm_01923c'",
+      "unknown memory 'm_05e594'",
+      "unknown memory 'm_1197ce'",
+      "unknown memory 'm_11fdd5'",
+      "unknown memory 'm_12d453'",
+      "unknown memory 'm_08dfd6'",
+      "unknown memory 'm_1577ac'",
+      "unknown memory 'm_285eed'",
+      "unknown memory 'm_014080'",
+      "unknown memory 'm_133a85'",
+      "unknown memory 'm_2957ed'",
+      "unknown memory 'm_03f0c0'",
+      "unknown memory 'm_046bbd'",
+      "unknown memory 'm_081177'",
+      "unknown memory 'm_05a800'",
+      "unknown memory 'm_12e597'",
+      "unknown memory 'm_269437'",
+      "unknown memory 'm_00d52f'",
+      "unknown memory 'm_2140dc'",
+      "unknown memory 'm_038e3f'",
+      "unknown memory 'm_05b1d8'",
+      "unknown memory 'm_2502f2'",
+      "unknown memory 'm_271d9c'",
+      "unknown memory 'm_12e58b'",
+      "unknown memory 'm_142b00'",
+      "unknown memory 'm_19cadb'",
+      "unknown memory 'm_154fa4'",
+      "unknown memory 'm_22d8ee'",
+      "unknown memory 'm_042481'",
+      "unknown memory 'm_019d85'",
+      "unknown memory 'm_200b1d'",
+      "unknown memory 'm_02ad50'",
+      "unknown memory 'm_00cecb'",
+      "unknown memory 'm_28ec54'",
+      "unknown memory 'm_092880'",
+      "unknown memory 'm_113390'",
+      "unknown memory 'm_18c342'",
+      "unknown memory 'm_24dbf0'",
+      "unknown memory 'm_07dfe6'",
+      "unknown memory 'm_0650c0'",
+      "unknown memory 'm_109f40'",
+      "unknown memory 'm_2379a9'",
+      "unknown memory 'm_16549f'",
+      "unknown memory 'm_232285'",
+      "unknown memory 'm_1980df'",
+      "unknown memory 'm_1231df'",
+      "unknown memory 'm_15c8b9'",
+      "unknown memory 'm_00efaf'",
+      "unknown memory 'm_25fbb4'",
+      "unknown memory 'm_110da1'",
+      "unknown memory 'm_0230d2'",
+      "unknown memory 'm_2235ea'",
+      "unknown memory 'm_240131'",
+      "unknown memory 'm_203413'",
+      "unknown memory 'm_148195'",
+      "unknown memory 'm_08454e'",
+      "unknown memory 'm_2168ce'",
+      "unknown memory 'm_28228f'",
+      "unknown memory 'm_071552'",
+      "unknown memory 'm_1649bc'",
+      "unknown memory 'm_04ad97'",
+      "unknown memory 'm_10c517'",
+      "unknown memory 'm_0542f8'",
+      "unknown memory 'm_180292'",
+      "unknown memory 'm_039eee'",
+      "unknown memory 'm_2743f4'",
+      "unknown memory 'm_291f8c'",
+      "unknown memory 'm_017b3b'",
+      "unknown memory 'm_09cee9'",
+      "unknown memory 'm_173530'",
+      "unknown memory 'm_138d31'"
+     ]
+    },
+    {
+     "n": 9,
+     "BeliefGraph": {
+      "acc_all": 0.9790209790209791,
+      "acc_touched": 0.9285714285714286,
+      "balanced": 0.9369817578772802,
+      "stale": 0.1111111111111111,
+      "over_invalidation": 0.014925373134328358,
+      "n_revising": 9
+     },
+     "LLM-direct": {
+      "acc_all": 0.9370629370629371,
+      "acc_touched": 0.7857142857142857,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 9
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    },
+    {
+     "n": 10,
+     "BeliefGraph": {
+      "acc_all": 0.9790209790209791,
+      "acc_touched": 0.9347826086956522,
+      "balanced": 0.9506997455470738,
+      "stale": 0.08333333333333333,
+      "over_invalidation": 0.015267175572519083,
+      "n_revising": 12
+     },
+     "LLM-direct": {
+      "acc_all": 0.916083916083916,
+      "acc_touched": 0.7391304347826086,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 12
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    },
+    {
+     "n": 11,
+     "BeliefGraph": {
+      "acc_all": 0.972027972027972,
+      "acc_touched": 0.9259259259259259,
+      "balanced": 0.9332399626517274,
+      "stale": 0.11764705882352941,
+      "over_invalidation": 0.015873015873015872,
+      "n_revising": 17
+     },
+     "LLM-direct": {
+      "acc_all": 0.8671328671328671,
+      "acc_touched": 0.6666666666666666,
+      "balanced": 0.5469187675070027,
+      "stale": 0.8823529411764706,
+      "over_invalidation": 0.023809523809523808,
+      "n_revising": 17
+     },
+     "errors": [
+      "unknown memory 'm_19c34b'"
+     ]
+    },
+    {
+     "n": 12,
+     "BeliefGraph": {
+      "acc_all": 0.972027972027972,
+      "acc_touched": 0.9322033898305084,
+      "balanced": 0.941869918699187,
+      "stale": 0.1,
+      "over_invalidation": 0.016260162601626018,
+      "n_revising": 20
+     },
+     "LLM-direct": {
+      "acc_all": 0.8391608391608392,
+      "acc_touched": 0.6610169491525424,
+      "balanced": 0.667479674796748,
+      "stale": 0.6,
+      "over_invalidation": 0.06504065040650407,
+      "n_revising": 20
+     },
+     "errors": [
+      "unknown memory 'm_17f842'",
+      "unknown memory 'm_21e7d1'"
+     ]
+    },
+    {
+     "n": 13,
+     "BeliefGraph": {
+      "acc_all": 0.965034965034965,
+      "acc_touched": 0.9206349206349206,
+      "balanced": 0.9378048780487804,
+      "stale": 0.1,
+      "over_invalidation": 0.024390243902439025,
+      "n_revising": 20
+     },
+     "LLM-direct": {
+      "acc_all": 0.8601398601398601,
+      "acc_touched": 0.6825396825396826,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 20
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    },
+    {
+     "n": 14,
+     "BeliefGraph": {
+      "acc_all": 0.965034965034965,
+      "acc_touched": 0.9264705882352942,
+      "balanced": 0.9378048780487804,
+      "stale": 0.1,
+      "over_invalidation": 0.024390243902439025,
+      "n_revising": 20
+     },
+     "LLM-direct": {
+      "acc_all": 0.8601398601398601,
+      "acc_touched": 0.7058823529411765,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 20
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    },
+    {
+     "n": 15,
+     "BeliefGraph": {
+      "acc_all": 0.965034965034965,
+      "acc_touched": 0.9324324324324325,
+      "balanced": 0.9378048780487804,
+      "stale": 0.1,
+      "over_invalidation": 0.024390243902439025,
+      "n_revising": 20
+     },
+     "LLM-direct": {
+      "acc_all": 0.8601398601398601,
+      "acc_touched": 0.7297297297297297,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 20
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    },
+    {
+     "n": 16,
+     "BeliefGraph": {
+      "acc_all": 0.965034965034965,
+      "acc_touched": 0.9324324324324325,
+      "balanced": 0.9378048780487804,
+      "stale": 0.1,
+      "over_invalidation": 0.024390243902439025,
+      "n_revising": 20
+     },
+     "LLM-direct": {
+      "acc_all": 0.7972027972027972,
+      "acc_touched": 0.6486486486486487,
+      "balanced": 0.676219512195122,
+      "stale": 0.55,
+      "over_invalidation": 0.0975609756097561,
+      "n_revising": 20
+     },
+     "errors": [
+      "unknown memory 'm_139b28'"
+     ]
+    },
+    {
+     "n": 17,
+     "BeliefGraph": {
+      "acc_all": 0.965034965034965,
+      "acc_touched": 0.9367088607594937,
+      "balanced": 0.9421487603305785,
+      "stale": 0.09090909090909091,
+      "over_invalidation": 0.024793388429752067,
+      "n_revising": 22
+     },
+     "LLM-direct": {
+      "acc_all": 0.8111888111888111,
+      "acc_touched": 0.6582278481012658,
+      "balanced": 0.6487603305785123,
+      "stale": 0.6363636363636364,
+      "over_invalidation": 0.06611570247933884,
+      "n_revising": 22
+     },
+     "errors": []
+    },
+    {
+     "n": 18,
+     "BeliefGraph": {
+      "acc_all": 0.965034965034965,
+      "acc_touched": 0.9367088607594937,
+      "balanced": 0.9421487603305785,
+      "stale": 0.09090909090909091,
+      "over_invalidation": 0.024793388429752067,
+      "n_revising": 22
+     },
+     "LLM-direct": {
+      "acc_all": 0.4125874125874126,
+      "acc_touched": 0.3291139240506329,
+      "balanced": 0.615702479338843,
+      "stale": 0.18181818181818182,
+      "over_invalidation": 0.5867768595041323,
+      "n_revising": 22
+     },
+     "errors": [
+      "unknown memory 'm_29b9ef'",
+      "unknown memory 'm_21a38b'",
+      "unknown memory 'm_21e7d1'",
+      "unknown memory 'm_22f9a9'",
+      "unknown memory 'm_15e26'",
+      "unknown memory 'm_1577ac'",
+      "unknown memory 'm_12470c'",
+      "unknown memory 'm_06bad7'",
+      "unknown memory 'm_016f4b'",
+      "unknown memory 'm_28ddf'",
+      "unknown memory 'm_042481'",
+      "unknown memory 'm_121a18'",
+      "unknown memory 'm_24b318'",
+      "unknown memory 'm_12e58b'",
+      "unknown memory 'm_05c062'",
+      "unknown memory 'm_11fdd5'",
+      "unknown memory 'm_046bbd'",
+      "unknown memory 'm_091abb'",
+      "unknown memory 'm_0003b9'",
+      "unknown memory 'm_20b97e'",
+      "unknown memory 'm_232f03'",
+      "unknown memory 'm_2170a5'",
+      "unknown memory 'm_1601d4'",
+      "unknown memory 'm_15b2d8'",
+      "unknown memory 'm_25882c'",
+      "unknown memory 'm_13fea4'",
+      "unknown memory 'm_08d8a0'",
+      "unknown memory 'm_267785'",
+      "unknown memory 'm_17b478'",
+      "unknown memory 'm_29d996'",
+      "unknown memory 'm_038e3f'",
+      "unknown memory 'm_05b1d8'",
+      "unknown memory 'm_2502f2'",
+      "unknown memory 'm_271d9c'",
+      "unknown memory 'm_142b00'",
+      "unknown memory 'm_19cadb'",
+      "unknown memory 'm_154fa4'",
+      "unknown memory 'm_22d8ee'",
+      "unknown memory 'm_019d85'",
+      "unknown memory 'm_200b1d'",
+      "unknown memory 'm_02ad50'",
+      "unknown memory 'm_00cecb'",
+      "unknown memory 'm_28ec54'",
+      "unknown memory 'm_092880'",
+      "unknown memory 'm_113390'",
+      "unknown memory 'm_18c342'",
+      "unknown memory 'm_24dbf0'",
+      "unknown memory 'm_07dfe6'",
+      "unknown memory 'm_0650c0'",
+      "unknown memory 'm_109f40'",
+      "unknown memory 'm_2379a9'",
+      "unknown memory 'm_16549f'",
+      "unknown memory 'm_232285'",
+      "unknown memory 'm_1980df'",
+      "unknown memory 'm_1231df'",
+      "unknown memory 'm_15c8b9'",
+      "unknown memory 'm_00efaf'",
+      "unknown memory 'm_25fbb4'",
+      "unknown memory 'm_06528e'",
+      "unknown memory 'm_267327'",
+      "unknown memory 'm_110da1'",
+      "unknown memory 'm_0230d2'",
+      "unknown memory 'm_2235ea'",
+      "unknown memory 'm_240131'",
+      "unknown memory 'm_203413'",
+      "unknown memory 'm_148195'",
+      "unknown memory 'm_08454e'",
+      "unknown memory 'm_2168ce'",
+      "unknown memory 'm_28228f'",
+      "unknown memory 'm_071552'",
+      "unknown memory 'm_1649bc'",
+      "unknown memory 'm_04ad97'",
+      "unknown memory 'm_10c517'",
+      "unknown memory 'm_0542f8'",
+      "unknown memory 'm_180292'",
+      "unknown memory 'm_039eee'",
+      "unknown memory 'm_2743f4'",
+      "unknown memory 'm_291f8c'",
+      "unknown memory 'm_017b3b'",
+      "unknown memory 'm_09cee9'",
+      "unknown memory 'm_173530'",
+      "unknown memory 'm_138d31'"
+     ]
+    },
+    {
+     "n": 19,
+     "BeliefGraph": {
+      "acc_all": 0.965034965034965,
+      "acc_touched": 0.9404761904761905,
+      "balanced": 0.9421487603305785,
+      "stale": 0.09090909090909091,
+      "over_invalidation": 0.024793388429752067,
+      "n_revising": 22
+     },
+     "LLM-direct": {
+      "acc_all": 0.7902097902097902,
+      "acc_touched": 0.6428571428571429,
+      "balanced": 0.6797520661157025,
+      "stale": 0.5,
+      "over_invalidation": 0.14049586776859505,
+      "n_revising": 22
+     },
+     "errors": [
+      "unknown memory 'm_03f0c0'",
+      "unknown memory 'm_15e26'"
+     ]
+    },
+    {
+     "n": 20,
+     "BeliefGraph": {
+      "acc_all": 0.965034965034965,
+      "acc_touched": 0.9431818181818182,
+      "balanced": 0.9421487603305785,
+      "stale": 0.09090909090909091,
+      "over_invalidation": 0.024793388429752067,
+      "n_revising": 22
+     },
+     "LLM-direct": {
+      "acc_all": 0.7832167832167832,
+      "acc_touched": 0.6590909090909091,
+      "balanced": 0.5454545454545454,
+      "stale": 0.8181818181818182,
+      "over_invalidation": 0.09090909090909091,
+      "n_revising": 22
+     },
+     "errors": [
+      "unknown memory 'm_081177'"
+     ]
+    },
+    {
+     "n": 21,
+     "BeliefGraph": {
+      "acc_all": 0.965034965034965,
+      "acc_touched": 0.9456521739130435,
+      "balanced": 0.9472881355932203,
+      "stale": 0.08,
+      "over_invalidation": 0.025423728813559324,
+      "n_revising": 25
+     },
+     "LLM-direct": {
+      "acc_all": 0.7762237762237763,
+      "acc_touched": 0.6739130434782609,
+      "balanced": 0.6333898305084746,
+      "stale": 0.64,
+      "over_invalidation": 0.09322033898305085,
+      "n_revising": 25
+     },
+     "errors": []
+    },
+    {
+     "n": 22,
+     "BeliefGraph": {
+      "acc_all": 0.965034965034965,
+      "acc_touched": 0.9484536082474226,
+      "balanced": 0.9472881355932203,
+      "stale": 0.08,
+      "over_invalidation": 0.025423728813559324,
+      "n_revising": 25
+     },
+     "LLM-direct": {
+      "acc_all": 0.8251748251748252,
+      "acc_touched": 0.7422680412371134,
+      "balanced": 0.7303389830508475,
+      "stale": 0.48,
+      "over_invalidation": 0.059322033898305086,
+      "n_revising": 25
+     },
+     "errors": []
+    },
+    {
+     "n": 23,
+     "BeliefGraph": {
+      "acc_all": 0.958041958041958,
+      "acc_touched": 0.9381443298969072,
+      "balanced": 0.9430508474576271,
+      "stale": 0.08,
+      "over_invalidation": 0.03389830508474576,
+      "n_revising": 25
+     },
+     "LLM-direct": {
+      "acc_all": 0.8251748251748252,
+      "acc_touched": 0.7422680412371134,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 25
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    },
+    {
+     "n": 24,
+     "BeliefGraph": {
+      "acc_all": 0.958041958041958,
+      "acc_touched": 0.9381443298969072,
+      "balanced": 0.9468944099378882,
+      "stale": 0.07142857142857142,
+      "over_invalidation": 0.034782608695652174,
+      "n_revising": 28
+     },
+     "LLM-direct": {
+      "acc_all": 0.8041958041958042,
+      "acc_touched": 0.711340206185567,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 28
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    },
+    {
+     "n": 25,
+     "BeliefGraph": {
+      "acc_all": 0.958041958041958,
+      "acc_touched": 0.9405940594059405,
+      "balanced": 0.9489675516224189,
+      "stale": 0.06666666666666667,
+      "over_invalidation": 0.035398230088495575,
+      "n_revising": 30
+     },
+     "LLM-direct": {
+      "acc_all": 0.7902097902097902,
+      "acc_touched": 0.7029702970297029,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 30
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    },
+    {
+     "n": 26,
+     "BeliefGraph": {
+      "acc_all": 0.958041958041958,
+      "acc_touched": 0.9405940594059405,
+      "balanced": 0.9489675516224189,
+      "stale": 0.06666666666666667,
+      "over_invalidation": 0.035398230088495575,
+      "n_revising": 30
+     },
+     "LLM-direct": {
+      "acc_all": 0.7902097902097902,
+      "acc_touched": 0.7029702970297029,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 30
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    },
+    {
+     "n": 27,
+     "BeliefGraph": {
+      "acc_all": 0.951048951048951,
+      "acc_touched": 0.9339622641509434,
+      "balanced": 0.9363636363636363,
+      "stale": 0.09090909090909091,
+      "over_invalidation": 0.03636363636363636,
+      "n_revising": 33
+     },
+     "LLM-direct": {
+      "acc_all": 0.7972027972027972,
+      "acc_touched": 0.7358490566037735,
+      "balanced": 0.7,
+      "stale": 0.5454545454545454,
+      "over_invalidation": 0.05454545454545454,
+      "n_revising": 33
+     },
+     "errors": [
+      "unknown memory 'm_139b24'"
+     ]
+    },
+    {
+     "n": 28,
+     "BeliefGraph": {
+      "acc_all": 0.951048951048951,
+      "acc_touched": 0.9375,
+      "balanced": 0.9363636363636363,
+      "stale": 0.09090909090909091,
+      "over_invalidation": 0.03636363636363636,
+      "n_revising": 33
+     },
+     "LLM-direct": {
+      "acc_all": 0.5174825174825175,
+      "acc_touched": 0.49107142857142855,
+      "balanced": 0.5681818181818181,
+      "stale": 0.45454545454545453,
+      "over_invalidation": 0.4090909090909091,
+      "n_revising": 33
+     },
+     "errors": [
+      "unknown memory 'm_24d6ce'",
+      "unknown memory 'm_267785'",
+      "unknown memory 'm_2502f2'",
+      "unknown memory 'm_21a38b'",
+      "unknown memory 'm_09eb78'",
+      "unknown memory 'm_090e7d'",
+      "unknown memory 'm_113390'",
+      "unknown memory 'm_13181b'",
+      "unknown memory 'm_19c34b'",
+      "unknown memory 'm_128e11'",
+      "unknown memory 'm_08756a'",
+      "unknown memory 'm_25312f'",
+      "unknown memory 'm_11fdd5'",
+      "unknown memory 'm_1577ac'",
+      "unknown memory 'm_12f453'",
+      "unknown memory 'm_21e7d1'",
+      "unknown memory 'm_15c8b9'",
+      "unknown memory 'm_267327'",
+      "unknown memory 'm_1231df'",
+      "unknown memory 'm_22a75c'",
+      "unknown memory 'm_06528e'",
+      "unknown memory 'm_262854'",
+      "unknown memory 'm_06bad7'",
+      "unknown memory 'm_07e50c'",
+      "unknown memory 'm_038e3f'",
+      "unknown memory 'm_00efaf'",
+      "unknown memory 'm_16549f'",
+      "unknown memory 'm_0542f8'",
+      "unknown memory 'm_180292'",
+      "unknown memory 'm_039eee'",
+      "unknown memory 'm_173530'",
+      "unknown memory 'm_10c517'",
+      "unknown memory 'm_25fbb4'",
+      "unknown memory 'm_203413'",
+      "unknown memory 'm_071552'",
+      "unknown memory 'm_1649bc'",
+      "unknown memory 'm_017b3b'",
+      "unknown memory 'm_28228f'",
+      "unknown memory 'm_148195'",
+      "unknown memory 'm_110da1'",
+      "unknown memory 'm_0230d2'",
+      "unknown memory 'm_240131'",
+      "unknown memory 'm_2168ce'",
+      "unknown memory 'm_09cee9'",
+      "unknown memory 'm_138d31'",
+      "unknown memory 'm_00c8d9'"
+     ]
+    },
+    {
+     "n": 29,
+     "BeliefGraph": {
+      "acc_all": 0.951048951048951,
+      "acc_touched": 0.9391304347826087,
+      "balanced": 0.9363636363636363,
+      "stale": 0.09090909090909091,
+      "over_invalidation": 0.03636363636363636,
+      "n_revising": 33
+     },
+     "LLM-direct": {
+      "acc_all": 0.7412587412587412,
+      "acc_touched": 0.6782608695652174,
+      "balanced": 0.6984848484848485,
+      "stale": 0.48484848484848486,
+      "over_invalidation": 0.11818181818181818,
+      "n_revising": 33
+     },
+     "errors": [
+      "unknown memory 'm_262854'",
+      "unknown memory 'm_2170a5'",
+      "unknown memory 'm_232f03'",
+      "unknown memory 'm_20b97e'",
+      "unknown memory 'm_0003b9'",
+      "unknown memory 'm_091abb'",
+      "unknown memory 'm_046bbd'",
+      "unknown memory 'm_11fdd5'",
+      "unknown memory 'm_24b318'",
+      "unknown memory 'm_28bd32'",
+      "unknown memory 'm_03ad4f'",
+      "unknown memory 'm_13181b'",
+      "unknown memory 'm_0842e9'",
+      "unknown memory 'm_027288'",
+      "unknown memory 'm_29578c'",
+      "unknown memory 'm_06bad7'",
+      "unknown memory 'm_016f4b'",
+      "unknown memory 'm_19e6e4'",
+      "unknown memory 'm_22a75c'",
+      "unknown memory 'm_05c062'",
+      "unknown memory 'm_07e50c'",
+      "unknown memory 'm_1083ad'",
+      "unknown memory 'm_273a37'",
+      "unknown memory 'm_173ec2'",
+      "unknown memory 'm_145638'",
+      "unknown memory 'm_121a18'",
+      "unknown memory 'm_187b3c'",
+      "unknown memory 'm_25312f'",
+      "unknown memory 'm_2957ed'",
+      "unknown memory 'm_133a85'",
+      "unknown memory 'm_2383ee'",
+      "unknown memory 'm_09eb78'",
+      "unknown memory 'm_17f842'",
+      "unknown memory 'm_014080'",
+      "unknown memory 'm_285eed'",
+      "unknown memory 'm_1577ac'",
+      "unknown memory 'm_08dfd6'",
+      "unknown memory 'm_12d453'",
+      "unknown memory 'm_2292fd'",
+      "unknown memory 'm_03f0c0'",
+      "unknown memory 'm_11f15e'",
+      "unknown memory 'm_21e7d1'",
+      "unknown memory 'm_19c34b'",
+      "unknown memory 'm_102967'",
+      "unknown memory 'm_24d6ce'",
+      "unknown memory 'm_186a14'",
+      "unknown memory 'm_26a28b'",
+      "unknown memory 'm_27a4c7'",
+      "unknown memory 'm_062579'",
+      "unknown memory 'm_14c747'",
+      "unknown memory 'm_009416'",
+      "unknown memory 'm_20aef9'",
+      "unknown memory 'm_05e594'",
+      "unknown memory 'm_18e636'",
+      "unknown memory 'm_06b830'",
+      "unknown memory 'm_253e7b'",
+      "unknown memory 'm_246a6b'",
+      "unknown memory 'm_12e597'",
+      "unknown memory 'm_11dbc0'",
+      "unknown memory 'm_269437'",
+      "unknown memory 'm_2140dc'",
+      "unknown memory 'm_00d52f'",
+      "unknown memory 'm_295cf1'",
+      "unknown memory 'm_090e7d'",
+      "unknown memory 'm_05a800'",
+      "unknown memory 'm_081177'",
+      "unknown memory 'm_2346ad'",
+      "unknown memory 'm_174df3'",
+      "unknown memory 'm_28bddf'",
+      "unknown memory 'm_156292'",
+      "unknown memory 'm_03ba0f'",
+      "unknown memory 'm_140c87'",
+      "unknown memory 'm_27759e'",
+      "unknown memory 'm_22f9a9'",
+      "unknown memory 'm_01923c'",
+      "unknown memory 'm_19ee33'",
+      "unknown memory 'm_189d52'",
+      "unknown memory 'm_00c8d9'",
+      "unknown memory 'm_172863'",
+      "unknown memory 'm_057b91'",
+      "unknown memory 'm_09410c'",
+      "unknown memory 'm_15800b'",
+      "unknown memory 'm_280f20'",
+      "unknown memory 'm_1197ce'",
+      "unknown memory 'm_128e11'",
+      "unknown memory 'm_21accf'",
+      "unknown memory 'm_22071c'",
+      "unknown memory 'm_08756a'",
+      "unknown memory 'm_2400dd'",
+      "unknown memory 'm_233da2'",
+      "unknown memory 'm_0924d0'",
+      "unknown memory 'm_284166'",
+      "unknown memory 'm_17ac94'",
+      "unknown memory 'm_12470c'",
+      "unknown memory 'm_0896ab'",
+      "unknown memory 'm_115cb8'",
+      "unknown memory 'm_18ff1'",
+      "unknown memory 'm_2368a5'",
+      "unknown memory 'm_087909'",
+      "unknown memory 'm_28daad'",
+      "unknown memory 'm_0965c5'",
+      "unknown memory 'm_08d43e'"
+     ]
+    },
+    {
+     "n": 30,
+     "BeliefGraph": {
+      "acc_all": 0.951048951048951,
+      "acc_touched": 0.9391304347826087,
+      "balanced": 0.9363636363636363,
+      "stale": 0.09090909090909091,
+      "over_invalidation": 0.03636363636363636,
+      "n_revising": 33
+     },
+     "LLM-direct": {
+      "acc_all": 0.7692307692307693,
+      "acc_touched": 0.7130434782608696,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 33
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    },
+    {
+     "n": 31,
+     "BeliefGraph": {
+      "acc_all": 0.9370629370629371,
+      "acc_touched": 0.923728813559322,
+      "balanced": 0.9182406907717215,
+      "stale": 0.11764705882352941,
+      "over_invalidation": 0.045871559633027525,
+      "n_revising": 34
+     },
+     "LLM-direct": {
+      "acc_all": 0.7622377622377622,
+      "acc_touched": 0.7203389830508474,
+      "balanced": 0.7280086346465191,
+      "stale": 0.47058823529411764,
+      "over_invalidation": 0.07339449541284404,
+      "n_revising": 34
+     },
+     "errors": []
+    },
+    {
+     "n": 32,
+     "BeliefGraph": {
+      "acc_all": 0.9300699300699301,
+      "acc_touched": 0.9152542372881356,
+      "balanced": 0.9136535348084187,
+      "stale": 0.11764705882352941,
+      "over_invalidation": 0.05504587155963303,
+      "n_revising": 34
+     },
+     "LLM-direct": {
+      "acc_all": 0.7622377622377622,
+      "acc_touched": 0.711864406779661,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 34
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    },
+    {
+     "n": 33,
+     "BeliefGraph": {
+      "acc_all": 0.9300699300699301,
+      "acc_touched": 0.9152542372881356,
+      "balanced": 0.9136535348084187,
+      "stale": 0.11764705882352941,
+      "over_invalidation": 0.05504587155963303,
+      "n_revising": 34
+     },
+     "LLM-direct": {
+      "acc_all": 0.7622377622377622,
+      "acc_touched": 0.711864406779661,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 34
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    },
+    {
+     "n": 34,
+     "BeliefGraph": {
+      "acc_all": 0.9300699300699301,
+      "acc_touched": 0.9186991869918699,
+      "balanced": 0.9136535348084187,
+      "stale": 0.11764705882352941,
+      "over_invalidation": 0.05504587155963303,
+      "n_revising": 34
+     },
+     "LLM-direct": {
+      "acc_all": 0.48951048951048953,
+      "acc_touched": 0.44715447154471544,
+      "balanced": 0.5298165137614679,
+      "stale": 0.5,
+      "over_invalidation": 0.44036697247706424,
+      "n_revising": 34
+     },
+     "errors": [
+      "unknown memory 'm_24d6ce'",
+      "unknown memory 'm_29d996'",
+      "unknown memory 'm_08454e'",
+      "unknown memory 'm_148195'",
+      "unknown memory 'm_203413'",
+      "unknown memory 'm_240131'",
+      "unknown memory 'm_2235ea'",
+      "unknown memory 'm_0230d2'",
+      "unknown memory 'm_110da1'",
+      "unknown memory 'm_267327'",
+      "unknown memory 'm_06528e'",
+      "unknown memory 'm_25fbb4'",
+      "unknown memory 'm_00efaf'",
+      "unknown memory 'm_15c8b9'",
+      "unknown memory 'm_1231df'",
+      "unknown memory 'm_1980df'",
+      "unknown memory 'm_232285'",
+      "unknown memory 'm_16549f'",
+      "unknown memory 'm_2379a9'",
+      "unknown memory 'm_109f40'",
+      "unknown memory 'm_0650c0'",
+      "unknown memory 'm_07dfe6'",
+      "unknown memory 'm_24dbf0'",
+      "unknown memory 'm_18c342'",
+      "unknown memory 'm_113390'",
+      "unknown memory 'm_092880'",
+      "unknown memory 'm_28ec54'",
+      "unknown memory 'm_00cecb'",
+      "unknown memory 'm_02ad50'",
+      "unknown memory 'm_200b1d'",
+      "unknown memory 'm_019d85'",
+      "unknown memory 'm_042481'",
+      "unknown memory 'm_22d8ee'",
+      "unknown memory 'm_154fa4'",
+      "unknown memory 'm_19cadb'",
+      "unknown memory 'm_142b00'",
+      "unknown memory 'm_12e58b'",
+      "unknown memory 'm_271d9c'",
+      "unknown memory 'm_2502f2'",
+      "unknown memory 'm_05b1d8'",
+      "unknown memory 'm_038e3f'",
+      "unknown memory 'm_21a38b'",
+      "unknown memory 'm_17b478'",
+      "unknown memory 'm_267785'",
+      "unknown memory 'm_08d8a0'",
+      "unknown memory 'm_13fea4'",
+      "unknown memory 'm_25882c'",
+      "unknown memory 'm_15b2d8'",
+      "unknown memory 'm_1601d4'",
+      "unknown memory 'm_2170a5'",
+      "unknown memory 'm_232f03'",
+      "unknown memory 'm_20b97e'",
+      "unknown memory 'm_0003b9'",
+      "unknown memory 'm_091abb'",
+      "unknown memory 'm_046bbd'",
+      "unknown memory 'm_11fdd5'",
+      "unknown memory 'm_24b318'",
+      "unknown memory 'm_28bd32'",
+      "unknown memory 'm_03ad4f'",
+      "unknown memory 'm_262854'",
+      "unknown memory 'm_13181b'",
+      "unknown memory 'm_0842e9'",
+      "unknown memory 'm_027288'",
+      "unknown memory 'm_29578c'",
+      "unknown memory 'm_06bad7'",
+      "unknown memory 'm_016f4b'",
+      "unknown memory 'm_19e6e4'",
+      "unknown memory 'm_22a75c'",
+      "unknown memory 'm_05c062'",
+      "unknown memory 'm_07e50c'",
+      "unknown memory 'm_1083ad'",
+      "unknown memory 'm_273a37'",
+      "unknown memory 'm_173ec2'",
+      "unknown memory 'm_145638'",
+      "unknown memory 'm_121a18'",
+      "unknown memory 'm_187b3c'",
+      "unknown memory 'm_25312f'",
+      "unknown memory 'm_2957ed'",
+      "unknown memory 'm_133a85'",
+      "unknown memory 'm_2383ee'",
+      "unknown memory 'm_09eb78'",
+      "unknown memory 'm_17f842'",
+      "unknown memory 'm_014080'",
+      "unknown memory 'm_285eed'",
+      "unknown memory 'm_1577ac'",
+      "unknown memory 'm_08dfd6'",
+      "unknown memory 'm_12d453'",
+      "unknown memory 'm_2292fd'",
+      "unknown memory 'm_03f0c0'",
+      "unknown memory 'm_11f15e'",
+      "unknown memory 'm_21e7d1'",
+      "unknown memory 'm_19c34b'",
+      "unknown memory 'm_102967'",
+      "unknown memory 'm_186a14'",
+      "unknown memory 'm_26a28b'",
+      "unknown memory 'm_27a4c7'",
+      "unknown memory 'm_062579'",
+      "unknown memory 'm_14c747'",
+      "unknown memory 'm_009416'",
+      "unknown memory 'm_20aef9'",
+      "unknown memory 'm_05e594'",
+      "unknown memory 'm_18e636'",
+      "unknown memory 'm_06b830'",
+      "unknown memory 'm_253e7b'",
+      "unknown memory 'm_246a6b'",
+      "unknown memory 'm_12e597'",
+      "unknown memory 'm_11dbc0'",
+      "unknown memory 'm_269437'",
+      "unknown memory 'm_2140dc'",
+      "unknown memory 'm_00d52f'",
+      "unknown memory 'm_295cf1'",
+      "unknown memory 'm_090e7d'",
+      "unknown memory 'm_05a800'",
+      "unknown memory 'm_081177'",
+      "unknown memory 'm_2346ad'",
+      "unknown memory 'm_174df3'",
+      "unknown memory 'm_28bddf'",
+      "unknown memory 'm_156292'",
+      "unknown memory 'm_03ba0f'",
+      "unknown memory 'm_140c87'",
+      "unknown memory 'm_27759e'",
+      "unknown memory 'm_22f9a9'",
+      "unknown memory 'm_01923c'",
+      "unknown memory 'm_19ee33'",
+      "unknown memory 'm_189d52'",
+      "unknown memory 'm_00c8d9'",
+      "unknown memory 'm_172863'",
+      "unknown memory 'm_057b91'",
+      "unknown memory 'm_09410c'",
+      "unknown memory 'm_15800b'",
+      "unknown memory 'm_280f20'",
+      "unknown memory 'm_1197ce'",
+      "unknown memory 'm_128e11'",
+      "unknown memory 'm_21accf'",
+      "unknown memory 'm_22071c'",
+      "unknown memory 'm_08756a'",
+      "unknown memory 'm_2400dd'",
+      "unknown memory 'm_233da2'",
+      "unknown memory 'm_0924d0'",
+      "unknown memory 'm_284166'",
+      "unknown memory 'm_17ac94'",
+      "unknown memory 'm_12470c'",
+      "unknown memory 'm_0896ab'",
+      "unknown memory 'm_115cb8'",
+      "unknown memory 'm_18bff1'",
+      "unknown memory 'm_2368a5'",
+      "unknown memory 'm_087909'",
+      "unknown memory 'm_28daad'",
+      "unknown memory 'm_0965c5'",
+      "unknown memory 'm_08d43e'"
+     ]
+    },
+    {
+     "n": 35,
+     "BeliefGraph": {
+      "acc_all": 0.9300699300699301,
+      "acc_touched": 0.921875,
+      "balanced": 0.9136535348084187,
+      "stale": 0.11764705882352941,
+      "over_invalidation": 0.05504587155963303,
+      "n_revising": 34
+     },
+     "LLM-direct": {
+      "acc_all": 0.7972027972027972,
+      "acc_touched": 0.7734375,
+      "balanced": 0.7123583378305451,
+      "stale": 0.5294117647058824,
+      "over_invalidation": 0.045871559633027525,
+      "n_revising": 34
+     },
+     "errors": []
+    },
+    {
+     "n": 36,
+     "BeliefGraph": {
+      "acc_all": 0.9300699300699301,
+      "acc_touched": 0.921875,
+      "balanced": 0.9176440591534931,
+      "stale": 0.10810810810810811,
+      "over_invalidation": 0.05660377358490566,
+      "n_revising": 37
+     },
+     "LLM-direct": {
+      "acc_all": 0.13286713286713286,
+      "acc_touched": 0.140625,
+      "balanced": 0.5053544110147884,
+      "stale": 0.02702702702702703,
+      "over_invalidation": 0.9622641509433962,
+      "n_revising": 37
+     },
+     "errors": [
+      "unknown memory 'm_21e7d1'",
+      "unknown memory 'm_03f0c0'",
+      "unknown memory 'm_12e597'",
+      "unknown memory 'm_014080'",
+      "unknown memory 'm_173ec2'",
+      "unknown memory 'm_145638'",
+      "unknown memory 'm_121a18'",
+      "unknown memory 'm_187b3c'",
+      "unknown memory 'm_25312f'",
+      "unknown memory 'm_2957ed'",
+      "unknown memory 'm_133a85'",
+      "unknown memory 'm_2383ee'",
+      "unknown memory 'm_09eb78'",
+      "unknown memory 'm_17f842'",
+      "unknown memory 'm_285eed'",
+      "unknown memory 'm_1577ac'",
+      "unknown memory 'm_08dfd6'",
+      "unknown memory 'm_12d453'",
+      "unknown memory 'm_2292fd'",
+      "unknown memory 'm_11f15e'",
+      "unknown memory 'm_19c34b'",
+      "unknown memory 'm_102967'",
+      "unknown memory 'm_24d6ce'",
+      "unknown memory 'm_186a14'",
+      "unknown memory 'm_26a28b'",
+      "unknown memory 'm_27a4c7'",
+      "unknown memory 'm_062579'",
+      "unknown memory 'm_14c747'",
+      "unknown memory 'm_009416'",
+      "unknown memory 'm_20aef9'",
+      "unknown memory 'm_05e594'",
+      "unknown memory 'm_18e636'",
+      "unknown memory 'm_06b830'",
+      "unknown memory 'm_253e7b'",
+      "unknown memory 'm_246a6b'",
+      "unknown memory 'm_11dbc0'",
+      "unknown memory 'm_269437'",
+      "unknown memory 'm_2140dc'",
+      "unknown memory 'm_00d52f'",
+      "unknown memory 'm_295cf1'",
+      "unknown memory 'm_090e7d'",
+      "unknown memory 'm_05a800'",
+      "unknown memory 'm_081177'",
+      "unknown memory 'm_2346ad'",
+      "unknown memory 'm_174df3'",
+      "unknown memory 'm_28bddf'",
+      "unknown memory 'm_156292'",
+      "unknown memory 'm_03ba0f'",
+      "unknown memory 'm_140c87'",
+      "unknown memory 'm_27759e'",
+      "unknown memory 'm_22f9a9'",
+      "unknown memory 'm_01923c'",
+      "unknown memory 'm_19ee33'",
+      "unknown memory 'm_189d52'",
+      "unknown memory 'm_00c8d9'",
+      "unknown memory 'm_172863'",
+      "unknown memory 'm_057b91'",
+      "unknown memory 'm_09410c'",
+      "unknown memory 'm_15800b'",
+      "unknown memory 'm_280f20'",
+      "unknown memory 'm_1197ce'",
+      "unknown memory 'm_128e11'",
+      "unknown memory 'm_21accf'",
+      "unknown memory 'm_22071c'",
+      "unknown memory 'm_08756a'",
+      "unknown memory 'm_2400dd'",
+      "unknown memory 'm_233da2'",
+      "unknown memory 'm_0924d0'",
+      "unknown memory 'm_284166'",
+      "unknown memory 'm_17ac94'",
+      "unknown memory 'm_12470c'",
+      "unknown memory 'm_0896ab'",
+      "unknown memory 'm_115cb8'",
+      "unknown memory 'm_18ff1'",
+      "unknown memory 'm_2368a5'",
+      "unknown memory 'm_087909'",
+      "unknown memory 'm_28daad'",
+      "unknown memory 'm_0965c5'",
+      "unknown memory 'm_08d43e'"
+     ]
+    },
+    {
+     "n": 37,
+     "BeliefGraph": {
+      "acc_all": 0.9300699300699301,
+      "acc_touched": 0.9253731343283582,
+      "balanced": 0.9176440591534931,
+      "stale": 0.10810810810810811,
+      "over_invalidation": 0.05660377358490566,
+      "n_revising": 37
+     },
+     "LLM-direct": {
+      "acc_all": 0.7412587412587412,
+      "acc_touched": 0.7238805970149254,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 37
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    },
+    {
+     "n": 38,
+     "BeliefGraph": {
+      "acc_all": 0.9300699300699301,
+      "acc_touched": 0.9253731343283582,
+      "balanced": 0.9198717948717949,
+      "stale": 0.10256410256410256,
+      "over_invalidation": 0.057692307692307696,
+      "n_revising": 39
+     },
+     "LLM-direct": {
+      "acc_all": 0.6433566433566433,
+      "acc_touched": 0.6194029850746269,
+      "balanced": 0.6602564102564102,
+      "stale": 0.48717948717948717,
+      "over_invalidation": 0.19230769230769232,
+      "n_revising": 39
+     },
+     "errors": []
+    },
+    {
+     "n": 39,
+     "BeliefGraph": {
+      "acc_all": 0.9300699300699301,
+      "acc_touched": 0.9253731343283582,
+      "balanced": 0.9198717948717949,
+      "stale": 0.10256410256410256,
+      "over_invalidation": 0.057692307692307696,
+      "n_revising": 39
+     },
+     "LLM-direct": {
+      "acc_all": 0.7272727272727273,
+      "acc_touched": 0.7164179104477612,
+      "balanced": 0.6089743589743589,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.11538461538461539,
+      "n_revising": 39
+     },
+     "errors": [
+      "unknown memory 'm_22d8ee'",
+      "unknown memory 'm_24d6ce'"
+     ]
+    },
+    {
+     "n": 40,
+     "BeliefGraph": {
+      "acc_all": 0.9300699300699301,
+      "acc_touched": 0.9253731343283582,
+      "balanced": 0.9226779820839226,
+      "stale": 0.09523809523809523,
+      "over_invalidation": 0.0594059405940594,
+      "n_revising": 42
+     },
+     "LLM-direct": {
+      "acc_all": 0.6853146853146853,
+      "acc_touched": 0.6716417910447762,
+      "balanced": 0.7004950495049505,
+      "stale": 0.5,
+      "over_invalidation": 0.09900990099009901,
+      "n_revising": 42
+     },
+     "errors": []
+    },
+    {
+     "n": 41,
+     "BeliefGraph": {
+      "acc_all": 0.9300699300699301,
+      "acc_touched": 0.9253731343283582,
+      "balanced": 0.9242424242424243,
+      "stale": 0.09090909090909091,
+      "over_invalidation": 0.06060606060606061,
+      "n_revising": 44
+     },
+     "LLM-direct": {
+      "acc_all": 0.6923076923076923,
+      "acc_touched": 0.6716417910447762,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 44
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    },
+    {
+     "n": 42,
+     "BeliefGraph": {
+      "acc_all": 0.9300699300699301,
+      "acc_touched": 0.927536231884058,
+      "balanced": 0.9242424242424243,
+      "stale": 0.09090909090909091,
+      "over_invalidation": 0.06060606060606061,
+      "n_revising": 44
+     },
+     "LLM-direct": {
+      "acc_all": 0.6923076923076923,
+      "acc_touched": 0.6811594202898551,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 44
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    },
+    {
+     "n": 43,
+     "BeliefGraph": {
+      "acc_all": 0.9370629370629371,
+      "acc_touched": 0.9370629370629371,
+      "balanced": 0.9368351063829787,
+      "stale": 0.06382978723404255,
+      "over_invalidation": 0.0625,
+      "n_revising": 47
+     },
+     "LLM-direct": {
+      "acc_all": 0.6713286713286714,
+      "acc_touched": 0.6713286713286714,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 47
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ]
+    }
+   ]
+  }
+ }
+}

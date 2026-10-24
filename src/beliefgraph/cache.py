@@ -37,3 +37,24 @@ class CachedLLM:
         path.write_text(json.dumps({"note": note, "model": getattr(self.llm, "model", ""), "response": text,
                                     "usage": usage}, indent=1, default=str))
         return text
+
+    @property
+    def supports_choice_probs(self) -> bool:
+        return bool(getattr(self.llm, "supports_choice_probs", False))
+
+    def choice_probs(self, system: str, message: str, prefill: str, labels: str, note: str = "") -> dict[str, float]:
+        """Cached ``llm.choice_probs``: stored as JSON text under the same keying scheme."""
+        mode = {False: "|no-thinking", True: "|thinking"}.get(getattr(self.llm, "thinking", None), "")
+        key = hashlib.sha256(f"{_KEY_PREFIX}|{getattr(self.llm, 'model', '')}{mode}|probs|{system}|{message}|{prefill}"
+                             .encode()).hexdigest()[:16]
+        path = self.raw_dir / f"{note.replace(' ', '.')}.{key}.json"
+        if path.exists():
+            return json.loads(json.loads(path.read_text())["response"])
+        t0 = time.monotonic()
+        probs = self.llm.choice_probs(system, message, prefill, labels, note)
+        self.calls += 1
+        usage = dict(self.llm.usage[-1]) if getattr(self.llm, "usage", None) else {}
+        usage["seconds"] = round(time.monotonic() - t0, 2)
+        path.write_text(json.dumps({"note": note, "model": getattr(self.llm, "model", ""), "response": json.dumps(probs),
+                                    "usage": usage}, indent=1))
+        return probs

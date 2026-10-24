@@ -219,3 +219,8 @@ conditions that must ALL hold. A rule with no "or" has one alternative.
 OUTPUT: a single JSON object, no prose:
 {"then": "<span of the rule>", "if": [["<span>", "<span>"], ["<span>"]]}
 """
+
+# v0.8: routing read from token probabilities. Candidates are lettered and the answer is
+# prefilled up to the letter, so one forward pass gives a distribution over all candidates.
+ROUTE_LETTER_PROMPT = ROUTE_PROMPT.replace('{"policy": <number or null>}', '{"policy": "<letter>"}').replace(
+    "Decide which numbered policy it is. Answer null if none of them is.", "Decide which lettered policy it is.")

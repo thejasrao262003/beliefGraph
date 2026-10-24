@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 ground.m_042075",
+ "model": "gemma-4-12b-it",
+ "response": "```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"operates a minimum fleet size of 10 aircraft\",\n          \"item\": null\n        },\n        {\n          \"condition\": \"maintains valid ISO 9001 certification\",\n          \"item\": null\n        },\n        {\n          \"condition\": \"moves at least 40000 passengers annually\",\n          \"item\": null\n        },\n        {\n          \"condition\": \"possesses an FAA Air Carrier Certificate\",\n          \"item\": \"e_04ad97\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n*Self-Correction/Refinement:* The policy is an OR of four conditions.\n1. Fleet size >= 10 (No candidate for AeroLuxe).\n2. ISO 9001 (No candidate for AeroLuxe).\n3. 40,000 passengers (No candidate for AeroLuxe).\n4. FAA Air Carrier Certificate (e_04ad97: \"AeroLuxe Charters holds an active FAA Part 135 certificate\"). Note: Part 135 is the standard for charter operations, and in the absence of a specific \"Air Carrier Certificate\" (Part 121) but given the memory is \"authorized for corporate VIP charter\", this is the only relevant link.\n\nWait, the prompt asks to split the policy into alternatives.\nAlternative 1: Fleet >= 10 AND ISO 9001 AND Passengers >= 40000\nAlternative 2: FAA Air Carrier Certificate\n\nLooking at candidates:\ne_04ad97: \"AeroLuxe Charters holds an active FAA Part 135 certificate.\"\n\nSince the policy says \"possesses an FAA Air Carrier Certificate\", and e_04ad97 is the closest match for the entity AeroLuxe, I will group the items. Because it's an OR, if any one of the conditions is met, the memory is justified.\n\nThe logical structure of the policy is:\n(Fleet >= 10 AND ISO 9001 AND Passengers >= 40000) OR (FAA Air Carrier Certificate)\n\nApplying the requirements to AeroLuxe:\n1. Fleet: null\n2. ISO: null\n3. Passengers: null\n4. FAA Certificate: e_04ad97\n\nTherefore, the second alternative (FAA Certificate) is the one satisfied.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"possesses an FAA Air Carrier Certificate\",\n          \"item\": \"e_04ad97\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "store30_0 ground.m_042075",
+  "model": "gemma-4-12b-it",
+  "input_tokens": 1091,
+  "output_tokens": 619,
+  "seconds": 28.19
+ }
+}

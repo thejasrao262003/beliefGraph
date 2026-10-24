@@ -649,3 +649,40 @@ def test_load_json_closes_brackets_left_open():
 
     assert _load_json('```json\n{"then": "x", "if": [["a"]}\n```') == {"then": "x", "if": [["a"]]}
     assert _load_json('{"a": [1, {"b": "c]"}') == {"a": [1, {"b": "c]"}]}
+
+
+def test_v08_joint_assignment_resolves_a_shared_favourite():
+    from beliefgraph.core import _assign_by_entity
+
+    dists = {"m_a": {"p_1": 0.6, "p_2": 0.4}, "m_b": {"p_1": 0.9, "p_2": 0.1},
+             "m_z": {"p_1": 0.8, "p_2": 0.2}}  # another entity: keeps its own favourite
+    texts = {"m_a": "Acme holds dispatch rights.", "m_b": "Acme is selected for the contract.",
+             "m_z": "Zenco holds dispatch rights."}
+    assert _assign_by_entity(dists, texts) == {"m_a": "p_2", "m_b": "p_1", "m_z": "p_1"}
+
+
+def test_v08_assign_mode_routes_with_choice_probs(tfidf):
+    from beliefgraph.core import DecomposedBeliefGraph
+    from beliefgraph.prompts import GROUND_PROMPT, ROUTE_LETTER_PROMPT
+
+    class ProbLLM:
+        supports_choice_probs = True
+
+        def __call__(self, system, message, note=""):
+            body = json.loads(message)
+            if system == GROUND_PROMPT:
+                ids = {c["text"]: c["id"] for c in body["candidates"]}
+                if "trucks" in body["policy"]:
+                    return json.dumps({"groups": [[ids["Acme has 15 trucks."]], [ids["Acme holds ISO 9001."]]]})
+                m1 = next(c["id"] for c in body["candidates"] if c["id"].startswith("m_"))
+                return json.dumps({"groups": [[ids["Acme logged 0 incidents."], m1]]})
+            return json.dumps({"reliability": {}})
+
+        def choice_probs(self, system, message, prefill, labels, note=""):
+            assert system == ROUTE_LETTER_PROMPT and prefill == '{"policy": "'
+            body = json.loads(message)
+            want = "trucks" if "approved carrier" in body["memory"] else "Contracts"
+            return {k: (0.9 if want in t else 0.1) for k, t in body["policies"].items()}
+
+    g = DecomposedBeliefGraph(ProbLLM(), workers=1, samples=1, route_mode="assign").build(VIEW)
+    assert g.justifications == {"m_1": [["e_1"], ["e_2"]], "m_2": [["e_3", "m_1"]]}
