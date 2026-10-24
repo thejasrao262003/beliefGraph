@@ -1,0 +1,1087 @@
+{
+ "scenario": "F7-015",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.B1": "record_window_not_in_policy 'quarter'",
+  "conditions.B1": "record_window_not_in_policy 'quarter'",
+  "facts.E2": "record_window_not_in_policy 'quarter'",
+  "nodes.E2.text": "record_window_not_in_policy 'quarter'",
+  "nodes.E2.source": "record_window_not_in_policy 'quarter'",
+  "policies.B5": "record_window_not_in_policy 'quarter'",
+  "conditions.B5": "record_window_not_in_policy 'quarter'",
+  "facts.E8": "record_window_not_in_policy 'quarter'; record_window_not_in_policy 'quarter'",
+  "nodes.E8.text": "record_window_not_in_policy 'quarter'; record_window_not_in_policy 'quarter'",
+  "nodes.E8.source": "record_window_not_in_policy 'quarter'; record_window_not_in_policy 'quarter'",
+  "policies.B6": "record_window_not_in_policy 'quarter'",
+  "conditions.B6": "record_window_not_in_policy 'quarter'",
+  "facts.U5": "update_kind_mismatch 'credential -> number'; update_quantity_mismatch 'SOC 2 Type II compliance certificate -> order delivery rate'; update_unit_mismatch 'None -> %'",
+  "updates.U5.text": "update_kind_mismatch 'credential -> number'; update_quantity_mismatch 'SOC 2 Type II compliance certificate -> order delivery rate'; update_unit_mismatch 'None -> %'",
+  "updates.U5.source": "update_kind_mismatch 'credential -> number'; update_quantity_mismatch 'SOC 2 Type II compliance certificate -> order delivery rate'; update_unit_mismatch 'None -> %'",
+  "facts.E1": "update_kind_mismatch 'credential -> number'; update_quantity_mismatch 'SOC 2 Type II compliance certificate -> order delivery rate'; update_unit_mismatch 'None -> %'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B1\": [\n   {\n    \"premise\": \"E1\",\n    \"kind\": \"credential\",\n    \"entity\": \"Apex Supplies\",\n    \"relation\": null,\n    \"quantity\": \"SOC 2 Type II compliance certificate\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E2\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Supplies\",\n    \"relation\": null,\n    \"quantity\": \"order delivery rate\",\n    \"comparator\": \">=\",\n    \"threshold\": 90,\n    \"unit\": \"%\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E3\",\n    \"kind\": \"credential\",\n    \"entity\": \"Apex Supplies\",\n    \"relation\": null,\n    \"quantity\": \"ISO 27001 certification\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"conditions.B5\": [\n   {\n    \"premise\": \"E8\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Supplies\",\n    \"relation\": null,\n    \"quantity\": \"shipping defect rate\",\n    \"comparator\": \"<=\",\n    \"threshold\": 2.0,\n    \"unit\": \"%\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"conditions.B6\": [\n   {\n    \"premise\": \"E4\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Supplies\",\n    \"relation\": null,\n    \"quantity\": \"gross annual revenue\",\n    \"comparator\": \">=\",\n    \"threshold\": 3000000,\n    \"unit\": \"USD\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E8\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Supplies\",\n    \"relation\": null,\n    \"quantity\": \"shipping defect rate\",\n    \"comparator\": \"<=\",\n    \"threshold\": 2.0,\n    \"unit\": \"%\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E1\": {\n   \"entity\": \"Apex Supplies\",\n   \"kind\": \"credential\",\n   \"quantity\": \"SOC 2 Type II compliance certificate\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"facts.E2\": {\n   \"entity\": \"Apex Supplies\",\n   \"kind\": \"number\",\n   \"quantity\": \"order delivery rate\",\n   \"value\": 95,\n   \"unit\": \"%\",\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"facts.E8\": {\n   \"entity\": \"Apex Supplies\",\n   \"kind\": \"number\",\n   \"quantity\": \"shipping defect rate\",\n   \"value\": 1.2,\n   \"unit\": \"%\",\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"facts.U5\": {\n   \"entity\": \"Apex Supplies\",\n   \"kind\": \"credential\",\n   \"quantity\": \"SOC 2 Type II compliance certificate\",\n   \"value\": false,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E2.source\": \"Internal vendor performance record\",\n  \"nodes.E2.text\": \"Apex Supplies maintained an order delivery rate of 95%.\",\n  \"nodes.E8.source\": \"Logistics quality evaluation report\",\n  \"nodes.E8.text\": \"Apex Supplies recorded a shipping defect rate of 1.2%.\",\n  \"policies.B1\": \"A supplier reaches fundamental technical validation if they hold an active SOC 2 Type II compliance certificate alongside an order delivery rate of at least 90%, or if they possess a valid ISO 27001 certification.\",\n  \"policies.B5\": \"A firm shows superior dispatch accuracy if its shipping defect rate does not exceed 2.0%.\",\n  \"policies.B6\": \"A business attains minimal exposure classification provided its yearly turnover reaches 3,000,000 USD or above and its shipping defect rate stays at or below 2.0%.\",\n  \"updates.U5.source\": \"Official compliance registry update\",\n  \"updates.U5.text\": \"Apex Supplies had its SOC 2 Type II compliance certificate revoked.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 14337,
+   "output_tokens": 6954,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 14337,
+    "completion_tokens": 6954
+   }
+  },
+  "est_usd": 0.11049075,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.B1[1].window",
+  "conditions.B5[0].window",
+  "conditions.B6[1].window",
+  "facts.E2.window",
+  "facts.E8.window",
+  "facts.U5.kind",
+  "facts.U5.quantity",
+  "facts.U5.unit",
+  "facts.U5.value",
+  "facts.U5.window",
+  "nodes.E2.text",
+  "nodes.E8.text",
+  "policies.B1",
+  "policies.B5",
+  "policies.B6",
+  "updates.U5.source",
+  "updates.U5.text"
+ ],
+ "merged": {
+  "world": "Commercial vendor procurement evaluations for contract qualification and supplier onboarding across corporate divisions.",
+  "nodes": {
+   "E1": {
+    "text": "Apex Supplies holds an active SOC 2 Type II compliance certificate.",
+    "source": "Official audit registry entry"
+   },
+   "E2": {
+    "text": "Apex Supplies maintained an order delivery rate of 95%.",
+    "source": "Internal vendor performance record"
+   },
+   "E3": {
+    "text": "Apex Supplies holds a valid ISO 27001 certification.",
+    "source": "Certification board database report"
+   },
+   "E4": {
+    "text": "Apex Supplies earned a gross annual revenue of 5,000,000 USD this year.",
+    "source": "Signed financial statement"
+   },
+   "E5": {
+    "text": "Apex Supplies holds a commercial credit rating score of 820.",
+    "source": "Credit agency summary note"
+   },
+   "E6": {
+    "text": "Apex Supplies employs 15 full-time customer service specialists.",
+    "source": "HR department staffing record"
+   },
+   "E7": {
+    "text": "Apex Supplies provides a product warranty duration of 36 months.",
+    "source": "Standard service contract document"
+   },
+   "E8": {
+    "text": "Apex Supplies recorded a shipping defect rate of 1.2%.",
+    "source": "Logistics quality evaluation report"
+   },
+   "E9": {
+    "text": "Apex Supplies has maintained continuous operation of 8 years.",
+    "source": "State corporate filing"
+   },
+   "E10": {
+    "text": "Apex Supplies assigns 4 dedicated account managers to corporate accounts.",
+    "source": "Client management roster"
+   },
+   "E11": {
+    "text": "Apex Supplies completed 12 sustainability audits this year.",
+    "source": "Environmental compliance report"
+   },
+   "E12": {
+    "text": "Apex Supplies maintains an active workforce of 150 employees.",
+    "source": "Verified payroll statement"
+   },
+   "E13": {
+    "text": "Apex Supplies carries general commercial liability coverage of 10,000,000 USD.",
+    "source": "Insurance policy certificate"
+   },
+   "E14": {
+    "text": "Apex Supplies offers a standard payment term of 60 days.",
+    "source": "Vendor onboarding agreement memo"
+   },
+   "E15": {
+    "text": "Orion Security holds an active ISO 9001 certification.",
+    "source": "Official certification directory"
+   },
+   "E16": {
+    "text": "Zenith Software earned a gross annual revenue of 8,000,000 USD this year.",
+    "source": "Audited financial disclosure"
+   },
+   "E17": {
+    "text": "Beacon Freight maintains an active workforce of 200 employees.",
+    "source": "Department of labor portal"
+   },
+   "E18": {
+    "text": "Crestview Foods holds a commercial credit rating score of 750.",
+    "source": "Credit rating agency document"
+   },
+   "B1": {
+    "text": "Apex Supplies meets basic technical verification standards."
+   },
+   "B2": {
+    "text": "Apex Supplies qualifies as a vetted vendor."
+   },
+   "D1": {
+    "text": "Apex Supplies is added to the preferred supplier directory."
+   },
+   "B3": {
+    "text": "Apex Supplies satisfies high-tier enterprise benchmark requirements."
+   },
+   "B4": {
+    "text": "Apex Supplies maintains full operational support capacity."
+   },
+   "D2": {
+    "text": "Apex Supplies is awarded the primary logistics contract."
+   },
+   "B5": {
+    "text": "Apex Supplies demonstrates exemplary shipping precision."
+   },
+   "D3": {
+    "text": "Apex Supplies receives the quarterly fulfillment excellence bonus."
+   },
+   "B6": {
+    "text": "Apex Supplies achieves low-risk vendor status."
+   },
+   "B7": {
+    "text": "Apex Supplies is eligible for long-term strategic partnership."
+   },
+   "D4": {
+    "text": "Apex Supplies receives a five-year master service agreement."
+   },
+   "B8": {
+    "text": "Apex Supplies satisfies standard financial stability criteria."
+   },
+   "B9": {
+    "text": "Apex Supplies is approved for direct purchasing."
+   },
+   "D5": {
+    "text": "Apex Supplies receives an expedited purchasing account."
+   },
+   "B10": {
+    "text": "Apex Supplies meets complete corporate risk compliance."
+   },
+   "D6": {
+    "text": "Apex Supplies is issued an unmonitored vendor pass."
+   },
+   "B11": {
+    "text": "Apex Supplies offers favorable commercial billing terms."
+   },
+   "B12": {
+    "text": "Apex Supplies qualifies for enterprise account integration."
+   },
+   "D7": {
+    "text": "Apex Supplies is selected for automated ERP connection."
+   },
+   "B13": {
+    "text": "Orion Security meets quality assurance criteria."
+   },
+   "B14": {
+    "text": "Zenith Software satisfies minimum revenue requirements."
+   },
+   "B15": {
+    "text": "Beacon Freight meets minimum staffing levels."
+   },
+   "B16": {
+    "text": "Crestview Foods satisfies corporate credit thresholds."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Apex Supplies achieved an order delivery rate of 80% during the last quarter.",
+    "source": "Corrected quarterly operations memo"
+   },
+   "U2": {
+    "text": "An interim audit memo questions whether Apex Supplies maintains its commercial credit rating score of 820.",
+    "source": "Updated credit bureau review note"
+   },
+   "U3": {
+    "text": "Apex Supplies does not have a shipping defect rate of 1.2% during the last quarter.",
+    "source": "Official audit revocation notice"
+   },
+   "U4": {
+    "text": "Apex Supplies provides a product warranty duration of 12 months.",
+    "source": "Revised warranty schedule document"
+   },
+   "U5": {
+    "text": "Apex Supplies had its SOC 2 Type II compliance certificate revoked.",
+    "source": "Official compliance registry update"
+   },
+   "U6": {
+    "text": "Apex Supplies did not complete 12 sustainability audits this year.",
+    "source": "Auditing agency retraction memo"
+   }
+  },
+  "policies": {
+   "B1": "A supplier reaches fundamental technical validation if they hold an active SOC 2 Type II compliance certificate alongside an order delivery rate of at least 90%, or if they possess a valid ISO 27001 certification.",
+   "B2": "A commercial entity achieves approved merchant status when the candidate reaches fundamental technical validation.",
+   "D1": "Placement on the priority merchant roster is granted to any enterprise that achieves approved merchant status.",
+   "B3": "A provider fulfils top-tier institutional criteria provided their yearly turnover equals at least 4,000,000 USD, their commercial credit rating score reaches 750 or higher, and they maintain a valid ISO 27001 certification.",
+   "B4": "A contractor exhibits complete service handling capability when fulfilling top-tier institutional criteria while employing a minimum of 10 full-time customer service specialists.",
+   "D2": "An organization receives principal distribution rights if it exhibits complete service handling capability and features a product warranty duration of 24 months or more.",
+   "B5": "A firm shows superior dispatch accuracy if its shipping defect rate does not exceed 2.0%.",
+   "D3": "Disbursement of a performance payout is authorized for any partner showing superior dispatch accuracy.",
+   "B6": "A business attains minimal exposure classification provided its yearly turnover reaches 3,000,000 USD or above and its shipping defect rate stays at or below 2.0%.",
+   "B7": "Commercial partners qualify for extended collaboration if they attain minimal exposure classification and demonstrate continuous operation of 5 years or longer.",
+   "D4": "Execution of an extended service pact requires that a candidate qualifies for extended collaboration while providing at least 3 dedicated account managers.",
+   "B8": "A seller meets basic solvency benchmarks either by completing at least 5 sustainability audits within a year, by maintaining a commercial credit rating score of at least 700, or by showing gross annual revenue of 2,000,000 USD or higher.",
+   "B9": "Clearance for immediate requisitioning is granted to a vendor that meets basic solvency benchmarks and has secured placement on the priority merchant roster.",
+   "D5": "Activation of a fast-track ordering portal is granted to a supplier with clearance for immediate requisitioning that maintains an active workforce of at least 100 employees.",
+   "B10": "A seller fulfills comprehensive risk protocols provided it holds a valid ISO 27001 certification and maintains general commercial liability coverage of 5,000,000 USD or more.",
+   "D6": "Granting of unescorted facility privileges requires that a candidate fulfills comprehensive risk protocols.",
+   "B11": "A provider presents advantageous invoicing terms when its standard payment term is at least 45 days.",
+   "B12": "A corporate partner is eligible for system connectivity if it presents advantageous invoicing terms and holds an activated fast-track ordering portal.",
+   "D7": "Implementation of direct software synchronization is approved for any entity eligible for system connectivity.",
+   "B13": "A firm satisfies quality control standards when holding an active ISO 9001 certification.",
+   "B14": "A vendor clears basic earnings thresholds if its gross annual revenue reaches 5,000,000 USD or more.",
+   "B15": "A transport provider satisfies labor volume metrics when maintaining an active workforce of 100 employees or more.",
+   "B16": "A distributor reaches financial trustworthiness benchmarks if its commercial credit rating score is 700 or higher."
+  },
+  "decoy_policies": [
+   "A manufacturing plant obtains green operation status if its annual carbon offset volume reaches 5,000 metric tons.",
+   "A maritime fleet earns express passage privileges when maintaining an average vessel speed of 20 knots over a month."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "holds",
+   "D1": "holds",
+   "B3": "undetermined",
+   "B4": "undetermined",
+   "D2": "undetermined",
+   "B5": "fails",
+   "D3": "fails",
+   "B6": "fails",
+   "B7": "fails",
+   "D4": "fails",
+   "B8": "holds",
+   "B9": "holds",
+   "D5": "holds",
+   "B10": "holds",
+   "D6": "holds",
+   "B11": "holds",
+   "B12": "holds",
+   "D7": "holds",
+   "B13": "holds",
+   "B14": "holds",
+   "B15": "holds",
+   "B16": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Apex Supplies",
+    "kind": "credential",
+    "quantity": "SOC 2 Type II compliance certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "order delivery rate",
+    "value": 95,
+    "unit": "%",
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Apex Supplies",
+    "kind": "credential",
+    "quantity": "ISO 27001 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "gross annual revenue",
+    "value": 5000000,
+    "unit": "USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "commercial credit rating score",
+    "value": 820,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "full-time customer service specialists",
+    "value": 15,
+    "unit": "people",
+    "window": "none",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "product warranty duration",
+    "value": 36,
+    "unit": "months",
+    "window": "none",
+    "scope": "none"
+   },
+   "E8": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "shipping defect rate",
+    "value": 1.2,
+    "unit": "%",
+    "window": "none",
+    "scope": "none"
+   },
+   "E9": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "continuous operation",
+    "value": 8,
+    "unit": "years",
+    "window": "none",
+    "scope": "none"
+   },
+   "E10": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "dedicated account managers",
+    "value": 4,
+    "unit": "people",
+    "window": "none",
+    "scope": "none"
+   },
+   "E11": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "sustainability audits",
+    "value": 12,
+    "unit": "audits",
+    "window": "year",
+    "scope": "none"
+   },
+   "E12": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "active workforce",
+    "value": 150,
+    "unit": "employees",
+    "window": "none",
+    "scope": "none"
+   },
+   "E13": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "general commercial liability coverage",
+    "value": 10000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E14": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "standard payment term",
+    "value": 60,
+    "unit": "days",
+    "window": "none",
+    "scope": "none"
+   },
+   "E15": {
+    "entity": "Orion Security",
+    "kind": "credential",
+    "quantity": "ISO 9001 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E16": {
+    "entity": "Zenith Software",
+    "kind": "number",
+    "quantity": "gross annual revenue",
+    "value": 8000000,
+    "unit": "USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "E17": {
+    "entity": "Beacon Freight",
+    "kind": "number",
+    "quantity": "active workforce",
+    "value": 200,
+    "unit": "employees",
+    "window": "none",
+    "scope": "none"
+   },
+   "E18": {
+    "entity": "Crestview Foods",
+    "kind": "number",
+    "quantity": "commercial credit rating score",
+    "value": 750,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "order delivery rate",
+    "value": 80,
+    "unit": "%",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "U2": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "commercial credit rating score",
+    "value": null,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "U3": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "shipping defect rate",
+    "value": null,
+    "unit": "%",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "U4": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "product warranty duration",
+    "value": 12,
+    "unit": "months",
+    "window": "none",
+    "scope": "none"
+   },
+   "U5": {
+    "entity": "Apex Supplies",
+    "kind": "credential",
+    "quantity": "SOC 2 Type II compliance certificate",
+    "value": false,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U6": {
+    "entity": "Apex Supplies",
+    "kind": "number",
+    "quantity": "sustainability audits",
+    "value": null,
+    "unit": "audits",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "credential",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "SOC 2 Type II compliance certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "order delivery rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "%",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "ISO 27001 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "meets basic technical verification standards",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "qualifies as a vetted vendor",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "gross annual revenue",
+     "comparator": ">=",
+     "threshold": 4000000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "commercial credit rating score",
+     "comparator": ">=",
+     "threshold": 750,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "ISO 27001 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "satisfies high-tier enterprise benchmark requirements",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "full-time customer service specialists",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "people",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D2": [
+    {
+     "premise": "B4",
+     "kind": "conclusion",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "maintains full operational support capacity",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "product warranty duration",
+     "comparator": ">=",
+     "threshold": 24,
+     "unit": "months",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E8",
+     "kind": "number",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "shipping defect rate",
+     "comparator": "<=",
+     "threshold": 2.0,
+     "unit": "%",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D3": [
+    {
+     "premise": "B5",
+     "kind": "conclusion",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "demonstrates exemplary shipping precision",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "gross annual revenue",
+     "comparator": ">=",
+     "threshold": 3000000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E8",
+     "kind": "number",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "shipping defect rate",
+     "comparator": "<=",
+     "threshold": 2.0,
+     "unit": "%",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B7": [
+    {
+     "premise": "B6",
+     "kind": "conclusion",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "achieves low-risk vendor status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E9",
+     "kind": "number",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "continuous operation",
+     "comparator": ">=",
+     "threshold": 5,
+     "unit": "years",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D4": [
+    {
+     "premise": "B7",
+     "kind": "conclusion",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "is eligible for long-term strategic partnership",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E10",
+     "kind": "number",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "dedicated account managers",
+     "comparator": ">=",
+     "threshold": 3,
+     "unit": "people",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B8": [
+    {
+     "premise": "E11",
+     "kind": "number",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "sustainability audits",
+     "comparator": ">=",
+     "threshold": 5,
+     "unit": "audits",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "commercial credit rating score",
+     "comparator": ">=",
+     "threshold": 700,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "gross annual revenue",
+     "comparator": ">=",
+     "threshold": 2000000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B9": [
+    {
+     "premise": "B8",
+     "kind": "conclusion",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "satisfies standard financial stability criteria",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "D1",
+     "kind": "conclusion",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "is added to the preferred supplier directory",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D5": [
+    {
+     "premise": "B9",
+     "kind": "conclusion",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "is approved for direct purchasing",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E12",
+     "kind": "number",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "active workforce",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "employees",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B10": [
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "ISO 27001 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E13",
+     "kind": "number",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "general commercial liability coverage",
+     "comparator": ">=",
+     "threshold": 5000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D6": [
+    {
+     "premise": "B10",
+     "kind": "conclusion",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "meets complete corporate risk compliance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B11": [
+    {
+     "premise": "E14",
+     "kind": "number",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "standard payment term",
+     "comparator": ">=",
+     "threshold": 45,
+     "unit": "days",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B12": [
+    {
+     "premise": "B11",
+     "kind": "conclusion",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "offers favorable commercial billing terms",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "D5",
+     "kind": "conclusion",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "receives an expedited purchasing account",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D7": [
+    {
+     "premise": "B12",
+     "kind": "conclusion",
+     "entity": "Apex Supplies",
+     "relation": null,
+     "quantity": "qualifies for enterprise account integration",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B13": [
+    {
+     "premise": "E15",
+     "kind": "credential",
+     "entity": "Orion Security",
+     "relation": null,
+     "quantity": "ISO 9001 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B14": [
+    {
+     "premise": "E16",
+     "kind": "number",
+     "entity": "Zenith Software",
+     "relation": null,
+     "quantity": "gross annual revenue",
+     "comparator": ">=",
+     "threshold": 5000000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B15": [
+    {
+     "premise": "E17",
+     "kind": "number",
+     "entity": "Beacon Freight",
+     "relation": null,
+     "quantity": "active workforce",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "employees",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B16": [
+    {
+     "premise": "E18",
+     "kind": "number",
+     "entity": "Crestview Foods",
+     "relation": null,
+     "quantity": "commercial credit rating score",
+     "comparator": ">=",
+     "threshold": 700,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Apex Supplies holds an active SOC 2 Type II compliance certificate and an order delivery rate of 95% during the last quarter, satisfying the required 90% threshold.",
+    "Apex Supplies holds a valid ISO 27001 certification, which independently fulfills technical validation."
+   ],
+   "B2": [
+    "Apex Supplies meets basic technical verification standards, thereby achieving approved merchant status."
+   ],
+   "D1": [
+    "Apex Supplies qualifies as a vetted vendor, granting placement on the priority merchant roster."
+   ],
+   "B3": [
+    "Apex Supplies generated 5,000,000 USD in gross annual revenue (exceeding 4,000,000 USD), holds a credit rating of 820 (exceeding 750), and maintains a valid ISO 27001 certification."
+   ],
+   "B4": [
+    "Apex Supplies satisfies high-tier enterprise benchmark requirements and employs 15 full-time customer service specialists (exceeding 10)."
+   ],
+   "D2": [
+    "Apex Supplies maintains full operational support capacity and provides a product warranty duration of 36 months (exceeding 24 months)."
+   ],
+   "B5": [
+    "Apex Supplies recorded a shipping defect rate of 1.2% over the quarter, remaining well below the 2.0% threshold."
+   ],
+   "D3": [
+    "Apex Supplies demonstrates exemplary shipping precision, authorizing disbursement of the performance payout."
+   ],
+   "B6": [
+    "Apex Supplies earned 5,000,000 USD in gross annual revenue (exceeding 3,000,000 USD) and maintained a shipping defect rate of 1.2% (below 2.0%)."
+   ],
+   "B7": [
+    "Apex Supplies achieves low-risk vendor status and has maintained continuous operation for 8 years (exceeding 5 years)."
+   ],
+   "D4": [
+    "Apex Supplies is eligible for long-term strategic partnership and assigns 4 dedicated account managers (exceeding 3)."
+   ],
+   "B8": [
+    "Apex Supplies completed 12 sustainability audits this year, meeting the requirement of 5 or more.",
+    "Apex Supplies holds a credit rating score of 820, satisfying the 700 threshold.",
+    "Apex Supplies generated 5,000,000 USD in gross annual revenue, surpassing the 2,000,000 USD requirement."
+   ],
+   "B9": [
+    "Apex Supplies satisfies standard financial stability criteria and is added to the preferred supplier directory."
+   ],
+   "D5": [
+    "Apex Supplies is approved for direct purchasing and maintains an active workforce of 150 employees (exceeding 100)."
+   ],
+   "B10": [
+    "Apex Supplies holds a valid ISO 27001 certification and general commercial liability coverage of 10,000,000 USD (exceeding 5,000,000 USD)."
+   ],
+   "D6": [
+    "Apex Supplies meets complete corporate risk compliance, qualifying for unescorted facility privileges."
+   ],
+   "B11": [
+    "Apex Supplies offers a standard payment term of 60 days, which exceeds the required 45 days."
+   ],
+   "B12": [
+    "Apex Supplies offers favorable commercial billing terms and receives an expedited purchasing account."
+   ],
+   "D7": [
+    "Apex Supplies qualifies for enterprise account integration, approving implementation of direct software synchronization."
+   ],
+   "B13": [
+    "Orion Security holds an active ISO 9001 certification, satisfying quality control standards."
+   ],
+   "B14": [
+    "Zenith Software earned 8,000,000 USD in gross annual revenue, exceeding the 5,000,000 USD threshold."
+   ],
+   "B15": [
+    "Beacon Freight maintains an active workforce of 200 employees, meeting the 100 minimum threshold."
+   ],
+   "B16": [
+    "Crestview Foods holds a credit rating score of 750, exceeding the 700 benchmark."
+   ]
+  }
+ }
+}

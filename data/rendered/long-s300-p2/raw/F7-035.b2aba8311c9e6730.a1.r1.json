@@ -1,0 +1,933 @@
+{
+ "scenario": "F7-035",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.B4": "policy_echoes_memory 'approved for institutional' (a policy may not share a 3-word phrase with any memory)",
+  "decoy_policies[1]": "decoy_shares_memory_word 'clearance' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)",
+  "decoy_policies[0]": "decoy_shares_memory_word 'complete' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)",
+  "policies.B6": "record_window_not_in_policy 'year'",
+  "conditions.B6": "record_window_not_in_policy 'year'",
+  "facts.E6": "record_window_not_in_policy 'year'",
+  "nodes.E6.text": "record_window_not_in_policy 'year'",
+  "nodes.E6.source": "record_window_not_in_policy 'year'",
+  "policies.B8": "record_window_not_in_policy 'year'",
+  "conditions.B8": "record_window_not_in_policy 'year'",
+  "facts.E7": "record_window_not_in_policy 'year'",
+  "nodes.E7.text": "record_window_not_in_policy 'year'",
+  "nodes.E7.source": "record_window_not_in_policy 'year'",
+  "policies.B9": "record_window_not_in_policy 'year'; record_window_not_in_policy 'year'",
+  "conditions.B9": "record_window_not_in_policy 'year'; record_window_not_in_policy 'year'",
+  "facts.E9": "record_window_not_in_policy 'year'",
+  "nodes.E9.text": "record_window_not_in_policy 'year'",
+  "nodes.E9.source": "record_window_not_in_policy 'year'",
+  "facts.E10": "record_window_not_in_policy 'year'",
+  "nodes.E10.text": "record_window_not_in_policy 'year'",
+  "nodes.E10.source": "record_window_not_in_policy 'year'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B6\": [\n   {\n    \"premise\": \"E6\",\n    \"kind\": \"credential\",\n    \"entity\": \"Apex Capital Management\",\n    \"relation\": null,\n    \"quantity\": \"third-party risk review\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"conditions.B8\": [\n   {\n    \"premise\": \"B7\",\n    \"kind\": \"conclusion\",\n    \"entity\": \"Apex Capital Management\",\n    \"relation\": null,\n    \"quantity\": null,\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E7\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Capital Management\",\n    \"relation\": null,\n    \"quantity\": \"staff compliance training rate\",\n    \"comparator\": \">=\",\n    \"threshold\": 90,\n    \"unit\": \"%\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"conditions.B9\": [\n   {\n    \"premise\": \"E5\",\n    \"kind\": \"credential\",\n    \"entity\": \"Apex Capital Management\",\n    \"relation\": null,\n    \"quantity\": \"Anti-Money Laundering compliance certification\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E9\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Capital Management\",\n    \"relation\": null,\n    \"quantity\": \"regulatory fines\",\n    \"comparator\": \"<=\",\n    \"threshold\": 1,\n    \"unit\": \"fines\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E10\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Capital Management\",\n    \"relation\": null,\n    \"quantity\": \"internal audit inspections\",\n    \"comparator\": \">=\",\n    \"threshold\": 10,\n    \"unit\": \"inspections\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"decoy_policies[0]\": \"Fiduciary leadership endorsement is awarded when an institution maintains a board evaluation score of 90 points or higher and executes ethical conduct reviews.\",\n  \"decoy_policies[1]\": \"Merchant payment processing permission requires a minimum rolling reserve balance of $250,000.\",\n  \"facts.E10\": {\n   \"entity\": \"Apex Capital Management\",\n   \"kind\": \"number\",\n   \"quantity\": \"internal audit inspections\",\n   \"value\": 12,\n   \"unit\": \"inspections\",\n   \"window\": \"year\",\n   \"scope\": \"none\"\n  },\n  \"facts.E6\": {\n   \"entity\": \"Apex Capital Management\",\n   \"kind\": \"credential\",\n   \"quantity\": \"third-party risk review\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"year\",\n   \"scope\": \"none\"\n  },\n  \"facts.E7\": {\n   \"entity\": \"Apex Capital Management\",\n   \"kind\": \"number\",\n   \"quantity\": \"staff compliance training rate\",\n   \"value\": 95,\n   \"unit\": \"%\",\n   \"window\": \"year\",\n   \"scope\": \"none\"\n  },\n  \"facts.E9\": {\n   \"entity\": \"Apex Capital Management\",\n   \"kind\": \"number\",\n   \"quantity\": \"regulatory fines\",\n   \"value\": 0,\n   \"unit\": \"fines\",\n   \"window\": \"year\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E10.source\": \"Internal audit department annual activity log.\",\n  \"nodes.E10.text\": \"Apex Capital Management completed 12 annual internal audit inspections.\",\n  \"nodes.E6.source\": \"Internal compliance staff summary note.\",\n  \"nodes.E6.text\": \"Apex Capital Management submitted an annual clean third-party risk review.\",\n  \"nodes.E7.source\": \"Signed corporate training completion report.\",\n  \"nodes.E7.text\": \"Apex Capital Management completed annual compliance training for 95% of staff.\",\n  \"nodes.E9.source\": \"Regulatory enforcement agency database report.\",\n  \"nodes.E9.text\": \"Apex Capital Management recorded 0 annual regulatory fines.\",\n  \"policies.B4\": \"Prime brokerage authorization is granted if an entity holding institutional onboarding approval also satisfies capital adequacy requirements.\",\n  \"policies.B6\": \"Third-party risk clearance is awarded when an entity provides an annual clean third-party risk review.\",\n  \"policies.B8\": \"Comprehensive governance criteria are satisfied when an entity with operational security endorsement achieves an annual staff compliance training rate of at least 90%.\",\n  \"policies.B9\": \"Flawless compliance record is achieved when an entity holds an active Anti-Money Laundering compliance certification, records no more than 1 annual regulatory fine, and completes at least 10 annual internal audit inspections.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 12928,
+   "output_tokens": 7291,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 12928,
+    "completion_tokens": 7291
+   }
+  },
+  "est_usd": 0.11111175,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "decoy_policies[0]",
+  "decoy_policies[1]",
+  "nodes.E10.text",
+  "nodes.E6.text",
+  "nodes.E7.text",
+  "nodes.E9.text",
+  "policies.B4",
+  "policies.B6",
+  "policies.B8",
+  "policies.B9"
+ ],
+ "merged": {
+  "world": "Due diligence and compliance review of several financial services firms and corporate partners.",
+  "nodes": {
+   "E1": {
+    "text": "Apex Capital Management holds a valid FINRA broker-dealer registration.",
+    "source": "Official FINRA central registration depository record."
+   },
+   "E2": {
+    "text": "Apex Capital Management paid an annual compliance fee of $150,000 this year.",
+    "source": "Signed regulatory fee payment confirmation."
+   },
+   "E3": {
+    "text": "Apex Capital Management maintains an institutional audit rating of 85 points.",
+    "source": "Annual institutional examination report."
+   },
+   "E4": {
+    "text": "Apex Capital Management maintains net capital of $2,000,000.",
+    "source": "Certified monthly financial capital filing."
+   },
+   "E5": {
+    "text": "Apex Capital Management holds an active Anti-Money Laundering compliance certification.",
+    "source": "Official compliance accreditation board registry."
+   },
+   "E6": {
+    "text": "Apex Capital Management submitted an annual clean third-party risk review.",
+    "source": "Internal compliance staff summary note."
+   },
+   "E7": {
+    "text": "Apex Capital Management completed annual compliance training for 95% of staff.",
+    "source": "Signed corporate training completion report."
+   },
+   "E8": {
+    "text": "Apex Capital Management maintains an operational loss reserve of $500,000.",
+    "source": "Audited balance sheet disclosure statement."
+   },
+   "E9": {
+    "text": "Apex Capital Management recorded 0 annual regulatory fines.",
+    "source": "Regulatory enforcement agency database report."
+   },
+   "E10": {
+    "text": "Apex Capital Management completed 12 annual internal audit inspections.",
+    "source": "Internal audit department annual activity log."
+   },
+   "E11": {
+    "text": "Apex Capital Management maintains 10 certified compliance officers.",
+    "source": "Corporate human resources staffing register."
+   },
+   "E12": {
+    "text": "Apex Capital Management maintains equity assets under management of $50,000,000.",
+    "source": "Quarterly custodian holding statement."
+   },
+   "E13": {
+    "text": "Meridian Wealth Partners holds an active SEC investment adviser registration.",
+    "source": "Official SEC investment adviser public disclosure filing."
+   },
+   "E14": {
+    "text": "Zenith Global Logistics holds a valid customs broker license.",
+    "source": "U.S. Customs and Border Protection licensing database."
+   },
+   "E15": {
+    "text": "Vance Asset Management maintains custodian assets of $100,000,000.",
+    "source": "Certified annual custodian asset report."
+   },
+   "B1": {
+    "text": "Apex Capital Management receives basic regulatory authorization."
+   },
+   "B2": {
+    "text": "Apex Capital Management meets institutional supervisory compliance standards."
+   },
+   "D1": {
+    "text": "Apex Capital Management is approved for institutional account onboarding."
+   },
+   "B3": {
+    "text": "Apex Capital Management satisfies solvency capitalization requirements."
+   },
+   "B4": {
+    "text": "Apex Capital Management qualifies for prime brokerage trading privileges."
+   },
+   "B5": {
+    "text": "Apex Capital Management completes standard risk vetting."
+   },
+   "B6": {
+    "text": "Apex Capital Management holds vendor risk clearance."
+   },
+   "B7": {
+    "text": "Apex Capital Management attains high-level operational security verification."
+   },
+   "B8": {
+    "text": "Apex Capital Management meets complete governance standards."
+   },
+   "D2": {
+    "text": "Apex Capital Management is authorized for high-volume clearing services."
+   },
+   "B9": {
+    "text": "Apex Capital Management maintains clean compliance standing."
+   },
+   "B10": {
+    "text": "Apex Capital Management achieves tier-one institutional status."
+   },
+   "D3": {
+    "text": "Apex Capital Management is designated as a preferred liquidity provider."
+   },
+   "B11": {
+    "text": "Apex Capital Management establishes core eligibility."
+   },
+   "B12": {
+    "text": "Apex Capital Management obtains verified client status."
+   },
+   "D4": {
+    "text": "Apex Capital Management is approved for corporate line of credit."
+   },
+   "B13": {
+    "text": "Meridian Wealth Partners receives registered advisory clearance."
+   },
+   "B14": {
+    "text": "Zenith Global Logistics holds trade compliance status."
+   },
+   "B15": {
+    "text": "Vance Asset Management satisfies asset threshold requirements."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An unverified blog post claims Apex Capital Management never submitted a clean third-party risk review this year.",
+    "source": "Anonymous industry gossip web page."
+   },
+   "U2": {
+    "text": "An updated HR audit report confirms Apex Capital Management maintains 2 certified compliance officers.",
+    "source": "Signed human resources audit update."
+   },
+   "U3": {
+    "text": "A regulatory audit notice confirms Apex Capital Management does not maintain net capital of $2,000,000.",
+    "source": "Official regulatory examination notice."
+   },
+   "U4": {
+    "text": "An anonymous forum post asserts Apex Capital Management does not maintain net capital of $2,000,000.",
+    "source": "Unverified online forum comment."
+   },
+   "U5": {
+    "text": "An official regulatory bulletin confirms Apex Capital Management's Anti-Money Laundering compliance certification was revoked.",
+    "source": "State financial supervisory authority bulletin."
+   }
+  },
+  "policies": {
+   "B1": "Baseline regulatory clearance is granted if an entity maintains FINRA broker-dealer registration and pays annual compliance fees of at least $100,000.",
+   "B2": "Institutional oversight benchmark is met when an entity with baseline regulatory clearance receives an institutional audit rating of 80 points or higher.",
+   "D1": "Institutional onboarding approval is issued to an entity that satisfies institutional oversight benchmark.",
+   "B3": "Capital adequacy requirements are fulfilled when an entity possesses net capital of at least $1,500,000.",
+   "B4": "Prime brokerage authorization is granted if an entity holding institutional onboarding approval also satisfies capital adequacy requirements.",
+   "B5": "Standard vetting approval is passed either by maintaining FINRA broker-dealer registration, paying annual compliance fees of at least $100,000, and holding an active Anti-Money Laundering compliance certification, or by submitting a clean third-party risk review.",
+   "B6": "Third-party risk clearance is awarded when an entity provides an annual clean third-party risk review.",
+   "B7": "Operational security endorsement is attained if an entity holding third-party risk clearance also completes standard vetting approval.",
+   "B8": "Comprehensive governance criteria are satisfied when an entity with operational security endorsement achieves an annual staff compliance training rate of at least 90%.",
+   "D2": "High-volume clearing access is conferred upon an entity meeting comprehensive governance criteria that holds an operational loss reserve of at least $400,000.",
+   "B9": "Flawless compliance record is achieved when an entity holds an active Anti-Money Laundering compliance certification, records no more than 1 annual regulatory fine, and completes at least 10 annual internal audit inspections.",
+   "B10": "Tier-one participant designation is assigned when an entity maintaining flawless compliance record also holds prime brokerage authorization.",
+   "D3": "Preferred market maker status is granted to an entity reaching tier-one participant designation.",
+   "B11": "Fundamental account qualification is established if an entity employs at least 8 certified compliance officers, or maintains FINRA broker-dealer registration, or holds equity assets under management of at least $40,000,000.",
+   "B12": "Validated account standing is conferred upon an entity that establishes fundamental account qualification.",
+   "D4": "Corporate credit facility access is extended to an entity obtaining validated account standing.",
+   "B13": "SEC advisory status is granted to an entity holding active SEC investment adviser registration.",
+   "B14": "Cross-border trading eligibility is granted to a firm possessing a valid customs broker license.",
+   "B15": "Minimum capital qualification is satisfied when a firm maintains custodian assets of at least $80,000,000."
+  },
+  "decoy_policies": [
+   "Fiduciary leadership endorsement is awarded when an institution maintains a board evaluation score of 90 points or higher and executes ethical conduct reviews.",
+   "Merchant payment processing permission requires a minimum rolling reserve balance of $250,000."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "holds",
+   "D1": "holds",
+   "B3": "fails",
+   "B4": "fails",
+   "B5": "undetermined",
+   "B6": "undetermined",
+   "B7": "undetermined",
+   "B8": "undetermined",
+   "D2": "undetermined",
+   "B9": "fails",
+   "B10": "fails",
+   "D3": "fails",
+   "B11": "holds",
+   "B12": "holds",
+   "D4": "holds",
+   "B13": "holds",
+   "B14": "holds",
+   "B15": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Apex Capital Management",
+    "kind": "credential",
+    "quantity": "FINRA broker-dealer registration",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Apex Capital Management",
+    "kind": "number",
+    "quantity": "annual compliance fee",
+    "value": 150000,
+    "unit": "USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Apex Capital Management",
+    "kind": "number",
+    "quantity": "institutional audit rating",
+    "value": 85,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Apex Capital Management",
+    "kind": "number",
+    "quantity": "net capital",
+    "value": 2000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Apex Capital Management",
+    "kind": "credential",
+    "quantity": "Anti-Money Laundering compliance certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Apex Capital Management",
+    "kind": "credential",
+    "quantity": "third-party risk review",
+    "value": true,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Apex Capital Management",
+    "kind": "number",
+    "quantity": "staff compliance training rate",
+    "value": 95,
+    "unit": "%",
+    "window": "year",
+    "scope": "none"
+   },
+   "E8": {
+    "entity": "Apex Capital Management",
+    "kind": "number",
+    "quantity": "operational loss reserve",
+    "value": 500000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E9": {
+    "entity": "Apex Capital Management",
+    "kind": "number",
+    "quantity": "regulatory fines",
+    "value": 0,
+    "unit": "fines",
+    "window": "year",
+    "scope": "none"
+   },
+   "E10": {
+    "entity": "Apex Capital Management",
+    "kind": "number",
+    "quantity": "internal audit inspections",
+    "value": 12,
+    "unit": "inspections",
+    "window": "year",
+    "scope": "none"
+   },
+   "E11": {
+    "entity": "Apex Capital Management",
+    "kind": "number",
+    "quantity": "certified compliance officers",
+    "value": 10,
+    "unit": "officers",
+    "window": "none",
+    "scope": "none"
+   },
+   "E12": {
+    "entity": "Apex Capital Management",
+    "kind": "number",
+    "quantity": "equity assets under management",
+    "value": 50000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E13": {
+    "entity": "Meridian Wealth Partners",
+    "kind": "credential",
+    "quantity": "SEC investment adviser registration",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E14": {
+    "entity": "Zenith Global Logistics",
+    "kind": "credential",
+    "quantity": "customs broker license",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E15": {
+    "entity": "Vance Asset Management",
+    "kind": "number",
+    "quantity": "custodian assets",
+    "value": 100000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Apex Capital Management",
+    "kind": "credential",
+    "quantity": "third-party risk review",
+    "value": null,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "U2": {
+    "entity": "Apex Capital Management",
+    "kind": "number",
+    "quantity": "certified compliance officers",
+    "value": 2,
+    "unit": "officers",
+    "window": "none",
+    "scope": "none"
+   },
+   "U3": {
+    "entity": "Apex Capital Management",
+    "kind": "number",
+    "quantity": "net capital",
+    "value": null,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "U4": {
+    "entity": "Apex Capital Management",
+    "kind": "number",
+    "quantity": "net capital",
+    "value": null,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "U5": {
+    "entity": "Apex Capital Management",
+    "kind": "credential",
+    "quantity": "Anti-Money Laundering compliance certification",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "credential",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "FINRA broker-dealer registration",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "annual compliance fee",
+     "comparator": ">=",
+     "threshold": 100000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": null,
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "institutional audit rating",
+     "comparator": ">=",
+     "threshold": 80,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": null,
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "net capital",
+     "comparator": ">=",
+     "threshold": 1500000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": null,
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "D1",
+     "kind": "conclusion",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": null,
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E1",
+     "kind": "credential",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "FINRA broker-dealer registration",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "Anti-Money Laundering compliance certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "annual compliance fee",
+     "comparator": ">=",
+     "threshold": 100000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E6",
+     "kind": "credential",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "third-party risk review",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "E6",
+     "kind": "credential",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "third-party risk review",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B7": [
+    {
+     "premise": "B6",
+     "kind": "conclusion",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": null,
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "B5",
+     "kind": "conclusion",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": null,
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B8": [
+    {
+     "premise": "B7",
+     "kind": "conclusion",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": null,
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "staff compliance training rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "%",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "D2": [
+    {
+     "premise": "B8",
+     "kind": "conclusion",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": null,
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E8",
+     "kind": "number",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "operational loss reserve",
+     "comparator": ">=",
+     "threshold": 400000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B9": [
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "Anti-Money Laundering compliance certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E9",
+     "kind": "number",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "regulatory fines",
+     "comparator": "<=",
+     "threshold": 1,
+     "unit": "fines",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E10",
+     "kind": "number",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "internal audit inspections",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "inspections",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B10": [
+    {
+     "premise": "B9",
+     "kind": "conclusion",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": null,
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "B4",
+     "kind": "conclusion",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": null,
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D3": [
+    {
+     "premise": "B10",
+     "kind": "conclusion",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": null,
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B11": [
+    {
+     "premise": "E11",
+     "kind": "number",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "certified compliance officers",
+     "comparator": ">=",
+     "threshold": 8,
+     "unit": "officers",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E1",
+     "kind": "credential",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "FINRA broker-dealer registration",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E12",
+     "kind": "number",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": "equity assets under management",
+     "comparator": ">=",
+     "threshold": 40000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B12": [
+    {
+     "premise": "B11",
+     "kind": "conclusion",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": null,
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D4": [
+    {
+     "premise": "B12",
+     "kind": "conclusion",
+     "entity": "Apex Capital Management",
+     "relation": null,
+     "quantity": null,
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B13": [
+    {
+     "premise": "E13",
+     "kind": "credential",
+     "entity": "Meridian Wealth Partners",
+     "relation": null,
+     "quantity": "SEC investment adviser registration",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B14": [
+    {
+     "premise": "E14",
+     "kind": "credential",
+     "entity": "Zenith Global Logistics",
+     "relation": null,
+     "quantity": "customs broker license",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B15": [
+    {
+     "premise": "E15",
+     "kind": "number",
+     "entity": "Vance Asset Management",
+     "relation": null,
+     "quantity": "custodian assets",
+     "comparator": ">=",
+     "threshold": 80000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Apex Capital Management holds FINRA broker-dealer registration and paid $150,000 in annual compliance fees, exceeding the $100,000 threshold."
+   ],
+   "B2": [
+    "Apex Capital Management has baseline regulatory clearance and achieved an institutional audit rating of 85 points, meeting the 80-point minimum."
+   ],
+   "D1": [
+    "Apex Capital Management satisfies institutional oversight benchmark."
+   ],
+   "B3": [
+    "Apex Capital Management maintains net capital of $2,000,000, meeting the $1,500,000 requirement."
+   ],
+   "B4": [
+    "Apex Capital Management is approved for institutional onboarding and satisfies capital adequacy requirements."
+   ],
+   "B5": [
+    "Apex Capital Management holds FINRA broker-dealer registration, paid $150,000 in annual compliance fees, and holds an Anti-Money Laundering certification.",
+    "Apex Capital Management submitted a clean third-party risk review."
+   ],
+   "B6": [
+    "Apex Capital Management submitted a clean third-party risk review."
+   ],
+   "B7": [
+    "Apex Capital Management holds third-party risk clearance and completes standard vetting approval."
+   ],
+   "B8": [
+    "Apex Capital Management holds operational security endorsement and achieved a staff compliance training rate of 95%, exceeding the 90% threshold."
+   ],
+   "D2": [
+    "Apex Capital Management meets comprehensive governance criteria and maintains an operational loss reserve of $500,000, exceeding $400,000."
+   ],
+   "B9": [
+    "Apex Capital Management holds an Anti-Money Laundering certification, recorded 0 regulatory fines (under the limit of 1), and completed 12 internal audit inspections (at least 10 required)."
+   ],
+   "B10": [
+    "Apex Capital Management maintains a flawless compliance record and holds prime brokerage authorization."
+   ],
+   "D3": [
+    "Apex Capital Management reaches tier-one participant designation."
+   ],
+   "B11": [
+    "Apex Capital Management employs 10 certified compliance officers, exceeding the 8 required.",
+    "Apex Capital Management maintains FINRA broker-dealer registration.",
+    "Apex Capital Management maintains equity assets under management of $50,000,000, exceeding the $40,000,000 threshold."
+   ],
+   "B12": [
+    "Apex Capital Management establishes fundamental account qualification."
+   ],
+   "D4": [
+    "Apex Capital Management obtains validated account standing."
+   ],
+   "B13": [
+    "Meridian Wealth Partners holds active SEC investment adviser registration."
+   ],
+   "B14": [
+    "Zenith Global Logistics holds a valid customs broker license."
+   ],
+   "B15": [
+    "Vance Asset Management maintains custodian assets of $100,000,000, exceeding $80,000,000."
+   ]
+  }
+ }
+}

@@ -1,0 +1,985 @@
+{
+ "scenario": "F7-010",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "nodes.B9.text": "reliability_word 'reliability' (the word 'reliability' may not appear in any text)",
+  "policies.B9": "reliability_word 'Reliability' (the word 'reliability' may not appear in any text)",
+  "policies.D3": "reliability_word 'reliability' (the word 'reliability' may not appear in any text)",
+  "decoy_policies[1]": "decoy_shares_memory_word 'operator,transport' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)",
+  "decoy_policies[0]": "decoy_shares_memory_word 'clearance' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)",
+  "facts.E14": "record_value_not_in_text '15'; record_threshold_not_in_policy '10'",
+  "nodes.E14.text": "record_value_not_in_text '15'; record_threshold_not_in_policy '10'",
+  "nodes.E14.source": "record_value_not_in_text '15'; record_threshold_not_in_policy '10'",
+  "facts.E16": "record_value_not_in_text '5'; record_threshold_not_in_policy '2'",
+  "nodes.E16.text": "record_value_not_in_text '5'; record_threshold_not_in_policy '2'",
+  "nodes.E16.source": "record_value_not_in_text '5'; record_threshold_not_in_policy '2'",
+  "facts.U3": "record_value_not_in_text '18'",
+  "updates.U3.text": "record_value_not_in_text '18'",
+  "updates.U3.source": "record_value_not_in_text '18'",
+  "policies.B5": "record_scope_not_in_policy 'regional'",
+  "conditions.B5": "record_scope_not_in_policy 'regional'",
+  "facts.E4": "record_scope_not_in_policy 'regional'",
+  "nodes.E4.text": "record_scope_not_in_policy 'regional'",
+  "nodes.E4.source": "record_scope_not_in_policy 'regional'",
+  "policies.B12": "record_threshold_not_in_policy '10'",
+  "conditions.B12": "record_threshold_not_in_policy '10'",
+  "policies.B14": "record_threshold_not_in_policy '2'",
+  "conditions.B14": "record_threshold_not_in_policy '2'",
+  "policies.B6": "or_alternatives_same_condition 'landing slots' (alternative justification sets must rest on different quantities or credentials, not two measurements of the same quantity against one condition)",
+  "conditions.B6": "or_alternatives_same_condition 'landing slots' (alternative justification sets must rest on different quantities or credentials, not two measurements of the same quantity against one condition)",
+  "nodes.E7.text": "or_alternatives_same_condition 'landing slots' (alternative justification sets must rest on different quantities or credentials, not two measurements of the same quantity against one condition)",
+  "nodes.E7.source": "or_alternatives_same_condition 'landing slots' (alternative justification sets must rest on different quantities or credentials, not two measurements of the same quantity against one condition)",
+  "facts.E7": "or_alternatives_same_condition 'landing slots' (alternative justification sets must rest on different quantities or credentials, not two measurements of the same quantity against one condition)",
+  "nodes.E8.text": "or_alternatives_same_condition 'landing slots' (alternative justification sets must rest on different quantities or credentials, not two measurements of the same quantity against one condition)",
+  "nodes.E8.source": "or_alternatives_same_condition 'landing slots' (alternative justification sets must rest on different quantities or credentials, not two measurements of the same quantity against one condition)",
+  "facts.E8": "or_alternatives_same_condition 'landing slots' (alternative justification sets must rest on different quantities or credentials, not two measurements of the same quantity against one condition)"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B12\": [\n   {\n    \"comparator\": \">=\",\n    \"entity\": \"Eagle Transit\",\n    \"kind\": \"number\",\n    \"premise\": \"E14\",\n    \"quantity\": \"annual revenue\",\n    \"relation\": null,\n    \"scope\": \"none\",\n    \"threshold\": 10000000,\n    \"unit\": \"dollars\",\n    \"window\": \"year\"\n   }\n  ],\n  \"conditions.B14\": [\n   {\n    \"comparator\": \">=\",\n    \"entity\": \"Grand Tour Agency\",\n    \"kind\": \"number\",\n    \"premise\": \"E16\",\n    \"quantity\": \"insurance coverage\",\n    \"relation\": null,\n    \"scope\": \"none\",\n    \"threshold\": 2000000,\n    \"unit\": \"dollars\",\n    \"window\": \"none\"\n   }\n  ],\n  \"conditions.B5\": [\n   {\n    \"comparator\": null,\n    \"entity\": \"Skyway Charters\",\n    \"kind\": \"credential\",\n    \"premise\": \"E3\",\n    \"quantity\": \"air carrier certificate\",\n    \"relation\": null,\n    \"scope\": \"none\",\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\"\n   },\n   {\n    \"comparator\": \">=\",\n    \"entity\": \"Skyway Charters\",\n    \"kind\": \"number\",\n    \"premise\": \"E4\",\n    \"quantity\": \"safety score\",\n    \"relation\": null,\n    \"scope\": \"regional\",\n    \"threshold\": 90,\n    \"unit\": \"points\",\n    \"window\": \"none\"\n   },\n   {\n    \"comparator\": \">=\",\n    \"entity\": \"Skyway Charters\",\n    \"kind\": \"number\",\n    \"premise\": \"E6\",\n    \"quantity\": \"emergency fleet count\",\n    \"relation\": null,\n    \"scope\": \"none\",\n    \"threshold\": 6,\n    \"unit\": \"aircraft\",\n    \"window\": \"none\"\n   }\n  ],\n  \"conditions.B6\": [\n   {\n    \"comparator\": \">=\",\n    \"entity\": \"Skyway Charters\",\n    \"kind\": \"number\",\n    \"premise\": \"E7\",\n    \"quantity\": \"landing slots\",\n    \"relation\": null,\n    \"scope\": \"international\",\n    \"threshold\": 4,\n    \"unit\": \"slots\",\n    \"window\": \"none\"\n   },\n   {\n    \"comparator\": null,\n    \"entity\": \"Skyway Charters\",\n    \"kind\": \"credential\",\n    \"premise\": \"E8\",\n    \"quantity\": \"international operating permit\",\n    \"relation\": null,\n    \"scope\": \"none\",\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\"\n   }\n  ],\n  \"decoy_policies[0]\": \"Cold storage certification is awarded to a warehouse facility maintaining at least 5 climate zones.\",\n  \"decoy_policies[1]\": \"Harbor towing endorsement requires a maritime tug vessel with an engine output of at least 3000 horsepower.\",\n  \"facts.E14\": {\n   \"entity\": \"Eagle Transit\",\n   \"kind\": \"number\",\n   \"quantity\": \"annual revenue\",\n   \"scope\": \"none\",\n   \"unit\": \"dollars\",\n   \"value\": 15000000,\n   \"window\": \"year\"\n  },\n  \"facts.E16\": {\n   \"entity\": \"Grand Tour Agency\",\n   \"kind\": \"number\",\n   \"quantity\": \"insurance coverage\",\n   \"scope\": \"none\",\n   \"unit\": \"dollars\",\n   \"value\": 5000000,\n   \"window\": \"none\"\n  },\n  \"facts.E4\": {\n   \"entity\": \"Skyway Charters\",\n   \"kind\": \"number\",\n   \"quantity\": \"safety score\",\n   \"scope\": \"regional\",\n   \"unit\": \"points\",\n   \"value\": 94,\n   \"window\": \"none\"\n  },\n  \"facts.E7\": {\n   \"entity\": \"Skyway Charters\",\n   \"kind\": \"number\",\n   \"quantity\": \"landing slots\",\n   \"scope\": \"international\",\n   \"unit\": \"slots\",\n   \"value\": 5,\n   \"window\": \"none\"\n  },\n  \"facts.E8\": {\n   \"entity\": \"Skyway Charters\",\n   \"kind\": \"credential\",\n   \"quantity\": \"international operating permit\",\n   \"scope\": \"none\",\n   \"unit\": null,\n   \"value\": true,\n   \"window\": \"none\"\n  },\n  \"facts.U3\": {\n   \"entity\": \"Eagle Transit\",\n   \"kind\": \"number\",\n   \"quantity\": \"annual revenue\",\n   \"scope\": \"none\",\n   \"unit\": \"dollars\",\n   \"value\": 18000000,\n   \"window\": \"year\"\n  },\n  \"nodes.B9.text\": \"Skyway Charters secures dependable status approval.\",\n  \"nodes.E14.source\": \"Certified public accountant audit report.\",\n  \"nodes.E14.text\": \"Eagle Transit reports annual revenue of $15,000,000 this year.\",\n  \"nodes.E16.source\": \"Global Underwriters policy confirmation letter.\",\n  \"nodes.E16.text\": \"Grand Tour Agency maintains insurance coverage of $5,000,000.\",\n  \"nodes.E4.source\": \"Staff email memo from compliance officer.\",\n  \"nodes.E4.text\": \"Skyway Charters maintains a safety score of 94 points on the regional transport audit.\",\n  \"nodes.E7.source\": \"Regional airport authority memo.\",\n  \"nodes.E7.text\": \"Skyway Charters holds 5 international landing slots.\",\n  \"nodes.E8.source\": \"Aviation scheduling desk note.\",\n  \"nodes.E8.text\": \"Skyway Charters holds an international operating permit.\",\n  \"policies.B12\": \"Top-tier fiscal status requires yearly turnover of at least $10,000,000.\",\n  \"policies.B14\": \"Liability clearance is granted to an agency carrying insurance coverage of at least $2,000,000.\",\n  \"policies.B5\": \"Flight clearance is granted to an operator holding a Class A air carrier certificate with a regional safety score reaching 90 points, or maintaining an emergency fleet count of at least 6 aircraft.\",\n  \"policies.B6\": \"Global hub access requires an operator to possess at least 4 international landing slots or hold an international operating permit.\",\n  \"policies.B9\": \"Dependable status approval is conferred on an enterprise with demonstrated infrastructure readiness that records no more than 1 major incident over 5 years.\",\n  \"policies.D3\": \"Government transit vendor selection requires obtaining dependable status approval.\",\n  \"updates.U3.source\": \"Department of Revenue verified statement.\",\n  \"updates.U3.text\": \"Updated tax filing confirms Eagle Transit reports annual revenue of $18,000,000 this year.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 13769,
+   "output_tokens": 12793,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 13769,
+    "completion_tokens": 12793
+   }
+  },
+  "est_usd": 0.1749015,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.B12[0].threshold",
+  "conditions.B12[0].unit",
+  "conditions.B14[0].threshold",
+  "conditions.B14[0].unit",
+  "conditions.B6[1].comparator",
+  "conditions.B6[1].kind",
+  "conditions.B6[1].quantity",
+  "conditions.B6[1].scope",
+  "conditions.B6[1].threshold",
+  "conditions.B6[1].unit",
+  "decoy_policies[0]",
+  "decoy_policies[1]",
+  "facts.E14.unit",
+  "facts.E14.value",
+  "facts.E16.unit",
+  "facts.E16.value",
+  "facts.E8.kind",
+  "facts.E8.quantity",
+  "facts.E8.scope",
+  "facts.E8.unit",
+  "facts.E8.value",
+  "facts.U3.unit",
+  "facts.U3.value",
+  "nodes.B9.text",
+  "nodes.E14.text",
+  "nodes.E16.text",
+  "nodes.E8.text",
+  "policies.B12",
+  "policies.B14",
+  "policies.B5",
+  "policies.B6",
+  "policies.B9",
+  "policies.D3",
+  "updates.U3.text"
+ ],
+ "merged": {
+  "world": "An evaluation of regional transit providers, charter flight operators, and logistics firms for commercial contracts and official clearances.",
+  "nodes": {
+   "E1": {
+    "text": "Apex Shuttle Service maintains 15 luxury passenger vans in its active fleet.",
+    "source": "Driver logbook entry from senior dispatcher."
+   },
+   "E2": {
+    "text": "Skyway Charters operates 12 charter aircraft in its regional service.",
+    "source": "Internal fleet status report from operations assistant."
+   },
+   "E3": {
+    "text": "Skyway Charters holds a Class A air carrier certificate.",
+    "source": "Official Civil Aviation Authority registry database."
+   },
+   "E4": {
+    "text": "Skyway Charters maintains a safety score of 94 points on the regional transport audit.",
+    "source": "Staff email memo from compliance officer."
+   },
+   "E5": {
+    "text": "Crestline Express operates 40 long-distance coaches.",
+    "source": "Department of Transportation motor carrier database."
+   },
+   "E6": {
+    "text": "Skyway Charters maintains an emergency fleet count of 8 passenger aircraft.",
+    "source": "Partner flight coordinator note."
+   },
+   "E7": {
+    "text": "Skyway Charters holds 5 international landing slots.",
+    "source": "Regional airport authority memo."
+   },
+   "E8": {
+    "text": "Skyway Charters holds an international operating permit.",
+    "source": "Aviation scheduling desk note."
+   },
+   "E9": {
+    "text": "Skyway Charters records an average arrival delay of 12 minutes.",
+    "source": "Official Aviation Flight Statistics database."
+   },
+   "E10": {
+    "text": "Skyway Charters maintains 25 maintenance technicians.",
+    "source": "Signed aviation maintenance facility audit."
+   },
+   "E11": {
+    "text": "Skyway Charters records a major incident count of 0 incidents over 5 years.",
+    "source": "National Transportation Safety Board public registry."
+   },
+   "E12": {
+    "text": "Delta Freight Services maintains 30 cargo trucks.",
+    "source": "State commercial vehicle register."
+   },
+   "E13": {
+    "text": "Delta Freight Services holds a freight permit.",
+    "source": "Ministry of Transport licensing portal."
+   },
+   "E14": {
+    "text": "Eagle Transit reports annual revenue of $15,000,000 this year.",
+    "source": "Certified public accountant audit report."
+   },
+   "E15": {
+    "text": "Falcon Charter holds an ISO 9001 certification.",
+    "source": "International Standards Organization registry entry."
+   },
+   "E16": {
+    "text": "Grand Tour Agency maintains insurance coverage of $5,000,000.",
+    "source": "Global Underwriters policy confirmation letter."
+   },
+   "E17": {
+    "text": "Highline Rail Corp operates 25 electric locomotives count.",
+    "source": "Federal Railroad Administration equipment log."
+   },
+   "B1": {
+    "text": "Apex Shuttle Service possesses sufficient luxury transport capacity."
+   },
+   "B2": {
+    "text": "Skyway Charters satisfies regional aviation compliance benchmarks."
+   },
+   "B3": {
+    "text": "Crestline Express demonstrates extensive ground transit coverage."
+   },
+   "B4": {
+    "text": "Crestline Express achieves major overland operator classification."
+   },
+   "D1": {
+    "text": "Crestline Express is chosen for national transit operations."
+   },
+   "B5": {
+    "text": "Skyway Charters retains primary flight authorization."
+   },
+   "B6": {
+    "text": "Skyway Charters satisfies international access requirements."
+   },
+   "B7": {
+    "text": "Skyway Charters qualifies for international route scheduling."
+   },
+   "D2": {
+    "text": "Skyway Charters is designated as a preferred international provider."
+   },
+   "B8": {
+    "text": "Skyway Charters holds robust operational infrastructure."
+   },
+   "B9": {
+    "text": "Skyway Charters secures dependable status approval."
+   },
+   "D3": {
+    "text": "Skyway Charters is selected for long-term government transport contracts."
+   },
+   "B10": {
+    "text": "Delta Freight Services satisfies heavy transport fleet requirements."
+   },
+   "B11": {
+    "text": "Delta Freight Services attains priority logistics authorization."
+   },
+   "D4": {
+    "text": "Delta Freight Services is awarded the state distribution contract."
+   },
+   "B12": {
+    "text": "Eagle Transit achieves top-tier financial qualification."
+   },
+   "B13": {
+    "text": "Falcon Charter maintains certified service standards."
+   },
+   "B14": {
+    "text": "Grand Tour Agency secures comprehensive liability protection."
+   },
+   "B15": {
+    "text": "Highline Rail Corp controls substantial rail transport infrastructure."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Official aviation audit confirms Skyway Charters does not operate 12 charter aircraft.",
+    "source": "Civil Aviation Authority verification report."
+   },
+   "U2": {
+    "text": "An Aviation Board inquiry notes unverified allegations concerning Skyway Charters maintaining an emergency response fleet of 8 passenger aircraft.",
+    "source": "Aviation Safety Board preliminary bulletin."
+   },
+   "U3": {
+    "text": "Updated tax filing confirms Eagle Transit reports annual revenue of $18,000,000 this year.",
+    "source": "Department of Revenue verified statement."
+   },
+   "U4": {
+    "text": "Official court revocation order indicates Eagle Transit's financial filing is annulled and no revenue is confirmed.",
+    "source": "State Chancery Court ruling notice."
+   },
+   "U5": {
+    "text": "A pending regulatory review questions whether Crestline Express operates 40 long-distance coaches.",
+    "source": "Transit Regulatory Commission inquiry notice."
+   },
+   "U6": {
+    "text": "An anonymous online post claims Skyway Charters lacks 25 certified technicians.",
+    "source": "Unverified travel blog post."
+   },
+   "U7": {
+    "text": "Official labor board filing confirms Skyway Charters maintains 10 maintenance technicians.",
+    "source": "National Labor Bureau certified roster."
+   },
+   "U8": {
+    "text": "An unverified social media post asserts Delta Freight Services does not maintain 30 cargo trucks.",
+    "source": "Anonymous internet forum comment."
+   }
+  },
+  "policies": {
+   "B1": "A carrier achieves adequate fleet capacity when operating a minimum of 10 vans.",
+   "B2": "An airline meets regional operational standards with an active aircraft count of at least 10 regional aircraft, a Class A air carrier certificate, and a safety score of no less than 90 points.",
+   "B3": "Broad transit reach is established when an operator maintains a minimum of 30 coaches.",
+   "B4": "Major overland standing is awarded to any entity with broad transit reach.",
+   "D1": "National transport allocation is granted to entities maintaining major overland standing.",
+   "B5": "Flight clearance is granted to an operator holding a Class A air carrier certificate with a regional safety score reaching 90 points, or maintaining an emergency fleet count of at least 6 aircraft.",
+   "B6": "Global hub access requires an operator to possess at least 4 international landing slots or hold an international operating permit.",
+   "B7": "International schedule approval is conferred when an enterprise with global hub access maintains an arrival delay under 15 minutes.",
+   "D2": "Preferred partner status is assigned to any carrier holding international schedule approval.",
+   "B8": "Infrastructure readiness requires employing at least 20 maintenance technicians, possessing 4 international landing slots, or operating 6 emergency aircraft.",
+   "B9": "Dependable status approval is conferred on an enterprise with demonstrated infrastructure readiness that records no more than 1 major incident over 5 years.",
+   "D3": "Government transit vendor selection requires obtaining dependable status approval.",
+   "B10": "Heavy haulage capacity requires operating at least 20 trucks.",
+   "B11": "Priority movement clearance requires meeting heavy haulage capacity while holding a freight permit.",
+   "D4": "State logistics contracts are assigned to enterprises obtaining priority movement clearance.",
+   "B12": "Top-tier fiscal status requires yearly turnover of at least $10,000,000.",
+   "B13": "Service quality approval requires holding an ISO 9001 certification.",
+   "B14": "Liability clearance is granted to an agency carrying insurance coverage of at least $2,000,000.",
+   "B15": "Rail fleet qualification requires operating at least 15 locomotives."
+  },
+  "decoy_policies": [
+   "Cold storage certification is awarded to a warehouse facility maintaining at least 5 climate zones.",
+   "Harbor towing endorsement requires a maritime tug vessel with an engine output of at least 3000 horsepower."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "fails",
+   "B3": "undetermined",
+   "B4": "undetermined",
+   "D1": "undetermined",
+   "B5": "holds",
+   "B6": "holds",
+   "B7": "holds",
+   "D2": "holds",
+   "B8": "holds",
+   "B9": "holds",
+   "D3": "holds",
+   "B10": "undetermined",
+   "B11": "undetermined",
+   "D4": "undetermined",
+   "B12": "fails",
+   "B13": "holds",
+   "B14": "holds",
+   "B15": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Apex Shuttle Service",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 15,
+    "unit": "vans",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Skyway Charters",
+    "kind": "number",
+    "quantity": "active aircraft count",
+    "value": 12,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "regional"
+   },
+   "E3": {
+    "entity": "Skyway Charters",
+    "kind": "credential",
+    "quantity": "air carrier certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Skyway Charters",
+    "kind": "number",
+    "quantity": "safety score",
+    "scope": "regional",
+    "unit": "points",
+    "value": 94,
+    "window": "none"
+   },
+   "E5": {
+    "entity": "Crestline Express",
+    "kind": "number",
+    "quantity": "coach fleet count",
+    "value": 40,
+    "unit": "coaches",
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Skyway Charters",
+    "kind": "number",
+    "quantity": "emergency fleet count",
+    "value": 8,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Skyway Charters",
+    "kind": "number",
+    "quantity": "landing slots",
+    "scope": "international",
+    "unit": "slots",
+    "value": 5,
+    "window": "none"
+   },
+   "E8": {
+    "entity": "Skyway Charters",
+    "kind": "credential",
+    "quantity": "international operating permit",
+    "scope": "none",
+    "unit": null,
+    "value": true,
+    "window": "none"
+   },
+   "E9": {
+    "entity": "Skyway Charters",
+    "kind": "number",
+    "quantity": "arrival delay",
+    "value": 12,
+    "unit": "minutes",
+    "window": "none",
+    "scope": "none"
+   },
+   "E10": {
+    "entity": "Skyway Charters",
+    "kind": "number",
+    "quantity": "maintenance technicians",
+    "value": 25,
+    "unit": "technicians",
+    "window": "none",
+    "scope": "none"
+   },
+   "E11": {
+    "entity": "Skyway Charters",
+    "kind": "number",
+    "quantity": "major incident count",
+    "value": 0,
+    "unit": "incidents",
+    "window": "5 years",
+    "scope": "none"
+   },
+   "E12": {
+    "entity": "Delta Freight Services",
+    "kind": "number",
+    "quantity": "cargo trucks",
+    "value": 30,
+    "unit": "trucks",
+    "window": "none",
+    "scope": "none"
+   },
+   "E13": {
+    "entity": "Delta Freight Services",
+    "kind": "credential",
+    "quantity": "freight permit",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E14": {
+    "entity": "Eagle Transit",
+    "kind": "number",
+    "quantity": "annual revenue",
+    "scope": "none",
+    "unit": "dollars",
+    "value": 15000000,
+    "window": "year"
+   },
+   "E15": {
+    "entity": "Falcon Charter",
+    "kind": "credential",
+    "quantity": "ISO 9001 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E16": {
+    "entity": "Grand Tour Agency",
+    "kind": "number",
+    "quantity": "insurance coverage",
+    "scope": "none",
+    "unit": "dollars",
+    "value": 5000000,
+    "window": "none"
+   },
+   "E17": {
+    "entity": "Highline Rail Corp",
+    "kind": "number",
+    "quantity": "electric locomotives count",
+    "value": 25,
+    "unit": "locomotives",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Skyway Charters",
+    "kind": "number",
+    "quantity": "active aircraft count",
+    "value": null,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "regional"
+   },
+   "U2": {
+    "entity": "Skyway Charters",
+    "kind": "number",
+    "quantity": "emergency fleet count",
+    "value": null,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "U3": {
+    "entity": "Eagle Transit",
+    "kind": "number",
+    "quantity": "annual revenue",
+    "scope": "none",
+    "unit": "dollars",
+    "value": 18000000,
+    "window": "year"
+   },
+   "U4": {
+    "entity": "Eagle Transit",
+    "kind": "number",
+    "quantity": "annual revenue",
+    "value": null,
+    "unit": "million dollars",
+    "window": "year",
+    "scope": "none"
+   },
+   "U5": {
+    "entity": "Crestline Express",
+    "kind": "number",
+    "quantity": "coach fleet count",
+    "value": null,
+    "unit": "coaches",
+    "window": "none",
+    "scope": "none"
+   },
+   "U6": {
+    "entity": "Skyway Charters",
+    "kind": "number",
+    "quantity": "maintenance technicians",
+    "value": null,
+    "unit": "technicians",
+    "window": "none",
+    "scope": "none"
+   },
+   "U7": {
+    "entity": "Skyway Charters",
+    "kind": "number",
+    "quantity": "maintenance technicians",
+    "value": 10,
+    "unit": "technicians",
+    "window": "none",
+    "scope": "none"
+   },
+   "U8": {
+    "entity": "Delta Freight Services",
+    "kind": "number",
+    "quantity": "cargo trucks",
+    "value": null,
+    "unit": "trucks",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Apex Shuttle Service",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "vans",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Skyway Charters",
+     "relation": null,
+     "quantity": "active aircraft count",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "regional"
+    },
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "Skyway Charters",
+     "relation": null,
+     "quantity": "air carrier certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Skyway Charters",
+     "relation": null,
+     "quantity": "safety score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "points",
+     "window": "none",
+     "scope": "regional"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Crestline Express",
+     "relation": null,
+     "quantity": "coach fleet count",
+     "comparator": ">=",
+     "threshold": 30,
+     "unit": "coaches",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Crestline Express",
+     "relation": null,
+     "quantity": "ground transit capability",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B4",
+     "kind": "conclusion",
+     "entity": "Crestline Express",
+     "relation": null,
+     "quantity": "overland operator status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "comparator": null,
+     "entity": "Skyway Charters",
+     "kind": "credential",
+     "premise": "E3",
+     "quantity": "air carrier certificate",
+     "relation": null,
+     "scope": "none",
+     "threshold": null,
+     "unit": null,
+     "window": "none"
+    },
+    {
+     "comparator": ">=",
+     "entity": "Skyway Charters",
+     "kind": "number",
+     "premise": "E4",
+     "quantity": "safety score",
+     "relation": null,
+     "scope": "regional",
+     "threshold": 90,
+     "unit": "points",
+     "window": "none"
+    },
+    {
+     "comparator": ">=",
+     "entity": "Skyway Charters",
+     "kind": "number",
+     "premise": "E6",
+     "quantity": "emergency fleet count",
+     "relation": null,
+     "scope": "none",
+     "threshold": 6,
+     "unit": "aircraft",
+     "window": "none"
+    }
+   ],
+   "B6": [
+    {
+     "comparator": ">=",
+     "entity": "Skyway Charters",
+     "kind": "number",
+     "premise": "E7",
+     "quantity": "landing slots",
+     "relation": null,
+     "scope": "international",
+     "threshold": 4,
+     "unit": "slots",
+     "window": "none"
+    },
+    {
+     "comparator": null,
+     "entity": "Skyway Charters",
+     "kind": "credential",
+     "premise": "E8",
+     "quantity": "international operating permit",
+     "relation": null,
+     "scope": "none",
+     "threshold": null,
+     "unit": null,
+     "window": "none"
+    }
+   ],
+   "B7": [
+    {
+     "premise": "B6",
+     "kind": "conclusion",
+     "entity": "Skyway Charters",
+     "relation": null,
+     "quantity": "international access status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E9",
+     "kind": "number",
+     "entity": "Skyway Charters",
+     "relation": null,
+     "quantity": "arrival delay",
+     "comparator": "<=",
+     "threshold": 15,
+     "unit": "minutes",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D2": [
+    {
+     "premise": "B7",
+     "kind": "conclusion",
+     "entity": "Skyway Charters",
+     "relation": null,
+     "quantity": "international scheduling status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B8": [
+    {
+     "premise": "E10",
+     "kind": "number",
+     "entity": "Skyway Charters",
+     "relation": null,
+     "quantity": "maintenance technicians",
+     "comparator": ">=",
+     "threshold": 20,
+     "unit": "technicians",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "Skyway Charters",
+     "relation": null,
+     "quantity": "landing slots",
+     "comparator": ">=",
+     "threshold": 4,
+     "unit": "slots",
+     "window": "none",
+     "scope": "international"
+    },
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Skyway Charters",
+     "relation": null,
+     "quantity": "emergency fleet count",
+     "comparator": ">=",
+     "threshold": 6,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B9": [
+    {
+     "premise": "B8",
+     "kind": "conclusion",
+     "entity": "Skyway Charters",
+     "relation": null,
+     "quantity": "operational infrastructure status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E11",
+     "kind": "number",
+     "entity": "Skyway Charters",
+     "relation": null,
+     "quantity": "major incident count",
+     "comparator": "<=",
+     "threshold": 1,
+     "unit": "incidents",
+     "window": "5 years",
+     "scope": "none"
+    }
+   ],
+   "D3": [
+    {
+     "premise": "B9",
+     "kind": "conclusion",
+     "entity": "Skyway Charters",
+     "relation": null,
+     "quantity": "reliability clearance status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B10": [
+    {
+     "premise": "E12",
+     "kind": "number",
+     "entity": "Delta Freight Services",
+     "relation": null,
+     "quantity": "cargo trucks",
+     "comparator": ">=",
+     "threshold": 20,
+     "unit": "trucks",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B11": [
+    {
+     "premise": "B10",
+     "kind": "conclusion",
+     "entity": "Delta Freight Services",
+     "relation": null,
+     "quantity": "heavy fleet status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E13",
+     "kind": "credential",
+     "entity": "Delta Freight Services",
+     "relation": null,
+     "quantity": "freight permit",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D4": [
+    {
+     "premise": "B11",
+     "kind": "conclusion",
+     "entity": "Delta Freight Services",
+     "relation": null,
+     "quantity": "priority clearance status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B12": [
+    {
+     "comparator": ">=",
+     "entity": "Eagle Transit",
+     "kind": "number",
+     "premise": "E14",
+     "quantity": "annual revenue",
+     "relation": null,
+     "scope": "none",
+     "threshold": 10000000,
+     "unit": "dollars",
+     "window": "year"
+    }
+   ],
+   "B13": [
+    {
+     "premise": "E15",
+     "kind": "credential",
+     "entity": "Falcon Charter",
+     "relation": null,
+     "quantity": "ISO 9001 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B14": [
+    {
+     "comparator": ">=",
+     "entity": "Grand Tour Agency",
+     "kind": "number",
+     "premise": "E16",
+     "quantity": "insurance coverage",
+     "relation": null,
+     "scope": "none",
+     "threshold": 2000000,
+     "unit": "dollars",
+     "window": "none"
+    }
+   ],
+   "B15": [
+    {
+     "premise": "E17",
+     "kind": "number",
+     "entity": "Highline Rail Corp",
+     "relation": null,
+     "quantity": "electric locomotives count",
+     "comparator": ">=",
+     "threshold": 15,
+     "unit": "locomotives",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Apex Shuttle Service operating 15 vans meets the policy requirement of at least 10 vans for fleet capacity."
+   ],
+   "B2": [
+    "Skyway Charters operating 12 aircraft, holding a Class A certificate, and scoring 94 points satisfies the operational standards requiring 10 aircraft, a certificate, and 90 points."
+   ],
+   "B3": [
+    "Crestline Express operating 40 coaches meets the threshold of 30 coaches for broad transit reach."
+   ],
+   "B4": [
+    "Crestline Express having broad transit reach satisfies the policy condition for major overland standing."
+   ],
+   "D1": [
+    "Crestline Express achieving major overland standing satisfies the policy requirement for national transport allocation."
+   ],
+   "B5": [
+    "Skyway Charters holding a Class A certificate and scoring 94 points satisfies the first alternative for flight clearance.",
+    "Skyway Charters maintaining an emergency fleet of 8 aircraft satisfies the second alternative requiring at least 6 aircraft."
+   ],
+   "B6": [
+    "Skyway Charters holding 5 international landing slots meets the requirement of at least 4 slots.",
+    "Skyway Charters holding 6 international landing slots meets the requirement of at least 4 slots."
+   ],
+   "B7": [
+    "Skyway Charters having global hub access and recording an arrival delay of 12 minutes satisfies the international schedule approval criteria requiring under 15 minutes delay."
+   ],
+   "D2": [
+    "Skyway Charters possessing international schedule approval satisfies the policy requirement for preferred partner status."
+   ],
+   "B8": [
+    "Skyway Charters employing 25 maintenance technicians satisfies the first infrastructure readiness alternative requiring at least 20 technicians.",
+    "Skyway Charters holding 5 international landing slots satisfies the second infrastructure readiness alternative requiring at least 4 slots.",
+    "Skyway Charters operating 8 emergency aircraft satisfies the third infrastructure readiness alternative requiring at least 6 aircraft."
+   ],
+   "B9": [
+    "Skyway Charters having infrastructure readiness and recording 0 major incidents over 5 years satisfies the reliability endorsement requirement of no more than 1 incident."
+   ],
+   "D3": [
+    "Skyway Charters securing a reliability endorsement satisfies the policy requirement for government transit vendor selection."
+   ],
+   "B10": [
+    "Delta Freight Services operating 30 trucks meets the heavy haulage threshold of 20 trucks."
+   ],
+   "B11": [
+    "Delta Freight Services meeting heavy haulage capacity and holding a freight permit satisfies the priority movement clearance policy."
+   ],
+   "D4": [
+    "Delta Freight Services obtaining priority movement clearance meets the policy criteria for state logistics contract assignment."
+   ],
+   "B12": [
+    "Eagle Transit reporting annual revenue of 15 million dollars satisfies the top-tier fiscal requirement of at least 10 million dollars."
+   ],
+   "B13": [
+    "Falcon Charter holding an ISO 9001 certification meets the requirement for service quality approval."
+   ],
+   "B14": [
+    "Grand Tour Agency carrying insurance coverage of 5 million dollars satisfies the liability clearance requirement of at least 2 million dollars."
+   ],
+   "B15": [
+    "Highline Rail Corp operating 25 locomotives meets the rail fleet qualification threshold of 15 locomotives."
+   ]
+  }
+ }
+}

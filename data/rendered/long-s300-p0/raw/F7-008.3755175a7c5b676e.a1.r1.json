@@ -1,0 +1,888 @@
+{
+ "scenario": "F7-008",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "decoy_policies[1]": "decoy_shares_memory_word 'office,site' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)",
+  "policies.B1": "record_window_not_in_policy 'year'; record_window_not_in_policy 'year'",
+  "conditions.B1": "record_window_not_in_policy 'year'; record_window_not_in_policy 'year'",
+  "facts.E1": "record_window_not_in_policy 'year'",
+  "nodes.E1.text": "record_window_not_in_policy 'year'",
+  "nodes.E1.source": "record_window_not_in_policy 'year'",
+  "facts.E2": "record_window_not_in_policy 'year'",
+  "nodes.E2.text": "record_window_not_in_policy 'year'",
+  "nodes.E2.source": "record_window_not_in_policy 'year'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B1\": [\n   {\n    \"comparator\": \">=\",\n    \"entity\": \"Elena Rostova\",\n    \"kind\": \"number\",\n    \"premise\": \"E1\",\n    \"quantity\": \"background checks\",\n    \"relation\": null,\n    \"scope\": \"none\",\n    \"threshold\": 3,\n    \"unit\": null,\n    \"window\": \"year\"\n   },\n   {\n    \"comparator\": \">=\",\n    \"entity\": \"Elena Rostova\",\n    \"kind\": \"number\",\n    \"premise\": \"E2\",\n    \"quantity\": \"professional references\",\n    \"relation\": null,\n    \"scope\": \"none\",\n    \"threshold\": 2,\n    \"unit\": null,\n    \"window\": \"year\"\n   },\n   {\n    \"comparator\": \">=\",\n    \"entity\": \"Elena Rostova\",\n    \"kind\": \"number\",\n    \"premise\": \"E3\",\n    \"quantity\": \"assessment score\",\n    \"relation\": null,\n    \"scope\": \"none\",\n    \"threshold\": 80,\n    \"unit\": \"points\",\n    \"window\": \"none\"\n   },\n   {\n    \"comparator\": null,\n    \"entity\": \"Elena Rostova\",\n    \"kind\": \"credential\",\n    \"premise\": \"E4\",\n    \"quantity\": \"executive recommendation clearance\",\n    \"relation\": null,\n    \"scope\": \"none\",\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\"\n   }\n  ],\n  \"decoy_policies[1]\": \"Tuition assistance funding is granted to an employee who finishes 12 academic credits annually.\",\n  \"facts.E1\": {\n   \"entity\": \"Elena Rostova\",\n   \"kind\": \"number\",\n   \"quantity\": \"background checks\",\n   \"scope\": \"none\",\n   \"unit\": null,\n   \"value\": 4,\n   \"window\": \"year\"\n  },\n  \"facts.E2\": {\n   \"entity\": \"Elena Rostova\",\n   \"kind\": \"number\",\n   \"quantity\": \"professional references\",\n   \"scope\": \"none\",\n   \"unit\": null,\n   \"value\": 2,\n   \"window\": \"year\"\n  },\n  \"nodes.E1.source\": \"HR Audit System Log\",\n  \"nodes.E1.text\": \"Elena Rostova completed 4 background checks this year.\",\n  \"nodes.E2.source\": \"Verified Talent Acquisition Portal\",\n  \"nodes.E2.text\": \"Elena Rostova submitted 2 professional references this year.\",\n  \"policies.B1\": \"An applicant fulfills background screening requirements either by completing a minimum of 3 background checks per year along with at least 2 professional references per year and earning an assessment score of 80 points or higher, or by holding executive recommendation clearance.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 11704,
+   "output_tokens": 6001,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 11704,
+    "completion_tokens": 6001
+   }
+  },
+  "est_usd": 0.09384525,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "decoy_policies[1]",
+  "policies.B1"
+ ],
+ "merged": {
+  "world": "An HR onboarding portal evaluates incoming candidates across background checks, compliance credentials, technical skills, and equipment authorization.",
+  "nodes": {
+   "E1": {
+    "text": "Elena Rostova completed 4 background checks this year.",
+    "source": "HR Audit System Log"
+   },
+   "E2": {
+    "text": "Elena Rostova submitted 2 professional references this year.",
+    "source": "Verified Talent Acquisition Portal"
+   },
+   "E3": {
+    "text": "Elena Rostova achieved an assessment score of 85 points.",
+    "source": "Automated Testing Platform Report"
+   },
+   "E4": {
+    "text": "Elena Rostova holds executive recommendation clearance.",
+    "source": "Signed Memorandum from VP of HR"
+   },
+   "E5": {
+    "text": "Elena Rostova submitted identity documentation.",
+    "source": "Corporate Security Verification Database"
+   },
+   "E6": {
+    "text": "Elena Rostova logged 120 training hours this year.",
+    "source": "Internal Learning Management System"
+   },
+   "E7": {
+    "text": "Elena Rostova holds a senior recruiter certification.",
+    "source": "Official Professional Licensing Registry"
+   },
+   "E8": {
+    "text": "Elena Rostova completed 15 client projects this year.",
+    "source": "Operations Management Dashboard"
+   },
+   "E9": {
+    "text": "Elena Rostova possesses a corporate security clearance.",
+    "source": "Global Security Directives Log"
+   },
+   "E10": {
+    "text": "Elena Rostova signed a non-disclosure agreement.",
+    "source": "Legal Document Management Portal"
+   },
+   "E11": {
+    "text": "Marcus Vance completed 5 compliance modules this quarter.",
+    "source": "Quarterly Compliance Dashboard"
+   },
+   "E12": {
+    "text": "Marcus Vance verified 3 years of prior industry experience.",
+    "source": "Employment History Verification Report"
+   },
+   "E13": {
+    "text": "Marcus Vance holds a valid driver license.",
+    "source": "Department of Motor Vehicles Portal"
+   },
+   "E14": {
+    "text": "Priya Patel completed 6 safety training modules this year.",
+    "source": "Safety Portal Database"
+   },
+   "E15": {
+    "text": "Priya Patel submitted a medical clearance form.",
+    "source": "Clinic Staff Email Notification"
+   },
+   "E16": {
+    "text": "Priya Patel completed an ethics orientation course.",
+    "source": "Ethics Board Certification Records"
+   },
+   "E17": {
+    "text": "Liam O'Connor submitted 4 verified employment references.",
+    "source": "Third-Party Vetting Report"
+   },
+   "E18": {
+    "text": "Sofia Chen achieved a technical assessment score of 92 points.",
+    "source": "Engineering Assessment Portal"
+   },
+   "E19": {
+    "text": "David Miller completed 15 hours of legal compliance instruction this year.",
+    "source": "Corporate Legal Training Database"
+   },
+   "E20": {
+    "text": "Hannah Abbott holds a project management professional certification.",
+    "source": "Professional Certification System Record"
+   },
+   "B1": {
+    "text": "Elena Rostova satisfies initial vetting prerequisites."
+   },
+   "D1": {
+    "text": "Authorize system badge provisioning for Elena Rostova."
+   },
+   "B2": {
+    "text": "Elena Rostova fulfills advanced qualification criteria."
+   },
+   "B3": {
+    "text": "Elena Rostova holds full safety compliance status."
+   },
+   "B4": {
+    "text": "Elena Rostova meets organizational onboarding standard."
+   },
+   "B5": {
+    "text": "Elena Rostova is designated as ready for deployment."
+   },
+   "D2": {
+    "text": "Issue corporate laptop to Elena Rostova."
+   },
+   "B6": {
+    "text": "Marcus Vance meets technical competency guidelines."
+   },
+   "B7": {
+    "text": "Marcus Vance holds verified candidate standing."
+   },
+   "D3": {
+    "text": "Assign office workstation to Marcus Vance."
+   },
+   "B8": {
+    "text": "Priya Patel fulfills health protocol requirements."
+   },
+   "D4": {
+    "text": "Approve field site permission for Priya Patel."
+   },
+   "B9": {
+    "text": "Liam O'Connor satisfies background verification rules."
+   },
+   "B10": {
+    "text": "Sofia Chen meets software engineering prerequisites."
+   },
+   "B11": {
+    "text": "David Miller satisfies regulatory training benchmarks."
+   },
+   "B12": {
+    "text": "Hannah Abbott possesses administrative team leadership credentials."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An unverified memo alleged that Elena Rostova did not complete 4 background checks this year.",
+    "source": "Anonymous HR chat forum message"
+   },
+   "U2": {
+    "text": "Occupational Health Services confirmed that Priya Patel never submitted a medical clearance form.",
+    "source": "Official medical audit record signed by Dr. Aris Thorne"
+   },
+   "U3": {
+    "text": "An internal compliance review questioned whether Marcus Vance verified 3 years of prior industry experience.",
+    "source": "Formal audit note from Senior Auditor Karen Vance"
+   },
+   "U4": {
+    "text": "The corrected operations audit showed that Elena Rostova completed 18 client projects this year.",
+    "source": "Signed quarterly performance audit report"
+   }
+  },
+  "policies": {
+   "B1": "An applicant fulfills background screening requirements either by completing a minimum of 3 background checks per year along with at least 2 professional references per year and earning an assessment score of 80 points or higher, or by holding executive recommendation clearance.",
+   "D1": "System access pass issuance is granted to a candidate who meets background screening requirements and provides identity documentation.",
+   "B2": "Senior practitioner status is recognized when an individual completes at least 100 training hours annually, possesses a senior recruiter certification, or finishes at least 10 client projects in a year.",
+   "B3": "Workplace risk clearance is granted if a personnel member maintains corporate security clearance or completes 100 annual training hours.",
+   "B4": "Core hiring verification is achieved when a candidate maintains workplace risk clearance and has system access pass issuance approved.",
+   "B5": "An employee is approved for active assignment when core hiring verification is confirmed.",
+   "D2": "Company hardware distribution is sanctioned for an employee approved for active assignment who submits a signed non-disclosure agreement.",
+   "B6": "Technical capability validation requires completing no fewer than 4 compliance modules per quarter while documenting at least 2 years of industry experience.",
+   "B7": "Validated applicant eligibility is established once technical capability validation is confirmed.",
+   "D3": "Desk space allocation is authorized for an applicant with validated applicant eligibility who holds a valid driver license.",
+   "B8": "Wellness standard compliance is attained when an individual completes a minimum of 5 safety training modules annually and furnishes a medical clearance form.",
+   "D4": "On-site entry authorization is granted to a candidate who achieves wellness standard compliance and completes an ethics orientation course.",
+   "B9": "Reference check clearance requires providing at least 3 verified employment references.",
+   "B10": "Developer candidate approval requires a technical assessment score of 80 points or higher.",
+   "B11": "Regulatory education completion is recognized when a staff member logs at least 10 hours of legal compliance instruction in a year.",
+   "B12": "Management track qualification is granted to an employee holding a project management professional certification."
+  },
+  "decoy_policies": [
+   "Relocation expense reimbursement is approved for a new hire who relocates over 50 miles and submits valid travel expense receipts.",
+   "Tuition assistance funding is granted to an employee who finishes 12 academic credits annually."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "D1": "holds",
+   "B2": "holds",
+   "B3": "holds",
+   "B4": "holds",
+   "B5": "holds",
+   "D2": "holds",
+   "B6": "undetermined",
+   "B7": "undetermined",
+   "D3": "undetermined",
+   "B8": "fails",
+   "D4": "fails",
+   "B9": "holds",
+   "B10": "holds",
+   "B11": "holds",
+   "B12": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Elena Rostova",
+    "kind": "number",
+    "quantity": "background checks",
+    "scope": "none",
+    "unit": null,
+    "value": 4,
+    "window": "year"
+   },
+   "E2": {
+    "entity": "Elena Rostova",
+    "kind": "number",
+    "quantity": "professional references",
+    "scope": "none",
+    "unit": null,
+    "value": 2,
+    "window": "year"
+   },
+   "E3": {
+    "entity": "Elena Rostova",
+    "kind": "number",
+    "quantity": "assessment score",
+    "value": 85,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Elena Rostova",
+    "kind": "credential",
+    "quantity": "executive recommendation clearance",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Elena Rostova",
+    "kind": "credential",
+    "quantity": "identity documentation",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Elena Rostova",
+    "kind": "number",
+    "quantity": "training hours",
+    "value": 120,
+    "unit": "hours",
+    "window": "year",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Elena Rostova",
+    "kind": "credential",
+    "quantity": "senior recruiter certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E8": {
+    "entity": "Elena Rostova",
+    "kind": "number",
+    "quantity": "client projects",
+    "value": 15,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "E9": {
+    "entity": "Elena Rostova",
+    "kind": "credential",
+    "quantity": "corporate security clearance",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E10": {
+    "entity": "Elena Rostova",
+    "kind": "credential",
+    "quantity": "non-disclosure agreement",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E11": {
+    "entity": "Marcus Vance",
+    "kind": "number",
+    "quantity": "compliance modules",
+    "value": 5,
+    "unit": null,
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E12": {
+    "entity": "Marcus Vance",
+    "kind": "number",
+    "quantity": "industry experience",
+    "value": 3,
+    "unit": "years",
+    "window": "none",
+    "scope": "none"
+   },
+   "E13": {
+    "entity": "Marcus Vance",
+    "kind": "credential",
+    "quantity": "driver license",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E14": {
+    "entity": "Priya Patel",
+    "kind": "number",
+    "quantity": "safety training modules",
+    "value": 6,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "E15": {
+    "entity": "Priya Patel",
+    "kind": "credential",
+    "quantity": "medical clearance form",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E16": {
+    "entity": "Priya Patel",
+    "kind": "credential",
+    "quantity": "ethics orientation course",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E17": {
+    "entity": "Liam O'Connor",
+    "kind": "number",
+    "quantity": "employment references",
+    "value": 4,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E18": {
+    "entity": "Sofia Chen",
+    "kind": "number",
+    "quantity": "technical assessment score",
+    "value": 92,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "E19": {
+    "entity": "David Miller",
+    "kind": "number",
+    "quantity": "legal compliance instruction",
+    "value": 15,
+    "unit": "hours",
+    "window": "year",
+    "scope": "none"
+   },
+   "E20": {
+    "entity": "Hannah Abbott",
+    "kind": "credential",
+    "quantity": "project management professional certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Elena Rostova",
+    "kind": "number",
+    "quantity": "background checks",
+    "value": null,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "U2": {
+    "entity": "Priya Patel",
+    "kind": "credential",
+    "quantity": "medical clearance form",
+    "value": false,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U3": {
+    "entity": "Marcus Vance",
+    "kind": "number",
+    "quantity": "industry experience",
+    "value": null,
+    "unit": "years",
+    "window": "none",
+    "scope": "none"
+   },
+   "U4": {
+    "entity": "Elena Rostova",
+    "kind": "number",
+    "quantity": "client projects",
+    "value": 18,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "comparator": ">=",
+     "entity": "Elena Rostova",
+     "kind": "number",
+     "premise": "E1",
+     "quantity": "background checks",
+     "relation": null,
+     "scope": "none",
+     "threshold": 3,
+     "unit": null,
+     "window": "year"
+    },
+    {
+     "comparator": ">=",
+     "entity": "Elena Rostova",
+     "kind": "number",
+     "premise": "E2",
+     "quantity": "professional references",
+     "relation": null,
+     "scope": "none",
+     "threshold": 2,
+     "unit": null,
+     "window": "year"
+    },
+    {
+     "comparator": ">=",
+     "entity": "Elena Rostova",
+     "kind": "number",
+     "premise": "E3",
+     "quantity": "assessment score",
+     "relation": null,
+     "scope": "none",
+     "threshold": 80,
+     "unit": "points",
+     "window": "none"
+    },
+    {
+     "comparator": null,
+     "entity": "Elena Rostova",
+     "kind": "credential",
+     "premise": "E4",
+     "quantity": "executive recommendation clearance",
+     "relation": null,
+     "scope": "none",
+     "threshold": null,
+     "unit": null,
+     "window": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "background screening requirements",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "identity documentation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "training hours",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "hours",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E7",
+     "kind": "credential",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "senior recruiter certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E8",
+     "kind": "number",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "client projects",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E9",
+     "kind": "credential",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "corporate security clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "training hours",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "hours",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "workplace risk clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "D1",
+     "kind": "conclusion",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "system access pass issuance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "B4",
+     "kind": "conclusion",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "core hiring verification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D2": [
+    {
+     "premise": "B5",
+     "kind": "conclusion",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "approved for active assignment",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E10",
+     "kind": "credential",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "non-disclosure agreement",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "E11",
+     "kind": "number",
+     "entity": "Marcus Vance",
+     "relation": null,
+     "quantity": "compliance modules",
+     "comparator": ">=",
+     "threshold": 4,
+     "unit": null,
+     "window": "quarter",
+     "scope": "none"
+    },
+    {
+     "premise": "E12",
+     "kind": "number",
+     "entity": "Marcus Vance",
+     "relation": null,
+     "quantity": "industry experience",
+     "comparator": ">=",
+     "threshold": 2,
+     "unit": "years",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B7": [
+    {
+     "premise": "B6",
+     "kind": "conclusion",
+     "entity": "Marcus Vance",
+     "relation": null,
+     "quantity": "technical capability validation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D3": [
+    {
+     "premise": "B7",
+     "kind": "conclusion",
+     "entity": "Marcus Vance",
+     "relation": null,
+     "quantity": "validated applicant eligibility",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E13",
+     "kind": "credential",
+     "entity": "Marcus Vance",
+     "relation": null,
+     "quantity": "driver license",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B8": [
+    {
+     "premise": "E14",
+     "kind": "number",
+     "entity": "Priya Patel",
+     "relation": null,
+     "quantity": "safety training modules",
+     "comparator": ">=",
+     "threshold": 5,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E15",
+     "kind": "credential",
+     "entity": "Priya Patel",
+     "relation": null,
+     "quantity": "medical clearance form",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D4": [
+    {
+     "premise": "B8",
+     "kind": "conclusion",
+     "entity": "Priya Patel",
+     "relation": null,
+     "quantity": "wellness standard compliance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E16",
+     "kind": "credential",
+     "entity": "Priya Patel",
+     "relation": null,
+     "quantity": "ethics orientation course",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B9": [
+    {
+     "premise": "E17",
+     "kind": "number",
+     "entity": "Liam O'Connor",
+     "relation": null,
+     "quantity": "employment references",
+     "comparator": ">=",
+     "threshold": 3,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B10": [
+    {
+     "premise": "E18",
+     "kind": "number",
+     "entity": "Sofia Chen",
+     "relation": null,
+     "quantity": "technical assessment score",
+     "comparator": ">=",
+     "threshold": 80,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B11": [
+    {
+     "premise": "E19",
+     "kind": "number",
+     "entity": "David Miller",
+     "relation": null,
+     "quantity": "legal compliance instruction",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "hours",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B12": [
+    {
+     "premise": "E20",
+     "kind": "credential",
+     "entity": "Hannah Abbott",
+     "relation": null,
+     "quantity": "project management professional certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Elena Rostova completed 4 background checks this year (>= 3), submitted 2 professional references this year (>= 2), and achieved an assessment score of 85 points (>= 80 points), fulfilling the background screening requirements.",
+    "Elena Rostova holds executive recommendation clearance, satisfying the background screening requirements."
+   ],
+   "D1": [
+    "Elena Rostova meets background screening requirements and submitted identity documentation, justifying badge provisioning."
+   ],
+   "B2": [
+    "Elena Rostova logged 120 training hours this year (>= 100 hours), meeting senior practitioner status criteria.",
+    "Elena Rostova holds a senior recruiter certification, fulfilling senior practitioner status criteria.",
+    "Elena Rostova completed 15 client projects this year (>= 10), fulfilling senior practitioner status criteria."
+   ],
+   "B3": [
+    "Elena Rostova possesses corporate security clearance, granting workplace risk clearance.",
+    "Elena Rostova logged 120 training hours this year (>= 100 hours), granting workplace risk clearance."
+   ],
+   "B4": [
+    "Elena Rostova maintains workplace risk clearance and has system access pass issuance approved, satisfying core hiring verification."
+   ],
+   "B5": [
+    "Elena Rostova achieves core hiring verification, confirming active assignment approval."
+   ],
+   "D2": [
+    "Elena Rostova is approved for active assignment and submitted a signed non-disclosure agreement, authorizing laptop distribution."
+   ],
+   "B6": [
+    "Marcus Vance completed 5 compliance modules this quarter (>= 4) and verified 3 years of prior industry experience (>= 2 years), satisfying technical capability validation."
+   ],
+   "B7": [
+    "Marcus Vance achieved technical capability validation, confirming validated applicant eligibility."
+   ],
+   "D3": [
+    "Marcus Vance holds validated applicant eligibility and possesses a valid driver license, authorizing workstation allocation."
+   ],
+   "B8": [
+    "Priya Patel completed 6 safety training modules this year (>= 5) and submitted a medical clearance form, satisfying wellness standard compliance."
+   ],
+   "D4": [
+    "Priya Patel achieved wellness standard compliance and completed an ethics orientation course, authorizing field site entry."
+   ],
+   "B9": [
+    "Liam O'Connor submitted 4 verified employment references (>= 3), satisfying reference check clearance."
+   ],
+   "B10": [
+    "Sofia Chen achieved a technical assessment score of 92 points (>= 80 points), satisfying developer candidate approval."
+   ],
+   "B11": [
+    "David Miller completed 15 hours of legal compliance instruction this year (>= 10 hours), satisfying regulatory education completion."
+   ],
+   "B12": [
+    "Hannah Abbott holds a project management professional certification, qualifying her for management track placement."
+   ]
+  }
+ }
+}

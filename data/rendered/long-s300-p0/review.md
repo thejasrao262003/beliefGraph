@@ -1,0 +1,1207 @@
+# Renderer review sheet
+
+## s_b5c70e4230  (F7-000, personal assistant)
+
+*World:* An executive assistant system manages client travel, service tiers, schedule planning, and corporate perks.
+
+### A. System view (judge C7 from this alone)
+- `e_ca95` [2026-01-08, Travel agency partner notification] Arthur Pendelton maintains an active VIP Loyalty Club membership.
+- `e_988a` [2026-01-11, Official PMI online registry entry] Diana Prince holds an active master project management certification.
+- `e_d5af` [2026-01-14, Staff preliminary timesheet submission] Beatrice Vance logged 25 billable consulting hours this week.
+- `e_de7c` [2026-01-17, Accounts payable vendor record] Evan Wright registered annual software purchases of $8,000.
+- `e_f548` [2026-01-20, Client travel assistant profile entry] Arthur Pendelton recorded annual flight spending of $12,000.
+- `e_2469` [2026-01-23, Verified insurance portal record] Arthur Pendelton holds an active travel insurance policy.
+- `e_c1c6` [2026-01-26, Verified clinic record summary] Carlos Gomez completed 5 annual wellness assessments.
+- `e_9d69` [2026-01-29, Official airline activity summary statement] Arthur Pendelton completed 15 international trips this year.
+- `e_6bac` [2026-02-01, Signed booking voucher document] Arthur Pendelton submitted a private chauffeur reservation.
+- memories:
+  - `m_d885` Beatrice Vance meets elite client billing requirements.
+  - `m_94f7` Reserve a private airport suite for Arthur Pendelton.
+  - `m_e4cf` Arthur Pendelton holds Executive Travel Priority status.
+  - `m_9b0e` Arthur Pendelton qualifies as a global frequent traveler.
+  - `m_8671` Beatrice Vance is eligible for premium assistant support.
+  - `m_1c06` Diana Prince is designated for senior project oversight.
+  - `m_a10e` Carlos Gomez qualifies for wellness program rewards.
+  - `m_a93e` Arthur Pendelton is assigned to dedicated concierge routing.
+  - `m_382d` Authorize comprehensive travel package services for Arthur Pendelton.
+  - `m_1c42` Book priority airport lounge access for Arthur Pendelton.
+  - `m_e1c5` Evan Wright holds preferred software client status.
+  - `m_fa8c` Arthur Pendelton maintains a confirmed ground transit request.
+  - `m_f865` Schedule weekly executive briefing calls for Beatrice Vance.
+- update `u_19e9` [2026-02-04, Unverified community forum post] An unverified forum post asserts Arthur Pendelton recorded no annual flight spending.
+- update `u_b5f5` [2026-02-07, Anonymous internet message board] An anonymous comment claims Beatrice Vance recorded zero billable hours.
+- update `u_26af` [2026-02-10, Unverified personal blog entry] A secondhand blog post asserts Arthur Pendelton had no yearly flight spending.
+- update `u_8195` [2026-02-13, Corporate audit department memo] An accounting audit indicates Beatrice Vance's billable consulting hours are under official review.
+- update `u_6ceb` [2026-02-16, Signed corporate financial system audit] A certified finance ledger revision confirms Arthur Pendelton registered $0 in annual flight spending.
+- update `u_5a7b` [2026-02-19, Official VIP administration notice] A membership cancellation notice confirms Arthur Pendelton's VIP Loyalty Club membership was revoked.
+- update `u_dbd9` [2026-02-22, Signed accounting ledger revision] An audited financial ledger update confirms Evan Wright registered annual software purchases of $3,000.
+- policies:
+  - `p_f8ff` Setting up weekly briefing sessions is recommended for any client with high-tier assistant service.
+  - `p_0b16` Granting health incentive rewards is suitable for a person completing 3 or more annual wellness assessments.
+  - `p_a36c` A transit request is confirmed when a client submits a private chauffeur reservation.
+  - `p_499a` Arranging a private suite at the airport is recommended for any account holder receiving specialized client routing.
+  - `p_ac73` Elite billing qualification is attained when a worker logs at least 20 billable consulting hours per week.
+  - `p_9505` Standard equipment upgrades are provided to an employee logging two years of tenure.
+  - `p_14e1` Granting premier lounge admission is advised for an international journey specialist who holds an active travel insurance policy.
+  - `p_bd91` Preferred account status is granted to a customer whose annual software purchases reach at least $5,000.
+  - `p_0adb` High-tier assistant service is open to a worker achieving elite billing qualification.
+  - `p_bc0e` Specialized client routing is arranged for an account holder who has obtained Executive Priority classification.
+  - `p_6ea4` Travel tier elevation to Executive Priority is assigned to an account holder with yearly flight spending of $10,000 or more who maintains an active VIP Loyalty Club membership.
+  - `p_6b51` Automated reimbursement approval is granted to an employee submitting meal receipts exceeding $200 per month.
+  - `p_bd68` Full itinerary coordination is sanctioned for a client with a confirmed transit request provided that premier lounge admission is advised.
+  - `p_2d78` Senior project management authority is granted to an officer holding a master project management certification.
+  - `p_3abd` Recognition as an international journey specialist requires yearly flight spending reaching at least $10,000 alongside a minimum of 10 international trips per year.
+
+### B. Intended structure
+- `m_e4cf` (B1) [policy `p_6ea4`] <= (`e_f548` AND `e_ca95`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton's flight spending of $12,000 exceeds $10,000 and he holds a VIP Loyalty Club membership, fulfilling Executive Travel Priority status.
+- `m_a93e` (B2) [policy `p_bc0e`] <= (`m_e4cf`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton holds Executive Travel Priority status, which qualifies him for dedicated concierge routing.
+- `m_94f7` (D1) [policy `p_499a`] <= (`m_a93e`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton is assigned to dedicated concierge routing, justifying reserving a private airport suite.
+- `m_9b0e` (B3) [policy `p_3abd`] <= (`e_f548` AND `e_9d69`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton's annual flight spending of $12,000 meets $10,000 and he completed 15 international trips, exceeding 10 trips.
+- `m_1c42` (D2) [policy `p_14e1`] <= (`m_9b0e` AND `e_2469`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton qualifies as a global frequent traveler and holds an active travel insurance policy, supporting booking priority lounge access.
+- `m_fa8c` (B4) [policy `p_a36c`] <= (`e_6bac`); gold after update: **keep**
+  - set 1: Arthur Pendelton submitted a private chauffeur reservation, establishing a confirmed ground transit request.
+- `m_382d` (B5) [policy `p_bd68`] <= (`m_fa8c` AND `m_1c42`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton has a confirmed ground transit request and priority airport lounge access, entitling him to comprehensive travel package services.
+- `m_d885` (B6) [policy `p_ac73`] <= (`e_d5af`); gold after update: **uncertain**
+  - set 1: Beatrice Vance logged 25 billable consulting hours, exceeding the 20-hour weekly requirement for elite client billing.
+- `m_8671` (B7) [policy `p_0adb`] <= (`m_d885`); gold after update: **uncertain**
+  - set 1: Beatrice Vance meets elite client billing requirements, making her eligible for premium assistant support.
+- `m_f865` (D3) [policy `p_f8ff`] <= (`m_8671`); gold after update: **uncertain**
+  - set 1: Beatrice Vance is eligible for premium assistant support, requiring weekly executive briefing calls to be scheduled.
+- `m_a10e` (B8) [policy `p_0b16`] <= (`e_c1c6`); gold after update: **keep**
+  - set 1: Carlos Gomez completed 5 wellness assessments, exceeding the threshold of 3 annual health evaluations.
+- `m_1c06` (B9) [policy `p_2d78`] <= (`e_988a`); gold after update: **keep**
+  - set 1: Diana Prince holds a master project management certification, qualifying her for senior project oversight.
+- `m_e1c5` (B10) [policy `p_bd91`] <= (`e_de7c`); gold after update: **recompute**
+  - set 1: Evan Wright made $8,000 in software purchases, surpassing the $5,000 yearly requirement for preferred client status.
+- `u_19e9` retracts `e_f548` (reliability low)
+- `u_b5f5` retracts `e_d5af` (reliability low)
+- `u_26af` retracts `e_f548` (reliability low)
+- `u_8195` hedges `e_d5af` (reliability high)
+- `u_6ceb` retracts `e_f548` (reliability high)
+- `u_5a7b` retracts `e_ca95` (reliability high)
+- `u_dbd9` supersedes `e_de7c` (reliability high)
+- decoy policies: `p_6b51`, `p_9505`
+- final state after updates (gold action -> state): `m_e4cf` withdraw -> fails; `m_9b0e` withdraw -> fails; `m_fa8c` keep -> holds; `m_d885` uncertain -> undetermined; `m_a10e` keep -> holds; `m_1c06` keep -> holds; `m_e1c5` recompute -> fails; `m_a93e` withdraw -> fails; `m_1c42` withdraw -> fails; `m_8671` uncertain -> undetermined; `m_94f7` withdraw -> fails; `m_382d` withdraw -> fails; `m_f865` uncertain -> undetermined
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_ca95~p_6ea4` policy_echoes_evidence: "maintains an active" (judge under C7/C11)
+- soft `e_988a~p_14e1` policy_echoes_evidence: "holds an active" (judge under C7/C11)
+- soft `e_988a~p_2d78` policy_echoes_evidence: "master project management; project management certification" (judge under C7/C11)
+- soft `e_d5af~p_ac73` policy_echoes_evidence: "billable consulting hours" (judge under C7/C11)
+- soft `e_de7c~p_bd91` policy_echoes_evidence: "annual software purchases" (judge under C7/C11)
+- soft `e_f548~p_6ea4` policy_echoes_evidence: "flight spending of" (judge under C7/C11)
+- soft `e_2469~p_14e1` policy_echoes_evidence: "active travel insurance; an active travel; holds an active; travel insurance policy" (judge under C7/C11)
+- soft `e_c1c6~p_0b16` policy_echoes_evidence: "annual wellness assessments" (judge under C7/C11)
+- soft `e_6bac~p_a36c` policy_echoes_evidence: "a private chauffeur; private chauffeur reservation" (judge under C7/C11)
+- soft `groups 1/3` cross_group_entity: "Granting" (judge under C6)
+- soft `u_b5f5` retraction_reads_as_hedge: "claims" (judge under C4)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_8bcad06c28  (F7-001, healthcare compliance)
+
+*World:* Apex Health Clinic and related healthcare organizations undergo compliance evaluations to maintain operational licenses and government funding.
+
+### A. System view (judge C7 from this alone)
+- `e_79ce` [2026-01-08, Apex Health Clinic internal safety log] Apex Health Clinic logged 50 completed safety audits this year.
+- `e_c559` [2026-01-11, Apex Health Clinic insurance policy contract] Apex Health Clinic carries liability coverage of 5000000 USD.
+- `e_ddde` [2026-01-14, Apex Health Clinic staffing roster] Apex Health Clinic maintains 2 data protection officers.
+- `e_508f` [2026-01-17, Regional Health Authority annual inspection report] Apex Health Clinic maintains an annual compliance score of 85.
+- `e_ef6d` [2026-01-20, Pharmacy Quality Assurance quarterly report] Crestview Pharmacy maintains a prescription accuracy rate of 99.8 percent.
+- `e_242a` [2026-01-23, National Laboratory Accreditation Board] BioPure Diagnostics holds ISO 15189 certification.
+- `e_01dc` [2026-01-26, Apex Health Clinic payroll database] Apex Health Clinic employs 4 infection control specialists.
+- `e_3899` [2026-01-29, HR training records] Apex Health Clinic completed 15 security training sessions this year.
+- `e_aabe` [2026-02-01, ISO certification registry] Apex Health Clinic holds ISO 27001 certification.
+- `e_62d4` [2026-02-04, Patient Privacy Board assessment] Apex Health Clinic maintains a privacy score of 90 points.
+- `e_2181` [2026-02-07, IT security incident report] Apex Health Clinic recorded 2 cyber risk incidents this year.
+- `e_3185` [2026-02-10, Apex Health Clinic facility log] Apex Health Clinic logged 12 sanitation reviews this quarter.
+- `e_3706` [2026-02-13, IT infrastructure monitoring report] Apex Health Clinic maintains an EHR uptime of 99.5 percent.
+- `e_cad3` [2026-02-16, Joint Commission official registry] Apex Health Clinic holds Joint Commission accreditation.
+- `e_e838` [2026-02-19, DocuHealth Systems internal audit log] DocuHealth Systems logged 20 medical record audits this year.
+- memories:
+  - `m_36e8` Apex Health Clinic exhibits high cleanliness controls.
+  - `m_3ad5` Apex Health Clinic maintains sound data governance.
+  - `m_85d1` Apex Health Clinic receives state technology modernization funding.
+  - `m_1414` Apex Health Clinic achieves elite digital care classification.
+  - `m_5248` Apex Health Clinic is approved for facility license renewal.
+  - `m_6f14` Crestview Pharmacy maintains optimal prescription accuracy standards.
+  - `m_45a1` BioPure Diagnostics maintains accredited laboratory operations.
+  - `m_8dc4` Apex Health Clinic is designated as a modern health facility.
+  - `m_c728` Apex Health Clinic meets full operational compliance.
+  - `m_e640` Apex Health Clinic satisfies basic regulatory standards.
+  - `m_f017` Apex Health Clinic qualifies for top sanitation excellence status.
+  - `m_ec7c` Apex Health Clinic maintains secure digital infrastructure.
+  - `m_c97b` Apex Health Clinic holds valid clinical standing.
+  - `m_18ca` Apex Health Clinic is cleared to operate outpatient services.
+  - `m_7296` DocuHealth Systems maintains thorough patient record management.
+  - `m_ddee` Apex Health Clinic maintains sufficient hygiene controls.
+  - `m_0e47` Apex Health Clinic is eligible for digital health expansion.
+- update `u_0692` [2026-02-22, Anonymous online blog] An unverified note states Apex Health Clinic maintains 0 data protection officers.
+- update `u_0d1b` [2026-02-25, State Department of Health official portal] A health department notice confirms Apex Health Clinic logged 0 safety audits this year.
+- update `u_3112` [2026-02-28, HR compliance portal] A verified HR update shows Apex Health Clinic completed 5 security training sessions this year.
+- update `u_efc0` [2026-03-03, State Cyber Security Agency bulletin] An official cybersecurity statement retracts the report that Apex Health Clinic recorded 2 cyber risk incidents this year.
+- update `u_a5a9` [2026-03-06, Independent audit panel report] An audit review casts doubt on whether Apex Health Clinic maintains 2 data protection officers.
+- policies:
+  - `p_10cc` Digital expansion eligibility requires secure digital systems along with outpatient service authorization.
+  - `p_b190` Facility licensing renewal is granted to candidates achieving full operational eligibility.
+  - `p_4401` Rigorous health record oversight is established when annual record reviews reach 15 or more.
+  - `p_a316` Full operational eligibility requires verified hygiene compliance alongside outpatient service authorization.
+  - `p_30c5` Clinical accreditation is granted either with a yearly safety audit count of at least 40 along with an annual compliance evaluation benchmark of 80 points or higher, or with Joint Commission accreditation.
+  - `p_5466` Sanitation excellence certification is awarded to entities demonstrating high cleanliness standards.
+  - `p_5aac` Advanced digital care hub status requires sound data management combined with technology modernization grant entitlement.
+  - `p_e248` High cleanliness standards are recognized when quarterly sanitation inspections reach 10 or more alongside at least 3 infection control specialists.
+  - `p_2029` High prescription safety compliance requires an error-free dispensing frequency of at least 99.5 percent.
+  - `p_6c0a` Community outreach recognition is awarded to facilities conducting at least 25 annual wellness workshops.
+  - `p_847f` Modern facility designation is bestowed upon candidates possessing digital expansion eligibility.
+  - `p_bb60` Outpatient service authorization is issued when basic regulatory approval is met and liability protection is at least 3000000 USD.
+  - `p_7ec9` Hygiene compliance is verified if a facility retains at least 3 infection control specialists.
+  - `p_9cc7` Pharmaceutical storage clearance requires continuous temperature monitoring logs with zero deviations per quarter.
+  - `p_854c` Basic regulatory approval requires recognized clinical status together with a privacy assessment rating of 85 points or above.
+  - `p_ce27` Accredited laboratory standing is conferred to entities possessing ISO 15189 laboratory certification.
+  - `p_8636` Digital infrastructure security is confirmed when system availability is at least 99.0 percent and yearly cyber security breaches do not exceed 5.
+  - `p_9ecd` Data governance approval is granted either with at least 10 annual security instruction workshops, Joint Commission accreditation, and a minimum data protection staffing level of 2, or with ISO 27001 certification.
+  - `p_c5db` Technology modernization grants are disbursed to institutions holding modern facility designation.
+
+### B. Intended structure
+- `m_c97b` (B1) [policy `p_30c5`] <= (`e_79ce` AND `e_508f`) **OR** (`e_cad3`); gold after update: **keep**
+  - set 1: Apex Health Clinic logged 50 completed safety audits this year and maintains a compliance score of 85, meeting the minimum policy requirements of 40 safety audits and an 80 compliance score for clinical accreditation.
+  - set 2: Apex Health Clinic holds Joint Commission accreditation, which independently satisfies the requirement for clinical accreditation.
+- `m_e640` (B2) [policy `p_854c`] <= (`m_c97b` AND `e_62d4`); gold after update: **keep**
+  - set 1: Apex Health Clinic holds valid clinical standing and maintains a privacy score of 90 points, fulfilling the criteria of recognized clinical status and a privacy assessment rating of 85 points or above.
+- `m_18ca` (D1) [policy `p_bb60`] <= (`m_e640` AND `e_c559`); gold after update: **keep**
+  - set 1: Apex Health Clinic satisfies basic regulatory standards and carries liability coverage of 5000000 USD, exceeding the threshold of 3000000 USD required for outpatient service authorization.
+- `m_ddee` (B3) [policy `p_7ec9`] <= (`e_01dc`); gold after update: **keep**
+  - set 1: Apex Health Clinic employs 4 infection control specialists, satisfying the policy requirement of retaining at least 3 specialists for verified hygiene compliance.
+- `m_c728` (B4) [policy `p_a316`] <= (`m_ddee` AND `m_18ca`); gold after update: **keep**
+  - set 1: Apex Health Clinic maintains sufficient hygiene controls and is cleared to operate outpatient services, satisfying full operational eligibility criteria.
+- `m_5248` (D2) [policy `p_b190`] <= (`m_c728`); gold after update: **keep**
+  - set 1: Apex Health Clinic meets full operational compliance, satisfying the requirement for facility licensing renewal.
+- `m_36e8` (B5) [policy `p_e248`] <= (`e_3185` AND `e_01dc`); gold after update: **keep**
+  - set 1: Apex Health Clinic logged 12 sanitation reviews this quarter and employs 4 infection control specialists, meeting the policy requirements of 10 quarterly inspections and 3 specialists for high cleanliness standards.
+- `m_f017` (D3) [policy `p_5466`] <= (`m_36e8`); gold after update: **keep**
+  - set 1: Apex Health Clinic exhibits high cleanliness controls, meeting the criteria for sanitation excellence certification.
+- `m_ec7c` (B6) [policy `p_8636`] <= (`e_3706` AND `e_2181`); gold after update: **withdraw**
+  - set 1: Apex Health Clinic maintains an EHR uptime of 99.5 percent and recorded 2 cyber risk incidents this year, satisfying the system availability threshold of 99.0 percent and breach limit of 5.
+- `m_0e47` (B7) [policy `p_10cc`] <= (`m_ec7c` AND `m_18ca`); gold after update: **withdraw**
+  - set 1: Apex Health Clinic maintains secure digital infrastructure and is cleared to operate outpatient services, satisfying digital expansion eligibility.
+- `m_8dc4` (B8) [policy `p_847f`] <= (`m_0e47`); gold after update: **withdraw**
+  - set 1: Apex Health Clinic is eligible for digital health expansion, fulfilling the requirement for modern facility designation.
+- `m_85d1` (D4) [policy `p_c5db`] <= (`m_8dc4`); gold after update: **withdraw**
+  - set 1: Apex Health Clinic is designated as a modern health facility, qualifying for technology modernization grants.
+- `m_3ad5` (B9) [policy `p_9ecd`] <= (`e_3899` AND `e_cad3` AND `e_ddde`) **OR** (`e_aabe`); gold after update: **keep**
+  - set 1: Apex Health Clinic completed 15 security training sessions this year, holds Joint Commission accreditation, and maintains 2 data protection officers, meeting all required conditions under the first alternative for data governance approval.
+  - set 2: Apex Health Clinic holds ISO 27001 certification, which independently satisfies the requirement for data governance approval.
+- `m_1414` (B10) [policy `p_5aac`] <= (`m_3ad5` AND `m_85d1`); gold after update: **withdraw**
+  - set 1: Apex Health Clinic maintains sound data governance and receives state technology modernization funding, satisfying requirements for advanced digital care hub status.
+- `m_45a1` (B11) [policy `p_ce27`] <= (`e_242a`); gold after update: **keep**
+  - set 1: BioPure Diagnostics holds ISO 15189 certification, meeting the requirement for accredited laboratory standing.
+- `m_6f14` (B12) [policy `p_2029`] <= (`e_ef6d`); gold after update: **keep**
+  - set 1: Crestview Pharmacy maintains a prescription accuracy rate of 99.8 percent, exceeding the 99.5 percent threshold required for high prescription safety compliance.
+- `m_7296` (B13) [policy `p_4401`] <= (`e_e838`); gold after update: **keep**
+  - set 1: DocuHealth Systems logged 20 medical record audits this year, surpassing the threshold of 15 annual reviews for rigorous health record oversight.
+- `u_0692` retracts `e_ddde` (reliability low)
+- `u_0d1b` retracts `e_79ce` (reliability high)
+- `u_3112` supersedes `e_3899` (reliability high)
+- `u_efc0` retracts `e_2181` (reliability high)
+- `u_a5a9` hedges `e_ddde` (reliability high)
+- decoy policies: `p_6c0a`, `p_9cc7`
+- final state after updates (gold action -> state): `m_c97b` keep -> holds; `m_ddee` keep -> holds; `m_36e8` keep -> holds; `m_ec7c` withdraw -> fails; `m_3ad5` keep -> holds; `m_45a1` keep -> holds; `m_6f14` keep -> holds; `m_7296` keep -> holds; `m_e640` keep -> holds; `m_f017` keep -> holds; `m_18ca` keep -> holds; `m_c728` keep -> holds; `m_0e47` withdraw -> fails; `m_5248` keep -> holds; `m_8dc4` withdraw -> fails; `m_85d1` withdraw -> fails; `m_1414` withdraw -> fails
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_508f~p_30c5` policy_echoes_evidence: "an annual compliance" (judge under C7/C11)
+- soft `e_01dc~p_e248` policy_echoes_evidence: "infection control specialists" (judge under C7/C11)
+- soft `e_01dc~p_7ec9` policy_echoes_evidence: "infection control specialists" (judge under C7/C11)
+- soft `groups 1/2` cross_group_entity: "ISO" (judge under C6)
+- soft `groups 1/3` cross_group_entity: "High" (judge under C6)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_5d98fae211  (F7-002, hr onboarding)
+
+*World:* HR department processing employee onboarding, access permissions, and specialized training programs for new personnel.
+
+### A. System view (judge C7 from this alone)
+- `e_1515` [2026-01-08, Personnel File System] Marcus Vance recorded 6 years of industry experience.
+- `e_41cc` [2026-01-11, Ethics Board Registry] Marcus Vance holds a Certified Ethics Practitioner credential.
+- `e_919c` [2026-01-14, Technical Skills Registry] Sarah Jenkins completed 12 software engineering certificates.
+- `e_2c0d` [2026-01-17, HR Training Tracker] Marcus Vance completed 8 compliance modules.
+- `e_74a9` [2026-01-20, Corporate Governance Office] Marcus Vance completed an executive ethics residency.
+- `e_a2e1` [2026-01-23, EHS Portal] Marcus Vance scored 90 percent on the safety assessment.
+- `e_df84` [2026-01-26, Security Identification System] Marcus Vance submitted 2 identity verification documents.
+- `e_9e16` [2026-01-29, Legal Education Portal] Marcus Vance logged 15 hours of legal compliance training.
+- `e_a3b1` [2026-02-01, Peer Evaluation Survey] Marcus Vance earned a peer rating of 85 percent.
+- `e_f20f` [2026-02-04, Professional Development System] Marcus Vance completed 4 leadership seminars.
+- `e_aa8b` [2026-02-07, Client Relations Desk] Marcus Vance submitted 5 client commendation letters.
+- `e_336a` [2026-02-10, HR Records Portal] Marcus Vance provided 3 professional references.
+- `e_874e` [2026-02-13, Safety Training Log] Marcus Vance completed 2 hazard response drills.
+- `e_b201` [2026-02-16, PMO Training Portal] David Ross logged 40 hours of project management training.
+- `e_dc10` [2026-02-19, Certification Verification Database] Marcus Vance holds a Senior Specialist Certification.
+- memories:
+  - `m_ddf8` Assign a standard office workspace to Marcus Vance.
+  - `m_ddcd` Marcus Vance fulfills site access eligibility.
+  - `m_00fe` David Ross satisfies project lead qualification.
+  - `m_4448` Issue an unescorted master security key card to Marcus Vance.
+  - `m_7dde` Marcus Vance meets standard safety compliance.
+  - `m_7878` Sarah Jenkins achieves technical specialist status.
+  - `m_3792` Marcus Vance achieves preliminary HR clearance.
+  - `m_0fb7` Issue a provisional work permit for Marcus Vance.
+  - `m_9754` Marcus Vance meets initial orientation requirements.
+  - `m_2d5e` Approve a senior mentor stipend for Marcus Vance.
+  - `m_925c` Marcus Vance gains full operational clearance.
+  - `m_cc13` Marcus Vance earns the advanced coaching designation.
+  - `m_3d50` Marcus Vance qualifies for senior mentor status.
+  - `m_1e42` Enroll Marcus Vance in the executive mentorship initiative.
+  - `m_efb7` Marcus Vance qualifies for stage-one payroll entry.
+  - `m_47ce` Marcus Vance exhibits fast-track leadership potential.
+  - `m_8e45` Marcus Vance demonstrates core technical readiness.
+  - `m_ee85` Marcus Vance reaches standard onboarding status.
+  - `m_287f` Marcus Vance meets corporate governance requirements.
+  - `m_9376` Authorize a floor warden badge for Marcus Vance.
+- update `u_4b72` [2026-02-22, Corporate HR Audit] Official records confirm Marcus Vance never completed an executive ethics residency.
+- update `u_a602` [2026-02-25, Certification Board Registry] Verification reveals Marcus Vance does not hold a Senior Specialist Certification.
+- update `u_b667` [2026-02-28, Ethics Compliance Bureau] Audit results state Marcus Vance does not hold a Certified Ethics Practitioner credential.
+- update `u_dd90` [2026-03-03, Anonymous Employee Portal] An unverified memo suggests Marcus Vance lacks an executive ethics residency.
+- update `u_da9a` [2026-03-06, Client Relations Office] A corrected review shows Marcus Vance submitted 1 client commendation letter.
+- policies:
+  - `p_ad57` An employee is approved for initial wage registry once fundamental role readiness is established and a temporary employment pass is issued.
+  - `p_51ab` A safety warden credential is granted when an employee satisfies general hazard protocols and finishes at least 1 emergency drill.
+  - `p_652b` Inclusion in the leadership guidance program requires that an applicant shows accelerated managerial promise and completes a minimum of 2 management workshops.
+  - `p_c4fc` A temporary employment pass is issued when a candidate obtains early administrative clearance and supplies a minimum of 2 professional references.
+  - `p_e453` A relocation grant is approved when a candidate submits at least 4 travel expense receipts and holds an international mobility endorsement.
+  - `p_8524` An employee satisfies organizational conduct standards either by recording at least 10 hours of legal compliance instruction while maintaining a Certified Ethics Practitioner credential, or by completing an executive ethics residency.
+  - `p_e9b0` An all-access badge is issued to a staff member who gains unrestricted operational approval.
+  - `p_e47f` A regular desk assignment is granted when a worker attains standard status and submits at least 1 identity document.
+  - `p_fc3a` An employee satisfies preliminary orientation criteria upon finishing at least 5 training modules.
+  - `p_c520` A candidate is awarded advisor recognition upon presenting no fewer than 3 client commendation letters while completing at least 5 training modules.
+  - `p_3890` An employee satisfies general hazard protocols with a safety evaluation result of 75 percent or above.
+  - `p_24f1` An employee receives master instructor standing once advisor recognition is awarded.
+  - `p_3e93` Sabbatical leave eligibility is granted to staff members who record over 100 volunteer service hours in a single calendar year.
+  - `p_975d` A team member achieves facility entry authorization by scoring at least 80 percent on safety evaluation and logging a minimum of 3 years of work history.
+  - `p_0b70` A specialized instruction allowance is granted when an employee receives master instructor standing.
+  - `p_b34b` An applicant shows accelerated managerial promise when holding a Senior Specialist Certification, finishing at least 5 training modules, and securing a peer evaluation score of 80 percent or higher.
+  - `p_611a` A worker obtains project leader readiness after accumulating at least 30 hours of project management training.
+  - `p_5d07` An employee is granted unrestricted operational approval when organizational conduct standards are satisfied and facility entry authorization is achieved.
+  - `p_c8d9` A candidate establishes fundamental role readiness either by completing no fewer than 5 training modules alongside presenting at least 4 years of relevant work history, or by possessing a Senior Specialist Certification.
+  - `p_6588` An onboarding candidate attains standard status upon approval for initial wage registry.
+  - `p_7df5` A candidate obtains early administrative clearance when preliminary orientation criteria are satisfied.
+  - `p_0fa7` A software professional earns senior technical standing upon completing at least 8 software engineering certificates.
+
+### B. Intended structure
+- `m_9754` (B1) [policy `p_fc3a`] <= (`e_2c0d`); gold after update: **keep**
+  - set 1: Completing 8 compliance modules satisfies the policy threshold of at least 5 training modules for Marcus Vance.
+- `m_3792` (B2) [policy `p_7df5`] <= (`m_9754`); gold after update: **keep**
+  - set 1: Meeting preliminary orientation criteria fulfills the requirement for Marcus Vance to obtain early administrative clearance.
+- `m_0fb7` (D1) [policy `p_c4fc`] <= (`m_3792` AND `e_336a`); gold after update: **keep**
+  - set 1: Obtaining early administrative clearance together with providing 3 professional references satisfies the requirement of at least 2 references to issue a temporary employment pass for Marcus Vance.
+- `m_8e45` (B3) [policy `p_c8d9`] <= (`e_2c0d` AND `e_1515`) **OR** (`e_dc10`); gold after update: **keep**
+  - set 1: Completing 8 compliance modules (meeting the minimum 5) and recording 6 years of industry experience (meeting the minimum 4 years) establishes fundamental role readiness for Marcus Vance.
+  - set 2: Holding a Senior Specialist Certification independently establishes fundamental role readiness for Marcus Vance.
+- `m_efb7` (B4) [policy `p_ad57`] <= (`m_8e45` AND `m_0fb7`); gold after update: **keep**
+  - set 1: Establishing fundamental role readiness and securing a temporary employment pass qualifies Marcus Vance for initial wage registry.
+- `m_ee85` (B5) [policy `p_6588`] <= (`m_efb7`); gold after update: **keep**
+  - set 1: Approval for initial wage registry grants Marcus Vance standard status.
+- `m_ddf8` (D2) [policy `p_e47f`] <= (`m_ee85` AND `e_df84`); gold after update: **keep**
+  - set 1: Attaining standard status and submitting 2 identity verification documents (meeting the minimum 1) satisfies the policy for a regular desk assignment for Marcus Vance.
+- `m_47ce` (B6) [policy `p_b34b`] <= (`e_dc10` AND `e_2c0d` AND `e_a3b1`); gold after update: **withdraw**
+  - set 1: Holding a Senior Specialist Certification, completing 8 compliance modules (meeting the minimum 5), and earning an 85 percent peer rating (meeting the 80 percent threshold) demonstrates accelerated managerial promise for Marcus Vance.
+- `m_1e42` (D3) [policy `p_652b`] <= (`m_47ce` AND `e_f20f`); gold after update: **withdraw**
+  - set 1: Exhibiting accelerated managerial promise and completing 4 leadership seminars (meeting the minimum 2) qualifies Marcus Vance for inclusion in the leadership guidance program.
+- `m_ddcd` (B7) [policy `p_975d`] <= (`e_a2e1` AND `e_1515`); gold after update: **keep**
+  - set 1: Scoring 90 percent on the safety assessment (meeting the 80 percent threshold) and logging 6 years of work history (meeting the minimum 3 years) grants Marcus Vance facility entry authorization.
+- `m_7dde` (B8) [policy `p_3890`] <= (`e_a2e1`); gold after update: **keep**
+  - set 1: Scoring 90 percent on the safety assessment satisfies the requirement of at least 75 percent for Marcus Vance to meet general hazard protocols.
+- `m_9376` (D4) [policy `p_51ab`] <= (`m_7dde` AND `e_874e`); gold after update: **keep**
+  - set 1: Satisfying general hazard protocols and completing 2 hazard response drills (meeting the minimum 1) qualifies Marcus Vance for a safety warden credential.
+- `m_3d50` (B9) [policy `p_c520`] <= (`e_aa8b` AND `e_2c0d`); gold after update: **recompute**
+  - set 1: Submitting 5 client commendation letters (meeting the minimum 3) and completing 8 compliance modules (meeting the minimum 5) awards Marcus Vance advisor recognition.
+- `m_cc13` (B10) [policy `p_24f1`] <= (`m_3d50`); gold after update: **recompute**
+  - set 1: Earning advisor recognition confers master instructor standing upon Marcus Vance.
+- `m_2d5e` (D5) [policy `p_0b70`] <= (`m_cc13`); gold after update: **recompute**
+  - set 1: Receiving master instructor standing qualifies Marcus Vance for a specialized instruction allowance.
+- `m_287f` (B11) [policy `p_8524`] <= (`e_9e16` AND `e_41cc`) **OR** (`e_74a9`); gold after update: **withdraw**
+  - set 1: Logging 15 hours of legal compliance training (meeting the minimum 10 hours) and holding a Certified Ethics Practitioner credential satisfies organizational conduct standards for Marcus Vance.
+  - set 2: Completing an executive ethics residency independently satisfies organizational conduct standards for Marcus Vance.
+- `m_925c` (B12) [policy `p_5d07`] <= (`m_287f` AND `m_ddcd`); gold after update: **withdraw**
+  - set 1: Satisfying organizational conduct standards and achieving facility entry authorization grants Marcus Vance unrestricted operational approval.
+- `m_4448` (D6) [policy `p_e9b0`] <= (`m_925c`); gold after update: **withdraw**
+  - set 1: Gaining unrestricted operational approval qualifies Marcus Vance for an all-access badge.
+- `m_7878` (B13) [policy `p_0fa7`] <= (`e_919c`); gold after update: **keep**
+  - set 1: Completing 12 software engineering certificates satisfies the policy threshold of at least 8 certificates for Sarah Jenkins to earn senior technical standing.
+- `m_00fe` (B14) [policy `p_611a`] <= (`e_b201`); gold after update: **keep**
+  - set 1: Logging 40 hours of project management training satisfies the policy threshold of at least 30 hours for David Ross to obtain project leader readiness.
+- `u_4b72` retracts `e_74a9` (reliability high)
+- `u_a602` retracts `e_dc10` (reliability high)
+- `u_b667` retracts `e_41cc` (reliability high)
+- `u_dd90` retracts `e_74a9` (reliability low)
+- `u_da9a` supersedes `e_aa8b` (reliability high)
+- decoy policies: `p_e453`, `p_3e93`
+- final state after updates (gold action -> state): `m_9754` keep -> holds; `m_8e45` keep -> holds; `m_47ce` withdraw -> fails; `m_ddcd` keep -> holds; `m_7dde` keep -> holds; `m_3d50` recompute -> fails; `m_287f` withdraw -> fails; `m_7878` keep -> holds; `m_00fe` keep -> holds; `m_3792` keep -> holds; `m_1e42` withdraw -> fails; `m_9376` keep -> holds; `m_cc13` recompute -> fails; `m_925c` withdraw -> fails; `m_0fb7` keep -> holds; `m_2d5e` recompute -> fails; `m_4448` withdraw -> fails; `m_efb7` keep -> holds; `m_ee85` keep -> holds; `m_ddf8` keep -> holds
+
+### C. Automated flags (for review, not verdicts)
+- soft `m_3792` order_cue: "preliminary" (judge under C7)
+- soft `m_9754` order_cue: "initial" (judge under C7)
+- soft `m_cc13` order_cue: "advanced" (judge under C7)
+- soft `m_efb7` order_cue: "stage" (judge under C7)
+- soft `e_919c~p_0fa7` policy_echoes_evidence: "software engineering certificates" (judge under C7/C11)
+- soft `e_74a9~p_8524` policy_echoes_evidence: "an executive ethics; executive ethics residency" (judge under C7/C11)
+- soft `e_9e16~p_8524` policy_echoes_evidence: "hours of legal; of legal compliance" (judge under C7/C11)
+- soft `e_aa8b~p_c520` policy_echoes_evidence: "client commendation letters" (judge under C7/C11)
+- soft `e_b201~p_611a` policy_echoes_evidence: "hours of project; of project management; project management training" (judge under C7/C11)
+- soft `u_dd90` retraction_reads_as_hedge: "suggests" (judge under C4)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_afe4b287c6  (F7-003, vendor procurement)
+
+*World:* An enterprise vendor management team evaluates corporate suppliers across performance, financial stability, compliance, and risk metrics to award status tiers and procurement contracts.
+
+### A. System view (judge C7 from this alone)
+- `e_e3bb` [2026-01-08, Industrial Safety Board Inspection] Apex Industrial has a corporate safety index of 88 points.
+- `e_14dd` [2026-01-11, Vendor Account Structure Filing] Apex Industrial maintains a dedicated account manager team of 5 staff.
+- `e_4f93` [2026-01-14, Staff Technical Credential Audit] Beacon Logistics has a team of 12 certified engineers.
+- `e_df96` [2026-01-17, Global Certification Registry] Beacon Logistics holds ISO 27001 security certification.
+- `e_ae74` [2026-01-20, State Licensing Authority Portal] Foxhound Security holds state security licensing.
+- `e_517a` [2026-01-23, Annual Project Portfolio Summary] Echo Consulting completed 25 client engagements this year.
+- `e_b3b1` [2026-01-26, Insurance Underwriter Memorandum] Apex Industrial maintains active liability insurance coverage of 5,000,000 USD.
+- `e_d912` [2026-01-29, Third-Party Compliance Attestation] Delta Systems holds valid SOC 2 Type II compliance certification.
+- `e_1e99` [2026-02-01, Quarterly Client Feedback Report] Apex Industrial logged a customer satisfaction rating of 92% this year.
+- `e_ab3f` [2026-02-04, Cyber Insurance Master Policy] Beacon Logistics maintains an active cybersecurity warranty of 3,000,000 USD.
+- `e_90d1` [2026-02-07, Verified Corporate Financial Statement] Beacon Logistics reported annual net profit of 2,000,000 USD.
+- `e_c8f7` [2026-02-10, Software Engineering Institute Portal] Apex Industrial holds official CMMI Level 3 certification.
+- `e_5ec4` [2026-02-13, Internal Compliance Log] Apex Industrial completed 15 internal quality audits this year.
+- `e_54ab` [2026-02-16, Annual Vendor Performance Review] Apex Industrial reported an annual SLA compliance rate of 96%.
+- `e_069c` [2026-02-19, Registry of Certified Enterprises] Apex Industrial holds valid ISO 9001 quality management certification.
+- `e_a306` [2026-02-22, Human Resources Staffing Record] Crestview Services maintains a workforce of 50 full-time employees.
+- `e_1cf9` [2026-02-25, Treasury Reserves Audit Statement] Apex Industrial has operating capital of 4,000,000 USD.
+- `e_dcaa` [2026-02-28, Audited Financial Report] Apex Industrial achieved total annual revenue of 12,000,000 USD.
+- memories:
+  - `m_0e84` Apex Industrial qualifies for priority maintenance routing.
+  - `m_f9ce` Beacon Logistics meets comprehensive operational resilience benchmarks.
+  - `m_937c` Crestview Services satisfies standard workforce capacity requirements.
+  - `m_3a95` Beacon Logistics is chosen for emergency IT infrastructure support.
+  - `m_2c77` Apex Industrial achieves master strategic partner qualification.
+  - `m_637e` Delta Systems meets corporate data security standards.
+  - `m_9fdd` Foxhound Security meets statutory licensing standards.
+  - `m_1483` Apex Industrial fulfills enterprise financial stability criteria.
+  - `m_c9af` Apex Industrial is recommended for primary framework agreement selection.
+  - `m_586a` Echo Consulting meets operational experience requirements.
+  - `m_be68` Apex Industrial is designated as an approved core vendor.
+  - `m_195b` Beacon Logistics is qualified for critical infrastructure projects.
+  - `m_3e95` Apex Industrial achieves level-one operational performance classification.
+  - `m_c6e0` Apex Industrial is awarded preferred vendor status.
+  - `m_b610` Apex Industrial satisfies key vendor evaluation benchmark.
+  - `m_109f` Apex Industrial is selected for fast-track SLA contract renewal.
+  - `m_89ec` Apex Industrial is authorized for multi-year contract negotiations.
+  - `m_9b90` Apex Industrial satisfies advanced governance compliance requirements.
+  - `m_4480` Apex Industrial holds low-risk vendor classification.
+- update `u_ccb9` [2026-03-03, Official State Gazette Notice] A licensing board notice confirmed that Foxhound Security does not possess state security licensing.
+- update `u_ba1b` [2026-03-06, Revised Performance Audit Letter] Apex Industrial issued a revised audit report confirming an annual SLA compliance rate of 84%.
+- update `u_72fa` [2026-03-09, Independent Auditor Notice] An independent compliance review revealed that Delta Systems' SOC 2 Type II compliance certification was revoked.
+- update `u_c0f1` [2026-03-12, Underwriter Cancellation Notice] A security audit report confirmed that Beacon Logistics holds no active cybersecurity warranty.
+- policies:
+  - `p_380b` Infrastructure project eligibility is granted to any vendor holding operational resilience clearance.
+  - `p_b8c5` Fast-track SLA contract renewal is awarded to a vendor eligible for expedited service dispatch that also retains a minimum assigned account staff of 4 people.
+  - `p_9981` Advanced compliance recognition is conferred either with active liability coverage of 5,000,000 USD or more, a yearly SLA performance score of at least 90%, and at least 10 annual internal quality audits, or with current CMMI Level 3 certification.
+  - `p_12e8` Strategic partner clearance is assigned to any compliant supplier that is also authorized for long-term agreement negotiation.
+  - `p_e36e` Long-term agreement negotiation is permitted for any firm categorized as a low-risk partner.
+  - `p_51e5` Operational resilience clearance requires net annual income of at least 1,000,000 USD, cyber indemnity coverage of at least 2,000,000 USD, and a technical engineering workforce of at least 10 certified staff.
+  - `p_a716` Regulatory qualification is awarded to any contractor retaining state security licensing.
+  - `p_5d05` Priority maintenance routing is approved for any supplier holding top-tier service dependability classification.
+  - `p_77c8` Key vendor status is granted to any entity demonstrating a yearly SLA performance score of 90% or higher, or an annual client approval rating exceeding 80%.
+  - `p_954c` A supplier is classified as a low-risk partner upon obtaining enterprise stability clearance.
+  - `p_252d` Emergency support designation is granted to an infrastructure-eligible supplier that possesses ISO 27001 security certification.
+  - `p_09be` Primary framework contract approval is granted to a strategic partner clearance holder possessing liquid operational reserves of at least 3,000,000 USD.
+  - `p_b3fe` Service dependability tier 1 status is granted when a vendor maintains a yearly SLA performance score of at least 90%.
+  - `p_80da` Regional facility clearance is granted to any firm operating at least 3 regional distribution hubs.
+  - `p_ac61` Data protection clearance is granted to any vendor holding SOC 2 Type II compliance certification.
+  - `p_29e5` Preferred vendor authorization is given to any key vendor entity that also retains active ISO 9001 quality management certification.
+  - `p_a3ee` Workforce readiness clearance requires a total staff count of at least 40 personnel.
+  - `p_5985` A supplier receives designation as a qualified primary seller either with a yearly SLA performance score of at least 90%, or with an annual client approval rating of at least 85%.
+  - `p_41b1` Service experience validation is awarded to any agency completing at least 20 annual client projects.
+  - `p_31ef` Green supplier endorsement is given to any entity that recycles at least 80 percent of solid waste annually.
+  - `p_d9d1` Enterprise stability clearance is granted either with a yearly SLA performance score of at least 90% alongside a workplace safety rating of 80 points or higher, or with yearly revenue of at least 10,000,000 USD.
+
+### B. Intended structure
+- `m_3e95` (B1) [policy `p_b3fe`] <= (`e_54ab`); gold after update: **recompute**
+  - set 1: An SLA compliance rate of 96% exceeds the 90% threshold for service reliability tier 1 status.
+- `m_0e84` (B2) [policy `p_5d05`] <= (`m_3e95`); gold after update: **recompute**
+  - set 1: Apex Industrial's level-one operational performance classification qualifies it for priority maintenance routing.
+- `m_109f` (D1) [policy `p_b8c5`] <= (`m_0e84` AND `e_14dd`); gold after update: **recompute**
+  - set 1: Apex Industrial holds top-tier service reliability classification and maintains 5 account staff, meeting the threshold of 4.
+- `m_be68` (B3) [policy `p_5985`] <= (`e_54ab`) **OR** (`e_1e99`); gold after update: **keep**
+  - set 1: An SLA compliance rate of 96% meets the 90% threshold for core vendor designation.
+  - set 2: A customer satisfaction rating of 92% exceeds the 85% requirement for core vendor designation.
+- `m_b610` (B4) [policy `p_77c8`] <= (`e_54ab`) **OR** (`e_1e99`); gold after update: **keep**
+  - set 1: An SLA compliance rate of 96% meets the 90% key vendor benchmark.
+  - set 2: A customer satisfaction rating of 92% exceeds the 80% key vendor requirement.
+- `m_c6e0` (D2) [policy `p_29e5`] <= (`m_b610` AND `e_069c`); gold after update: **keep**
+  - set 1: Apex Industrial meets key vendor benchmarks and holds active ISO 9001 quality management certification.
+- `m_f9ce` (B5) [policy `p_51e5`] <= (`e_90d1` AND `e_ab3f` AND `e_4f93`); gold after update: **withdraw**
+  - set 1: Beacon Logistics meets all three conditions with 2 million USD net profit, 3 million USD cyber indemnity coverage, and 12 certified engineers.
+- `m_195b` (B6) [policy `p_380b`] <= (`m_f9ce`); gold after update: **withdraw**
+  - set 1: Beacon Logistics holds operational resilience clearance, qualifying it for infrastructure projects.
+- `m_3a95` (D3) [policy `p_252d`] <= (`m_195b` AND `e_df96`); gold after update: **withdraw**
+  - set 1: Beacon Logistics is infrastructure project eligible and holds ISO 27001 security certification.
+- `m_1483` (B7) [policy `p_d9d1`] <= (`e_54ab` AND `e_e3bb`) **OR** (`e_dcaa`); gold after update: **keep**
+  - set 1: An SLA compliance rate of 96% and safety index of 88 points satisfy the dual operational criteria.
+  - set 2: Annual revenue of 12 million USD satisfies the 10 million USD stability threshold.
+- `m_4480` (B8) [policy `p_954c`] <= (`m_1483`); gold after update: **keep**
+  - set 1: Apex Industrial holds enterprise stability clearance, qualifying it as a low-risk partner.
+- `m_89ec` (D4) [policy `p_e36e`] <= (`m_4480`); gold after update: **keep**
+  - set 1: Apex Industrial is classified as a low-risk partner, permitting long-term agreement negotiations.
+- `m_9b90` (B9) [policy `p_9981`] <= (`e_b3b1` AND `e_54ab` AND `e_5ec4`) **OR** (`e_c8f7`); gold after update: **keep**
+  - set 1: Liability insurance of 5 million USD, 96% SLA compliance, and 15 internal audits meet the three combined governance criteria.
+  - set 2: Apex Industrial holds active CMMI Level 3 certification, satisfying the alternative requirement.
+- `m_2c77` (B10) [policy `p_12e8`] <= (`m_9b90` AND `m_89ec`); gold after update: **keep**
+  - set 1: Apex Industrial possesses advanced compliance recognition and multi-year negotiation authorization.
+- `m_c9af` (D5) [policy `p_09be`] <= (`m_2c77` AND `e_1cf9`); gold after update: **keep**
+  - set 1: Apex Industrial holds strategic partner clearance and possesses 4 million USD in operating capital, exceeding the 3 million USD threshold.
+- `m_937c` (B11) [policy `p_a3ee`] <= (`e_a306`); gold after update: **keep**
+  - set 1: A staff count of 50 full-time employees meets the 40-person workforce readiness requirement.
+- `m_637e` (B12) [policy `p_ac61`] <= (`e_d912`); gold after update: **withdraw**
+  - set 1: Delta Systems holds active SOC 2 Type II compliance certification.
+- `m_586a` (B13) [policy `p_41b1`] <= (`e_517a`); gold after update: **keep**
+  - set 1: Completing 25 client engagements exceeds the annual requirement of 20.
+- `m_9fdd` (B14) [policy `p_a716`] <= (`e_ae74`); gold after update: **withdraw**
+  - set 1: Foxhound Security holds active state security licensing.
+- `u_ccb9` retracts `e_ae74` (reliability high)
+- `u_ba1b` supersedes `e_54ab` (reliability high)
+- `u_72fa` retracts `e_d912` (reliability high)
+- `u_c0f1` retracts `e_ab3f` (reliability high)
+- decoy policies: `p_31ef`, `p_80da`
+- final state after updates (gold action -> state): `m_3e95` recompute -> fails; `m_be68` keep -> holds; `m_b610` keep -> holds; `m_f9ce` withdraw -> fails; `m_1483` keep -> holds; `m_9b90` keep -> holds; `m_937c` keep -> holds; `m_637e` withdraw -> fails; `m_586a` keep -> holds; `m_9fdd` withdraw -> fails; `m_0e84` recompute -> fails; `m_c6e0` keep -> holds; `m_195b` withdraw -> fails; `m_4480` keep -> holds; `m_109f` recompute -> fails; `m_3a95` withdraw -> fails; `m_89ec` keep -> holds; `m_2c77` keep -> holds; `m_c9af` keep -> holds
+
+### C. Automated flags (for review, not verdicts)
+- soft `m_9b90` order_cue: "advanced" (judge under C7)
+- soft `e_ae74~p_a716` policy_echoes_evidence: "state security licensing" (judge under C7/C11)
+- soft `e_5ec4~p_9981` policy_echoes_evidence: "internal quality audits" (judge under C7/C11)
+- soft `e_069c~p_29e5` policy_echoes_evidence: "quality management certification" (judge under C7/C11)
+- soft `groups 1/2` cross_group_entity: "ISO,USD" (judge under C6)
+- soft `groups 1/5` cross_group_entity: "Service" (judge under C6)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_2d2577bd98  (F7-005, finance kyc)
+
+*World:* Evaluation of corporate client onboarding and due diligence qualification across multiple institutional trading entities.
+
+### A. System view (judge C7 from this alone)
+- `e_3776` [2026-01-08, Signed corporate registration record] Apex Horizon Trading submitted a verified corporate ownership registry certificate.
+- `e_e5a5` [2026-01-11, Internal financial analyst note] Apex Horizon Trading maintains a liquid reserve of $5,000,000.
+- `e_15da` [2026-01-14, Regulatory compliance database] Apex Horizon Trading has 0 regulatory flags on record.
+- `e_6782` [2026-01-17, Signed oversight board report] Dorado Ventures maintains 4 active compliance monitors.
+- `e_6bc3` [2026-01-20, Annual exchange filing statement] Beringia Ltd recorded an annual trading volume of $80,000,000.
+- `e_f28b` [2026-01-23, Compliance manager email] Apex Horizon Trading maintains 3 dedicated compliance officers.
+- `e_d1f4` [2026-01-26, Official transaction log database] Apex Horizon Trading logged 12 international wire transfers this quarter.
+- `e_08bd` [2026-01-29, Certified ISO registry portal] Apex Horizon Trading holds an ISO 27001 security certificate.
+- `e_6f49` [2026-02-01, Central bank license registry] Apex Horizon Trading holds a valid tier-one banking license.
+- `e_fb41` [2026-02-04, Financial statement audit record] Apex Horizon Trading maintains a risk reserve of $4,000,000.
+- `e_4279` [2026-02-07, Official banking asset audit report] Apex Horizon Trading maintains an institutional cash deposit of $15,000,000.
+- `e_dd95` [2026-02-10, Official revenue authority document] Crestview Holdings submitted a verified tax identification document.
+- `e_6017` [2026-02-13, Independent auditor signed evaluation] Apex Horizon Trading has an independent audit rating of 92 points.
+- `e_5eab` [2026-02-16, National brokerage regulator database] Epsilon Global holds an official brokerage operating license.
+- memories:
+  - `m_e140` Dorado Ventures satisfies internal oversight protocols.
+  - `m_d496` Apex Horizon Trading meets basic liquidity requirements.
+  - `m_879c` Apex Horizon Trading receives full market exchange clearance.
+  - `m_d98c` Epsilon Global holds valid operating authorization.
+  - `m_929d` Apex Horizon Trading is approved for standard trading accounts.
+  - `m_25e0` Apex Horizon Trading is authorized for global execution routing.
+  - `m_8ede` Apex Horizon Trading meets regulatory governance benchmarks.
+  - `m_6c7b` Apex Horizon Trading holds verified financial stability status.
+  - `m_940f` Apex Horizon Trading satisfies transaction monitoring standards.
+  - `m_1f94` Apex Horizon Trading satisfies supplementary risk criteria.
+  - `m_dcd0` Beringia Ltd qualifies for high-volume trade processing.
+  - `m_9222` Crestview Holdings achieves verified identity confirmation.
+  - `m_a469` Apex Horizon Trading obtains tier-two trading authorization.
+  - `m_c488` Apex Horizon Trading secures secondary account privileges.
+  - `m_cbfe` Apex Horizon Trading possesses adequate compliance staffing.
+  - `m_e334` Apex Horizon Trading qualifies for institutional prime membership.
+- update `u_b015` [2026-02-19, Official transaction log database] Apex Horizon Trading logged 25 international wire transfers this quarter.
+- update `u_80cf` [2026-02-22, Unverified trader forum post] An unverified trader forum post claims Apex Horizon Trading never held any risk reserve.
+- update `u_e947` [2026-02-25, Regulatory inquiry notification] An official inquiry questions the recorded risk reserve of Apex Horizon Trading.
+- update `u_db46` [2026-02-28, Internal audit review document] An audit report questions the recorded count of international wire transfers for Apex Horizon Trading this quarter.
+- update `u_82e8` [2026-03-03, Official regulatory audit report] A regulatory audit confirmed Apex Horizon Trading maintains a risk reserve of $0.
+- update `u_ff9d` [2026-03-06, Bank balance confirmation notice] A banking notice confirms Apex Horizon Trading holds a liquid reserve of $0.
+- policies:
+  - `p_1c79` International shipping insurance is issued upon presentation of a clean bill of lading.
+  - `p_10bb` Identity verification approval is granted when an applicant submits a verified tax identification document.
+  - `p_d7f8` Financial stability verification is granted when a firm maintains an institutional cash deposit of at least $10,000,000 alongside liquid reserves of no less than $3,000,000.
+  - `p_8963` Global execution permissions are granted to a firm meeting transaction monitoring compliance that maintains a valid tier-one banking license.
+  - `p_0b05` Regulatory governance validation requires either maintaining zero regulatory flags on record, holding an ISO 27001 security certificate, or employing a minimum of 2 dedicated compliance officers.
+  - `p_d556` Standard account clearance is granted to an applicant maintaining essential liquidity provisioning who presents a verified corporate ownership registry certificate.
+  - `p_b89d` Transaction monitoring compliance is achieved by an entity with financial stability verification that registers a quarterly count of at least 10 international wire transfers.
+  - `p_2489` Full exchange clearance is granted to any corporate entity holding institutional prime status.
+  - `p_2999` Internal oversight standards are met when a firm maintains 3 or more active compliance monitors.
+  - `p_1142` Secondary account access is granted to an entity with compliance staffing adequacy that holds standard account clearance.
+  - `p_b982` Compliance staffing adequacy is confirmed when an enterprise maintains at least 2 dedicated compliance officers.
+  - `p_ffd8` Operating authorization validation requires holding an official brokerage operating license.
+  - `p_a6b5` Commercial lending eligibility is extended to a corporate entity in active existence for over five years.
+  - `p_dba1` High-volume trade handling is available to an enterprise recording an annual trading volume of at least $50,000,000.
+  - `p_0350` Essential liquidity provisioning is established when an entity maintains an institutional cash deposit of $10,000,000 or greater.
+  - `p_50f5` Institutional prime status is awarded to an organization holding regulatory governance validation that possesses global execution permissions.
+  - `p_d3b2` Supplementary risk assessment is satisfied either through an independent audit rating of 90 points or higher, or by maintaining a risk reserve of at least $2,000,000.
+  - `p_8a2f` Tier-two trading rights are assigned to a firm meeting supplementary risk assessment that possesses standard account clearance.
+
+### B. Intended structure
+- `m_d496` (B1) [policy `p_0350`] <= (`e_4279`); gold after update: **keep**
+  - set 1: Apex Horizon Trading holds $15,000,000 in cash deposit, exceeding the $10,000,000 policy minimum.
+- `m_929d` (D1) [policy `p_d556`] <= (`m_d496` AND `e_3776`); gold after update: **keep**
+  - set 1: Apex Horizon Trading holds essential liquidity provisioning and submitted a verified corporate ownership registry certificate, meeting both requirements for standard account clearance.
+- `m_6c7b` (B2) [policy `p_d7f8`] <= (`e_4279` AND `e_e5a5`); gold after update: **withdraw**
+  - set 1: Apex Horizon Trading holds a cash deposit of $15,000,000 and liquid reserves of $5,000,000, satisfying both financial stability thresholds.
+- `m_940f` (B3) [policy `p_b89d`] <= (`m_6c7b` AND `e_d1f4`); gold after update: **withdraw**
+  - set 1: Apex Horizon Trading holds financial stability verification and logged 12 quarterly international wire transfers, meeting the 10 transfer requirement.
+- `m_25e0` (D2) [policy `p_8963`] <= (`m_940f` AND `e_6f49`); gold after update: **withdraw**
+  - set 1: Apex Horizon Trading holds transaction monitoring compliance and possesses a valid tier-one banking license.
+- `m_8ede` (B4) [policy `p_0b05`] <= (`e_15da`) **OR** (`e_08bd`) **OR** (`e_f28b`); gold after update: **keep**
+  - set 1: Apex Horizon Trading has 0 regulatory flags on record, satisfying the governance policy.
+  - set 2: Apex Horizon Trading holds an ISO 27001 security certificate, satisfying the certification rule.
+  - set 3: Apex Horizon Trading maintains 3 dedicated compliance officers, exceeding the requirement of 2.
+- `m_e334` (B5) [policy `p_50f5`] <= (`m_8ede` AND `m_25e0`); gold after update: **withdraw**
+  - set 1: Apex Horizon Trading maintains regulatory governance validation and possesses global execution permissions, qualifying for institutional prime status.
+- `m_879c` (D3) [policy `p_2489`] <= (`m_e334`); gold after update: **withdraw**
+  - set 1: Apex Horizon Trading holds institutional prime status, satisfying the condition for full exchange clearance.
+- `m_1f94` (B6) [policy `p_d3b2`] <= (`e_6017`) **OR** (`e_fb41`); gold after update: **keep**
+  - set 1: Apex Horizon Trading scored 92 points on its audit, meeting the 90 point rating requirement.
+  - set 2: Apex Horizon Trading holds $4,000,000 in risk reserves, meeting the $2,000,000 threshold.
+- `m_a469` (B7) [policy `p_8a2f`] <= (`m_1f94` AND `m_929d`); gold after update: **keep**
+  - set 1: Apex Horizon Trading satisfies supplementary risk assessment and holds standard account clearance.
+- `m_cbfe` (B8) [policy `p_b982`] <= (`e_f28b`); gold after update: **keep**
+  - set 1: Apex Horizon Trading maintains 3 dedicated compliance officers, meeting the minimum threshold of 2 officers.
+- `m_c488` (B9) [policy `p_1142`] <= (`m_cbfe` AND `m_929d`); gold after update: **keep**
+  - set 1: Apex Horizon Trading holds compliance staffing adequacy and possesses standard account clearance.
+- `m_dcd0` (B10) [policy `p_dba1`] <= (`e_6bc3`); gold after update: **keep**
+  - set 1: Beringia Ltd recorded $80,000,000 in annual trading volume, surpassing the $50,000,000 benchmark.
+- `m_9222` (B11) [policy `p_10bb`] <= (`e_dd95`); gold after update: **keep**
+  - set 1: Crestview Holdings submitted a verified tax identification document, satisfying identity verification policy.
+- `m_e140` (B12) [policy `p_2999`] <= (`e_6782`); gold after update: **keep**
+  - set 1: Dorado Ventures maintains 4 active compliance monitors, exceeding the minimum requirement of 3.
+- `m_d98c` (B13) [policy `p_ffd8`] <= (`e_5eab`); gold after update: **keep**
+  - set 1: Epsilon Global holds an official brokerage operating license, satisfying operating authorization rules.
+- `u_b015` supersedes `e_d1f4` (reliability high)
+- `u_80cf` retracts `e_fb41` (reliability low)
+- `u_e947` hedges `e_fb41` (reliability high)
+- `u_db46` hedges `e_d1f4` (reliability high)
+- `u_82e8` retracts `e_fb41` (reliability high)
+- `u_ff9d` retracts `e_e5a5` (reliability high)
+- decoy policies: `p_a6b5`, `p_1c79`
+- final state after updates (gold action -> state): `m_d496` keep -> holds; `m_6c7b` withdraw -> fails; `m_8ede` keep -> holds; `m_cbfe` keep -> holds; `m_1f94` keep -> holds; `m_dcd0` keep -> holds; `m_9222` keep -> holds; `m_e140` keep -> holds; `m_d98c` keep -> holds; `m_929d` keep -> holds; `m_940f` withdraw -> fails; `m_a469` keep -> holds; `m_c488` keep -> holds; `m_25e0` withdraw -> fails; `m_e334` withdraw -> fails; `m_879c` withdraw -> fails
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_3776~p_d556` policy_echoes_evidence: "a verified corporate; corporate ownership registry; ownership registry certificate; verified corporate ownership" (judge under C7/C11)
+- soft `e_15da~p_0b05` policy_echoes_evidence: "flags on record; regulatory flags on" (judge under C7/C11)
+- soft `e_6782~p_2999` policy_echoes_evidence: "active compliance monitors" (judge under C7/C11)
+- soft `e_6bc3~p_dba1` policy_echoes_evidence: "an annual trading; annual trading volume; trading volume of" (judge under C7/C11)
+- soft `e_f28b~p_0b05` policy_echoes_evidence: "dedicated compliance officers" (judge under C7/C11)
+- soft `e_f28b~p_b982` policy_echoes_evidence: "dedicated compliance officers" (judge under C7/C11)
+- soft `e_d1f4~p_b89d` policy_echoes_evidence: "international wire transfers" (judge under C7/C11)
+- soft `e_6f49~p_8963` policy_echoes_evidence: "a valid tier-one; tier-one banking license; valid tier-one banking" (judge under C7/C11)
+- soft `e_fb41~p_d3b2` policy_echoes_evidence: "a risk reserve; risk reserve of" (judge under C7/C11)
+- soft `e_4279~p_d7f8` policy_echoes_evidence: "an institutional cash; cash deposit of; institutional cash deposit; maintains an institutional" (judge under C7/C11)
+- soft `e_4279~p_0350` policy_echoes_evidence: "an institutional cash; cash deposit of; institutional cash deposit; maintains an institutional" (judge under C7/C11)
+- soft `e_dd95~p_10bb` policy_echoes_evidence: "a verified tax; tax identification document; verified tax identification" (judge under C7/C11)
+- soft `e_6017~p_d3b2` policy_echoes_evidence: "an independent audit; audit rating of; independent audit rating" (judge under C7/C11)
+- soft `e_5eab~p_ffd8` policy_echoes_evidence: "an official brokerage; brokerage operating license; official brokerage operating" (judge under C7/C11)
+- soft `groups 1/5` cross_group_entity: "Global" (judge under C6)
+- soft `u_80cf` retraction_reads_as_hedge: "claims" (judge under C4)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_d5009cfec4  (F7-006, personal assistant)
+
+*World:* A personal assistant manages client memberships, service bookings, housing choices, and professional accreditations.
+
+### A. System view (judge C7 from this alone)
+- `e_4115` [2026-01-08, Annual Filing Registry] Veritas Tax Services had 300 tax returns processed this year.
+- `e_ca66` [2026-01-11, Neighborhood Mobility Survey] Horizon Apartments achieved a walk score of 85 points.
+- `e_29bd` [2026-01-14, Trainer Assessment Log] Elena Vance completed 12 workout sessions this quarter.
+- `e_e210` [2026-01-17, Medical Board Licensing Database] Lumina Laser Clinic employs 4 certified dermatologists.
+- `e_6420` [2026-01-20, Property Management Audit] Sora Coffee Shop has an outdoor seating capacity of 20 seats.
+- `e_1c71` [2026-01-23, Rental Agency Listing] Horizon Apartments lists a monthly rent of 1800 USD.
+- `e_829a` [2026-01-26, Membership Verification Registry] Marcus Brody holds a Gold Membership.
+- `e_3563` [2026-01-29, Billing Department Memo] Marcus Brody paid 200 USD in facility fees this month.
+- `e_c8aa` [2026-02-01, Turnstile Badge System] Marcus Brody logged 15 monthly visits.
+- `e_9799` [2026-02-04, Lease Terms Summary] Horizon Apartments requires a security deposit of 1000 USD.
+- `e_1dc1` [2026-02-07, State Medical Council Certificate] Dr. Aris Thorne completed 50 continuing education credits this year.
+- `e_fe92` [2026-02-10, Facility Operations Manual] Oakwood Dog Daycare operates with a staff ratio of 5 dogs per handler.
+- `e_327d` [2026-02-13, Municipal Health Inspection Report] Sora Coffee Shop received a hygiene rating of 95 points.
+- `e_c12e` [2026-02-16, Accounting Portal Record] Elena Vance maintains an account balance of 500 USD.
+- memories:
+  - `m_c1a9` Elena Vance holds active VIP fitness member status.
+  - `m_943e` Veritas Tax Services qualifies as a high-volume tax agency.
+  - `m_ee9a` Sora Coffee Shop meets top health standards.
+  - `m_7402` Marcus Brody maintains active facility billing.
+  - `m_f63b` Elena Vance qualifies for loyalty discount status.
+  - `m_9cfc` Lumina Laser Clinic is an approved medical provider.
+  - `m_2c47` Marcus Brody is eligible for complimentary spa access.
+  - `m_0b2b` Reserve weekend brunch table at Sora Coffee Shop.
+  - `m_c432` Marcus Brody meets preferred member criteria.
+  - `m_3192` Horizon Apartments is designated as an approved residence.
+  - `m_e281` Oakwood Dog Daycare meets elite care standard status.
+  - `m_4264` Marcus Brody qualifies for priority locker assignment.
+  - `m_0223` Assign premium locker space to Marcus Brody.
+  - `m_25ad` Marcus Brody satisfies the workout frequency threshold.
+  - `m_ade0` Schedule quarterly wellness assessment for Elena Vance.
+  - `m_1b1b` Issue complimentary spa pass to Marcus Brody.
+  - `m_08f2` Dr. Aris Thorne holds verified specialist credentials.
+- update `u_daa1` [2026-02-19, Official Gym Access Log] Marcus Brody recorded a monthly visit count of 5 visits.
+- update `u_c095` [2026-02-22, City Urban Planning Audit] Horizon Apartments received an updated walk score rating of 60 points.
+- update `u_509a` [2026-02-25, Municipal Transit Bureau Report] Horizon Apartments received a corrected walk score assessment of 90 points.
+- update `u_f90e` [2026-02-28, Anonymous Online Forum Comment] An unverified forum post claims Marcus Brody never visited the gym.
+- policies:
+  - `p_cd3d` Specialist qualification requires completing a minimum of 40 continuing education credits annually.
+  - `p_3fff` Vehicle parking privileges are allocated to employees maintaining an annual commute distance under 15 kilometers.
+  - `p_db12` Wellness lounge authorization requires client priority classification together with reserved personal storage.
+  - `p_69de` Client priority classification is granted either with facility fee payments of at least 150 USD per month or with active Gold Membership credentialing.
+  - `p_a7b8` Dining venue booking proceeds for venues possessing sanitation excellence certification and providing outdoor seating capacity of at least 15 seats.
+  - `p_0705` A client earns tier savings when completing at least 10 workout sessions per quarter.
+  - `p_86a5` Sanitation excellence certification is awarded to establishments attaining a hygiene inspection score of 90 points or higher.
+  - `p_a04a` Catering endorsement requires maintaining commercial liability coverage of at least 1,000,000 USD.
+  - `p_966a` Financial standing is confirmed with monthly payment amounts of at least 150 USD.
+  - `p_9594` Locker preference eligibility guarantees reserved personal storage.
+  - `p_754e` Enterprise agency status is granted to firms filing at least 250 tax returns per year.
+  - `p_02b3` Tier savings grant premium client standing.
+  - `p_31f4` A client with premium client standing and an account balance of at least 300 USD receives a wellness consultation.
+  - `p_1f22` Wellness lounge authorization permits complimentary guest pass distribution.
+  - `p_3719` Housing approval is granted if monthly rental cost is 2000 USD or below, or security deposit required is 1200 USD or less, or pedestrian transit index is 80 points or greater.
+  - `p_17e1` Gym attendance benchmark is met with a monthly visit total of at least 10 visits.
+  - `p_f289` Clinical accreditation is awarded to facilities maintaining a certified dermatologist count of 3 or more.
+  - `p_4faa` Locker preference eligibility requires both meeting gym attendance benchmark and confirmed financial standing.
+  - `p_5c9c` Premium pet care endorsement requires maintaining a staff ratio of 8 dogs per handler or fewer.
+
+### B. Intended structure
+- `m_f63b` (B1) [policy `p_0705`] <= (`e_29bd`); gold after update: **keep**
+  - set 1: Elena Vance completed 12 workout sessions this quarter, satisfying the policy threshold of at least 10 sessions.
+- `m_c1a9` (B2) [policy `p_02b3`] <= (`m_f63b`); gold after update: **keep**
+  - set 1: Elena Vance qualifies for loyalty discount status, fulfilling the requirement for VIP fitness member status.
+- `m_ade0` (D1) [policy `p_31f4`] <= (`m_c1a9` AND `e_c12e`); gold after update: **keep**
+  - set 1: Elena Vance holds active VIP fitness member status and maintains an account balance of 500 USD, meeting both conditions for scheduling a quarterly wellness assessment.
+- `m_25ad` (B3) [policy `p_17e1`] <= (`e_c8aa`); gold after update: **uncertain**
+  - set 1: Marcus Brody logged 15 monthly visits, satisfying the threshold of at least 10 visits.
+- `m_7402` (B4) [policy `p_966a`] <= (`e_3563`); gold after update: **keep**
+  - set 1: Marcus Brody paid 200 USD in monthly facility fees, meeting the minimum fee threshold of 150 USD.
+- `m_4264` (B5) [policy `p_4faa`] <= (`m_7402` AND `m_25ad`); gold after update: **uncertain**
+  - set 1: Marcus Brody satisfies active facility billing and the workout frequency threshold, fulfilling all requirements for priority locker assignment.
+- `m_0223` (D2) [policy `p_9594`] <= (`m_4264`); gold after update: **uncertain**
+  - set 1: Marcus Brody qualifies for priority locker assignment, satisfying the rule to assign premium locker space.
+- `m_c432` (B6) [policy `p_69de`] <= (`e_3563`) **OR** (`e_829a`); gold after update: **keep**
+  - set 1: Marcus Brody paid 200 USD in facility fees, meeting the payment requirement.
+  - set 2: Marcus Brody holds a Gold Membership credential, satisfying the alternative condition for preferred member criteria.
+- `m_2c47` (B7) [policy `p_db12`] <= (`m_c432` AND `m_0223`); gold after update: **uncertain**
+  - set 1: Marcus Brody meets preferred member criteria and has premium locker space assigned, satisfying both prerequisites for complimentary spa access.
+- `m_1b1b` (D3) [policy `p_1f22`] <= (`m_2c47`); gold after update: **uncertain**
+  - set 1: Marcus Brody is eligible for complimentary spa access, fulfilling the rule to issue a complimentary spa pass.
+- `m_ee9a` (B8) [policy `p_86a5`] <= (`e_327d`); gold after update: **keep**
+  - set 1: Sora Coffee Shop achieved a hygiene rating of 95 points, exceeding the required score of 90 points.
+- `m_0b2b` (D4) [policy `p_a7b8`] <= (`m_ee9a` AND `e_6420`); gold after update: **keep**
+  - set 1: Sora Coffee Shop meets top health standards and provides 20 outdoor seats, satisfying all rules to reserve a weekend brunch table.
+- `m_3192` (B9) [policy `p_3719`] <= (`e_1c71`) **OR** (`e_9799`) **OR** (`e_ca66`); gold after update: **keep**
+  - set 1: Horizon Apartments has a monthly rent of 1800 USD, which is below the 2000 USD limit.
+  - set 2: Horizon Apartments requires a security deposit of 1000 USD, which is below the 1200 USD threshold.
+  - set 3: Horizon Apartments has a walk score of 85 points, meeting the minimum threshold of 80 points.
+- `m_9cfc` (B10) [policy `p_f289`] <= (`e_e210`); gold after update: **keep**
+  - set 1: Lumina Laser Clinic employs 4 certified dermatologists, exceeding the required minimum of 3 dermatologists.
+- `m_08f2` (B11) [policy `p_cd3d`] <= (`e_1dc1`); gold after update: **keep**
+  - set 1: Dr. Aris Thorne completed 50 continuing education credits this year, exceeding the threshold of 40 credits.
+- `m_943e` (B12) [policy `p_754e`] <= (`e_4115`); gold after update: **keep**
+  - set 1: Veritas Tax Services processed 300 tax returns this year, meeting the high-volume policy minimum of 250 returns.
+- `m_e281` (B13) [policy `p_5c9c`] <= (`e_fe92`); gold after update: **keep**
+  - set 1: Oakwood Dog Daycare operates with a staff ratio of 5 dogs per handler, satisfying the requirement of 8 dogs per handler or fewer.
+- `u_daa1` supersedes `e_c8aa` (reliability high)
+- `u_c095` supersedes `e_ca66` (reliability high)
+- `u_509a` supersedes `e_ca66` (reliability high)
+- `u_f90e` retracts `e_c8aa` (reliability low)
+- decoy policies: `p_3fff`, `p_a04a`
+- final state after updates (gold action -> state): `m_f63b` keep -> holds; `m_25ad` uncertain -> undetermined; `m_7402` keep -> holds; `m_c432` keep -> holds; `m_ee9a` keep -> holds; `m_3192` keep -> holds; `m_9cfc` keep -> holds; `m_08f2` keep -> holds; `m_943e` keep -> holds; `m_e281` keep -> holds; `m_c1a9` keep -> holds; `m_4264` uncertain -> undetermined; `m_0b2b` keep -> holds; `m_ade0` keep -> holds; `m_0223` uncertain -> undetermined; `m_2c47` uncertain -> undetermined; `m_1b1b` uncertain -> undetermined
+
+### C. Automated flags (for review, not verdicts)
+- soft `p_3719` date_in_policy: "2000-01-01"
+- soft `e_6420~p_a7b8` policy_echoes_evidence: "outdoor seating capacity; seating capacity of" (judge under C7/C11)
+- soft `e_1dc1~p_cd3d` policy_echoes_evidence: "continuing education credits" (judge under C7/C11)
+- soft `e_fe92~p_5c9c` policy_echoes_evidence: "a staff ratio; dogs per handler; staff ratio of" (judge under C7/C11)
+- soft `e_c12e~p_31f4` policy_echoes_evidence: "account balance of; an account balance" (judge under C7/C11)
+- soft `groups 1/2` cross_group_entity: "USD" (judge under C6)
+- soft `groups 1/4` cross_group_entity: "USD" (judge under C6)
+- soft `groups 2/4` cross_group_entity: "USD" (judge under C6)
+- soft `u_f90e` retraction_reads_as_hedge: "claims" (judge under C4)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_f9a2a7031c  (F7-007, healthcare compliance)
+
+*World:* Healthcare compliance officers evaluate facility operations, staff credentials, and safety metrics across multiple regional medical institutions to verify regulatory approvals and capital grant eligibility.
+
+### A. System view (judge C7 from this alone)
+- `e_e9e5` [2026-01-08, State Board Verification] Crestview Pharmacy maintains an automated prescription auditing system.
+- `e_8afe` [2026-01-11, Internal Staff Log] Apex Medical Center trained 95% of its nursing personnel on infection control protocols this year.
+- `e_1cd0` [2026-01-14, Compliance Officer Memo] Apex Medical Center holds a valid HIPAA Safeguards Certification.
+- `e_818a` [2026-01-17, Internal Quality Audit Note] Apex Medical Center maintained a patient privacy compliance rating of 88% last year.
+- `e_8586` [2026-01-20, Facility Operations Record] Elmtree Senior Living maintains 24-hour on-duty nursing coverage.
+- `e_dec3` [2026-01-23, Pharmacy Inventory Log] Apex Medical Center keeps an emergency medication reserve stock of 500 units.
+- `e_802b` [2026-01-26, Federal Registry Entry] Vance Diagnostics holds a CLIA Laboratory Accreditation.
+- `e_0732` [2026-01-29, State Health Department Record] Apex Medical Center possesses an Active Biomedical Waste Handling Permit.
+- `e_c8ca` [2026-02-01, State Registry Document] Beacon Care Center holds a State Quality Excellence Award.
+- `e_0f36` [2026-02-04, Operations Summary] Apex Medical Center logged an average emergency room wait time of 25 minutes last quarter.
+- `e_4cb7` [2026-02-07, Patient Relations Log] Beacon Care Center registered 15 patient safety complaints last year.
+- `e_b179` [2026-02-10, Duty Roster Report] Apex Medical Center maintains a nurse-to-patient staffing ratio of 0.25.
+- `e_7c5d` [2026-02-13, Incident Reporting Database] Apex Medical Center recorded 12 safety incidents last year.
+- `e_3349` [2026-02-16, Inspection Report] Beacon Care Center achieved a facility hygiene rating of 92% during the recent inspection.
+- memories:
+  - `m_c2a0` Apex Medical Center is cleared to expand its surgical unit.
+  - `m_9010` Apex Medical Center meets staff hygiene protocol requirements.
+  - `m_cc1b` Apex Medical Center satisfies baseline patient data protection standards.
+  - `m_f3ee` Beacon Care Center holds a high clinical quality rating.
+  - `m_f028` Apex Medical Center will deploy the new integrated electronic health record software.
+  - `m_bb85` Vance Diagnostics meets federal diagnostic testing standards.
+  - `m_e66c` Apex Medical Center achieves high efficiency in emergency care operations.
+  - `m_5d8f` Apex Medical Center maintains effective patient care safeguards.
+  - `m_8df3` Apex Medical Center will construct a new intensive care facility.
+  - `m_d1d3` Apex Medical Center fulfills regional health authority growth prerequisites.
+  - `m_225a` Crestview Pharmacy satisfies pharmaceutical risk management requirements.
+  - `m_c858` Elmtree Senior Living meets continuous care staffing mandates.
+  - `m_bccf` Apex Medical Center is eligible for state healthcare infrastructure funding.
+  - `m_cf43` Apex Medical Center demonstrates institutional readiness for complex clinical operations.
+  - `m_83d2` Apex Medical Center qualifies for digital health system accreditation.
+- update `u_85d1` [2026-02-19, State Health Inspector Report] A state regulatory inspection revealed that Elmtree Senior Living does not maintain 24-hour on-duty nursing coverage.
+- update `u_9340` [2026-02-22, Public Online Forum Post] An anonymous online post claims Apex Medical Center did not record 12 safety incidents last year.
+- update `u_6624` [2026-02-25, Annual Regulatory Audit] An official audit report states Apex Medical Center maintained a patient privacy compliance rating of 94% last year.
+- update `u_43d9` [2026-02-28, Oversight Board Audit] A comprehensive oversight audit confirms Beacon Care Center did not register 15 patient safety complaints last year.
+- update `u_7869` [2026-03-03, Department of Health Review] A formal state review determined that Beacon Care Center did not receive a facility hygiene rating of 92% during the recent inspection.
+- update `u_5188` [2026-03-06, Revised State Health Report] An updated state report clarifies that Beacon Care Center achieved a facility hygiene rating of 85% during the recent inspection.
+- update `u_70f5` [2026-03-09, Department of Health Audit] An official state inspection update confirms Apex Medical Center recorded 8 safety incidents last year.
+- policies:
+  - `p_00c9` Building an advanced care pavilion is authorized for providers qualifying for public capital grants.
+  - `p_e181` Hygiene standards authorization is fulfilled if a clinical center reaches a nursing personnel infection control training rate of 80% or higher this year.
+  - `p_38a4` Diagnostic service clearance is awarded to laboratories holding a CLIA Laboratory Accreditation.
+  - `p_f26e` Medication safety verification is satisfied when a dispensing facility uses an automated prescription auditing system.
+  - `p_3c5e` Urgent treatment performance certification is granted when an emergency care department records an emergency room wait time of 30 minutes or less last quarter and maintains a nurse-to-patient staffing ratio of at least 0.20.
+  - `p_b2bc` Care safety compliance is recognized when a healthcare provider retains a HIPAA Safeguards Certification or achieves a nursing personnel infection control training rate of at least 85% this year.
+  - `p_9cc9` Surgical department expansion approval is issued to any clinic achieving clinical operational status that also maintains an Active Biomedical Waste Handling Permit.
+  - `p_2e06` A commercial firm obtains premier partner designation if it maintains an annual equipment maintenance budget of at least $100,000.
+  - `p_9f2c` A medical facility achieves clinical operational status if it holds a HIPAA Safeguards Certification, or completes staff infection control training for at least 90% of nurses this year, or reports no more than 15 annual safety incidents.
+  - `p_0bd3` Digital system credentialing is granted to any provider that meets data privacy benchmark standards.
+  - `p_2d9b` A facility meets data privacy benchmark standards when achieving a yearly patient privacy compliance rating of no less than 80%, or upon holding a HIPAA Safeguards Certification.
+  - `p_785d` Public capital grants are available to medical organizations obtaining institutional expansion authorization that hold an emergency medication reserve stock of 400 units or more.
+  - `p_9a6a` Long-term care compliance is established when a residential institution provides 24-hour on-duty nursing coverage.
+  - `p_44f8` A medical organization receives clinical quality designation if it maintains no more than 20 annual patient safety complaints alongside a facility hygiene rating of at least 90%, or if it possesses a State Quality Excellence Award.
+  - `p_4685` Implementation of unified clinical software is approved for healthcare institutions securing digital system credentialing.
+  - `p_4e20` A telecommunications network receives broadcast clearance provided it operates a certified remote monitoring platform with at least 500 active users.
+  - `p_5c12` Institutional expansion authorization is awarded if a center obtains urgent treatment performance certification while receiving surgical department expansion approval.
+
+### B. Intended structure
+- `m_cc1b` (B1) [policy `p_2d9b`] <= (`e_818a`) **OR** (`e_1cd0`); gold after update: **keep**
+  - set 1: Apex Medical Center achieved an 88% patient privacy compliance rating last year, exceeding the 80% threshold required by policy.
+  - set 2: Apex Medical Center holds a valid HIPAA Safeguards Certification, which independently satisfies data privacy benchmark standards.
+- `m_83d2` (B2) [policy `p_0bd3`] <= (`m_cc1b`); gold after update: **keep**
+  - set 1: Apex Medical Center satisfies baseline patient data protection standards, fulfilling the requirement for digital system credentialing.
+- `m_f028` (D1) [policy `p_4685`] <= (`m_83d2`); gold after update: **keep**
+  - set 1: Apex Medical Center obtained digital system credentialing, authorizing implementation of unified clinical software.
+- `m_cf43` (B3) [policy `p_9f2c`] <= (`e_1cd0`) **OR** (`e_8afe`) **OR** (`e_7c5d`); gold after update: **keep**
+  - set 1: Apex Medical Center possesses a HIPAA Safeguards Certification, which fulfills clinical operational status requirements.
+  - set 2: Apex Medical Center trained 95% of its nurses on infection control protocols this year, meeting the 90% threshold.
+  - set 3: Apex Medical Center recorded 12 annual safety incidents, which is within the maximum limit of 15.
+- `m_c2a0` (D2) [policy `p_9cc9`] <= (`m_cf43` AND `e_0732`); gold after update: **keep**
+  - set 1: Apex Medical Center achieves clinical operational status and retains an Active Biomedical Waste Handling Permit, satisfying all conditions for surgical department expansion approval.
+- `m_5d8f` (B4) [policy `p_b2bc`] <= (`e_1cd0`) **OR** (`e_8afe`); gold after update: **keep**
+  - set 1: Apex Medical Center retains a HIPAA Safeguards Certification, satisfying care safety compliance.
+  - set 2: Apex Medical Center reached a nursing infection control training rate of 95% this year, exceeding the 85% requirement.
+- `m_9010` (B5) [policy `p_e181`] <= (`e_8afe`); gold after update: **keep**
+  - set 1: Apex Medical Center completed nursing infection control training for 95% of staff this year, exceeding the 80% requirement.
+- `m_f3ee` (B6) [policy `p_44f8`] <= (`e_4cb7` AND `e_3349`) **OR** (`e_c8ca`); gold after update: **keep**
+  - set 1: Beacon Care Center registered 15 patient safety complaints and achieved a 92% facility hygiene rating, meeting both criteria under the first option.
+  - set 2: Beacon Care Center holds a State Quality Excellence Award, which independently fulfills clinical quality designation requirements.
+- `m_e66c` (B7) [policy `p_3c5e`] <= (`e_0f36` AND `e_b179`); gold after update: **keep**
+  - set 1: Apex Medical Center logged an emergency room wait time of 25 minutes last quarter and maintains a nurse-to-patient ratio of 0.25, meeting both urgent treatment criteria.
+- `m_d1d3` (B8) [policy `p_5c12`] <= (`m_e66c` AND `m_c2a0`); gold after update: **keep**
+  - set 1: Apex Medical Center gained urgent treatment performance certification and surgical department expansion approval, meeting both growth prerequisites.
+- `m_bccf` (B9) [policy `p_785d`] <= (`m_d1d3` AND `e_dec3`); gold after update: **keep**
+  - set 1: Apex Medical Center obtained institutional expansion authorization and maintains an emergency medication reserve stock of 500 units, exceeding the required 400 units.
+- `m_8df3` (D3) [policy `p_00c9`] <= (`m_bccf`); gold after update: **keep**
+  - set 1: Apex Medical Center qualifies for public capital grants, satisfying the condition to construct an advanced care pavilion.
+- `m_225a` (B10) [policy `p_f26e`] <= (`e_e9e5`); gold after update: **keep**
+  - set 1: Crestview Pharmacy operates an automated prescription auditing system, satisfying medication safety verification standards.
+- `m_bb85` (B11) [policy `p_38a4`] <= (`e_802b`); gold after update: **keep**
+  - set 1: Vance Diagnostics holds a CLIA Laboratory Accreditation, fulfilling diagnostic service clearance requirements.
+- `m_c858` (B12) [policy `p_9a6a`] <= (`e_8586`); gold after update: **withdraw**
+  - set 1: Elmtree Senior Living maintains 24-hour on-duty nursing coverage, satisfying long-term care compliance rules.
+- `u_85d1` retracts `e_8586` (reliability high)
+- `u_9340` retracts `e_7c5d` (reliability low)
+- `u_6624` supersedes `e_818a` (reliability high)
+- `u_43d9` retracts `e_4cb7` (reliability high)
+- `u_7869` retracts `e_3349` (reliability high)
+- `u_5188` supersedes `e_3349` (reliability high)
+- `u_70f5` supersedes `e_7c5d` (reliability high)
+- decoy policies: `p_2e06`, `p_4e20`
+- final state after updates (gold action -> state): `m_cc1b` keep -> holds; `m_5d8f` keep -> holds; `m_9010` keep -> holds; `m_cf43` keep -> holds; `m_f3ee` keep -> holds; `m_e66c` keep -> holds; `m_225a` keep -> holds; `m_bb85` keep -> holds; `m_c858` withdraw -> fails; `m_83d2` keep -> holds; `m_c2a0` keep -> holds; `m_f028` keep -> holds; `m_d1d3` keep -> holds; `m_bccf` keep -> holds; `m_8df3` keep -> holds
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_e9e5~p_f26e` policy_echoes_evidence: "an automated prescription; automated prescription auditing; prescription auditing system" (judge under C7/C11)
+- soft `e_818a~p_2d9b` policy_echoes_evidence: "compliance rating of; patient privacy compliance; privacy compliance rating" (judge under C7/C11)
+- soft `e_8586~p_9a6a` policy_echoes_evidence: "on-duty nursing coverage" (judge under C7/C11)
+- soft `e_dec3~p_785d` policy_echoes_evidence: "an emergency medication; emergency medication reserve; medication reserve stock; reserve stock of" (judge under C7/C11)
+- soft `e_0f36~p_3c5e` policy_echoes_evidence: "emergency room wait; room wait time; wait time of" (judge under C7/C11)
+- soft `e_4cb7~p_44f8` policy_echoes_evidence: "patient safety complaints" (judge under C7/C11)
+- soft `e_b179~p_3c5e` policy_echoes_evidence: "a nurse-to-patient staffing; maintains a nurse-to-patient; nurse-to-patient staffing ratio; staffing ratio of" (judge under C7/C11)
+- soft `e_3349~p_44f8` policy_echoes_evidence: "a facility hygiene; facility hygiene rating; hygiene rating of" (judge under C7/C11)
+- soft `groups 1/2` cross_group_entity: "Care,Center" (judge under C6)
+- soft `u_9340` retraction_reads_as_hedge: "claims" (judge under C4)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_fb3b5ac4ab  (F7-008, hr onboarding)
+
+*World:* An HR onboarding portal evaluates incoming candidates across background checks, compliance credentials, technical skills, and equipment authorization.
+
+### A. System view (judge C7 from this alone)
+- `e_86d7` [2026-01-08, Operations Management Dashboard] Elena Rostova completed 15 client projects this year.
+- `e_a681` [2026-01-11, Corporate Legal Training Database] David Miller completed 15 hours of legal compliance instruction this year.
+- `e_4c7f` [2026-01-14, Department of Motor Vehicles Portal] Marcus Vance holds a valid driver license.
+- `e_7240` [2026-01-17, Safety Portal Database] Priya Patel completed 6 safety training modules this year.
+- `e_f3aa` [2026-01-20, Official Professional Licensing Registry] Elena Rostova holds a senior recruiter certification.
+- `e_a0a4` [2026-01-23, Ethics Board Certification Records] Priya Patel completed an ethics orientation course.
+- `e_824a` [2026-01-26, HR Audit System Log] Elena Rostova completed 4 background checks this year.
+- `e_02f1` [2026-01-29, Employment History Verification Report] Marcus Vance verified 3 years of prior industry experience.
+- `e_c686` [2026-02-01, Third-Party Vetting Report] Liam O'Connor submitted 4 verified employment references.
+- `e_290e` [2026-02-04, Global Security Directives Log] Elena Rostova possesses a corporate security clearance.
+- `e_ae03` [2026-02-07, Automated Testing Platform Report] Elena Rostova achieved an assessment score of 85 points.
+- `e_406d` [2026-02-10, Verified Talent Acquisition Portal] Elena Rostova submitted 2 professional references this year.
+- `e_3f95` [2026-02-13, Quarterly Compliance Dashboard] Marcus Vance completed 5 compliance modules this quarter.
+- `e_e12c` [2026-02-16, Corporate Security Verification Database] Elena Rostova submitted identity documentation.
+- `e_d36b` [2026-02-19, Internal Learning Management System] Elena Rostova logged 120 training hours this year.
+- `e_0d68` [2026-02-22, Signed Memorandum from VP of HR] Elena Rostova holds executive recommendation clearance.
+- `e_2091` [2026-02-25, Clinic Staff Email Notification] Priya Patel submitted a medical clearance form.
+- `e_50be` [2026-02-28, Legal Document Management Portal] Elena Rostova signed a non-disclosure agreement.
+- `e_5d06` [2026-03-03, Engineering Assessment Portal] Sofia Chen achieved a technical assessment score of 92 points.
+- `e_560c` [2026-03-06, Professional Certification System Record] Hannah Abbott holds a project management professional certification.
+- memories:
+  - `m_c1d0` Assign office workstation to Marcus Vance.
+  - `m_c1ed` Issue corporate laptop to Elena Rostova.
+  - `m_9773` Authorize system badge provisioning for Elena Rostova.
+  - `m_dba4` Liam O'Connor satisfies background verification rules.
+  - `m_6b21` Elena Rostova satisfies initial vetting prerequisites.
+  - `m_6f70` David Miller satisfies regulatory training benchmarks.
+  - `m_3759` Hannah Abbott possesses administrative team leadership credentials.
+  - `m_82f7` Elena Rostova meets organizational onboarding standard.
+  - `m_79f4` Elena Rostova is designated as ready for deployment.
+  - `m_c3aa` Sofia Chen meets software engineering prerequisites.
+  - `m_2180` Marcus Vance meets technical competency guidelines.
+  - `m_9067` Elena Rostova fulfills advanced qualification criteria.
+  - `m_fc17` Priya Patel fulfills health protocol requirements.
+  - `m_5e9e` Elena Rostova holds full safety compliance status.
+  - `m_a0e3` Approve field site permission for Priya Patel.
+  - `m_eef6` Marcus Vance holds verified candidate standing.
+- update `u_5d25` [2026-03-09, Anonymous HR chat forum message] An unverified memo alleged that Elena Rostova did not complete 4 background checks this year.
+- update `u_f533` [2026-03-12, Official medical audit record signed by Dr. Aris Thorne] Occupational Health Services confirmed that Priya Patel never submitted a medical clearance form.
+- update `u_2eb9` [2026-03-15, Formal audit note from Senior Auditor Karen Vance] An internal compliance review questioned whether Marcus Vance verified 3 years of prior industry experience.
+- update `u_a602` [2026-03-18, Signed quarterly performance audit report] The corrected operations audit showed that Elena Rostova completed 18 client projects this year.
+- policies:
+  - `p_00fe` Management track qualification is granted to an employee holding a project management professional certification.
+  - `p_93f6` An applicant fulfills background screening requirements either by completing a minimum of 3 background checks per year along with at least 2 professional references per year and earning an assessment score of 80 points or higher, or by holding executive recommendation clearance.
+  - `p_8c8c` Reference check clearance requires providing at least 3 verified employment references.
+  - `p_429f` Wellness standard compliance is attained when an individual completes a minimum of 5 safety training modules annually and furnishes a medical clearance form.
+  - `p_1886` Workplace risk clearance is granted if a personnel member maintains corporate security clearance or completes 100 annual training hours.
+  - `p_20dd` System access pass issuance is granted to a candidate who meets background screening requirements and provides identity documentation.
+  - `p_f715` An employee is approved for active assignment when core hiring verification is confirmed.
+  - `p_726e` On-site entry authorization is granted to a candidate who achieves wellness standard compliance and completes an ethics orientation course.
+  - `p_d188` Technical capability validation requires completing no fewer than 4 compliance modules per quarter while documenting at least 2 years of industry experience.
+  - `p_79bf` Validated applicant eligibility is established once technical capability validation is confirmed.
+  - `p_3dd1` Core hiring verification is achieved when a candidate maintains workplace risk clearance and has system access pass issuance approved.
+  - `p_51e0` Regulatory education completion is recognized when a staff member logs at least 10 hours of legal compliance instruction in a year.
+  - `p_3980` Developer candidate approval requires a technical assessment score of 80 points or higher.
+  - `p_6bda` Senior practitioner status is recognized when an individual completes at least 100 training hours annually, possesses a senior recruiter certification, or finishes at least 10 client projects in a year.
+  - `p_4440` Company hardware distribution is sanctioned for an employee approved for active assignment who submits a signed non-disclosure agreement.
+  - `p_1ab3` Desk space allocation is authorized for an applicant with validated applicant eligibility who holds a valid driver license.
+  - `p_4716` Relocation expense reimbursement is approved for a new hire who relocates over 50 miles and submits valid travel expense receipts.
+  - `p_5235` Tuition assistance funding is granted to an employee who finishes 12 academic credits annually.
+
+### B. Intended structure
+- `m_6b21` (B1) [policy `p_93f6`] <= (`e_824a` AND `e_406d` AND `e_ae03`) **OR** (`e_0d68`); gold after update: **keep**
+  - set 1: Elena Rostova completed 4 background checks this year (>= 3), submitted 2 professional references this year (>= 2), and achieved an assessment score of 85 points (>= 80 points), fulfilling the background screening requirements.
+  - set 2: Elena Rostova holds executive recommendation clearance, satisfying the background screening requirements.
+- `m_9773` (D1) [policy `p_20dd`] <= (`m_6b21` AND `e_e12c`); gold after update: **keep**
+  - set 1: Elena Rostova meets background screening requirements and submitted identity documentation, justifying badge provisioning.
+- `m_9067` (B2) [policy `p_6bda`] <= (`e_d36b`) **OR** (`e_f3aa`) **OR** (`e_86d7`); gold after update: **keep**
+  - set 1: Elena Rostova logged 120 training hours this year (>= 100 hours), meeting senior practitioner status criteria.
+  - set 2: Elena Rostova holds a senior recruiter certification, fulfilling senior practitioner status criteria.
+  - set 3: Elena Rostova completed 15 client projects this year (>= 10), fulfilling senior practitioner status criteria.
+- `m_5e9e` (B3) [policy `p_1886`] <= (`e_290e`) **OR** (`e_d36b`); gold after update: **keep**
+  - set 1: Elena Rostova possesses corporate security clearance, granting workplace risk clearance.
+  - set 2: Elena Rostova logged 120 training hours this year (>= 100 hours), granting workplace risk clearance.
+- `m_82f7` (B4) [policy `p_3dd1`] <= (`m_5e9e` AND `m_9773`); gold after update: **keep**
+  - set 1: Elena Rostova maintains workplace risk clearance and has system access pass issuance approved, satisfying core hiring verification.
+- `m_79f4` (B5) [policy `p_f715`] <= (`m_82f7`); gold after update: **keep**
+  - set 1: Elena Rostova achieves core hiring verification, confirming active assignment approval.
+- `m_c1ed` (D2) [policy `p_4440`] <= (`m_79f4` AND `e_50be`); gold after update: **keep**
+  - set 1: Elena Rostova is approved for active assignment and submitted a signed non-disclosure agreement, authorizing laptop distribution.
+- `m_2180` (B6) [policy `p_d188`] <= (`e_3f95` AND `e_02f1`); gold after update: **uncertain**
+  - set 1: Marcus Vance completed 5 compliance modules this quarter (>= 4) and verified 3 years of prior industry experience (>= 2 years), satisfying technical capability validation.
+- `m_eef6` (B7) [policy `p_79bf`] <= (`m_2180`); gold after update: **uncertain**
+  - set 1: Marcus Vance achieved technical capability validation, confirming validated applicant eligibility.
+- `m_c1d0` (D3) [policy `p_1ab3`] <= (`m_eef6` AND `e_4c7f`); gold after update: **uncertain**
+  - set 1: Marcus Vance holds validated applicant eligibility and possesses a valid driver license, authorizing workstation allocation.
+- `m_fc17` (B8) [policy `p_429f`] <= (`e_7240` AND `e_2091`); gold after update: **withdraw**
+  - set 1: Priya Patel completed 6 safety training modules this year (>= 5) and submitted a medical clearance form, satisfying wellness standard compliance.
+- `m_a0e3` (D4) [policy `p_726e`] <= (`m_fc17` AND `e_a0a4`); gold after update: **withdraw**
+  - set 1: Priya Patel achieved wellness standard compliance and completed an ethics orientation course, authorizing field site entry.
+- `m_dba4` (B9) [policy `p_8c8c`] <= (`e_c686`); gold after update: **keep**
+  - set 1: Liam O'Connor submitted 4 verified employment references (>= 3), satisfying reference check clearance.
+- `m_c3aa` (B10) [policy `p_3980`] <= (`e_5d06`); gold after update: **keep**
+  - set 1: Sofia Chen achieved a technical assessment score of 92 points (>= 80 points), satisfying developer candidate approval.
+- `m_6f70` (B11) [policy `p_51e0`] <= (`e_a681`); gold after update: **keep**
+  - set 1: David Miller completed 15 hours of legal compliance instruction this year (>= 10 hours), satisfying regulatory education completion.
+- `m_3759` (B12) [policy `p_00fe`] <= (`e_560c`); gold after update: **keep**
+  - set 1: Hannah Abbott holds a project management professional certification, qualifying her for management track placement.
+- `u_5d25` retracts `e_824a` (reliability low)
+- `u_f533` retracts `e_2091` (reliability high)
+- `u_2eb9` hedges `e_02f1` (reliability high)
+- `u_a602` supersedes `e_86d7` (reliability high)
+- decoy policies: `p_4716`, `p_5235`
+- final state after updates (gold action -> state): `m_6b21` keep -> holds; `m_9067` keep -> holds; `m_5e9e` keep -> holds; `m_2180` uncertain -> undetermined; `m_fc17` withdraw -> fails; `m_dba4` keep -> holds; `m_c3aa` keep -> holds; `m_6f70` keep -> holds; `m_3759` keep -> holds; `m_9773` keep -> holds; `m_eef6` uncertain -> undetermined; `m_a0e3` withdraw -> fails; `m_82f7` keep -> holds; `m_c1d0` uncertain -> undetermined; `m_79f4` keep -> holds; `m_c1ed` keep -> holds
+
+### C. Automated flags (for review, not verdicts)
+- soft `m_6b21` order_cue: "initial" (judge under C7)
+- soft `m_9067` order_cue: "advanced" (judge under C7)
+- soft `e_a681~p_51e0` policy_echoes_evidence: "hours of legal; legal compliance instruction; of legal compliance" (judge under C7/C11)
+- soft `e_4c7f~p_1ab3` policy_echoes_evidence: "a valid driver; holds a valid; valid driver license" (judge under C7/C11)
+- soft `e_7240~p_429f` policy_echoes_evidence: "safety training modules" (judge under C7/C11)
+- soft `e_f3aa~p_6bda` policy_echoes_evidence: "a senior recruiter; senior recruiter certification" (judge under C7/C11)
+- soft `e_a0a4~p_726e` policy_echoes_evidence: "an ethics orientation; ethics orientation course" (judge under C7/C11)
+- soft `e_c686~p_8c8c` policy_echoes_evidence: "verified employment references" (judge under C7/C11)
+- soft `e_290e~p_1886` policy_echoes_evidence: "corporate security clearance" (judge under C7/C11)
+- soft `e_ae03~p_93f6` policy_echoes_evidence: "an assessment score; assessment score of" (judge under C7/C11)
+- soft `e_ae03~p_3980` policy_echoes_evidence: "assessment score of" (judge under C7/C11)
+- soft `e_0d68~p_93f6` policy_echoes_evidence: "executive recommendation clearance" (judge under C7/C11)
+- soft `e_2091~p_429f` policy_echoes_evidence: "a medical clearance; medical clearance form" (judge under C7/C11)
+- soft `e_5d06~p_93f6` policy_echoes_evidence: "assessment score of" (judge under C7/C11)
+- soft `e_5d06~p_3980` policy_echoes_evidence: "a technical assessment; assessment score of; technical assessment score" (judge under C7/C11)
+- soft `e_560c~p_00fe` policy_echoes_evidence: "a project management; management professional certification; project management professional" (judge under C7/C11)
+- soft `u_5d25` retraction_reads_as_hedge: "alleged" (judge under C4)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_0058a3b004  (F7-009, vendor procurement)
+
+*World:* Commercial vendor qualification and procurement assessment across prospective corporate suppliers.
+
+### A. System view (judge C7 from this alone)
+- `e_a736` [2026-01-08, SOC compliance audit portal] Crestview Tech holds a SOC 2 Type II security compliance certification.
+- `e_b939` [2026-01-11, quarterly HR head-count audit] Crestview Tech maintains a staff of 50 full-time engineers.
+- `e_2b50` [2026-01-14, procurement committee bid submission] Beacon Systems submitted a total proposal bid of 450000 USD.
+- `e_3a10` [2026-01-17, verified insurance policy certificate] Beacon Systems maintains annual cyber liability insurance coverage of 5000000 USD.
+- `e_927c` [2026-01-20, Dun & Bradstreet financial report] Beacon Systems has a financial stability rating of 85.
+- `e_165f` [2026-01-23, quarterly vendor scorecard] Crestview Tech recorded a project delivery speed rating of 92.
+- `e_d005` [2026-01-26, enterprise risk management registry] Echo Solutions holds official vendor risk clearance.
+- `e_9cc9` [2026-01-29, vendor registration system audit] Apex Logistics holds an active ISO 9001 quality management certification.
+- `e_be3a` [2026-02-01, official customer survey report] Crestview Tech maintains an enterprise client satisfaction score of 95.
+- `e_7598` [2026-02-04, vendor management portal] Crestview Tech holds Premier Preferred Vendor status.
+- `e_b6a4` [2026-02-07, audited annual financial statement] Crestview Tech reported annual revenue of 12000000 USD last year.
+- `e_3198` [2026-02-10, infrastructure SLA monitor] Foxfire Services recorded a system availability of 99.9 percent.
+- `e_8d89` [2026-02-13, logistics performance database] Delta Components maintains an on-time shipment percentage of 98.
+- memories:
+  - `m_a8af` Beacon Systems is selected for the IT infrastructure contract.
+  - `m_4b17` Award the enterprise ERP implementation contract to Crestview Tech.
+  - `m_4254` Crestview Tech is approved for large-scale software development contracts.
+  - `m_83a1` Beacon Systems is qualified as a low-risk corporate vendor.
+  - `m_8cf3` Apex Logistics satisfies standard vendor quality credentials.
+  - `m_3b1c` Crestview Tech satisfies operational performance standards.
+  - `m_0c33` Approve Crestview Tech for the expedited service level agreement.
+  - `m_a90f` Delta Components meets supplier timeliness criteria.
+  - `m_8d54` Beacon Systems maintains adequate cyber risk insurance.
+  - `m_bd08` Foxfire Services satisfies operational uptime requirements.
+  - `m_23d7` Crestview Tech meets premier enterprise capacity criteria.
+  - `m_bdda` Echo Solutions is verified for risk compliance.
+- update `u_d889` [2026-02-16, survey administration correction notice] Crestview Tech does not maintain an enterprise client satisfaction score of 95.
+- update `u_a258` [2026-02-19, revised customer survey summary] Crestview Tech maintains an enterprise client satisfaction score of 88.
+- update `u_05f4` [2026-02-22, unsubstantiated rumor blog] Crestview Tech did not achieve a project delivery speed rating of 92.
+- update `u_1e60` [2026-02-25, unverified online forum post] Crestview Tech did not record annual revenue of 12000000 USD last year.
+- update `u_751b` [2026-02-28, anonymous feedback post] Crestview Tech does not hold a SOC 2 Type II security compliance certification.
+- update `u_dcd6` [2026-03-03, internal quality control memo] It is uncertain whether Crestview Tech maintains an enterprise client satisfaction score of 88.
+- update `u_fb34` [2026-03-06, official AICPA audit registry notification] Crestview Tech does not hold a SOC 2 Type II security compliance certification.
+- update `u_5fed` [2026-03-09, ISO registrar compliance report] Apex Logistics does not hold an active ISO 9001 quality management certification.
+- policies:
+  - `p_508b` An organization is assigned the core ERP project provided they are authorized for major software initiatives.
+  - `p_b342` A distributor is recognized for punctual distribution if their on-time shipment percentage is at least 95 percent.
+  - `p_e8d9` A firm with sufficient cyber coverage achieves low-risk vendor status when its financial stability score is at least 80.
+  - `p_0741` A contractor has sufficient cyber coverage if annual cyber liability protection reaches at least 5000000 USD.
+  - `p_b93c` A subcontractor gains preferred status if maintaining a local warehouse footprint of 10000 square feet.
+  - `p_a6f6` A provider is authorized for major software initiatives if they fulfill top tier capacity status.
+  - `p_505c` A commercial partner receives prompt payment processing when maintaining an invoice accuracy rating of 99 percent.
+  - `p_4bba` A supplier achieves top tier capacity status either by holding Premier Preferred Vendor credentials, or by employing at least 40 software engineers alongside annual turnover of 10000000 USD or more and valid SOC 2 Type II security compliance.
+  - `p_450a` A vendor meets operational service expectations either with an enterprise customer approval rating of at least 90, or by maintaining a minimum engineering team of 30 staff together with a project turnaround index of 85 or above.
+  - `p_5369` A vendor is chosen for the infrastructure project if classified as a low-risk vendor and offering a contract pricing bid below 500000 USD.
+  - `p_b59f` A vendor is cleared for compliance when possessing official vendor risk clearance.
+  - `p_8092` A firm receives priority service agreement approval if it meets operational service expectations.
+  - `p_be5b` A service firm fulfills platform availability standards when maintaining system availability of 99.5 percent or higher.
+  - `p_9ed7` A supplier meets basic quality benchmarks if they possess ISO 9001 quality management certification.
+
+### B. Intended structure
+- `m_8cf3` (B1) [policy `p_9ed7`] <= (`e_9cc9`); gold after update: **withdraw**
+  - set 1: Apex Logistics possesses ISO 9001 quality management certification, satisfying the quality requirement.
+- `m_8d54` (B2) [policy `p_0741`] <= (`e_3a10`); gold after update: **keep**
+  - set 1: Beacon Systems holds 5000000 USD in annual cyber liability insurance, meeting the minimum 5000000 USD threshold.
+- `m_83a1` (B3) [policy `p_e8d9`] <= (`m_8d54` AND `e_927c`); gold after update: **keep**
+  - set 1: Beacon Systems maintains adequate cyber insurance and holds a financial stability rating of 85, exceeding the 80 threshold.
+- `m_a8af` (D1) [policy `p_5369`] <= (`m_83a1` AND `e_2b50`); gold after update: **keep**
+  - set 1: Beacon Systems is classified as a low-risk vendor and submitted a bid of 450000 USD, which is below 500000 USD.
+- `m_23d7` (B4) [policy `p_4bba`] <= (`e_b939` AND `e_b6a4` AND `e_a736`) **OR** (`e_7598`); gold after update: **keep**
+  - set 1: Crestview Tech employs 50 engineers (>= 40), generated 12000000 USD in annual revenue (>= 10000000 USD), and holds SOC 2 Type II certification.
+  - set 2: Crestview Tech holds Premier Preferred Vendor status.
+- `m_4254` (B5) [policy `p_a6f6`] <= (`m_23d7`); gold after update: **keep**
+  - set 1: Crestview Tech meets premier enterprise capacity criteria.
+- `m_4b17` (D2) [policy `p_508b`] <= (`m_4254`); gold after update: **keep**
+  - set 1: Crestview Tech is approved for major software development contracts.
+- `m_3b1c` (B6) [policy `p_450a`] <= (`e_b939` AND `e_165f`) **OR** (`e_be3a`); gold after update: **uncertain**
+  - set 1: Crestview Tech maintains 50 engineers (>= 30) and a project delivery speed rating of 92 (>= 85).
+  - set 2: Crestview Tech holds an enterprise client satisfaction score of 95, meeting the 90 threshold.
+- `m_0c33` (D3) [policy `p_8092`] <= (`m_3b1c`); gold after update: **uncertain**
+  - set 1: Crestview Tech satisfies operational performance standards.
+- `m_a90f` (B7) [policy `p_b342`] <= (`e_8d89`); gold after update: **keep**
+  - set 1: Delta Components maintains an on-time shipment percentage of 98, meeting the 95 percent requirement.
+- `m_bdda` (B8) [policy `p_b59f`] <= (`e_d005`); gold after update: **keep**
+  - set 1: Echo Solutions holds official vendor risk clearance.
+- `m_bd08` (B9) [policy `p_be5b`] <= (`e_3198`); gold after update: **keep**
+  - set 1: Foxfire Services maintains a system availability of 99.9 percent, exceeding the 99.5 percent threshold.
+- `u_d889` retracts `e_be3a` (reliability high)
+- `u_a258` supersedes `e_be3a` (reliability high)
+- `u_05f4` retracts `e_165f` (reliability low)
+- `u_1e60` retracts `e_b6a4` (reliability low)
+- `u_751b` retracts `e_a736` (reliability low)
+- `u_dcd6` hedges `e_be3a` (reliability high)
+- `u_fb34` retracts `e_a736` (reliability high)
+- `u_5fed` retracts `e_9cc9` (reliability high)
+- decoy policies: `p_b93c`, `p_505c`
+- final state after updates (gold action -> state): `m_8cf3` withdraw -> fails; `m_8d54` keep -> holds; `m_23d7` keep -> holds; `m_3b1c` uncertain -> undetermined; `m_a90f` keep -> holds; `m_bdda` keep -> holds; `m_bd08` keep -> holds; `m_83a1` keep -> holds; `m_4254` keep -> holds; `m_0c33` uncertain -> undetermined; `m_a8af` keep -> holds; `m_4b17` keep -> holds
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_3a10~p_0741` policy_echoes_evidence: "annual cyber liability" (judge under C7/C11)
+- soft `e_d005~p_b59f` policy_echoes_evidence: "official vendor risk; vendor risk clearance" (judge under C7/C11)
+- soft `e_9cc9~p_9ed7` policy_echoes_evidence: "quality management certification" (judge under C7/C11)
+- soft `e_3198~p_be5b` policy_echoes_evidence: "system availability of" (judge under C7/C11)
+- soft `e_8d89~p_b342` policy_echoes_evidence: "on-time shipment percentage" (judge under C7/C11)
+- soft `groups 2/3` cross_group_entity: "USD" (judge under C6)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).

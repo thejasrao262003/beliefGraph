@@ -1,0 +1,973 @@
+{
+ "scenario": "F7-010",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.B9": "policy_echoes_memory 'chain operator clearance' (a policy may not share a 3-word phrase with any memory)",
+  "policies.D3": "policy_echoes_memory 'pharmaceutical distribution routes; to pharmaceutical distribution' (a policy may not share a 3-word phrase with any memory)",
+  "policies.D4": "policy_echoes_memory 'cross-country freight lines; for cross-country freight' (a policy may not share a 3-word phrase with any memory)",
+  "policies.D2": "policy_echoes_memory 'heavy infrastructure haulage' (a policy may not share a 3-word phrase with any memory)",
+  "facts.E4": "record_scope_not_in_text 'record none, text regional'",
+  "nodes.E4.text": "record_scope_not_in_text 'record none, text regional'",
+  "nodes.E4.source": "record_scope_not_in_text 'record none, text regional'",
+  "facts.E13": "record_scope_not_in_text 'record none, text national'",
+  "nodes.E13.text": "record_scope_not_in_text 'record none, text national'",
+  "nodes.E13.source": "record_scope_not_in_text 'record none, text national'",
+  "facts.E16": "record_scope_not_in_text 'record none, text international'",
+  "nodes.E16.text": "record_scope_not_in_text 'record none, text international'",
+  "nodes.E16.source": "record_scope_not_in_text 'record none, text international'",
+  "policies.B5": "record_window_not_in_policy 'quarter'",
+  "conditions.B5": "record_window_not_in_policy 'quarter'",
+  "facts.E6": "record_window_not_in_policy 'quarter'; record_window_not_in_policy 'quarter'",
+  "nodes.E6.text": "record_window_not_in_policy 'quarter'; record_window_not_in_policy 'quarter'",
+  "nodes.E6.source": "record_window_not_in_policy 'quarter'; record_window_not_in_policy 'quarter'",
+  "policies.B8": "record_threshold_not_in_policy '10'; record_window_not_in_policy 'quarter'",
+  "conditions.B8": "record_threshold_not_in_policy '10'; record_window_not_in_policy 'quarter'",
+  "facts.E7": "record_threshold_not_in_policy '10'; or_alternatives_same_condition 'heavy cargo bays' (alternative justification sets must rest on different quantities or credentials, not two measurements of the same quantity against one condition)",
+  "nodes.E7.text": "record_threshold_not_in_policy '10'; or_alternatives_same_condition 'heavy cargo bays' (alternative justification sets must rest on different quantities or credentials, not two measurements of the same quantity against one condition)",
+  "nodes.E7.source": "record_threshold_not_in_policy '10'; or_alternatives_same_condition 'heavy cargo bays' (alternative justification sets must rest on different quantities or credentials, not two measurements of the same quantity against one condition)",
+  "policies.B6": "or_alternatives_same_condition 'heavy cargo bays' (alternative justification sets must rest on different quantities or credentials, not two measurements of the same quantity against one condition)",
+  "conditions.B6": "or_alternatives_same_condition 'heavy cargo bays' (alternative justification sets must rest on different quantities or credentials, not two measurements of the same quantity against one condition)",
+  "nodes.E8.text": "or_alternatives_same_condition 'heavy cargo bays' (alternative justification sets must rest on different quantities or credentials, not two measurements of the same quantity against one condition)",
+  "nodes.E8.source": "or_alternatives_same_condition 'heavy cargo bays' (alternative justification sets must rest on different quantities or credentials, not two measurements of the same quantity against one condition)",
+  "facts.E8": "or_alternatives_same_condition 'heavy cargo bays' (alternative justification sets must rest on different quantities or credentials, not two measurements of the same quantity against one condition)"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B5\": [\n   {\n    \"premise\": \"E3\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Freight\",\n    \"relation\": null,\n    \"quantity\": \"annual safety compliance score\",\n    \"comparator\": \">=\",\n    \"threshold\": 85,\n    \"unit\": \"points\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E4\",\n    \"kind\": \"credential\",\n    \"entity\": \"Apex Freight\",\n    \"relation\": null,\n    \"quantity\": \"regional transport license\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E6\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Freight\",\n    \"relation\": null,\n    \"quantity\": \"certified haulers\",\n    \"comparator\": \">=\",\n    \"threshold\": 15,\n    \"unit\": \"haulers\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"conditions.B6\": [\n   {\n    \"premise\": \"E7\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Freight\",\n    \"relation\": null,\n    \"quantity\": \"heavy cargo bays\",\n    \"comparator\": \">=\",\n    \"threshold\": 10,\n    \"unit\": \"bays\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E8\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Freight\",\n    \"relation\": null,\n    \"quantity\": \"heavy haul trailers\",\n    \"comparator\": \">=\",\n    \"threshold\": 10,\n    \"unit\": \"trailers\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"conditions.B8\": [\n   {\n    \"premise\": \"E10\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Freight\",\n    \"relation\": null,\n    \"quantity\": \"dedicated refrigerated trucks\",\n    \"comparator\": \">=\",\n    \"threshold\": 5,\n    \"unit\": \"trucks\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"B6\",\n    \"kind\": \"conclusion\",\n    \"entity\": \"Apex Freight\",\n    \"relation\": null,\n    \"quantity\": \"heavy freight capability standards\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E6\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Freight\",\n    \"relation\": null,\n    \"quantity\": \"certified haulers\",\n    \"comparator\": \">=\",\n    \"threshold\": 15,\n    \"unit\": \"haulers\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E13\": {\n   \"entity\": \"Solstice Express\",\n   \"kind\": \"credential\",\n   \"quantity\": \"national highway transit permit\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"national\"\n  },\n  \"facts.E16\": {\n   \"entity\": \"Trident Maritime\",\n   \"kind\": \"credential\",\n   \"quantity\": \"international maritime safety certificate\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"international\"\n  },\n  \"facts.E4\": {\n   \"entity\": \"Apex Freight\",\n   \"kind\": \"credential\",\n   \"quantity\": \"regional transport license\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"regional\"\n  },\n  \"facts.E6\": {\n   \"entity\": \"Apex Freight\",\n   \"kind\": \"number\",\n   \"quantity\": \"certified haulers\",\n   \"value\": 18,\n   \"unit\": \"haulers\",\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"facts.E7\": {\n   \"entity\": \"Apex Freight\",\n   \"kind\": \"number\",\n   \"quantity\": \"heavy cargo bays\",\n   \"value\": 12,\n   \"unit\": \"bays\",\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"facts.E8\": {\n   \"entity\": \"Apex Freight\",\n   \"kind\": \"number\",\n   \"quantity\": \"heavy haul trailers\",\n   \"value\": 14,\n   \"unit\": \"trailers\",\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E13.source\": \"Department of Transportation registry\",\n  \"nodes.E13.text\": \"Solstice Express holds a national highway transit permit.\",\n  \"nodes.E16.source\": \"Maritime Safety Agency record\",\n  \"nodes.E16.text\": \"Trident Maritime holds an international maritime safety certificate.\",\n  \"nodes.E4.source\": \"Regional transit board listing\",\n  \"nodes.E4.text\": \"Apex Freight holds an active regional transport license.\",\n  \"nodes.E6.source\": \"Operations staff memo\",\n  \"nodes.E6.text\": \"Apex Freight logged 18 certified haulers.\",\n  \"nodes.E7.source\": \"Depot supervisor log\",\n  \"nodes.E7.text\": \"Apex Freight logged 12 heavy cargo bays.\",\n  \"nodes.E8.source\": \"Warehouse partner note\",\n  \"nodes.E8.text\": \"Apex Freight logged 14 heavy haul trailers.\",\n  \"policies.B5\": \"Transit clearance in the region is granted either with an annual safety compliance score of at least 85 points alongside holding a regional transport license, or by maintaining a certified hauler count of at least 15.\",\n  \"policies.B6\": \"Classification for heavy transport capability is awarded either when a carrier operates a minimum heavy cargo bay count of 10, or maintains at least 10 heavy haul trailers.\",\n  \"policies.B8\": \"Provisioning of specialized transport equipment is met if a firm maintains at least 5 dedicated refrigerated trucks, or achieves heavy transport capability status, or maintains a certified hauler count of at least 15.\",\n  \"policies.B9\": \"Approval for temperature-controlled freight operations is granted to an entity with approved equipment readiness that holds a verified cold chain certificate.\",\n  \"policies.D2\": \"Allocation of large scale civil project transport work requires a carrier to hold valid heavy load credentials.\",\n  \"policies.D3\": \"Assignment of medical supply delivery corridors is permitted for any firm with certified cold chain capability.\",\n  \"policies.D4\": \"Route assignment for coast-to-coast cargo corridors requires an operator with long-distance transit clearance.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 13756,
+   "output_tokens": 12495,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 13756,
+    "completion_tokens": 12495
+   }
+  },
+  "est_usd": 0.17151975,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.B5[2].window",
+  "conditions.B6[1].quantity",
+  "conditions.B6[1].unit",
+  "conditions.B8[1].comparator",
+  "conditions.B8[1].kind",
+  "conditions.B8[1].premise",
+  "conditions.B8[1].quantity",
+  "conditions.B8[1].threshold",
+  "conditions.B8[1].unit",
+  "conditions.B8[2].window",
+  "facts.E13.scope",
+  "facts.E16.scope",
+  "facts.E4.scope",
+  "facts.E6.window",
+  "facts.E8.quantity",
+  "facts.E8.unit",
+  "nodes.E6.text",
+  "nodes.E8.text",
+  "policies.B5",
+  "policies.B6",
+  "policies.B8",
+  "policies.B9",
+  "policies.D2",
+  "policies.D3",
+  "policies.D4"
+ ],
+ "merged": {
+  "world": "Logistics evaluations and carrier certifications across regional transport, air charter, rail freight, and maritime operations.",
+  "nodes": {
+   "E1": {
+    "text": "Veloce Courier operates an active fleet count of 25 vehicles.",
+    "source": "Official fleet registry entry"
+   },
+   "E2": {
+    "text": "Apex Freight maintains 15 certified haulers this quarter.",
+    "source": "Dispatch manager email"
+   },
+   "E3": {
+    "text": "Apex Freight recorded an annual safety compliance score of 92 points.",
+    "source": "Ministry of Transport audit report"
+   },
+   "E4": {
+    "text": "Apex Freight holds an active regional transport license.",
+    "source": "Regional transit board listing"
+   },
+   "E5": {
+    "text": "Horizon Air Charter holds an active aviation operating certificate.",
+    "source": "Civil Aviation Authority portal"
+   },
+   "E6": {
+    "text": "Apex Freight logged 18 certified haulers.",
+    "source": "Operations staff memo"
+   },
+   "E7": {
+    "text": "Apex Freight logged 12 heavy cargo bays.",
+    "source": "Depot supervisor log"
+   },
+   "E8": {
+    "text": "Apex Freight logged 14 heavy haul trailers.",
+    "source": "Warehouse partner note"
+   },
+   "E9": {
+    "text": "Apex Freight completed an annual safety review score of 85 points.",
+    "source": "National transport safety council certificate"
+   },
+   "E10": {
+    "text": "Apex Freight holds 8 dedicated refrigerated trucks.",
+    "source": "Equipment inventory manifest"
+   },
+   "E11": {
+    "text": "Apex Freight maintains a verified cold chain certificate.",
+    "source": "Cold Chain Alliance portal"
+   },
+   "E12": {
+    "text": "Solstice Express maintains an annual fleet maintenance index of 88 points.",
+    "source": "Vehicle inspection database"
+   },
+   "E13": {
+    "text": "Solstice Express holds a national highway transit permit.",
+    "source": "Department of Transportation registry"
+   },
+   "E14": {
+    "text": "Wayfinder Logistics maintains 40 operable delivery vans.",
+    "source": "Asset management audit"
+   },
+   "E15": {
+    "text": "Compass Rail maintains 12 operational electric locomotives.",
+    "source": "Rail infrastructure registry"
+   },
+   "E16": {
+    "text": "Trident Maritime holds an international maritime safety certificate.",
+    "source": "Maritime Safety Agency record"
+   },
+   "E17": {
+    "text": "Meridian Transfers maintains an average passenger rating of 4.8 stars.",
+    "source": "Corporate client feedback platform"
+   },
+   "B1": {
+    "text": "Veloce Courier qualifies for primary dispatch authorization."
+   },
+   "B2": {
+    "text": "Apex Freight meets tier-one cargo carrier standards."
+   },
+   "B3": {
+    "text": "Horizon Air Charter satisfies commercial flight clearance requirements."
+   },
+   "B4": {
+    "text": "Horizon Air Charter qualifies for charter dispatch operations."
+   },
+   "D1": {
+    "text": "Horizon Air Charter is designated for executive passenger transport."
+   },
+   "B5": {
+    "text": "Apex Freight achieves regional transit authorization."
+   },
+   "B6": {
+    "text": "Apex Freight satisfies heavy freight capability standards."
+   },
+   "B7": {
+    "text": "Apex Freight attains heavy cargo certification."
+   },
+   "D2": {
+    "text": "Apex Freight is selected for heavy infrastructure haulage contracts."
+   },
+   "B8": {
+    "text": "Apex Freight fulfills specialized equipment provisioning."
+   },
+   "B9": {
+    "text": "Apex Freight achieves cold chain operator clearance."
+   },
+   "D3": {
+    "text": "Apex Freight is assigned to pharmaceutical distribution routes."
+   },
+   "B10": {
+    "text": "Solstice Express meets fleet maintenance compliance thresholds."
+   },
+   "B11": {
+    "text": "Solstice Express secures long-distance transit authorization."
+   },
+   "D4": {
+    "text": "Solstice Express is scheduled for cross-country freight lines."
+   },
+   "B12": {
+    "text": "Wayfinder Logistics achieves urban distribution capacity standards."
+   },
+   "B13": {
+    "text": "Compass Rail meets eco-friendly freight criteria."
+   },
+   "B14": {
+    "text": "Trident Maritime qualifies for transoceanic shipping access."
+   },
+   "B15": {
+    "text": "Meridian Transfers achieves premium service accreditation."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Apex Freight did not maintain 15 certified haulers this quarter due to accounting errors.",
+    "source": "Official quarterly audit revision by the transport board"
+   },
+   "U2": {
+    "text": "Questions have been raised regarding whether Apex Freight actually logged 18 certified haulers this quarter.",
+    "source": "Internal review panel statement"
+   },
+   "U3": {
+    "text": "Wayfinder Logistics maintains 15 operable delivery vans following fleet retirements.",
+    "source": "Fleet asset registry update"
+   },
+   "U4": {
+    "text": "Wayfinder Logistics no longer maintains any operable delivery vans after total fleet suspension.",
+    "source": "Municipal transport authority order"
+   },
+   "U5": {
+    "text": "Preliminary inquiries question if Horizon Air Charter holds an active aviation operating certificate.",
+    "source": "Civil aviation press release"
+   },
+   "U6": {
+    "text": "An unverified blog post claims Apex Freight does not hold 8 dedicated refrigerated trucks.",
+    "source": "Anonymous online forum comment"
+   },
+   "U7": {
+    "text": "Apex Freight holds 4 dedicated refrigerated trucks after equipment reallocations.",
+    "source": "Verified fleet manifest update"
+   },
+   "U8": {
+    "text": "Unconfirmed rumors suggest Solstice Express does not maintain an annual fleet maintenance index of 88 points.",
+    "source": "Social media post"
+   }
+  },
+  "policies": {
+   "B1": "Primary dispatch authorization is granted when a service maintains an active fleet count of at least 20 vehicles.",
+   "B2": "Cargo carrier classification at tier-one status requires a minimum of 10 certified haulers in the current quarter, an annual safety compliance score of 90 points or higher, and possession of a regional transport license.",
+   "B3": "Commercial flight eligibility requires holding an active aviation operating certificate.",
+   "B4": "Charter dispatch authorization is granted to an operator cleared for commercial flights.",
+   "D1": "Executive passenger transport routing is assigned to carriers approved for charter service execution.",
+   "B5": "Transit clearance in the region is granted either with an annual safety compliance score of at least 85 points alongside holding a regional transport license, or by maintaining a certified hauler count of at least 15.",
+   "B6": "Classification for heavy transport capability is awarded either when a carrier operates a minimum heavy cargo bay count of 10, or maintains at least 10 heavy haul trailers.",
+   "B7": "Heavy cargo certification is issued to a provider cleared for heavy transport capacity while maintaining an annual safety review score of 80 points or above.",
+   "D2": "Allocation of large scale civil project transport work requires a carrier to hold valid heavy load credentials.",
+   "B8": "Provisioning of specialized transport equipment is met if a firm maintains at least 5 dedicated refrigerated trucks, or achieves heavy transport capability status, or maintains a certified hauler count of at least 15.",
+   "B9": "Approval for temperature-controlled freight operations is granted to an entity with approved equipment readiness that holds a verified cold chain certificate.",
+   "D3": "Assignment of medical supply delivery corridors is permitted for any firm with certified cold chain capability.",
+   "B10": "Compliance on vehicle upkeep is established when a transit firm records an annual fleet maintenance index of 80 points or more.",
+   "B11": "Long-distance transit clearance is issued to a carrier compliant on vehicle upkeep that holds a national highway transit permit.",
+   "D4": "Route assignment for coast-to-coast cargo corridors requires an operator with long-distance transit clearance.",
+   "B12": "Urban distribution readiness is attained when a carrier has a minimum of 30 operable delivery vans.",
+   "B13": "Eco-friendly freight designation requires an operator to maintain at least 10 operational electric locomotives.",
+   "B14": "Transoceanic shipping authorization requires holding an international maritime safety certificate.",
+   "B15": "Premium service accreditation is granted when a shuttle service achieves an average passenger rating of at least 4.5 stars."
+  },
+  "decoy_policies": [
+   "Hazardous waste handling eligibility requires maintaining a certified toxic containment bay count of at least 4 units and an environmental safety audit rating above 90 points.",
+   "Deep-freeze storage facility endorsement is granted to a warehouse operating at least 10 sub-zero cooling chambers."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "fails",
+   "B3": "undetermined",
+   "B4": "undetermined",
+   "D1": "undetermined",
+   "B5": "holds",
+   "B6": "holds",
+   "B7": "holds",
+   "D2": "holds",
+   "B8": "holds",
+   "B9": "holds",
+   "D3": "holds",
+   "B10": "undetermined",
+   "B11": "undetermined",
+   "D4": "undetermined",
+   "B12": "fails",
+   "B13": "holds",
+   "B14": "holds",
+   "B15": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Veloce Courier",
+    "kind": "number",
+    "quantity": "active fleet count",
+    "value": 25,
+    "unit": "vehicles",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Apex Freight",
+    "kind": "number",
+    "quantity": "certified haulers",
+    "value": 15,
+    "unit": "haulers",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Apex Freight",
+    "kind": "number",
+    "quantity": "annual safety compliance score",
+    "value": 92,
+    "unit": "points",
+    "window": "year",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Apex Freight",
+    "kind": "credential",
+    "quantity": "regional transport license",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "regional"
+   },
+   "E5": {
+    "entity": "Horizon Air Charter",
+    "kind": "credential",
+    "quantity": "aviation operating certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Apex Freight",
+    "kind": "number",
+    "quantity": "certified haulers",
+    "value": 18,
+    "unit": "haulers",
+    "window": "none",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Apex Freight",
+    "kind": "number",
+    "quantity": "heavy cargo bays",
+    "value": 12,
+    "unit": "bays",
+    "window": "none",
+    "scope": "none"
+   },
+   "E8": {
+    "entity": "Apex Freight",
+    "kind": "number",
+    "quantity": "heavy haul trailers",
+    "value": 14,
+    "unit": "trailers",
+    "window": "none",
+    "scope": "none"
+   },
+   "E9": {
+    "entity": "Apex Freight",
+    "kind": "number",
+    "quantity": "annual safety review score",
+    "value": 85,
+    "unit": "points",
+    "window": "year",
+    "scope": "none"
+   },
+   "E10": {
+    "entity": "Apex Freight",
+    "kind": "number",
+    "quantity": "dedicated refrigerated trucks",
+    "value": 8,
+    "unit": "trucks",
+    "window": "none",
+    "scope": "none"
+   },
+   "E11": {
+    "entity": "Apex Freight",
+    "kind": "credential",
+    "quantity": "verified cold chain certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E12": {
+    "entity": "Solstice Express",
+    "kind": "number",
+    "quantity": "annual fleet maintenance index",
+    "value": 88,
+    "unit": "points",
+    "window": "year",
+    "scope": "none"
+   },
+   "E13": {
+    "entity": "Solstice Express",
+    "kind": "credential",
+    "quantity": "national highway transit permit",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "national"
+   },
+   "E14": {
+    "entity": "Wayfinder Logistics",
+    "kind": "number",
+    "quantity": "operable delivery vans",
+    "value": 40,
+    "unit": "vans",
+    "window": "none",
+    "scope": "none"
+   },
+   "E15": {
+    "entity": "Compass Rail",
+    "kind": "number",
+    "quantity": "operational electric locomotives",
+    "value": 12,
+    "unit": "locomotives",
+    "window": "none",
+    "scope": "none"
+   },
+   "E16": {
+    "entity": "Trident Maritime",
+    "kind": "credential",
+    "quantity": "international maritime safety certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "international"
+   },
+   "E17": {
+    "entity": "Meridian Transfers",
+    "kind": "number",
+    "quantity": "average passenger rating",
+    "value": 4.8,
+    "unit": "stars",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Apex Freight",
+    "kind": "number",
+    "quantity": "certified haulers",
+    "value": null,
+    "unit": "haulers",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "U2": {
+    "entity": "Apex Freight",
+    "kind": "number",
+    "quantity": "certified haulers",
+    "value": null,
+    "unit": "haulers",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "U3": {
+    "entity": "Wayfinder Logistics",
+    "kind": "number",
+    "quantity": "operable delivery vans",
+    "value": 15,
+    "unit": "vans",
+    "window": "none",
+    "scope": "none"
+   },
+   "U4": {
+    "entity": "Wayfinder Logistics",
+    "kind": "number",
+    "quantity": "operable delivery vans",
+    "value": null,
+    "unit": "vans",
+    "window": "none",
+    "scope": "none"
+   },
+   "U5": {
+    "entity": "Horizon Air Charter",
+    "kind": "credential",
+    "quantity": "aviation operating certificate",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U6": {
+    "entity": "Apex Freight",
+    "kind": "number",
+    "quantity": "dedicated refrigerated trucks",
+    "value": null,
+    "unit": "trucks",
+    "window": "none",
+    "scope": "none"
+   },
+   "U7": {
+    "entity": "Apex Freight",
+    "kind": "number",
+    "quantity": "dedicated refrigerated trucks",
+    "value": 4,
+    "unit": "trucks",
+    "window": "none",
+    "scope": "none"
+   },
+   "U8": {
+    "entity": "Solstice Express",
+    "kind": "number",
+    "quantity": "annual fleet maintenance index",
+    "value": null,
+    "unit": "points",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Veloce Courier",
+     "relation": null,
+     "quantity": "active fleet count",
+     "comparator": ">=",
+     "threshold": 20,
+     "unit": "vehicles",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "certified haulers",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "haulers",
+     "window": "quarter",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "annual safety compliance score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "points",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "credential",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "regional transport license",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "Horizon Air Charter",
+     "relation": null,
+     "quantity": "aviation operating certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Horizon Air Charter",
+     "relation": null,
+     "quantity": "commercial flight clearance requirements",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B4",
+     "kind": "conclusion",
+     "entity": "Horizon Air Charter",
+     "relation": null,
+     "quantity": "charter dispatch operations",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "annual safety compliance score",
+     "comparator": ">=",
+     "threshold": 85,
+     "unit": "points",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "credential",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "regional transport license",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "certified haulers",
+     "comparator": ">=",
+     "threshold": 15,
+     "unit": "haulers",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "heavy cargo bays",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "bays",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E8",
+     "kind": "number",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "heavy haul trailers",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "trailers",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B7": [
+    {
+     "premise": "B6",
+     "kind": "conclusion",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "heavy freight capability standards",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E9",
+     "kind": "number",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "annual safety review score",
+     "comparator": ">=",
+     "threshold": 80,
+     "unit": "points",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "D2": [
+    {
+     "premise": "B7",
+     "kind": "conclusion",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "heavy cargo certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B8": [
+    {
+     "premise": "E10",
+     "kind": "number",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "dedicated refrigerated trucks",
+     "comparator": ">=",
+     "threshold": 5,
+     "unit": "trucks",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "B6",
+     "kind": "conclusion",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "heavy freight capability standards",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "certified haulers",
+     "comparator": ">=",
+     "threshold": 15,
+     "unit": "haulers",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B9": [
+    {
+     "premise": "B8",
+     "kind": "conclusion",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "specialized equipment provisioning",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E11",
+     "kind": "credential",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "verified cold chain certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D3": [
+    {
+     "premise": "B9",
+     "kind": "conclusion",
+     "entity": "Apex Freight",
+     "relation": null,
+     "quantity": "cold chain operator clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B10": [
+    {
+     "premise": "E12",
+     "kind": "number",
+     "entity": "Solstice Express",
+     "relation": null,
+     "quantity": "annual fleet maintenance index",
+     "comparator": ">=",
+     "threshold": 80,
+     "unit": "points",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B11": [
+    {
+     "premise": "B10",
+     "kind": "conclusion",
+     "entity": "Solstice Express",
+     "relation": null,
+     "quantity": "fleet maintenance compliance thresholds",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E13",
+     "kind": "credential",
+     "entity": "Solstice Express",
+     "relation": null,
+     "quantity": "national highway transit permit",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D4": [
+    {
+     "premise": "B11",
+     "kind": "conclusion",
+     "entity": "Solstice Express",
+     "relation": null,
+     "quantity": "long-distance transit authorization",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B12": [
+    {
+     "premise": "E14",
+     "kind": "number",
+     "entity": "Wayfinder Logistics",
+     "relation": null,
+     "quantity": "operable delivery vans",
+     "comparator": ">=",
+     "threshold": 30,
+     "unit": "vans",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B13": [
+    {
+     "premise": "E15",
+     "kind": "number",
+     "entity": "Compass Rail",
+     "relation": null,
+     "quantity": "operational electric locomotives",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "locomotives",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B14": [
+    {
+     "premise": "E16",
+     "kind": "credential",
+     "entity": "Trident Maritime",
+     "relation": null,
+     "quantity": "international maritime safety certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B15": [
+    {
+     "premise": "E17",
+     "kind": "number",
+     "entity": "Meridian Transfers",
+     "relation": null,
+     "quantity": "average passenger rating",
+     "comparator": ">=",
+     "threshold": 4.5,
+     "unit": "stars",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Veloce Courier operating 25 active vehicles exceeds the minimum requirement of 20 vehicles for primary dispatch authorization."
+   ],
+   "B2": [
+    "Apex Freight having 15 certified haulers this quarter, an annual safety compliance score of 92 points, and a regional transport license meets all tier-one carrier requirements."
+   ],
+   "B3": [
+    "Horizon Air Charter holding an active aviation operating certificate fulfills commercial flight clearance requirements."
+   ],
+   "B4": [
+    "Horizon Air Charter satisfying commercial flight clearance qualifies the operator for charter dispatch operations."
+   ],
+   "D1": [
+    "Horizon Air Charter qualifying for charter dispatch operations fulfills the requirement for executive passenger transport routing."
+   ],
+   "B5": [
+    "Apex Freight having an annual safety compliance score of 92 points and holding a regional transport license satisfies the primary option for regional transit authorization.",
+    "Apex Freight maintaining 18 certified haulers this quarter independently satisfies the alternative option for regional transit authorization."
+   ],
+   "B6": [
+    "Apex Freight logging 12 heavy cargo bays exceeds the minimum threshold of 10 required for heavy transport capability.",
+    "Apex Freight logging 14 heavy cargo bays independently satisfies the threshold of 10 heavy cargo bays for heavy transport capability."
+   ],
+   "B7": [
+    "Apex Freight meeting heavy transport capability standards while maintaining an annual safety review score of 85 points fulfills heavy cargo certification."
+   ],
+   "D2": [
+    "Apex Freight holding heavy cargo certification qualifies the company for heavy infrastructure haulage contracts."
+   ],
+   "B8": [
+    "Apex Freight holding 8 dedicated refrigerated trucks satisfies the 5-truck threshold for specialized equipment provisioning.",
+    "Apex Freight logging 12 heavy cargo bays satisfies the heavy transport capability option for specialized equipment provisioning.",
+    "Apex Freight logging 18 certified haulers satisfies the 15-hauler option for specialized equipment provisioning."
+   ],
+   "B9": [
+    "Apex Freight fulfilling specialized equipment provisioning and holding a verified cold chain certificate satisfies cold chain operator clearance."
+   ],
+   "D3": [
+    "Apex Freight achieving cold chain operator clearance qualifies the carrier for pharmaceutical distribution route assignments."
+   ],
+   "B10": [
+    "Solstice Express maintaining an annual fleet maintenance index of 88 points exceeds the 80-point threshold for fleet maintenance compliance."
+   ],
+   "B11": [
+    "Solstice Express meeting fleet maintenance compliance thresholds and holding a national highway transit permit satisfies long-distance transit authorization."
+   ],
+   "D4": [
+    "Solstice Express securing long-distance transit authorization qualifies the carrier for cross-country freight lines."
+   ],
+   "B12": [
+    "Wayfinder Logistics maintaining 40 operable delivery vans satisfies the requirement of 30 vans for urban distribution capacity standards."
+   ],
+   "B13": [
+    "Compass Rail operating 12 electric locomotives exceeds the required 10 locomotives for eco-friendly freight criteria."
+   ],
+   "B14": [
+    "Trident Maritime holding an international maritime safety certificate satisfies transoceanic shipping access requirements."
+   ],
+   "B15": [
+    "Meridian Transfers achieving an average passenger rating of 4.8 stars exceeds the 4.5-star requirement for premium service accreditation."
+   ]
+  }
+ }
+}

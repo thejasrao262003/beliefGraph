@@ -1,0 +1,952 @@
+{
+ "scenario": "F7-017",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.B11": "policy_echoes_memory 'granted institutional trading' (a policy may not share a 3-word phrase with any memory); policy_echoes_memory 'for prime brokerage' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B5": "policy_echoes_memory 'internal governance controls' (a policy may not share a 3-word phrase with any memory); policy_echoes_memory 'due diligence benchmarks' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B4": "policy_echoes_memory 'internal governance controls' (a policy may not share a 3-word phrase with any memory)",
+  "policies.D2": "policy_echoes_memory 'due diligence benchmarks' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B9": "policy_echoes_memory 'a trusted partner' (a policy may not share a 3-word phrase with any memory)",
+  "decoy_policies[1]": "decoy_shares_memory_word 'brokerage' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)",
+  "policies.B2": "record_window_not_in_policy 'record none, clause year'",
+  "conditions.B2": "record_window_not_in_policy 'record none, clause year'",
+  "facts.E2": "record_window_not_in_policy 'record none, clause year'",
+  "nodes.E2.text": "record_window_not_in_policy 'record none, clause year'",
+  "nodes.E2.source": "record_window_not_in_policy 'record none, clause year'",
+  "policies.D3": "record_window_not_in_policy 'quarter'",
+  "conditions.D3": "record_window_not_in_policy 'quarter'",
+  "facts.E10": "record_window_not_in_policy 'quarter'",
+  "nodes.E10.text": "record_window_not_in_policy 'quarter'",
+  "nodes.E10.source": "record_window_not_in_policy 'quarter'",
+  "policies.B13": "record_scope_not_in_policy 'regional'",
+  "conditions.B13": "record_scope_not_in_policy 'regional'",
+  "facts.E16": "record_scope_not_in_policy 'regional'",
+  "nodes.E16.text": "record_scope_not_in_policy 'regional'",
+  "nodes.E16.source": "record_scope_not_in_policy 'regional'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B13\": [\n   {\n    \"premise\": \"E16\",\n    \"kind\": \"credential\",\n    \"entity\": \"Crestview Financial Inc\",\n    \"relation\": null,\n    \"quantity\": \"state remittance license\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"regional\"\n   }\n  ],\n  \"conditions.B2\": [\n   {\n    \"premise\": \"E2\",\n    \"kind\": \"credential\",\n    \"entity\": \"Apex Capital Corp\",\n    \"relation\": null,\n    \"quantity\": \"ISO 37001 certification\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E3\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Capital Corp\",\n    \"relation\": null,\n    \"quantity\": \"anti-money laundering audits\",\n    \"comparator\": \">=\",\n    \"threshold\": 3,\n    \"unit\": \"audits\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E4\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Capital Corp\",\n    \"relation\": null,\n    \"quantity\": \"sanction violations\",\n    \"comparator\": \"<=\",\n    \"threshold\": 0,\n    \"unit\": \"violations\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"conditions.D3\": [\n   {\n    \"premise\": \"B6\",\n    \"kind\": \"conclusion\",\n    \"entity\": \"Apex Capital Corp\",\n    \"relation\": null,\n    \"quantity\": \"transaction monitoring requirements\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E10\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Capital Corp\",\n    \"relation\": null,\n    \"quantity\": \"SAR filings\",\n    \"comparator\": \"<=\",\n    \"threshold\": 0,\n    \"unit\": \"filings\",\n    \"window\": \"quarter\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"decoy_policies[1]\": \"A regional power producer obtains grid connection clearance provided its harmonic voltage distortion remains under 2 percent.\",\n  \"facts.E10\": {\n   \"entity\": \"Apex Capital Corp\",\n   \"kind\": \"number\",\n   \"quantity\": \"SAR filings\",\n   \"value\": 0,\n   \"unit\": \"filings\",\n   \"window\": \"quarter\",\n   \"scope\": \"none\"\n  },\n  \"facts.E16\": {\n   \"entity\": \"Crestview Financial Inc\",\n   \"kind\": \"credential\",\n   \"quantity\": \"state remittance license\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"regional\"\n  },\n  \"facts.E2\": {\n   \"entity\": \"Apex Capital Corp\",\n   \"kind\": \"credential\",\n   \"quantity\": \"ISO 37001 certification\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E10.source\": \"Financial intelligence unit quarterly report\",\n  \"nodes.E10.text\": \"Quarterly monitoring reports confirm Apex Capital Corp recorded 0 SAR filings per quarter.\",\n  \"nodes.E16.source\": \"Regional money transmitter registry\",\n  \"nodes.E16.text\": \"Licensing records show Crestview Financial Inc holds an active regional state remittance license.\",\n  \"nodes.E2.source\": \"ISO regulatory portal certification database\",\n  \"nodes.E2.text\": \"Regulatory filings confirm Apex Capital Corp holds valid ISO 37001 certification.\",\n  \"policies.B11\": \"A client is eligible for prime broker access when determined to be fiscally solvent and secured institutional trading clearance.\",\n  \"policies.B13\": \"An agency is authorized to execute fund transfers if it maintains an active regional state remittance license.\",\n  \"policies.B2\": \"An institution fulfills baseline identification criteria either by holding active ISO 37001 certification and completing at least 3 anti-money laundering audits in a year, or by recording 0 sanction violations in a year.\",\n  \"policies.B4\": \"An enterprise is credited with a robust internal governance framework when it holds active ISO 37001 certification and employs a minimum of 2 full-time compliance officers annually.\",\n  \"policies.B5\": \"A corporate client fulfills heightened due diligence standards when demonstrating a robust internal governance framework alongside a corporate credit score of at least 700 points.\",\n  \"policies.B9\": \"An enterprise attains top tier counterparty standing when recognized as an approved partner while maintaining valid ISO 27001 certification.\",\n  \"policies.D2\": \"An organization secures institutional trading clearance if it satisfies heightened due diligence standards and holds an active financial institution license.\",\n  \"policies.D3\": \"A firm receives automated settlement processing rights when fulfilling transaction monitoring requirements and recording at most 0 SAR filings per quarter.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 13405,
+   "output_tokens": 10802,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 13405,
+    "completion_tokens": 10802
+   }
+  },
+  "est_usd": 0.15168375,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "decoy_policies[1]",
+  "nodes.E10.text",
+  "nodes.E16.source",
+  "nodes.E16.text",
+  "policies.B11",
+  "policies.B13",
+  "policies.B2",
+  "policies.B4",
+  "policies.B5",
+  "policies.B9",
+  "policies.D2",
+  "policies.D3"
+ ],
+ "merged": {
+  "world": "Apex Capital Corp, Beacon Trading LLC, Crestview Financial Inc, and Driftwood Asset Management are undergoing regulatory compliance and KYC verification checks for financial services eligibility.",
+  "nodes": {
+   "E1": {
+    "text": "Compliance records show Apex Capital Corp maintains annual compliance training coverage of 95 percent.",
+    "source": "Official compliance portal record"
+   },
+   "E2": {
+    "text": "Regulatory filings confirm Apex Capital Corp holds valid ISO 37001 certification.",
+    "source": "ISO regulatory portal certification database"
+   },
+   "E3": {
+    "text": "An audit summary notes Apex Capital Corp completed 4 anti-money laundering audits this year.",
+    "source": "Internal audit team memorandum"
+   },
+   "E4": {
+    "text": "Sanction tracking systems verify Apex Capital Corp recorded 0 sanction violations this year.",
+    "source": "Central sanctions screening register"
+   },
+   "E5": {
+    "text": "Ownership filings confirm Apex Capital Corp submitted verified beneficial ownership records for 100 percent of equity.",
+    "source": "Corporate registry equity filing"
+   },
+   "E6": {
+    "text": "A staff memo indicates Apex Capital Corp maintained 2 full-time compliance officers this year.",
+    "source": "HR staffing report draft"
+   },
+   "E7": {
+    "text": "Credit agency data shows Apex Capital Corp maintains a corporate credit score of 780 points.",
+    "source": "Verified credit bureau evaluation report"
+   },
+   "E8": {
+    "text": "Licensing documents show Apex Capital Corp possesses an active financial institution license.",
+    "source": "State financial regulatory commission database"
+   },
+   "E9": {
+    "text": "Headcount reports indicate Apex Capital Corp maintains a compliance staff headcount of 12.",
+    "source": "Corporate organizational register"
+   },
+   "E10": {
+    "text": "Quarterly monitoring reports confirm Apex Capital Corp recorded 0 SAR filings per quarter.",
+    "source": "Financial intelligence unit quarterly report"
+   },
+   "E11": {
+    "text": "Security filings confirm Apex Capital Corp holds valid ISO 27001 certification.",
+    "source": "Information security certification register"
+   },
+   "E12": {
+    "text": "Treasury records confirm Apex Capital Corp deposited collateral of 5000000 USD.",
+    "source": "Custodial bank vault receipt"
+   },
+   "E13": {
+    "text": "Financial statements indicate Apex Capital Corp maintains paid-in capital of 10000000 USD.",
+    "source": "Audited balance sheet filing"
+   },
+   "E14": {
+    "text": "A review note mentions Apex Capital Corp completed 2 external audit reviews this year.",
+    "source": "Accounting partner email note"
+   },
+   "E15": {
+    "text": "Charter filings confirm Beacon Trading LLC holds a valid national trust charter.",
+    "source": "National bank charter authority database"
+   },
+   "E16": {
+    "text": "Licensing records show Crestview Financial Inc holds an active regional state remittance license.",
+    "source": "Regional money transmitter registry"
+   },
+   "E17": {
+    "text": "Asset reports state Driftwood Asset Management holds assets under management of 50000000 USD.",
+    "source": "Securities regulator annual filing"
+   },
+   "B1": {
+    "text": "Apex Capital Corp is designated as low risk for regulatory review."
+   },
+   "B2": {
+    "text": "Apex Capital Corp satisfies baseline identification standards."
+   },
+   "B3": {
+    "text": "Apex Capital Corp qualifies for expedited onboarding."
+   },
+   "D1": {
+    "text": "Apex Capital Corp is approved for account opening."
+   },
+   "B4": {
+    "text": "Apex Capital Corp maintains adequate internal governance controls."
+   },
+   "B5": {
+    "text": "Apex Capital Corp meets enhanced due diligence benchmarks."
+   },
+   "D2": {
+    "text": "Apex Capital Corp is granted institutional trading authorization."
+   },
+   "B6": {
+    "text": "Apex Capital Corp fulfills transaction monitoring prerequisites."
+   },
+   "D3": {
+    "text": "Apex Capital Corp is cleared for automated clearing house processing."
+   },
+   "B7": {
+    "text": "Apex Capital Corp exhibits strong operational integrity."
+   },
+   "B8": {
+    "text": "Apex Capital Corp is categorized as a trusted partner."
+   },
+   "B9": {
+    "text": "Apex Capital Corp achieves tier-one counterparty status."
+   },
+   "D4": {
+    "text": "Apex Capital Corp is allocated a primary credit line."
+   },
+   "B10": {
+    "text": "Apex Capital Corp demonstrates fiscal solvency."
+   },
+   "B11": {
+    "text": "Apex Capital Corp qualifies for prime brokerage servicing."
+   },
+   "B12": {
+    "text": "Beacon Trading LLC meets fiduciary compliance standards."
+   },
+   "B13": {
+    "text": "Crestview Financial Inc is permitted to perform fund transfers."
+   },
+   "B14": {
+    "text": "Driftwood Asset Management satisfies institutional investor qualifications."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An audit review board questions whether Apex Capital Corp completed 4 anti-money laundering audits this year.",
+    "source": "Audit oversight committee advisory bulletin"
+   },
+   "U2": {
+    "text": "State licensing authorities state Crestview Financial Inc does not hold an active state remittance license.",
+    "source": "Official state regulatory enforcement notice"
+   },
+   "U3": {
+    "text": "An unverified forum post claims Apex Capital Corp did not maintain 2 full-time compliance officers this year.",
+    "source": "Anonymous industry chat thread"
+   },
+   "U4": {
+    "text": "Updated headcount audits show Apex Capital Corp maintains a compliance staff headcount of 15.",
+    "source": "Verified human resources portal update"
+   },
+   "U5": {
+    "text": "Enforcement records show Apex Capital Corp recorded multiple SAR filings this quarter, revoking zero-filing status.",
+    "source": "Financial intelligence unit enforcement update"
+   },
+   "U6": {
+    "text": "A blog post alleges Apex Capital Corp does not hold valid ISO 37001 certification.",
+    "source": "Unverified online forum commentary"
+   }
+  },
+  "policies": {
+   "B1": "An entity achieves low risk regulatory status either with yearly compliance training coverage reaching at least 90 percent, or by maintaining active ISO 37001 certification.",
+   "B2": "An institution fulfills baseline identification criteria either by holding active ISO 37001 certification and completing at least 3 anti-money laundering audits in a year, or by recording 0 sanction violations in a year.",
+   "B3": "An enterprise is eligible for fast-track onboarding provided it fulfills baseline identification criteria.",
+   "D1": "An applicant receives account creation approval if it meets fast-track onboarding qualifications while submitting verified beneficial ownership records for at least 100 percent of equity.",
+   "B4": "An enterprise is credited with a robust internal governance framework when it holds active ISO 37001 certification and employs a minimum of 2 full-time compliance officers annually.",
+   "B5": "A corporate client fulfills heightened due diligence standards when demonstrating a robust internal governance framework alongside a corporate credit score of at least 700 points.",
+   "D2": "An organization secures institutional trading clearance if it satisfies heightened due diligence standards and holds an active financial institution license.",
+   "B6": "A financial entity satisfies transaction monitoring requirements either by completing a minimum of 3 independent anti-money laundering audits in a year or by maintaining a compliance staff headcount of at least 10.",
+   "D3": "A firm receives automated settlement processing rights when fulfilling transaction monitoring requirements and recording at most 0 SAR filings per quarter.",
+   "B7": "A business demonstrates robust operational integrity when annual compliance training coverage reaches at least 85 percent.",
+   "B8": "An institution gains trusted partner recognition if it demonstrates robust operational integrity and secures account creation approval.",
+   "B9": "An enterprise attains top tier counterparty standing when recognized as an approved partner while maintaining valid ISO 27001 certification.",
+   "D4": "A client is awarded a main credit facility upon reaching top tier counterparty standing and depositing collateral of at least 2000000 USD.",
+   "B10": "A corporate entity is determined to be fiscally solvent if it possesses paid-in capital of at least 5000000 USD and undergoes at least 1 external audit review per year.",
+   "B11": "A client is eligible for prime broker access when determined to be fiscally solvent and secured institutional trading clearance.",
+   "B12": "A financial organization satisfies fiduciary regulatory requirements if it holds a valid national trust charter.",
+   "B13": "An agency is authorized to execute fund transfers if it maintains an active regional state remittance license.",
+   "B14": "An investment firm meets institutional investor criteria provided its assets under management equal at least 20000000 USD."
+  },
+  "decoy_policies": [
+   "A commercial vendor receives global payment gateway access when holding a rolling liquidity reserve of at least 50000 EUR.",
+   "A regional power producer obtains grid connection clearance provided its harmonic voltage distortion remains under 2 percent."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "holds",
+   "B3": "holds",
+   "D1": "holds",
+   "B4": "undetermined",
+   "B5": "undetermined",
+   "D2": "undetermined",
+   "B6": "holds",
+   "D3": "fails",
+   "B7": "holds",
+   "B8": "holds",
+   "B9": "holds",
+   "D4": "holds",
+   "B10": "holds",
+   "B11": "undetermined",
+   "B12": "holds",
+   "B13": "fails",
+   "B14": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Apex Capital Corp",
+    "kind": "number",
+    "quantity": "compliance training coverage",
+    "value": 95,
+    "unit": "percent",
+    "window": "year",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Apex Capital Corp",
+    "kind": "credential",
+    "quantity": "ISO 37001 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Apex Capital Corp",
+    "kind": "number",
+    "quantity": "anti-money laundering audits",
+    "value": 4,
+    "unit": "audits",
+    "window": "year",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Apex Capital Corp",
+    "kind": "number",
+    "quantity": "sanction violations",
+    "value": 0,
+    "unit": "violations",
+    "window": "year",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Apex Capital Corp",
+    "kind": "number",
+    "quantity": "beneficial ownership records",
+    "value": 100,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Apex Capital Corp",
+    "kind": "number",
+    "quantity": "full-time compliance officers",
+    "value": 2,
+    "unit": "officers",
+    "window": "year",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Apex Capital Corp",
+    "kind": "number",
+    "quantity": "corporate credit score",
+    "value": 780,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "E8": {
+    "entity": "Apex Capital Corp",
+    "kind": "credential",
+    "quantity": "financial institution license",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E9": {
+    "entity": "Apex Capital Corp",
+    "kind": "number",
+    "quantity": "compliance staff headcount",
+    "value": 12,
+    "unit": "headcount",
+    "window": "none",
+    "scope": "none"
+   },
+   "E10": {
+    "entity": "Apex Capital Corp",
+    "kind": "number",
+    "quantity": "SAR filings",
+    "value": 0,
+    "unit": "filings",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E11": {
+    "entity": "Apex Capital Corp",
+    "kind": "credential",
+    "quantity": "ISO 27001 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E12": {
+    "entity": "Apex Capital Corp",
+    "kind": "number",
+    "quantity": "collateral",
+    "value": 5000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E13": {
+    "entity": "Apex Capital Corp",
+    "kind": "number",
+    "quantity": "paid-in capital",
+    "value": 10000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E14": {
+    "entity": "Apex Capital Corp",
+    "kind": "number",
+    "quantity": "external audit reviews",
+    "value": 2,
+    "unit": "reviews",
+    "window": "year",
+    "scope": "none"
+   },
+   "E15": {
+    "entity": "Beacon Trading LLC",
+    "kind": "credential",
+    "quantity": "national trust charter",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "national"
+   },
+   "E16": {
+    "entity": "Crestview Financial Inc",
+    "kind": "credential",
+    "quantity": "state remittance license",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "regional"
+   },
+   "E17": {
+    "entity": "Driftwood Asset Management",
+    "kind": "number",
+    "quantity": "assets under management",
+    "value": 50000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Apex Capital Corp",
+    "kind": "number",
+    "quantity": "anti-money laundering audits",
+    "value": null,
+    "unit": "audits",
+    "window": "year",
+    "scope": "none"
+   },
+   "U2": {
+    "entity": "Crestview Financial Inc",
+    "kind": "credential",
+    "quantity": "state remittance license",
+    "value": false,
+    "unit": null,
+    "window": "none",
+    "scope": "regional"
+   },
+   "U3": {
+    "entity": "Apex Capital Corp",
+    "kind": "number",
+    "quantity": "full-time compliance officers",
+    "value": null,
+    "unit": "officers",
+    "window": "year",
+    "scope": "none"
+   },
+   "U4": {
+    "entity": "Apex Capital Corp",
+    "kind": "number",
+    "quantity": "compliance staff headcount",
+    "value": 15,
+    "unit": "headcount",
+    "window": "none",
+    "scope": "none"
+   },
+   "U5": {
+    "entity": "Apex Capital Corp",
+    "kind": "number",
+    "quantity": "SAR filings",
+    "value": null,
+    "unit": "filings",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "U6": {
+    "entity": "Apex Capital Corp",
+    "kind": "credential",
+    "quantity": "ISO 37001 certification",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "compliance training coverage",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "credential",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "ISO 37001 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E2",
+     "kind": "credential",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "ISO 37001 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "anti-money laundering audits",
+     "comparator": ">=",
+     "threshold": 3,
+     "unit": "audits",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "sanction violations",
+     "comparator": "<=",
+     "threshold": 0,
+     "unit": "violations",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "baseline identification criteria",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "fast-track onboarding qualifications",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "beneficial ownership records",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E2",
+     "kind": "credential",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "ISO 37001 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "full-time compliance officers",
+     "comparator": ">=",
+     "threshold": 2,
+     "unit": "officers",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "B4",
+     "kind": "conclusion",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "sound internal governance controls",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "corporate credit score",
+     "comparator": ">=",
+     "threshold": 700,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D2": [
+    {
+     "premise": "B5",
+     "kind": "conclusion",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "elevated due diligence benchmarks",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E8",
+     "kind": "credential",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "financial institution license",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "anti-money laundering audits",
+     "comparator": ">=",
+     "threshold": 3,
+     "unit": "audits",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E9",
+     "kind": "number",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "compliance staff headcount",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "headcount",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D3": [
+    {
+     "premise": "B6",
+     "kind": "conclusion",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "transaction monitoring requirements",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E10",
+     "kind": "number",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "SAR filings",
+     "comparator": "<=",
+     "threshold": 0,
+     "unit": "filings",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "B7": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "compliance training coverage",
+     "comparator": ">=",
+     "threshold": 85,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B8": [
+    {
+     "premise": "B7",
+     "kind": "conclusion",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "robust operational integrity",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "D1",
+     "kind": "conclusion",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "account creation approval",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B9": [
+    {
+     "premise": "B8",
+     "kind": "conclusion",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "trusted partner recognition",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E11",
+     "kind": "credential",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "ISO 27001 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D4": [
+    {
+     "premise": "B9",
+     "kind": "conclusion",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "top tier counterparty standing",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E12",
+     "kind": "number",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "collateral",
+     "comparator": ">=",
+     "threshold": 2000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B10": [
+    {
+     "premise": "E13",
+     "kind": "number",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "paid-in capital",
+     "comparator": ">=",
+     "threshold": 5000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E14",
+     "kind": "number",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "external audit reviews",
+     "comparator": ">=",
+     "threshold": 1,
+     "unit": "reviews",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B11": [
+    {
+     "premise": "B10",
+     "kind": "conclusion",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "fiscally solvent",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "D2",
+     "kind": "conclusion",
+     "entity": "Apex Capital Corp",
+     "relation": null,
+     "quantity": "institutional trading permission",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B12": [
+    {
+     "premise": "E15",
+     "kind": "credential",
+     "entity": "Beacon Trading LLC",
+     "relation": null,
+     "quantity": "national trust charter",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "national"
+    }
+   ],
+   "B13": [
+    {
+     "premise": "E16",
+     "kind": "credential",
+     "entity": "Crestview Financial Inc",
+     "relation": null,
+     "quantity": "state remittance license",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "regional"
+    }
+   ],
+   "B14": [
+    {
+     "premise": "E17",
+     "kind": "number",
+     "entity": "Driftwood Asset Management",
+     "relation": null,
+     "quantity": "assets under management",
+     "comparator": ">=",
+     "threshold": 20000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Apex Capital Corp's compliance training coverage of 95 percent meets the policy requirement of at least 90 percent.",
+    "Apex Capital Corp holds valid ISO 37001 certification, fulfilling the alternative credential condition."
+   ],
+   "B2": [
+    "Apex Capital Corp holds valid ISO 37001 certification and completed 4 anti-money laundering audits this year, satisfying both conditions of the first path.",
+    "Apex Capital Corp recorded 0 sanction violations this year, fulfilling the alternative condition."
+   ],
+   "B3": [
+    "Apex Capital Corp fulfills baseline identification criteria, satisfying the single requirement for expedited onboarding."
+   ],
+   "D1": [
+    "Apex Capital Corp meets fast-track onboarding qualifications and submitted verified beneficial ownership records for 100 percent of equity, satisfying all policy conditions."
+   ],
+   "B4": [
+    "Apex Capital Corp holds valid ISO 37001 certification and maintains 2 full-time compliance officers annually, satisfying both required conditions."
+   ],
+   "B5": [
+    "Apex Capital Corp demonstrates sound internal governance controls and maintains a credit score of 780 points, exceeding the required 700 threshold."
+   ],
+   "D2": [
+    "Apex Capital Corp fulfills elevated due diligence benchmarks and holds an active financial institution license, satisfying both policy conditions."
+   ],
+   "B6": [
+    "Apex Capital Corp completed 4 anti-money laundering audits this year, meeting the requirement of at least 3 audits.",
+    "Apex Capital Corp maintains a compliance staff headcount of 12, satisfying the alternative threshold of at least 10."
+   ],
+   "D3": [
+    "Apex Capital Corp satisfies transaction monitoring requirements and has 0 SAR filings this quarter, fulfilling all clearing house processing conditions."
+   ],
+   "B7": [
+    "Apex Capital Corp's annual compliance training coverage of 95 percent satisfies the threshold of at least 85 percent."
+   ],
+   "B8": [
+    "Apex Capital Corp demonstrates robust operational integrity and receives account creation approval, meeting all trusted partner criteria."
+   ],
+   "B9": [
+    "Apex Capital Corp is recognized as a trusted partner and holds valid ISO 27001 certification, fulfilling all tier-one counterparty requirements."
+   ],
+   "D4": [
+    "Apex Capital Corp achieves top tier counterparty standing and deposited 5000000 USD in collateral, exceeding the 2000000 USD requirement."
+   ],
+   "B10": [
+    "Apex Capital Corp holds paid-in capital of 10000000 USD and completed 2 external audit reviews this year, exceeding both policy thresholds."
+   ],
+   "B11": [
+    "Apex Capital Corp is determined to be fiscally solvent and possesses institutional trading permission, fulfilling all prime brokerage criteria."
+   ],
+   "B12": [
+    "Beacon Trading LLC holds a valid national trust charter, satisfying the requirement for fiduciary regulatory compliance."
+   ],
+   "B13": [
+    "Crestview Financial Inc holds an active state remittance license, satisfying the policy rule for fund transfer authorization."
+   ],
+   "B14": [
+    "Driftwood Asset Management holds assets under management of 50000000 USD, exceeding the policy requirement of at least 20000000 USD."
+   ]
+  }
+ }
+}

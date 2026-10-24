@@ -1,0 +1,1500 @@
+# Renderer review sheet
+
+## s_a291886a67  (F7-012, personal assistant)
+
+*World:* Arthur Pendelton and several other private clients are managed by a personal assistant overseeing VIP services, financial advisory pre-requisites, and lifestyle privileges.
+
+### A. System view (judge C7 from this alone)
+- `e_9d78` [2026-01-08, Prime Asset Underwriters policy document] Arthur Pendelton holds a certified High-Value Asset Coverage Policy.
+- `e_b308` [2026-01-11, SafeGuard Escrow receipt] Arthur Pendelton's private security deposit balance is $30,000.
+- `e_c557` [2026-01-14, Philanthropy Services tax receipt] Arthur Pendelton's annual charity contribution is $100,000.
+- `e_7d8f` [2026-01-17, City Building Inspection Office report] Arthur Pendelton has completed 4 property inspections this year.
+- `e_bce5` [2026-01-20, Global Corporate Partner email] Arthur Pendelton's corporate sponsorship funding is $60,000 this year.
+- `e_9376` [2026-01-23, Master Builder Guild credential card] Arthur Pendelton holds an active Master Builder Advisory Pass.
+- `e_9ef4` [2026-01-26, Heritage Art Auditors appraisal report] Arthur Pendelton's private art collection valuation is $1,000,000.
+- `e_5922` [2026-01-29, Sovereign Valuation Group appraisal certificate] Arthur Pendelton's total luxury assets value is $500,000.
+- `e_cc42` [2026-02-01, Wine cellar inventory audit log] Elena Rostova's wine cellar inventory count is 1,200 bottles.
+- `e_8875` [2026-02-04, Equestrian Federation official score card] Clara Oswald's equestrian club membership score is 85 points.
+- `e_3912` [2026-02-07, Security Check Services log] Arthur Pendelton has completed 6 background verifications this year.
+- `e_1fc8` [2026-02-10, First Capital Bank ledger] Arthur Pendelton's home renovation fund balance is $50,000.
+- `e_1acf` [2026-02-13, Executive Travel Club membership registry] Arthur Pendelton holds an active VIP Executive Travel Membership.
+- `e_35af` [2026-02-16, Beatrice Vance's flight logbook] Beatrice Vance's private aviation hours total 120 hours this year.
+- `e_3676` [2026-02-19, Harbor master registration record] David Miller's yacht length is 45 meters.
+- `e_b10b` [2026-02-22, SkyPass loyalty ledger] Arthur Pendelton's annual loyalty points total is 50,000 points.
+- `e_6b5a` [2026-02-25, Apex Investments brokerage statement] Arthur Pendelton's investment portfolio balance is $200,000.
+- `e_0cdc` [2026-02-28, Cultural Foundation Board confirmation letter] Arthur Pendelton has completed 5 cultural foundation audits this year.
+- `e_40cf` [2026-03-03, Flight Travel Bank statement] Arthur Pendelton's annual travel fund balance is $15,000.
+- `e_9335` [2026-03-06, International Protocol Bureau registry entry] Arthur Pendelton holds a verified Global Diplomatic VIP Pass.
+- `e_6e48` [2026-03-09, National Heritage Board licence certificate] Arthur Pendelton holds a certified National Heritage Trustee License.
+- `e_c765` [2026-03-12, Apex Bank cash account summary] Arthur Pendelton's liquid cash balance is $80,000.
+- memories:
+  - `m_9dd4` Clara Oswald is approved for Championship Equestrian Entry.
+  - `m_6d8f` Elena Rostova is classified as a Sommelier Master Collector.
+  - `m_15a3` Arthur Pendelton is designated as an Approved Estate Development Client.
+  - `m_1dc7` Beatrice Vance is designated as an Executive Aviation VIP.
+  - `m_98ac` Arthur Pendelton is classified as a Priority Flight Booking Client.
+  - `m_83a7` Arthur Pendelton is authorized for Executive Villa Access.
+  - `m_111e` Arthur Pendelton is designated as a Fine Art Foundation Patron.
+  - `m_bf69` Issue the Platinum Portfolio Safeguard Card to Arthur Pendelton.
+  - `m_bf91` Arthur Pendelton is recognized as a Heritage Site Custodian.
+  - `m_0745` Arthur Pendelton meets the Security Clearance Level 1 standard.
+  - `m_53a4` Arthur Pendelton is approved for Executive Gala Hosting.
+  - `m_f648` Recommend founding the Arthur Pendelton Cultural Wing.
+  - `m_f469` Arthur Pendelton qualifies for Private Wealth Advisory Services.
+  - `m_877a` Arthur Pendelton qualifies for International Event Sponsorship.
+  - `m_72b6` Arthur Pendelton is eligible for Concierge Wealth Protection.
+  - `m_582c` Approve keyless smart entry installation for Arthur Pendelton.
+  - `m_3ee3` Assign priority restoration rights to Arthur Pendelton.
+  - `m_92be` Recommend booking the First Class Suite for Arthur Pendelton.
+  - `m_6662` David Miller qualifies for Superyacht Marina Docking.
+- update `u_a0f7` [2026-03-15, SafeGuard Escrow revocation notice] SafeGuard Escrow confirms that Arthur Pendelton's private security deposit account has been closed and holds no balance.
+- update `u_1f4f` [2026-03-18, Flight Travel Bank revised statement] Flight Travel Bank issued an updated statement showing Arthur Pendelton's annual travel fund balance is $2,000.
+- update `u_1af8` [2026-03-21, Apex Investments audit advisory notice] Apex Investments announced an ongoing compliance review regarding the reported valuation of Arthur Pendelton's investment portfolio balance.
+- update `u_384b` [2026-03-24, City Building Inspection Office correction notice] City Building Inspection Office clarified that Arthur Pendelton has completed 0 property inspections this year due to record cancellations.
+- update `u_a3e4` [2026-03-27, Heritage Art Auditors preliminary review note] Heritage Art Auditors released a note questioning the authentication of Arthur Pendelton's private art collection valuation.
+- update `u_99ce` [2026-03-30, Master Builder Guild status notification] Master Builder Guild confirmed that Arthur Pendelton's Master Builder Advisory Pass was revoked.
+- update `u_d99c` [2026-04-02, Sovereign Valuation Group updated report] Sovereign Valuation Group revised Arthur Pendelton's total luxury assets value to $250,000.
+- update `u_dcc8` [2026-04-05, Heritage Art Auditors final audit report] Heritage Art Auditors confirmed that Arthur Pendelton's private art collection valuation is $0.
+- policies:
+  - `p_476f` Issuance of an elite protection card is recommended for an individual with elite capital safeguarding option.
+  - `p_1372` Tier-one financial consulting eligibility requires either an investment portfolio balance of at least $150,000, liquid capital of no less than $50,000, and 3 or more yearly site evaluations, or a total high-value asset valuation of $400,000.
+  - `p_f166` Deep-water mooring privilege is granted for a vessel measuring at least 40 meters in length.
+  - `p_3fd2` Tournament riding eligibility requires an equestrian organization rating of 80 points or higher.
+  - `p_a3b7` Cultural patron status is conferred when an individual has an art collection valued at $800,000 or higher, holds a protective deposit of at least $25,000, and completes 4 or more annual foundation audits.
+  - `p_954f` Automated access installation is recommended for any client possessing luxury residence access authorization.
+  - `p_22be` Elite cellar distinction is bestowed on a collector maintaining a reserve of 1,000 bottles or more.
+  - `p_0b2b` High-profile hosting clearance is granted to an individual qualifying for global event backing who also has first-class suite reservation advised.
+  - `p_8cf3` Global event backing qualification is met either with a builder advisory credential alongside annual corporate backing of at least $50,000, or by holding an active diplomatic VIP credential.
+  - `p_1c33` Privileged oceanic vessel charter status is approved for boat owners logging over 200 nautical miles in a single quarter.
+  - `p_00de` First-class suite reservation is advised for an individual with premium flight reservation status who has accumulated an annual balance of at least 40,000 loyalty points.
+  - `p_220b` Luxury residence access authorization requires a client cleared for first-tier safety who has completed at least 5 yearly background checks.
+  - `p_9775` Estate development pre-authorization is conferred either with a minimum property account balance of $40,000 alongside at least 3 yearly site evaluations, or through holding a valid builder advisory credential.
+  - `p_4767` Allocating priority conservation rights is recommended for a recognized historic property steward.
+  - `p_e9c2` First-tier safety endorsement requires a minimum protective deposit of $25,000 and a valid high-value coverage policy.
+  - `p_c529` Historic property stewardship recognition is granted either with 4 or more annual foundation audits and an investment portfolio balance of at least $150,000, or by holding a valid heritage trustee licence.
+  - `p_6dc8` Top-tier flight status is awarded to an individual accumulating at least 100 private flying hours annually.
+  - `p_7bc9` Premium flight reservation status is granted when an individual's yearly travel account balance is at least $10,000 and an active executive travel membership is maintained.
+  - `p_ff32` Naming a gallery wing is advised for any recognized cultural patron whose yearly charitable donations reach at least $75,000.
+  - `p_fd53` Specialized architectural consulting services are offered to property managers maintaining an annual commercial leasing budget of at least $500,000.
+  - `p_0d42` Elite capital safeguarding option is open to a client with tier-one financial consulting eligibility for whom first-class suite reservation is advised.
+
+### B. Intended structure
+- `m_98ac` (B1) [policy `p_7bc9`] <= (`e_40cf` AND `e_1acf`); gold after update: **recompute**
+  - set 1: Arthur Pendelton meets the travel budget requirement with $15,000 (threshold $10,000) and holds an active VIP Executive Travel Membership.
+- `m_92be` (D1) [policy `p_00de`] <= (`m_98ac` AND `e_b10b`); gold after update: **recompute**
+  - set 1: Arthur Pendelton has Priority Flight Booking status and holds 50,000 loyalty points (threshold 40,000 points).
+- `m_15a3` (B2) [policy `p_9775`] <= (`e_1fc8` AND `e_7d8f`) **OR** (`e_9376`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton has a renovation fund balance of $50,000 (threshold $40,000) and completed 4 property inspections (threshold 3).
+  - set 2: Arthur Pendelton holds a Master Builder Advisory Pass.
+- `m_0745` (B3) [policy `p_e9c2`] <= (`e_b308` AND `e_9d78`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton holds a private security deposit of $30,000 (threshold $25,000) and a High-Value Asset Coverage Policy.
+- `m_83a7` (B4) [policy `p_220b`] <= (`m_0745` AND `e_3912`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton meets Security Clearance Level 1 and completed 6 background checks (threshold 5).
+- `m_582c` (D2) [policy `p_954f`] <= (`m_83a7`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton is authorized for Executive Villa Access.
+- `m_f469` (B5) [policy `p_1372`] <= (`e_6b5a` AND `e_c765` AND `e_7d8f`) **OR** (`e_5922`); gold after update: **recompute**
+  - set 1: Arthur Pendelton has an investment portfolio of $200,000 (threshold $150,000), liquid cash of $80,000 (threshold $50,000), and 4 property inspections (threshold 3).
+  - set 2: Arthur Pendelton's total luxury assets value is $500,000 (threshold $400,000).
+- `m_72b6` (B6) [policy `p_0d42`] <= (`m_f469` AND `m_92be`); gold after update: **recompute**
+  - set 1: Arthur Pendelton qualifies for Private Wealth Advisory Services and has First Class Suite booking recommended.
+- `m_bf69` (D3) [policy `p_476f`] <= (`m_72b6`); gold after update: **recompute**
+  - set 1: Arthur Pendelton is eligible for Concierge Wealth Protection.
+- `m_877a` (B7) [policy `p_8cf3`] <= (`e_9376` AND `e_bce5`) **OR** (`e_9335`); gold after update: **keep**
+  - set 1: Arthur Pendelton holds a Master Builder Advisory Pass and has $60,000 in corporate sponsorship (threshold $50,000).
+  - set 2: Arthur Pendelton holds a Global Diplomatic VIP Pass.
+- `m_53a4` (B8) [policy `p_0b2b`] <= (`m_877a` AND `m_92be`); gold after update: **recompute**
+  - set 1: Arthur Pendelton qualifies for International Event Sponsorship and has First Class Suite booking recommended.
+- `m_111e` (B9) [policy `p_a3b7`] <= (`e_9ef4` AND `e_b308` AND `e_0cdc`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton has an art collection valued at $1,000,000 (threshold $800,000), a security deposit of $30,000 (threshold $25,000), and completed 5 foundation audits (threshold 4).
+- `m_f648` (D4) [policy `p_ff32`] <= (`m_111e` AND `e_c557`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton is designated as a Fine Art Foundation Patron and donated $100,000 to charity (threshold $75,000).
+- `m_bf91` (B10) [policy `p_c529`] <= (`e_0cdc` AND `e_6b5a`) **OR** (`e_6e48`); gold after update: **keep**
+  - set 1: Arthur Pendelton has completed 5 foundation audits (threshold 4) and holds an investment portfolio of $200,000 (threshold $150,000).
+  - set 2: Arthur Pendelton holds a National Heritage Trustee License.
+- `m_3ee3` (D5) [policy `p_4767`] <= (`m_bf91`); gold after update: **keep**
+  - set 1: Arthur Pendelton is recognized as a Heritage Site Custodian.
+- `m_1dc7` (B11) [policy `p_6dc8`] <= (`e_35af`); gold after update: **keep**
+  - set 1: Beatrice Vance logged 120 private flight hours this year (threshold 100 hours).
+- `m_9dd4` (B12) [policy `p_3fd2`] <= (`e_8875`); gold after update: **keep**
+  - set 1: Clara Oswald scored 85 points in equestrian club membership (threshold 80 points).
+- `m_6662` (B13) [policy `p_f166`] <= (`e_3676`); gold after update: **keep**
+  - set 1: David Miller owns a yacht measuring 45 meters (threshold 40 meters).
+- `m_6d8f` (B14) [policy `p_22be`] <= (`e_cc42`); gold after update: **keep**
+  - set 1: Elena Rostova maintains 1,200 bottles in her wine cellar inventory (threshold 1,000 bottles).
+- `u_a0f7` retracts `e_b308` (reliability high)
+- `u_1f4f` supersedes `e_40cf` (reliability high)
+- `u_1af8` hedges `e_6b5a` (reliability high)
+- `u_384b` retracts `e_7d8f` (reliability high)
+- `u_a3e4` hedges `e_9ef4` (reliability high)
+- `u_99ce` retracts `e_9376` (reliability high)
+- `u_d99c` supersedes `e_5922` (reliability high)
+- `u_dcc8` retracts `e_9ef4` (reliability high)
+- decoy policies: `p_fd53`, `p_1c33`
+- final state after updates (gold action -> state): `m_98ac` recompute -> fails; `m_15a3` withdraw -> fails; `m_0745` withdraw -> fails; `m_f469` recompute -> fails; `m_877a` keep -> holds; `m_111e` withdraw -> fails; `m_bf91` keep -> holds; `m_1dc7` keep -> holds; `m_9dd4` keep -> holds; `m_6662` keep -> holds; `m_6d8f` keep -> holds; `m_92be` recompute -> fails; `m_83a7` withdraw -> fails; `m_f648` withdraw -> fails; `m_3ee3` keep -> holds; `m_72b6` recompute -> fails; `m_53a4` recompute -> fails; `m_582c` withdraw -> fails; `m_bf69` recompute -> fails
+
+### C. Automated flags (for review, not verdicts)
+- soft `m_92be` order_cue: "First" (judge under C7)
+- soft `e_6b5a~p_1372` policy_echoes_evidence: "investment portfolio balance" (judge under C7/C11)
+- soft `e_6b5a~p_c529` policy_echoes_evidence: "investment portfolio balance" (judge under C7/C11)
+- soft `groups 1/2` cross_group_entity: "Executive,VIP" (judge under C6)
+- soft `groups 1/5` cross_group_entity: "Elite,Master" (judge under C6)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_ff076b93c6  (F7-013, healthcare compliance)
+
+*World:* Healthcare facilities and associated providers are evaluated for regulatory compliance, funding eligibility, and operating authorizations.
+
+### A. System view (judge C7 from this alone)
+- `e_6360` [2026-01-08, International accreditation database registry file] Beacon Surgical Institute holds an active ISO 9001 certification.
+- `e_7f8a` [2026-01-11, Certified insurance policy certificate from the underwriter] Solis Medical Center holds valid liability coverage of $5,000,000.
+- `e_1c42` [2026-01-14, Regional sanitation agency summary memorandum] Beacon Surgical Institute received an external sanitation rating of 88.
+- `e_7b83` [2026-01-17, Annual laboratory throughput audit certificate] Grace Diagnostics processed 12000 diagnostic samples this year.
+- `e_3a03` [2026-01-20, Department of Health licensing database] Fernwood Hospice holds a valid state healthcare license.
+- `e_8eae` [2026-01-23, State licensing agency administrative portal record] Solis Medical Center submitted 4 annual audit reviews.
+- `e_2a90` [2026-01-26, Certified IT security audit filing] DocuHealth Systems logged zero security incidents this quarter.
+- `e_c1f2` [2026-01-29, Internal compliance log signed by the training coordinator] Solis Medical Center completed 12 staff compliance training modules this year.
+- `e_1e25` [2026-02-01, Certified clinical audit report from the regional health authority] Beacon Surgical Institute maintains an infection control score of 95.
+- `e_1489` [2026-02-04, State eldercare oversight committee inspection log] Eldridge Care Home maintains a nurse to patient ratio of 0.25.
+- `e_4dce` [2026-02-07, State pharmacy board quarterly staffing registry] Crestview Pharmacy maintains 5 certified pharmacists on staff.
+- `e_46ce` [2026-02-10, Official municipal health inspection register] Beacon Surgical Institute logged 15 hygiene inspections this year.
+- `e_c274` [2026-02-13, Official state health department annual evaluation report] Solis Medical Center recorded a patient safety index of 92 this year.
+- memories:
+  - `m_877c` Solis Medical Center is eligible for state healthcare subsidies.
+  - `m_65e8` DocuHealth Systems satisfies data protection protocols.
+  - `m_1302` Solis Medical Center ought to receive preferred facility funding.
+  - `m_0068` Crestview Pharmacy satisfies specialized dispensing thresholds.
+  - `m_03d5` Beacon Surgical Institute meets baseline hygiene requirements.
+  - `m_333f` Beacon Surgical Institute should be approved for surgical center renewal.
+  - `m_2410` Solis Medical Center should be awarded an expanded operating license.
+  - `m_bebf` Solis Medical Center fulfills mandatory training criteria.
+  - `m_2f05` Solis Medical Center maintains good operational standing.
+  - `m_6fbd` Fernwood Hospice holds official regulatory authorization.
+  - `m_2d70` Grace Diagnostics meets high-volume testing standards.
+  - `m_aab6` Eldridge Care Home satisfies staffing adequacy criteria.
+  - `m_a019` Beacon Surgical Institute achieves maximum safety compliance.
+  - `m_9aab` Solis Medical Center qualifies for Tier-1 clinical accreditation.
+- update `u_080d` [2026-02-16, Anonymous internet post] An unverified blog post claimed Beacon Surgical Institute lost its ISO 9001 certification.
+- update `u_a299` [2026-02-19, Unverified online forum entry] An anonymous comment claimed Beacon Surgical Institute did not perform 15 hygiene inspections this year.
+- update `u_f413` [2026-02-22, Official inquiry notice from the health board oversight panel] A formal inquiry questioned whether Beacon Surgical Institute genuinely achieved an infection control score of 95.
+- update `u_aab8` [2026-02-25, State medical board official revocation decree] Official state board findings confirmed Beacon Surgical Institute does not maintain an infection control score of 95.
+- update `u_d5b1` [2026-02-28, State health oversight board binding decision] State health board records revealed Beacon Surgical Institute failed to log 15 hygiene inspections this year.
+- update `u_7ec5` [2026-03-03, Social media discussion thread] An unconfirmed forum post alleged Beacon Surgical Institute never received an external sanitation rating of 88.
+- update `u_b14d` [2026-03-06, Formal state audit commission preliminary memo] A regulatory audit memo raised questions about whether Solis Medical Center actually completed 12 staff compliance training modules this year.
+- policies:
+  - `p_acab` Reauthorizing surgical facility permits is recommended for any institute that possesses essential sanitation clearance.
+  - `p_2005` Capacity qualification is achieved when a facility handles at least 10000 diagnostic samples processed annually.
+  - `p_bbcc` Urgent response certification requires a trauma triage index of at least 90.
+  - `p_e8e0` Information security approval requires an entity to record no more than 1 security incidents per quarter.
+  - `p_9dd6` Granting a broadened operational permit requires an entity with top clinical status to file at least 3 annual audit reviews.
+  - `p_61de` An institution meets educational standards when completing at least 10 compliance modules annually.
+  - `p_d3b5` Disbursement of priority financial grants requires a public funding eligible entity to maintain liability coverage of at least $2,000,000.
+  - `p_ba47` Essential sanitation clearance requires either an infection control score of at least 80 or an external sanitation rating of 75 or above.
+  - `p_0482` Institutional standing remains active provided at least 8 compliance modules are completed annually.
+  - `p_4b4f` Legal operating status is confirmed when an organization possesses a state healthcare license.
+  - `p_1828` Adequate care certification requires maintaining a nurse to patient ratio of 0.20 or greater.
+  - `p_91a5` Advanced pharmacy authorization is granted when a facility employs a certified staffing level of at least 3 pharmacists.
+  - `p_cc31` A facility holding educational standards approval attains top clinical status if it maintains a patient safety index of 85 or above annually.
+  - `p_bf35` Highest safety authorization is granted when a facility holds an ISO 9001 certification, maintains an infection control score of 90 or higher, and conducts at least 10 hygiene inspections annually.
+  - `p_6dd4` Level-two laboratory endorsement is granted when showing an instrument calibration accuracy rate of at least 98 percent.
+  - `p_a83f` Public funding eligibility is granted to an institution in active standing that holds a broadened operational permit.
+
+### B. Intended structure
+- `m_bebf` (B1) [policy `p_61de`] <= (`e_c1f2`); gold after update: **uncertain**
+  - set 1: Completing 12 compliance modules satisfies the minimum requirement of 10 modules annually.
+- `m_9aab` (B2) [policy `p_cc31`] <= (`m_bebf` AND `e_c274`); gold after update: **uncertain**
+  - set 1: Holding educational standards approval together with a patient safety index of 92 (above the 85 threshold) grants Tier-1 clinical status.
+- `m_2410` (D1) [policy `p_9dd6`] <= (`m_9aab` AND `e_8eae`); gold after update: **uncertain**
+  - set 1: Attaining Tier-1 clinical status alongside submitting 4 audit reviews (meeting the 3-review minimum) justifies expanding the operating license.
+- `m_a019` (B3) [policy `p_bf35`] <= (`e_1e25` AND `e_46ce` AND `e_6360`); gold after update: **withdraw**
+  - set 1: Holding an active ISO 9001 certification, an infection control score of 95 (>= 90), and 15 annual hygiene inspections (>= 10) jointly satisfy maximum safety compliance requirements.
+- `m_03d5` (B4) [policy `p_ba47`] <= (`e_1e25`) **OR** (`e_1c42`); gold after update: **uncertain**
+  - set 1: An infection control score of 95 satisfies the baseline threshold of 80 or higher.
+  - set 2: An external sanitation rating of 88 satisfies the alternative threshold of 75 or higher.
+- `m_333f` (D2) [policy `p_acab`] <= (`m_03d5`); gold after update: **uncertain**
+  - set 1: Possessing baseline hygiene approval fulfills the requirement for renewing the surgical center permit.
+- `m_2f05` (B5) [policy `p_0482`] <= (`e_c1f2`); gold after update: **uncertain**
+  - set 1: Completing 12 compliance modules satisfies the operational standing threshold of at least 8 modules annually.
+- `m_877c` (B6) [policy `p_a83f`] <= (`m_2f05` AND `m_2410`); gold after update: **uncertain**
+  - set 1: Maintaining active standing and securing a broadened operational permit together qualify the facility for public healthcare funding.
+- `m_1302` (D3) [policy `p_d3b5`] <= (`m_877c` AND `e_7f8a`); gold after update: **uncertain**
+  - set 1: Qualifying for state funding while carrying $5,000,000 in liability coverage (exceeding $2,000,000) justifies granting priority financial awards.
+- `m_0068` (B7) [policy `p_91a5`] <= (`e_4dce`); gold after update: **keep**
+  - set 1: Employing 5 certified pharmacists meets the requirement of at least 3 pharmacists.
+- `m_65e8` (B8) [policy `p_e8e0`] <= (`e_2a90`); gold after update: **keep**
+  - set 1: Logging 0 security incidents this quarter meets the requirement of no more than 1 incident.
+- `m_aab6` (B9) [policy `p_1828`] <= (`e_1489`); gold after update: **keep**
+  - set 1: A nurse to patient ratio of 0.25 exceeds the required baseline proportion of 0.20.
+- `m_6fbd` (B10) [policy `p_4b4f`] <= (`e_3a03`); gold after update: **keep**
+  - set 1: Holding a valid state healthcare license confirms legal operating status.
+- `m_2d70` (B11) [policy `p_2005`] <= (`e_7b83`); gold after update: **keep**
+  - set 1: Processing 12,000 diagnostic samples this year satisfies the minimum throughput standard of 10,000 samples.
+- `u_080d` retracts `e_6360` (reliability low)
+- `u_a299` retracts `e_46ce` (reliability low)
+- `u_f413` hedges `e_1e25` (reliability high)
+- `u_aab8` retracts `e_1e25` (reliability high)
+- `u_d5b1` retracts `e_46ce` (reliability high)
+- `u_7ec5` retracts `e_1c42` (reliability low)
+- `u_b14d` hedges `e_c1f2` (reliability high)
+- decoy policies: `p_bbcc`, `p_6dd4`
+- final state after updates (gold action -> state): `m_bebf` uncertain -> undetermined; `m_2f05` uncertain -> undetermined; `m_a019` withdraw -> fails; `m_03d5` uncertain -> undetermined; `m_0068` keep -> holds; `m_65e8` keep -> holds; `m_aab6` keep -> holds; `m_6fbd` keep -> holds; `m_2d70` keep -> holds; `m_9aab` uncertain -> undetermined; `m_333f` uncertain -> undetermined; `m_2410` uncertain -> undetermined; `m_877c` uncertain -> undetermined; `m_1302` uncertain -> undetermined
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_7f8a~p_d3b5` policy_echoes_evidence: "liability coverage of" (judge under C7/C11)
+- soft `e_1c42~p_ba47` policy_echoes_evidence: "an external sanitation; external sanitation rating; sanitation rating of" (judge under C7/C11)
+- soft `e_3a03~p_4b4f` policy_echoes_evidence: "state healthcare license" (judge under C7/C11)
+- soft `e_8eae~p_9dd6` policy_echoes_evidence: "annual audit reviews" (judge under C7/C11)
+- soft `e_1e25~p_ba47` policy_echoes_evidence: "an infection control; control score of; infection control score" (judge under C7/C11)
+- soft `e_1e25~p_bf35` policy_echoes_evidence: "an infection control; control score of; infection control score; maintains an infection" (judge under C7/C11)
+- soft `e_1489~p_1828` policy_echoes_evidence: "nurse to patient; patient ratio of; to patient ratio" (judge under C7/C11)
+- soft `e_c274~p_cc31` policy_echoes_evidence: "a patient safety; patient safety index; safety index of" (judge under C7/C11)
+- soft `u_080d` retraction_reads_as_hedge: "claimed" (judge under C4)
+- soft `u_a299` retraction_reads_as_hedge: "claimed" (judge under C4)
+- soft `u_7ec5` retraction_reads_as_hedge: "unconfirmed" (judge under C4)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_d03c3ea49c  (F7-014, hr onboarding)
+
+*World:* HR onboarding assessments and role clearance determinations are being evaluated for newly hired personnel across different operational departments.
+
+### A. System view (judge C7 from this alone)
+- `e_d6ae` [2026-01-08, Onboarding administrative memo] Elena Rostova submitted an emergency contact disclosure.
+- `e_9f2d` [2026-01-11, Payroll system confirmation record] Elena Rostova submitted direct deposit authorization.
+- `e_293c` [2026-01-14, Registrar official letter] Clara Wu provided a foreign degree credential evaluation.
+- `e_e323` [2026-01-17, Staff memo from HR operations] Elena Rostova filed an expedited payroll processing form.
+- `e_094f` [2026-01-20, Compliance training portal summary] Elena Rostova completed 4 workplace safety modules.
+- `e_c56c` [2026-01-23, Senior leadership evaluation sheet] Elena Rostova logged 6 years of industry leadership experience.
+- `e_5052` [2026-01-26, HR portal intake record] Elena Rostova submitted 5 professional reference letters.
+- `e_41eb` [2026-01-29, Tax document filing receipt] Elena Rostova completed 2 tax identification forms.
+- `e_9da5` [2026-02-01, Internal HR evaluation system] Brian Vance completed an internal talent assessment.
+- `e_ee44` [2026-02-04, Executive team signed memorandum] Elena Rostova received department head endorsement.
+- `e_439e` [2026-02-07, Security vendor verification report] Elena Rostova completed a national background screening.
+- `e_4661` [2026-02-10, Ethics program completion record] Elena Rostova completed 12 ethics training units.
+- `e_9b42` [2026-02-13, Testing center official transcript] Elena Rostova scored 88 points on the technical proficiency exam.
+- `e_730b` [2026-02-16, Employment history audit log] Elena Rostova documented 3 years of continuous employment history.
+- `e_492e` [2026-02-19, Legal department intake note] Elena Rostova signed the corporate code of conduct.
+- `e_fc97` [2026-02-22, Manager email attachment] Elena Rostova holds an executive recommendation endorsement.
+- `e_2df1` [2026-02-25, Governance board approval notice] Elena Rostova obtained conflict of interest clearance.
+- `e_1e2e` [2026-02-28, Professional certification registry note] Elena Rostova maintains a Senior System Architect certification.
+- memories:
+  - `m_84bf` Elena Rostova completes governance onboarding clearance.
+  - `m_c3aa` Issue an executive leadership pass to Elena Rostova.
+  - `m_d998` Approve Elena Rostova for executive level orientation.
+  - `m_69a3` Elena Rostova meets mandatory workplace safety standards.
+  - `m_b8d5` Elena Rostova satisfies all prerequisites for manager assignment.
+  - `m_21b4` Elena Rostova satisfies reference verification standards.
+  - `m_de6b` Activate Elena Rostova in the corporate payroll system.
+  - `m_6fcd` Authorize management portal access for Elena Rostova.
+  - `m_ef6a` Confirm senior executive position for Elena Rostova.
+  - `m_319a` Clara Wu fulfills international credential verification.
+  - `m_97db` Elena Rostova meets prerequisites for executive onboarding.
+  - `m_c358` Elena Rostova achieves executive board eligibility.
+  - `m_a16e` Elena Rostova is cleared for senior background assessment.
+  - `m_10b8` Elena Rostova meets leadership readiness criteria.
+  - `m_cc44` Elena Rostova fulfills technical qualification requirements.
+  - `m_d69f` Elena Rostova complies with payroll setup requirements.
+  - `m_3bec` Brian Vance satisfies internal review criteria.
+  - `m_d100` Elena Rostova receives enterprise role authorization.
+  - `m_e07b` Elena Rostova is designated for executive onboarding acceleration.
+  - `m_1807` Elena Rostova qualifies for technical instructor assignment.
+  - `m_b63d` Elena Rostova qualifies for executive track placement.
+  - `m_1a87` Issue an advanced security clearance badge to Elena Rostova.
+- update `u_68f0` [2026-03-03, Corporate audit committee official notice] An official audit statement confirmed Elena Rostova has no record of industry leadership experience.
+- update `u_a07c` [2026-03-06, Official testing board revised report] A regraded assessment record shows Elena Rostova scored 65 points on the technical proficiency exam.
+- update `u_c629` [2026-03-09, Anonymous online forum entry] An unverified blog post claimed Elena Rostova never submitted reference letters.
+- update `u_cb50` [2026-03-12, Compliance registry corrected database entry] A corrected registry record indicates Elena Rostova completed 5 ethics training units.
+- update `u_d392` [2026-03-15, Unverified intranet message board] A secondhand rumor stated Elena Rostova withdrew her reference letters.
+- policies:
+  - `p_b6fd` Requirements for executive orientation are satisfied when a candidate who possesses technical qualification is also granted an elevated security pass.
+  - `p_ad9d` Senior executive appointment is confirmed when a candidate who obtains executive board qualification also receives a department head endorsement.
+  - `p_9b2a` Payroll setup compliance requires either submitting at least 2 tax identification forms together with direct deposit authorization and at least 3 years of employment history, or filing an expedited payroll processing form.
+  - `p_bfc4` Executive board qualification is granted when a person with enterprise role clearance secures conflict of interest clearance.
+  - `p_da1d` An advanced security credential is issued when a candidate eligible for senior vetting possesses a national background screening.
+  - `p_47f3` Manager placement eligibility is attained when a candidate with workplace safety clearance receives executive orientation approval.
+  - `p_5d0e` Executive track eligibility is established when a candidate who achieves leadership readiness also receives management portal authorization.
+  - `p_dc4d` International credential recognition is granted when a job seeker provides a foreign degree credential evaluation.
+  - `p_3e73` Vendor compliance approval is granted when a supplier maintains an active ISO 27001 certificate or submits a third-party audit report.
+  - `p_2a4a` A candidate becomes eligible for senior vetting once reference validation is granted.
+  - `p_cdc9` Candidate reference validation is granted either when an applicant presents at least 3 reference letters, or holds an executive recommendation endorsement.
+  - `p_70ff` An executive leadership credential is issued when a candidate is assigned accelerated onboarding designation.
+  - `p_d98d` Executive orientation approval is granted once a candidate satisfies requirements for executive orientation.
+  - `p_819d` Internal review qualification is fulfilled when an employee possesses an internal talent assessment.
+  - `p_90c9` Workplace safety clearance is awarded either when an employee completes a minimum of 4 workplace safety modules, or holds a Senior System Architect certification.
+  - `p_0848` Technical qualification is established either by achieving a technical proficiency exam score of at least 80 points, or holding a Senior System Architect certification.
+  - `p_dd47` Management portal authorization is granted when a worker attains manager placement eligibility.
+  - `p_8104` Governance onboarding status is achieved when a candidate finishes at least 10 ethics training units, signs a corporate code of conduct, and files an emergency contact disclosure.
+  - `p_14fb` Relocation stipend funding requires a minimum transfer distance of 50 miles along with formal facility consent.
+  - `p_db29` Accelerated onboarding designation is assigned upon establishing executive track eligibility.
+  - `p_4553` Enterprise role clearance is conferred when a staff member with governance onboarding status also obtains management portal authorization.
+  - `p_6a48` Leadership readiness is confirmed either with at least 3 years of employment history combined with a technical proficiency exam score of at least 80 points, or by accumulating at least 5 years of industry leadership experience.
+  - `p_c206` Instructor role eligibility is awarded when an employee finishes at least 4 workplace safety modules and achieves a technical proficiency exam score of at least 80 points.
+  - `p_7bf5` Corporate payroll system activation is approved when a new hire achieves payroll setup compliance.
+
+### B. Intended structure
+- `m_21b4` (B1) [policy `p_cdc9`] <= (`e_5052`) **OR** (`e_fc97`); gold after update: **keep**
+  - set 1: Elena Rostova submitted 5 reference letters, satisfying the threshold of at least 3 reference letters under the reference validation policy.
+  - set 2: Elena Rostova holds an executive recommendation endorsement, meeting the alternative condition for reference validation under the policy.
+- `m_a16e` (B2) [policy `p_2a4a`] <= (`m_21b4`); gold after update: **keep**
+  - set 1: Elena Rostova satisfies reference verification standards, which fulfills the single condition to be cleared for senior background assessment under the policy.
+- `m_1a87` (D1) [policy `p_da1d`] <= (`m_a16e` AND `e_439e`); gold after update: **keep**
+  - set 1: Elena Rostova is cleared for senior background assessment and completed a national background screening, jointly satisfying the requirement for issuing an advanced security clearance badge.
+- `m_cc44` (B3) [policy `p_0848`] <= (`e_9b42`) **OR** (`e_1e2e`); gold after update: **keep**
+  - set 1: Elena Rostova scored 88 points on the technical proficiency exam, satisfying the threshold of at least 80 points under the technical qualification policy.
+  - set 2: Elena Rostova maintains a Senior System Architect certification, satisfying the alternative requirement for technical qualification under the policy.
+- `m_97db` (B4) [policy `p_b6fd`] <= (`m_cc44` AND `m_1a87`); gold after update: **keep**
+  - set 1: Elena Rostova fulfills technical qualification requirements and holds an advanced security clearance badge, jointly satisfying prerequisites for executive onboarding.
+- `m_d998` (D2) [policy `p_d98d`] <= (`m_97db`); gold after update: **keep**
+  - set 1: Elena Rostova meets prerequisites for executive onboarding, fulfilling the policy requirement to approve executive level orientation.
+- `m_d69f` (B5) [policy `p_9b2a`] <= (`e_41eb` AND `e_9f2d` AND `e_730b`) **OR** (`e_e323`); gold after update: **keep**
+  - set 1: Elena Rostova submitted 2 tax forms, direct deposit authorization, and 3 years of employment history, satisfying all joint criteria of the primary payroll compliance pathway.
+  - set 2: Elena Rostova filed an expedited payroll processing form, satisfying the alternative payroll setup compliance requirement.
+- `m_de6b` (D3) [policy `p_7bf5`] <= (`m_d69f`); gold after update: **keep**
+  - set 1: Elena Rostova complies with payroll setup requirements, satisfying the criterion to activate corporate payroll system access.
+- `m_69a3` (B6) [policy `p_90c9`] <= (`e_094f`) **OR** (`e_1e2e`); gold after update: **keep**
+  - set 1: Elena Rostova completed 4 workplace safety modules, satisfying the minimum threshold of 4 modules under the workplace safety policy.
+  - set 2: Elena Rostova maintains a Senior System Architect certification, fulfilling the alternative criteria for workplace safety clearance.
+- `m_b8d5` (B7) [policy `p_47f3`] <= (`m_69a3` AND `m_d998`); gold after update: **keep**
+  - set 1: Elena Rostova meets mandatory workplace safety standards and was approved for executive level orientation, satisfying all prerequisites for manager assignment.
+- `m_6fcd` (D4) [policy `p_dd47`] <= (`m_b8d5`); gold after update: **keep**
+  - set 1: Elena Rostova satisfies all prerequisites for manager assignment, fulfilling the rule to authorize management portal access.
+- `m_10b8` (B8) [policy `p_6a48`] <= (`e_730b` AND `e_9b42`) **OR** (`e_c56c`); gold after update: **recompute**
+  - set 1: Elena Rostova documented 3 years of employment history and scored 88 points on the technical proficiency exam, meeting the joint condition for leadership readiness.
+  - set 2: Elena Rostova logged 6 years of industry leadership experience, meeting the alternative requirement of at least 5 years under the policy.
+- `m_b63d` (B9) [policy `p_5d0e`] <= (`m_10b8` AND `m_6fcd`); gold after update: **recompute**
+  - set 1: Elena Rostova meets leadership readiness criteria and authorized management portal access, jointly fulfilling requirements for executive track placement.
+- `m_e07b` (B10) [policy `p_db29`] <= (`m_b63d`); gold after update: **recompute**
+  - set 1: Elena Rostova qualifies for executive track placement, satisfying the requirement for executive onboarding acceleration designation.
+- `m_c3aa` (D5) [policy `p_70ff`] <= (`m_e07b`); gold after update: **recompute**
+  - set 1: Elena Rostova is designated for executive onboarding acceleration, satisfying the condition to issue an executive leadership pass.
+- `m_84bf` (B11) [policy `p_8104`] <= (`e_4661` AND `e_492e` AND `e_d6ae`); gold after update: **recompute**
+  - set 1: Elena Rostova completed 12 ethics training units, signed the code of conduct, and filed an emergency contact disclosure, jointly satisfying all conditions for governance onboarding clearance.
+- `m_d100` (B12) [policy `p_4553`] <= (`m_84bf` AND `m_6fcd`); gold after update: **recompute**
+  - set 1: Elena Rostova completes governance onboarding clearance and received management portal authorization, fulfilling requirements for enterprise role authorization.
+- `m_c358` (B13) [policy `p_bfc4`] <= (`m_d100` AND `e_2df1`); gold after update: **recompute**
+  - set 1: Elena Rostova receives enterprise role authorization and obtained conflict of interest clearance, satisfying conditions for executive board eligibility.
+- `m_ef6a` (D6) [policy `p_ad9d`] <= (`m_c358` AND `e_ee44`); gold after update: **recompute**
+  - set 1: Elena Rostova achieves executive board eligibility and received a department head endorsement, fulfilling requirements to confirm senior executive position.
+- `m_1807` (B14) [policy `p_c206`] <= (`e_094f` AND `e_9b42`); gold after update: **recompute**
+  - set 1: Elena Rostova completed 4 workplace safety modules and scored 88 points on the technical proficiency exam, satisfying the joint requirements for technical instructor assignment.
+- `m_3bec` (B15) [policy `p_819d`] <= (`e_9da5`); gold after update: **keep**
+  - set 1: Brian Vance completed an internal talent assessment, satisfying the condition for internal review qualification.
+- `m_319a` (B16) [policy `p_dc4d`] <= (`e_293c`); gold after update: **keep**
+  - set 1: Clara Wu provided a foreign degree credential evaluation, fulfilling the requirement for international credential recognition.
+- `u_68f0` hedges `e_c56c` (reliability high)
+- `u_a07c` supersedes `e_9b42` (reliability high)
+- `u_c629` retracts `e_5052` (reliability low)
+- `u_cb50` supersedes `e_4661` (reliability high)
+- `u_d392` retracts `e_5052` (reliability low)
+- decoy policies: `p_3e73`, `p_14fb`
+- final state after updates (gold action -> state): `m_21b4` keep -> holds; `m_cc44` keep -> holds; `m_d69f` keep -> holds; `m_69a3` keep -> holds; `m_1807` recompute -> fails; `m_10b8` recompute -> fails; `m_84bf` recompute -> fails; `m_3bec` keep -> holds; `m_319a` keep -> holds; `m_a16e` keep -> holds; `m_de6b` keep -> holds; `m_1a87` keep -> holds; `m_97db` keep -> holds; `m_d998` keep -> holds; `m_b8d5` keep -> holds; `m_6fcd` keep -> holds; `m_b63d` recompute -> fails; `m_d100` recompute -> fails; `m_e07b` recompute -> fails; `m_c358` recompute -> fails; `m_c3aa` recompute -> fails; `m_ef6a` recompute -> fails
+
+### C. Automated flags (for review, not verdicts)
+- soft `m_1a87` order_cue: "advanced" (judge under C7)
+- soft `e_d6ae~p_8104` policy_echoes_evidence: "an emergency contact; emergency contact disclosure" (judge under C7/C11)
+- soft `e_9f2d~p_9b2a` policy_echoes_evidence: "direct deposit authorization" (judge under C7/C11)
+- soft `e_293c~p_dc4d` policy_echoes_evidence: "a foreign degree; degree credential evaluation; foreign degree credential" (judge under C7/C11)
+- soft `e_e323~p_9b2a` policy_echoes_evidence: "an expedited payroll; expedited payroll processing; payroll processing form" (judge under C7/C11)
+- soft `e_094f~p_90c9` policy_echoes_evidence: "workplace safety modules" (judge under C7/C11)
+- soft `e_094f~p_c206` policy_echoes_evidence: "workplace safety modules" (judge under C7/C11)
+- soft `e_c56c~p_6a48` policy_echoes_evidence: "industry leadership experience; of industry leadership; years of industry" (judge under C7/C11)
+- soft `e_41eb~p_9b2a` policy_echoes_evidence: "tax identification forms" (judge under C7/C11)
+- soft `e_9da5~p_819d` policy_echoes_evidence: "an internal talent; internal talent assessment" (judge under C7/C11)
+- soft `e_ee44~p_ad9d` policy_echoes_evidence: "department head endorsement" (judge under C7/C11)
+- soft `e_439e~p_da1d` policy_echoes_evidence: "a national background; national background screening" (judge under C7/C11)
+- soft `e_4661~p_8104` policy_echoes_evidence: "ethics training units" (judge under C7/C11)
+- soft `e_9b42~p_0848` policy_echoes_evidence: "technical proficiency exam" (judge under C7/C11)
+- soft `e_9b42~p_6a48` policy_echoes_evidence: "technical proficiency exam" (judge under C7/C11)
+- soft `e_9b42~p_c206` policy_echoes_evidence: "technical proficiency exam" (judge under C7/C11)
+- soft `e_492e~p_8104` policy_echoes_evidence: "code of conduct; corporate code of" (judge under C7/C11)
+- soft `e_fc97~p_cdc9` policy_echoes_evidence: "an executive recommendation; executive recommendation endorsement; holds an executive" (judge under C7/C11)
+- soft `e_2df1~p_bfc4` policy_echoes_evidence: "conflict of interest; of interest clearance" (judge under C7/C11)
+- soft `u_c629` retraction_reads_as_hedge: "claimed" (judge under C4)
+- soft `u_d392` retraction_reads_as_hedge: "rumor" (judge under C4)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_c183d68b95  (F7-015, vendor procurement)
+
+*World:* Apex Logistics is under review by a corporate procurement department for vendor status, framework agreements, and operational tier designations alongside several other commercial vendors.
+
+### A. System view (judge C7 from this alone)
+- `e_de3f` [2026-01-08, Security Attestation Document, Beacon Systems (January 8, 2026)] Beacon Systems holds SOC 2 certification.
+- `e_1a9a` [2026-01-11, Quality Standards Registry, Apex Logistics (January 11, 2026)] Apex Logistics holds ISO 9001 certification.
+- `e_fc84` [2026-01-14, Quarterly Performance Audit, Apex Logistics (January 14, 2026)] Apex Logistics maintains a quarterly delivery accuracy of 92%.
+- `e_6f0f` [2026-01-17, Merchant Services Activity Log, Apex Logistics (January 17, 2026)] Apex Logistics maintains a quarterly dispute rate of 2%.
+- `e_0660` [2026-01-20, IT Governance Review, Orion Tech (January 20, 2026)] Orion Tech maintains a cybersecurity audit rating of 90.
+- `e_abc0` [2026-01-23, Fleet Operations Monthly Summary, Apex Logistics (January 23, 2026)] Apex Logistics maintains a quarterly fleet availability rate of 95%.
+- `e_e369` [2026-01-26, Accounts Receivable Statement, Crestview Supplies (January 26, 2026)] Crestview Supplies maintains a prompt payment rating of 95.
+- `e_d01d` [2026-01-29, Financial Statement, Apex Logistics (January 29, 2026)] Apex Logistics reports an annual revenue of $10000000.
+- `e_0457` [2026-02-01, Green Council Registry, Apex Logistics (February 1, 2026)] Apex Logistics maintains an eco-friendly packing certification.
+- `e_ff73` [2026-02-04, Commercial Credit Bureau Report, Apex Logistics (February 4, 2026)] Apex Logistics maintains a credit score of 750.
+- `e_d945` [2026-02-07, Facility Assessment Report, Apex Logistics (February 7, 2026)] Apex Logistics has a warehouse capacity of 50000 sq ft.
+- `e_2da6` [2026-02-10, Industry Directory Entry, Apex Logistics (February 10, 2026)] Apex Logistics holds trade association membership.
+- `e_7a09` [2026-02-13, Transportation Asset Register, Zenith Freight (February 13, 2026)] Zenith Freight maintains a fleet size of 100 vehicles.
+- `e_32ff` [2026-02-16, Fulfillment Evaluation, Apex Logistics (February 16, 2026)] Apex Logistics holds a quarterly order accuracy rate of 98%.
+- `e_7a0a` [2026-02-19, Safety Inspection Log, Apex Logistics (February 19, 2026)] Apex Logistics maintains a staff safety score of 90.
+- `e_aef2` [2026-02-22, Client Feedback Summary, Apex Logistics (February 22, 2026)] Apex Logistics achieved a quarterly client approval score of 85%.
+- `e_c5b7` [2026-02-25, Compliance Vetting Record, Apex Logistics (February 25, 2026)] Apex Logistics holds clean background check clearance.
+- `e_6151` [2026-02-28, Insurance Verification, Apex Logistics (February 28, 2026)] Apex Logistics holds an active liability insurance policy of $5000000.
+- memories:
+  - `m_2da0` Apex Logistics is selected for the primary supply framework.
+  - `m_4039` Apex Logistics is listed on the preferred supplier directory.
+  - `m_2bfa` Crestview Supplies holds favorable credit standing.
+  - `m_2780` Apex Logistics achieves strategic partner endorsement.
+  - `m_f023` Apex Logistics meets industry compliance standards.
+  - `m_2190` Apex Logistics satisfies priority vendor guidelines.
+  - `m_e8ac` Beacon Systems meets cloud governance standards.
+  - `m_122b` Zenith Freight fulfills heavy transport capacity.
+  - `m_4f75` Apex Logistics maintains acceptable risk rating.
+  - `m_1c2b` Apex Logistics qualifies for green supply chain accreditation.
+  - `m_d58b` Apex Logistics is designated for regional freight distribution.
+  - `m_be53` Apex Logistics satisfies premium warehousing criteria.
+  - `m_9758` Apex Logistics maintains preferred fulfillment standing.
+  - `m_9365` Apex Logistics is assigned to national account management.
+  - `m_9962` Apex Logistics is awarded the express shipping contract.
+  - `m_839b` Apex Logistics is classified as an approved contractor.
+  - `m_02b4` Apex Logistics is awarded long-term contract renewal.
+  - `m_3ed1` Apex Logistics meets baseline supplier qualifications.
+  - `m_9ea6` Apex Logistics fulfills high-volume transport prerequisites.
+  - `m_7c8a` Apex Logistics is approved for rapid payment terms.
+  - `m_9cde` Orion Tech satisfies digital security requirements.
+  - `m_cae5` Apex Logistics achieves tier-one partner status.
+  - `m_146d` Apex Logistics meets large-scale operations benchmarks.
+- update `u_5631` [2026-03-03, Client Feedback Audit, Apex Logistics (March 3, 2026)] An updated survey showed that Apex Logistics achieved a quarterly client approval score of 75%.
+- update `u_8975` [2026-03-06, Whistleblower Email, Apex Logistics (March 6, 2026)] An anonymous allegation questioned whether Apex Logistics maintains a staff safety score of 90.
+- update `u_d9a2` [2026-03-09, Quality Assurance Notice, Apex Logistics (March 9, 2026)] An official notice stated that Apex Logistics does not hold a quarterly order accuracy rate of 98%.
+- update `u_0152` [2026-03-12, Underwriter Email Notice, Apex Logistics (March 12, 2026)] An updated policy document states that Apex Logistics holds an active liability insurance policy of $2000000.
+- update `u_aff8` [2026-03-15, Revised Audit Report, Apex Logistics (March 15, 2026)] A revised audit revealed that Apex Logistics maintains a quarterly delivery accuracy of 88%.
+- update `u_ef94` [2026-03-18, Certification Board Notice, Apex Logistics (March 18, 2026)] The certification board declared that Apex Logistics no longer holds an eco-friendly packing certification.
+- policies:
+  - `p_61a1` Listing on the vetted vendor index is permitted for any vendor with industry standard compliance.
+  - `p_c6d3` Supplier baseline status is granted when a merchant achieves a quarterly delivery accuracy of at least 90% along with a quarterly client approval score of 80% or higher, or holds ISO 9001 certification.
+  - `p_01e1` Industry standard compliance is verified when a commercial entity holds ISO 9001 certification and trade association membership.
+  - `p_e66a` Accelerated payout eligibility is awarded to a firm with priority merchant designation and a credit score of 700 or higher.
+  - `p_992b` Preferred fulfillment status is granted to a vendor with a quarterly order accuracy rate of at least 95%.
+  - `p_e1ab` Warehousing premium designation is assigned when a firm possesses a warehouse capacity of 40000 sq ft or greater, a staff safety score of 85 or above, and ISO 9001 certification.
+  - `p_2e67` Role allocation in key account handling requires tier-one vendor standing and clean background check clearance.
+  - `p_3a75` Contractor approval is granted to any vendor with supplier baseline status.
+  - `p_bc8a` Priority merchant designation is given to an enterprise with sustainable supply chain certification that is also chosen for a master supply agreement.
+  - `p_2c47` An expedited transport agreement is awarded to any merchant with preferred fulfillment status.
+  - `p_3fa3` Heavy transport capability qualification is granted to a carrier with a fleet size of 50 vehicles or more.
+  - `p_5fd5` An acceptable risk classification is earned by a firm with a quarterly dispute rate of 5% or less.
+  - `p_c1f1` A merchant is chosen for a master supply agreement if they achieve contractor approval.
+  - `p_ce94` Tier-one vendor standing is assigned to a firm with large-scale operational readiness that reports an annual revenue of at least $8000000.
+  - `p_b3c8` Automated invoice clearing is approved when a vendor has a quarterly billing error frequency of 1% or less.
+  - `p_aa79` High-volume transit qualification requires an enterprise with warehousing premium designation that also maintains a quarterly fleet availability rate of 90% or higher.
+  - `p_79dd` Digital security clearance is conferred on a company with a cybersecurity audit rating of at least 80.
+  - `p_bb20` Favorable credit ranking is given to a distributor with a prompt payment rating of 85 or higher.
+  - `p_c9b6` Sustainable supply chain certification is granted to a supplier that holds eco-friendly packing certification, or maintains a staff safety score of 80 or above, or possesses a warehouse capacity of at least 30000 sq ft.
+  - `p_d86e` Global maritime privileges are granted to an exporter maintaining a customs pass mark of 90 or higher.
+  - `p_6630` Large-scale operational readiness is recognized when a business has a warehouse capacity of 40000 sq ft or greater and a quarterly order accuracy rate of 95% or higher.
+  - `p_bb06` Multi-year agreement extension is granted to a business with strategic vendor approval.
+  - `p_2efc` Selection for regional distribution service requires high-volume transit qualification and a liability insurance policy of at least $3000000.
+  - `p_dbc3` Cloud governance compliance is established when an organization holds SOC 2 certification.
+  - `p_323c` Strategic vendor approval requires an acceptable risk classification and accelerated payout eligibility.
+
+### B. Intended structure
+- `m_3ed1` (B1) [policy `p_c6d3`] <= (`e_fc84` AND `e_aef2`) **OR** (`e_1a9a`); gold after update: **keep**
+  - set 1: Apex Logistics meets the quarterly delivery accuracy threshold of 90% and client approval score threshold of 80%.
+  - set 2: Apex Logistics holds ISO 9001 certification.
+- `m_839b` (B2) [policy `p_3a75`] <= (`m_3ed1`); gold after update: **keep**
+  - set 1: Apex Logistics holds supplier baseline status.
+- `m_2da0` (D1) [policy `p_c1f1`] <= (`m_839b`); gold after update: **keep**
+  - set 1: Apex Logistics has achieved contractor approval.
+- `m_be53` (B3) [policy `p_e1ab`] <= (`e_d945` AND `e_7a0a` AND `e_1a9a`); gold after update: **uncertain**
+  - set 1: Apex Logistics satisfies the warehouse capacity, staff safety score, and ISO 9001 certification requirements.
+- `m_9ea6` (B4) [policy `p_aa79`] <= (`m_be53` AND `e_abc0`); gold after update: **uncertain**
+  - set 1: Apex Logistics holds warehousing premium designation and meets the fleet availability rate requirement.
+- `m_d58b` (D2) [policy `p_2efc`] <= (`m_9ea6` AND `e_6151`); gold after update: **uncertain**
+  - set 1: Apex Logistics holds high-volume transit qualification and meets the liability insurance threshold.
+- `m_9758` (B5) [policy `p_992b`] <= (`e_32ff`); gold after update: **withdraw**
+  - set 1: Apex Logistics meets the quarterly order accuracy rate threshold of 95%.
+- `m_9962` (D3) [policy `p_2c47`] <= (`m_9758`); gold after update: **withdraw**
+  - set 1: Apex Logistics has preferred fulfillment status.
+- `m_146d` (B6) [policy `p_6630`] <= (`e_d945` AND `e_32ff`); gold after update: **withdraw**
+  - set 1: Apex Logistics meets both the warehouse capacity and quarterly order accuracy rate thresholds.
+- `m_cae5` (B7) [policy `p_ce94`] <= (`m_146d` AND `e_d01d`); gold after update: **withdraw**
+  - set 1: Apex Logistics holds large-scale operational readiness and satisfies the annual revenue threshold.
+- `m_9365` (D4) [policy `p_2e67`] <= (`m_cae5` AND `e_c5b7`); gold after update: **withdraw**
+  - set 1: Apex Logistics holds tier-one vendor standing and clean background check clearance.
+- `m_1c2b` (B8) [policy `p_c9b6`] <= (`e_0457`) **OR** (`e_7a0a`) **OR** (`e_d945`); gold after update: **keep**
+  - set 1: Apex Logistics holds eco-friendly packing certification.
+  - set 2: Apex Logistics satisfies the staff safety score threshold of 80.
+  - set 3: Apex Logistics exceeds the warehouse capacity threshold of 30000 sq ft.
+- `m_2190` (B9) [policy `p_bc8a`] <= (`m_1c2b` AND `m_2da0`); gold after update: **keep**
+  - set 1: Apex Logistics holds sustainable supply chain certification and is chosen for a master supply agreement.
+- `m_7c8a` (D5) [policy `p_e66a`] <= (`m_2190` AND `e_ff73`); gold after update: **keep**
+  - set 1: Apex Logistics holds priority merchant designation and meets the credit score threshold of 700.
+- `m_f023` (B10) [policy `p_01e1`] <= (`e_1a9a` AND `e_2da6`); gold after update: **keep**
+  - set 1: Apex Logistics holds ISO 9001 certification and trade association membership.
+- `m_4039` (D6) [policy `p_61a1`] <= (`m_f023`); gold after update: **keep**
+  - set 1: Apex Logistics achieves industry standard compliance.
+- `m_4f75` (B11) [policy `p_5fd5`] <= (`e_6f0f`); gold after update: **keep**
+  - set 1: Apex Logistics maintains a quarterly dispute rate below the 5% threshold.
+- `m_2780` (B12) [policy `p_323c`] <= (`m_4f75` AND `m_7c8a`); gold after update: **keep**
+  - set 1: Apex Logistics holds acceptable risk classification and accelerated payout eligibility.
+- `m_02b4` (D7) [policy `p_bb06`] <= (`m_2780`); gold after update: **keep**
+  - set 1: Apex Logistics achieves strategic vendor approval.
+- `m_9cde` (B13) [policy `p_79dd`] <= (`e_0660`); gold after update: **keep**
+  - set 1: Orion Tech meets the cybersecurity audit rating threshold of 80.
+- `m_e8ac` (B14) [policy `p_dbc3`] <= (`e_de3f`); gold after update: **keep**
+  - set 1: Beacon Systems holds SOC 2 certification.
+- `m_122b` (B15) [policy `p_3fa3`] <= (`e_7a09`); gold after update: **keep**
+  - set 1: Zenith Freight meets the fleet size threshold of 50 vehicles.
+- `m_2bfa` (B16) [policy `p_bb20`] <= (`e_e369`); gold after update: **keep**
+  - set 1: Crestview Supplies meets the prompt payment rating threshold of 85.
+- `u_5631` supersedes `e_aef2` (reliability high)
+- `u_8975` hedges `e_7a0a` (reliability high)
+- `u_d9a2` retracts `e_32ff` (reliability high)
+- `u_0152` supersedes `e_6151` (reliability high)
+- `u_aff8` supersedes `e_fc84` (reliability high)
+- `u_ef94` retracts `e_0457` (reliability high)
+- decoy policies: `p_b3c8`, `p_d86e`
+- final state after updates (gold action -> state): `m_3ed1` keep -> holds; `m_be53` uncertain -> undetermined; `m_9758` withdraw -> fails; `m_146d` withdraw -> fails; `m_1c2b` keep -> holds; `m_f023` keep -> holds; `m_4f75` keep -> holds; `m_9cde` keep -> holds; `m_e8ac` keep -> holds; `m_122b` keep -> holds; `m_2bfa` keep -> holds; `m_839b` keep -> holds; `m_9ea6` uncertain -> undetermined; `m_9962` withdraw -> fails; `m_cae5` withdraw -> fails; `m_4039` keep -> holds; `m_2da0` keep -> holds; `m_d58b` uncertain -> undetermined; `m_9365` withdraw -> fails; `m_2190` keep -> holds; `m_7c8a` keep -> holds; `m_2780` keep -> holds; `m_02b4` keep -> holds
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_fc84~p_c6d3` policy_echoes_evidence: "a quarterly delivery; delivery accuracy of; quarterly delivery accuracy" (judge under C7/C11)
+- soft `e_fc84~p_aa79` policy_echoes_evidence: "maintains a quarterly" (judge under C7/C11)
+- soft `e_6f0f~p_5fd5` policy_echoes_evidence: "a quarterly dispute; dispute rate of; quarterly dispute rate" (judge under C7/C11)
+- soft `e_6f0f~p_aa79` policy_echoes_evidence: "maintains a quarterly" (judge under C7/C11)
+- soft `e_0660~p_79dd` policy_echoes_evidence: "a cybersecurity audit; audit rating of; cybersecurity audit rating" (judge under C7/C11)
+- soft `e_abc0~p_aa79` policy_echoes_evidence: "a quarterly fleet; availability rate of; fleet availability rate; maintains a quarterly; quarterly fleet availability" (judge under C7/C11)
+- soft `e_e369~p_bb20` policy_echoes_evidence: "a prompt payment; payment rating of; prompt payment rating" (judge under C7/C11)
+- soft `e_d01d~p_ce94` policy_echoes_evidence: "an annual revenue; annual revenue of; reports an annual" (judge under C7/C11)
+- soft `e_0457~p_c9b6` policy_echoes_evidence: "eco-friendly packing certification" (judge under C7/C11)
+- soft `e_ff73~p_e66a` policy_echoes_evidence: "a credit score; credit score of" (judge under C7/C11)
+- soft `e_d945~p_e1ab` policy_echoes_evidence: "a warehouse capacity; warehouse capacity of" (judge under C7/C11)
+- soft `e_d945~p_c9b6` policy_echoes_evidence: "a warehouse capacity; warehouse capacity of" (judge under C7/C11)
+- soft `e_d945~p_6630` policy_echoes_evidence: "a warehouse capacity; warehouse capacity of" (judge under C7/C11)
+- soft `e_2da6~p_01e1` policy_echoes_evidence: "trade association membership" (judge under C7/C11)
+- soft `e_7a09~p_3fa3` policy_echoes_evidence: "a fleet size; fleet size of" (judge under C7/C11)
+- soft `e_32ff~p_992b` policy_echoes_evidence: "a quarterly order; accuracy rate of; order accuracy rate; quarterly order accuracy" (judge under C7/C11)
+- soft `e_32ff~p_6630` policy_echoes_evidence: "a quarterly order; accuracy rate of; order accuracy rate; quarterly order accuracy" (judge under C7/C11)
+- soft `e_7a0a~p_e1ab` policy_echoes_evidence: "a staff safety; safety score of; staff safety score" (judge under C7/C11)
+- soft `e_7a0a~p_c9b6` policy_echoes_evidence: "a staff safety; maintains a staff; safety score of; staff safety score" (judge under C7/C11)
+- soft `e_aef2~p_c6d3` policy_echoes_evidence: "a quarterly client; approval score of; client approval score; quarterly client approval" (judge under C7/C11)
+- soft `e_c5b7~p_2e67` policy_echoes_evidence: "background check clearance; clean background check" (judge under C7/C11)
+- soft `e_6151~p_2efc` policy_echoes_evidence: "insurance policy of; liability insurance policy" (judge under C7/C11)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_50eb369b85  (F7-016, travel logistics)
+
+*World:* Travel logistics and account management evaluations for corporate travel partners and transportation operators.
+
+### A. System view (judge C7 from this alone)
+- `e_cd35` [2026-01-08, Aviation authority performance report, AeroJet Charters] AeroJet Charters recorded a quarterly punctual departure score of 92 percent this quarter.
+- `e_843e` [2026-01-11, Corporate finance audit report, Vanguard Mobility] Vanguard Mobility recorded an annual flight investment of $500,000 this year.
+- `e_d184` [2026-01-14, Fleet management register, AeroJet Charters] AeroJet Charters maintains a fleet count of 12 aircraft.
+- `e_e82a` [2026-01-17, Operational incident log, Vanguard Mobility] Vanguard Mobility logged 12 monthly emergency transport reroutings this month.
+- `e_49ae` [2026-01-20, Tourism licensing board registry, Cascade Excursions] Cascade Excursions holds a verified Master Tour Operator License.
+- `e_28d6` [2026-01-23, Regional transit commission filing, Beacon Transit] Beacon Transit operates 150 daily active routes this quarter.
+- `e_5945` [2026-01-26, Ground dispatch summary, Vanguard Mobility] Vanguard Mobility recorded 25 monthly VIP transfers this month.
+- `e_2094` [2026-01-29, Compliance repository, Vanguard Mobility] Vanguard Mobility holds a valid ISO 27001 Security Certification.
+- `e_e7de` [2026-02-01, Federal Aviation Administration database] AeroJet Charters holds a valid FAA Part 135 Air Carrier Certificate.
+- `e_ad3d` [2026-02-04, Monthly travel log, Vanguard Mobility] Vanguard Mobility logged 40 monthly group bookings this month.
+- memories:
+  - `m_80b1` AeroJet Charters should be selected for elite government charter contracts.
+  - `m_b846` AeroJet Charters meets premier flight operator standards.
+  - `m_91ff` Vanguard Mobility should be allocated a dedicated key account manager.
+  - `m_6076` Vanguard Mobility is designated as a high-volume corporate account.
+  - `m_7ffe` Vanguard Mobility qualifies for round-the-clock dispatch support.
+  - `m_2b0e` Beacon Transit satisfies regional carrier expansion eligibility.
+  - `m_a285` Vanguard Mobility is approved for corporate priority routing.
+  - `m_7bbd` Cascade Excursions is authorized for multi-region tour packages.
+- update `u_2efb` [2026-02-07, Revised ground dispatch statement, Vanguard Mobility] Vanguard Mobility recorded 15 monthly VIP transfers this month.
+- update `u_4ef9` [2026-02-10, Corrected flight operations audit, AeroJet Charters] AeroJet Charters recorded a quarterly punctual departure score of 84 percent this quarter.
+- update `u_b781` [2026-02-13, Updated transit board assessment, Beacon Transit] Beacon Transit operates 90 daily active routes this quarter.
+- update `u_af42` [2026-02-16, Verified quarterly audit memo, Vanguard Mobility] Vanguard Mobility did not log any monthly emergency transport reroutings this month.
+- policies:
+  - `p_498b` Authorization to offer multi-territory tour packages is granted to firms holding a verified Master Tour Operator License.
+  - `p_9204` Recommendation for top-tier official charter agreements requires meeting premier operator standing together with possessing a valid FAA Part 135 Air Carrier Certificate.
+  - `p_3ae1` Continuous dispatch assistance is available if an organization completes at least 10 monthly emergency transport reroutings, logs 35 or more monthly group bookings, or records a minimum of 20 monthly VIP transfers.
+  - `p_0e00` Priority transport assignment is granted if annual flight investment reaches at least $400,000 while maintaining a valid ISO 27001 Security Certification.
+  - `p_cdb9` Assigning a dedicated account representative requires an account to have high-volume account status.
+  - `p_5768` Maritime freight endorsement is granted to shipping entities that operate a minimum of 5 cargo vessels.
+  - `p_8248` Premier operator standing is recognized when an aviation provider maintains a minimum fleet count of 10 aircraft and achieves a quarterly punctual departure score of 90 percent or higher.
+  - `p_c298` Qualification for regional transport growth requires a quarterly schedule of at least 120 daily active routes.
+  - `p_909c` High-volume account status is assigned when monthly group bookings equal 30 or more alongside an active ISO 27001 Security Certification.
+  - `p_ec9a` Preferred lodging partner classification requires maintaining a passenger satisfaction rating of 85 percent or higher across all quarterly surveys.
+
+### B. Intended structure
+- `m_a285` (B1) [policy `p_0e00`] <= (`e_843e` AND `e_2094`); gold after update: **keep**
+  - set 1: Vanguard Mobility meets both required conditions with an annual flight investment of $500,000 against a threshold of $400,000 and a valid ISO 27001 Security Certification.
+- `m_6076` (B2) [policy `p_909c`] <= (`e_ad3d` AND `e_2094`); gold after update: **keep**
+  - set 1: Vanguard Mobility satisfies the requirements by achieving 40 monthly group bookings against the required 30 and maintaining a valid ISO 27001 Security Certification.
+- `m_91ff` (D1) [policy `p_cdb9`] <= (`m_6076`); gold after update: **keep**
+  - set 1: Vanguard Mobility holds high-volume account status, fulfilling the sole requirement for allocating a dedicated account representative.
+- `m_7ffe` (B3) [policy `p_3ae1`] <= (`e_e82a`) **OR** (`e_ad3d`) **OR** (`e_5945`); gold after update: **keep**
+  - set 1: Vanguard Mobility qualifies through logging 12 monthly emergency transport reroutings, exceeding the minimum requirement of 10.
+  - set 2: Vanguard Mobility qualifies through achieving 40 monthly group bookings, exceeding the minimum requirement of 35.
+  - set 3: Vanguard Mobility qualifies through recording 25 monthly VIP transfers, exceeding the minimum requirement of 20.
+- `m_b846` (B4) [policy `p_8248`] <= (`e_d184` AND `e_cd35`); gold after update: **recompute**
+  - set 1: AeroJet Charters meets the standard with a fleet count of 12 against a threshold of 10 and a quarterly punctual departure score of 92 percent against a required 90 percent.
+- `m_80b1` (D2) [policy `p_9204`] <= (`m_b846` AND `e_e7de`); gold after update: **recompute**
+  - set 1: AeroJet Charters holds premier operator standing and maintains a valid FAA Part 135 Air Carrier Certificate, satisfying both required conditions.
+- `m_2b0e` (B5) [policy `p_c298`] <= (`e_28d6`); gold after update: **recompute**
+  - set 1: Beacon Transit fulfills the criterion by operating 150 daily active routes during the quarter against the threshold of 120.
+- `m_7bbd` (B6) [policy `p_498b`] <= (`e_49ae`); gold after update: **keep**
+  - set 1: Cascade Excursions holds a verified Master Tour Operator License, satisfying the required credential.
+- `u_2efb` supersedes `e_5945` (reliability high)
+- `u_4ef9` supersedes `e_cd35` (reliability high)
+- `u_b781` supersedes `e_28d6` (reliability high)
+- `u_af42` retracts `e_e82a` (reliability high)
+- decoy policies: `p_ec9a`, `p_5768`
+- final state after updates (gold action -> state): `m_a285` keep -> holds; `m_6076` keep -> holds; `m_7ffe` keep -> holds; `m_b846` recompute -> fails; `m_2b0e` recompute -> fails; `m_7bbd` keep -> holds; `m_91ff` keep -> holds; `m_80b1` recompute -> fails
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_cd35~p_8248` policy_echoes_evidence: "a quarterly punctual; departure score of; punctual departure score; quarterly punctual departure" (judge under C7/C11)
+- soft `e_843e~p_0e00` policy_echoes_evidence: "annual flight investment" (judge under C7/C11)
+- soft `e_d184~p_8248` policy_echoes_evidence: "fleet count of" (judge under C7/C11)
+- soft `e_e82a~p_3ae1` policy_echoes_evidence: "emergency transport reroutings; monthly emergency transport" (judge under C7/C11)
+- soft `e_28d6~p_c298` policy_echoes_evidence: "daily active routes" (judge under C7/C11)
+- soft `e_ad3d~p_3ae1` policy_echoes_evidence: "monthly group bookings" (judge under C7/C11)
+- soft `e_ad3d~p_909c` policy_echoes_evidence: "monthly group bookings" (judge under C7/C11)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_88bd3f2f10  (F7-017, finance kyc)
+
+*World:* Apex Capital Corp, Beacon Trading LLC, Crestview Financial Inc, and Driftwood Asset Management are undergoing regulatory compliance and KYC verification checks for financial services eligibility.
+
+### A. System view (judge C7 from this alone)
+- `e_1546` [2026-01-08, Securities regulator annual filing] Asset reports state Driftwood Asset Management holds assets under management of 50000000 USD.
+- `e_4fa0` [2026-01-11, State financial regulatory commission database] Licensing documents show Apex Capital Corp possesses an active financial institution license.
+- `e_22c3` [2026-01-14, Regional money transmitter registry] Licensing records show Crestview Financial Inc holds an active regional state remittance license.
+- `e_00a7` [2026-01-17, Information security certification register] Security filings confirm Apex Capital Corp holds valid ISO 27001 certification.
+- `e_dcc8` [2026-01-20, Financial intelligence unit quarterly report] Quarterly monitoring reports confirm Apex Capital Corp recorded 0 SAR filings per quarter.
+- `e_f3a9` [2026-01-23, Corporate registry equity filing] Ownership filings confirm Apex Capital Corp submitted verified beneficial ownership records for 100 percent of equity.
+- `e_342e` [2026-01-26, ISO regulatory portal certification database] Regulatory filings confirm Apex Capital Corp holds valid ISO 37001 certification.
+- `e_4884` [2026-01-29, National bank charter authority database] Charter filings confirm Beacon Trading LLC holds a valid national trust charter.
+- `e_ef85` [2026-02-01, Internal audit team memorandum] An audit summary notes Apex Capital Corp completed 4 anti-money laundering audits this year.
+- `e_9a9a` [2026-02-04, HR staffing report draft] A staff memo indicates Apex Capital Corp maintained 2 full-time compliance officers this year.
+- `e_6110` [2026-02-07, Central sanctions screening register] Sanction tracking systems verify Apex Capital Corp recorded 0 sanction violations this year.
+- `e_0c20` [2026-02-10, Verified credit bureau evaluation report] Credit agency data shows Apex Capital Corp maintains a corporate credit score of 780 points.
+- `e_f734` [2026-02-13, Custodial bank vault receipt] Treasury records confirm Apex Capital Corp deposited collateral of 5000000 USD.
+- `e_c7a4` [2026-02-16, Accounting partner email note] A review note mentions Apex Capital Corp completed 2 external audit reviews this year.
+- `e_382a` [2026-02-19, Audited balance sheet filing] Financial statements indicate Apex Capital Corp maintains paid-in capital of 10000000 USD.
+- `e_c8b3` [2026-02-22, Corporate organizational register] Headcount reports indicate Apex Capital Corp maintains a compliance staff headcount of 12.
+- `e_a2df` [2026-02-25, Official compliance portal record] Compliance records show Apex Capital Corp maintains annual compliance training coverage of 95 percent.
+- memories:
+  - `m_9732` Apex Capital Corp is cleared for automated clearing house processing.
+  - `m_0dca` Apex Capital Corp exhibits strong operational integrity.
+  - `m_33cf` Beacon Trading LLC meets fiduciary compliance standards.
+  - `m_9f41` Apex Capital Corp qualifies for expedited onboarding.
+  - `m_aef0` Apex Capital Corp satisfies baseline identification standards.
+  - `m_a8a8` Driftwood Asset Management satisfies institutional investor qualifications.
+  - `m_bcb3` Apex Capital Corp demonstrates fiscal solvency.
+  - `m_0783` Apex Capital Corp is granted institutional trading authorization.
+  - `m_1920` Apex Capital Corp is designated as low risk for regulatory review.
+  - `m_55a2` Apex Capital Corp is approved for account opening.
+  - `m_95bd` Apex Capital Corp qualifies for prime brokerage servicing.
+  - `m_62ea` Apex Capital Corp achieves tier-one counterparty status.
+  - `m_e22d` Crestview Financial Inc is permitted to perform fund transfers.
+  - `m_64ed` Apex Capital Corp maintains adequate internal governance controls.
+  - `m_5a2d` Apex Capital Corp meets enhanced due diligence benchmarks.
+  - `m_cb0f` Apex Capital Corp fulfills transaction monitoring prerequisites.
+  - `m_b2b8` Apex Capital Corp is allocated a primary credit line.
+  - `m_106b` Apex Capital Corp is categorized as a trusted partner.
+- update `u_9ff6` [2026-02-28, Audit oversight committee advisory bulletin] An audit review board questions whether Apex Capital Corp completed 4 anti-money laundering audits this year.
+- update `u_43c3` [2026-03-03, Official state regulatory enforcement notice] State licensing authorities state Crestview Financial Inc does not hold an active state remittance license.
+- update `u_3164` [2026-03-06, Anonymous industry chat thread] An unverified forum post claims Apex Capital Corp did not maintain 2 full-time compliance officers this year.
+- update `u_e77e` [2026-03-09, Verified human resources portal update] Updated headcount audits show Apex Capital Corp maintains a compliance staff headcount of 15.
+- update `u_169a` [2026-03-12, Financial intelligence unit enforcement update] Enforcement records show Apex Capital Corp recorded multiple SAR filings this quarter, revoking zero-filing status.
+- update `u_6809` [2026-03-15, Unverified online forum commentary] A blog post alleges Apex Capital Corp does not hold valid ISO 37001 certification.
+- policies:
+  - `p_0b9c` An applicant receives account creation approval if it meets fast-track onboarding qualifications while submitting verified beneficial ownership records for at least 100 percent of equity.
+  - `p_da3e` A regional power producer obtains grid connection clearance provided its harmonic voltage distortion remains under 2 percent.
+  - `p_f0de` An agency is authorized to execute fund transfers if it maintains an active regional state remittance license.
+  - `p_da20` A firm receives automated settlement processing rights when fulfilling transaction monitoring requirements and recording at most 0 SAR filings per quarter.
+  - `p_15c1` A business demonstrates robust operational integrity when annual compliance training coverage reaches at least 85 percent.
+  - `p_4ea4` A financial entity satisfies transaction monitoring requirements either by completing a minimum of 3 independent anti-money laundering audits in a year or by maintaining a compliance staff headcount of at least 10.
+  - `p_d3e6` A corporate entity is determined to be fiscally solvent if it possesses paid-in capital of at least 5000000 USD and undergoes at least 1 external audit review per year.
+  - `p_ccc8` An enterprise is eligible for fast-track onboarding provided it fulfills baseline identification criteria.
+  - `p_79d3` A client is awarded a main credit facility upon reaching top tier counterparty standing and depositing collateral of at least 2000000 USD.
+  - `p_b72e` A corporate client fulfills heightened due diligence standards when demonstrating a robust internal governance framework alongside a corporate credit score of at least 700 points.
+  - `p_ee33` A financial organization satisfies fiduciary regulatory requirements if it holds a valid national trust charter.
+  - `p_fa62` An enterprise is credited with a robust internal governance framework when it holds active ISO 37001 certification and employs a minimum of 2 full-time compliance officers annually.
+  - `p_10c9` An institution fulfills baseline identification criteria either by holding active ISO 37001 certification and completing at least 3 anti-money laundering audits in a year, or by recording 0 sanction violations in a year.
+  - `p_0a20` An investment firm meets institutional investor criteria provided its assets under management equal at least 20000000 USD.
+  - `p_a170` An entity achieves low risk regulatory status either with yearly compliance training coverage reaching at least 90 percent, or by maintaining active ISO 37001 certification.
+  - `p_8533` An organization secures institutional trading clearance if it satisfies heightened due diligence standards and holds an active financial institution license.
+  - `p_cb72` A client is eligible for prime broker access when determined to be fiscally solvent and secured institutional trading clearance.
+  - `p_c3d3` An institution gains trusted partner recognition if it demonstrates robust operational integrity and secures account creation approval.
+  - `p_3fdc` A commercial vendor receives global payment gateway access when holding a rolling liquidity reserve of at least 50000 EUR.
+  - `p_cf2f` An enterprise attains top tier counterparty standing when recognized as an approved partner while maintaining valid ISO 27001 certification.
+
+### B. Intended structure
+- `m_1920` (B1) [policy `p_a170`] <= (`e_a2df`) **OR** (`e_342e`); gold after update: **keep**
+  - set 1: Apex Capital Corp's compliance training coverage of 95 percent meets the policy requirement of at least 90 percent.
+  - set 2: Apex Capital Corp holds valid ISO 37001 certification, fulfilling the alternative credential condition.
+- `m_aef0` (B2) [policy `p_10c9`] <= (`e_342e` AND `e_ef85`) **OR** (`e_6110`); gold after update: **keep**
+  - set 1: Apex Capital Corp holds valid ISO 37001 certification and completed 4 anti-money laundering audits this year, satisfying both conditions of the first path.
+  - set 2: Apex Capital Corp recorded 0 sanction violations this year, fulfilling the alternative condition.
+- `m_9f41` (B3) [policy `p_ccc8`] <= (`m_aef0`); gold after update: **keep**
+  - set 1: Apex Capital Corp fulfills baseline identification criteria, satisfying the single requirement for expedited onboarding.
+- `m_55a2` (D1) [policy `p_0b9c`] <= (`m_9f41` AND `e_f3a9`); gold after update: **keep**
+  - set 1: Apex Capital Corp meets fast-track onboarding qualifications and submitted verified beneficial ownership records for 100 percent of equity, satisfying all policy conditions.
+- `m_64ed` (B4) [policy `p_fa62`] <= (`e_342e` AND `e_9a9a`); gold after update: **uncertain**
+  - set 1: Apex Capital Corp holds valid ISO 37001 certification and maintains 2 full-time compliance officers annually, satisfying both required conditions.
+- `m_5a2d` (B5) [policy `p_b72e`] <= (`m_64ed` AND `e_0c20`); gold after update: **uncertain**
+  - set 1: Apex Capital Corp demonstrates sound internal governance controls and maintains a credit score of 780 points, exceeding the required 700 threshold.
+- `m_0783` (D2) [policy `p_8533`] <= (`m_5a2d` AND `e_4fa0`); gold after update: **uncertain**
+  - set 1: Apex Capital Corp fulfills elevated due diligence benchmarks and holds an active financial institution license, satisfying both policy conditions.
+- `m_cb0f` (B6) [policy `p_4ea4`] <= (`e_ef85`) **OR** (`e_c8b3`); gold after update: **recompute**
+  - set 1: Apex Capital Corp completed 4 anti-money laundering audits this year, meeting the requirement of at least 3 audits.
+  - set 2: Apex Capital Corp maintains a compliance staff headcount of 12, satisfying the alternative threshold of at least 10.
+- `m_9732` (D3) [policy `p_da20`] <= (`m_cb0f` AND `e_dcc8`); gold after update: **withdraw**
+  - set 1: Apex Capital Corp satisfies transaction monitoring requirements and has 0 SAR filings this quarter, fulfilling all clearing house processing conditions.
+- `m_0dca` (B7) [policy `p_15c1`] <= (`e_a2df`); gold after update: **keep**
+  - set 1: Apex Capital Corp's annual compliance training coverage of 95 percent satisfies the threshold of at least 85 percent.
+- `m_106b` (B8) [policy `p_c3d3`] <= (`m_0dca` AND `m_55a2`); gold after update: **keep**
+  - set 1: Apex Capital Corp demonstrates robust operational integrity and receives account creation approval, meeting all trusted partner criteria.
+- `m_62ea` (B9) [policy `p_cf2f`] <= (`m_106b` AND `e_00a7`); gold after update: **keep**
+  - set 1: Apex Capital Corp is recognized as a trusted partner and holds valid ISO 27001 certification, fulfilling all tier-one counterparty requirements.
+- `m_b2b8` (D4) [policy `p_79d3`] <= (`m_62ea` AND `e_f734`); gold after update: **keep**
+  - set 1: Apex Capital Corp achieves top tier counterparty standing and deposited 5000000 USD in collateral, exceeding the 2000000 USD requirement.
+- `m_bcb3` (B10) [policy `p_d3e6`] <= (`e_382a` AND `e_c7a4`); gold after update: **keep**
+  - set 1: Apex Capital Corp holds paid-in capital of 10000000 USD and completed 2 external audit reviews this year, exceeding both policy thresholds.
+- `m_95bd` (B11) [policy `p_cb72`] <= (`m_bcb3` AND `m_0783`); gold after update: **uncertain**
+  - set 1: Apex Capital Corp is determined to be fiscally solvent and possesses institutional trading permission, fulfilling all prime brokerage criteria.
+- `m_33cf` (B12) [policy `p_ee33`] <= (`e_4884`); gold after update: **keep**
+  - set 1: Beacon Trading LLC holds a valid national trust charter, satisfying the requirement for fiduciary regulatory compliance.
+- `m_e22d` (B13) [policy `p_f0de`] <= (`e_22c3`); gold after update: **withdraw**
+  - set 1: Crestview Financial Inc holds an active state remittance license, satisfying the policy rule for fund transfer authorization.
+- `m_a8a8` (B14) [policy `p_0a20`] <= (`e_1546`); gold after update: **keep**
+  - set 1: Driftwood Asset Management holds assets under management of 50000000 USD, exceeding the policy requirement of at least 20000000 USD.
+- `u_9ff6` hedges `e_ef85` (reliability high)
+- `u_43c3` retracts `e_22c3` (reliability high)
+- `u_3164` retracts `e_9a9a` (reliability low)
+- `u_e77e` supersedes `e_c8b3` (reliability high)
+- `u_169a` retracts `e_dcc8` (reliability high)
+- `u_6809` retracts `e_342e` (reliability low)
+- decoy policies: `p_3fdc`, `p_da3e`
+- final state after updates (gold action -> state): `m_0dca` keep -> holds; `m_1920` keep -> holds; `m_aef0` keep -> holds; `m_64ed` uncertain -> undetermined; `m_cb0f` recompute -> holds; `m_bcb3` keep -> holds; `m_33cf` keep -> holds; `m_e22d` withdraw -> fails; `m_a8a8` keep -> holds; `m_9f41` keep -> holds; `m_5a2d` uncertain -> undetermined; `m_9732` withdraw -> fails; `m_55a2` keep -> holds; `m_0783` uncertain -> undetermined; `m_106b` keep -> holds; `m_95bd` uncertain -> undetermined; `m_62ea` keep -> holds; `m_b2b8` keep -> holds
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_1546~p_0a20` policy_echoes_evidence: "assets under management" (judge under C7/C11)
+- soft `e_4fa0~p_8533` policy_echoes_evidence: "active financial institution; an active financial; financial institution license" (judge under C7/C11)
+- soft `e_22c3~p_f0de` policy_echoes_evidence: "active regional state; an active regional; regional state remittance; state remittance license" (judge under C7/C11)
+- soft `e_22c3~p_8533` policy_echoes_evidence: "holds an active" (judge under C7/C11)
+- soft `e_dcc8~p_da20` policy_echoes_evidence: "filings per quarter" (judge under C7/C11)
+- soft `e_f3a9~p_0b9c` policy_echoes_evidence: "beneficial ownership records; ownership records for; percent of equity; verified beneficial ownership" (judge under C7/C11)
+- soft `e_4884~p_ee33` policy_echoes_evidence: "a valid national; holds a valid; national trust charter; valid national trust" (judge under C7/C11)
+- soft `e_ef85~p_4ea4` policy_echoes_evidence: "anti-money laundering audits" (judge under C7/C11)
+- soft `e_ef85~p_10c9` policy_echoes_evidence: "anti-money laundering audits" (judge under C7/C11)
+- soft `e_9a9a~p_fa62` policy_echoes_evidence: "full-time compliance officers" (judge under C7/C11)
+- soft `e_0c20~p_b72e` policy_echoes_evidence: "a corporate credit; corporate credit score; credit score of" (judge under C7/C11)
+- soft `e_382a~p_d3e6` policy_echoes_evidence: "paid-in capital of" (judge under C7/C11)
+- soft `e_c8b3~p_4ea4` policy_echoes_evidence: "a compliance staff; compliance staff headcount; staff headcount of" (judge under C7/C11)
+- soft `e_a2df~p_15c1` policy_echoes_evidence: "annual compliance training; compliance training coverage" (judge under C7/C11)
+- soft `e_a2df~p_a170` policy_echoes_evidence: "compliance training coverage" (judge under C7/C11)
+- soft `groups 1/3` cross_group_entity: "Financial,Licensing" (judge under C6)
+- soft `groups 1/4` cross_group_entity: "USD" (judge under C6)
+- soft `u_3164` retraction_reads_as_hedge: "claims" (judge under C4)
+- soft `u_6809` retraction_reads_as_hedge: "alleges" (judge under C4)
+- soft `e_342e->m_1920` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_a2df->m_1920` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_342e->m_aef0` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_6110->m_aef0` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_ef85->m_aef0` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `m_aef0->m_9f41` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_f3a9->m_55a2` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `m_9f41->m_55a2` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_342e->m_64ed` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_9a9a->m_64ed` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_0c20->m_5a2d` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `m_64ed->m_5a2d` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_4fa0->m_0783` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `m_5a2d->m_0783` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_c8b3->m_cb0f` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_ef85->m_cb0f` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_dcc8->m_9732` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `m_cb0f->m_9732` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_a2df->m_0dca` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `m_0dca->m_106b` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `m_55a2->m_106b` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_00a7->m_62ea` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `m_106b->m_62ea` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_f734->m_b2b8` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `m_62ea->m_b2b8` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_382a->m_bcb3` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_c7a4->m_bcb3` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `m_0783->m_95bd` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `m_bcb3->m_95bd` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+- soft `e_4884->m_33cf` subject_uncertain: "no known entity named in memory" (judge under C6/C8)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_5d6f20a244  (F7-018, personal assistant)
+
+*World:* A personal assistant manages client milestones, loyalty tiers, and professional credentials across individual profiles.
+
+### A. System view (judge C7 from this alone)
+- `e_0ae7` [2026-01-08, A signed volunteer organization statement.] Liam Kincaid completed 25 community service hours this year.
+- `e_904b` [2026-01-11, An airline customer portal record.] Arthur Pendelton holds an active VIP flight membership.
+- `e_5d68` [2026-01-14, A credit card spending summary email.] Arthur Pendelton logged an annual travel expenditure of 15000 USD.
+- `e_b359` [2026-01-17, An official clinic attendance statement.] Clara Vance completed 12 health coaching sessions this year.
+- `e_5216` [2026-01-20, An official professional registry verification.] Sophia Chen holds a certified project management credential.
+- `e_6bd2` [2026-01-23, A client log submission in the wellness portal.] Clara Vance logged 45 workout sessions this year.
+- `e_8a9e` [2026-01-26, A partner fitness club membership confirmation email.] Clara Vance holds an active gym membership.
+- `e_984f` [2026-01-29, A verified health sensor report.] Clara Vance achieved a sleep quality score of 85 this year.
+- `e_38b9` [2026-02-01, A fitness app activity export.] Clara Vance registered 50 physical activities this year.
+- `e_1873` [2026-02-04, An official aviation authority verification document.] Arthur Pendelton's clean travel compliance record is 3 years.
+- `e_4701` [2026-02-07, An official university repository record.] Dr. Elena Rostova authored 5 peer-reviewed publications this year.
+- `e_67f8` [2026-02-10, A signed medical clinic evaluation certificate.] Clara Vance completed a health risk screening.
+- memories:
+  - `m_95d0` Clara Vance secures the annual fitness distinction.
+  - `m_d624` Clara Vance is assigned a personal health advisor.
+  - `m_9681` Sophia Chen obtains professional leadership recognition.
+  - `m_c457` Clara Vance is approved for advanced athletic conditioning.
+  - `m_8af1` Clara Vance qualifies for the global marathon preparation track.
+  - `m_d1cf` Arthur Pendelton receives fast-track airport lounge access.
+  - `m_ccbe` Clara Vance fulfills the active health engagement standard.
+  - `m_450c` Clara Vance enters the elite wellness reward scheme.
+  - `m_425d` Arthur Pendelton achieves premium traveller standing.
+  - `m_7273` Liam Kincaid meets the civic participation criteria.
+  - `m_086a` Clara Vance satisfies the holistic health standard.
+  - `m_032b` Dr. Elena Rostova clears the academic research benchmark.
+  - `m_a702` Clara Vance attains executive health status.
+- update `u_93dc` [2026-02-13, An anonymous comment on an online forum.] An unverified blog comment claims Clara Vance did not log 45 workout sessions this year.
+- update `u_e52b` [2026-02-16, A comment on a public social media thread.] An unverified online post alleges Liam Kincaid did not complete 25 community service hours this year.
+- update `u_5fb9` [2026-02-19, An official academic oversight report.] An official university audit confirmed Dr. Elena Rostova has no peer-reviewed publications this year.
+- update `u_465d` [2026-02-22, A formal medical compliance audit report.] An official clinic audit verified that Clara Vance has not completed a health risk screening.
+- update `u_e67a` [2026-02-25, An official clinic administration file.] An updated official clinic record shows Clara Vance completed 8 health coaching sessions this year.
+- policies:
+  - `p_69c2` A corporate sustainability grant is awarded to enterprises that reduce carbon emissions by at least 15 percent annually or maintain zero-waste facility certification.
+  - `p_e41e` Recognition for yearly athletic achievement is conferred upon individuals with a minimum annual workout count of 40 sessions.
+  - `p_5f77` An overall wellness benchmark is reached when yearly guidance consultations reach at least 10 sessions alongside an annual sleep rating of no less than 80.
+  - `p_1b6e` Distinction at the high-frequency passenger tier requires either a yearly travel outlay of at least 12000 USD or holding a valid VIP flight membership.
+  - `p_a38b` Premium personal wellness ranking is granted to any individual who fulfills the overall wellness benchmark.
+  - `p_edd3` Eligibility for the remote worker stipend requires maintaining a home office safety rating of 90 or above alongside completing at least 15 ergonomics training sessions each year.
+  - `p_d7ea` Eligibility for high-intensity physical training is demonstrated either by completing a health risk screening together with at least 40 workout sessions annually, or by accumulating a minimum of 48 physical activities in a year.
+  - `p_1a19` Admission to the premier health incentive initiative is granted to clients earning yearly athletic recognition.
+  - `p_535c` Awarding of executive management status is granted to individuals holding a valid project management certificate.
+  - `p_17b0` Fulfilling the community engagement standard requires completing at least 20 volunteer hours annually.
+  - `p_0a55` Provision of a dedicated wellness manager is designated for clients holding a premium personal wellness ranking.
+  - `p_5814` Sustained wellness participation is established either by recording at least 40 workout sessions annually or by possessing a valid gym subscription.
+  - `p_7189` Access to the international endurance training course requires eligibility for high-intensity physical training combined with the assignment of a dedicated wellness manager.
+  - `p_28fa` Issuance of expedited terminal club entry is authorized for passengers with top-tier flyer status who maintain a clear regulatory record for at least 2 years.
+  - `p_5a59` Meeting the scholarly publication criterion requires publishing a minimum of 4 peer-reviewed papers in a year.
+
+### B. Intended structure
+- `m_95d0` (B1) [policy `p_e41e`] <= (`e_6bd2`); gold after update: **uncertain**
+  - set 1: Clara Vance logged 45 workout sessions this year, which meets the requirement of at least 40 sessions for the fitness distinction.
+- `m_450c` (D1) [policy `p_1a19`] <= (`m_95d0`); gold after update: **uncertain**
+  - set 1: Clara Vance secured the annual fitness distinction, granting her enrollment in the elite wellness reward scheme.
+- `m_ccbe` (B2) [policy `p_5814`] <= (`e_6bd2`) **OR** (`e_8a9e`); gold after update: **keep**
+  - set 1: Clara Vance logged 45 workout sessions this year, satisfying the threshold of at least 40 workout sessions.
+  - set 2: Clara Vance holds an active gym membership, fulfilling the valid subscription condition.
+- `m_086a` (B3) [policy `p_5f77`] <= (`e_b359` AND `e_984f`); gold after update: **recompute**
+  - set 1: Clara Vance completed 12 health coaching sessions and achieved a sleep quality score of 85 this year, reaching the minimum requirements of 10 coaching sessions and an 80 sleep rating.
+- `m_a702` (B4) [policy `p_a38b`] <= (`m_086a`); gold after update: **recompute**
+  - set 1: Clara Vance satisfied the holistic health standard, qualifying her for executive health status.
+- `m_d624` (D2) [policy `p_0a55`] <= (`m_a702`); gold after update: **recompute**
+  - set 1: Clara Vance attained executive health status, entitling her to a personal health advisor.
+- `m_c457` (B5) [policy `p_d7ea`] <= (`e_67f8` AND `e_6bd2`) **OR** (`e_38b9`); gold after update: **keep**
+  - set 1: Clara Vance completed a health risk screening and logged 45 workout sessions this year, meeting both required criteria for this track.
+  - set 2: Clara Vance registered 50 physical activities this year, satisfying the alternative requirement of at least 48 activities.
+- `m_8af1` (B6) [policy `p_7189`] <= (`m_c457` AND `m_d624`); gold after update: **recompute**
+  - set 1: Clara Vance was approved for advanced athletic conditioning and assigned a personal health advisor, meeting both conditions for the marathon track.
+- `m_425d` (B7) [policy `p_1b6e`] <= (`e_5d68`) **OR** (`e_904b`); gold after update: **keep**
+  - set 1: Arthur Pendelton recorded an annual travel expenditure of 15000 USD, satisfying the 12000 USD threshold.
+  - set 2: Arthur Pendelton holds an active VIP flight membership, meeting the membership criteria.
+- `m_d1cf` (D3) [policy `p_28fa`] <= (`m_425d` AND `e_1873`); gold after update: **keep**
+  - set 1: Arthur Pendelton achieved premium traveller standing and maintained a clean travel compliance record for 3 years, exceeding the 2-year clear standing threshold.
+- `m_032b` (B8) [policy `p_5a59`] <= (`e_4701`); gold after update: **withdraw**
+  - set 1: Dr. Elena Rostova authored 5 peer-reviewed publications this year, satisfying the minimum requirement of 4 papers.
+- `m_7273` (B9) [policy `p_17b0`] <= (`e_0ae7`); gold after update: **uncertain**
+  - set 1: Liam Kincaid completed 25 community service hours this year, exceeding the threshold of 20 volunteer hours.
+- `m_9681` (B10) [policy `p_535c`] <= (`e_5216`); gold after update: **keep**
+  - set 1: Sophia Chen holds a certified project management credential, satisfying the professional qualification requirement.
+- `u_93dc` retracts `e_6bd2` (reliability low)
+- `u_e52b` retracts `e_0ae7` (reliability low)
+- `u_5fb9` retracts `e_4701` (reliability high)
+- `u_465d` retracts `e_67f8` (reliability high)
+- `u_e67a` supersedes `e_b359` (reliability high)
+- decoy policies: `p_69c2`, `p_edd3`
+- final state after updates (gold action -> state): `m_95d0` uncertain -> undetermined; `m_ccbe` keep -> holds; `m_086a` recompute -> fails; `m_c457` keep -> holds; `m_425d` keep -> holds; `m_032b` withdraw -> fails; `m_7273` uncertain -> undetermined; `m_9681` keep -> holds; `m_450c` uncertain -> undetermined; `m_a702` recompute -> fails; `m_d1cf` keep -> holds; `m_d624` recompute -> fails; `m_8af1` recompute -> fails
+
+### C. Automated flags (for review, not verdicts)
+- soft `m_c457` order_cue: "advanced" (judge under C7)
+- soft `e_67f8~p_d7ea` policy_echoes_evidence: "a health risk; health risk screening" (judge under C7/C11)
+- soft `u_93dc` retraction_reads_as_hedge: "claims" (judge under C4)
+- soft `u_e52b` retraction_reads_as_hedge: "alleges" (judge under C4)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_3a82d98021  (F7-019, healthcare compliance)
+
+*World:* Healthcare compliance evaluations were conducted across multiple facilities to assess regulatory standards, staffing levels, safety protocols, and contract eligibility.
+
+### A. System view (judge C7 from this alone)
+- `e_383d` [2026-01-08, Facility staffing roster] Fairway Care maintains 24-hour nursing coverage across 4 shifts.
+- `e_e114` [2026-01-11, Third-party security assessment report] Apex Health System maintains a cybersecurity risk score of 85 points.
+- `e_014a` [2026-01-14, State medical board registry] Beacon Clinic maintains 8 board-certified physicians on staff.
+- `e_db95` [2026-01-17, State pharmacy board annual audit] Delmar Pharmacy logged 0 prescription dispensing errors last year.
+- `e_1620` [2026-01-20, State health department inspection report] Crestview Hospice maintains 5 specialized palliative care units.
+- `e_2632` [2026-01-23, Corporate learning management system record] Apex Health System completed 150 hours of mandatory staff privacy training last year.
+- `e_2e4d` [2026-01-26, Internal staffing memo] Apex Health System maintains 12 certified HIPAA compliance officers on staff.
+- `e_43ed` [2026-01-29, Patient feedback summary report] Beacon Clinic logged a patient satisfaction score of 92 percent.
+- `e_4029` [2026-02-01, Medical equipment inspection certificate] Echo Diagnostics maintains 3 ISO-certified imaging machines.
+- `e_451a` [2026-02-04, Compliance audit log draft] Apex Health System logged 4 patient data privacy incidents last year.
+- `e_3728` [2026-02-07, Joint Commission online database] Apex Health System holds a valid Joint Commission Accreditation credential.
+- `e_aeaa` [2026-02-10, Municipal fire marshal verification record] Apex Health System conducted 6 emergency response drills last year.
+- `e_e629` [2026-02-13, Signed insurance policy certificate] Apex Health System maintains annual liability coverage of $10,000,000.
+- memories:
+  - `m_57b7` Apex Health System fulfills core patient privacy standards.
+  - `m_18df` Apex Health System is permitted to submit bids for regional medical services contracts.
+  - `m_bc02` Apex Health System earns verified safe facility designation.
+  - `m_f24f` Echo Diagnostics meets clinical diagnostic equipment standards.
+  - `m_d71f` Delmar Pharmacy maintains exemplary pharmacy operational status.
+  - `m_7741` Apex Health System remains within acceptable privacy incident thresholds.
+  - `m_a5f8` Crestview Hospice satisfies specialized care facility standards.
+  - `m_fd1d` Apex Health System secures premier institutional compliance status.
+  - `m_61ec` Apex Health System satisfies essential digital infrastructure safeguard criteria.
+  - `m_4608` Apex Health System is eligible to receive capital expansion grants.
+  - `m_ba1c` Fairway Care satisfies continuous nursing service standards.
+  - `m_926a` Beacon Clinic achieves high-quality clinical care rating.
+- update `u_5d24` [2026-02-16, Anonymous online health forum post] An unverified forum post claims Apex Health System never logged 4 patient data privacy incidents last year.
+- update `u_9b93` [2026-02-19, State health department staffing audit] An updated staffing audit confirms Apex Health System maintains 5 certified HIPAA compliance officers on staff.
+- update `u_7336` [2026-02-22, Office for Civil Rights compliance report] A finalized compliance report indicates Apex Health System logged 12 patient data privacy incidents last year.
+- update `u_2d7c` [2026-02-25, State medical board annual roster update] An updated medical board report indicates Beacon Clinic maintains 2 board-certified physicians on staff.
+- update `u_c06d` [2026-02-28, External audit review board notice] A formal review questions whether the recent count of 12 patient data privacy incidents last year at Apex Health System is accurate.
+- update `u_31df` [2026-03-03, Federal health oversight advisory] A regulatory inquiry casts doubt on whether Apex Health System currently maintains 5 certified HIPAA compliance officers on staff.
+- update `u_3b30` [2026-03-06, Joint Commission revocation notice] An official notice confirms Joint Commission Accreditation credential was revoked for Apex Health System.
+- policies:
+  - `p_f1c1` A laboratory fulfills diagnostic machinery criteria when maintaining a minimum of 2 ISO-certified imaging machines.
+  - `p_10a7` A vendor is cleared for regional healthcare contract bidding provided it holds top institutional compliance recognition while completing at least 100 mandatory staff privacy training hours last year.
+  - `p_53a4` An emergency transport provider gains priority dispatch authorization when maintaining a fleet readiness ratio of 90 percent or greater.
+  - `p_e3e8` A dispensary secures high operational standing when logging no more than 2 prescription dispensing errors last year.
+  - `p_a5c6` An institution maintains acceptable incident threshold standing provided its patient data privacy incidents do not exceed 5 occurrences last year.
+  - `p_dd92` An organization attains foundational patient privacy compliance provided it retains a minimum certified HIPAA compliance staffing level of 10 officers and logs no more than 5 patient data privacy incidents last year.
+  - `p_b754` A healthcare facility achieves primary electronic infrastructure safeguard clearance when employing a minimum certified HIPAA compliance staffing level of 10 officers and securing a cybersecurity risk score of 80 points or higher.
+  - `p_6130` An applicant qualifies for facility expansion funding provided it receives verified safety operational status and maintains annual liability coverage of $5,000,000 or more.
+  - `p_a04e` A clinic earns top clinical service designation either by maintaining a minimum of 5 board-certified physicians or by logging a patient satisfaction score of 80 percent or higher.
+  - `p_c125` An entity attains top institutional compliance recognition provided it maintains foundational patient privacy compliance and holds valid Joint Commission Accreditation.
+  - `p_57e8` A pharmaceutical distributor attains elite wholesale licensure provided it logs annual supply chain tracking accuracy of at least 98 percent.
+  - `p_3729` A provider meets advanced specialty facility criteria when maintaining at least 3 specialized palliative care units.
+  - `p_cba8` A care center complies with uninterrupted nursing service requirements provided it maintains 24-hour nursing coverage across at least 3 shifts.
+  - `p_7d84` A facility receives verified safety operational status provided it achieves primary electronic infrastructure safeguard clearance while conducting at least 4 emergency response drills last year.
+
+### B. Intended structure
+- `m_57b7` (B1) [policy `p_dd92`] <= (`e_2e4d` AND `e_451a`); gold after update: **uncertain**
+  - set 1: Apex Health System employs 12 certified HIPAA compliance officers, meeting the 10-officer threshold, and logged 4 privacy incidents last year, remaining under the limit of 5.
+- `m_fd1d` (B2) [policy `p_c125`] <= (`m_57b7` AND `e_3728`); gold after update: **withdraw**
+  - set 1: Apex Health System holds foundational patient privacy compliance and possesses a valid Joint Commission Accreditation credential.
+- `m_18df` (D1) [policy `p_10a7`] <= (`m_fd1d` AND `e_2632`); gold after update: **withdraw**
+  - set 1: Apex Health System has top institutional compliance recognition and logged 150 hours of mandatory staff privacy training last year, exceeding the 100-hour requirement.
+- `m_926a` (B3) [policy `p_a04e`] <= (`e_014a`) **OR** (`e_43ed`); gold after update: **keep**
+  - set 1: Beacon Clinic maintains 8 board-certified physicians, satisfying the minimum requirement of 5.
+  - set 2: Beacon Clinic logged a patient satisfaction score of 92 percent, satisfying the minimum requirement of 80 percent.
+- `m_7741` (B4) [policy `p_a5c6`] <= (`e_451a`); gold after update: **uncertain**
+  - set 1: Apex Health System logged 4 patient data privacy incidents last year, which is within the maximum allowed threshold of 5.
+- `m_61ec` (B5) [policy `p_b754`] <= (`e_2e4d` AND `e_e114`); gold after update: **uncertain**
+  - set 1: Apex Health System has 12 certified HIPAA compliance officers and a cybersecurity risk score of 85 points, satisfying both threshold requirements.
+- `m_bc02` (B6) [policy `p_7d84`] <= (`m_61ec` AND `e_aeaa`); gold after update: **uncertain**
+  - set 1: Apex Health System holds primary digital infrastructure safeguard clearance and conducts 6 emergency drills per year, exceeding the 4-drill minimum.
+- `m_4608` (D2) [policy `p_6130`] <= (`m_bc02` AND `e_e629`); gold after update: **uncertain**
+  - set 1: Apex Health System holds verified safety operational status and maintains $10,000,000 in annual liability coverage, above the $5,000,000 threshold.
+- `m_a5f8` (B7) [policy `p_3729`] <= (`e_1620`); gold after update: **keep**
+  - set 1: Crestview Hospice maintains 5 specialized palliative care units, exceeding the required threshold of 3.
+- `m_d71f` (B8) [policy `p_e3e8`] <= (`e_db95`); gold after update: **keep**
+  - set 1: Delmar Pharmacy logged 0 prescription dispensing errors last year, remaining below the limit of 2.
+- `m_f24f` (B9) [policy `p_f1c1`] <= (`e_4029`); gold after update: **keep**
+  - set 1: Echo Diagnostics maintains 3 ISO-certified imaging machines, meeting the requirement of at least 2.
+- `m_ba1c` (B10) [policy `p_cba8`] <= (`e_383d`); gold after update: **keep**
+  - set 1: Fairway Care maintains 24-hour nursing coverage across 4 shifts, satisfying the 3-shift minimum.
+- `u_5d24` retracts `e_451a` (reliability low)
+- `u_9b93` supersedes `e_2e4d` (reliability high)
+- `u_7336` supersedes `e_451a` (reliability high)
+- `u_2d7c` supersedes `e_014a` (reliability high)
+- `u_c06d` hedges `e_451a` (reliability high)
+- `u_31df` hedges `e_2e4d` (reliability high)
+- `u_3b30` retracts `e_3728` (reliability high)
+- decoy policies: `p_57e8`, `p_53a4`
+- final state after updates (gold action -> state): `m_57b7` uncertain -> undetermined; `m_7741` uncertain -> undetermined; `m_926a` keep -> holds; `m_61ec` uncertain -> undetermined; `m_a5f8` keep -> holds; `m_d71f` keep -> holds; `m_f24f` keep -> holds; `m_ba1c` keep -> holds; `m_fd1d` withdraw -> fails; `m_bc02` uncertain -> undetermined; `m_18df` withdraw -> fails; `m_4608` uncertain -> undetermined
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_383d~p_cba8` policy_echoes_evidence: "nursing coverage across" (judge under C7/C11)
+- soft `e_e114~p_b754` policy_echoes_evidence: "a cybersecurity risk; cybersecurity risk score; risk score of" (judge under C7/C11)
+- soft `e_db95~p_e3e8` policy_echoes_evidence: "dispensing errors last; errors last year; prescription dispensing errors" (judge under C7/C11)
+- soft `e_1620~p_3729` policy_echoes_evidence: "palliative care units; specialized palliative care" (judge under C7/C11)
+- soft `e_2632~p_10a7` policy_echoes_evidence: "mandatory staff privacy; staff privacy training" (judge under C7/C11)
+- soft `e_43ed~p_a04e` policy_echoes_evidence: "a patient satisfaction; patient satisfaction score; satisfaction score of" (judge under C7/C11)
+- soft `e_451a~p_a5c6` policy_echoes_evidence: "data privacy incidents; patient data privacy" (judge under C7/C11)
+- soft `e_451a~p_dd92` policy_echoes_evidence: "data privacy incidents; incidents last year; patient data privacy; privacy incidents last" (judge under C7/C11)
+- soft `e_aeaa~p_7d84` policy_echoes_evidence: "drills last year; emergency response drills; response drills last" (judge under C7/C11)
+- soft `e_e629~p_6130` policy_echoes_evidence: "annual liability coverage; liability coverage of; maintains annual liability" (judge under C7/C11)
+- soft `u_5d24` retraction_reads_as_hedge: "claims" (judge under C4)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_81c3c472b7  (F7-020, hr onboarding)
+
+*World:* HR department evaluation of candidates and employees for technical advancement and management tracks.
+
+### A. System view (judge C7 from this alone)
+- `e_e40b` [2026-01-08, HR portal employee history file] Elena Rostova has 6 years of software engineering experience.
+- `e_4967` [2026-01-11, AWS Certification Verification Portal] Marcus Vance holds an AWS Certified Solutions Architect credential.
+- `e_b9af` [2026-01-14, Annual 360 Review feedback report] Elena Rostova received 5 peer endorsement ratings.
+- `e_64f6` [2026-01-17, Leadership Development attendance log] Elena Rostova completed 4 management workshops.
+- `e_3b09` [2026-01-20, Salesforce Monthly Performance Dashboard] Sophia Chen maintained a sales conversion rate of 75 percent this month.
+- `e_dcd2` [2026-01-23, Internal Assessment Portal system log] Elena Rostova scored 88 points on the technical architecture assessment.
+- `e_c0b9` [2026-01-26, Project Management Institute official registry] Elena Rostova holds a valid PMP certification.
+- `e_aa52` [2026-01-29, Global Certification Registry digital badge] Elena Rostova holds an active CISSP certification.
+- `e_cb7c` [2026-02-01, Learning Management System completion record] Elena Rostova completed 30 hours of compliance training.
+- `e_0038` [2026-02-04, Executive Education transcript] Elena Rostova holds an executive leadership certificate.
+- `e_6453` [2026-02-07, Compliance Office test record] Elena Rostova achieved an ethics exam score of 92 points.
+- `e_ca8e` [2026-02-10, Mentorship Program signed tracker] Elena Rostova completed 12 executive mentoring sessions.
+- `e_d32f` [2026-02-13, Client Operations Quarterly Performance Ledger] Priya Nair completed 15 client onboarding audits this quarter.
+- `e_cd06` [2026-02-16, ISACA Credential Verification Service] Liam O'Connor holds a Certified Information Security Manager certification.
+- memories:
+  - `m_9ac1` Elena Rostova satisfies project lead eligibility.
+  - `m_5728` Elena Rostova should be assigned to the lead engineering track.
+  - `m_0ba3` Sophia Chen achieves principal sales strategist standing.
+  - `m_cd5a` Priya Nair meets client success oversight standards.
+  - `m_2282` Elena Rostova satisfies agile administrative readiness.
+  - `m_1f68` Elena Rostova meets the technical credential standard.
+  - `m_469d` Elena Rostova should be assigned to team lead role.
+  - `m_e83c` Marcus Vance satisfies cloud architect qualification.
+  - `m_cea2` Elena Rostova qualifies for senior team leadership.
+  - `m_0c84` Elena Rostova holds team manager readiness.
+  - `m_55c9` Elena Rostova should be approved for executive officer fast-track.
+  - `m_0b3e` Liam O'Connor holds enterprise security leadership clearance.
+  - `m_9319` Elena Rostova achieves senior developer qualification.
+  - `m_1d8f` Elena Rostova meets executive candidate criteria.
+  - `m_3bda` Elena Rostova fulfills department director prerequisites.
+- update `u_fa36` [2026-02-19, HR Compliance Audit Board official memorandum] An internal review noted discrepancies in Elena Rostova's ethics exam scoring records, pending re-grading.
+- update `u_a0d5` [2026-02-22, anonymous internet forum post] An unverified forum post claimed Elena Rostova never earned a CISSP certification.
+- update `u_a301` [2026-02-25, Testing Vendor Certification Board formal notification] An official notice from the testing vendor stated that Elena Rostova's ethics exam results are under investigation.
+- update `u_3fb8` [2026-02-28, Corporate Governance Standards Office internal memo] An official inquiry was launched regarding the accreditation status of Elena Rostova's executive leadership certificate.
+- update `u_f8c2` [2026-03-03, Project Management Institute official registry letter] Project Management Institute confirmed that Elena Rostova's PMP certification was revoked.
+- update `u_1e49` [2026-03-06, Quality Assurance Division certified report] Quality assurance audits revealed Priya Nair completed 0 client onboarding audits this quarter.
+- policies:
+  - `p_4d3e` Enrollment in executive fast-track development is authorized for any staff member qualifying for department director roles.
+  - `p_e876` Appointment to a team leader post is approved for a candidate with operational readiness for team manager duties who finishes at least 3 management workshops.
+  - `p_2033` Cloud architecture clearance is granted to an applicant holding an AWS Certified Solutions Architect credential.
+  - `p_3fa2` Qualification for department director roles requires matching executive candidate requirements alongside placement on a lead software track.
+  - `p_a94d` Directorial clearance in enterprise security is awarded to a staff member with a Certified Information Security Manager certification.
+  - `p_bddc` A job applicant attains senior developer standing when meeting technical credential criteria together with a technical architecture assessment score of at least 80 points.
+  - `p_74ab` An environmental auditor obtains sustainability advisor status after recording at least 20 site inspections during a calendar year.
+  - `p_8b7f` Readiness for agile administration is granted if a staff candidate possesses a valid PMP credential, at least 4 years of software engineering experience, and a minimum peer endorsement count of 3.
+  - `p_f799` Candidate status for project leadership requires at least 5 years of software engineering experience, a minimum ethics exam score of 85 points, and a valid PMP credential.
+  - `p_669e` Designation as a chief commercial strategist requires maintaining a monthly sales conversion rate of at least 60 percent.
+  - `p_e863` Placement on a lead software track is recommended for an applicant attaining senior developer standing who also completes a minimum compliance training time of 25 hours.
+  - `p_551a` Higher level team guidance qualification is reached when an applicant demonstrates readiness for agile administration and secures appointment to a team leader post.
+  - `p_9d36` An employee matches executive candidate requirements either by earning an executive leadership certificate or by participating in at least 10 executive mentoring sessions.
+  - `p_16b1` Operational readiness for team manager duties is confirmed when an applicant satisfies candidate status for project leadership.
+  - `p_d887` A field logistics coordinator receives international dispatch approval upon logging at least 50 completed freight transfers in a single quarter.
+  - `p_4262` A candidate fulfills technical credential criteria by having a minimum software engineering experience of 5 years along with an active CISSP credential.
+  - `p_b017` Supervisory standing in client success is designated for a team member who executes a minimum of 10 client onboarding audits per quarter.
+
+### B. Intended structure
+- `m_1f68` (B1) [policy `p_4262`] <= (`e_e40b` AND `e_aa52`); gold after update: **uncertain**
+  - set 1: Elena Rostova has 6 years of software engineering experience (at least 5) and holds an active CISSP certification, fulfilling technical credential criteria.
+- `m_9319` (B2) [policy `p_bddc`] <= (`m_1f68` AND `e_dcd2`); gold after update: **uncertain**
+  - set 1: Elena Rostova meets technical credential criteria and scored 88 points on the technical architecture assessment (at least 80 points), attaining senior developer standing.
+- `m_5728` (D1) [policy `p_e863`] <= (`m_9319` AND `e_cb7c`); gold after update: **uncertain**
+  - set 1: Elena Rostova attains senior developer standing and completed 30 hours of compliance training (at least 25 hours), qualifying for placement on a lead software track.
+- `m_9ac1` (B3) [policy `p_f799`] <= (`e_e40b` AND `e_6453` AND `e_c0b9`); gold after update: **withdraw**
+  - set 1: Elena Rostova has 6 years of software engineering experience (at least 5), an ethics exam score of 92 points (at least 85 points), and a valid PMP certification, satisfying candidate status for project leadership.
+- `m_0c84` (B4) [policy `p_16b1`] <= (`m_9ac1`); gold after update: **withdraw**
+  - set 1: Elena Rostova satisfies candidate status for project leadership, confirming operational readiness for team manager duties.
+- `m_469d` (D2) [policy `p_e876`] <= (`m_0c84` AND `e_64f6`); gold after update: **withdraw**
+  - set 1: Elena Rostova demonstrates operational readiness for team manager duties and completed 4 management workshops (at least 3), approving appointment to a team leader post.
+- `m_2282` (B5) [policy `p_8b7f`] <= (`e_c0b9` AND `e_e40b` AND `e_b9af`); gold after update: **withdraw**
+  - set 1: Elena Rostova holds a valid PMP certification, has 6 years of software engineering experience (at least 4), and received 5 peer endorsement ratings (at least 3), granting readiness for agile administration.
+- `m_cea2` (B6) [policy `p_551a`] <= (`m_2282` AND `m_469d`); gold after update: **withdraw**
+  - set 1: Elena Rostova demonstrates readiness for agile administration and holds an appointment to a team leader post, reaching higher level team guidance qualification.
+- `m_1d8f` (B7) [policy `p_9d36`] <= (`e_0038`) **OR** (`e_ca8e`); gold after update: **keep**
+  - set 1: Elena Rostova holds an executive leadership certificate, matching executive candidate requirements.
+  - set 2: Elena Rostova completed 12 executive mentoring sessions (at least 10), matching executive candidate requirements.
+- `m_3bda` (B8) [policy `p_3fa2`] <= (`m_1d8f` AND `m_5728`); gold after update: **uncertain**
+  - set 1: Elena Rostova matches executive candidate requirements and holds placement on a lead software track, fulfilling qualification for department director roles.
+- `m_55c9` (D3) [policy `p_4d3e`] <= (`m_3bda`); gold after update: **uncertain**
+  - set 1: Elena Rostova qualifies for department director roles, authorizing enrollment in executive fast-track development.
+- `m_e83c` (B9) [policy `p_2033`] <= (`e_4967`); gold after update: **keep**
+  - set 1: Marcus Vance holds an AWS Certified Solutions Architect credential, receiving cloud architecture clearance.
+- `m_cd5a` (B10) [policy `p_b017`] <= (`e_d32f`); gold after update: **withdraw**
+  - set 1: Priya Nair completed 15 client onboarding audits this quarter (at least 10), achieving supervisory standing in client success.
+- `m_0b3e` (B11) [policy `p_a94d`] <= (`e_cd06`); gold after update: **keep**
+  - set 1: Liam O'Connor holds a Certified Information Security Manager certification, receiving directorial clearance in enterprise security.
+- `m_0ba3` (B12) [policy `p_669e`] <= (`e_3b09`); gold after update: **keep**
+  - set 1: Sophia Chen maintained a sales conversion rate of 75 percent this month (at least 60 percent), securing recognition as principal sales strategist.
+- `u_fa36` hedges `e_6453` (reliability high)
+- `u_a0d5` retracts `e_aa52` (reliability low)
+- `u_a301` hedges `e_6453` (reliability high)
+- `u_3fb8` hedges `e_0038` (reliability high)
+- `u_f8c2` retracts `e_c0b9` (reliability high)
+- `u_1e49` retracts `e_d32f` (reliability high)
+- decoy policies: `p_d887`, `p_74ab`
+- final state after updates (gold action -> state): `m_1f68` uncertain -> undetermined; `m_9ac1` withdraw -> fails; `m_2282` withdraw -> fails; `m_1d8f` keep -> holds; `m_e83c` keep -> holds; `m_cd5a` withdraw -> fails; `m_0b3e` keep -> holds; `m_0ba3` keep -> holds; `m_9319` uncertain -> undetermined; `m_0c84` withdraw -> fails; `m_5728` uncertain -> undetermined; `m_469d` withdraw -> fails; `m_3bda` uncertain -> undetermined; `m_cea2` withdraw -> fails; `m_55c9` uncertain -> undetermined
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_e40b~p_8b7f` policy_echoes_evidence: "of software engineering; software engineering experience; years of software" (judge under C7/C11)
+- soft `e_e40b~p_f799` policy_echoes_evidence: "of software engineering; software engineering experience; years of software" (judge under C7/C11)
+- soft `e_e40b~p_4262` policy_echoes_evidence: "software engineering experience" (judge under C7/C11)
+- soft `e_3b09~p_669e` policy_echoes_evidence: "conversion rate of; sales conversion rate" (judge under C7/C11)
+- soft `e_dcd2~p_bddc` policy_echoes_evidence: "technical architecture assessment" (judge under C7/C11)
+- soft `e_0038~p_9d36` policy_echoes_evidence: "an executive leadership; executive leadership certificate" (judge under C7/C11)
+- soft `e_6453~p_f799` policy_echoes_evidence: "ethics exam score; exam score of" (judge under C7/C11)
+- soft `e_ca8e~p_9d36` policy_echoes_evidence: "executive mentoring sessions" (judge under C7/C11)
+- soft `e_d32f~p_b017` policy_echoes_evidence: "client onboarding audits" (judge under C7/C11)
+- soft `groups 2/4` cross_group_entity: "Certified" (judge under C6)
+- soft `u_a0d5` retraction_reads_as_hedge: "claimed" (judge under C4)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_7aa48c110b  (F7-021, vendor procurement)
+
+*World:* An enterprise vendor procurement assessment evaluates potential IT service suppliers, transport providers, and software vendors against corporate compliance and operational benchmarks.
+
+### A. System view (judge C7 from this alone)
+- `e_265d` [2026-01-08, Certified survey report from ClientPulse Insights] Apex Dynamics holds a client satisfaction rating of 92%.
+- `e_d7ee` [2026-01-11, Official fleet registration record from Department of Transportation] Crestview Logistics operates 50 delivery trucks.
+- `e_3245` [2026-01-14, Signed audit certificate from Security Assessment Corp] Apex Dynamics holds SOC 2 Type II compliance.
+- `e_e0e1` [2026-01-17, Signed compliance certificate from Global Standards Registry] Beacon Tech holds ISO 27001 certification.
+- `e_8599` [2026-01-20, Support portal operational log summary] Apex Dynamics maintains an issue response time of 2 hours.
+- `e_4735` [2026-01-23, Standard vendor contract template] Apex Dynamics offers an evaluation period of 30 days.
+- `e_ff4a` [2026-01-26, Third-party uptime monitoring record from Ping Metrics] Apex Dynamics maintains network availability of 99.9%.
+- `e_a06d` [2026-01-29, Official quarterly deployment summary from operations VP] Apex Dynamics completed 15 enterprise deployments last quarter.
+- `e_be48` [2026-02-01, Verified policy certificate from RiskGuard Insurance] Apex Dynamics carries liability insurance coverage of $5,000,000.
+- `e_49dd` [2026-02-04, Staff site audit log from regional operations manager] Apex Dynamics operates 3 regional service hubs.
+- memories:
+  - `m_1cb8` Crestview Logistics satisfies fleet capacity requirements.
+  - `m_2fd4` Beacon Tech satisfies data governance standards.
+  - `m_dea9` Apex Dynamics qualifies for preferred vendor standing.
+  - `m_00e5` Apex Dynamics fulfills technical operational requirements.
+  - `m_7978` Apex Dynamics satisfies tier-one partner qualifications.
+  - `m_3c80` Execute multi-year procurement agreement with Apex Dynamics.
+  - `m_25ed` Authorize Apex Dynamics for preferred contract negotiation.
+  - `m_8f76` Apex Dynamics exhibits strong commercial performance.
+  - `m_3311` Apex Dynamics qualifies for baseline vendor status.
+  - `m_a3ea` Apex Dynamics meets regional footprint criteria.
+  - `m_2324` Place Apex Dynamics on the approved vendor list.
+- update `u_8c0d` [2026-02-07, Cancellation notice from RiskGuard Insurance] Apex Dynamics carries $0 in liability insurance coverage.
+- update `u_f131` [2026-02-10, Official retraction letter from ClientPulse Insights] Apex Dynamics holds no recorded client satisfaction rating.
+- update `u_236e` [2026-02-13, Revised service level documentation from Apex Dynamics portal] Apex Dynamics maintains an issue response time of 6 hours.
+- update `u_c9e7` [2026-02-16, Updated service terms document from executive board] Apex Dynamics withdrew its guaranteed issue response time.
+- update `u_108c` [2026-02-19, Verified financial ledger update from internal audit] Apex Dynamics completed 12 enterprise deployments last quarter.
+- update `u_c233` [2026-02-22, Corrected quarterly audit from Deloitte Advisory] Apex Dynamics completed 8 enterprise deployments last quarter.
+- update `u_139f` [2026-02-25, Corporate restructuring notice from Apex Dynamics] Apex Dynamics closed its regional facilities and maintains 0 regional service hubs.
+- update `u_ea85` [2026-02-28, Final quarterly infrastructure report from CloudWatch Systems] Apex Dynamics failed its availability SLA and maintains network availability of 98.1%.
+- policies:
+  - `p_c584` Primary vendor status is assigned to any supplier holding tier-one contractor status.
+  - `p_6ce7` A business partner demonstrates robust commercial success either by achieving a client satisfaction mark of 85% or higher together with a minimum count of 2 regional service hubs, or by completing 10 or more enterprise deployments last quarter.
+  - `p_6ac7` Inclusion on the cleared supplier roster is authorized for any contractor achieving entry-level vendor eligibility.
+  - `p_1333` Information security clearance is granted to a software provider holding ISO 27001 certification.
+  - `p_242f` Finalization of a long-term supply agreement is cleared for a supplier holding primary vendor status that offers an evaluation period of at least 14 days.
+  - `p_5935` Tier-one contractor status is granted to a vendor satisfying technical operational standards that is also approved for priority contract discussions.
+  - `p_7bfb` A vendor fulfills regional presence benchmarks if they maintain a minimum count of 2 regional service hubs.
+  - `p_aaae` Permission for priority contract discussions requires a vendor demonstrating robust commercial success along with liability coverage of at least $3,000,000.
+  - `p_3cfe` Technical operational standards are satisfied by holding SOC 2 Type II compliance, maintaining an issue response time under 4 hours, or demonstrating network availability of at least 99.5%.
+  - `p_6373` An enterprise vendor gains sustainable supplier certification if they offset at least 500 metric tons of carbon emissions annually.
+  - `p_a897` Entry-level vendor eligibility is awarded either to a supplier maintaining a minimum count of 2 regional service hubs or to one holding SOC 2 Type II compliance.
+  - `p_bd4e` A hardware provider is selected for equipment leasing when maintaining an emergency spare inventory of at least 100 units.
+  - `p_306a` Transport volume clearance is granted to a logistics provider operating 30 or more delivery trucks.
+
+### B. Intended structure
+- `m_a3ea` (B1) [policy `p_7bfb`] <= (`e_49dd`); gold after update: **withdraw**
+  - set 1: Operating 3 regional service hubs meets the policy threshold of at least 2 regional service hubs.
+- `m_3311` (B2) [policy `p_a897`] <= (`e_49dd`) **OR** (`e_3245`); gold after update: **keep**
+  - set 1: Operating 3 regional service hubs meets the policy threshold of at least 2 regional service hubs.
+  - set 2: Holding SOC 2 Type II compliance satisfies the alternative qualification requirement.
+- `m_2324` (D1) [policy `p_6ac7`] <= (`m_3311`); gold after update: **keep**
+  - set 1: Achieving entry-level vendor eligibility satisfies the requirement for inclusion on the approved vendor list.
+- `m_8f76` (B3) [policy `p_6ce7`] <= (`e_265d` AND `e_49dd`) **OR** (`e_a06d`); gold after update: **recompute**
+  - set 1: Holding a client satisfaction rating of 92% (at or above 85%) while operating 3 regional service hubs (at least 2) satisfies the first alternative condition.
+  - set 2: Completing 15 enterprise deployments last quarter meets the alternative policy threshold of 10 or more enterprise deployments last quarter.
+- `m_25ed` (D2) [policy `p_aaae`] <= (`m_8f76` AND `e_be48`); gold after update: **withdraw**
+  - set 1: Demonstrating robust commercial success alongside liability insurance coverage of $5,000,000 (at or above $3,000,000) satisfies the contract negotiation requirements.
+- `m_00e5` (B4) [policy `p_3cfe`] <= (`e_3245`) **OR** (`e_8599`) **OR** (`e_ff4a`); gold after update: **keep**
+  - set 1: Holding SOC 2 Type II compliance fulfills the technical operational standard.
+  - set 2: Maintaining an issue response time of 2 hours satisfies the threshold of under 4 hours.
+  - set 3: Demonstrating network availability of 99.9% meets the minimum threshold of 99.5%.
+- `m_7978` (B5) [policy `p_5935`] <= (`m_00e5` AND `m_25ed`); gold after update: **withdraw**
+  - set 1: Fulfilling technical operational standards and being cleared for priority contract discussions together satisfy tier-one contractor requirements.
+- `m_dea9` (B6) [policy `p_c584`] <= (`m_7978`); gold after update: **withdraw**
+  - set 1: Holding tier-one contractor status satisfies the requirement for primary vendor designation.
+- `m_3c80` (D3) [policy `p_242f`] <= (`m_dea9` AND `e_4735`); gold after update: **withdraw**
+  - set 1: Holding primary vendor status while providing a 30-day evaluation period (at least 14 days) satisfies the contract execution requirements.
+- `m_1cb8` (B7) [policy `p_306a`] <= (`e_d7ee`); gold after update: **keep**
+  - set 1: Operating 50 delivery trucks meets the minimum fleet policy threshold of 30 delivery trucks.
+- `m_2fd4` (B8) [policy `p_1333`] <= (`e_e0e1`); gold after update: **keep**
+  - set 1: Holding ISO 27001 certification satisfies information security clearance requirements.
+- `u_8c0d` retracts `e_be48` (reliability high)
+- `u_f131` retracts `e_265d` (reliability high)
+- `u_236e` supersedes `e_8599` (reliability high)
+- `u_c9e7` retracts `e_8599` (reliability high)
+- `u_108c` supersedes `e_a06d` (reliability high)
+- `u_c233` supersedes `e_a06d` (reliability high)
+- `u_139f` retracts `e_49dd` (reliability high)
+- `u_ea85` retracts `e_ff4a` (reliability high)
+- decoy policies: `p_6373`, `p_bd4e`
+- final state after updates (gold action -> state): `m_a3ea` withdraw -> fails; `m_3311` keep -> holds; `m_8f76` recompute -> fails; `m_00e5` keep -> holds; `m_1cb8` keep -> holds; `m_2fd4` keep -> holds; `m_2324` keep -> holds; `m_25ed` withdraw -> fails; `m_7978` withdraw -> fails; `m_dea9` withdraw -> fails; `m_3c80` withdraw -> fails
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_265d~p_6ce7` policy_echoes_evidence: "a client satisfaction" (judge under C7/C11)
+- soft `e_8599~p_3cfe` policy_echoes_evidence: "an issue response; issue response time" (judge under C7/C11)
+- soft `e_4735~p_242f` policy_echoes_evidence: "an evaluation period; evaluation period of; offers an evaluation" (judge under C7/C11)
+- soft `e_ff4a~p_3cfe` policy_echoes_evidence: "network availability of" (judge under C7/C11)
+- soft `e_a06d~p_6ce7` policy_echoes_evidence: "deployments last quarter; enterprise deployments last" (judge under C7/C11)
+- soft `e_49dd~p_6ce7` policy_echoes_evidence: "regional service hubs" (judge under C7/C11)
+- soft `e_49dd~p_7bfb` policy_echoes_evidence: "regional service hubs" (judge under C7/C11)
+- soft `e_49dd~p_a897` policy_echoes_evidence: "regional service hubs" (judge under C7/C11)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_d355747cf3  (F7-022, travel logistics)
+
+*World:* Evaluating regional transportation providers for contract eligibility, safety accreditation, and expansion grants.
+
+### A. System view (judge C7 from this alone)
+- `e_81c8` [2026-01-08, Staff memo from Blue Sky Charters flight operations.] Blue Sky Charters operates a private jet fleet of 18 jets.
+- `e_45dd` [2026-01-11, Quarterly summary from Blue Sky Charters customer service.] Blue Sky Charters holds a customer satisfaction score of 94 percent.
+- `e_81f2` [2026-01-14, Internal report from Blue Sky Charters flight dispatch.] Blue Sky Charters logged 120 charter flights completed last quarter.
+- `e_d5a9` [2026-01-17, Official certification registry of Bureau Veritas.] Apex Tours holds an active ISO 39001 certification.
+- `e_ed60` [2026-01-20, Official verification portal of Wyvern Aviation.] Blue Sky Charters maintains an active Wyvern Wingman certificate.
+- `e_b70c` [2026-01-23, Internal fleet memo from Apex Tours depot manager.] Apex Tours maintains an active fleet count of 15 coaches.
+- `e_3a89` [2026-01-26, Partner email from Blue Sky Charters finance officer.] Blue Sky Charters reported annual revenue of 25,000,000 USD this year.
+- `e_e4b3` [2026-01-29, Official database of the City Transit Authority.] Veloce Shuttles holds an active municipal transit license.
+- `e_6599` [2026-02-01, Official audit certificate from the ARGUS Safety Registry.] Blue Sky Charters holds an ARGUS safety rating of 5 stars.
+- `e_f1d5` [2026-02-04, Published performance metrics report from the Department of Transportation.] Nomad Rail recorded an on-time arrival rate of 96 percent this year.
+- `e_9942` [2026-02-07, Certified audit report from the National Transport Safety Board.] Apex Tours achieved a driver training completion rate of 92 percent this year.
+- memories:
+  - `m_b664` Nomad Rail satisfies passenger punctuality benchmark.
+  - `m_94bf` Apex Tours meets safety compliance standards.
+  - `m_4b57` Blue Sky Charters qualifies for regional expansion support.
+  - `m_9891` Veloce Shuttles is authorized for city bus routes.
+  - `m_5c10` Blue Sky Charters is assigned the executive VIP transport agreement.
+  - `m_0a25` Blue Sky Charters is approved for airport terminal expansion.
+  - `m_bae4` Blue Sky Charters achieves elite charter standing.
+  - `m_abb4` Apex Tours receives top-tier safety clearance.
+  - `m_499a` Apex Tours qualifies for preferred carrier status.
+  - `m_579f` Blue Sky Charters meets high-volume operator criteria.
+  - `m_158d` Apex Tours is selected for the cross-border charter contract.
+  - `m_d03d` Apex Tours satisfies basic operational fleet capacity requirements.
+  - `m_815f` Blue Sky Charters qualifies for preferred hangar leasing.
+- update `u_0643` [2026-02-10, Official press release from the State Department of Revenue.] Tax audit filings indicate Blue Sky Charters annual revenue figure is currently subject to official review.
+- update `u_7763` [2026-02-13, Signed financial audit report from Deloitte.] A certified financial audit confirms Blue Sky Charters did not report annual revenue of 25 million USD this year.
+- update `u_7983` [2026-02-16, Regulatory compliance report from the Federal Aviation Administration.] Official aviation registry records show Blue Sky Charters does not operate a private jet fleet of 18 jets.
+- update `u_36c7` [2026-02-19, Anonymous comment on a regional transit discussion board.] An unverified social media post claims Apex Tours lost its ISO 39001 certification.
+- update `u_1546` [2026-02-22, Unverified post on an aviation enthusiast blog.] A blog post asserts Blue Sky Charters did not log 120 charter flights completed last quarter.
+- update `u_cce3` [2026-02-25, Official revocation notice from the City Transit Authority.] The City Transit Authority officially revoked Veloce Shuttles municipal transit license.
+- policies:
+  - `p_5e5d` Safety and compliance standards are fulfilled when a transit firm records a driver training completion rate of at least 90 percent this year together with an active fleet count of at least 12 coaches.
+  - `p_ad27` Authorization for urban transit routes is granted to any transport vendor holding an active municipal transit license.
+  - `p_a28d` Awarding of executive VIP transportation agreements requires a charter company to demonstrate charter standing at the elite level.
+  - `p_1c6b` Criteria for high-volume operators are met if a provider maintains a private jet fleet of at least 15 jets, or reports annual revenue of at least 20,000,000 USD this year, or holds an ARGUS safety rating of at least 5 stars.
+  - `p_1215` Passenger punctuality benchmarks are satisfied when a train operator achieves an on-time arrival rate of at least 90 percent this year.
+  - `p_eb34` Selection for cross-border transit assignments requires a carrier to possess top-level safety clearance.
+  - `p_2a6d` Terminal expansion at airports is approved for aviation businesses that secure preferred hangar lease eligibility.
+  - `p_b379` An operator fulfills fundamental fleet capacity standards when maintaining an active fleet count of at least 10 coaches.
+  - `p_da15` An operator attains preferred carrier ranking if it fulfills fundamental fleet capacity standards and concurrently satisfies safety and compliance standards.
+  - `p_9834` Top-level safety clearance is granted when an operator holds preferred carrier ranking along with an active ISO 39001 certification.
+  - `p_80ad` Eco-friendly lodging accreditation is conferred on hospitality venues demonstrating an annual energy reduction rate of at least 15 percent.
+  - `p_ca36` Maritime freight permits are issued to shipping lines maintaining an international vessel security certification.
+  - `p_286c` Regional expansion funding eligibility is granted if a charter firm recorded at least 100 charter flights completed last quarter, operates a private jet fleet of at least 15 jets, and maintains a customer satisfaction score of at least 90 percent.
+  - `p_9470` Charter standing at the elite level is awarded when an aviation firm fulfills criteria for high-volume operators while possessing an active Wyvern Wingman certificate.
+  - `p_caf0` Preferred hangar lease eligibility is extended to any flight company that possesses regional expansion funding eligibility.
+
+### B. Intended structure
+- `m_d03d` (B1) [policy `p_b379`] <= (`e_b70c`); gold after update: **keep**
+  - set 1: Apex Tours operates an active fleet count of 15 coaches, exceeding the required 10 coaches.
+- `m_94bf` (B2) [policy `p_5e5d`] <= (`e_9942` AND `e_b70c`); gold after update: **keep**
+  - set 1: Apex Tours achieved a 92 percent driver training completion rate and operates 15 active coaches, meeting the 90 percent rate and 12 coach thresholds.
+- `m_499a` (B3) [policy `p_da15`] <= (`m_94bf` AND `m_d03d`); gold after update: **keep**
+  - set 1: Apex Tours satisfies fundamental fleet capacity standards and safety and compliance standards.
+- `m_abb4` (B4) [policy `p_9834`] <= (`m_499a` AND `e_d5a9`); gold after update: **uncertain**
+  - set 1: Apex Tours holds preferred carrier ranking and maintains an active ISO 39001 certification.
+- `m_158d` (D1) [policy `p_eb34`] <= (`m_abb4`); gold after update: **uncertain**
+  - set 1: Apex Tours holds top-level safety clearance.
+- `m_579f` (B5) [policy `p_1c6b`] <= (`e_81c8`) **OR** (`e_3a89`) **OR** (`e_6599`); gold after update: **keep**
+  - set 1: Blue Sky Charters operates 18 private jets, satisfying the 15 jet requirement.
+  - set 2: Blue Sky Charters generated 25 million USD in annual revenue this year, meeting the 20 million USD threshold.
+  - set 3: Blue Sky Charters maintains a 5 star ARGUS safety rating, fulfilling the 5 star requirement.
+- `m_bae4` (B6) [policy `p_9470`] <= (`m_579f` AND `e_ed60`); gold after update: **keep**
+  - set 1: Blue Sky Charters meets criteria for high-volume operators and holds an active Wyvern Wingman certificate.
+- `m_5c10` (D2) [policy `p_a28d`] <= (`m_bae4`); gold after update: **keep**
+  - set 1: Blue Sky Charters demonstrates charter standing at the elite level.
+- `m_4b57` (B7) [policy `p_286c`] <= (`e_81f2` AND `e_81c8` AND `e_45dd`); gold after update: **withdraw**
+  - set 1: Blue Sky Charters logged 120 charter flights last quarter, operates 18 private jets, and holds a 94 percent customer satisfaction score, meeting all three criteria.
+- `m_815f` (B8) [policy `p_caf0`] <= (`m_4b57`); gold after update: **withdraw**
+  - set 1: Blue Sky Charters possesses regional expansion funding eligibility.
+- `m_0a25` (D3) [policy `p_2a6d`] <= (`m_815f`); gold after update: **withdraw**
+  - set 1: Blue Sky Charters holds preferred hangar lease eligibility.
+- `m_9891` (B9) [policy `p_ad27`] <= (`e_e4b3`); gold after update: **withdraw**
+  - set 1: Veloce Shuttles holds an active municipal transit license.
+- `m_b664` (B10) [policy `p_1215`] <= (`e_f1d5`); gold after update: **keep**
+  - set 1: Nomad Rail recorded an on-time arrival rate of 96 percent this year, exceeding the 90 percent benchmark.
+- `u_0643` hedges `e_3a89` (reliability high)
+- `u_7763` retracts `e_3a89` (reliability high)
+- `u_7983` retracts `e_81c8` (reliability high)
+- `u_36c7` retracts `e_d5a9` (reliability low)
+- `u_1546` retracts `e_81f2` (reliability low)
+- `u_cce3` retracts `e_e4b3` (reliability high)
+- decoy policies: `p_ca36`, `p_80ad`
+- final state after updates (gold action -> state): `m_d03d` keep -> holds; `m_94bf` keep -> holds; `m_579f` keep -> holds; `m_4b57` withdraw -> fails; `m_9891` withdraw -> fails; `m_b664` keep -> holds; `m_499a` keep -> holds; `m_bae4` keep -> holds; `m_815f` withdraw -> fails; `m_abb4` uncertain -> undetermined; `m_5c10` keep -> holds; `m_0a25` withdraw -> fails; `m_158d` uncertain -> undetermined
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_81c8~p_1c6b` policy_echoes_evidence: "a private jet; jet fleet of; private jet fleet" (judge under C7/C11)
+- soft `e_81c8~p_286c` policy_echoes_evidence: "a private jet; jet fleet of; operates a private; private jet fleet" (judge under C7/C11)
+- soft `e_45dd~p_286c` policy_echoes_evidence: "a customer satisfaction; customer satisfaction score; satisfaction score of" (judge under C7/C11)
+- soft `e_81f2~p_286c` policy_echoes_evidence: "charter flights completed; completed last quarter; flights completed last" (judge under C7/C11)
+- soft `e_b70c~p_5e5d` policy_echoes_evidence: "active fleet count; an active fleet; fleet count of" (judge under C7/C11)
+- soft `e_b70c~p_b379` policy_echoes_evidence: "active fleet count; an active fleet; fleet count of" (judge under C7/C11)
+- soft `e_3a89~p_1c6b` policy_echoes_evidence: "annual revenue of" (judge under C7/C11)
+- soft `e_e4b3~p_ad27` policy_echoes_evidence: "active municipal transit; an active municipal; municipal transit license" (judge under C7/C11)
+- soft `e_6599~p_1c6b` policy_echoes_evidence: "safety rating of" (judge under C7/C11)
+- soft `e_f1d5~p_5e5d` policy_echoes_evidence: "percent this year" (judge under C7/C11)
+- soft `e_f1d5~p_1215` policy_echoes_evidence: "an on-time arrival; arrival rate of; on-time arrival rate; percent this year" (judge under C7/C11)
+- soft `e_9942~p_5e5d` policy_echoes_evidence: "a driver training; completion rate of; driver training completion; percent this year; training completion rate" (judge under C7/C11)
+- soft `e_9942~p_1215` policy_echoes_evidence: "percent this year" (judge under C7/C11)
+- soft `u_36c7` retraction_reads_as_hedge: "claims" (judge under C4)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).

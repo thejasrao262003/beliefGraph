@@ -1,0 +1,491 @@
+{
+ "scenario": "F7-016",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.B5": "record_window_not_in_policy 'quarter'",
+  "conditions.B5": "record_window_not_in_policy 'quarter'",
+  "facts.E9": "record_window_not_in_policy 'quarter'",
+  "nodes.E9.text": "record_window_not_in_policy 'quarter'",
+  "nodes.E9.source": "record_window_not_in_policy 'quarter'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B5\": [\n   {\n    \"premise\": \"E9\",\n    \"kind\": \"number\",\n    \"entity\": \"Beacon Transit\",\n    \"relation\": null,\n    \"quantity\": \"daily active routes\",\n    \"comparator\": \">=\",\n    \"threshold\": 120,\n    \"unit\": \"routes\",\n    \"window\": \"quarter\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E9\": {\n   \"entity\": \"Beacon Transit\",\n   \"kind\": \"number\",\n   \"quantity\": \"daily active routes\",\n   \"value\": 150,\n   \"unit\": \"routes\",\n   \"window\": \"quarter\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E9.source\": \"Regional transit commission filing, Beacon Transit\",\n  \"nodes.E9.text\": \"Beacon Transit operates 150 daily active routes this quarter.\",\n  \"policies.B5\": \"Qualification for regional transport growth requires a quarterly schedule of at least 120 daily active routes.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 8268,
+   "output_tokens": 4544,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 8268,
+    "completion_tokens": 4544
+   }
+  },
+  "est_usd": 0.069723,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "policies.B5"
+ ],
+ "merged": {
+  "world": "Travel logistics and account management evaluations for corporate travel partners and transportation operators.",
+  "nodes": {
+   "E1": {
+    "text": "Vanguard Mobility recorded an annual flight investment of $500,000 this year.",
+    "source": "Corporate finance audit report, Vanguard Mobility"
+   },
+   "E2": {
+    "text": "Vanguard Mobility holds a valid ISO 27001 Security Certification.",
+    "source": "Compliance repository, Vanguard Mobility"
+   },
+   "E3": {
+    "text": "Vanguard Mobility logged 40 monthly group bookings this month.",
+    "source": "Monthly travel log, Vanguard Mobility"
+   },
+   "E4": {
+    "text": "Vanguard Mobility logged 12 monthly emergency transport reroutings this month.",
+    "source": "Operational incident log, Vanguard Mobility"
+   },
+   "E5": {
+    "text": "Vanguard Mobility recorded 25 monthly VIP transfers this month.",
+    "source": "Ground dispatch summary, Vanguard Mobility"
+   },
+   "E6": {
+    "text": "AeroJet Charters maintains a fleet count of 12 aircraft.",
+    "source": "Fleet management register, AeroJet Charters"
+   },
+   "E7": {
+    "text": "AeroJet Charters recorded a quarterly punctual departure score of 92 percent this quarter.",
+    "source": "Aviation authority performance report, AeroJet Charters"
+   },
+   "E8": {
+    "text": "AeroJet Charters holds a valid FAA Part 135 Air Carrier Certificate.",
+    "source": "Federal Aviation Administration database"
+   },
+   "E9": {
+    "text": "Beacon Transit operates 150 daily active routes this quarter.",
+    "source": "Regional transit commission filing, Beacon Transit"
+   },
+   "E10": {
+    "text": "Cascade Excursions holds a verified Master Tour Operator License.",
+    "source": "Tourism licensing board registry, Cascade Excursions"
+   },
+   "B1": {
+    "text": "Vanguard Mobility is approved for corporate priority routing."
+   },
+   "B2": {
+    "text": "Vanguard Mobility is designated as a high-volume corporate account."
+   },
+   "D1": {
+    "text": "Vanguard Mobility should be allocated a dedicated key account manager."
+   },
+   "B3": {
+    "text": "Vanguard Mobility qualifies for round-the-clock dispatch support."
+   },
+   "B4": {
+    "text": "AeroJet Charters meets premier flight operator standards."
+   },
+   "D2": {
+    "text": "AeroJet Charters should be selected for elite government charter contracts."
+   },
+   "B5": {
+    "text": "Beacon Transit satisfies regional carrier expansion eligibility."
+   },
+   "B6": {
+    "text": "Cascade Excursions is authorized for multi-region tour packages."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Vanguard Mobility recorded 15 monthly VIP transfers this month.",
+    "source": "Revised ground dispatch statement, Vanguard Mobility"
+   },
+   "U2": {
+    "text": "AeroJet Charters recorded a quarterly punctual departure score of 84 percent this quarter.",
+    "source": "Corrected flight operations audit, AeroJet Charters"
+   },
+   "U3": {
+    "text": "Beacon Transit operates 90 daily active routes this quarter.",
+    "source": "Updated transit board assessment, Beacon Transit"
+   },
+   "U4": {
+    "text": "Vanguard Mobility did not log any monthly emergency transport reroutings this month.",
+    "source": "Verified quarterly audit memo, Vanguard Mobility"
+   }
+  },
+  "policies": {
+   "B1": "Priority transport assignment is granted if annual flight investment reaches at least $400,000 while maintaining a valid ISO 27001 Security Certification.",
+   "B2": "High-volume account status is assigned when monthly group bookings equal 30 or more alongside an active ISO 27001 Security Certification.",
+   "D1": "Assigning a dedicated account representative requires an account to have high-volume account status.",
+   "B3": "Continuous dispatch assistance is available if an organization completes at least 10 monthly emergency transport reroutings, logs 35 or more monthly group bookings, or records a minimum of 20 monthly VIP transfers.",
+   "B4": "Premier operator standing is recognized when an aviation provider maintains a minimum fleet count of 10 aircraft and achieves a quarterly punctual departure score of 90 percent or higher.",
+   "D2": "Recommendation for top-tier official charter agreements requires meeting premier operator standing together with possessing a valid FAA Part 135 Air Carrier Certificate.",
+   "B5": "Qualification for regional transport growth requires a quarterly schedule of at least 120 daily active routes.",
+   "B6": "Authorization to offer multi-territory tour packages is granted to firms holding a verified Master Tour Operator License."
+  },
+  "decoy_policies": [
+   "Preferred lodging partner classification requires maintaining a passenger satisfaction rating of 85 percent or higher across all quarterly surveys.",
+   "Maritime freight endorsement is granted to shipping entities that operate a minimum of 5 cargo vessels."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "holds",
+   "D1": "holds",
+   "B3": "holds",
+   "B4": "fails",
+   "D2": "fails",
+   "B5": "fails",
+   "B6": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Vanguard Mobility",
+    "kind": "number",
+    "quantity": "annual flight investment",
+    "value": 500000,
+    "unit": "USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Vanguard Mobility",
+    "kind": "credential",
+    "quantity": "ISO 27001 Security Certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Vanguard Mobility",
+    "kind": "number",
+    "quantity": "monthly group bookings",
+    "value": 40,
+    "unit": "bookings",
+    "window": "month",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Vanguard Mobility",
+    "kind": "number",
+    "quantity": "monthly emergency transport reroutings",
+    "value": 12,
+    "unit": "reroutings",
+    "window": "month",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Vanguard Mobility",
+    "kind": "number",
+    "quantity": "monthly VIP transfers",
+    "value": 25,
+    "unit": "transfers",
+    "window": "month",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "AeroJet Charters",
+    "kind": "number",
+    "quantity": "fleet count",
+    "value": 12,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "AeroJet Charters",
+    "kind": "number",
+    "quantity": "quarterly punctual departure score",
+    "value": 92,
+    "unit": "percent",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E8": {
+    "entity": "AeroJet Charters",
+    "kind": "credential",
+    "quantity": "FAA Part 135 Air Carrier Certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E9": {
+    "entity": "Beacon Transit",
+    "kind": "number",
+    "quantity": "daily active routes",
+    "value": 150,
+    "unit": "routes",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E10": {
+    "entity": "Cascade Excursions",
+    "kind": "credential",
+    "quantity": "Master Tour Operator License",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Vanguard Mobility",
+    "kind": "number",
+    "quantity": "monthly VIP transfers",
+    "value": 15,
+    "unit": "transfers",
+    "window": "month",
+    "scope": "none"
+   },
+   "U2": {
+    "entity": "AeroJet Charters",
+    "kind": "number",
+    "quantity": "quarterly punctual departure score",
+    "value": 84,
+    "unit": "percent",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "U3": {
+    "entity": "Beacon Transit",
+    "kind": "number",
+    "quantity": "daily active routes",
+    "value": 90,
+    "unit": "routes",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "U4": {
+    "entity": "Vanguard Mobility",
+    "kind": "number",
+    "quantity": "monthly emergency transport reroutings",
+    "value": null,
+    "unit": "reroutings",
+    "window": "month",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Vanguard Mobility",
+     "relation": null,
+     "quantity": "annual flight investment",
+     "comparator": ">=",
+     "threshold": 400000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "credential",
+     "entity": "Vanguard Mobility",
+     "relation": null,
+     "quantity": "ISO 27001 Security Certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Vanguard Mobility",
+     "relation": null,
+     "quantity": "monthly group bookings",
+     "comparator": ">=",
+     "threshold": 30,
+     "unit": "bookings",
+     "window": "month",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "credential",
+     "entity": "Vanguard Mobility",
+     "relation": null,
+     "quantity": "ISO 27001 Security Certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Vanguard Mobility",
+     "relation": null,
+     "quantity": "high-volume account status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Vanguard Mobility",
+     "relation": null,
+     "quantity": "monthly emergency transport reroutings",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "reroutings",
+     "window": "month",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Vanguard Mobility",
+     "relation": null,
+     "quantity": "monthly group bookings",
+     "comparator": ">=",
+     "threshold": 35,
+     "unit": "bookings",
+     "window": "month",
+     "scope": "none"
+    },
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Vanguard Mobility",
+     "relation": null,
+     "quantity": "monthly VIP transfers",
+     "comparator": ">=",
+     "threshold": 20,
+     "unit": "transfers",
+     "window": "month",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "AeroJet Charters",
+     "relation": null,
+     "quantity": "fleet count",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "AeroJet Charters",
+     "relation": null,
+     "quantity": "quarterly punctual departure score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "D2": [
+    {
+     "premise": "B4",
+     "kind": "conclusion",
+     "entity": "AeroJet Charters",
+     "relation": null,
+     "quantity": "premier operator standing",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E8",
+     "kind": "credential",
+     "entity": "AeroJet Charters",
+     "relation": null,
+     "quantity": "FAA Part 135 Air Carrier Certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E9",
+     "kind": "number",
+     "entity": "Beacon Transit",
+     "relation": null,
+     "quantity": "daily active routes",
+     "comparator": ">=",
+     "threshold": 120,
+     "unit": "routes",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "E10",
+     "kind": "credential",
+     "entity": "Cascade Excursions",
+     "relation": null,
+     "quantity": "Master Tour Operator License",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Vanguard Mobility meets both required conditions with an annual flight investment of $500,000 against a threshold of $400,000 and a valid ISO 27001 Security Certification."
+   ],
+   "B2": [
+    "Vanguard Mobility satisfies the requirements by achieving 40 monthly group bookings against the required 30 and maintaining a valid ISO 27001 Security Certification."
+   ],
+   "D1": [
+    "Vanguard Mobility holds high-volume account status, fulfilling the sole requirement for allocating a dedicated account representative."
+   ],
+   "B3": [
+    "Vanguard Mobility qualifies through logging 12 monthly emergency transport reroutings, exceeding the minimum requirement of 10.",
+    "Vanguard Mobility qualifies through achieving 40 monthly group bookings, exceeding the minimum requirement of 35.",
+    "Vanguard Mobility qualifies through recording 25 monthly VIP transfers, exceeding the minimum requirement of 20."
+   ],
+   "B4": [
+    "AeroJet Charters meets the standard with a fleet count of 12 against a threshold of 10 and a quarterly punctual departure score of 92 percent against a required 90 percent."
+   ],
+   "D2": [
+    "AeroJet Charters holds premier operator standing and maintains a valid FAA Part 135 Air Carrier Certificate, satisfying both required conditions."
+   ],
+   "B5": [
+    "Beacon Transit fulfills the criterion by operating 150 daily active routes during the quarter against the threshold of 120."
+   ],
+   "B6": [
+    "Cascade Excursions holds a verified Master Tour Operator License, satisfying the required credential."
+   ]
+  }
+ }
+}

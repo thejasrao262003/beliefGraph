@@ -1,0 +1,673 @@
+{
+ "scenario": "F7-022",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "nodes.B10.text": "reliability_word 'reliability' (the word 'reliability' may not appear in any text)",
+  "policies.B10": "reliability_word 'reliability' (the word 'reliability' may not appear in any text)",
+  "facts.E5": "record_value_not_in_text '25'; record_threshold_not_in_policy '20'",
+  "nodes.E5.text": "record_value_not_in_text '25'; record_threshold_not_in_policy '20'",
+  "nodes.E5.source": "record_value_not_in_text '25'; record_threshold_not_in_policy '20'",
+  "policies.B5": "record_threshold_not_in_policy '20'",
+  "conditions.B5": "record_threshold_not_in_policy '20'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B5\": [\n   {\n    \"premise\": \"E4\",\n    \"kind\": \"number\",\n    \"entity\": \"Blue Sky Charters\",\n    \"relation\": null,\n    \"quantity\": \"private jet fleet\",\n    \"comparator\": \">=\",\n    \"threshold\": 15,\n    \"unit\": \"jets\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E5\",\n    \"kind\": \"number\",\n    \"entity\": \"Blue Sky Charters\",\n    \"relation\": null,\n    \"quantity\": \"annual revenue\",\n    \"comparator\": \">=\",\n    \"threshold\": 20000000,\n    \"unit\": \"USD\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E6\",\n    \"kind\": \"number\",\n    \"entity\": \"Blue Sky Charters\",\n    \"relation\": null,\n    \"quantity\": \"ARGUS safety rating\",\n    \"comparator\": \">=\",\n    \"threshold\": 5,\n    \"unit\": \"stars\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E5\": {\n   \"entity\": \"Blue Sky Charters\",\n   \"kind\": \"number\",\n   \"quantity\": \"annual revenue\",\n   \"value\": 25000000,\n   \"unit\": \"USD\",\n   \"window\": \"year\",\n   \"scope\": \"none\"\n  },\n  \"nodes.B10.text\": \"Nomad Rail satisfies passenger punctuality benchmark.\",\n  \"nodes.E5.source\": \"Partner email from Blue Sky Charters finance officer.\",\n  \"nodes.E5.text\": \"Blue Sky Charters reported annual revenue of 25,000,000 USD this year.\",\n  \"policies.B10\": \"Passenger punctuality benchmarks are satisfied when a train operator achieves an on-time arrival rate of at least 90 percent this year.\",\n  \"policies.B5\": \"Criteria for high-volume operators are met if a provider maintains a private jet fleet of at least 15 jets, or reports annual revenue of at least 20,000,000 USD this year, or holds an ARGUS safety rating of at least 5 stars.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 10024,
+   "output_tokens": 12541,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 10024,
+    "completion_tokens": 12541
+   }
+  },
+  "est_usd": 0.16364025,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.B5[1].threshold",
+  "conditions.B5[1].unit",
+  "facts.E5.unit",
+  "facts.E5.value",
+  "nodes.B10.text",
+  "nodes.E5.text",
+  "policies.B10",
+  "policies.B5"
+ ],
+ "merged": {
+  "world": "Evaluating regional transportation providers for contract eligibility, safety accreditation, and expansion grants.",
+  "nodes": {
+   "E1": {
+    "text": "Apex Tours maintains an active fleet count of 15 coaches.",
+    "source": "Internal fleet memo from Apex Tours depot manager."
+   },
+   "E2": {
+    "text": "Apex Tours achieved a driver training completion rate of 92 percent this year.",
+    "source": "Certified audit report from the National Transport Safety Board."
+   },
+   "E3": {
+    "text": "Apex Tours holds an active ISO 39001 certification.",
+    "source": "Official certification registry of Bureau Veritas."
+   },
+   "E4": {
+    "text": "Blue Sky Charters operates a private jet fleet of 18 jets.",
+    "source": "Staff memo from Blue Sky Charters flight operations."
+   },
+   "E5": {
+    "text": "Blue Sky Charters reported annual revenue of 25,000,000 USD this year.",
+    "source": "Partner email from Blue Sky Charters finance officer."
+   },
+   "E6": {
+    "text": "Blue Sky Charters holds an ARGUS safety rating of 5 stars.",
+    "source": "Official audit certificate from the ARGUS Safety Registry."
+   },
+   "E7": {
+    "text": "Blue Sky Charters maintains an active Wyvern Wingman certificate.",
+    "source": "Official verification portal of Wyvern Aviation."
+   },
+   "E8": {
+    "text": "Blue Sky Charters logged 120 charter flights completed last quarter.",
+    "source": "Internal report from Blue Sky Charters flight dispatch."
+   },
+   "E9": {
+    "text": "Blue Sky Charters holds a customer satisfaction score of 94 percent.",
+    "source": "Quarterly summary from Blue Sky Charters customer service."
+   },
+   "E10": {
+    "text": "Veloce Shuttles holds an active municipal transit license.",
+    "source": "Official database of the City Transit Authority."
+   },
+   "E11": {
+    "text": "Nomad Rail recorded an on-time arrival rate of 96 percent this year.",
+    "source": "Published performance metrics report from the Department of Transportation."
+   },
+   "B1": {
+    "text": "Apex Tours satisfies basic operational fleet capacity requirements."
+   },
+   "B2": {
+    "text": "Apex Tours meets safety compliance standards."
+   },
+   "B3": {
+    "text": "Apex Tours qualifies for preferred carrier status."
+   },
+   "B4": {
+    "text": "Apex Tours receives top-tier safety clearance."
+   },
+   "D1": {
+    "text": "Apex Tours is selected for the cross-border charter contract."
+   },
+   "B5": {
+    "text": "Blue Sky Charters meets high-volume operator criteria."
+   },
+   "B6": {
+    "text": "Blue Sky Charters achieves elite charter standing."
+   },
+   "D2": {
+    "text": "Blue Sky Charters is assigned the executive VIP transport agreement."
+   },
+   "B7": {
+    "text": "Blue Sky Charters qualifies for regional expansion support."
+   },
+   "B8": {
+    "text": "Blue Sky Charters qualifies for preferred hangar leasing."
+   },
+   "D3": {
+    "text": "Blue Sky Charters is approved for airport terminal expansion."
+   },
+   "B9": {
+    "text": "Veloce Shuttles is authorized for city bus routes."
+   },
+   "B10": {
+    "text": "Nomad Rail satisfies passenger punctuality benchmark."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Tax audit filings indicate Blue Sky Charters annual revenue figure is currently subject to official review.",
+    "source": "Official press release from the State Department of Revenue."
+   },
+   "U2": {
+    "text": "A certified financial audit confirms Blue Sky Charters did not report annual revenue of 25 million USD this year.",
+    "source": "Signed financial audit report from Deloitte."
+   },
+   "U3": {
+    "text": "Official aviation registry records show Blue Sky Charters does not operate a private jet fleet of 18 jets.",
+    "source": "Regulatory compliance report from the Federal Aviation Administration."
+   },
+   "U4": {
+    "text": "An unverified social media post claims Apex Tours lost its ISO 39001 certification.",
+    "source": "Anonymous comment on a regional transit discussion board."
+   },
+   "U5": {
+    "text": "A blog post asserts Blue Sky Charters did not log 120 charter flights completed last quarter.",
+    "source": "Unverified post on an aviation enthusiast blog."
+   },
+   "U6": {
+    "text": "The City Transit Authority officially revoked Veloce Shuttles municipal transit license.",
+    "source": "Official revocation notice from the City Transit Authority."
+   }
+  },
+  "policies": {
+   "B1": "An operator fulfills fundamental fleet capacity standards when maintaining an active fleet count of at least 10 coaches.",
+   "B2": "Safety and compliance standards are fulfilled when a transit firm records a driver training completion rate of at least 90 percent this year together with an active fleet count of at least 12 coaches.",
+   "B3": "An operator attains preferred carrier ranking if it fulfills fundamental fleet capacity standards and concurrently satisfies safety and compliance standards.",
+   "B4": "Top-level safety clearance is granted when an operator holds preferred carrier ranking along with an active ISO 39001 certification.",
+   "D1": "Selection for cross-border transit assignments requires a carrier to possess top-level safety clearance.",
+   "B5": "Criteria for high-volume operators are met if a provider maintains a private jet fleet of at least 15 jets, or reports annual revenue of at least 20,000,000 USD this year, or holds an ARGUS safety rating of at least 5 stars.",
+   "B6": "Charter standing at the elite level is awarded when an aviation firm fulfills criteria for high-volume operators while possessing an active Wyvern Wingman certificate.",
+   "D2": "Awarding of executive VIP transportation agreements requires a charter company to demonstrate charter standing at the elite level.",
+   "B7": "Regional expansion funding eligibility is granted if a charter firm recorded at least 100 charter flights completed last quarter, operates a private jet fleet of at least 15 jets, and maintains a customer satisfaction score of at least 90 percent.",
+   "B8": "Preferred hangar lease eligibility is extended to any flight company that possesses regional expansion funding eligibility.",
+   "D3": "Terminal expansion at airports is approved for aviation businesses that secure preferred hangar lease eligibility.",
+   "B9": "Authorization for urban transit routes is granted to any transport vendor holding an active municipal transit license.",
+   "B10": "Passenger punctuality benchmarks are satisfied when a train operator achieves an on-time arrival rate of at least 90 percent this year."
+  },
+  "decoy_policies": [
+   "Maritime freight permits are issued to shipping lines maintaining an international vessel security certification.",
+   "Eco-friendly lodging accreditation is conferred on hospitality venues demonstrating an annual energy reduction rate of at least 15 percent."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "holds",
+   "B3": "holds",
+   "B4": "undetermined",
+   "D1": "undetermined",
+   "B5": "holds",
+   "B6": "holds",
+   "D2": "holds",
+   "B7": "fails",
+   "B8": "fails",
+   "D3": "fails",
+   "B9": "fails",
+   "B10": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Apex Tours",
+    "kind": "number",
+    "quantity": "active fleet count",
+    "value": 15,
+    "unit": "coaches",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Apex Tours",
+    "kind": "number",
+    "quantity": "driver training completion rate",
+    "value": 92,
+    "unit": "percent",
+    "window": "year",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Apex Tours",
+    "kind": "credential",
+    "quantity": "ISO 39001 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Blue Sky Charters",
+    "kind": "number",
+    "quantity": "private jet fleet",
+    "value": 18,
+    "unit": "jets",
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Blue Sky Charters",
+    "kind": "number",
+    "quantity": "annual revenue",
+    "value": 25000000,
+    "unit": "USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Blue Sky Charters",
+    "kind": "number",
+    "quantity": "ARGUS safety rating",
+    "value": 5,
+    "unit": "stars",
+    "window": "none",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Blue Sky Charters",
+    "kind": "credential",
+    "quantity": "Wyvern Wingman certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E8": {
+    "entity": "Blue Sky Charters",
+    "kind": "number",
+    "quantity": "charter flights completed",
+    "value": 120,
+    "unit": "flights",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E9": {
+    "entity": "Blue Sky Charters",
+    "kind": "number",
+    "quantity": "customer satisfaction score",
+    "value": 94,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "E10": {
+    "entity": "Veloce Shuttles",
+    "kind": "credential",
+    "quantity": "municipal transit license",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E11": {
+    "entity": "Nomad Rail",
+    "kind": "number",
+    "quantity": "on-time arrival rate",
+    "value": 96,
+    "unit": "percent",
+    "window": "year",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Blue Sky Charters",
+    "kind": "number",
+    "quantity": "annual revenue",
+    "value": null,
+    "unit": "million USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "U2": {
+    "entity": "Blue Sky Charters",
+    "kind": "number",
+    "quantity": "annual revenue",
+    "value": null,
+    "unit": "million USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "U3": {
+    "entity": "Blue Sky Charters",
+    "kind": "number",
+    "quantity": "private jet fleet",
+    "value": null,
+    "unit": "jets",
+    "window": "none",
+    "scope": "none"
+   },
+   "U4": {
+    "entity": "Apex Tours",
+    "kind": "credential",
+    "quantity": "ISO 39001 certification",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U5": {
+    "entity": "Blue Sky Charters",
+    "kind": "number",
+    "quantity": "charter flights completed",
+    "value": null,
+    "unit": "flights",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "U6": {
+    "entity": "Veloce Shuttles",
+    "kind": "credential",
+    "quantity": "municipal transit license",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "active fleet count",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "coaches",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "driver training completion rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "active fleet count",
+     "comparator": ">=",
+     "threshold": 12,
+     "unit": "coaches",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "safety and compliance standards",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "fundamental fleet capacity standards",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "preferred carrier ranking",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "ISO 39001 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B4",
+     "kind": "conclusion",
+     "entity": "Apex Tours",
+     "relation": null,
+     "quantity": "top-level safety clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Blue Sky Charters",
+     "relation": null,
+     "quantity": "private jet fleet",
+     "comparator": ">=",
+     "threshold": 15,
+     "unit": "jets",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Blue Sky Charters",
+     "relation": null,
+     "quantity": "annual revenue",
+     "comparator": ">=",
+     "threshold": 20000000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Blue Sky Charters",
+     "relation": null,
+     "quantity": "ARGUS safety rating",
+     "comparator": ">=",
+     "threshold": 5,
+     "unit": "stars",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "B5",
+     "kind": "conclusion",
+     "entity": "Blue Sky Charters",
+     "relation": null,
+     "quantity": "criteria for high-volume operators",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E7",
+     "kind": "credential",
+     "entity": "Blue Sky Charters",
+     "relation": null,
+     "quantity": "Wyvern Wingman certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D2": [
+    {
+     "premise": "B6",
+     "kind": "conclusion",
+     "entity": "Blue Sky Charters",
+     "relation": null,
+     "quantity": "charter standing at the elite level",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B7": [
+    {
+     "premise": "E8",
+     "kind": "number",
+     "entity": "Blue Sky Charters",
+     "relation": null,
+     "quantity": "charter flights completed",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "flights",
+     "window": "quarter",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Blue Sky Charters",
+     "relation": null,
+     "quantity": "private jet fleet",
+     "comparator": ">=",
+     "threshold": 15,
+     "unit": "jets",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E9",
+     "kind": "number",
+     "entity": "Blue Sky Charters",
+     "relation": null,
+     "quantity": "customer satisfaction score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B8": [
+    {
+     "premise": "B7",
+     "kind": "conclusion",
+     "entity": "Blue Sky Charters",
+     "relation": null,
+     "quantity": "regional expansion funding eligibility",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D3": [
+    {
+     "premise": "B8",
+     "kind": "conclusion",
+     "entity": "Blue Sky Charters",
+     "relation": null,
+     "quantity": "preferred hangar lease eligibility",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B9": [
+    {
+     "premise": "E10",
+     "kind": "credential",
+     "entity": "Veloce Shuttles",
+     "relation": null,
+     "quantity": "municipal transit license",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B10": [
+    {
+     "premise": "E11",
+     "kind": "number",
+     "entity": "Nomad Rail",
+     "relation": null,
+     "quantity": "on-time arrival rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Apex Tours operates an active fleet count of 15 coaches, exceeding the required 10 coaches."
+   ],
+   "B2": [
+    "Apex Tours achieved a 92 percent driver training completion rate and operates 15 active coaches, meeting the 90 percent rate and 12 coach thresholds."
+   ],
+   "B3": [
+    "Apex Tours satisfies fundamental fleet capacity standards and safety and compliance standards."
+   ],
+   "B4": [
+    "Apex Tours holds preferred carrier ranking and maintains an active ISO 39001 certification."
+   ],
+   "D1": [
+    "Apex Tours holds top-level safety clearance."
+   ],
+   "B5": [
+    "Blue Sky Charters operates 18 private jets, satisfying the 15 jet requirement.",
+    "Blue Sky Charters generated 25 million USD in annual revenue this year, meeting the 20 million USD threshold.",
+    "Blue Sky Charters maintains a 5 star ARGUS safety rating, fulfilling the 5 star requirement."
+   ],
+   "B6": [
+    "Blue Sky Charters meets criteria for high-volume operators and holds an active Wyvern Wingman certificate."
+   ],
+   "D2": [
+    "Blue Sky Charters demonstrates charter standing at the elite level."
+   ],
+   "B7": [
+    "Blue Sky Charters logged 120 charter flights last quarter, operates 18 private jets, and holds a 94 percent customer satisfaction score, meeting all three criteria."
+   ],
+   "B8": [
+    "Blue Sky Charters possesses regional expansion funding eligibility."
+   ],
+   "D3": [
+    "Blue Sky Charters holds preferred hangar lease eligibility."
+   ],
+   "B9": [
+    "Veloce Shuttles holds an active municipal transit license."
+   ],
+   "B10": [
+    "Nomad Rail recorded an on-time arrival rate of 96 percent this year, exceeding the 90 percent benchmark."
+   ]
+  }
+ }
+}

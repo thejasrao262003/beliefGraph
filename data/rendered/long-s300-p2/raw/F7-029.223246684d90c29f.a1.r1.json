@@ -1,0 +1,890 @@
+{
+ "scenario": "F7-029",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.B7": "record_threshold_not_in_policy '10000000'; record_window_not_in_policy 'year'",
+  "conditions.B7": "record_threshold_not_in_policy '10000000'; record_window_not_in_policy 'year'",
+  "facts.E5": "record_threshold_not_in_policy '10000000'; record_window_not_in_policy 'year'",
+  "nodes.E5.text": "record_threshold_not_in_policy '10000000'; record_window_not_in_policy 'year'",
+  "nodes.E5.source": "record_threshold_not_in_policy '10000000'; record_window_not_in_policy 'year'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B7\": [\n   {\n    \"premise\": \"E5\",\n    \"kind\": \"number\",\n    \"entity\": \"Beacon Holdings LLC\",\n    \"relation\": null,\n    \"quantity\": \"annual turnover\",\n    \"comparator\": \">=\",\n    \"threshold\": 10000000,\n    \"unit\": \"USD\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E7\",\n    \"kind\": \"credential\",\n    \"entity\": \"Beacon Holdings LLC\",\n    \"relation\": null,\n    \"quantity\": \"commercial banking charter\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E8\",\n    \"kind\": \"number\",\n    \"entity\": \"Beacon Holdings LLC\",\n    \"relation\": null,\n    \"quantity\": \"international credit rating\",\n    \"comparator\": \">=\",\n    \"threshold\": 75,\n    \"unit\": \"points\",\n    \"window\": \"none\",\n    \"scope\": \"international\"\n   }\n  ],\n  \"facts.E5\": {\n   \"entity\": \"Beacon Holdings LLC\",\n   \"kind\": \"number\",\n   \"quantity\": \"annual turnover\",\n   \"value\": 15000000,\n   \"unit\": \"USD\",\n   \"window\": \"year\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E5.source\": \"Financial statements summary from corporate accountants.\",\n  \"nodes.E5.text\": \"Beacon Holdings LLC recorded annual turnover of 15,000,000 USD.\",\n  \"policies.B7\": \"Verification credibility status is established if a firm generates turnover of at least 10,000,000 USD per year, holds a commercial banking charter, or maintains an international credit rating of at least 75 points.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 12163,
+   "output_tokens": 4678,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 12163,
+    "completion_tokens": 4678
+   }
+  },
+  "est_usd": 0.07999425,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "policies.B7"
+ ],
+ "merged": {
+  "world": "Financial institutions undergo Know-Your-Customer compliance and solvency evaluations across multiple jurisdictions.",
+  "nodes": {
+   "E1": {
+    "text": "Apex Trading Ltd maintains paid-in equity of 5,000,000 USD.",
+    "source": "Verified financial audit report filed with the corporate registry."
+   },
+   "E2": {
+    "text": "Apex Trading Ltd holds a regulatory risk score of 85 points.",
+    "source": "Compliance assessment summary from the national financial authority."
+   },
+   "E3": {
+    "text": "Apex Trading Ltd maintains an international brokerage licence.",
+    "source": "Official register of international financial service providers."
+   },
+   "E4": {
+    "text": "Apex Trading Ltd employs 12 certified compliance officers.",
+    "source": "Internal staffing audit confirmed by human resources."
+   },
+   "E5": {
+    "text": "Beacon Holdings LLC recorded annual turnover of 15,000,000 USD.",
+    "source": "Financial statements summary from corporate accountants."
+   },
+   "E6": {
+    "text": "Beacon Holdings LLC maintains an operational risk rating of 75 points.",
+    "source": "Risk evaluation report from an accredited agency."
+   },
+   "E7": {
+    "text": "Beacon Holdings LLC holds an active commercial banking charter.",
+    "source": "State banking commission administrative record."
+   },
+   "E8": {
+    "text": "Beacon Holdings LLC maintains an international credit rating of 80 points.",
+    "source": "Global credit rating agency report."
+   },
+   "E9": {
+    "text": "Apex Trading Ltd holds an ISO 27001 security certification.",
+    "source": "Certificate registry from the international standards organization."
+   },
+   "E10": {
+    "text": "Apex Trading Ltd maintains a liquid cash reserve of 2,000,000 USD.",
+    "source": "Verified bank statement provided during annual review."
+   },
+   "E11": {
+    "text": "Beacon Holdings LLC holds an institutional tier 1 status.",
+    "source": "Central bank clearing house member directory."
+   },
+   "E12": {
+    "text": "Beacon Holdings LLC conducted 5 AML compliance audits this year.",
+    "source": "Annual compliance activity log submitted to regulators."
+   },
+   "E13": {
+    "text": "Beacon Holdings LLC maintains a corporate guarantee of 10,000,000 USD.",
+    "source": "Signed indemnity bond filed with clearing house."
+   },
+   "E14": {
+    "text": "Crestview Logistics Inc maintains an emergency liquidity reserve of 500,000 USD.",
+    "source": "Verified bank balance statement from financial institution."
+   },
+   "E15": {
+    "text": "Driftwood Capital Management holds 8,000,000 USD in managed assets.",
+    "source": "Audited financial balance sheet submitted to securities commission."
+   },
+   "B1": {
+    "text": "Apex Trading Ltd holds capital reserve compliance status."
+   },
+   "B2": {
+    "text": "Apex Trading Ltd satisfies primary solvency standards."
+   },
+   "D1": {
+    "text": "Apex Trading Ltd is approved for institutional trading clearance."
+   },
+   "B3": {
+    "text": "Apex Trading Ltd meets cross-border authorization criteria."
+   },
+   "B4": {
+    "text": "Apex Trading Ltd qualifies for international account operations."
+   },
+   "D2": {
+    "text": "Apex Trading Ltd is designated as an overseas market participant."
+   },
+   "B5": {
+    "text": "Beacon Holdings LLC satisfies high-revenue qualification."
+   },
+   "B6": {
+    "text": "Beacon Holdings LLC meets tier-one commercial standing."
+   },
+   "D3": {
+    "text": "Beacon Holdings LLC is approved for expedited underwriting."
+   },
+   "B7": {
+    "text": "Beacon Holdings LLC establishes verification credibility."
+   },
+   "D4": {
+    "text": "Beacon Holdings LLC is granted priority processing privileges."
+   },
+   "B8": {
+    "text": "Apex Trading Ltd satisfies baseline onboarding requirements."
+   },
+   "D5": {
+    "text": "Apex Trading Ltd is granted corporate account access."
+   },
+   "B9": {
+    "text": "Beacon Holdings LLC satisfies comprehensive governance standards."
+   },
+   "B10": {
+    "text": "Beacon Holdings LLC achieves corporate syndicate eligibility."
+   },
+   "D6": {
+    "text": "Beacon Holdings LLC is authorized for prime brokerage services."
+   },
+   "B11": {
+    "text": "Crestview Logistics Inc satisfies short-term solvency requirements."
+   },
+   "B12": {
+    "text": "Driftwood Capital Management meets fund manager accreditation threshold."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An official audit confirmed Apex Trading Ltd does not hold an ISO 27001 security certification.",
+    "source": "Formal notification from the accreditation board."
+   },
+   "U2": {
+    "text": "Apex Trading Ltd maintains paid-in equity of 4,000,000 USD.",
+    "source": "Updated financial review from certified public accountants."
+   },
+   "U3": {
+    "text": "A regulatory spokesperson hedged whether Apex Trading Ltd holds an ISO 27001 security certification.",
+    "source": "Press conference briefing from the regulatory oversight committee."
+   },
+   "U4": {
+    "text": "Apex Trading Ltd maintains paid-in equity of 3,000,000 USD.",
+    "source": "Corrected regulatory filing submitted by Apex Trading Ltd."
+   },
+   "U5": {
+    "text": "Apex Trading Ltd's paid-in equity declaration was revoked by banking regulators.",
+    "source": "Official enforcement notice from the national banking commission."
+   },
+   "U6": {
+    "text": "Regulatory examiners hedged whether Beacon Holdings LLC holds an active commercial banking charter.",
+    "source": "Interim inquiry bulletin from the banking supervisor."
+   },
+   "U7": {
+    "text": "A supervisory notice hedged whether Beacon Holdings LLC holds an institutional tier 1 status.",
+    "source": "Regulatory monitor update circular."
+   },
+   "U8": {
+    "text": "Driftwood Capital Management holds 3,000,000 USD in managed assets.",
+    "source": "Revised asset disclosure filing certified by external auditors."
+   }
+  },
+  "policies": {
+   "B1": "An applicant achieves capital reserve qualification when paid-in equity reaches at least 4,000,000 USD.",
+   "B2": "Primary solvency clearance is granted to an applicant that achieves capital reserve qualification.",
+   "D1": "Institutional trading approval is granted to an entity with primary solvency clearance that maintains a regulatory risk score of at least 80 points.",
+   "B3": "Cross-border authorization is conferred when an enterprise holds an international brokerage licence.",
+   "B4": "International account permission is granted to a candidate holding cross-border authorization.",
+   "D2": "Overseas market participation is awarded to a candidate with international account permission that employs at least 10 certified compliance officers.",
+   "B5": "High-revenue designation is attained when yearly turnover reaches at least 10,000,000 USD.",
+   "B6": "Tier-one commercial status is conferred upon an entity securing high-revenue designation.",
+   "D3": "Expedited underwriting clearance requires tier-one commercial status together with an operational risk rating of at least 70 points.",
+   "B7": "Verification credibility status is established if a firm generates turnover of at least 10,000,000 USD per year, holds a commercial banking charter, or maintains an international credit rating of at least 75 points.",
+   "D4": "Priority processing approval is awarded to any firm holding verification credibility status.",
+   "B8": "Baseline onboarding clearance requires an enterprise to satisfy at least one condition: maintaining paid-in equity of 4,000,000 USD or higher, holding an international brokerage licence, or maintaining an ISO 27001 security certification.",
+   "D5": "Corporate account authorization is extended to an enterprise with baseline onboarding clearance that holds a liquid cash reserve of at least 1,500,000 USD.",
+   "B9": "Comprehensive governance certification is granted when an entity with yearly turnover of 10,000,000 USD or more holds institutional tier 1 status and conducts at least 4 AML compliance audits per year.",
+   "B10": "Corporate syndicate clearance is granted to a firm with comprehensive governance certification that maintains a corporate guarantee of at least 8,000,000 USD.",
+   "D6": "Prime brokerage access is extended to any client with corporate syndicate clearance.",
+   "B11": "Short-term solvency clearance is achieved when an enterprise maintains an emergency liquidity reserve of at least 400,000 USD.",
+   "B12": "Accreditation as a fund manager is granted when managed assets equal or exceed 5,000,000 USD."
+  },
+  "decoy_policies": [
+   "A wholesale currency desk obtains automated routing capability when daily transactional volume exceeds 50,000,000 EUR.",
+   "A custodian entity receives depository recognition when maintaining pledged collateral of at least 15,000,000 GBP."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "B2": "fails",
+   "D1": "fails",
+   "B3": "holds",
+   "B4": "holds",
+   "D2": "holds",
+   "B5": "holds",
+   "B6": "holds",
+   "D3": "holds",
+   "B7": "holds",
+   "D4": "holds",
+   "B8": "holds",
+   "D5": "holds",
+   "B9": "undetermined",
+   "B10": "undetermined",
+   "D6": "undetermined",
+   "B11": "holds",
+   "B12": "fails"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Apex Trading Ltd",
+    "kind": "number",
+    "quantity": "paid-in equity",
+    "value": 5000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Apex Trading Ltd",
+    "kind": "number",
+    "quantity": "regulatory risk score",
+    "value": 85,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Apex Trading Ltd",
+    "kind": "credential",
+    "quantity": "international brokerage licence",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "international"
+   },
+   "E4": {
+    "entity": "Apex Trading Ltd",
+    "kind": "number",
+    "quantity": "certified compliance officers",
+    "value": 12,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Beacon Holdings LLC",
+    "kind": "number",
+    "quantity": "annual turnover",
+    "value": 15000000,
+    "unit": "USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Beacon Holdings LLC",
+    "kind": "number",
+    "quantity": "operational risk rating",
+    "value": 75,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Beacon Holdings LLC",
+    "kind": "credential",
+    "quantity": "commercial banking charter",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E8": {
+    "entity": "Beacon Holdings LLC",
+    "kind": "number",
+    "quantity": "international credit rating",
+    "value": 80,
+    "unit": "points",
+    "window": "none",
+    "scope": "international"
+   },
+   "E9": {
+    "entity": "Apex Trading Ltd",
+    "kind": "credential",
+    "quantity": "ISO 27001 security certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E10": {
+    "entity": "Apex Trading Ltd",
+    "kind": "number",
+    "quantity": "liquid cash reserve",
+    "value": 2000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E11": {
+    "entity": "Beacon Holdings LLC",
+    "kind": "credential",
+    "quantity": "institutional tier 1 status",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E12": {
+    "entity": "Beacon Holdings LLC",
+    "kind": "number",
+    "quantity": "AML compliance audits",
+    "value": 5,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "E13": {
+    "entity": "Beacon Holdings LLC",
+    "kind": "number",
+    "quantity": "corporate guarantee",
+    "value": 10000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E14": {
+    "entity": "Crestview Logistics Inc",
+    "kind": "number",
+    "quantity": "emergency liquidity reserve",
+    "value": 500000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E15": {
+    "entity": "Driftwood Capital Management",
+    "kind": "number",
+    "quantity": "managed assets",
+    "value": 8000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Apex Trading Ltd",
+    "kind": "credential",
+    "quantity": "ISO 27001 security certification",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U2": {
+    "entity": "Apex Trading Ltd",
+    "kind": "number",
+    "quantity": "paid-in equity",
+    "value": 4000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "U3": {
+    "entity": "Apex Trading Ltd",
+    "kind": "credential",
+    "quantity": "ISO 27001 security certification",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U4": {
+    "entity": "Apex Trading Ltd",
+    "kind": "number",
+    "quantity": "paid-in equity",
+    "value": 3000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "U5": {
+    "entity": "Apex Trading Ltd",
+    "kind": "number",
+    "quantity": "paid-in equity",
+    "value": null,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "U6": {
+    "entity": "Beacon Holdings LLC",
+    "kind": "credential",
+    "quantity": "commercial banking charter",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U7": {
+    "entity": "Beacon Holdings LLC",
+    "kind": "credential",
+    "quantity": "institutional tier 1 status",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U8": {
+    "entity": "Driftwood Capital Management",
+    "kind": "number",
+    "quantity": "managed assets",
+    "value": 3000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Apex Trading Ltd",
+     "relation": null,
+     "quantity": "paid-in equity",
+     "comparator": ">=",
+     "threshold": 4000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Apex Trading Ltd",
+     "relation": null,
+     "quantity": "paid-in equity",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Apex Trading Ltd",
+     "relation": null,
+     "quantity": "paid-in equity",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Apex Trading Ltd",
+     "relation": null,
+     "quantity": "regulatory risk score",
+     "comparator": ">=",
+     "threshold": 80,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "Apex Trading Ltd",
+     "relation": null,
+     "quantity": "international brokerage licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "international"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Apex Trading Ltd",
+     "relation": null,
+     "quantity": "international brokerage licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D2": [
+    {
+     "premise": "B4",
+     "kind": "conclusion",
+     "entity": "Apex Trading Ltd",
+     "relation": null,
+     "quantity": "international brokerage licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Apex Trading Ltd",
+     "relation": null,
+     "quantity": "certified compliance officers",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Beacon Holdings LLC",
+     "relation": null,
+     "quantity": "annual turnover",
+     "comparator": ">=",
+     "threshold": 10000000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "B5",
+     "kind": "conclusion",
+     "entity": "Beacon Holdings LLC",
+     "relation": null,
+     "quantity": "annual turnover",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D3": [
+    {
+     "premise": "B6",
+     "kind": "conclusion",
+     "entity": "Beacon Holdings LLC",
+     "relation": null,
+     "quantity": "annual turnover",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Beacon Holdings LLC",
+     "relation": null,
+     "quantity": "operational risk rating",
+     "comparator": ">=",
+     "threshold": 70,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B7": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Beacon Holdings LLC",
+     "relation": null,
+     "quantity": "annual turnover",
+     "comparator": ">=",
+     "threshold": 10000000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E7",
+     "kind": "credential",
+     "entity": "Beacon Holdings LLC",
+     "relation": null,
+     "quantity": "commercial banking charter",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E8",
+     "kind": "number",
+     "entity": "Beacon Holdings LLC",
+     "relation": null,
+     "quantity": "international credit rating",
+     "comparator": ">=",
+     "threshold": 75,
+     "unit": "points",
+     "window": "none",
+     "scope": "international"
+    }
+   ],
+   "D4": [
+    {
+     "premise": "B7",
+     "kind": "conclusion",
+     "entity": "Beacon Holdings LLC",
+     "relation": null,
+     "quantity": "annual turnover",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B8": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Apex Trading Ltd",
+     "relation": null,
+     "quantity": "paid-in equity",
+     "comparator": ">=",
+     "threshold": 4000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "Apex Trading Ltd",
+     "relation": null,
+     "quantity": "international brokerage licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "international"
+    },
+    {
+     "premise": "E9",
+     "kind": "credential",
+     "entity": "Apex Trading Ltd",
+     "relation": null,
+     "quantity": "ISO 27001 security certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D5": [
+    {
+     "premise": "B8",
+     "kind": "conclusion",
+     "entity": "Apex Trading Ltd",
+     "relation": null,
+     "quantity": "paid-in equity",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E10",
+     "kind": "number",
+     "entity": "Apex Trading Ltd",
+     "relation": null,
+     "quantity": "liquid cash reserve",
+     "comparator": ">=",
+     "threshold": 1500000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B9": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Beacon Holdings LLC",
+     "relation": null,
+     "quantity": "annual turnover",
+     "comparator": ">=",
+     "threshold": 10000000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E11",
+     "kind": "credential",
+     "entity": "Beacon Holdings LLC",
+     "relation": null,
+     "quantity": "institutional tier 1 status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E12",
+     "kind": "number",
+     "entity": "Beacon Holdings LLC",
+     "relation": null,
+     "quantity": "AML compliance audits",
+     "comparator": ">=",
+     "threshold": 4,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B10": [
+    {
+     "premise": "B9",
+     "kind": "conclusion",
+     "entity": "Beacon Holdings LLC",
+     "relation": null,
+     "quantity": "annual turnover",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E13",
+     "kind": "number",
+     "entity": "Beacon Holdings LLC",
+     "relation": null,
+     "quantity": "corporate guarantee",
+     "comparator": ">=",
+     "threshold": 8000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D6": [
+    {
+     "premise": "B10",
+     "kind": "conclusion",
+     "entity": "Beacon Holdings LLC",
+     "relation": null,
+     "quantity": "annual turnover",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B11": [
+    {
+     "premise": "E14",
+     "kind": "number",
+     "entity": "Crestview Logistics Inc",
+     "relation": null,
+     "quantity": "emergency liquidity reserve",
+     "comparator": ">=",
+     "threshold": 400000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B12": [
+    {
+     "premise": "E15",
+     "kind": "number",
+     "entity": "Driftwood Capital Management",
+     "relation": null,
+     "quantity": "managed assets",
+     "comparator": ">=",
+     "threshold": 5000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Apex Trading Ltd maintains paid-in equity of 5,000,000 USD, meeting the minimum required threshold of 4,000,000 USD."
+   ],
+   "B2": [
+    "Apex Trading Ltd holds capital reserve compliance status, satisfying primary solvency standards."
+   ],
+   "D1": [
+    "Apex Trading Ltd satisfies primary solvency standards and holds a regulatory risk score of 85 points, meeting the 80 point requirement."
+   ],
+   "B3": [
+    "Apex Trading Ltd holds an active international brokerage licence, fulfilling cross-border authorization requirements."
+   ],
+   "B4": [
+    "Apex Trading Ltd meets cross-border authorization criteria, permitting international account operations."
+   ],
+   "D2": [
+    "Apex Trading Ltd is permitted for international account operations and employs 12 certified compliance officers, exceeding the 10 officer requirement."
+   ],
+   "B5": [
+    "Beacon Holdings LLC recorded annual turnover of 15,000,000 USD, exceeding the 10,000,000 USD requirement."
+   ],
+   "B6": [
+    "Beacon Holdings LLC satisfies high-revenue qualification, securing tier-one commercial status."
+   ],
+   "D3": [
+    "Beacon Holdings LLC meets tier-one commercial standing and maintains an operational risk rating of 75 points, meeting the 70 point threshold."
+   ],
+   "B7": [
+    "Beacon Holdings LLC recorded annual turnover of 15,000,000 USD, meeting the 10,000,000 USD turnover requirement.",
+    "Beacon Holdings LLC holds an active commercial banking charter.",
+    "Beacon Holdings LLC maintains an international credit rating of 80 points, meeting the 75 point requirement."
+   ],
+   "D4": [
+    "Beacon Holdings LLC establishes verification credibility, earning priority processing privileges."
+   ],
+   "B8": [
+    "Apex Trading Ltd maintains paid-in equity of 5,000,000 USD, meeting the 4,000,000 USD threshold.",
+    "Apex Trading Ltd holds an active international brokerage licence.",
+    "Apex Trading Ltd holds an ISO 27001 security certification."
+   ],
+   "D5": [
+    "Apex Trading Ltd satisfies baseline onboarding requirements and maintains a liquid cash reserve of 2,000,000 USD, meeting the 1,500,000 USD requirement."
+   ],
+   "B9": [
+    "Beacon Holdings LLC recorded annual turnover of 15,000,000 USD, holds institutional tier 1 status, and conducted 5 AML compliance audits this year, fulfilling all three conditions."
+   ],
+   "B10": [
+    "Beacon Holdings LLC satisfies comprehensive governance standards and maintains a corporate guarantee of 10,000,000 USD, exceeding the 8,000,000 USD requirement."
+   ],
+   "D6": [
+    "Beacon Holdings LLC achieves corporate syndicate eligibility, authorizing it for prime brokerage services."
+   ],
+   "B11": [
+    "Crestview Logistics Inc maintains an emergency liquidity reserve of 500,000 USD, exceeding the 400,000 USD requirement."
+   ],
+   "B12": [
+    "Driftwood Capital Management holds 8,000,000 USD in managed assets, exceeding the 5,000,000 USD threshold."
+   ]
+  }
+ }
+}

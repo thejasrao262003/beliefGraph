@@ -1,0 +1,969 @@
+{
+ "scenario": "F7-024",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.B10": "policy_echoes_memory 'for custom itinerary; recommended for custom' (a policy may not share a 3-word phrase with any memory)",
+  "decoy_policies[0]": "decoy_shares_memory_word 'quarterly' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)",
+  "policies.B1": "record_window_not_in_policy 'month'",
+  "conditions.B1": "record_window_not_in_policy 'month'",
+  "facts.E3": "record_window_not_in_policy 'month'; record_condition_not_met '5000 >= 6000' (the fact's value must satisfy the condition's threshold)",
+  "nodes.E3.text": "record_window_not_in_policy 'month'; record_condition_not_met '5000 >= 6000' (the fact's value must satisfy the condition's threshold)",
+  "nodes.E3.source": "record_window_not_in_policy 'month'; record_condition_not_met '5000 >= 6000' (the fact's value must satisfy the condition's threshold)",
+  "policies.B7": "record_condition_not_met '5000 >= 6000' (the fact's value must satisfy the condition's threshold)",
+  "conditions.B7": "record_condition_not_met '5000 >= 6000' (the fact's value must satisfy the condition's threshold)",
+  "policies.B8": "record_condition_not_met '8 >= 10' (the fact's value must satisfy the condition's threshold)",
+  "conditions.B8": "record_condition_not_met '8 >= 10' (the fact's value must satisfy the condition's threshold)",
+  "facts.E13": "record_condition_not_met '8 >= 10' (the fact's value must satisfy the condition's threshold)",
+  "nodes.E13.text": "record_condition_not_met '8 >= 10' (the fact's value must satisfy the condition's threshold)",
+  "nodes.E13.source": "record_condition_not_met '8 >= 10' (the fact's value must satisfy the condition's threshold)"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B1\": [\n   {\n    \"premise\": \"E1\",\n    \"kind\": \"credential\",\n    \"entity\": \"Clara Vance\",\n    \"relation\": null,\n    \"quantity\": \"Certified Travel Executive credential\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E2\",\n    \"kind\": \"credential\",\n    \"entity\": \"Clara Vance\",\n    \"relation\": null,\n    \"quantity\": \"Executive VIP Passport credential\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E3\",\n    \"kind\": \"number\",\n    \"entity\": \"Clara Vance\",\n    \"relation\": null,\n    \"quantity\": \"flight miles\",\n    \"comparator\": \">=\",\n    \"threshold\": 4000,\n    \"unit\": \"flight miles\",\n    \"window\": \"month\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"conditions.B7\": [\n   {\n    \"premise\": \"E9\",\n    \"kind\": \"number\",\n    \"entity\": \"Clara Vance\",\n    \"relation\": null,\n    \"quantity\": \"client meetings\",\n    \"comparator\": \">=\",\n    \"threshold\": 8,\n    \"unit\": \"client meetings\",\n    \"window\": \"month\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E3\",\n    \"kind\": \"number\",\n    \"entity\": \"Clara Vance\",\n    \"relation\": null,\n    \"quantity\": \"flight miles\",\n    \"comparator\": \">=\",\n    \"threshold\": 4000,\n    \"unit\": \"flight miles\",\n    \"window\": \"month\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E13\",\n    \"kind\": \"number\",\n    \"entity\": \"Clara Vance\",\n    \"relation\": null,\n    \"quantity\": \"research papers\",\n    \"comparator\": \">=\",\n    \"threshold\": 5,\n    \"unit\": \"research papers\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"conditions.B8\": [\n   {\n    \"premise\": \"E12\",\n    \"kind\": \"number\",\n    \"entity\": \"Clara Vance\",\n    \"relation\": null,\n    \"quantity\": \"customer score\",\n    \"comparator\": \">=\",\n    \"threshold\": 4.0,\n    \"unit\": \"stars\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E13\",\n    \"kind\": \"number\",\n    \"entity\": \"Clara Vance\",\n    \"relation\": null,\n    \"quantity\": \"research papers\",\n    \"comparator\": \">=\",\n    \"threshold\": 5,\n    \"unit\": \"research papers\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"decoy_policies[0]\": \"On-site facility escort approval is granted to any representative maintaining an annual safety record of zero violations.\",\n  \"facts.E13\": {\n   \"entity\": \"Clara Vance\",\n   \"kind\": \"number\",\n   \"quantity\": \"research papers\",\n   \"value\": 8,\n   \"unit\": \"research papers\",\n   \"window\": \"year\",\n   \"scope\": \"none\"\n  },\n  \"facts.E3\": {\n   \"entity\": \"Clara Vance\",\n   \"kind\": \"number\",\n   \"quantity\": \"flight miles\",\n   \"value\": 5000,\n   \"unit\": \"flight miles\",\n   \"window\": \"month\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E13.source\": \"Corporate publication index.\",\n  \"nodes.E13.text\": \"Clara Vance authored 8 research papers this year.\",\n  \"nodes.E3.source\": \"Monthly airline account audit statement.\",\n  \"nodes.E3.text\": \"Clara Vance accumulated 5000 flight miles this month.\",\n  \"policies.B1\": \"Priority concierge privileges are granted to a client who possesses a Certified Travel Executive credential, holds an Executive VIP Passport credential, or registers at least 4000 monthly flight miles.\",\n  \"policies.B10\": \"Flexible reservation entitlements apply to an account designated for tailored itinerary support.\",\n  \"policies.B7\": \"Special event qualification is attained by completing 8 monthly client meetings, logging 4000 monthly flight miles, or authoring 5 research papers in a year.\",\n  \"policies.B8\": \"Premium client recognition is conferred if an individual earns a customer score of at least 4.0 stars or authors 5 research papers in a year.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 13235,
+   "output_tokens": 7200,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 13235,
+    "completion_tokens": 7200
+   }
+  },
+  "est_usd": 0.11077875,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.B7[1].threshold",
+  "conditions.B8[1].threshold",
+  "decoy_policies[0]",
+  "policies.B1",
+  "policies.B10",
+  "policies.B7",
+  "policies.B8"
+ ],
+ "merged": {
+  "world": "A personal assistant service platform manages client profiles, eligibility designations, and administrative scheduling for corporate executives.",
+  "nodes": {
+   "E1": {
+    "text": "Clara Vance earned a Certified Travel Executive credential.",
+    "source": "Official registry entry of the Global Travel Association."
+   },
+   "E2": {
+    "text": "Clara Vance holds an Executive VIP Passport credential.",
+    "source": "Verified corporate mobility database record."
+   },
+   "E3": {
+    "text": "Clara Vance accumulated 5000 flight miles this month.",
+    "source": "Monthly airline account audit statement."
+   },
+   "E4": {
+    "text": "Clara Vance has an available travel budget of 3000 dollars this month.",
+    "source": "Finance portal expense ledger."
+   },
+   "E5": {
+    "text": "Brian Thorne completed 20 assistant tasks this month.",
+    "source": "Internal task logging platform."
+   },
+   "E6": {
+    "text": "Brian Thorne holds a Master Assistant Certificate credential.",
+    "source": "Human resources credential verification file."
+   },
+   "E7": {
+    "text": "Brian Thorne maintains an average response time of 15 minutes.",
+    "source": "Communications server metric logs."
+   },
+   "E8": {
+    "text": "Brian Thorne has an administrative allocation of 50000 dollars this year.",
+    "source": "Annual budget allocation document."
+   },
+   "E9": {
+    "text": "Clara Vance completed 12 client meetings this month.",
+    "source": "Executive calendar sync record."
+   },
+   "E10": {
+    "text": "Clara Vance has 15 years of industry experience.",
+    "source": "Verified personnel history sheet."
+   },
+   "E11": {
+    "text": "Clara Vance holds an Advanced Project Management certification.",
+    "source": "Professional development internal memo."
+   },
+   "E12": {
+    "text": "Clara Vance received a customer score of 4.8 stars.",
+    "source": "Feedback summary email from client relations."
+   },
+   "E13": {
+    "text": "Clara Vance authored 8 research papers this year.",
+    "source": "Corporate publication index."
+   },
+   "E14": {
+    "text": "Clara Vance has 10 pending requests this week.",
+    "source": "Weekly inbox portal counter."
+   },
+   "E15": {
+    "text": "Elena Rostova has 8 years of personal assistant service.",
+    "source": "Staffing agency service registry."
+   },
+   "E16": {
+    "text": "Marcus Brody holds a Certified Schedule Strategist credential.",
+    "source": "Professional licensing database."
+   },
+   "E17": {
+    "text": "Sarah Jenkins recorded a client satisfaction score of 92 percent this year.",
+    "source": "Annual client survey report."
+   },
+   "E18": {
+    "text": "David Kim completed 30 event bookings this quarter.",
+    "source": "Quarterly reservation portal log."
+   },
+   "B1": {
+    "text": "Clara Vance qualifies for priority concierge service."
+   },
+   "D1": {
+    "text": "Clara Vance is assigned dedicated travel planning."
+   },
+   "B2": {
+    "text": "Brian Thorne holds premier coordinator status."
+   },
+   "B3": {
+    "text": "Brian Thorne is cleared for priority dispatch."
+   },
+   "D2": {
+    "text": "Brian Thorne is authorized for automated schedule updates."
+   },
+   "B4": {
+    "text": "Clara Vance meets corporate advisory requirements."
+   },
+   "D3": {
+    "text": "Clara Vance receives standard account maintenance."
+   },
+   "B5": {
+    "text": "Clara Vance maintains high profile status."
+   },
+   "B6": {
+    "text": "Clara Vance is eligible for executive lounge access."
+   },
+   "B7": {
+    "text": "Clara Vance fulfills special event criteria."
+   },
+   "B8": {
+    "text": "Clara Vance gains premium client endorsement."
+   },
+   "B9": {
+    "text": "Clara Vance is recommended for custom itinerary management."
+   },
+   "B10": {
+    "text": "Clara Vance holds flexible booking privileges."
+   },
+   "D4": {
+    "text": "Clara Vance is scheduled for quarterly operational reviews."
+   },
+   "B11": {
+    "text": "Elena Rostova achieves senior advisor qualification."
+   },
+   "B12": {
+    "text": "Marcus Brody is designated as lead planner."
+   },
+   "B13": {
+    "text": "Sarah Jenkins attains tier-one rating."
+   },
+   "B14": {
+    "text": "David Kim is approved as event coordinator."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An updated inbox audit shows Clara Vance has 25 pending requests this week.",
+    "source": "System administration log update."
+   },
+   "U2": {
+    "text": "A preliminary travel query notes Clara Vance accumulated 4800 flight miles this month.",
+    "source": "Draft airline reconciliation memo."
+   },
+   "U3": {
+    "text": "A corrected activity log indicates Brian Thorne completed 5 assistant tasks this month.",
+    "source": "Operations supervisor sign-off."
+   },
+   "U4": {
+    "text": "Final statement verification confirms Clara Vance accumulated 1000 flight miles this month.",
+    "source": "Audited flight system record."
+   },
+   "U5": {
+    "text": "An inquiry questions whether Clara Vance authored 8 research papers this year.",
+    "source": "Internal compliance review note."
+   }
+  },
+  "policies": {
+   "B1": "Priority concierge privileges are granted to a client who possesses a Certified Travel Executive credential, holds an Executive VIP Passport credential, or registers at least 4000 monthly flight miles.",
+   "D1": "Dedicated trip arrangement is provided for an individual having priority concierge privileges whenever monthly travel budget reaches or exceeds 2500 dollars.",
+   "B2": "Premier coordinator designation is awarded if monthly completed assistant tasks reach at least 15 or if possessing a Master Assistant Certificate credential.",
+   "B3": "Priority dispatch clearance is given to a premier coordinator standing candidate whose response time stays within 20 minutes.",
+   "D2": "Automated schedule maintenance authorization is granted to an agent with priority dispatch clearance having an annual administrative allocation of 40000 dollars or more.",
+   "B4": "Corporate advisory qualification is fulfilled if a staff member completes 10 client meetings monthly, has at least 10 years of industry experience, or obtains an Advanced Project Management certification.",
+   "D3": "Standard account servicing is assigned to any professional satisfying corporate advisory qualification.",
+   "B5": "High profile standing is maintained when an employee holds an Advanced Project Management certification while possessing 12 years of industry experience and securing a customer score of 4.5 stars or higher.",
+   "B6": "Executive lounge eligibility is granted to anyone sustaining high profile standing who also receives dedicated trip arrangement.",
+   "B7": "Special event qualification is attained by completing 8 monthly client meetings, logging 4000 monthly flight miles, or authoring 5 research papers in a year.",
+   "B8": "Premium client recognition is conferred if an individual earns a customer score of at least 4.0 stars or authors 5 research papers in a year.",
+   "B9": "Custom itinerary coordination is recommended for any client holding premium client recognition who is simultaneously assigned dedicated trip arrangement.",
+   "B10": "Flexible reservation entitlements apply to an account designated for tailored itinerary support.",
+   "D4": "Quarterly operational auditing is slated for accounts with flexible reservation entitlements provided weekly pending requests do not exceed 15.",
+   "B11": "Senior advisor status is assigned to staff with a personal assistant service duration of 5 years or more.",
+   "B12": "Lead planner certification is bestowed upon securing a Certified Schedule Strategist credential.",
+   "B13": "Tier-one standing requires a yearly client satisfaction score of at least 90 percent.",
+   "B14": "Event coordinator clearance is conferred upon executing at least 25 quarterly event bookings."
+  },
+  "decoy_policies": [
+   "On-site facility escort approval is granted to any representative maintaining an annual safety record of zero violations.",
+   "Emergency expense voucher entitlement requires holding a Certified Financial Auditor credential."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "D1": "holds",
+   "B2": "holds",
+   "B3": "holds",
+   "D2": "holds",
+   "B4": "holds",
+   "D3": "holds",
+   "B5": "holds",
+   "B6": "holds",
+   "B7": "holds",
+   "B8": "holds",
+   "B9": "holds",
+   "B10": "holds",
+   "D4": "fails",
+   "B11": "holds",
+   "B12": "holds",
+   "B13": "holds",
+   "B14": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Clara Vance",
+    "kind": "credential",
+    "quantity": "Certified Travel Executive credential",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Clara Vance",
+    "kind": "credential",
+    "quantity": "Executive VIP Passport credential",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Clara Vance",
+    "kind": "number",
+    "quantity": "flight miles",
+    "value": 5000,
+    "unit": "flight miles",
+    "window": "month",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Clara Vance",
+    "kind": "number",
+    "quantity": "travel budget",
+    "value": 3000,
+    "unit": "dollars",
+    "window": "month",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Brian Thorne",
+    "kind": "number",
+    "quantity": "assistant tasks",
+    "value": 20,
+    "unit": "assistant tasks",
+    "window": "month",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Brian Thorne",
+    "kind": "credential",
+    "quantity": "Master Assistant Certificate credential",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Brian Thorne",
+    "kind": "number",
+    "quantity": "response time",
+    "value": 15,
+    "unit": "minutes",
+    "window": "none",
+    "scope": "none"
+   },
+   "E8": {
+    "entity": "Brian Thorne",
+    "kind": "number",
+    "quantity": "administrative allocation",
+    "value": 50000,
+    "unit": "dollars",
+    "window": "year",
+    "scope": "none"
+   },
+   "E9": {
+    "entity": "Clara Vance",
+    "kind": "number",
+    "quantity": "client meetings",
+    "value": 12,
+    "unit": "client meetings",
+    "window": "month",
+    "scope": "none"
+   },
+   "E10": {
+    "entity": "Clara Vance",
+    "kind": "number",
+    "quantity": "industry experience",
+    "value": 15,
+    "unit": "years",
+    "window": "none",
+    "scope": "none"
+   },
+   "E11": {
+    "entity": "Clara Vance",
+    "kind": "credential",
+    "quantity": "Advanced Project Management certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E12": {
+    "entity": "Clara Vance",
+    "kind": "number",
+    "quantity": "customer score",
+    "value": 4.8,
+    "unit": "stars",
+    "window": "none",
+    "scope": "none"
+   },
+   "E13": {
+    "entity": "Clara Vance",
+    "kind": "number",
+    "quantity": "research papers",
+    "value": 8,
+    "unit": "research papers",
+    "window": "year",
+    "scope": "none"
+   },
+   "E14": {
+    "entity": "Clara Vance",
+    "kind": "number",
+    "quantity": "pending requests",
+    "value": 10,
+    "unit": "pending requests",
+    "window": "week",
+    "scope": "none"
+   },
+   "E15": {
+    "entity": "Elena Rostova",
+    "kind": "number",
+    "quantity": "personal assistant service",
+    "value": 8,
+    "unit": "years",
+    "window": "none",
+    "scope": "none"
+   },
+   "E16": {
+    "entity": "Marcus Brody",
+    "kind": "credential",
+    "quantity": "Certified Schedule Strategist credential",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E17": {
+    "entity": "Sarah Jenkins",
+    "kind": "number",
+    "quantity": "client satisfaction score",
+    "value": 92,
+    "unit": "percent",
+    "window": "year",
+    "scope": "none"
+   },
+   "E18": {
+    "entity": "David Kim",
+    "kind": "number",
+    "quantity": "event bookings",
+    "value": 30,
+    "unit": "event bookings",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Clara Vance",
+    "kind": "number",
+    "quantity": "pending requests",
+    "value": 25,
+    "unit": "pending requests",
+    "window": "week",
+    "scope": "none"
+   },
+   "U2": {
+    "entity": "Clara Vance",
+    "kind": "number",
+    "quantity": "flight miles",
+    "value": 4800,
+    "unit": "flight miles",
+    "window": "month",
+    "scope": "none"
+   },
+   "U3": {
+    "entity": "Brian Thorne",
+    "kind": "number",
+    "quantity": "assistant tasks",
+    "value": 5,
+    "unit": "assistant tasks",
+    "window": "month",
+    "scope": "none"
+   },
+   "U4": {
+    "entity": "Clara Vance",
+    "kind": "number",
+    "quantity": "flight miles",
+    "value": 1000,
+    "unit": "flight miles",
+    "window": "month",
+    "scope": "none"
+   },
+   "U5": {
+    "entity": "Clara Vance",
+    "kind": "number",
+    "quantity": "research papers",
+    "value": null,
+    "unit": "research papers",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "credential",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "Certified Travel Executive credential",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "credential",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "Executive VIP Passport credential",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "flight miles",
+     "comparator": ">=",
+     "threshold": 4000,
+     "unit": "flight miles",
+     "window": "month",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "priority concierge service",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "travel budget",
+     "comparator": ">=",
+     "threshold": 2500,
+     "unit": "dollars",
+     "window": "month",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Brian Thorne",
+     "relation": null,
+     "quantity": "assistant tasks",
+     "comparator": ">=",
+     "threshold": 15,
+     "unit": "assistant tasks",
+     "window": "month",
+     "scope": "none"
+    },
+    {
+     "premise": "E6",
+     "kind": "credential",
+     "entity": "Brian Thorne",
+     "relation": null,
+     "quantity": "Master Assistant Certificate credential",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Brian Thorne",
+     "relation": null,
+     "quantity": "premier coordinator status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "Brian Thorne",
+     "relation": null,
+     "quantity": "response time",
+     "comparator": "<=",
+     "threshold": 20,
+     "unit": "minutes",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D2": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Brian Thorne",
+     "relation": null,
+     "quantity": "priority dispatch",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E8",
+     "kind": "number",
+     "entity": "Brian Thorne",
+     "relation": null,
+     "quantity": "administrative allocation",
+     "comparator": ">=",
+     "threshold": 40000,
+     "unit": "dollars",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E9",
+     "kind": "number",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "client meetings",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "client meetings",
+     "window": "month",
+     "scope": "none"
+    },
+    {
+     "premise": "E10",
+     "kind": "number",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "industry experience",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "years",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E11",
+     "kind": "credential",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "Advanced Project Management certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D3": [
+    {
+     "premise": "B4",
+     "kind": "conclusion",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "corporate advisory requirements",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E11",
+     "kind": "credential",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "Advanced Project Management certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E10",
+     "kind": "number",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "industry experience",
+     "comparator": ">=",
+     "threshold": 12,
+     "unit": "years",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E12",
+     "kind": "number",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "customer score",
+     "comparator": ">=",
+     "threshold": 4.5,
+     "unit": "stars",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "B5",
+     "kind": "conclusion",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "high profile status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "D1",
+     "kind": "conclusion",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "dedicated travel planning",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B7": [
+    {
+     "premise": "E9",
+     "kind": "number",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "client meetings",
+     "comparator": ">=",
+     "threshold": 8,
+     "unit": "client meetings",
+     "window": "month",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "flight miles",
+     "comparator": ">=",
+     "threshold": 4000,
+     "unit": "flight miles",
+     "window": "month",
+     "scope": "none"
+    },
+    {
+     "premise": "E13",
+     "kind": "number",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "research papers",
+     "comparator": ">=",
+     "threshold": 5,
+     "unit": "research papers",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B8": [
+    {
+     "premise": "E12",
+     "kind": "number",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "customer score",
+     "comparator": ">=",
+     "threshold": 4.0,
+     "unit": "stars",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E13",
+     "kind": "number",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "research papers",
+     "comparator": ">=",
+     "threshold": 5,
+     "unit": "research papers",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B9": [
+    {
+     "premise": "B8",
+     "kind": "conclusion",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "premium client endorsement",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "D1",
+     "kind": "conclusion",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "dedicated travel planning",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B10": [
+    {
+     "premise": "B9",
+     "kind": "conclusion",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "custom itinerary management",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D4": [
+    {
+     "premise": "B10",
+     "kind": "conclusion",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "flexible booking privileges",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E14",
+     "kind": "number",
+     "entity": "Clara Vance",
+     "relation": null,
+     "quantity": "pending requests",
+     "comparator": "<=",
+     "threshold": 15,
+     "unit": "pending requests",
+     "window": "week",
+     "scope": "none"
+    }
+   ],
+   "B11": [
+    {
+     "premise": "E15",
+     "kind": "number",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "personal assistant service",
+     "comparator": ">=",
+     "threshold": 5,
+     "unit": "years",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B12": [
+    {
+     "premise": "E16",
+     "kind": "credential",
+     "entity": "Marcus Brody",
+     "relation": null,
+     "quantity": "Certified Schedule Strategist credential",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B13": [
+    {
+     "premise": "E17",
+     "kind": "number",
+     "entity": "Sarah Jenkins",
+     "relation": null,
+     "quantity": "client satisfaction score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B14": [
+    {
+     "premise": "E18",
+     "kind": "number",
+     "entity": "David Kim",
+     "relation": null,
+     "quantity": "event bookings",
+     "comparator": ">=",
+     "threshold": 25,
+     "unit": "event bookings",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Clara Vance holds a Certified Travel Executive credential, which satisfies the credential alternative under the policy.",
+    "Clara Vance holds an Executive VIP Passport credential, which satisfies the credential alternative under the policy.",
+    "Clara Vance accumulated 5000 flight miles this month, exceeding the 4000 flight miles threshold."
+   ],
+   "D1": [
+    "Clara Vance qualifies for priority concierge service and has a travel budget of 3000 dollars this month, meeting the 2500 dollars minimum."
+   ],
+   "B2": [
+    "Brian Thorne completed 20 assistant tasks this month, exceeding the 15 monthly tasks requirement.",
+    "Brian Thorne holds a Master Assistant Certificate credential, satisfying the credential alternative."
+   ],
+   "B3": [
+    "Brian Thorne holds premier coordinator status and maintains a response time of 15 minutes, which is within the 20 minutes limit."
+   ],
+   "D2": [
+    "Brian Thorne is cleared for priority dispatch and has an administrative allocation of 50000 dollars this year, meeting the 40000 dollars requirement."
+   ],
+   "B4": [
+    "Clara Vance completed 12 client meetings this month, exceeding the threshold of 10 monthly meetings.",
+    "Clara Vance has 15 years of industry experience, meeting the 10 years experience requirement.",
+    "Clara Vance holds an Advanced Project Management certification, satisfying the credential condition."
+   ],
+   "D3": [
+    "Clara Vance meets corporate advisory requirements, fulfilling the single requisite condition under the policy."
+   ],
+   "B5": [
+    "Clara Vance holds an Advanced Project Management certification, has 15 years of industry experience (>= 12 years), and received a customer score of 4.8 stars (>= 4.5 stars), satisfying all required conditions together."
+   ],
+   "B6": [
+    "Clara Vance maintains high profile status and is assigned dedicated travel planning, satisfying both joint requirements under the policy."
+   ],
+   "B7": [
+    "Clara Vance completed 12 client meetings this month, exceeding the required 8 monthly meetings.",
+    "Clara Vance accumulated 5000 flight miles this month, which is below the required threshold of 6000 flight miles.",
+    "Clara Vance authored 8 research papers this year, meeting the 5 papers threshold."
+   ],
+   "B8": [
+    "Clara Vance received a customer score of 4.8 stars, satisfying the 4.0 stars minimum score requirement.",
+    "Clara Vance authored 8 research papers this year, which is below the 10 research papers threshold."
+   ],
+   "B9": [
+    "Clara Vance gains premium client endorsement and is assigned dedicated travel planning, satisfying both joint conditions."
+   ],
+   "B10": [
+    "Clara Vance is recommended for custom itinerary management, satisfying the sole requisite condition under the policy."
+   ],
+   "D4": [
+    "Clara Vance holds flexible booking privileges and originally had 10 pending requests this week (<= 15), satisfying the policy."
+   ],
+   "B11": [
+    "Elena Rostova has 8 years of personal assistant service, exceeding the 5 years threshold."
+   ],
+   "B12": [
+    "Marcus Brody holds a Certified Schedule Strategist credential, satisfying the required credential condition."
+   ],
+   "B13": [
+    "Sarah Jenkins recorded a client satisfaction score of 92 percent this year, exceeding the required 90 percent threshold."
+   ],
+   "B14": [
+    "David Kim completed 30 event bookings this quarter, meeting the quarterly requirement of at least 25."
+   ]
+  }
+ }
+}

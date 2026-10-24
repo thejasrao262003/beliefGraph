@@ -1,0 +1,448 @@
+# Renderer review sheet
+
+## s_f253fa302f  (F7-004, travel logistics)
+
+*World:* Logistics providers and transport companies across various freight and transit sectors undergo operational, safety, and compliance evaluations.
+
+### A. System view (judge C7 from this alone)
+- `e_80fc` [2026-01-08, Municipal transit department dispatch log.] Echo Transit logged 250 scheduled bus routes last month.
+- `e_6ee8` [2026-01-11, Regional operations memo.] AeroMove Logistics operates 15 regional transfer hubs.
+- `e_c056` [2026-01-14, Audited financial ledger.] AeroMove Logistics maintains annual fleet maintenance spending of $1,200,000.
+- `e_b912` [2026-01-17, Hazardous Materials Safety Administration note.] AeroMove Logistics possesses a certified hazardous materials handling permit.
+- `e_aee5` [2026-01-20, Port Authority official charter database.] BlueWave Charters holds a commercial port navigation license.
+- `e_5e53` [2026-01-23, Clean energy infrastructure record.] AeroMove Logistics maintains 12 solar-powered warehouse facilities.
+- `e_5311` [2026-01-26, Official fleet inventory system report.] AeroMove Logistics maintains a fleet of 25 refrigerated trucks.
+- `e_bc72` [2026-01-29, Coast Guard safety bulletin.] BlueWave Charters maintains a maritime safety score of 91 points.
+- `e_949c` [2026-02-01, International Standards Authority registry.] AeroMove Logistics holds an ISO 28000 security certification.
+- `e_3bcd` [2026-02-04, Independent travel review summary.] Driftwood Tours maintains a customer satisfaction rating of 94 percent.
+- `e_38fd` [2026-02-07, Internal performance email.] AeroMove Logistics maintains an on-time cargo arrival rate of 95 percent.
+- `e_677b` [2026-02-10, Signed insurance policy document.] AeroMove Logistics maintains active cargo liability insurance of $5,000,000.
+- `e_a66e` [2026-02-13, Federal Aviation Administration public registry.] Falcon Aviation holds an FAA air carrier certificate.
+- `e_8524` [2026-02-16, Customs and Border Protection audit report.] AeroMove Logistics maintains a customs compliance score of 88 points.
+- `e_8a26` [2026-02-19, National Transport Safety Board evaluation.] AeroMove Logistics maintains a driver safety rating of 92 points.
+- `e_f3cb` [2026-02-22, Quarterly transport operational logs.] AeroMove Logistics logged 120 express deliveries last quarter.
+- `e_1416` [2026-02-25, Maritime fleet status report.] BlueWave Charters operates 14 passenger vessels.
+- `e_1cae` [2026-02-28, Rail authority equipment registry.] Crestline Transport maintains 30 refrigerated railcars.
+- `e_8157` [2026-03-03, Environmental compliance report.] AeroMove Logistics offset 5,000 metric tons of carbon emissions this year.
+- `e_17fe` [2026-03-06, Green fleet audit certificate.] AeroMove Logistics maintains 18 electric delivery vans.
+- memories:
+  - `m_c131` Driftwood Tours achieves premium tour provider rating.
+  - `m_5837` AeroMove Logistics qualifies for eco-preferred contractor status.
+  - `m_cd24` AeroMove Logistics meets master service agreement qualifications.
+  - `m_db58` AeroMove Logistics qualifies as a high-capacity freight vendor.
+  - `m_5640` AeroMove Logistics is sanctioned for dangerous goods transport.
+  - `m_35f0` Falcon Aviation is authorized for commercial charter flights.
+  - `m_3b7e` AeroMove Logistics holds Tier-1 supply chain authorization.
+  - `m_8845` AeroMove Logistics maintains an extensive regional transit network.
+  - `m_11e9` AeroMove Logistics is selected as the primary global logistics partner.
+  - `m_1edb` AeroMove Logistics holds priority customs clearance rights.
+  - `m_6236` Crestline Transport holds cold-chain rail accreditation.
+  - `m_cfc5` AeroMove Logistics is designated as an expedited border corridor partner.
+  - `m_ecfe` AeroMove Logistics is approved for cross-border freight operations.
+  - `m_e7f9` BlueWave Charters is awarded the regional ferry concession.
+  - `m_f899` AeroMove Logistics holds primary national distribution privileges.
+  - `m_5376` AeroMove Logistics achieves green freight certification.
+  - `m_532c` Echo Transit meets municipal transit service benchmarks.
+  - `m_fa42` AeroMove Logistics satisfies enterprise fleet operational standards.
+  - `m_d510` BlueWave Charters maintains certified passenger fleet status.
+- update `u_4e63` [2026-03-09, Revised environmental agency audit.] An updated audit noted that AeroMove Logistics offset 4,500 metric tons of carbon emissions this year.
+- update `u_b6ea` [2026-03-12, Verified infrastructure audit report.] A facilities review showed AeroMove Logistics maintains only 6 solar-powered warehouse facilities.
+- update `u_341d` [2026-03-15, Official state environmental filings database.] A regulatory filing confirmed AeroMove Logistics did not offset carbon emissions this year.
+- update `u_20a0` [2026-03-18, Freight Logistics Monthly industry report.] An industry survey questioned whether AeroMove Logistics operates 15 regional transfer hubs.
+- update `u_8724` [2026-03-21, Certified logistics accounting audit.] A corrected audit showed AeroMove Logistics logged 80 express deliveries last quarter.
+- update `u_2309` [2026-03-24, Anonymous online forum entry.] An unverified blog post claimed AeroMove Logistics operates zero regional transfer hubs.
+- policies:
+  - `p_3a55` A transport business meets enterprise fleet performance benchmarks if recognized with eco-preferred vendor recognition and documenting annual fleet maintenance spending of at least $1,000,000.
+  - `p_3f7d` A vendor fulfills overarching service contract conditions when possessing wide regional network coverage along with winning the national distribution contract.
+  - `p_bf2d` A tour company qualifies for top-tier tour operator standing by achieving a customer satisfaction rating of 90 percent or greater.
+  - `p_2a34` A carrier earns high-capacity freight status when operating a minimum fleet of 20 refrigerated trucks, holding an ISO 28000 security certification, and completing at least 100 express deliveries last quarter.
+  - `p_9bad` A warehousing operator obtains bulk storage endorsement when managing a minimum facility floor space of 50000 square feet.
+  - `p_e3a7` A logistics company receives green freight endorsement either by operating a minimum of 15 electric delivery vans alongside achieving a carbon emissions offset of at least 4000 metric tons this year, or by operating at least 10 solar-powered warehouse facilities.
+  - `p_f73d` An enterprise receives Tier-1 supply chain clearance if recognized with high-capacity freight status while keeping a driver safety rating of no less than 90 points.
+  - `p_f19b` An enterprise is granted rapid border passage partner status upon gaining cross-border transport permission and showing a customs compliance score of 85 points or above.
+  - `p_516e` A contractor secures cross-border transport permission when fulfilling overarching service contract conditions and carrying cargo liability insurance of at least $4,000,000.
+  - `p_e6d1` A ferry service is assigned regional ferry operational rights provided it holds accredited passenger fleet standing and possesses a commercial port navigation license.
+  - `p_0069` A carrier is appointed lead global logistics vendor upon meeting enterprise fleet performance benchmarks.
+  - `p_b725` A transport firm is classified as having wide regional network coverage provided it manages at least 10 regional transfer hubs and demonstrates an on-time cargo arrival rate of 90 percent or higher.
+  - `p_a101` A maritime repair dock earns deep-water servicing approval provided it completes a minimum of 40 dry-dock overhauls last year.
+  - `p_0a81` A maritime operator achieves accredited passenger fleet standing when running at least 10 passenger vessels and keeping a maritime safety score of 85 points or higher.
+  - `p_9b00` An airline receives commercial charter permission upon holding an FAA air carrier certificate.
+  - `p_e2fd` A carrier receives dangerous goods authorization when holding a certified hazardous materials handling permit.
+  - `p_beab` A transit agency fulfills urban transit operation standards when completing at least 200 scheduled bus routes last month.
+  - `p_b1e5` An applicant earns eco-preferred vendor recognition when holding green freight endorsement together with preferential customs clearance status.
+  - `p_d442` A rail operator gains cold-chain rail qualification when managing no fewer than 20 refrigerated railcars.
+  - `p_12e2` A logistics supplier achieves preferential customs clearance status if approved for hazardous material transport and holding rapid border passage partner status.
+  - `p_7839` A service provider obtains the national distribution contract whenever maintaining Tier-1 supply chain clearance.
+
+### B. Intended structure
+- `m_db58` (B1) [policy `p_2a34`] <= (`e_5311` AND `e_949c` AND `e_f3cb`); gold after update: **recompute**
+  - set 1: Operating 25 refrigerated trucks exceeds 20, holding the ISO 28000 security certification, and completing 120 express deliveries last quarter satisfies the 100 delivery requirement for high-capacity freight status.
+- `m_3b7e` (B2) [policy `p_f73d`] <= (`m_db58` AND `e_8a26`); gold after update: **recompute**
+  - set 1: Holding high-capacity freight status alongside a driver safety rating of 92 points, which exceeds 90 points, qualifies AeroMove Logistics for Tier-1 supply chain clearance.
+- `m_f899` (D1) [policy `p_7839`] <= (`m_3b7e`); gold after update: **recompute**
+  - set 1: Securing Tier-1 supply chain clearance fulfills the requirement for assignment of the national distribution contract.
+- `m_8845` (B3) [policy `p_b725`] <= (`e_6ee8` AND `e_38fd`); gold after update: **uncertain**
+  - set 1: Managing 15 regional transfer hubs exceeds 10 and maintaining a 95 percent on-time cargo arrival rate exceeds 90 percent, establishing wide regional network coverage.
+- `m_cd24` (B4) [policy `p_3f7d`] <= (`m_8845` AND `m_f899`); gold after update: **uncertain**
+  - set 1: Demonstrating wide regional network coverage together with securing the national distribution contract satisfies master service agreement prerequisites.
+- `m_ecfe` (B5) [policy `p_516e`] <= (`m_cd24` AND `e_677b`); gold after update: **uncertain**
+  - set 1: Fulfilling master service agreement prerequisites while holding $5,000,000 in cargo liability insurance, exceeding $4,000,000, satisfies cross-border transport permission requirements.
+- `m_cfc5` (D2) [policy `p_f19b`] <= (`m_ecfe` AND `e_8524`); gold after update: **uncertain**
+  - set 1: Gaining cross-border transport permission and maintaining an 88 point customs compliance score, exceeding 85 points, grants expedited border corridor status.
+- `m_5640` (B6) [policy `p_e2fd`] <= (`e_b912`); gold after update: **keep**
+  - set 1: Holding a certified hazardous materials handling permit satisfies dangerous goods authorization criteria.
+- `m_1edb` (B7) [policy `p_12e2`] <= (`m_5640` AND `m_cfc5`); gold after update: **uncertain**
+  - set 1: Securing dangerous goods authorization and achieving expedited border corridor status confers priority customs clearance standing.
+- `m_d510` (B8) [policy `p_0a81`] <= (`e_1416` AND `e_bc72`); gold after update: **keep**
+  - set 1: Operating 14 passenger vessels exceeds 10 and holding a 91 point maritime safety score exceeds 85 points, qualifying BlueWave Charters for certified passenger fleet rating.
+- `m_e7f9` (D3) [policy `p_e6d1`] <= (`m_d510` AND `e_aee5`); gold after update: **keep**
+  - set 1: Holding certified passenger fleet rating and possessing a commercial port navigation license satisfies regional ferry concession criteria.
+- `m_5376` (B9) [policy `p_e3a7`] <= (`e_17fe` AND `e_8157`) **OR** (`e_5e53`); gold after update: **recompute**
+  - set 1: Operating 18 electric delivery vans exceeds 15 and offsetting 5,000 metric tons of carbon emissions exceeds 4000 metric tons this year, satisfying the first criterion for green freight endorsement.
+  - set 2: Maintaining 12 solar-powered warehouse facilities meets the minimum threshold of 10 for green freight endorsement.
+- `m_5837` (B10) [policy `p_b1e5`] <= (`m_5376` AND `m_1edb`); gold after update: **uncertain**
+  - set 1: Holding green freight endorsement along with priority customs clearance standing earns eco-preferred vendor recognition.
+- `m_fa42` (B11) [policy `p_3a55`] <= (`m_5837` AND `e_c056`); gold after update: **uncertain**
+  - set 1: Earning eco-preferred vendor recognition and documenting annual fleet maintenance spending of $1,200,000, exceeding $1,000,000, satisfies enterprise fleet reliability criteria.
+- `m_11e9` (D4) [policy `p_0069`] <= (`m_fa42`); gold after update: **uncertain**
+  - set 1: Meeting enterprise fleet reliability criteria secures appointment as the primary global logistics vendor.
+- `m_6236` (B12) [policy `p_d442`] <= (`e_1cae`); gold after update: **keep**
+  - set 1: Managing 30 refrigerated railcars exceeds the threshold of 20 required for cold-chain rail qualification.
+- `m_c131` (B13) [policy `p_bf2d`] <= (`e_3bcd`); gold after update: **keep**
+  - set 1: Maintaining a 94 percent customer satisfaction rating exceeds the 90 percent benchmark required for premium tour provider standing.
+- `m_532c` (B14) [policy `p_beab`] <= (`e_80fc`); gold after update: **keep**
+  - set 1: Completing 250 scheduled bus routes last month exceeds the minimum requirement of 200 to meet municipal transit service standards.
+- `m_35f0` (B15) [policy `p_9b00`] <= (`e_a66e`); gold after update: **keep**
+  - set 1: Possessing an FAA air carrier certificate grants commercial charter permission.
+- `u_4e63` supersedes `e_8157` (reliability high)
+- `u_b6ea` supersedes `e_5e53` (reliability high)
+- `u_341d` retracts `e_8157` (reliability high)
+- `u_20a0` hedges `e_6ee8` (reliability high)
+- `u_8724` supersedes `e_f3cb` (reliability high)
+- `u_2309` retracts `e_6ee8` (reliability low)
+- decoy policies: `p_9bad`, `p_a101`
+- final state after updates (gold action -> state): `m_db58` recompute -> fails; `m_8845` uncertain -> undetermined; `m_5640` keep -> holds; `m_d510` keep -> holds; `m_5376` recompute -> fails; `m_6236` keep -> holds; `m_c131` keep -> holds; `m_532c` keep -> holds; `m_35f0` keep -> holds; `m_3b7e` recompute -> fails; `m_e7f9` keep -> holds; `m_f899` recompute -> fails; `m_cd24` uncertain -> undetermined; `m_ecfe` uncertain -> undetermined; `m_cfc5` uncertain -> undetermined; `m_1edb` uncertain -> undetermined; `m_5837` uncertain -> undetermined; `m_fa42` uncertain -> undetermined; `m_11e9` uncertain -> undetermined
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_80fc~p_beab` policy_echoes_evidence: "bus routes last; routes last month; scheduled bus routes" (judge under C7/C11)
+- soft `e_6ee8~p_b725` policy_echoes_evidence: "regional transfer hubs" (judge under C7/C11)
+- soft `e_c056~p_3a55` policy_echoes_evidence: "annual fleet maintenance; fleet maintenance spending; maintenance spending of" (judge under C7/C11)
+- soft `e_b912~p_e2fd` policy_echoes_evidence: "a certified hazardous; certified hazardous materials; hazardous materials handling; materials handling permit" (judge under C7/C11)
+- soft `e_aee5~p_e6d1` policy_echoes_evidence: "a commercial port; commercial port navigation; port navigation license" (judge under C7/C11)
+- soft `e_5e53~p_e3a7` policy_echoes_evidence: "solar-powered warehouse facilities" (judge under C7/C11)
+- soft `e_bc72~p_0a81` policy_echoes_evidence: "a maritime safety; maritime safety score; safety score of" (judge under C7/C11)
+- soft `e_3bcd~p_bf2d` policy_echoes_evidence: "a customer satisfaction; customer satisfaction rating; satisfaction rating of" (judge under C7/C11)
+- soft `e_38fd~p_b725` policy_echoes_evidence: "an on-time cargo; arrival rate of; cargo arrival rate; on-time cargo arrival" (judge under C7/C11)
+- soft `e_677b~p_516e` policy_echoes_evidence: "cargo liability insurance; liability insurance of" (judge under C7/C11)
+- soft `e_a66e~p_9b00` policy_echoes_evidence: "air carrier certificate" (judge under C7/C11)
+- soft `e_8524~p_f19b` policy_echoes_evidence: "a customs compliance; compliance score of; customs compliance score" (judge under C7/C11)
+- soft `e_8a26~p_f73d` policy_echoes_evidence: "a driver safety; driver safety rating; safety rating of" (judge under C7/C11)
+- soft `e_f3cb~p_2a34` policy_echoes_evidence: "deliveries last quarter; express deliveries last" (judge under C7/C11)
+- soft `e_17fe~p_e3a7` policy_echoes_evidence: "electric delivery vans" (judge under C7/C11)
+- soft `u_2309` retraction_reads_as_hedge: "claimed" (judge under C4)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_0b764d26d3  (F7-011, finance kyc)
+
+*World:* Due diligence and compliance evaluations were performed across multiple institutional financial clients to determine their account classifications and trading privileges.
+
+### A. System view (judge C7 from this alone)
+- `e_320c` [2026-01-08, Ministry of Finance official gazette, January 8, 2026] Apex Holdings maintains a sovereign wealth endorsement.
+- `e_704f` [2026-01-11, Insurance Regulatory Authority filing, January 11, 2026] Apex Holdings maintains a fidelity bond coverage of $20,000,000.
+- `e_3e16` [2026-01-14, Global LEI Foundation report, January 14, 2026] Apex Holdings maintains a legal entity identifier risk rating of 92 points.
+- `e_77e6` [2026-01-17, Central Bank Deposit Registry, January 17, 2026] Apex Holdings submitted a regulatory capital reserves deposit of $50,000,000.
+- `e_1c06` [2026-01-20, Central Business Register filing, January 20, 2026] Apex Holdings submitted 8 verified ultimate beneficial ownership certificates.
+- `e_e8a4` [2026-01-23, Transaction Monitoring Bureau, January 23, 2026] Apex Holdings recorded annual transaction volume of $500,000,000 this year.
+- `e_5482` [2026-01-26, Prudential Regulation Authority database, January 26, 2026] Apex Holdings holds a valid tier-one institutional banking licence.
+- `e_c272` [2026-01-29, Sanctions Clearance Bureau email, January 29, 2026] Apex Holdings holds a sanctions clearance passport.
+- `e_7a37` [2026-02-01, European Trade Register, February 1, 2026] Solstice Investments holds a European economic operator registration.
+- `e_b158` [2026-02-04, Auditing Standards Board, February 4, 2026] Meridian Financial submitted 3 verified financial audit statements this year.
+- `e_5f2b` [2026-02-07, AML Compliance Staff memo, February 7, 2026] Apex Holdings filed 4 anti-money laundering audit attestations this year.
+- `e_9924` [2026-02-10, Compliance Audit Committee report, February 10, 2026] Apex Holdings completed 12 independent compliance reviews this year.
+- `e_6b9d` [2026-02-13, Custodial Regulatory Portal, February 13, 2026] Beacon Wealth Management maintains a client assets protection fund of $30,000,000.
+- `e_ae13` [2026-02-16, Financial Conduct Authority record, February 16, 2026] Crestview Capital maintains net asset reserves of $100,000,000.
+- `e_1213` [2026-02-19, Corporate Governance Directorate notice, February 19, 2026] Crestview Capital submitted 6 corporate governance disclosures this year.
+- `e_091c` [2026-02-22, International Ethics Registrar, February 22, 2026] Crestview Capital holds an ISO 37001 anti-bribery certification.
+- `e_9aa0` [2026-02-25, Securities and Exchange Commission register, February 25, 2026] Zephyr Equities holds a SEC broker-dealer licence.
+- `e_e763` [2026-02-28, International Trade Oversight note, February 28, 2026] Apex Holdings recorded 15 cross-border compliance verifications this year.
+- memories:
+  - `m_b312` Apex Holdings is designated as a low-risk counterparty.
+  - `m_1e5f` Apex Holdings qualifies for high-frequency trading privileges.
+  - `m_3500` Apex Holdings is granted direct market participant status.
+  - `m_d7fe` Apex Holdings is authorized for multi-asset margin lending.
+  - `m_e07c` Apex Holdings maintains an exemplary regulatory record.
+  - `m_60a5` Beacon Wealth Management achieves custodial safety compliance.
+  - `m_777b` Apex Holdings satisfies international client acceptance criteria.
+  - `m_44cc` Solstice Investments holds European regional operational authorization.
+  - `m_d0c9` Apex Holdings achieves top-tier liquidity standing.
+  - `m_e2fe` Meridian Financial satisfies annual accounting audit requirements.
+  - `m_ea7e` Zephyr Equities maintains standard regulatory broker clearance.
+  - `m_4409` Crestview Capital meets low-risk governance standards.
+  - `m_cc36` Apex Holdings is approved for prime brokerage onboarding.
+  - `m_225a` Apex Holdings satisfies full ownership transparency requirements.
+  - `m_4ab0` Apex Holdings is designated as a Tier-1 corporate client.
+  - `m_0819` Apex Holdings meets the expedited settlement qualification.
+- update `u_7413` [2026-03-03, Official Compliance Audit Report, March 3, 2026] A regulatory audit confirmed that Crestview Capital never held an ISO 37001 anti-bribery certification.
+- update `u_7c5a` [2026-03-06, Central Registry Official Notice, March 6, 2026] A financial authority review found that Apex Holdings has zero verified ultimate beneficial ownership certificates on file.
+- update `u_f32c` [2026-03-09, Internal Compliance Bulletin, March 9, 2026] An internal review noted that Apex Holdings' previously reported anti-money laundering audit attestations were submitted in error.
+- update `u_5708` [2026-03-12, Sanctions Oversight Board Notice, March 12, 2026] An oversight council revoked Apex Holdings' sanctions clearance passport following an official sanction list revision.
+- update `u_c18c` [2026-03-15, Audited Quarterly Financial Statement, March 15, 2026] An audited financial restatement confirmed Crestview Capital's net asset reserves stand at $40,000,000.
+- update `u_885a` [2026-03-18, Official Regulatory Audit Update, March 18, 2026] A revised regulatory audit established that Apex Holdings filed 5 anti-money laundering audit attestations this year.
+- update `u_2187` [2026-03-21, Compliance Monitoring System Log, March 21, 2026] An updated compliance report confirmed that Apex Holdings recorded 12 cross-border compliance verifications this year.
+- policies:
+  - `p_09c8` Financial record compliance is achieved when an entity provides 2 or more verified financial audit statements annually.
+  - `p_431e` Specialized fiduciary agency designation is conferred upon an enterprise operating an internal fraud detection system.
+  - `p_4405` An enterprise receives automated clearinghouse facility access if it holds an equity capital ratio of 15 percent or greater.
+  - `p_4224` An applicant satisfies corporate ultimate beneficiary disclosure standard by filing at least 5 verified beneficial ownership certificates.
+  - `p_beab` Global counterparty approval is granted to an institution holding clearance for premier trading services that also secures a clean regulatory compliance profile.
+  - `p_a330` An organization fulfills ethical oversight criteria either by maintaining net asset reserves of at least $80,000,000, or by holding an ISO 37001 anti-bribery certification and submitting at least 5 corporate governance disclosures per year.
+  - `p_0571` Expedited account settlement capability is assigned to an entity that enjoys preferential risk rating status and holds clearance for premier trading services.
+  - `p_ae92` A market participant secures a clean regulatory compliance profile either by possessing a global sanctions clearing passport, or by maintaining an entity evaluation score of 80 points or higher along with at least 10 annual cross-border compliance verifications.
+  - `p_090b` Primary institutional account status is awarded to any entity securing global counterparty approval.
+  - `p_67e4` Securities brokerage permission is established when an applicant holds a SEC broker-dealer licence.
+  - `p_dd23` Asset protection clearance is granted to an institution maintaining a client asset protection pool of at least $25,000,000.
+  - `p_e2db` High liquidity classification is awarded to a firm processing a yearly turnover of at least $300,000,000 that provides 3 or more anti-money laundering audit attestations in a year.
+  - `p_b439` Direct exchange execution authorization is conferred upon an enterprise possessing automated direct access execution rights together with a regulatory capital reserves deposit of no less than $40,000,000.
+  - `p_0145` A client achieves preferential risk rating status either by holding a sovereign wealth endorsement, or by sustaining an entity evaluation score of at least 85 points alongside presenting a minimum of 5 verified beneficial ownership certificates and conducting 10 or more independent compliance reviews annually.
+  - `p_0e67` Regional trading eligibility is conferred upon any firm holding a European economic operator registration.
+  - `p_40fa` Leveraged credit line allocation requires an entity to hold primary institutional account status while maintaining at least $15,000,000 in fidelity bond coverage.
+  - `p_22a2` Automated direct access execution rights are extended to any organisation with high liquidity classification that maintains expedited account settlement capability.
+  - `p_650e` Institutional customer clearance for premier trading services is granted when an applicant satisfies corporate ultimate beneficiary disclosure standard and possesses a valid institutional banking licence.
+
+### B. Intended structure
+- `m_225a` (B1) [policy `p_4224`] <= (`e_1c06`); gold after update: **withdraw**
+  - set 1: Apex Holdings submitted 8 verified ultimate beneficial ownership certificates, meeting the requirement of at least 5 certificates.
+- `m_cc36` (D1) [policy `p_650e`] <= (`m_225a` AND `e_5482`); gold after update: **withdraw**
+  - set 1: Apex Holdings satisfies corporate ultimate beneficiary disclosure standard and holds a valid tier-one institutional banking licence.
+- `m_4409` (B2) [policy `p_a330`] <= (`e_1213` AND `e_091c`) **OR** (`e_ae13`); gold after update: **recompute**
+  - set 1: Crestview Capital submitted 6 corporate governance disclosures (at least 5 required) and holds an ISO 37001 anti-bribery certification.
+  - set 2: Crestview Capital maintains net asset reserves of 100 million dollars, meeting the 80 million dollars threshold.
+- `m_b312` (B3) [policy `p_0145`] <= (`e_3e16` AND `e_1c06` AND `e_9924`) **OR** (`e_320c`); gold after update: **keep**
+  - set 1: Apex Holdings maintains a risk rating of 92 points (>= 85), submitted 8 beneficial ownership certificates (>= 5), and completed 12 compliance reviews this year (>= 10).
+  - set 2: Apex Holdings holds a sovereign wealth endorsement.
+- `m_0819` (B4) [policy `p_0571`] <= (`m_b312` AND `m_cc36`); gold after update: **withdraw**
+  - set 1: Apex Holdings achieves preferential risk rating status and holds clearance for premier trading services.
+- `m_d0c9` (B5) [policy `p_e2db`] <= (`e_e8a4` AND `e_5f2b`); gold after update: **withdraw**
+  - set 1: Apex Holdings recorded 500 million dollars in annual transaction volume (>= 300 million) and filed 4 anti-money laundering attestations this year (>= 3).
+- `m_1e5f` (B6) [policy `p_22a2`] <= (`m_d0c9` AND `m_0819`); gold after update: **withdraw**
+  - set 1: Apex Holdings holds high liquidity classification and expedited account settlement capability.
+- `m_3500` (D2) [policy `p_b439`] <= (`m_1e5f` AND `e_77e6`); gold after update: **withdraw**
+  - set 1: Apex Holdings maintains automated direct access execution rights and holds a regulatory capital reserves deposit of 50 million dollars (>= 40 million).
+- `m_e07c` (B7) [policy `p_ae92`] <= (`e_3e16` AND `e_e763`) **OR** (`e_c272`); gold after update: **recompute**
+  - set 1: Apex Holdings maintains a risk rating of 92 points (>= 80) and recorded 15 cross-border compliance verifications this year (>= 10).
+  - set 2: Apex Holdings holds a global sanctions clearing passport.
+- `m_777b` (B8) [policy `p_beab`] <= (`m_e07c` AND `m_cc36`); gold after update: **withdraw**
+  - set 1: Apex Holdings holds clearance for premier trading services and maintains a clean regulatory compliance profile.
+- `m_4ab0` (B9) [policy `p_090b`] <= (`m_777b`); gold after update: **withdraw**
+  - set 1: Apex Holdings secures global counterparty approval.
+- `m_d7fe` (D3) [policy `p_40fa`] <= (`m_4ab0` AND `e_704f`); gold after update: **withdraw**
+  - set 1: Apex Holdings holds primary institutional account status and maintains 20 million dollars in fidelity bond coverage (>= 15 million).
+- `m_e2fe` (B10) [policy `p_09c8`] <= (`e_b158`); gold after update: **keep**
+  - set 1: Meridian Financial submitted 3 verified financial audit statements this year, meeting the requirement of at least 2.
+- `m_44cc` (B11) [policy `p_0e67`] <= (`e_7a37`); gold after update: **keep**
+  - set 1: Solstice Investments holds a European economic operator registration.
+- `m_60a5` (B12) [policy `p_dd23`] <= (`e_6b9d`); gold after update: **keep**
+  - set 1: Beacon Wealth Management maintains a client assets protection fund of 30 million dollars, meeting the threshold of at least 25 million dollars.
+- `m_ea7e` (B13) [policy `p_67e4`] <= (`e_9aa0`); gold after update: **keep**
+  - set 1: Zephyr Equities holds a SEC broker-dealer licence.
+- `u_7413` retracts `e_091c` (reliability high)
+- `u_7c5a` retracts `e_1c06` (reliability high)
+- `u_f32c` retracts `e_5f2b` (reliability high)
+- `u_5708` supersedes `e_c272` (reliability high)
+- `u_c18c` supersedes `e_ae13` (reliability high)
+- `u_885a` supersedes `e_5f2b` (reliability high)
+- `u_2187` supersedes `e_e763` (reliability high)
+- decoy policies: `p_4405`, `p_431e`
+- final state after updates (gold action -> state): `m_225a` withdraw -> fails; `m_4409` recompute -> fails; `m_b312` keep -> holds; `m_d0c9` withdraw -> fails; `m_e07c` recompute -> holds; `m_e2fe` keep -> holds; `m_44cc` keep -> holds; `m_60a5` keep -> holds; `m_ea7e` keep -> holds; `m_cc36` withdraw -> fails; `m_0819` withdraw -> fails; `m_777b` withdraw -> fails; `m_1e5f` withdraw -> fails; `m_4ab0` withdraw -> fails; `m_3500` withdraw -> fails; `m_d7fe` withdraw -> fails
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_320c~p_0145` policy_echoes_evidence: "a sovereign wealth; sovereign wealth endorsement" (judge under C7/C11)
+- soft `e_704f~p_40fa` policy_echoes_evidence: "fidelity bond coverage" (judge under C7/C11)
+- soft `e_77e6~p_b439` policy_echoes_evidence: "a regulatory capital; capital reserves deposit; regulatory capital reserves; reserves deposit of" (judge under C7/C11)
+- soft `e_1c06~p_4224` policy_echoes_evidence: "beneficial ownership certificates" (judge under C7/C11)
+- soft `e_1c06~p_0145` policy_echoes_evidence: "beneficial ownership certificates" (judge under C7/C11)
+- soft `e_5482~p_650e` policy_echoes_evidence: "institutional banking licence" (judge under C7/C11)
+- soft `e_7a37~p_0e67` policy_echoes_evidence: "economic operator registration" (judge under C7/C11)
+- soft `e_b158~p_09c8` policy_echoes_evidence: "financial audit statements; verified financial audit" (judge under C7/C11)
+- soft `e_5f2b~p_e2db` policy_echoes_evidence: "anti-money laundering audit; laundering audit attestations" (judge under C7/C11)
+- soft `e_9924~p_0145` policy_echoes_evidence: "independent compliance reviews" (judge under C7/C11)
+- soft `e_ae13~p_a330` policy_echoes_evidence: "asset reserves of; net asset reserves" (judge under C7/C11)
+- soft `e_1213~p_a330` policy_echoes_evidence: "corporate governance disclosures" (judge under C7/C11)
+- soft `e_e763~p_ae92` policy_echoes_evidence: "cross-border compliance verifications" (judge under C7/C11)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_1fcf24151c  (F7-023, finance kyc)
+
+*World:* Due diligence and regulatory onboarding evaluation for institutional financial service clients.
+
+### A. System view (judge C7 from this alone)
+- `e_4405` [2026-01-08, Advisory board roster] Vantage Wealth employs 25 registered investment advisors.
+- `e_df0a` [2026-01-11, Audited balance sheet] Zenith Ltd maintains corporate capital of $5,000,000 USD.
+- `e_5124` [2026-01-14, External auditor attestation] Zenith Ltd passed an independent AML audit with no major findings.
+- `e_ac98` [2026-01-17, Interbank network directory] Zenith Ltd holds a verified SWIFT membership code.
+- `e_2426` [2026-01-20, Background verification report] Zenith Ltd holds an executive background check clearance.
+- `e_c4b3` [2026-01-23, Operations log summary] Zenith Ltd reports client transaction velocity of 800 operations per day.
+- `e_dc29` [2026-01-26, Official compliance record] Zenith Ltd holds a valid ISO 27001 accreditation.
+- `e_fe0a` [2026-01-29, Annual financial statement] Nexus Partners recorded an annual total asset management volume of $500,000,000 USD this year.
+- `e_32e8` [2026-02-01, Tax authority filing] Zenith Ltd reports annual turnover of $12,000,000 USD this year.
+- `e_e66e` [2026-02-04, Internal audit schedule] Zenith Ltd conducted 12 annual internal risk reviews this year.
+- `e_9e8c` [2026-02-07, Financial conduct registry] Solas Fintech maintains a certified Payment Service Provider license.
+- `e_ba21` [2026-02-10, Escrow agent statement] Veloce Capital holds an annual corporate escrow balance of $10,000,000 USD this year.
+- `e_7efc` [2026-02-13, HR portal disclosure] Zenith Ltd employs 15 compliance officers.
+- `e_2421` [2026-02-16, Regulatory registry listing] Zenith Ltd maintains 4 international operating licenses.
+- `e_d8ac` [2026-02-19, Insurance carrier certificate] Zenith Ltd carries an indemnity insurance bond of $20,000,000 USD.
+- `e_696c` [2026-02-22, Central bank disclosure memo] Zenith Ltd maintains an active Tier-1 Banking License.
+- `e_8b4e` [2026-02-25, Rating agency certificate] Zenith Ltd possesses a credit rating score of 85 points.
+- `e_abbc` [2026-02-28, Securities commission log] Zenith Ltd completed 50 quarterly regulatory disclosures this year.
+- memories:
+  - `m_e6df` Vantage Wealth meets advisory staffing minimums.
+  - `m_7ada` Zenith Ltd holds primary banking qualification.
+  - `m_462b` Zenith Ltd is approved for direct settlement routing.
+  - `m_100f` Zenith Ltd qualifies for Tier-1 brokerage authorization.
+  - `m_8718` Zenith Ltd gains standard market access privileges.
+  - `m_c741` Nexus Partners obtains institutional asset manager status.
+  - `m_e0e2` Zenith Ltd receives cross-border execution clearance.
+  - `m_4dcd` Zenith Ltd satisfies multi-jurisdictional licensing criteria.
+  - `m_fedf` Zenith Ltd maintains low-risk compliance designation.
+  - `m_357b` Zenith Ltd meets basic onboarding conditions.
+  - `m_13ae` Zenith Ltd receives master prime brokerage account execution.
+  - `m_0f88` Solas Fintech fulfills gateway operator prerequisites.
+  - `m_af00` Zenith Ltd meets operational capacity thresholds.
+  - `m_934a` Zenith Ltd achieves IT security verification.
+  - `m_3095` Zenith Ltd satisfies corporate governance standards.
+  - `m_4167` Veloce Capital maintains fiduciary liquidity compliance.
+  - `m_c7d0` Zenith Ltd achieves high-throughput operational rating.
+  - `m_39cf` Zenith Ltd is approved for global omnibus account setup.
+- update `u_6cb0` [2026-03-03, Corrected clearing house audit] Zenith Ltd revised its reported client transaction velocity to 200 operations per day.
+- update `u_8d9c` [2026-03-06, Standards body revocation notice] Zenith Ltd lost its ISO 27001 accreditation following an audit failure.
+- update `u_0ee9` [2026-03-09, Regulatory enforcement gazette] Regulators revoked all 4 international operating licenses previously held by Zenith Ltd.
+- update `u_5aef` [2026-03-12, Revised governance audit] Zenith Ltd conducted a revised total of 2 annual internal risk reviews this year.
+- policies:
+  - `p_f096` Standard account activation is granted to an applicant with baseline client onboarding approval and confirmed executive background checks.
+  - `p_ce7b` Direct settlement gateway connectivity is granted to an applicant with low-risk regulatory standing and a verified SWIFT membership code.
+  - `p_283a` Governance threshold compliance is met by submitting 40 or more quarterly regulatory disclosures per year, conducting 10 or more annual internal risk reviews per year, or securing a credit rating score of 80 or above.
+  - `p_6174` Primary banking tier status is assigned when an entity holds an active Tier-1 Banking License.
+  - `p_28bd` Organizational capacity compliance is recognized when an entity records annual turnover of $10,000,000 or more, employs 10 or more compliance staff, or maintains 3 or more international licenses.
+  - `p_e8f8` Fiduciary liquidity certification requires maintaining an annual corporate escrow balance of at least $5,000,000 per year.
+  - `p_5299` High-volume processing status is conferred if an enterprise employs 10 or more compliance staff, has information technology security validation, and handles client transaction velocity of at least 500 operations per day, or holds an active Tier-1 Banking License.
+  - `p_367d` Brokerage master agreements are executed for any firm possessing prime brokerage eligibility.
+  - `p_5b17` International transaction routing is authorized for an applicant with organizational capacity compliance that carries an indemnity bond of at least $15,000,000.
+  - `p_138d` Multi-jurisdictional operating approval requires holding at least 3 international operating licenses.
+  - `p_98e6` Low-risk regulatory standing is granted to an applicant with high-volume processing status that records an independent AML audit with zero major findings.
+  - `p_1ed0` Advisory capacity sufficiency is established when a company maintains 20 or more registered investment advisors.
+  - `p_bfed` Gateway operator qualification is awarded to a firm holding a certified Payment Service Provider license.
+  - `p_3b6d` Prime brokerage eligibility is awarded to an applicant with direct settlement gateway connectivity that meets governance threshold compliance.
+  - `p_0803` Information technology security validation is granted when an enterprise holds an active ISO 27001 accreditation.
+  - `p_8979` Baseline client onboarding approval occurs when an applicant has information technology security validation and holds corporate capital of at least $3,000,000.
+  - `p_489c` Institutional management status is conferred when an enterprise handles an annual total asset management volume of at least $300,000,000 per year.
+  - `p_a8f8` Foreign currency exchange facilities are extended to trading desks providing an external solvency evaluation.
+  - `p_6299` Omnibus account allocation is granted to an entity with multi-jurisdictional operating approval.
+  - `p_a7b1` Collateralized lending permissions are extended to hedge funds providing cash reserves of at least $100,000,000.
+
+### B. Intended structure
+- `m_934a` (B1) [policy `p_0803`] <= (`e_dc29`); gold after update: **withdraw**
+  - set 1: Zenith Ltd holds an active ISO 27001 accreditation, satisfying IT security verification under the policy.
+- `m_357b` (B2) [policy `p_8979`] <= (`m_934a` AND `e_df0a`); gold after update: **withdraw**
+  - set 1: Zenith Ltd holds IT security verification and corporate capital of $5,000,000 USD, exceeding the $3,000,000 threshold.
+- `m_8718` (D1) [policy `p_f096`] <= (`m_357b` AND `e_2426`); gold after update: **withdraw**
+  - set 1: Zenith Ltd satisfies basic onboarding conditions and possesses an executive background check clearance, qualifying for standard market access privileges.
+- `m_af00` (B3) [policy `p_28bd`] <= (`e_32e8`) **OR** (`e_7efc`) **OR** (`e_2421`); gold after update: **keep**
+  - set 1: Zenith Ltd records an annual turnover of $12,000,000 USD, meeting the $10,000,000 threshold.
+  - set 2: Zenith Ltd employs 15 compliance officers, meeting the threshold of 10 personnel.
+  - set 3: Zenith Ltd maintains 4 international operating licenses, meeting the minimum requirement of 3.
+- `m_e0e2` (D2) [policy `p_5b17`] <= (`m_af00` AND `e_d8ac`); gold after update: **keep**
+  - set 1: Zenith Ltd meets operational capacity thresholds and carries an indemnity insurance bond of $20,000,000 USD, exceeding $15,000,000.
+- `m_c7d0` (B4) [policy `p_5299`] <= (`e_7efc` AND `e_dc29` AND `e_c4b3`) **OR** (`e_696c`); gold after update: **keep**
+  - set 1: Zenith Ltd employs 15 compliance officers (>= 10), holds ISO 27001 accreditation, and records transaction velocity of 800 operations per day (>= 500).
+  - set 2: Zenith Ltd holds an active Tier-1 Banking License, satisfying the alternative condition for high-throughput status.
+- `m_fedf` (B5) [policy `p_98e6`] <= (`m_c7d0` AND `e_5124`); gold after update: **keep**
+  - set 1: Zenith Ltd holds high-throughput operational rating and completed an independent AML audit with no findings.
+- `m_462b` (D3) [policy `p_ce7b`] <= (`m_fedf` AND `e_ac98`); gold after update: **keep**
+  - set 1: Zenith Ltd holds low-risk compliance designation and possesses a verified SWIFT membership code.
+- `m_7ada` (B6) [policy `p_6174`] <= (`e_696c`); gold after update: **keep**
+  - set 1: Zenith Ltd holds an active Tier-1 Banking License, conferring primary banking status.
+- `m_3095` (B7) [policy `p_283a`] <= (`e_abbc`) **OR** (`e_e66e`) **OR** (`e_8b4e`); gold after update: **keep**
+  - set 1: Zenith Ltd completed 50 quarterly disclosures per year, exceeding the threshold of 40.
+  - set 2: Zenith Ltd conducted 12 annual risk reviews per year, exceeding the threshold of 10.
+  - set 3: Zenith Ltd holds a credit rating score of 85 points, meeting the 80 point threshold.
+- `m_100f` (B8) [policy `p_3b6d`] <= (`m_3095` AND `m_462b`); gold after update: **keep**
+  - set 1: Zenith Ltd satisfies corporate governance standards and holds direct settlement routing approval.
+- `m_13ae` (D4) [policy `p_367d`] <= (`m_100f`); gold after update: **keep**
+  - set 1: Zenith Ltd qualifies for Tier-1 brokerage authorization, triggering master brokerage account execution.
+- `m_4dcd` (B9) [policy `p_138d`] <= (`e_2421`); gold after update: **withdraw**
+  - set 1: Zenith Ltd maintains 4 international operating licenses, satisfying the requirement of at least 3.
+- `m_39cf` (D5) [policy `p_6299`] <= (`m_4dcd`); gold after update: **withdraw**
+  - set 1: Zenith Ltd satisfies multi-jurisdictional licensing criteria, qualifying for global omnibus account setup.
+- `m_4167` (B10) [policy `p_e8f8`] <= (`e_ba21`); gold after update: **keep**
+  - set 1: Veloce Capital maintains an annual corporate escrow balance of $10,000,000 USD, exceeding the $5,000,000 requirement.
+- `m_0f88` (B11) [policy `p_bfed`] <= (`e_9e8c`); gold after update: **keep**
+  - set 1: Solas Fintech holds a certified Payment Service Provider license, meeting gateway operator prerequisites.
+- `m_e6df` (B12) [policy `p_1ed0`] <= (`e_4405`); gold after update: **keep**
+  - set 1: Vantage Wealth employs 25 registered investment advisors, exceeding the threshold of 20.
+- `m_c741` (B13) [policy `p_489c`] <= (`e_fe0a`); gold after update: **keep**
+  - set 1: Nexus Partners manages an annual asset volume of $500,000,000 USD, exceeding the $300,000,000 threshold.
+- `u_6cb0` supersedes `e_c4b3` (reliability high)
+- `u_8d9c` retracts `e_dc29` (reliability high)
+- `u_0ee9` retracts `e_2421` (reliability high)
+- `u_5aef` supersedes `e_e66e` (reliability high)
+- decoy policies: `p_a7b1`, `p_a8f8`
+- final state after updates (gold action -> state): `m_934a` withdraw -> fails; `m_af00` keep -> holds; `m_4dcd` withdraw -> fails; `m_c7d0` keep -> holds; `m_7ada` keep -> holds; `m_3095` keep -> holds; `m_4167` keep -> holds; `m_0f88` keep -> holds; `m_e6df` keep -> holds; `m_c741` keep -> holds; `m_357b` withdraw -> fails; `m_e0e2` keep -> holds; `m_39cf` withdraw -> fails; `m_fedf` keep -> holds; `m_8718` withdraw -> fails; `m_462b` keep -> holds; `m_100f` keep -> holds; `m_13ae` keep -> holds
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_4405~p_1ed0` policy_echoes_evidence: "registered investment advisors" (judge under C7/C11)
+- soft `e_df0a~p_8979` policy_echoes_evidence: "corporate capital of" (judge under C7/C11)
+- soft `e_c4b3~p_5299` policy_echoes_evidence: "client transaction velocity; operations per day; transaction velocity of" (judge under C7/C11)
+- soft `e_fe0a~p_489c` policy_echoes_evidence: "an annual total; annual total asset; asset management volume; management volume of; total asset management" (judge under C7/C11)
+- soft `e_32e8~p_28bd` policy_echoes_evidence: "annual turnover of" (judge under C7/C11)
+- soft `e_e66e~p_283a` policy_echoes_evidence: "annual internal risk; internal risk reviews" (judge under C7/C11)
+- soft `e_ba21~p_e8f8` policy_echoes_evidence: "an annual corporate; annual corporate escrow; corporate escrow balance; escrow balance of" (judge under C7/C11)
+- soft `e_2421~p_138d` policy_echoes_evidence: "international operating licenses" (judge under C7/C11)
+- soft `e_d8ac~p_5b17` policy_echoes_evidence: "carries an indemnity" (judge under C7/C11)
+- soft `e_8b4e~p_283a` policy_echoes_evidence: "a credit rating; credit rating score; rating score of" (judge under C7/C11)
+- soft `e_abbc~p_283a` policy_echoes_evidence: "quarterly regulatory disclosures" (judge under C7/C11)
+- soft `groups 1/2` cross_group_entity: "USD" (judge under C6)
+- soft `groups 1/5` cross_group_entity: "USD" (judge under C6)
+- soft `groups 2/5` cross_group_entity: "USD" (judge under C6)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).

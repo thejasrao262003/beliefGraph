@@ -98,3 +98,32 @@ def llm_direct_store(llm, view: dict, note: str = "") -> tuple[dict[str, Action]
         except ValueError:
             errors.append(f"{mid}: action {v!r} -> keep")
     return out, errors
+
+
+# Retrieval baseline (standard RAG): the same store-mode question, but the model sees only the
+# items most similar to the updates (dense retrieval), not the whole store. Memories it never
+# sees are kept. This separates "a shorter context" from "the dependency graph".
+RAG_VERSION = "llm-rag-store-v1"
+
+
+def rag_view(view: dict, k_items: int = 8, k_policies: int = 4) -> dict:
+    from beliefgraph.retrieve import DenseIndex
+
+    items = [(e["id"], e["text"]) for e in view["evidence"]] + [(m["id"], m["text"]) for m in view["memories"]]
+    idx = DenseIndex(items)
+    pidx = DenseIndex([(str(i), p["text"]) for i, p in enumerate(view.get("policies", []))])
+    keep, pols = set(), set()
+    for u in view["updates"]:
+        keep.update(idx.rank(u["text"])[:k_items])
+        pols.update(pidx.rank(u["text"])[:k_policies])
+    return dict(view, evidence=[e for e in view["evidence"] if e["id"] in keep],
+                memories=[m for m in view["memories"] if m["id"] in keep],
+                policies=[p for i, p in enumerate(view.get("policies", [])) if str(i) in pols])
+
+
+def llm_rag_store(llm, view: dict, note: str = "") -> tuple[dict[str, Action], list[str]]:
+    small = rag_view(view)
+    actions, errors = llm_direct_store(llm, small, note or f"{view['scenario']} rag")
+    out = {m["id"]: Action.KEEP for m in view["memories"]}
+    out.update({m: a for m, a in actions.items() if m in out})
+    return out, errors

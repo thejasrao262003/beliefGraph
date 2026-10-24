@@ -79,6 +79,8 @@ def repair_loop(s, base_response: dict, system: dict, evaluation: dict, hard: li
         if merged is None:
             return None
         r, system, evaluation, hard = repair.verify(s, merged, version, seed)
+        if evaluation is None:
+            return None  # the repaired rendering no longer parses: fall back to a fresh attempt
         if not hard:
             return r, system, evaluation
         response = merged

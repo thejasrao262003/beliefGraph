@@ -1,0 +1,850 @@
+{
+ "scenario": "F7-034",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "nodes.B9.text": "reliability_word 'reliability' (the word 'reliability' may not appear in any text)",
+  "policies.B9": "reliability_word 'reliability' (the word 'reliability' may not appear in any text); policy_echoes_memory 'air service reliability; meets air service; service reliability standards' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B10": "reliability_word 'reliability' (the word 'reliability' may not appear in any text); policy_echoes_memory 'active flight clearance' (a policy may not share a 3-word phrase with any memory); policy_echoes_memory 'air service reliability; meets air service; service reliability standards' (a policy may not share a 3-word phrase with any memory)",
+  "policies.D2": "policy_echoes_memory 'holds preferred carrier; preferred carrier status' (a policy may not share a 3-word phrase with any memory); record_threshold_not_in_policy '5'",
+  "policies.B4": "policy_echoes_memory 'preferred carrier status' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B7": "policy_echoes_memory 'core operational requirements; fulfills core operational' (a policy may not share a 3-word phrase with any memory); policy_echoes_memory 'chosen for long-term' (a policy may not share a 3-word phrase with any memory); policy_echoes_memory 'logistics provider standing; master logistics provider' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B6": "policy_echoes_memory 'core operational requirements' (a policy may not share a 3-word phrase with any memory); record_threshold_not_in_policy '10'",
+  "policies.B13": "policy_echoes_memory 'commercial charter authorization' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B8": "policy_echoes_memory 'fleet efficiency benchmarks' (a policy may not share a 3-word phrase with any memory)",
+  "policies.D4": "policy_echoes_memory 'active flight clearance' (a policy may not share a 3-word phrase with any memory); policy_echoes_memory 'peak schedule slots' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B12": "policy_echoes_memory 'meets tour accreditation; tour accreditation criteria' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B11": "policy_echoes_memory 'staffing capability thresholds' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B2": "policy_echoes_memory 'an exemplary safety; exemplary safety record' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B3": "policy_echoes_memory 'an exemplary safety; exemplary safety record; retains an exemplary' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B5": "policy_echoes_memory 'driver excellence certification' (a policy may not share a 3-word phrase with any memory)",
+  "policies.D3": "policy_echoes_memory 'driver excellence certification' (a policy may not share a 3-word phrase with any memory)",
+  "decoy_policies[1]": "decoy_shares_memory_word 'safety' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)",
+  "decoy_policies[0]": "decoy_shares_memory_word 'earn' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)",
+  "facts.E6": "record_value_not_in_text '5'; record_threshold_not_in_policy '5'",
+  "nodes.E6.text": "record_value_not_in_text '5'; record_threshold_not_in_policy '5'",
+  "nodes.E6.source": "record_value_not_in_text '5'; record_threshold_not_in_policy '5'",
+  "facts.E8": "record_value_not_in_text '15'; record_threshold_not_in_policy '10'",
+  "nodes.E8.text": "record_value_not_in_text '15'; record_threshold_not_in_policy '10'",
+  "nodes.E8.source": "record_value_not_in_text '15'; record_threshold_not_in_policy '10'",
+  "conditions.D2": "record_threshold_not_in_policy '5'",
+  "conditions.B6": "record_threshold_not_in_policy '10'"
+ },
+ "response": "{\n \"replacements\": {\n  \"conditions.B6\": [\n   {\n    \"premise\": \"E8\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Express\",\n    \"relation\": null,\n    \"quantity\": \"annual revenue\",\n    \"comparator\": \">=\",\n    \"threshold\": 10000000,\n    \"unit\": \"USD\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E9\",\n    \"kind\": \"credential\",\n    \"entity\": \"Apex Express\",\n    \"relation\": null,\n    \"quantity\": \"Class A Transport Licence\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"conditions.D2\": [\n   {\n    \"premise\": \"B4\",\n    \"kind\": \"conclusion\",\n    \"entity\": \"Apex Express\",\n    \"relation\": null,\n    \"quantity\": \"preferred carrier status\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E6\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Express\",\n    \"relation\": null,\n    \"quantity\": \"liability insurance coverage\",\n    \"comparator\": \">=\",\n    \"threshold\": 5000000,\n    \"unit\": \"USD\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"decoy_policies[0]\": \"A rail freight operator secures heavy hauling permits when running locomotives with zero carbon emissions.\",\n  \"decoy_policies[1]\": \"A warehousing business obtains cold storage endorsement by maintaining indoor temperature below two degrees.\",\n  \"facts.E6\": {\n   \"entity\": \"Apex Express\",\n   \"kind\": \"number\",\n   \"quantity\": \"liability insurance coverage\",\n   \"value\": 5000000,\n   \"unit\": \"USD\",\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"facts.E8\": {\n   \"entity\": \"Apex Express\",\n   \"kind\": \"number\",\n   \"quantity\": \"annual revenue\",\n   \"value\": 15000000,\n   \"unit\": \"USD\",\n   \"window\": \"year\",\n   \"scope\": \"none\"\n  },\n  \"nodes.B9.text\": \"Delta Aviation satisfies air service consistency standards.\",\n  \"nodes.E6.source\": \"underwriter policy document\",\n  \"nodes.E6.text\": \"Apex Express maintains a liability insurance coverage of 5 million USD.\",\n  \"nodes.E8.source\": \"audited financial report\",\n  \"nodes.E8.text\": \"Apex Express recorded an annual revenue of 15 million USD last year.\",\n  \"policies.B10\": \"An air carrier maintains valid flight authorization when it meets flight performance standards and maintains an active hangar maintenance agreement.\",\n  \"policies.B11\": \"A freight agency meets workforce capacity standards by maintaining at least 40 certified logistics specialists.\",\n  \"policies.B12\": \"A travel company secures travel provider endorsement upon holding a Certified Tour Operator badge.\",\n  \"policies.B13\": \"A charter firm obtains commercial flight operator approval when holding an FAA Part 135 Air Carrier Certificate.\",\n  \"policies.B2\": \"A transport vendor achieves top-tier safety standing either by completing at least 10 safety audits last year alongside maintaining a fleet size of at least 20 vehicles and securing a customer satisfaction rating of 85 percent or higher, or by holding a Gold Fleet Safety Award.\",\n  \"policies.B3\": \"A carrier earns priority route dispatch provided it maintains top-tier safety standing and is approved for enterprise service agreements.\",\n  \"policies.B4\": \"An enterprise achieves preferred vendor standing when it is granted priority route dispatch.\",\n  \"policies.B5\": \"A passenger carrier earns driver proficiency endorsement when maintaining a driver training index of at least 85 percent.\",\n  \"policies.B6\": \"A firm meets basic operational criteria either by recording an annual revenue of at least 10 million USD last year or by holding a Class A Transport Licence.\",\n  \"policies.B7\": \"A transport contractor obtains premier logistics provider status if it meets basic operational criteria and is selected for extended route dispatch.\",\n  \"policies.B8\": \"A shuttle operator attains fleet economy targets by logging an annual fuel efficiency of at least 12 miles per gallon last year.\",\n  \"policies.B9\": \"An airline meets flight performance standards either by achieving an on-time arrival rate of at least 90 percent this quarter or by holding an IATA Operational Safety Audit certification.\",\n  \"policies.D2\": \"A firm is selected for extended route dispatch if it holds preferred vendor standing and maintains a liability insurance coverage of at least 5 million USD.\",\n  \"policies.D3\": \"A provider is designated for VIP shuttle operations if that provider earns driver proficiency endorsement.\",\n  \"policies.D4\": \"An airline is assigned prime flight windows provided it maintains valid flight authorization.\"\n }\n}",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 12548,
+   "output_tokens": 17936,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 12548,
+    "completion_tokens": 17936
+   }
+  },
+  "est_usd": 0.230013,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.B6[0].threshold",
+  "conditions.B6[0].unit",
+  "conditions.D2[1].threshold",
+  "conditions.D2[1].unit",
+  "decoy_policies[0]",
+  "decoy_policies[1]",
+  "facts.E6.unit",
+  "facts.E6.value",
+  "facts.E8.unit",
+  "facts.E8.value",
+  "nodes.B9.text",
+  "policies.B10",
+  "policies.B11",
+  "policies.B12",
+  "policies.B13",
+  "policies.B2",
+  "policies.B3",
+  "policies.B4",
+  "policies.B5",
+  "policies.B6",
+  "policies.B7",
+  "policies.B8",
+  "policies.B9",
+  "policies.D2",
+  "policies.D3",
+  "policies.D4"
+ ],
+ "merged": {
+  "world": "Travel logistics evaluation of regional transportation, charter, and shuttle service providers.",
+  "nodes": {
+   "E1": {
+    "text": "Apex Express holds an active ISO 9001 quality certification.",
+    "source": "regional compliance assessment note"
+   },
+   "E2": {
+    "text": "Apex Express completed 12 safety audits last year.",
+    "source": "official safety bureau audit log"
+   },
+   "E3": {
+    "text": "Apex Express maintains a fleet size of 25 vehicles.",
+    "source": "department of transportation vehicle registry"
+   },
+   "E4": {
+    "text": "Apex Express achieved a customer satisfaction rating of 88 percent.",
+    "source": "quarterly partner review email"
+   },
+   "E5": {
+    "text": "Apex Express holds a Gold Fleet Safety Award.",
+    "source": "national transport safety board certificate"
+   },
+   "E6": {
+    "text": "Apex Express maintains a liability insurance coverage of 5 million USD.",
+    "source": "underwriter policy document"
+   },
+   "E7": {
+    "text": "BlueWave Tours maintains a driver training index of 90 percent.",
+    "source": "regional transport safety database"
+   },
+   "E8": {
+    "text": "Apex Express recorded an annual revenue of 15 million USD last year.",
+    "source": "audited financial report"
+   },
+   "E9": {
+    "text": "Apex Express holds a Class A Transport Licence.",
+    "source": "state transit authority portal"
+   },
+   "E10": {
+    "text": "Crestline Shuttles logged an annual fuel efficiency of 14 miles per gallon last year.",
+    "source": "fleet telemetry summary note"
+   },
+   "E11": {
+    "text": "Delta Aviation achieved an on-time arrival rate of 92 percent this quarter.",
+    "source": "civil aviation authority quarterly report"
+   },
+   "E12": {
+    "text": "Delta Aviation holds an IATA Operational Safety Audit certification.",
+    "source": "IATA official registry record"
+   },
+   "E13": {
+    "text": "Delta Aviation maintains an active hangar maintenance agreement.",
+    "source": "signed airport facility lease contract"
+   },
+   "E14": {
+    "text": "Eagle Cargo maintains 50 certified logistics specialists.",
+    "source": "certified staffing portal extract"
+   },
+   "E15": {
+    "text": "Horizon Travel holds a Certified Tour Operator badge.",
+    "source": "national tourism board registry"
+   },
+   "E16": {
+    "text": "JetStream Charters holds an FAA Part 135 Air Carrier Certificate.",
+    "source": "federal aviation portal record"
+   },
+   "B1": {
+    "text": "Apex Express meets formal quality standards."
+   },
+   "D1": {
+    "text": "Apex Express is designated for corporate service agreements."
+   },
+   "B2": {
+    "text": "Apex Express retains an exemplary safety record."
+   },
+   "B3": {
+    "text": "Apex Express qualifies for priority route assignment."
+   },
+   "B4": {
+    "text": "Apex Express holds preferred carrier status."
+   },
+   "D2": {
+    "text": "Apex Express is chosen for long-term route dispatch."
+   },
+   "B5": {
+    "text": "BlueWave Tours achieves driver excellence certification."
+   },
+   "D3": {
+    "text": "BlueWave Tours is assigned to VIP shuttle operations."
+   },
+   "B6": {
+    "text": "Apex Express fulfills core operational requirements."
+   },
+   "B7": {
+    "text": "Apex Express earns master logistics provider standing."
+   },
+   "B8": {
+    "text": "Crestline Shuttles satisfies fleet efficiency benchmarks."
+   },
+   "B9": {
+    "text": "Delta Aviation satisfies air service consistency standards."
+   },
+   "B10": {
+    "text": "Delta Aviation holds active flight clearance."
+   },
+   "D4": {
+    "text": "Delta Aviation is allocated peak schedule slots."
+   },
+   "B11": {
+    "text": "Eagle Cargo satisfies staffing capability thresholds."
+   },
+   "B12": {
+    "text": "Horizon Travel meets tour accreditation criteria."
+   },
+   "B13": {
+    "text": "JetStream Charters fulfills commercial charter authorization criteria."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Apex Express completed 8 safety audits last year.",
+    "source": "revised transit board compliance summary"
+   },
+   "U2": {
+    "text": "An unverified forum post claims Delta Aviation does not maintain an active hangar maintenance agreement.",
+    "source": "anonymous online aviation blog"
+   },
+   "U3": {
+    "text": "An official FAA notice confirms JetStream Charters no longer holds an FAA Part 135 Air Carrier Certificate.",
+    "source": "official FAA press release"
+   },
+   "U4": {
+    "text": "An unverified blog post claims Apex Express does not maintain a fleet size of 25 vehicles.",
+    "source": "anonymous online discussion forum"
+   }
+  },
+  "policies": {
+   "B1": "A carrier receives quality management clearance when holding an active ISO 9001 quality certification.",
+   "D1": "A provider is approved for corporate transport contracts if that provider maintains quality management clearance.",
+   "B2": "A transport vendor achieves top-tier safety standing either by completing at least 10 safety audits last year alongside maintaining a fleet size of at least 20 vehicles and securing a customer satisfaction rating of 85 percent or higher, or by holding a Gold Fleet Safety Award.",
+   "B3": "A carrier earns priority route dispatch provided it maintains top-tier safety standing and is approved for enterprise service agreements.",
+   "B4": "An enterprise achieves preferred vendor standing when it is granted priority route dispatch.",
+   "D2": "A firm is selected for extended route dispatch if it holds preferred vendor standing and maintains a liability insurance coverage of at least 5 million USD.",
+   "B5": "A passenger carrier earns driver proficiency endorsement when maintaining a driver training index of at least 85 percent.",
+   "D3": "A provider is designated for VIP shuttle operations if that provider earns driver proficiency endorsement.",
+   "B6": "A firm meets basic operational criteria either by recording an annual revenue of at least 10 million USD last year or by holding a Class A Transport Licence.",
+   "B7": "A transport contractor obtains premier logistics provider status if it meets basic operational criteria and is selected for extended route dispatch.",
+   "B8": "A shuttle operator attains fleet economy targets by logging an annual fuel efficiency of at least 12 miles per gallon last year.",
+   "B9": "An airline meets flight performance standards either by achieving an on-time arrival rate of at least 90 percent this quarter or by holding an IATA Operational Safety Audit certification.",
+   "B10": "An air carrier maintains valid flight authorization when it meets flight performance standards and maintains an active hangar maintenance agreement.",
+   "D4": "An airline is assigned prime flight windows provided it maintains valid flight authorization.",
+   "B11": "A freight agency meets workforce capacity standards by maintaining at least 40 certified logistics specialists.",
+   "B12": "A travel company secures travel provider endorsement upon holding a Certified Tour Operator badge.",
+   "B13": "A charter firm obtains commercial flight operator approval when holding an FAA Part 135 Air Carrier Certificate."
+  },
+  "decoy_policies": [
+   "A rail freight operator secures heavy hauling permits when running locomotives with zero carbon emissions.",
+   "A warehousing business obtains cold storage endorsement by maintaining indoor temperature below two degrees."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "D1": "holds",
+   "B2": "holds",
+   "B3": "holds",
+   "B4": "holds",
+   "D2": "holds",
+   "B5": "holds",
+   "D3": "holds",
+   "B6": "holds",
+   "B7": "holds",
+   "B8": "holds",
+   "B9": "holds",
+   "B10": "undetermined",
+   "D4": "undetermined",
+   "B11": "holds",
+   "B12": "holds",
+   "B13": "fails"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Apex Express",
+    "kind": "credential",
+    "quantity": "ISO 9001 quality certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Apex Express",
+    "kind": "number",
+    "quantity": "safety audits",
+    "value": 12,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Apex Express",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 25,
+    "unit": "vehicles",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Apex Express",
+    "kind": "number",
+    "quantity": "customer satisfaction rating",
+    "value": 88,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Apex Express",
+    "kind": "credential",
+    "quantity": "Gold Fleet Safety Award",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Apex Express",
+    "kind": "number",
+    "quantity": "liability insurance coverage",
+    "value": 5000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "BlueWave Tours",
+    "kind": "number",
+    "quantity": "driver training index",
+    "value": 90,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "E8": {
+    "entity": "Apex Express",
+    "kind": "number",
+    "quantity": "annual revenue",
+    "value": 15000000,
+    "unit": "USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "E9": {
+    "entity": "Apex Express",
+    "kind": "credential",
+    "quantity": "Class A Transport Licence",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E10": {
+    "entity": "Crestline Shuttles",
+    "kind": "number",
+    "quantity": "annual fuel efficiency",
+    "value": 14,
+    "unit": "miles per gallon",
+    "window": "year",
+    "scope": "none"
+   },
+   "E11": {
+    "entity": "Delta Aviation",
+    "kind": "number",
+    "quantity": "on-time arrival rate",
+    "value": 92,
+    "unit": "percent",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E12": {
+    "entity": "Delta Aviation",
+    "kind": "credential",
+    "quantity": "IATA Operational Safety Audit certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E13": {
+    "entity": "Delta Aviation",
+    "kind": "credential",
+    "quantity": "active hangar maintenance agreement",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E14": {
+    "entity": "Eagle Cargo",
+    "kind": "number",
+    "quantity": "certified logistics specialists",
+    "value": 50,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E15": {
+    "entity": "Horizon Travel",
+    "kind": "credential",
+    "quantity": "Certified Tour Operator badge",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E16": {
+    "entity": "JetStream Charters",
+    "kind": "credential",
+    "quantity": "FAA Part 135 Air Carrier Certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Apex Express",
+    "kind": "number",
+    "quantity": "safety audits",
+    "value": 8,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "U2": {
+    "entity": "Delta Aviation",
+    "kind": "credential",
+    "quantity": "active hangar maintenance agreement",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U3": {
+    "entity": "JetStream Charters",
+    "kind": "credential",
+    "quantity": "FAA Part 135 Air Carrier Certificate",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U4": {
+    "entity": "Apex Express",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": null,
+    "unit": "vehicles",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "credential",
+     "entity": "Apex Express",
+     "relation": null,
+     "quantity": "ISO 9001 quality certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Apex Express",
+     "relation": null,
+     "quantity": "quality management clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Apex Express",
+     "relation": null,
+     "quantity": "safety audits",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Apex Express",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 20,
+     "unit": "vehicles",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Apex Express",
+     "relation": null,
+     "quantity": "customer satisfaction rating",
+     "comparator": ">=",
+     "threshold": 85,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "Apex Express",
+     "relation": null,
+     "quantity": "Gold Fleet Safety Award",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Apex Express",
+     "relation": null,
+     "quantity": "exemplary safety record",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "D1",
+     "kind": "conclusion",
+     "entity": "Apex Express",
+     "relation": null,
+     "quantity": "corporate transport contracts",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Apex Express",
+     "relation": null,
+     "quantity": "priority route allocation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D2": [
+    {
+     "premise": "B4",
+     "kind": "conclusion",
+     "entity": "Apex Express",
+     "relation": null,
+     "quantity": "preferred carrier status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Apex Express",
+     "relation": null,
+     "quantity": "liability insurance coverage",
+     "comparator": ">=",
+     "threshold": 5000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "BlueWave Tours",
+     "relation": null,
+     "quantity": "driver training index",
+     "comparator": ">=",
+     "threshold": 85,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D3": [
+    {
+     "premise": "B5",
+     "kind": "conclusion",
+     "entity": "BlueWave Tours",
+     "relation": null,
+     "quantity": "driver excellence certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "E8",
+     "kind": "number",
+     "entity": "Apex Express",
+     "relation": null,
+     "quantity": "annual revenue",
+     "comparator": ">=",
+     "threshold": 10000000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E9",
+     "kind": "credential",
+     "entity": "Apex Express",
+     "relation": null,
+     "quantity": "Class A Transport Licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B7": [
+    {
+     "premise": "B6",
+     "kind": "conclusion",
+     "entity": "Apex Express",
+     "relation": null,
+     "quantity": "core operational requirements",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "D2",
+     "kind": "conclusion",
+     "entity": "Apex Express",
+     "relation": null,
+     "quantity": "long-term dispatch",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B8": [
+    {
+     "premise": "E10",
+     "kind": "number",
+     "entity": "Crestline Shuttles",
+     "relation": null,
+     "quantity": "annual fuel efficiency",
+     "comparator": ">=",
+     "threshold": 12,
+     "unit": "miles per gallon",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B9": [
+    {
+     "premise": "E11",
+     "kind": "number",
+     "entity": "Delta Aviation",
+     "relation": null,
+     "quantity": "on-time arrival rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "quarter",
+     "scope": "none"
+    },
+    {
+     "premise": "E12",
+     "kind": "credential",
+     "entity": "Delta Aviation",
+     "relation": null,
+     "quantity": "IATA Operational Safety Audit certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B10": [
+    {
+     "premise": "B9",
+     "kind": "conclusion",
+     "entity": "Delta Aviation",
+     "relation": null,
+     "quantity": "air service reliability standards",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E13",
+     "kind": "credential",
+     "entity": "Delta Aviation",
+     "relation": null,
+     "quantity": "active hangar maintenance agreement",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D4": [
+    {
+     "premise": "B10",
+     "kind": "conclusion",
+     "entity": "Delta Aviation",
+     "relation": null,
+     "quantity": "active flight clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B11": [
+    {
+     "premise": "E14",
+     "kind": "number",
+     "entity": "Eagle Cargo",
+     "relation": null,
+     "quantity": "certified logistics specialists",
+     "comparator": ">=",
+     "threshold": 40,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B12": [
+    {
+     "premise": "E15",
+     "kind": "credential",
+     "entity": "Horizon Travel",
+     "relation": null,
+     "quantity": "Certified Tour Operator badge",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B13": [
+    {
+     "premise": "E16",
+     "kind": "credential",
+     "entity": "JetStream Charters",
+     "relation": null,
+     "quantity": "FAA Part 135 Air Carrier Certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Apex Express holds an active ISO 9001 quality certification, which meets the requirement for quality management clearance."
+   ],
+   "D1": [
+    "Apex Express has quality management clearance, satisfying the condition for corporate transport contract approval."
+   ],
+   "B2": [
+    "Apex Express completed 12 safety audits last year (threshold 10), maintains a fleet size of 25 vehicles (threshold 20), and achieved an 88 percent customer satisfaction rating (threshold 85 percent), satisfying the primary criteria for an exemplary safety record.",
+    "Apex Express holds a Gold Fleet Safety Award, satisfying the alternative requirement for an exemplary safety record."
+   ],
+   "B3": [
+    "Apex Express maintains an exemplary safety record and is approved for corporate transport contracts, fulfilling all requirements for priority route allocation."
+   ],
+   "B4": [
+    "Apex Express has earned priority route allocation, which satisfies the requirement for preferred carrier status."
+   ],
+   "D2": [
+    "Apex Express holds preferred carrier status and maintains 5 million USD in liability insurance coverage, satisfying the criteria for long-term route dispatch."
+   ],
+   "B5": [
+    "BlueWave Tours maintains a driver training index of 90 percent, which meets the 85 percent threshold for driver excellence certification."
+   ],
+   "D3": [
+    "BlueWave Tours achieved driver excellence certification, qualifying it for VIP shuttle operations."
+   ],
+   "B6": [
+    "Apex Express recorded 15 million USD in annual revenue last year, meeting the 10 million USD threshold for core operational requirements.",
+    "Apex Express holds a Class A Transport Licence, satisfying the alternative criterion for core operational requirements."
+   ],
+   "B7": [
+    "Apex Express satisfies core operational requirements and is chosen for long-term dispatch, fulfilling all conditions for master logistics provider standing."
+   ],
+   "B8": [
+    "Crestline Shuttles logged an annual fuel efficiency of 14 miles per gallon last year, exceeding the 12 miles per gallon threshold."
+   ],
+   "B9": [
+    "Delta Aviation achieved a 92 percent on-time arrival rate this quarter, exceeding the 90 percent threshold for air service reliability standards.",
+    "Delta Aviation holds an IATA Operational Safety Audit certification, satisfying the alternative condition for air service reliability standards."
+   ],
+   "B10": [
+    "Delta Aviation meets air service reliability standards and maintains an active hangar maintenance agreement, fulfilling the requirements for active flight clearance."
+   ],
+   "D4": [
+    "Delta Aviation maintains active flight clearance, meeting the requirement for peak schedule slot allocation."
+   ],
+   "B11": [
+    "Eagle Cargo maintains 50 certified logistics specialists, exceeding the threshold of 40 required for staffing capability standards."
+   ],
+   "B12": [
+    "Horizon Travel holds a Certified Tour Operator badge, fulfilling the requirement for tour accreditation criteria."
+   ],
+   "B13": [
+    "JetStream Charters holds an FAA Part 135 Air Carrier Certificate, satisfying the criteria for commercial charter authorization."
+   ]
+  }
+ }
+}

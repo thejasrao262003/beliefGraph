@@ -21,7 +21,7 @@ from collections import Counter
 from pathlib import Path
 
 from beliefbench.beliefgraph_eval import load_accepted, load_rendered
-from beliefbench.llm_baselines import DIRECT_STORE_VERSION, llm_direct_store
+from beliefbench.llm_baselines import DIRECT_STORE_VERSION, llm_direct_store, llm_rag_store
 from beliefbench.schema import Action
 from beliefbench.stream import gold_after, merge, step_view, touched
 from beliefgraph.cache import CachedLLM
@@ -51,7 +51,9 @@ def step_score(gold: dict, pred: dict, focus: set[str]) -> dict:
 def pooled(sizes: dict) -> dict:
     """Per-scenario runs: means over dossiers of the final-step and step-averaged scores."""
     out = {}
-    for m in ("BeliefGraph", "LLM-direct"):
+    for m in ("BeliefGraph", "LLM-direct", "LLM-RAG"):
+        if not all(m in r["final"] for r in sizes.values()):
+            continue
         finals = [r["final"][m] for r in sizes.values()]
         bal = [f["balanced"] for f in finals if f.get("balanced") is not None]
         out[m] = {"final_acc": sum(f["acc_all"] for f in finals) / len(finals),
@@ -65,12 +67,12 @@ def pooled(sizes: dict) -> dict:
 
 
 def usage_of(raw_dir: Path, store_id: str) -> dict:
-    out = {m: Counter() for m in ("BeliefGraph-build", "BeliefGraph-read", "LLM-direct")}
+    out = {m: Counter() for m in ("BeliefGraph-build", "BeliefGraph-read", "LLM-direct", "LLM-RAG")}
     for f in raw_dir.glob(f"{store_id}.*.json"):
         rec = json.loads(f.read_text())
         stage = rec["note"].split(" ", 1)[1]
-        m = "LLM-direct" if stage.startswith("direct") else "BeliefGraph-read" if stage.startswith("read") \
-            else "BeliefGraph-build"
+        m = "LLM-direct" if stage.startswith("direct") else "LLM-RAG" if stage.startswith("rag") \
+            else "BeliefGraph-read" if stage.startswith("read") else "BeliefGraph-build"
         u = rec.get("usage") or {}
         out[m].update({"calls": 1, "input_tokens": u.get("input_tokens") or 0,
                        "output_tokens": u.get("output_tokens") or 0, "seconds": u.get("seconds") or 0,
@@ -97,6 +99,7 @@ def main() -> None:
                     help="self-hosted Qwen-style models: force thinking on/off (same for every method)")
     ap.add_argument("--runs", nargs="+", default=None, help="rendered runs (default: the accepted pilot runs)")
     ap.add_argument("--store-workers", type=int, default=6, help="--per-scenario: stores processed concurrently")
+    ap.add_argument("--rag", action="store_true", help="also run the retrieval (RAG) baseline")
     ap.add_argument("--per-scenario", action="store_true",
                     help="each scenario is its own store (long dossiers); results are pooled over scenarios")
     ap.add_argument("--dry-run", action="store_true")
@@ -153,8 +156,11 @@ def main() -> None:
                      for n in range(1, n_up + 1)]
             directs = [pool.submit(llm_direct_store, cached, step_view(store, n), f"{sid} direct{n}")
                        for n in range(1, n_up + 1)]
+            rags = [pool.submit(llm_rag_store, cached, step_view(store, n), f"{sid} rag{n}")
+                    for n in range(1, n_up + 1)] if args.rag else []
             reads = [f.result() for f in reads]
             directs = [f.result() for f in directs]
+            rags = [f.result() for f in rags]
         readings, steps = {}, []
         for n in range(1, n_up + 1):
             r, rerr = reads[n - 1]
@@ -165,13 +171,16 @@ def main() -> None:
             focus = touched(store, comps, n)
             steps.append({"n": n, "BeliefGraph": step_score(gold, p_actions, focus),
                           "LLM-direct": step_score(gold, d_actions, focus), "errors": rerr + derr})
+            if rags:
+                steps[-1]["LLM-RAG"] = step_score(gold, rags[n - 1][0], focus)
             print(f"K={k} step {n}/{len(store['updates'])}: BG {steps[-1]['BeliefGraph']['acc_touched']:.3f} "
                   f"direct {steps[-1]['LLM-direct']['acc_touched']:.3f} (touched)", flush=True)
-        mean = {m: sum(s[m]["acc_touched"] for s in steps) / len(steps) for m in ("BeliefGraph", "LLM-direct")}
+        methods = [m for m in ("BeliefGraph", "LLM-direct", "LLM-RAG") if m in steps[-1]]
+        mean = {m: sum(s[m]["acc_touched"] for s in steps) / len(steps) for m in methods}
         return str(k), {
             "memories": len(store["memories"]), "facts": len(store["evidence"]), "updates": len(store["updates"]),
             "graph_unsupported": len(graph.unsupported), "mean_acc_touched": mean,
-            "final": {m: steps[-1][m] for m in ("BeliefGraph", "LLM-direct")},
+            "final": {m: steps[-1][m] for m in methods},
             "usage": usage_of(out / "raw", sid), "steps": steps}
 
     try:

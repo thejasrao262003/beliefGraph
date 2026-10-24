@@ -1,0 +1,157 @@
+# Renderer review sheet
+
+## s_0d9d3b1976  (F7-010, travel logistics)
+
+*World:* Evaluations of operational clearances, certifications, and dispatch eligibility for international transport operators.
+
+### A. System view (judge C7 from this alone)
+- `e_6c8b` [2026-01-08, Internal operational update memo from Vanguard Transit compliance officer.] Vanguard Transit holds a valid European Union Carrier License.
+- `e_777d` [2026-01-11, Signed licensing document from Civil Aviation Administration.] Summit Aviation holds 5 regional airport licenses.
+- `e_4918` [2026-01-14, Certified hangar inspection report from Civil Aviation Authority.] BlueSky Freight has 5 dedicated maintenance hangars.
+- `e_1931` [2026-01-17, Official vehicle registration database record.] Polaris Haulage maintains a fleet age average of 3 years.
+- `e_7d3b` [2026-01-20, Fleet manager internal email.] BlueSky Freight maintains 12 operational cargo aircraft.
+- `e_aba4` [2026-01-23, Operations bulletin from flight crew management.] BlueSky Freight maintains 20 certified flight crews.
+- `e_1e53` [2026-01-26, Verified corporate filing with National Emergency Aviation Bureau.] AeroSwift Charter maintains 6 emergency rescue helicopters.
+- `e_70f2` [2026-01-29, Official certificate issued by World Customs Organization.] BlueSky Freight holds a Global Customs Clearance Permit.
+- `e_51d4` [2026-02-01, Official safety certificate from Maritime Safety Authority.] Oceanic Express holds an International Maritime Safety Certificate.
+- `e_be4c` [2026-02-04, Official registry record from IATA certification portal.] BlueSky Freight holds an IATA Cargo Gold Certification.
+- `e_e652` [2026-02-07, Airport slot allocation email.] BlueSky Freight holds 15 priority landing slots.
+- `e_6d56` [2026-02-10, Regional charter dispatch log.] BlueSky Freight operates 8 heavy-lift cargo freighters.
+- `e_71da` [2026-02-13, Signed infrastructure directory from Ministry of Transport.] BlueSky Freight operates 10 regional dispatch hubs.
+- `e_1cf6` [2026-02-16, Annual audit statement from Logistics Licensing Board.] Orient Logistics manages 15 distribution warehouses this year.
+- `e_9762` [2026-02-19, Internal safety review summary.] BlueSky Freight maintains an annual safety rating of 95 percent.
+- `e_0555` [2026-02-22, Official port facility asset audit record.] Meridian Port processes 50 cargo cranes.
+- `e_bc7a` [2026-02-25, Signed vessel registry from International Maritime Organization.] Oceanic Express operates 14 container vessels.
+- memories:
+  - `m_cf1d` Oceanic Express gains complete marine transit clearance.
+  - `m_4ff9` BlueSky Freight holds global cross-border operation clearance.
+  - `m_fa5a` BlueSky Freight satisfies core operational flight standards.
+  - `m_837e` Meridian Port meets heavy cargo handling benchmark.
+  - `m_ce26` Orient Logistics satisfies national warehouse operations standards.
+  - `m_e6ea` BlueSky Freight is selected for overseas network expansion.
+  - `m_c2c0` AeroSwift Charter is assigned priority status for municipal relief contracts.
+  - `m_7186` Oceanic Express maintains ocean vessel compliance.
+  - `m_0062` BlueSky Freight fulfills comprehensive regional logistics criteria.
+  - `m_a3a4` AeroSwift Charter possesses immediate airborne deployment capability.
+  - `m_ecbf` AeroSwift Charter fulfills regional crisis intervention requirements.
+  - `m_6204` Vanguard Transit is authorized for European freight operations.
+  - `m_fbe9` BlueSky Freight achieves premier commercial carrier ranking.
+  - `m_b554` Polaris Haulage complies with green fleet environmental guidelines.
+  - `m_ad71` Oceanic Express receives priority transatlantic corridor privileges.
+  - `m_1702` Summit Aviation satisfies local airfield connectivity standards.
+  - `m_6a8d` BlueSky Freight is assigned preferred route dispatching.
+  - `m_488c` BlueSky Freight maintains sufficient maintenance infrastructure.
+  - `m_af2d` BlueSky Freight secures preferred departure allocation.
+- update `u_69e3` [2026-02-28, Official fleet audit report by Civil Aviation Authority.] BlueSky Freight does not maintain operational cargo aircraft.
+- update `u_bd73` [2026-03-03, Audit query letter from Federal Transport Inspectorate.] Questions have been raised regarding whether BlueSky Freight operates 8 heavy-lift cargo freighters.
+- update `u_c2ca` [2026-03-06, Revised annual audit report from Logistics Licensing Board.] Orient Logistics managed 18 distribution warehouses this year.
+- update `u_de88` [2026-03-09, Official certificate revocation notice from Logistics Licensing Board.] Orient Logistics does not manage distribution warehouses.
+- update `u_7860` [2026-03-12, Special enquiry notice from National Emergency Aviation Bureau.] Reports are disputed concerning whether AeroSwift Charter maintains 6 emergency rescue helicopters.
+- update `u_96db` [2026-03-15, Anonymous online blog posting.] A online blog claims BlueSky Freight does not operate regional dispatch hubs.
+- update `u_9a38` [2026-03-18, Updated official infrastructure directory from Ministry of Transport.] BlueSky Freight operates 3 regional dispatch hubs.
+- update `u_59c7` [2026-03-21, Unverified comment on maritime news forum.] A post on a marine forum claims Oceanic Express does not operate container vessels.
+- policies:
+  - `p_4e3e` Government contract eligibility is conferred upon an entity meeting disaster response qualification.
+  - `p_5bfd` Operational fleet capability is granted if an operator maintains at least 10 cargo aircraft, 4 maintenance hangars, and 15 flight crews.
+  - `p_85e2` Domestic storage compliance requires managing at least 10 distribution warehouses this year.
+  - `p_25b7` Premium charter status is awarded to a carrier holding priority flight scheduling designation that also possesses an IATA Cargo Gold Certification.
+  - `p_3641` Rail dining service vouchers are issued to travelers with a first-class ticket.
+  - `p_5db5` Network distribution capacity is satisfied either with a minimum of 8 regional dispatch hubs, or with at least 10 priority landing slots, or with at least 6 heavy-lift freighters.
+  - `p_9711` Priority flight scheduling is assigned either with a minimum of 10 priority landing slots or with an annual safety rating of at least 90 percent.
+  - `p_8d84` Eco-fleet compliance is established when a transport firm maintains a fleet age average of 5 years or less.
+  - `p_3d9d` Maintenance fleet readiness is recognized either with a minimum of 4 maintenance hangars alongside at least 15 flight crews, or with at least 6 heavy-lift freighters.
+  - `p_9285` Comprehensive shipping authorization is granted to a maritime operator with deep-sea vessel compliance that holds an International Maritime Safety Certificate.
+  - `p_2c2d` Deep-sea vessel compliance requires a minimum fleet size of 10 container vessels.
+  - `p_b4d0` Passenger luggage insurance coverage is active for any passenger purchasing a travel protection policy valued at $100 or more.
+  - `p_d30a` Terminal handling qualification is met with at least 40 cargo cranes.
+  - `p_7182` International freight eligibility is granted to an operator with network distribution capacity approval that holds a Global Customs Clearance Permit.
+  - `p_de11` Overseas expansion approval is granted for a firm achieving international freight eligibility.
+  - `p_c18c` Transatlantic corridor rights are awarded to a company holding comprehensive shipping authorization.
+  - `p_052d` European transport clearance is granted when a firm holds a valid European Union Carrier License.
+  - `p_4fc6` Emergency air support status is confirmed with a minimum of 4 emergency rescue helicopters.
+  - `p_f908` Feeder line authorization is granted to an airline holding at least 2 regional airport licenses.
+  - `p_7b21` Disaster response qualification is given to an entity holding emergency air support status.
+  - `p_173b` Routing preference is assigned to any carrier achieving premium charter status.
+
+### B. Intended structure
+- `m_6204` (B1) [policy `p_052d`] <= (`e_6c8b`); gold after update: **keep**
+  - set 1: Vanguard Transit holds a valid European Union Carrier License, which satisfies the requirement for European transport clearance.
+- `m_fa5a` (B2) [policy `p_5bfd`] <= (`e_7d3b` AND `e_4918` AND `e_aba4`); gold after update: **withdraw**
+  - set 1: BlueSky Freight operates 12 cargo aircraft, 5 maintenance hangars, and 20 flight crews, exceeding the thresholds of 10 aircraft, 4 hangars, and 15 crews.
+- `m_a3a4` (B3) [policy `p_4fc6`] <= (`e_1e53`); gold after update: **uncertain**
+  - set 1: AeroSwift Charter operates 6 emergency rescue helicopters, exceeding the required minimum of 4.
+- `m_ecbf` (B4) [policy `p_7b21`] <= (`m_a3a4`); gold after update: **uncertain**
+  - set 1: AeroSwift Charter has emergency air support status, satisfying the disaster response qualification requirement.
+- `m_c2c0` (D1) [policy `p_4e3e`] <= (`m_ecbf`); gold after update: **uncertain**
+  - set 1: AeroSwift Charter holds disaster response qualification, making it eligible for government contracts.
+- `m_488c` (B5) [policy `p_3d9d`] <= (`e_4918` AND `e_aba4`) **OR** (`e_6d56`); gold after update: **keep**
+  - set 1: BlueSky Freight maintains 5 maintenance hangars and 20 flight crews, satisfying the set requirement of at least 4 hangars and 15 crews.
+  - set 2: BlueSky Freight operates 8 heavy-lift cargo freighters, satisfying the alternative requirement of at least 6 heavy-lift freighters.
+- `m_af2d` (B6) [policy `p_9711`] <= (`e_e652`) **OR** (`e_9762`); gold after update: **keep**
+  - set 1: BlueSky Freight holds 15 priority landing slots, satisfying the threshold of at least 10 slots.
+  - set 2: BlueSky Freight maintains an annual safety rating of 95 percent, meeting the minimum required score of 90 percent.
+- `m_fbe9` (B7) [policy `p_25b7`] <= (`m_af2d` AND `e_be4c`); gold after update: **keep**
+  - set 1: BlueSky Freight holds priority flight scheduling designation and possesses an IATA Cargo Gold Certification, meeting both conditions for premium charter status.
+- `m_6a8d` (D2) [policy `p_173b`] <= (`m_fbe9`); gold after update: **keep**
+  - set 1: BlueSky Freight has achieved premium charter status, qualifying it for routing preference.
+- `m_0062` (B8) [policy `p_5db5`] <= (`e_71da`) **OR** (`e_e652`) **OR** (`e_6d56`); gold after update: **keep**
+  - set 1: BlueSky Freight operates 10 regional dispatch hubs, satisfying the threshold of at least 8 hubs.
+  - set 2: BlueSky Freight holds 15 priority landing slots, satisfying the threshold of at least 10 slots.
+  - set 3: BlueSky Freight operates 8 heavy-lift cargo freighters, satisfying the threshold of at least 6 freighters.
+- `m_4ff9` (B9) [policy `p_7182`] <= (`m_0062` AND `e_70f2`); gold after update: **keep**
+  - set 1: BlueSky Freight holds network distribution capacity approval and possesses a Global Customs Clearance Permit, satisfying both requirements for international freight eligibility.
+- `m_e6ea` (D3) [policy `p_de11`] <= (`m_4ff9`); gold after update: **keep**
+  - set 1: BlueSky Freight meets international freight eligibility, satisfying the condition for overseas expansion approval.
+- `m_7186` (B10) [policy `p_2c2d`] <= (`e_bc7a`); gold after update: **uncertain**
+  - set 1: Oceanic Express operates 14 container vessels, exceeding the minimum threshold of 10 vessels.
+- `m_cf1d` (B11) [policy `p_9285`] <= (`m_7186` AND `e_51d4`); gold after update: **uncertain**
+  - set 1: Oceanic Express holds deep-sea vessel compliance and possesses an International Maritime Safety Certificate, fulfilling the requirement for comprehensive shipping authorization.
+- `m_ad71` (D4) [policy `p_c18c`] <= (`m_cf1d`); gold after update: **uncertain**
+  - set 1: Oceanic Express holds comprehensive shipping authorization, qualifying it for transatlantic corridor rights.
+- `m_ce26` (B12) [policy `p_85e2`] <= (`e_1cf6`); gold after update: **withdraw**
+  - set 1: Orient Logistics manages 15 distribution warehouses this year, exceeding the threshold of 10.
+- `m_b554` (B13) [policy `p_8d84`] <= (`e_1931`); gold after update: **keep**
+  - set 1: Polaris Haulage maintains a fleet age average of 3 years, which is within the maximum allowed average of 5 years.
+- `m_1702` (B14) [policy `p_f908`] <= (`e_777d`); gold after update: **keep**
+  - set 1: Summit Aviation holds 5 regional airport licenses, satisfying the requirement of at least 2 licenses.
+- `m_837e` (B15) [policy `p_d30a`] <= (`e_0555`); gold after update: **keep**
+  - set 1: Meridian Port operates 50 cargo cranes, exceeding the requirement of at least 40 cranes.
+- `u_69e3` retracts `e_7d3b` (reliability high)
+- `u_bd73` hedges `e_6d56` (reliability high)
+- `u_c2ca` supersedes `e_1cf6` (reliability high)
+- `u_de88` retracts `e_1cf6` (reliability high)
+- `u_7860` hedges `e_1e53` (reliability high)
+- `u_96db` retracts `e_71da` (reliability low)
+- `u_9a38` supersedes `e_71da` (reliability high)
+- `u_59c7` retracts `e_bc7a` (reliability low)
+- decoy policies: `p_b4d0`, `p_3641`
+- final state after updates (gold action -> state): `m_6204` keep -> holds; `m_fa5a` withdraw -> fails; `m_a3a4` uncertain -> undetermined; `m_488c` keep -> holds; `m_af2d` keep -> holds; `m_0062` keep -> holds; `m_7186` uncertain -> undetermined; `m_ce26` withdraw -> fails; `m_b554` keep -> holds; `m_1702` keep -> holds; `m_837e` keep -> holds; `m_ecbf` uncertain -> undetermined; `m_fbe9` keep -> holds; `m_4ff9` keep -> holds; `m_cf1d` uncertain -> undetermined; `m_c2c0` uncertain -> undetermined; `m_6a8d` keep -> holds; `m_e6ea` keep -> holds; `m_ad71` uncertain -> undetermined
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_6c8b~p_052d` policy_echoes_evidence: "holds a valid" (judge under C7/C11)
+- soft `e_777d~p_f908` policy_echoes_evidence: "regional airport licenses" (judge under C7/C11)
+- soft `e_1931~p_8d84` policy_echoes_evidence: "a fleet age; age average of; fleet age average; maintains a fleet" (judge under C7/C11)
+- soft `e_1e53~p_4fc6` policy_echoes_evidence: "emergency rescue helicopters" (judge under C7/C11)
+- soft `e_e652~p_5db5` policy_echoes_evidence: "priority landing slots" (judge under C7/C11)
+- soft `e_e652~p_9711` policy_echoes_evidence: "priority landing slots" (judge under C7/C11)
+- soft `e_71da~p_5db5` policy_echoes_evidence: "regional dispatch hubs" (judge under C7/C11)
+- soft `e_1cf6~p_85e2` policy_echoes_evidence: "distribution warehouses this; warehouses this year" (judge under C7/C11)
+- soft `e_9762~p_9711` policy_echoes_evidence: "an annual safety; annual safety rating; safety rating of" (judge under C7/C11)
+- soft `groups 2/4` cross_group_entity: "International" (judge under C6)
+- soft `u_96db` retraction_reads_as_hedge: "claims" (judge under C4)
+- soft `u_59c7` retraction_reads_as_hedge: "claims" (judge under C4)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
