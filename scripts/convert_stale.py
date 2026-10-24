@@ -9,7 +9,11 @@ stale-premise probe (dim2_query) is a plan that presupposes M_old.
 - memory   = the plan in dim2_query, which rests on that fact ("Since <premise>, <request>")
 - update   = "The user said: <M_new>" (supersedes the old state; reliable source: the user)
 - rule     = one generic rule: a plan for the user holds only while its premise holds
-- store    = 12 items; for 4 of them M_new is withheld (their plans should be kept)
+- store    = 12 items; for 4 of them M_new is withheld (their plans should be kept). With --diverse
+             (v2), items are packed so that within a store every update is closer (embedding
+             cosine) to its own old statement than to any other item's, by a margin, and no two
+             old statements are near-duplicates: STALE items come from different simulated users,
+             so a mixed store can otherwise hold two equally plausible targets for one update.
 - gold     = the BeliefBench labeller: plans resting on a superseded fact -> recompute, else keep
 
 The texts are STALE's own (LLM-generated, expert-validated); the haystack sessions are not used.
@@ -41,6 +45,33 @@ def plan_text(q: str) -> str | None:
     return f"Planned for the user, because {premise}: {request}."
 
 
+def diverse_order(items: list[dict], per_store: int, margin: float, max_old_sim: float) -> list[dict]:
+    """Greedy packing into stores of ``per_store``; returns the items store by store (full stores only)."""
+    from beliefgraph.retrieve import DenseIndex
+
+    idx = DenseIndex([("x", "x")])
+    O = idx._embed([x["M_old"] for x in items])
+    N = idx._embed([x["M_new"] for x in items])
+    own = (N * O).sum(axis=1)
+    stores: list[list[int]] = []
+    for i in range(len(items)):
+        def fits(store):
+            for j in store:
+                if O[i] @ O[j] > max_old_sim:
+                    return False
+                if N[i] @ O[j] > own[i] - margin or N[j] @ O[i] > own[j] - margin:
+                    return False
+            return True
+
+        home = next((st for st in stores if len(st) < per_store and fits(st)), None)
+        if home is None:
+            stores.append([i])
+        else:
+            home.append(i)
+    full = [st for st in stores if len(st) == per_store]
+    return [items[i] for st in full for i in st]
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--data", default="data/external/stale/T1_T2_400_FULL.json")
@@ -48,11 +79,16 @@ def main() -> None:
     ap.add_argument("--per-store", type=int, default=12)
     ap.add_argument("--withheld", type=int, default=4)
     ap.add_argument("--seed", type=int, default=900)
+    ap.add_argument("--diverse", action="store_true", help="v2 packing: no two plausible targets per update")
+    ap.add_argument("--margin", type=float, default=0.03)
+    ap.add_argument("--max-old-sim", type=float, default=0.60)
     args = ap.parse_args()
     items = json.loads(Path(args.data).read_text())
     rng = random.Random(args.seed)
     usable = [x for x in items if plan_text(x["probing_queries"]["dim2_query"])]
     rng.shuffle(usable)
+    if args.diverse:
+        usable = diverse_order(usable, args.per_store, args.margin, args.max_old_sim)
     out = Path(args.out)
     for d in ("system", "eval"):
         (out / d).mkdir(parents=True, exist_ok=True)
