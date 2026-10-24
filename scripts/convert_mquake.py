@@ -123,6 +123,9 @@ def main() -> None:
     ap.add_argument("--stores", type=int, default=36)
     ap.add_argument("--cases-per-store", type=int, default=10)
     ap.add_argument("--seed", type=int, default=700)
+    ap.add_argument("--min-cases", type=int, default=10**9, help="keep stores with at least this many cases")
+    ap.add_argument("--random-pack", action="store_true",
+                    help="large stores: draw cases at random, preferring distinct edits (instead of fact-sharing groups)")
     args = ap.parse_args()
     cases = json.loads(Path(args.data).read_text())
     rng = random.Random(args.seed)
@@ -159,7 +162,18 @@ def main() -> None:
                 room.extend(take)
             else:
                 stores.append(list(take))
-    stores = [s for s in stores if len(s) >= args.cases_per_store // 2]
+    stores = [s for s in stores if len(s) >= min(args.min_cases, args.cases_per_store // 2)]
+    if args.random_pack:
+        order = list(range(len(cases)))
+        rng.shuffle(order)
+        edit_key = lambda c: tuple((c["new_single_hops"][k]["cloze"], c["new_single_hops"][k]["answer"])
+                                   for k in c["orig"]["edit_triples_idx"])
+        seen, first, later = set(), [], []
+        for i in order:
+            (later if edit_key(cases[i]) in seen else first).append(i)
+            seen.add(edit_key(cases[i]))
+        pick = (first + later)[: args.cases_per_store]
+        stores = [pick]
     rng.shuffle(stores)
     all_rules = sorted({rule_text([t[1] for t in c["orig"]["triples_labeled"][:k]], c["orig"]["triples_labeled"][k][1])
                         for c in cases for k in range(1, len(c["orig"]["triples_labeled"]))})
