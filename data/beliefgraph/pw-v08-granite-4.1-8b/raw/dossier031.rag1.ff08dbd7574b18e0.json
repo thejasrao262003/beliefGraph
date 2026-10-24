@@ -1,0 +1,12 @@
+{
+ "note": "dossier031 rag1",
+ "model": "granite-4.1-8b",
+ "response": "The update \"Erin is now furry rather than cold.\" (id: u_00a532, observed: 2026-03-01) directly contradicts the earlier fact \"Erin is cold.\" (id: e_00edab, observed: 2026-01-01). According to the policies:\n\n1. \"If someone is cold then they are rough.\" \u2192 This implication is now false because Erin is no longer cold.\n2. \"If someone is rough then they are cold.\" \u2192 This reverse implication is also irrelevant since Erin is not cold.\n3. Memories that depend on Erin being cold:\n   - \"Erin is rough.\" (m_00e405): Supported by \"If someone is cold then they are rough.\" \u2192 Now unsupported because Erin is not cold.\n   - \"Erin is white.\" (m_00e054): No policy directly links Erin's cold state to her being white, so this memory is unaffected by the update.\n   - \"Erin is smart.\" (m_00da6c): No policy directly links Erin's cold state to her being smart, so this memory is unaffected by the update.\n\n4. Memory \"Harry is round.\" (m_008232) is unaffected by the Erin update and remains supported by the fact \"Harry is cold.\" (e_00f894) and policy \"If Harry is rough and Harry is young then Harry is round.\" (no direct contradiction).\n\nThus, the memories that rely on Erin being cold and now have lost their sole support are:\n- m_00e405 (Erin is rough.)\n- m_00e054 (Erin is white.) only if it was also directly dependent on being cold, but since no policy links cold to white, it stays supported by other possible reasons not contradicted here. However, the problem only asks for changes, and m_00e405 is clearly impacted.\n\nTherefore, the only memory requiring withdrawal due to the direct contradiction is:\n- \"Erin is rough.\" (m_00e405)\n\nOutput:\n```json\n{\n  \"changes\": {\n    \"m_00e405\": \"withdraw\"\n  }\n}\n```",
+ "usage": {
+  "note": "dossier031 rag1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 730,
+  "output_tokens": 446,
+  "seconds": 16.76
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier011 rag3",
+ "model": "ministral-3-8b-2512",
+ "response": "```json\n{\n  \"changes\": {\n    \"m_001401\": \"recompute\"  // Updated Kludge for missing memory IDs in memories obj.\n  }\n}\n```\nCorrection/revisited logic:\nThe provided `memories` contain item IDs (like `m_007945`), but NO direct **factual support** from observations, so manually evaluating their status based on **policies** and **signatures** (how memories are inferred) is necessary first. **Actual withdrawal/uncertainty/recomputations** should be based on which memory:\n- advances on **ceded facts** (e.g., `Fred is kind` was true, now **in doubt**) or\n- advance on **assumed facts with error** (e.g., `Dave is red` was confirmed but updated with **withdraw**).\n\n---\nHere\u2019s the accurate **output recalculated**:\n\n```json\n{\n  \"changes\": {\n    \"m_000b03\": \"uncertain\",  // \"Dave is young.\" presupposes `Dave is kind`, both red and round, now `Dave is red` is disputed.\n    \"m_007945\": \"recompute\",  // \"Fred is young.\" depends on `Fred is kind` (`uncertain`) and brute-force from round\u2192round policies.\n    \"m_0088d3\": \"uncertain\",  // \"Fred is rough.\" directly relies on `not (Fred is kind) + round` policy, **factual support questioned**.\n    \"m_00b46e\": \"recompute\",  // \"Dave is rough\" hinges on `Dave is red` \u2757\u2757 + *other missing info*. Since Dave is red is withdrawn, recompute.\n    \"m_005604\": \"withdraw\"    // \"Fred is red.\"\u2014inferred via logic, but also **exported** to policy dependency (withdraw/uncertain `Fred is kind`).\n  }\n}\n```\n\nIf **source distinction `verified` vs. `unverified`** applied exclusively unless linked, one could:\n1. Setup **`facts` support** fails (e.g., high uncertainty no vetted notice).\n2. Put\u00edo indirect inference lockdown:\n\t* When `round\u2192kind\u2192yourng` was true (`Fred`) \u2192 now uncertain.\n\t* Recompute for remaining where logic reliant on possibly false/doubted bases.\n---\n**Here\u2019s the *final* adjusted recalc (\u00a7adept)**:\n```json\n{\n  \"changes\": {\n    \"m_000b03\": \"uncertain\",\n    \"m_005604\": \"withdraw\",\n    \"m_0088d3\": \"uncertain\",\n    \"m_007945\": \"recompute\",\n    \"m_00b46e\": \"recompute\"\n  }\n}\n```",
+ "usage": {
+  "note": "dossier011 rag3",
+  "model": "ministral-3-8b-2512",
+  "input_tokens": 1235,
+  "output_tokens": 633,
+  "seconds": 14.49
+ }
+}

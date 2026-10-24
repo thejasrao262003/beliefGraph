@@ -1,0 +1,12 @@
+{
+ "note": "dossier020 direct2",
+ "model": "ministral-3-8b-2512",
+ "response": "```json\n{\n  \"changes\": {\n    \"m_0005ca\": \"recompute\",\n    \"m_00a9d1\": \"uncertain\"\n  }\n}\n```\n\n### Explanation:\n- **`m_0005ca` (\"The bald eagle likes the mouse\")** relies on **policy 3 (\"if squirrel sees the bald eagle then the bald eagle is green\")** and **policy 5** (\"if bald eagle likes mouse then bald eagle chases cat\"), but the updater **`u_00f5dc`** casts doubt on the fact **`e_00545d`** (\"The squirrel sees the bald eagle.\"). Since the walrus (\"unverified\") negativity (`u_004cd6`) involves \"not squirrel sees eagle\" and this is now uncertain, `recompute` aligns with hedged uncertainty. Despite other *partial* lines-of-support persisting, the foundational logic link is *weakened*\u2014Hence the kernel updates with a `recompute`.\n- **`m_00a9d1` (\"The mouse likes the bald eagle\")** directly depends on the **updated uncertain fact** (`e_00545d`/`u_00f5dc`) which is to wit, line-of-support is shattered whilst others (no direct help) remain, hence **uncertain**.\n\n*(Each policy references observations; thus no policy itself was invalidated directly, only where ambiguous/wronged vervifies failure.)*",
+ "usage": {
+  "note": "dossier020 direct2",
+  "model": "ministral-3-8b-2512",
+  "input_tokens": 1606,
+  "output_tokens": 327,
+  "seconds": 6.43
+ }
+}
