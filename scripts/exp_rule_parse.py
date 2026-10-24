@@ -73,7 +73,7 @@ def main() -> None:
             return p["text"], [], False
 
     for name, group in stores():
-        ranks = {k: [] for k in ("full", "then", "then-0.5", "then-1.0")}
+        ranks = {k: [] for k in ("full", "then", "then-0.5", "then-1.0", "then-dir", "then+full")}
         parsed_ok = n_rules = 0
         for store, comps in group:
             pol_of = {}
@@ -100,7 +100,10 @@ def main() -> None:
                 col = ids.index(i)
                 s_if[:, col] = np.maximum(s_if[:, col], M @ C[j])
             s_if = np.maximum(s_if, 0)
-            scores = {"full": s_full, "then": s_then, "then-0.5": s_then - 0.5 * s_if, "then-1.0": s_then - 1.0 * s_if}
+            scores = {"full": s_full, "then": s_then, "then-0.5": s_then - 0.5 * s_if, "then-1.0": s_then - 1.0 * s_if,
+                      # penalise only when the memory reads more like one of the rule's conditions than its outcome
+                      "then-dir": s_then - np.maximum(0, s_if - s_then),
+                      "then+full": (s_then + s_full) / 2}
             for k, S in scores.items():
                 for r, m in enumerate(mems):
                     order = list(np.argsort(-S[r]))

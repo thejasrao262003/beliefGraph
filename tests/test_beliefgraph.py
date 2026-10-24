@@ -642,3 +642,10 @@ def test_v06_entity_conflicts_keep_the_stronger_claim_and_exclude_claimed_polici
     pidx = DenseIndex([("p_1", "dispatch rights"), ("p_2", "government contract"), ("p_3", "audit")])
     losers, claimed = DecomposedBeliefGraph._entity_conflicts(out, mems, pidx)
     assert losers == ["m_b"] and claimed["m_b"] == {"p_1", "p_3"}
+
+
+def test_load_json_closes_brackets_left_open():
+    from beliefgraph.core import _load_json
+
+    assert _load_json('```json\n{"then": "x", "if": [["a"]}\n```') == {"then": "x", "if": [["a"]]}
+    assert _load_json('{"a": [1, {"b": "c]"}') == {"a": [1, {"b": "c]"}]}

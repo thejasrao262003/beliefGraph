@@ -24,6 +24,7 @@ from beliefgraph.prompts import (
     RETRY_NOTE,
     ROUTE_OUTCOME_PROMPT,
     ROUTE_PROMPT,
+    RULE_PARSE_PROMPT,
     SCORE_PROMPT,
     VERIFY_PROMPT,
 )
@@ -62,7 +63,36 @@ def _load_json(raw: str) -> dict:
         fixed = re.sub(r",\s*(?=,)", "", text)            # ", ," -> ","
         fixed = re.sub(r",\s*([}\]])", r"\1", fixed)      # trailing commas
         fixed = re.sub(r"([{,]\s*),", r"\1", fixed)        # "{," or ", ," leftovers
-        return json.loads(fixed)
+        try:
+            return json.loads(fixed)
+        except json.JSONDecodeError:
+            return json.loads(_balance_brackets(fixed))
+
+
+def _balance_brackets(text: str) -> str:
+    """Close brackets a small model left open: '[["a"]}' -> '[["a"]]}' (outside strings)."""
+    out, stack, in_str, esc = [], [], False, False
+    pairs = {"{": "}", "[": "]"}
+    for ch in text:
+        if in_str:
+            out.append(ch)
+            esc = ch == "\\" and not esc
+            if ch == '"' and not esc:
+                in_str = False
+            continue
+        if ch == '"':
+            in_str, esc = True, False
+        elif ch in pairs:
+            stack.append(pairs[ch])
+        elif ch in "]}":
+            while stack and stack[-1] != ch and ch in stack:
+                out.append(stack.pop())  # close what was left open inside
+            if stack and stack[-1] == ch:
+                stack.pop()
+            else:
+                continue  # a stray closer
+        out.append(ch)
+    return "".join(out) + "".join(reversed(stack))
 
 
 def build_message(view: dict) -> str:
@@ -292,7 +322,8 @@ class DecomposedBeliefGraph(BeliefGraph):
                  reliability_batch: int = 40, max_reroutes: int = 2, outcome_routing: bool = False,
                  outcome_batch: int = 20, samples: int = 3, resolve_conflicts: bool = False, conflict_rounds: int = 2,
                  adjudicate: bool = True, route_mode: str = "choose", k_verify: int = 5,
-                 entity_ground: bool = False, k_ground: int = 8, conflict_mode: str = "overlap"):
+                 entity_ground: bool = False, k_ground: int = 8, conflict_mode: str = "overlap",
+                 rule_parse: bool = False):
         super().__init__(llm)
         self.samples, self.resolve_conflicts, self.conflict_rounds = samples, resolve_conflicts, conflict_rounds
         self.adjudicate = adjudicate
@@ -302,6 +333,7 @@ class DecomposedBeliefGraph(BeliefGraph):
         if conflict_mode not in ("overlap", "entity"):
             raise ValueError(f"conflict_mode must be 'overlap' or 'entity', not {conflict_mode!r}")
         self.conflict_mode = conflict_mode
+        self.rule_parse = rule_parse
         self.outcome_routing, self.outcome_batch = outcome_routing, outcome_batch
         self.max_reroutes = max_reroutes
         self.k_policies, self.k_items, self.k_read = k_policies, k_items, k_read
@@ -354,6 +386,18 @@ class DecomposedBeliefGraph(BeliefGraph):
                 rel[fid] = v
         return rel, errors
 
+    def _rule_thens(self, view: dict) -> dict[str, str]:
+        """{policy id: THEN clause} from one cached parse per rule; the full text on failure."""
+        def parse(p):
+            try:
+                obj = _load_json(self.llm(RULE_PARSE_PROMPT, p["text"], f"{view['scenario']} ruleparse.{p['id']}"))
+                then = obj.get("then")
+                return p["id"], then.strip() if isinstance(then, str) and then.strip() else p["text"]
+            except Exception:  # noqa: BLE001 -- an unusable parse falls back to the full rule
+                return p["id"], p["text"]
+
+        return dict(self._map(parse, view.get("policies", [])))
+
     def _outcomes(self, view: dict) -> tuple[dict[str, dict], list[str]]:
         """{policy id: {"gives", "requires"}}, from batched calls; a policy the model leaves
         out keeps its full text as both."""
@@ -392,10 +436,20 @@ class DecomposedBeliefGraph(BeliefGraph):
         pidx = DenseIndex([(p, x["text"]) for p, x in pols.items()])
         outcomes, oerr = self._outcomes(view) if self.outcome_routing and pols else ({}, [])
         oidx = DenseIndex([(p, o["gives"]) for p, o in outcomes.items()]) if outcomes else None
+        # v0.7: each rule parsed once into IF/THEN; routing candidates are ranked by the THEN clause
+        # fused with the full text (the router's prompt is unchanged)
+        thens = self._rule_thens(view) if self.rule_parse and pols else {}
+        tidx = DenseIndex(list(thens.items())) if thens else None
 
         def rank_policies(text: str) -> list[str]:
             """Reciprocal-rank fusion of outcome and full-text similarity (outcome first)."""
             full = pidx.rank(text)
+            if tidx is not None:  # v0.7: THEN clause and full text, equal weight
+                score = {p: 0.0 for p in full}
+                for ranking in (tidx.rank(text), full):
+                    for r, p in enumerate(ranking):
+                        score[p] += 1.0 / (10 + r)
+                return sorted(full, key=lambda p: -score[p])
             if oidx is None:
                 return full
             score = {p: 0.0 for p in full}
