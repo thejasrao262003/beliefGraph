@@ -26,6 +26,7 @@ def main() -> None:
     ap.add_argument("--thinking", default="default", choices=["default", "on", "off"])
     ap.add_argument("--runs", nargs="+", required=True)
     ap.add_argument("--variant", default="v0.4", choices=["v0.4", "v0.8"])
+    ap.add_argument("--read-implicit", action="store_true")
     args = ap.parse_args()
 
     class Replay:  # cache only: any call that was not made in the run fails loudly
@@ -41,7 +42,8 @@ def main() -> None:
             raise RuntimeError(f"not cached: {a[-1]}")
 
     llm = CachedLLM(Replay(), Path("data/beliefgraph") / args.run / "raw")
-    bg = DecomposedBeliefGraph(llm, workers=8, **({"route_mode": "assign"} if args.variant == "v0.8" else {}))
+    bg = DecomposedBeliefGraph(llm, workers=8, read_implicit=args.read_implicit,
+                               **({"route_mode": "assign"} if args.variant == "v0.8" else {}))
     pool = [x for r in args.runs for x in load_rendered(Path("data/rendered") / r)]
     tot = Counter()
     ext = ExtractionScore()

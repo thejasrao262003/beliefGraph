@@ -100,6 +100,7 @@ def main() -> None:
     ap.add_argument("--runs", nargs="+", default=None, help="rendered runs (default: the accepted pilot runs)")
     ap.add_argument("--store-workers", type=int, default=6, help="--per-scenario: stores processed concurrently")
     ap.add_argument("--rag", action="store_true", help="also run the retrieval (RAG) baseline")
+    ap.add_argument("--read-implicit", action="store_true", help="reader v3: implicit updates, 12 candidate facts")
     ap.add_argument("--variant", default="v0.4", choices=["v0.4", "v0.6", "v0.7", "v0.8"],
                     help="v0.2 builder settings: v0.4 (sample-vote-adjudicate) or v0.6 (+ one policy per entity)")
     ap.add_argument("--per-scenario", action="store_true",
@@ -143,6 +144,7 @@ def main() -> None:
     variant = {"v0.4": {}, "v0.6": {"resolve_conflicts": True, "conflict_mode": "entity"},
                "v0.7": {"rule_parse": True},  # v0.7: THEN-clause routing candidates
                "v0.8": {"route_mode": "assign"}}[args.variant]  # v0.8: logprob routing + joint assignment
+    variant = variant | ({"read_implicit": True} if args.read_implicit else {})
     bg = (DecomposedBeliefGraph(cached, workers=max(1, args.workers), **variant) if args.algo == "v0.2"
           else BeliefGraph(cached))
     results = {"algo": args.algo, "variant": args.variant, "max_output_tokens": args.max_output_tokens, "provider": args.provider, "model": llm.model, "prompts": [BUILD_VERSION, READ_VERSION, DIRECT_STORE_VERSION],

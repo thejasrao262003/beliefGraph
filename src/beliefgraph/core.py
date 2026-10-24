@@ -19,6 +19,7 @@ from beliefgraph.prompts import (
     ADJUDICATE_PROMPT,
     GROUND_PROMPT,
     OUTCOME_PROMPT,
+    READ_IMPLICIT_PROMPT,
     READ_PROMPT,
     RELIABILITY_PROMPT,
     RETRY_NOTE,
@@ -364,7 +365,7 @@ class DecomposedBeliefGraph(BeliefGraph):
                  outcome_batch: int = 20, samples: int = 3, resolve_conflicts: bool = False, conflict_rounds: int = 2,
                  adjudicate: bool = True, route_mode: str = "choose", k_verify: int = 5,
                  entity_ground: bool = False, k_ground: int = 8, conflict_mode: str = "overlap",
-                 rule_parse: bool = False):
+                 rule_parse: bool = False, read_implicit: bool = False):
         super().__init__(llm)
         self.samples, self.resolve_conflicts, self.conflict_rounds = samples, resolve_conflicts, conflict_rounds
         self.adjudicate = adjudicate
@@ -375,6 +376,7 @@ class DecomposedBeliefGraph(BeliefGraph):
             raise ValueError(f"conflict_mode must be 'overlap' or 'entity', not {conflict_mode!r}")
         self.conflict_mode = conflict_mode
         self.rule_parse = rule_parse
+        self.read_implicit = read_implicit  # reader v3: implicit updates, 12 candidate facts
         self.outcome_routing, self.outcome_batch = outcome_routing, outcome_batch
         self.max_reroutes = max_reroutes
         self.k_policies, self.k_items, self.k_read = k_policies, k_items, k_read
@@ -856,9 +858,11 @@ class DecomposedBeliefGraph(BeliefGraph):
     def read_updates(self, view: dict) -> tuple[dict[str, UpdateReading], list[str]]:
         from beliefgraph.retrieve import facts_near
 
+        prompt, k, tag = (READ_IMPLICIT_PROMPT, max(self.k_read, 12), "readv3") if self.read_implicit else (READ_PROMPT, self.k_read, "read")
+
         def one(u):
-            small = facts_near(view, u["text"], self.k_read) | {"updates": [u]}
-            return parse_readings(self.llm(READ_PROMPT, read_message(small), f"{view['scenario']} read.{u['id']}"), small)
+            small = facts_near(view, u["text"], k) | {"updates": [u]}
+            return parse_readings(self.llm(prompt, read_message(small), f"{view['scenario']} {tag}.{u['id']}"), small)
 
         readings, errors = {}, []
         for r, e in self._map(one, view["updates"]):

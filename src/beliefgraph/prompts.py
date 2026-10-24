@@ -224,3 +224,14 @@ OUTPUT: a single JSON object, no prose:
 # prefilled up to the letter, so one forward pass gives a distribution over all candidates.
 ROUTE_LETTER_PROMPT = ROUTE_PROMPT.replace('{"policy": <number or null>}', '{"policy": "<letter>"}').replace(
     "Decide which numbered policy it is. Answer null if none of them is.", "Decide which lettered policy it is.")
+
+# Reader v3 (opt-in): implicit updates. A later statement often changes an earlier fact without
+# mentioning it (STALE: "settling into my new place in Austin" outdates "based in Seattle").
+READ_IMPLICIT_PROMPT = READ_PROMPT.replace(
+    '''- "target": the id of the ONE fact it is about;''',
+    '''- "target": the id of the ONE earlier fact that this update makes untrue, outdated or doubtful. The
+  update may never mention that fact: it can change it BY IMPLICATION (a new home city outdates the old
+  city; living with desert heat and scorpions outdates living in rainy Portland; a new job outdates the
+  old one). Pick the fact whose state the update replaces or contradicts, not a fact that is merely on a
+  similar topic;''')
+assert READ_IMPLICIT_PROMPT != READ_PROMPT
