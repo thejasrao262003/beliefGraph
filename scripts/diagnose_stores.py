@@ -25,17 +25,23 @@ def main() -> None:
     ap.add_argument("--model", required=True)
     ap.add_argument("--thinking", default="default", choices=["default", "on", "off"])
     ap.add_argument("--runs", nargs="+", required=True)
+    ap.add_argument("--variant", default="v0.4", choices=["v0.4", "v0.8"])
     args = ap.parse_args()
 
     class Replay:  # cache only: any call that was not made in the run fails loudly
         model, usage = args.model, []
         thinking = {"default": None, "on": True, "off": False}[args.thinking]
 
+        supports_choice_probs = True  # v0.8 replays its cached probability passes
+
         def __call__(self, *a):
             raise RuntimeError(f"not cached: {a[2]}")
 
+        def choice_probs(self, *a):
+            raise RuntimeError(f"not cached: {a[-1]}")
+
     llm = CachedLLM(Replay(), Path("data/beliefgraph") / args.run / "raw")
-    bg = DecomposedBeliefGraph(llm, workers=8)
+    bg = DecomposedBeliefGraph(llm, workers=8, **({"route_mode": "assign"} if args.variant == "v0.8" else {}))
     pool = [x for r in args.runs for x in load_rendered(Path("data/rendered") / r)]
     tot = Counter()
     ext = ExtractionScore()
