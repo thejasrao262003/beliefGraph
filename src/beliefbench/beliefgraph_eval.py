@@ -40,13 +40,30 @@ def load_accepted(run_dir: Path) -> list[tuple[dict, dict, int]]:
     return out
 
 
+def load_rendered(run_dir: Path) -> list[tuple[dict, dict, int]]:
+    """Every rendering of a run that passed the renderer's hard checks; when the run has human
+    review decisions, only the accepted ones."""
+    review = run_dir / "review.csv"
+    decisions = {r["scenario"]: r["decision"] for r in csv.DictReader(review.open())} if review.exists() else {}
+    reviewed = any(v for v in decisions.values())
+    seed = json.loads((run_dir / "spend.json").read_text())["seed"]
+    out = []
+    for f in sorted((run_dir / "system").glob("*.json")):
+        sv = json.loads(f.read_text())
+        if not reviewed or decisions.get(sv["scenario"]) == "accept":
+            out.append((sv, json.loads((run_dir / "eval" / f.name).read_text()), seed))
+    return out
+
+
 _SUITES: dict[int, dict] = {}
 
 
 def gold_inputs(sv: dict, ev: dict, seed: int) -> tuple[dict, dict, dict[str, UpdateReading]]:
     """Gold graph, gold source reliabilities and gold update readings, in opaque ids."""
     if seed not in _SUITES:  # each scenario has its own RNG stream, so a longer suite keeps the first ones
-        _SUITES[seed] = {s.id: s for s in generate_suite(60, seed)}
+        from beliefbench.generate import FAMILIES, LONG_FAMILIES
+
+        _SUITES[seed] = {s.id: s for s in generate_suite(60, seed, families=(*FAMILIES, *LONG_FAMILIES))}
     s = _SUITES[seed][ev["source_scenario"]]
     idmap = ev["idmap"]
     reliability = {idmap[n.id]: n.reliability for n in s.nodes if n.is_evidence}

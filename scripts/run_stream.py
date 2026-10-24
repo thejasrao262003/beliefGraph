@@ -20,7 +20,7 @@ import random
 from collections import Counter
 from pathlib import Path
 
-from beliefbench.beliefgraph_eval import load_accepted
+from beliefbench.beliefgraph_eval import load_accepted, load_rendered
 from beliefbench.llm_baselines import DIRECT_STORE_VERSION, llm_direct_store
 from beliefbench.schema import Action
 from beliefbench.stream import gold_after, merge, step_view, touched
@@ -39,10 +39,29 @@ def step_score(gold: dict, pred: dict, focus: set[str]) -> dict:
         return sum(pred.get(m, Action.KEEP) is gold[m] for m in ids) / len(ids) if ids else None
     revising = [m for m in gold if gold[m] in REVISING]
     keep = [m for m in gold if gold[m] is Action.KEEP]
+    rev_recall = sum(pred.get(m, Action.KEEP) is not Action.KEEP for m in revising) / len(revising) if revising else None
+    keep_recall = sum(pred.get(m, Action.KEEP) is Action.KEEP for m in keep) / len(keep) if keep else None
     return {"acc_all": acc(gold), "acc_touched": acc(focus & set(gold)),
+            "balanced": (rev_recall + keep_recall) / 2 if revising and keep else None,
             "stale": sum(pred.get(m, Action.KEEP) is Action.KEEP for m in revising) / len(revising) if revising else None,
             "over_invalidation": sum(pred.get(m, Action.KEEP) is not Action.KEEP for m in keep) / len(keep) if keep else None,
             "n_revising": len(revising)}
+
+
+def pooled(sizes: dict) -> dict:
+    """Per-scenario runs: means over dossiers of the final-step and step-averaged scores."""
+    out = {}
+    for m in ("BeliefGraph", "LLM-direct"):
+        finals = [r["final"][m] for r in sizes.values()]
+        bal = [f["balanced"] for f in finals if f.get("balanced") is not None]
+        out[m] = {"final_acc": sum(f["acc_all"] for f in finals) / len(finals),
+                  "final_balanced": sum(bal) / len(bal) if bal else None,
+                  "mean_step_balanced": sum(
+                      sum(s[m]["balanced"] for s in r["steps"] if s[m]["balanced"] is not None)
+                      / max(1, sum(s[m]["balanced"] is not None for s in r["steps"])) for r in sizes.values()) / len(sizes),
+                  "stale": sum(f["stale"] or 0 for f in finals) / len(finals),
+                  "over_invalidation": sum(f["over_invalidation"] or 0 for f in finals) / len(finals)}
+    return out
 
 
 def usage_of(raw_dir: Path, store_id: str) -> dict:
@@ -76,12 +95,21 @@ def main() -> None:
     ap.add_argument("--json-mode", action="store_true", help="constrain answers to valid JSON (OpenAI-compatible servers)")
     ap.add_argument("--thinking", default="default", choices=["default", "on", "off"],
                     help="self-hosted Qwen-style models: force thinking on/off (same for every method)")
+    ap.add_argument("--runs", nargs="+", default=None, help="rendered runs (default: the accepted pilot runs)")
+    ap.add_argument("--per-scenario", action="store_true",
+                    help="each scenario is its own store (long dossiers); results are pooled over scenarios")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
-    pool = [x for r in RUNS for x in load_accepted(Path("data/rendered") / r)]
+    pool = ([x for r in args.runs for x in load_rendered(Path("data/rendered") / r)] if args.runs
+            else [x for r in RUNS for x in load_accepted(Path("data/rendered") / r)])
     plans = []
-    for k in args.sizes:
+    if args.per_scenario:
+        for i, item in enumerate(pool):
+            store, comps = merge([item], seed=args.seed)
+            store["scenario"] = f"dossier{i:03d}"
+            plans.append((f"d{i:03d}", store, comps))
+    for k in ([] if args.per_scenario else args.sizes):
         chosen = random.Random(f"{args.seed}:{k}").sample(pool, min(k, len(pool)))
         store, comps = merge(chosen, seed=args.seed)
         chars = len(json.dumps(store))
@@ -148,6 +176,9 @@ def main() -> None:
     finally:
         if hasattr(llm, "close"):
             llm.close()
+    if args.per_scenario and results["sizes"]:
+        results["pooled"] = pooled(results["sizes"])
+        print("pooled over", len(results["sizes"]), "dossiers:", json.dumps(results["pooled"]))
     if args.provider == "lyzr":
         results["est_usd_conservative"] = round(llm.client["guard"].spent_usd, 4)
     (out / "results.json").write_text(json.dumps(results, indent=1, default=str))

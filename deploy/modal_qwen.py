@@ -36,7 +36,10 @@ GPU = "H100" if MODEL == "Qwen/Qwen3.5-9B" else "L40S"  # up to ~12B in bf16 fit
 VLLM = "vllm==0.31.0" if MODEL.startswith("google/gemma-4") else "vllm==0.21.0"
 # Per-family serving flags (vLLM docs / model cards).
 EXTRA = {
-    "mistralai/": ["--tokenizer-mode", "mistral", "--config-format", "mistral", "--load-format", "mistral"],
+    # the native Mistral format ships no generation defaults (vLLM would sample at temperature 1.0);
+    # the model card recommends a temperature below 0.1
+    "mistralai/": ["--tokenizer-mode", "mistral", "--config-format", "mistral", "--load-format", "mistral",
+                   "--override-generation-config", '{"temperature": 0.05}'],
 }
 
 image = (
