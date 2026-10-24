@@ -1,0 +1,12 @@
+{
+ "note": "dossier020 ground.m_0010f2",
+ "model": "granite-4.1-8b",
+ "response": "**Step\u2011by\u2011step reasoning**\n\n1. **Extract the policy\u2019s logical form**  \n   The policy says: *\u201cA plan or recommendation made for the user holds only while the personal circumstances it was based on still hold.\u201d*  \n   This transforms into a **single group** of conditions that must all be true for the memory to remain valid:\n   - **Condition** \u2013 the original personal circumstances (the facts that justified the plan) **still hold**.\n\n2. **Identify the conditions that justify the given memory**  \n   The given memory (id **m_00c7dc**) was justified by two facts:\n   - *\u201cUsually, after a crunch period like that, people are shot for days, but I'm back to full energy by the next morning.\u201d* (fact **e_00fc8c**)  \n   - *\u201cI keep pretty standard hours, so I'm typically working from eight in the morning until four in the afternoon on weekdays.\u201d* (fact **e_00ccf7**)\n\n   Therefore the two **conditions** for the memory\u2019s validity are:\n   - The user\u2019s **recovery speed after a crunch period** (still being back to full energy the next morning).  \n   - The user\u2019s **standard work hours** (8\u202fam\u202f\u2013\u202f4\u202fpm weekdays).\n\n3. **Select the candidate that satisfies each condition**  \n   - For the recovery\u2011speed condition, the only direct statement is **e_00fc8c** \u2192 candidate **e_00fc8c**.  \n   - For the work\u2011hours condition, the direct statement is **e_00ccf7** \u2192 candidate **e_00ccf7**.  \n\n   No other candidate matches these conditions, so each condition\u2019s candidate is exactly the fact that expresses it.\n\n4. **Form the JSON structure**  \n   The policy has **one group** containing **both** conditions, each paired with its satisfying candidate.\n\n**Output JSON**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"User is back to full energy by the next morning after a crunch period\",\n          \"item\": \"e_00fc8c\"\n        },\n        {\n          \"condition\": \"User works standard hours (8\u202fam\u20134\u202fpm weekdays)\",\n          \"item\": \"e_00ccf7\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier020 ground.m_0010f2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 1243,
+  "output_tokens": 511,
+  "seconds": 19.12
+ }
+}

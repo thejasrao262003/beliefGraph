@@ -1,0 +1,7780 @@
+{
+ "algo": "v0.2",
+ "variant": "v0.8",
+ "max_output_tokens": 4000,
+ "provider": "modal",
+ "model": "olmo-3-7b",
+ "prompts": [
+  "bg-build-v1",
+  "bg-read-v2",
+  "llm-direct-store-v1"
+ ],
+ "seed": 0,
+ "batch_size": 25,
+ "sizes": {
+  "d000": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.3,
+    "LLM-direct": 0.475,
+    "LLM-RAG": 0.725
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.6333333333333333,
+     "stale": 0.4,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.5,
+     "acc_touched": 0.5,
+     "balanced": 0.8,
+     "stale": 0.4,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.7,
+     "stale": 0.6,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 44,
+     "input_tokens": 40239,
+     "output_tokens": 4183,
+     "seconds": 1099.7,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5716,
+     "output_tokens": 239,
+     "seconds": 33.11000000000001,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8571,
+     "output_tokens": 175,
+     "seconds": 17.18,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6718,
+     "output_tokens": 140,
+     "seconds": 28.490000000000002,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.21428571428571427,
+      "stale": 1.0,
+      "over_invalidation": 0.5714285714285714,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.5,
+      "over_invalidation": 0.5,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5833333333333333,
+      "stale": 0.5,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.3666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.6,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.3,
+      "stale": 1.0,
+      "over_invalidation": 0.4,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5,
+      "stale": 0.5,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5,
+      "stale": 0.5,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.875,
+      "stale": 0.25,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.6333333333333333,
+      "stale": 0.4,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.8,
+      "stale": 0.4,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.7,
+      "stale": 0.6,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d001": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.275,
+    "LLM-direct": 0.275,
+    "LLM-RAG": 0.7
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.26666666666666666,
+     "stale": 0.8,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.43333333333333335,
+     "stale": 0.8,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.6,
+     "stale": 0.8,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 47,
+     "input_tokens": 45790,
+     "output_tokens": 4082,
+     "seconds": 1090.4799999999998,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5836,
+     "output_tokens": 225,
+     "seconds": 11.98,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8760,
+     "output_tokens": 310,
+     "seconds": 14.409999999999998,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6533,
+     "output_tokens": 86,
+     "seconds": 6.869999999999999,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.2857142857142857,
+      "stale": 1.0,
+      "over_invalidation": 0.42857142857142855,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.8571428571428572,
+      "stale": 0.0,
+      "over_invalidation": 0.2857142857142857,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.25,
+      "stale": 1.0,
+      "over_invalidation": 0.5,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.2,
+      "stale": 1.0,
+      "over_invalidation": 0.6,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.125,
+      "stale": 1.0,
+      "over_invalidation": 0.75,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.375,
+      "stale": 0.5,
+      "over_invalidation": 0.75,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.26666666666666666,
+      "stale": 0.8,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.43333333333333335,
+      "stale": 0.8,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.6,
+      "stale": 0.8,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d002": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.375,
+    "LLM-direct": 0.575,
+    "LLM-RAG": 0.525
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.3666666666666667,
+     "stale": 0.6,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.5,
+     "acc_touched": 0.5,
+     "balanced": 0.7,
+     "stale": 0.6,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.5333333333333333,
+     "stale": 0.6,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 47,
+     "input_tokens": 44003,
+     "output_tokens": 4960,
+     "seconds": 1078.0500000000002,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5861,
+     "output_tokens": 230,
+     "seconds": 16.2,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8693,
+     "output_tokens": 202,
+     "seconds": 11.41,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6818,
+     "output_tokens": 155,
+     "seconds": 16.15,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.35714285714285715,
+      "stale": 1.0,
+      "over_invalidation": 0.2857142857142857,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.3333333333333333,
+      "stale": 1.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.5833333333333333,
+      "stale": 0.5,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666667,
+      "stale": 0.5,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.2,
+      "stale": 1.0,
+      "over_invalidation": 0.6,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.5666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.375,
+      "stale": 0.75,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.75,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.625,
+      "stale": 0.5,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.3666666666666667,
+      "stale": 0.6,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.7,
+      "stale": 0.6,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5333333333333333,
+      "stale": 0.6,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d003": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 1,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.575,
+    "LLM-direct": 0.5,
+    "LLM-RAG": 0.55
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.6333333333333333,
+     "stale": 0.4,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.5,
+     "acc_touched": 0.5,
+     "balanced": 0.7,
+     "stale": 0.6,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.5333333333333333,
+     "stale": 0.6,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 44,
+     "input_tokens": 41573,
+     "output_tokens": 5018,
+     "seconds": 1096.8,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5831,
+     "output_tokens": 234,
+     "seconds": 13.129999999999999,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8748,
+     "output_tokens": 189,
+     "seconds": 12.009999999999998,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6571,
+     "output_tokens": 145,
+     "seconds": 9.39,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.9285714285714286,
+      "stale": 0.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666667,
+      "stale": 0.5,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.4166666666666667,
+      "stale": 1.0,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.8333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.5666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.625,
+      "stale": 0.5,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.6333333333333333,
+      "stale": 0.4,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.7,
+      "stale": 0.6,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5333333333333333,
+      "stale": 0.6,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d004": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.575,
+    "LLM-direct": 0.25,
+    "LLM-RAG": 0.5
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.5333333333333333,
+     "stale": 0.6,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.6333333333333333,
+     "stale": 0.4,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.6333333333333333,
+     "stale": 0.4,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 37248,
+     "output_tokens": 4818,
+     "seconds": 1113.37,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5800,
+     "output_tokens": 231,
+     "seconds": 15.17,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8751,
+     "output_tokens": 330,
+     "seconds": 20.71,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6857,
+     "output_tokens": 177,
+     "seconds": 12.41,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.9166666666666667,
+      "stale": 0.0,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666667,
+      "stale": 0.5,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.7333333333333334,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.26666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.8,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.625,
+      "stale": 0.5,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.625,
+      "stale": 0.5,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5333333333333333,
+      "stale": 0.6,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.6333333333333333,
+      "stale": 0.4,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.6333333333333333,
+      "stale": 0.4,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d005": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 2,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.5,
+    "LLM-direct": 0.0,
+    "LLM-RAG": 0.6
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.5333333333333333,
+     "stale": 0.6,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.0,
+     "acc_touched": 0.0,
+     "balanced": 0.5,
+     "stale": 0.0,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.8,
+     "stale": 0.4,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 37212,
+     "output_tokens": 3803,
+     "seconds": 913.13,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5786,
+     "output_tokens": 234,
+     "seconds": 14.68,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8604,
+     "output_tokens": 495,
+     "seconds": 23.67,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 7237,
+     "output_tokens": 159,
+     "seconds": 14.93,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.9285714285714286,
+      "stale": 0.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.9285714285714286,
+      "stale": 0.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.9166666666666667,
+      "stale": 0.0,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.4166666666666667,
+      "stale": 1.0,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.7333333333333334,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.6666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.625,
+      "stale": 0.5,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.875,
+      "stale": 0.0,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5333333333333333,
+      "stale": 0.6,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.8,
+      "stale": 0.4,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d006": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.2,
+    "LLM-direct": 0.475,
+    "LLM-RAG": 0.625
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.0,
+     "acc_touched": 0.0,
+     "balanced": 0.3,
+     "stale": 0.4,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.3333333333333333,
+     "stale": 1.0,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.8,
+     "stale": 0.4,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 37923,
+     "output_tokens": 3594,
+     "seconds": 173.26,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5837,
+     "output_tokens": 224,
+     "seconds": 16.17,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8902,
+     "output_tokens": 93,
+     "seconds": 9.19,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6712,
+     "output_tokens": 117,
+     "seconds": 10.65,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.8571428571428572,
+      "stale": 0.0,
+      "over_invalidation": 0.2857142857142857,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.5,
+      "over_invalidation": 0.5,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.3333333333333333,
+      "stale": 1.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.16666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 1.0,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.4,
+      "stale": 1.0,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.25,
+      "stale": 0.5,
+      "over_invalidation": 1.0,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.375,
+      "stale": 1.0,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.3,
+      "stale": 0.4,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.3333333333333333,
+      "stale": 1.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.8,
+      "stale": 0.4,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d007": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.55,
+    "LLM-direct": 0.5,
+    "LLM-RAG": 0.75
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.9,
+     "stale": 0.2,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.3333333333333333,
+     "stale": 1.0,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.625,
+     "acc_touched": 0.625,
+     "balanced": 0.7,
+     "stale": 0.6,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 47,
+     "input_tokens": 45507,
+     "output_tokens": 4540,
+     "seconds": 285.54,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5822,
+     "output_tokens": 249,
+     "seconds": 11.86,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8914,
+     "output_tokens": 70,
+     "seconds": 5.48,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 7149,
+     "output_tokens": 113,
+     "seconds": 25.98,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.9285714285714286,
+      "stale": 0.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.8333333333333333,
+      "stale": 0.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.4166666666666667,
+      "stale": 1.0,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.9,
+      "stale": 0.0,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.4,
+      "stale": 1.0,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.375,
+      "stale": 1.0,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.875,
+      "stale": 0.25,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.9,
+      "stale": 0.2,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.3333333333333333,
+      "stale": 1.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.7,
+      "stale": 0.6,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d008": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 1,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.175,
+    "LLM-direct": 0.275,
+    "LLM-RAG": 0.625
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.0,
+     "acc_touched": 0.0,
+     "balanced": 0.3,
+     "stale": 0.4,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.7,
+     "stale": 0.6,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.8,
+     "stale": 0.4,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 37666,
+     "output_tokens": 4362,
+     "seconds": 303.36999999999995,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5819,
+     "output_tokens": 238,
+     "seconds": 13.42,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8822,
+     "output_tokens": 283,
+     "seconds": 14.759999999999998,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6517,
+     "output_tokens": 90,
+     "seconds": 7.16,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.7857142857142857,
+      "stale": 0.0,
+      "over_invalidation": 0.42857142857142855,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5714285714285714,
+      "stale": 0.0,
+      "over_invalidation": 0.8571428571428571,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.41666666666666663,
+      "stale": 0.5,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.26666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.8,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.7333333333333334,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.25,
+      "stale": 0.5,
+      "over_invalidation": 1.0,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.625,
+      "stale": 0.5,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.625,
+      "stale": 0.75,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.3,
+      "stale": 0.4,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.7,
+      "stale": 0.6,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.8,
+      "stale": 0.4,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d009": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.325,
+    "LLM-direct": 0.525,
+    "LLM-RAG": 0.65
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.3666666666666667,
+     "stale": 0.6,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.0,
+     "acc_touched": 0.0,
+     "balanced": 0.5,
+     "stale": 0.0,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.6,
+     "stale": 0.8,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 44,
+     "input_tokens": 40981,
+     "output_tokens": 4844,
+     "seconds": 354.02000000000004,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5785,
+     "output_tokens": 212,
+     "seconds": 11.000000000000002,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8807,
+     "output_tokens": 173,
+     "seconds": 10.52,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6538,
+     "output_tokens": 70,
+     "seconds": 6.210000000000001,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.2857142857142857,
+      "stale": 1.0,
+      "over_invalidation": 0.42857142857142855,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.5,
+      "over_invalidation": 0.5,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666667,
+      "stale": 0.5,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.6333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.4,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.8333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5,
+      "stale": 0.5,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.625,
+      "stale": 0.75,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.3666666666666667,
+      "stale": 0.6,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.6,
+      "stale": 0.8,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d010": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 1,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.15,
+    "LLM-direct": 0.375,
+    "LLM-RAG": 0.7
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.3,
+     "stale": 0.4,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.5,
+     "stale": 0.0,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.6,
+     "stale": 0.8,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 37629,
+     "output_tokens": 7170,
+     "seconds": 461.27000000000004,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5882,
+     "output_tokens": 249,
+     "seconds": 15.89,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8778,
+     "output_tokens": 329,
+     "seconds": 19.26,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6985,
+     "output_tokens": 91,
+     "seconds": 8.57,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.2857142857142857,
+      "stale": 1.0,
+      "over_invalidation": 0.42857142857142855,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.35714285714285715,
+      "stale": 1.0,
+      "over_invalidation": 0.2857142857142857,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.08333333333333333,
+      "stale": 1.0,
+      "over_invalidation": 0.8333333333333334,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.6666666666666667,
+      "stale": 0.5,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.0,
+      "stale": 1.0,
+      "over_invalidation": 1.0,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.8333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.125,
+      "stale": 0.75,
+      "over_invalidation": 1.0,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.625,
+      "stale": 0.75,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.3,
+      "stale": 0.4,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.6,
+      "stale": 0.8,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d011": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.35,
+    "LLM-direct": 0.5,
+    "LLM-RAG": 0.675
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.6666666666666666,
+     "stale": 0.0,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.5,
+     "acc_touched": 0.5,
+     "balanced": 0.6,
+     "stale": 0.8,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.5,
+     "acc_touched": 0.5,
+     "balanced": 0.6,
+     "stale": 0.8,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 44,
+     "input_tokens": 40855,
+     "output_tokens": 4248,
+     "seconds": 244.83,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5734,
+     "output_tokens": 212,
+     "seconds": 13.419999999999998,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8690,
+     "output_tokens": 237,
+     "seconds": 14.31,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6154,
+     "output_tokens": 73,
+     "seconds": 5.720000000000001,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.6666666666666666,
+      "stale": 0.0,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.75,
+      "stale": 0.0,
+      "over_invalidation": 0.5,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.6,
+      "stale": 0.0,
+      "over_invalidation": 0.8,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.7,
+      "stale": 0.0,
+      "over_invalidation": 0.6,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.625,
+      "stale": 0.0,
+      "over_invalidation": 0.75,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.625,
+      "stale": 0.25,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.625,
+      "stale": 0.75,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.6666666666666666,
+      "stale": 0.0,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.6,
+      "stale": 0.8,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.6,
+      "stale": 0.8,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d012": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.5,
+    "LLM-direct": 0.4,
+    "LLM-RAG": 0.675
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.5666666666666667,
+     "stale": 0.2,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.4666666666666667,
+     "stale": 0.4,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.5,
+     "acc_touched": 0.5,
+     "balanced": 0.6333333333333333,
+     "stale": 0.4,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 38763,
+     "output_tokens": 4655,
+     "seconds": 257.83,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5936,
+     "output_tokens": 225,
+     "seconds": 15.850000000000001,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8951,
+     "output_tokens": 203,
+     "seconds": 14.94,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6759,
+     "output_tokens": 111,
+     "seconds": 8.62,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.2857142857142857,
+      "stale": 1.0,
+      "over_invalidation": 0.42857142857142855,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.35714285714285715,
+      "stale": 1.0,
+      "over_invalidation": 0.2857142857142857,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5,
+      "stale": 0.5,
+      "over_invalidation": 0.5,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5833333333333333,
+      "stale": 0.5,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.4,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.4666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.4,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.6666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.875,
+      "stale": 0.0,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.625,
+      "stale": 0.5,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.625,
+      "stale": 0.5,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5666666666666667,
+      "stale": 0.2,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.4666666666666667,
+      "stale": 0.4,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.6333333333333333,
+      "stale": 0.4,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d013": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.425,
+    "LLM-direct": 0.025,
+    "LLM-RAG": 0.6
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.7333333333333334,
+     "stale": 0.2,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.0,
+     "acc_touched": 0.0,
+     "balanced": 0.5,
+     "stale": 0.0,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.5,
+     "acc_touched": 0.5,
+     "balanced": 0.7333333333333334,
+     "stale": 0.2,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 38521,
+     "output_tokens": 3338,
+     "seconds": 154.45999999999998,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5861,
+     "output_tokens": 235,
+     "seconds": 14.05,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8876,
+     "output_tokens": 460,
+     "seconds": 22.939999999999998,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6803,
+     "output_tokens": 186,
+     "seconds": 14.030000000000001,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.8571428571428572,
+      "stale": 0.0,
+      "over_invalidation": 0.2857142857142857,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.8333333333333333,
+      "stale": 0.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.6666666666666667,
+      "stale": 0.5,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.6333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.4,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.7333333333333334,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.75,
+      "stale": 0.25,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.75,
+      "stale": 0.25,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.7333333333333334,
+      "stale": 0.2,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.7333333333333334,
+      "stale": 0.2,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d014": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.175,
+    "LLM-direct": 0.25,
+    "LLM-RAG": 0.75
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.6666666666666666,
+     "stale": 0.0,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.0,
+     "acc_touched": 0.0,
+     "balanced": 0.4,
+     "stale": 0.2,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.5,
+     "acc_touched": 0.5,
+     "balanced": 0.8,
+     "stale": 0.4,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 35834,
+     "output_tokens": 3760,
+     "seconds": 210.41000000000005,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5625,
+     "output_tokens": 246,
+     "seconds": 13.160000000000002,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8476,
+     "output_tokens": 400,
+     "seconds": 24.73,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6568,
+     "output_tokens": 152,
+     "seconds": 18.160000000000004,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.7142857142857143,
+      "stale": 0.0,
+      "over_invalidation": 0.5714285714285714,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.9285714285714286,
+      "stale": 0.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5833333333333334,
+      "stale": 0.0,
+      "over_invalidation": 0.8333333333333334,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.6,
+      "stale": 0.0,
+      "over_invalidation": 0.8,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.8333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.625,
+      "stale": 0.0,
+      "over_invalidation": 0.75,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.875,
+      "stale": 0.25,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.6666666666666666,
+      "stale": 0.0,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.4,
+      "stale": 0.2,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.8,
+      "stale": 0.4,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d015": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.475,
+    "LLM-direct": 0.475,
+    "LLM-RAG": 0.675
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.6333333333333333,
+     "stale": 0.4,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.3666666666666667,
+     "stale": 0.6,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.6333333333333333,
+     "stale": 0.4,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 37499,
+     "output_tokens": 2892,
+     "seconds": 165.97,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5896,
+     "output_tokens": 225,
+     "seconds": 12.87,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8811,
+     "output_tokens": 164,
+     "seconds": 10.399999999999999,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 7038,
+     "output_tokens": 142,
+     "seconds": 9.17,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.8571428571428572,
+      "stale": 0.0,
+      "over_invalidation": 0.2857142857142857,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.8333333333333333,
+      "stale": 0.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.3333333333333333,
+      "stale": 1.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.9,
+      "stale": 0.0,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.4666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.4,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.5666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.75,
+      "stale": 0.25,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.625,
+      "stale": 0.5,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.6333333333333333,
+      "stale": 0.4,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.3666666666666667,
+      "stale": 0.6,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.6333333333333333,
+      "stale": 0.4,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d016": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.325,
+    "LLM-direct": 0.525,
+    "LLM-RAG": 0.575
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.7333333333333334,
+     "stale": 0.2,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.4666666666666667,
+     "stale": 0.4,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.7,
+     "stale": 0.6,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 36532,
+     "output_tokens": 4640,
+     "seconds": 238.97000000000003,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5733,
+     "output_tokens": 220,
+     "seconds": 34.800000000000004,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8623,
+     "output_tokens": 284,
+     "seconds": 27.76,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6512,
+     "output_tokens": 111,
+     "seconds": 35.09,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.7857142857142857,
+      "stale": 0.0,
+      "over_invalidation": 0.42857142857142855,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.9285714285714286,
+      "stale": 0.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.5,
+      "over_invalidation": 0.5,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666667,
+      "stale": 0.5,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.6,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.6,
+      "stale": 0.0,
+      "over_invalidation": 0.8,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.625,
+      "stale": 0.25,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.75,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.7333333333333334,
+      "stale": 0.2,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.4666666666666667,
+      "stale": 0.4,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.7,
+      "stale": 0.6,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d017": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.225,
+    "LLM-direct": 0.25,
+    "LLM-RAG": 0.625
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.5,
+     "stale": 0.0,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.0,
+     "acc_touched": 0.0,
+     "balanced": 0.5,
+     "stale": 0.0,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.5,
+     "stale": 1.0,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 37114,
+     "output_tokens": 4409,
+     "seconds": 214.68000000000004,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5733,
+     "output_tokens": 215,
+     "seconds": 30.189999999999998,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8629,
+     "output_tokens": 327,
+     "seconds": 25.009999999999998,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 5979,
+     "output_tokens": 93,
+     "seconds": 26.87,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.7857142857142857,
+      "stale": 0.0,
+      "over_invalidation": 0.42857142857142855,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.6666666666666666,
+      "stale": 0.0,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.43333333333333335,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.8,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.25,
+      "over_invalidation": 0.75,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d018": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 1,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.275,
+    "LLM-direct": 0.5,
+    "LLM-RAG": 0.525
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.4666666666666667,
+     "stale": 0.4,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.3333333333333333,
+     "stale": 1.0,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.5333333333333333,
+     "stale": 0.6,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 44,
+     "input_tokens": 42467,
+     "output_tokens": 5756,
+     "seconds": 318.96999999999997,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5941,
+     "output_tokens": 235,
+     "seconds": 12.639999999999999,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8903,
+     "output_tokens": 75,
+     "seconds": 6.86,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6831,
+     "output_tokens": 123,
+     "seconds": 8.63,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.7857142857142857,
+      "stale": 0.0,
+      "over_invalidation": 0.42857142857142855,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.5,
+      "over_invalidation": 0.5,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.4166666666666667,
+      "stale": 1.0,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.4166666666666667,
+      "stale": 1.0,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.6,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.4,
+      "stale": 1.0,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.375,
+      "stale": 0.5,
+      "over_invalidation": 0.75,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.375,
+      "stale": 1.0,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.75,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.4666666666666667,
+      "stale": 0.4,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.3333333333333333,
+      "stale": 1.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5333333333333333,
+      "stale": 0.6,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d019": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.325,
+    "LLM-direct": 0.6,
+    "LLM-RAG": 0.45
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.26666666666666666,
+     "stale": 0.8,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.7,
+     "stale": 0.6,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.4666666666666667,
+     "stale": 0.4,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 44,
+     "input_tokens": 40127,
+     "output_tokens": 4306,
+     "seconds": 260.88999999999993,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5747,
+     "output_tokens": 224,
+     "seconds": 14.23,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8671,
+     "output_tokens": 90,
+     "seconds": 7.34,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 7002,
+     "output_tokens": 178,
+     "seconds": 11.71,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.35714285714285715,
+      "stale": 1.0,
+      "over_invalidation": 0.2857142857142857,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.3333333333333333,
+      "stale": 1.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.4166666666666667,
+      "stale": 1.0,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5833333333333333,
+      "stale": 0.5,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.2,
+      "stale": 1.0,
+      "over_invalidation": 0.6,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.4666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.4,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.125,
+      "stale": 1.0,
+      "over_invalidation": 0.75,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.625,
+      "stale": 0.75,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.26666666666666666,
+      "stale": 0.8,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.7,
+      "stale": 0.6,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.4666666666666667,
+      "stale": 0.4,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d020": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.25,
+    "LLM-direct": 0.425,
+    "LLM-RAG": 0.55
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.4666666666666667,
+     "stale": 0.4,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.3666666666666667,
+     "stale": 0.6,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.43333333333333335,
+     "stale": 0.8,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 36954,
+     "output_tokens": 4664,
+     "seconds": 308.9800000000001,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5727,
+     "output_tokens": 220,
+     "seconds": 10.48,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8530,
+     "output_tokens": 223,
+     "seconds": 11.67,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 7067,
+     "output_tokens": 124,
+     "seconds": 7.290000000000001,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.7857142857142857,
+      "stale": 0.0,
+      "over_invalidation": 0.42857142857142855,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.41666666666666663,
+      "stale": 0.5,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.3333333333333333,
+      "stale": 1.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.6,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.9,
+      "stale": 0.0,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.375,
+      "stale": 0.5,
+      "over_invalidation": 0.75,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.375,
+      "stale": 0.75,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "errors": [
+      "u_00b3d4: unknown target None; update ignored"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.625,
+      "stale": 0.75,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.4666666666666667,
+      "stale": 0.4,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.3666666666666667,
+      "stale": 0.6,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.43333333333333335,
+      "stale": 0.8,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d021": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.425,
+    "LLM-direct": 0.55,
+    "LLM-RAG": 0.725
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.5666666666666667,
+     "stale": 0.2,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.5,
+     "acc_touched": 0.5,
+     "balanced": 0.6,
+     "stale": 0.8,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.5,
+     "acc_touched": 0.5,
+     "balanced": 0.9,
+     "stale": 0.2,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 36507,
+     "output_tokens": 3414,
+     "seconds": 187.41999999999993,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5731,
+     "output_tokens": 215,
+     "seconds": 15.54,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8548,
+     "output_tokens": 70,
+     "seconds": 5.92,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6776,
+     "output_tokens": 173,
+     "seconds": 16.57,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.2857142857142857,
+      "stale": 1.0,
+      "over_invalidation": 0.42857142857142855,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5833333333333333,
+      "stale": 0.5,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.4166666666666667,
+      "stale": 1.0,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.6333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.4,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.4,
+      "stale": 1.0,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.625,
+      "stale": 0.25,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.375,
+      "stale": 1.0,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.875,
+      "stale": 0.25,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5666666666666667,
+      "stale": 0.2,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.6,
+      "stale": 0.8,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.9,
+      "stale": 0.2,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d022": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 1,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.325,
+    "LLM-direct": 0.375,
+    "LLM-RAG": 0.6
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.26666666666666666,
+     "stale": 0.8,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.5,
+     "stale": 0.0,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.8,
+     "stale": 0.4,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 44,
+     "input_tokens": 40719,
+     "output_tokens": 4356,
+     "seconds": 223.00000000000003,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5769,
+     "output_tokens": 214,
+     "seconds": 14.35,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8610,
+     "output_tokens": 279,
+     "seconds": 17.080000000000002,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6565,
+     "output_tokens": 130,
+     "seconds": 10.34,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.2857142857142857,
+      "stale": 1.0,
+      "over_invalidation": 0.42857142857142855,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.25,
+      "stale": 1.0,
+      "over_invalidation": 0.5,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.75,
+      "stale": 0.0,
+      "over_invalidation": 0.5,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666667,
+      "stale": 0.5,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.4666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.4,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.6,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.375,
+      "stale": 0.75,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.375,
+      "stale": 0.75,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.26666666666666666,
+      "stale": 0.8,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.8,
+      "stale": 0.4,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d023": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.45,
+    "LLM-direct": 0.275,
+    "LLM-RAG": 0.625
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.6333333333333333,
+     "stale": 0.4,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.5,
+     "stale": 0.0,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.8,
+     "stale": 0.4,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 38296,
+     "output_tokens": 4392,
+     "seconds": 240.57000000000002,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5893,
+     "output_tokens": 235,
+     "seconds": 12.96,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 9004,
+     "output_tokens": 326,
+     "seconds": 16.83,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6906,
+     "output_tokens": 124,
+     "seconds": 14.28,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.35714285714285715,
+      "stale": 1.0,
+      "over_invalidation": 0.2857142857142857,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5833333333333333,
+      "stale": 0.5,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.7333333333333334,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.8333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5,
+      "stale": 0.5,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.875,
+      "stale": 0.25,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.6333333333333333,
+      "stale": 0.4,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.8,
+      "stale": 0.4,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d024": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.425,
+    "LLM-direct": 0.575,
+    "LLM-RAG": 0.575
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.8333333333333333,
+     "stale": 0.0,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.6,
+     "stale": 0.8,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.26666666666666666,
+     "stale": 0.8,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 47,
+     "input_tokens": 44156,
+     "output_tokens": 4771,
+     "seconds": 268.59999999999997,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5693,
+     "output_tokens": 238,
+     "seconds": 16.130000000000003,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8566,
+     "output_tokens": 86,
+     "seconds": 8.77,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6503,
+     "output_tokens": 110,
+     "seconds": 18.0,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.8571428571428572,
+      "stale": 0.0,
+      "over_invalidation": 0.2857142857142857,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.8333333333333333,
+      "stale": 0.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.8,
+      "stale": 0.0,
+      "over_invalidation": 0.4,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.875,
+      "stale": 0.0,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.625,
+      "stale": 0.75,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.75,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.8333333333333333,
+      "stale": 0.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.6,
+      "stale": 0.8,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.26666666666666666,
+      "stale": 0.8,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d025": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.45,
+    "LLM-direct": 0.5,
+    "LLM-RAG": 0.65
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.5666666666666667,
+     "stale": 0.2,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.6333333333333333,
+     "stale": 0.4,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.7333333333333334,
+     "stale": 0.2,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 38235,
+     "output_tokens": 3909,
+     "seconds": 244.76,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5928,
+     "output_tokens": 238,
+     "seconds": 12.969999999999999,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8793,
+     "output_tokens": 158,
+     "seconds": 10.05,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 7019,
+     "output_tokens": 163,
+     "seconds": 9.809999999999999,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.5,
+      "over_invalidation": 0.5,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.25,
+      "stale": 1.0,
+      "over_invalidation": 0.5,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.6333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.4,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.4,
+      "stale": 1.0,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.8333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.25,
+      "over_invalidation": 0.75,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5,
+      "stale": 0.5,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.75,
+      "stale": 0.25,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5666666666666667,
+      "stale": 0.2,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.6333333333333333,
+      "stale": 0.4,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.7333333333333334,
+      "stale": 0.2,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d026": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 1,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.25,
+    "LLM-direct": 0.525,
+    "LLM-RAG": 0.575
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.5666666666666667,
+     "stale": 0.2,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.5,
+     "acc_touched": 0.5,
+     "balanced": 0.6,
+     "stale": 0.8,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.5333333333333333,
+     "stale": 0.6,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 53,
+     "input_tokens": 52633,
+     "output_tokens": 5233,
+     "seconds": 286.35999999999996,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5845,
+     "output_tokens": 227,
+     "seconds": 12.61,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8897,
+     "output_tokens": 160,
+     "seconds": 9.57,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6640,
+     "output_tokens": 95,
+     "seconds": 7.0,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.6428571428571428,
+      "stale": 0.0,
+      "over_invalidation": 0.7142857142857143,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.6666666666666666,
+      "stale": 0.0,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.4166666666666667,
+      "stale": 1.0,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.4166666666666667,
+      "stale": 1.0,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.7,
+      "stale": 0.0,
+      "over_invalidation": 0.6,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.6666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.75,
+      "stale": 0.0,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.625,
+      "stale": 0.75,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.375,
+      "stale": 1.0,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5666666666666667,
+      "stale": 0.2,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.6,
+      "stale": 0.8,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5333333333333333,
+      "stale": 0.6,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d027": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.175,
+    "LLM-direct": 0.575,
+    "LLM-RAG": 0.7
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.0,
+     "acc_touched": 0.0,
+     "balanced": 0.2,
+     "stale": 0.6,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.5,
+     "acc_touched": 0.5,
+     "balanced": 0.7,
+     "stale": 0.6,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.625,
+     "acc_touched": 0.625,
+     "balanced": 0.9,
+     "stale": 0.2,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 37032,
+     "output_tokens": 3695,
+     "seconds": 177.94,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5708,
+     "output_tokens": 205,
+     "seconds": 15.459999999999999,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8775,
+     "output_tokens": 84,
+     "seconds": 7.490000000000001,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6900,
+     "output_tokens": 125,
+     "seconds": 9.85,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.21428571428571427,
+      "stale": 1.0,
+      "over_invalidation": 0.5714285714285714,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.16666666666666666,
+      "stale": 1.0,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.4166666666666667,
+      "stale": 1.0,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.26666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.8,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.4,
+      "stale": 1.0,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.375,
+      "stale": 0.5,
+      "over_invalidation": 0.75,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.625,
+      "stale": 0.75,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     },
+     "errors": [
+      "u_00c56c: unknown target None; update ignored"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.625,
+      "stale": 0.75,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.2,
+      "stale": 0.6,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.7,
+      "stale": 0.6,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.9,
+      "stale": 0.2,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d028": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 2,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.325,
+    "LLM-direct": 0.3,
+    "LLM-RAG": 0.7
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.0,
+     "acc_touched": 0.0,
+     "balanced": 0.3,
+     "stale": 0.4,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.5,
+     "stale": 0.0,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.5,
+     "acc_touched": 0.5,
+     "balanced": 1.0,
+     "stale": 0.0,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 44,
+     "input_tokens": 39386,
+     "output_tokens": 5982,
+     "seconds": 284.7099999999999,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5694,
+     "output_tokens": 228,
+     "seconds": 9.89,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8630,
+     "output_tokens": 359,
+     "seconds": 13.19,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6839,
+     "output_tokens": 153,
+     "seconds": 10.68,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.7857142857142857,
+      "stale": 0.0,
+      "over_invalidation": 0.42857142857142855,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.75,
+      "stale": 0.0,
+      "over_invalidation": 0.5,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.6,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.4666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.4,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.8333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.25,
+      "over_invalidation": 0.75,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.75,
+      "stale": 0.25,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5,
+      "stale": 0.75,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.3,
+      "stale": 0.4,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d029": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 1,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.35,
+    "LLM-direct": 0.575,
+    "LLM-RAG": 0.675
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.4,
+     "stale": 0.2,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.7,
+     "stale": 0.6,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.5,
+     "acc_touched": 0.5,
+     "balanced": 0.9,
+     "stale": 0.2,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 35970,
+     "output_tokens": 5501,
+     "seconds": 315.42999999999995,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5665,
+     "output_tokens": 206,
+     "seconds": 10.04,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8514,
+     "output_tokens": 145,
+     "seconds": 8.059999999999999,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6622,
+     "output_tokens": 217,
+     "seconds": 9.82,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.7857142857142857,
+      "stale": 0.0,
+      "over_invalidation": 0.42857142857142855,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.5,
+      "over_invalidation": 0.5,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.9166666666666667,
+      "stale": 0.0,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "errors": [
+      "u_007add: unknown target None; update ignored"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.6333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.4,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.8333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5,
+      "stale": 0.5,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.75,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.875,
+      "stale": 0.25,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.4,
+      "stale": 0.2,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.7,
+      "stale": 0.6,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.9,
+      "stale": 0.2,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d030": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.5,
+    "LLM-direct": 0.4,
+    "LLM-RAG": 0.55
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.5666666666666667,
+     "stale": 0.2,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.5333333333333333,
+     "stale": 0.6,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.5666666666666667,
+     "stale": 0.2,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 36874,
+     "output_tokens": 3689,
+     "seconds": 212.95000000000005,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5755,
+     "output_tokens": 238,
+     "seconds": 11.43,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8635,
+     "output_tokens": 203,
+     "seconds": 10.040000000000001,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 7148,
+     "output_tokens": 204,
+     "seconds": 13.969999999999999,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.7857142857142857,
+      "stale": 0.0,
+      "over_invalidation": 0.42857142857142855,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.8333333333333333,
+      "stale": 0.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.0,
+      "acc_touched": 0.0,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666667,
+      "stale": 0.5,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.6,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.6333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.4,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.25,
+      "over_invalidation": 0.75,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.375,
+      "stale": 0.75,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.75,
+      "stale": 0.25,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5666666666666667,
+      "stale": 0.2,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5333333333333333,
+      "stale": 0.6,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5666666666666667,
+      "stale": 0.2,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d031": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 1,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.425,
+    "LLM-direct": 0.575,
+    "LLM-RAG": 0.7
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.26666666666666666,
+     "stale": 0.8,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.3333333333333333,
+     "stale": 1.0,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.5,
+     "acc_touched": 0.5,
+     "balanced": 0.6,
+     "stale": 0.8,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 36597,
+     "output_tokens": 5262,
+     "seconds": 286.81,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5703,
+     "output_tokens": 209,
+     "seconds": 10.690000000000001,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8425,
+     "output_tokens": 75,
+     "seconds": 6.01,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6659,
+     "output_tokens": 97,
+     "seconds": 6.54,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     },
+     "errors": [
+      "u_00bd8c: unknown target None; update ignored"
+     ],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.3333333333333333,
+      "stale": 1.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.4166666666666667,
+      "stale": 1.0,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.4666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.4,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.4,
+      "stale": 1.0,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.8333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.375,
+      "stale": 0.75,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.625,
+      "stale": 0.75,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.26666666666666666,
+      "stale": 0.8,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.3333333333333333,
+      "stale": 1.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.6,
+      "stale": 0.8,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d032": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.175,
+    "LLM-direct": 0.525,
+    "LLM-RAG": 0.6
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.5,
+     "stale": 0.0,
+     "over_invalidation": 1.0,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.7,
+     "stale": 0.6,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.8,
+     "stale": 0.4,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 37111,
+     "output_tokens": 3504,
+     "seconds": 166.98999999999992,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5798,
+     "output_tokens": 201,
+     "seconds": 12.950000000000001,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8735,
+     "output_tokens": 109,
+     "seconds": 8.59,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6757,
+     "output_tokens": 131,
+     "seconds": 9.54,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.14285714285714285,
+      "stale": 1.0,
+      "over_invalidation": 0.7142857142857143,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.3333333333333333,
+      "stale": 0.5,
+      "over_invalidation": 0.8333333333333334,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.4166666666666667,
+      "stale": 1.0,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.75,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.625,
+      "stale": 0.5,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.5,
+      "stale": 0.0,
+      "over_invalidation": 1.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.7,
+      "stale": 0.6,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.8,
+      "stale": 0.4,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d033": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.625,
+    "LLM-direct": 0.55,
+    "LLM-RAG": 0.65
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.7,
+     "stale": 0.6,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.3333333333333333,
+     "stale": 1.0,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.6,
+     "stale": 0.8,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 47,
+     "input_tokens": 43697,
+     "output_tokens": 4612,
+     "seconds": 197.47,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5711,
+     "output_tokens": 215,
+     "seconds": 10.349999999999998,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8797,
+     "output_tokens": 84,
+     "seconds": 6.12,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6762,
+     "output_tokens": 97,
+     "seconds": 6.62,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.875,
+      "acc_touched": 0.875,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.8333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.25,
+      "stale": 1.0,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.625,
+      "stale": 0.5,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.7,
+      "stale": 0.6,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.3333333333333333,
+      "stale": 1.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.6,
+      "stale": 0.8,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d034": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.5,
+    "LLM-direct": 0.425,
+    "LLM-RAG": 0.65
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.5666666666666667,
+     "stale": 0.2,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.25,
+     "acc_touched": 0.25,
+     "balanced": 0.3333333333333333,
+     "stale": 1.0,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.5333333333333333,
+     "stale": 0.6,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 44,
+     "input_tokens": 40691,
+     "output_tokens": 3279,
+     "seconds": 172.68,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5761,
+     "output_tokens": 252,
+     "seconds": 14.02,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8562,
+     "output_tokens": 137,
+     "seconds": 9.09,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6946,
+     "output_tokens": 171,
+     "seconds": 10.35,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.35714285714285715,
+      "stale": 1.0,
+      "over_invalidation": 0.2857142857142857,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.75,
+      "stale": 0.0,
+      "over_invalidation": 0.5,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666667,
+      "stale": 0.5,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.6666666666666667,
+      "stale": 0.5,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.6,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.3666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.6,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.9,
+      "stale": 0.0,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.25,
+      "over_invalidation": 0.75,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.75,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.75,
+      "stale": 0.25,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5666666666666667,
+      "stale": 0.2,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.3333333333333333,
+      "stale": 1.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5333333333333333,
+      "stale": 0.6,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d035": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.4,
+    "LLM-direct": 0.6,
+    "LLM-RAG": 0.65
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.4666666666666667,
+     "stale": 0.4,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.6,
+     "stale": 0.8,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.5333333333333333,
+     "stale": 0.6,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 44,
+     "input_tokens": 38717,
+     "output_tokens": 2974,
+     "seconds": 142.33,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5706,
+     "output_tokens": 235,
+     "seconds": 13.33,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8472,
+     "output_tokens": 95,
+     "seconds": 7.65,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6868,
+     "output_tokens": 127,
+     "seconds": 7.76,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.35714285714285715,
+      "stale": 1.0,
+      "over_invalidation": 0.2857142857142857,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.8333333333333333,
+      "stale": 0.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.3333333333333333,
+      "stale": 1.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.6666666666666667,
+      "stale": 0.5,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.9,
+      "stale": 0.0,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.5666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.7333333333333334,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.625,
+      "stale": 0.25,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.625,
+      "stale": 0.75,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.625,
+      "stale": 0.75,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.4666666666666667,
+      "stale": 0.4,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.6,
+      "stale": 0.8,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5333333333333333,
+      "stale": 0.6,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     }
+    }
+   ]
+  },
+  "d036": {
+   "memories": 8,
+   "facts": 8,
+   "updates": 5,
+   "graph_unsupported": 0,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.475,
+    "LLM-direct": 0.475,
+    "LLM-RAG": 0.5
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.7,
+     "stale": 0.6,
+     "over_invalidation": 0.0,
+     "n_revising": 5
+    },
+    "LLM-direct": {
+     "acc_all": 0.375,
+     "acc_touched": 0.375,
+     "balanced": 0.6333333333333333,
+     "stale": 0.4,
+     "over_invalidation": 0.3333333333333333,
+     "n_revising": 5
+    },
+    "LLM-RAG": {
+     "acc_all": 0.125,
+     "acc_touched": 0.125,
+     "balanced": 0.3666666666666667,
+     "stale": 0.6,
+     "over_invalidation": 0.6666666666666666,
+     "n_revising": 5
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 41,
+     "input_tokens": 34863,
+     "output_tokens": 3794,
+     "seconds": 156.75000000000003,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 5,
+     "input_tokens": 5610,
+     "output_tokens": 207,
+     "seconds": 7.829999999999999,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 5,
+     "input_tokens": 8218,
+     "output_tokens": 176,
+     "seconds": 7.16,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 5,
+     "input_tokens": 6496,
+     "output_tokens": 159,
+     "seconds": 6.49,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.35714285714285715,
+      "stale": 1.0,
+      "over_invalidation": 0.2857142857142857,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.42857142857142855,
+      "stale": 1.0,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.3333333333333333,
+      "stale": 1.0,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.6666666666666667,
+      "stale": 0.5,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.625,
+      "acc_touched": 0.625,
+      "balanced": 0.6666666666666667,
+      "stale": 0.5,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.2,
+      "stale": 1.0,
+      "over_invalidation": 0.6,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.5666666666666667,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.2,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.5,
+      "stale": 0.75,
+      "over_invalidation": 0.25,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.5,
+      "stale": 0.5,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.25,
+      "acc_touched": 0.25,
+      "balanced": 0.375,
+      "stale": 0.75,
+      "over_invalidation": 0.5,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.7,
+      "stale": 0.6,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.375,
+      "acc_touched": 0.375,
+      "balanced": 0.6333333333333333,
+      "stale": 0.4,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.125,
+      "acc_touched": 0.125,
+      "balanced": 0.3666666666666667,
+      "stale": 0.6,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 5
+     }
+    }
+   ]
+  }
+ },
+ "pooled": {
+  "BeliefGraph": {
+   "final_acc": 0.20608108108108109,
+   "final_balanced": 0.5117117117117117,
+   "mean_step_balanced": 0.544131274131274,
+   "stale": 0.372972972972973,
+   "over_invalidation": 0.6036036036036035
+  },
+  "LLM-direct": {
+   "final_acc": 0.27702702702702703,
+   "final_balanced": 0.5306306306306307,
+   "mean_step_balanced": 0.5425482625482626,
+   "stale": 0.5243243243243243,
+   "over_invalidation": 0.4144144144144144
+  },
+  "LLM-RAG": {
+   "final_acc": 0.3783783783783784,
+   "final_balanced": 0.6531531531531531,
+   "mean_step_balanced": 0.6915572715572715,
+   "stale": 0.5135135135135135,
+   "over_invalidation": 0.18018018018018017
+  }
+ }
+}

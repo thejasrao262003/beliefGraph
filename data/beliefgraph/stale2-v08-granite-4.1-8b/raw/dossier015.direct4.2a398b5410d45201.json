@@ -1,0 +1,12 @@
+{
+ "note": "dossier015 direct4",
+ "model": "granite-4.1-8b",
+ "response": "**Analysis Steps:**\n1. **Identify the source facts** that each memory relies on.\n   - `m_00511d` depends on `e_00556c` (\"I try to log at least fifty miles every week, so cycling takes up most of my leisure time.\").\n   - `m_00b158` depends on `e_00b16e` (\"I don\u2019t get out of bed before nine on weekends.\").\n   - `m_001f35` depends on `e_00f837` (\"My portfolio is mainly market index funds with a smaller portion in corporate bonds.\").\n   - `m_002a5c` depends on `e_0067ca` (\"I\u2019ve been hovering around 150 pounds.\").\n   - `m_00ead7` depends on `e_00bfdc` (\"I\u2019ve got a steady circle of friends.\").\n   - `m_008223` depends on `e_00a313` (\"Managing a steady stream of blueprints during my nine\u2011to\u2011five shift.\").\n   - `m_00a3f3` depends on `e_00be83` (\"I\u2019m carrying a significant debt balance with fixed monthly payments.\").\n   - `m_00c262` depends on `e_00b4d4` (\"I\u2019m in charge of cooking and dishes in the household routine\").\n\n2. **Check each update** to see if it replaces, negates, or casts doubt on the dependent fact.\n   - **`u_00ddf2`** (observed 2026\u201103\u201104): \"Ever since I started training for my first full marathon, my free time has basically become a rotation of long runs, recovery jogs, and weekend mileage.\"  \n     \u2192 This directly replaces the earlier statement `e_00556c` about cycling 50 miles per week. The user\u2019s leisure focus has shifted to marathon training, so the earlier cycling habit is no longer the primary leisure activity.\n   - Other updates (`u_005038`, `u_005552`, `u_0040a4`) concern caregiver duties, bakery work, and job searching, respectively. They **do not** affect the facts supporting the listed memories.\n\n3. **Apply memory policies**:\n   - A plan holds only while the personal circumstances it was based on still hold.  \n   - Since `e_00556c` is now **replaced** by the marathon\u2011training update, the condition for `m_00511d` no longer holds.\n\n4. **Determine memory actions**:\n   - `m_00511d`: **recompute** (needs to be recomputed based on the new marathon\u2011training context).\n   - All other memories retain their supporting facts unchanged \u2192 **keep**.\n\n**Result JSON:**\n```json\n{\n  \"changes\": {\n    \"m_00511d\": \"recompute\"\n  }\n}\n```",
+ "usage": {
+  "note": "dossier015 direct4",
+  "model": "granite-4.1-8b",
+  "input_tokens": 1845,
+  "output_tokens": 613,
+  "seconds": 24.06
+ }
+}

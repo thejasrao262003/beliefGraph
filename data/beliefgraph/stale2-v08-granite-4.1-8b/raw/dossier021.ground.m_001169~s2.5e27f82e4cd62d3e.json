@@ -1,0 +1,12 @@
+{
+ "note": "dossier021 ground.m_001169~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy**\n\nThe policy states:  \n*A plan or recommendation made for the user holds only while the personal circumstances it was based on still hold.*\n\nThis translates to a single logical group with **one condition**:  \n- The personal circumstance used to create the memory must still be true.\n\nThe policy does **not** contain an \"or\", so there is a single group containing one condition.\n\n**Step 2: Identify the condition for the given memory**\n\nThe memory text:  \n*\"Planned for the user, because the user says their routine keeps them indoors most days and they\u2019re not often outside: suggest a few engaging indoor activities and a daily schedule to help them stay active.\"*\n\nThe condition that must hold is: *the user still keeps their routine indoors most days and is not often outside.*\n\n**Step 3: Find the candidate item that satisfies this condition**\n\nSearch the `candidates` list for facts or memories that directly state the user's indoor routine:\n\n- `e_002fcb`: *\"The user said: 'My routine keeps me indoors most days, so I'm not often outside.'\"*  \n  \u2192 This exactly matches the required condition.\n\nAll other candidates refer to different personal circumstances (mindfulness practice, insurance plan, driving plan, tax handling, cloud backups, chord practice, key sharing, etc.) and therefore do **not** satisfy the condition for this memory.\n\n**Step 4: Assemble the output JSON**\n\nOnly one group, with one condition satisfied by `e_002fcb`.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"user keeps routine indoors most days and is not often outside\",\n          \"item\": \"e_002fcb\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Final JSON output**\n\n```json\n{\"groups\":[{\"all_of\":[{\"condition\":\"user keeps routine indoors most days and is not often outside\",\"item\":\"e_002fcb\"}]}]}\n```",
+ "usage": {
+  "note": "dossier021 ground.m_001169~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 1233,
+  "output_tokens": 410,
+  "seconds": 14.92
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier034 direct4",
+ "model": "granite-4.1-8b",
+ "response": "**Analysis**\n\nFor each memory we check whether any of the facts it relies on have been affected by the newer updates (which all occur after the facts they reference).\n\n| Memory ID | Original Fact(s) Used | Update(s) Affecting It | Result |\n|-----------|----------------------|------------------------|--------|\n| **m_008aa2** | Preference \u201ckeep surroundings bare\u201d (`e_0076b2`) | `u_0094f2` (\u201cstyling the apartment\u2026 keeping things cozy and full\u201d) \u2013 contradicts the \u201cbare\u201d preference. | **withdraw** |\n| **m_0090aa** | Primary focus \u201cfinish backyard renovation\u201d (`e_0016dc`) | No later update directly contradicts the focus (only `u_00b983` about vacuum sealer is unrelated). | **keep** |\n| **m_00af56** | Garlic habit (`e_008d90`) | No update touches garlic preference. | **keep** |\n| **m_008627** | Commitment \u201cavoid disposable packaging\u201d (`e_007c63`) | No update contradicts this commitment. | **keep** |\n| **m_003ebc** | Automatic cloud backup (`e_000f00`) | `u_00e32a` changes backup method to external drive, potentially replacing the cloud backup but does **not** explicitly state the cloud backup is false; the shift suggests a replacement rather than a retraction. Under policy \u201cplan holds only while personal circumstances still hold\u201d, the original backup circumstance is no longer the current one, so the recommendation is no longer directly relevant. However, since the update does not *retract* the fact but merely adds a new method, the safest classification per the rules (no retraction, no hedged doubt) is **keep**. |\n| **m_009595** | Chronic insomnia (`e_00a6cc`) | No update about sleep changes. | **keep** |\n| **m_004ea7** | Laundry/Vacuuming arrangement (`e_00789f`) | No relevant update. | **keep** |\n| **m_006069** | Two\u2011year stay plan (`e_0042df`) | No update about relocation plans. | **keep** |\n\nOnly **m_008aa2** loses all support because the later update directly refutes the underlying preference, making the memory invalid.\n\n**Output**\n\n```json\n{\n  \"changes\": {\n    \"m_008aa2\": \"withdraw\"\n  }\n}\n```",
+ "usage": {
+  "note": "dossier034 direct4",
+  "model": "granite-4.1-8b",
+  "input_tokens": 1798,
+  "output_tokens": 527,
+  "seconds": 16.14
+ }
+}

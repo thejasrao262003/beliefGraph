@@ -1,0 +1,12 @@
+{
+ "note": "dossier021 direct3",
+ "model": "granite-4.1-8b",
+ "response": "**Analysis**\n\n- Memory **m_001169** depends on two facts:\n  - `e_002fcb`: \u201cMy routine keeps me indoors most days, so I'm not often outside.\u201d\n  - `e_000c34`: \u201cI make sure to spend twenty minutes on mindfulness practice every morning before I begin my first task.\u201d\n- Update `u_00b1ce` observed **2026\u201103\u201102** states: \u201cEver since I took over the morning dog\u2011walking route, I\u2019m on my feet along the neighborhood sidewalks for hours every day before lunch.\u201d\n  - This directly contradicts `e_002fcb`, suggesting the user is **outside** many days, not indoors.\n- The other supporting fact `e_000c34` remains unchanged and still holds.\n- Policies require a plan to remain valid only while the underlying circumstances still hold.\n  - The indoor\u2011most\u2011days circumstance is now in doubt (contradicted).\n  - Since the memory rests partially on the contradicted fact, and there is **no other complete line of support**, the memory must be withdrawn.\n\n- All other memories rely on facts that are unaffected by the updates:\n  - `m_00c22b` relies on `e_000c34` (still valid).\n  - `m_004477`, `m_007a91`, `m_009a33`, `m_003625`, `m_005767`, `m_004ec2` each depend on facts (`e_009c43`, `e_00d63c`, `e_00a008`, `e_001d4d`, `e_00d2d1`, etc.) that remain unchallenged.\n  - The new update `u_0072f5` (\u201cgrab a nonstop flight\u201d) affects `m_004ec2` but only changes preference (the user now prefers flying), not the underlying circumstance that the user \u201cwon\u2019t book a flight for anything under five hours.\u201d Since the policy about staying only while circumstances hold is not directly about flight preference, the plan remains valid; the user\u2019s stated rule still applies.\n\n**Result**\n\nOnly memory **m_001169** needs to be withdrawn.\n\n```json\n{\n  \"changes\": {\n    \"m_001169\": \"withdraw\"\n  }\n}\n```",
+ "usage": {
+  "note": "dossier021 direct3",
+  "model": "granite-4.1-8b",
+  "input_tokens": 1710,
+  "output_tokens": 485,
+  "seconds": 17.54
+ }
+}

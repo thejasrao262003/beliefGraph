@@ -1,0 +1,12 @@
+{
+ "note": "dossier036 direct4",
+ "model": "granite-4.1-8b",
+ "response": "**Decision process**\n\n1. **Identify which updating facts affect each memory**  \n   - The only facts that mention the user\u2019s duration in town are `e_0019b6` (five\u2011month stay) and the update `u_007b08` (18\u2011month assignment).  \n   - All other memory texts are grounded on facts that remain unchanged.\n\n2. **Apply policies**  \n   - *Policy 2*: \u201cA plan or recommendation made for the user holds only while the personal circumstances it was based on still hold.\u201d  \n   - Therefore any memory whose circumstance is superseded must be withdrawn or recomputed.\n\n3. **Evaluate each memory**  \n\n| Memory ID | Basis fact(s) | Update status | Action |\n|-----------|---------------|---------------|--------|\n| `m_00f34f` | `e_0019b6` \u2013 \u201conly planning to stay in town for about **five months**\u201d | Overridden by `u_007b08` \u2013 \u201c**18\u2011month** assignment\u201d | **withdraw** (the original circumstance no longer holds) |\n| `m_008d81` | `e_00f4d7` \u2013 reading Scandinavian crime novels | No change | keep |\n| `m_008f39` | `e_000f0f` \u2013 nightly retro\u2011gaming forum activity | No change | keep |\n| `m_001c95` | `e_0096b3` \u2013 prefers transcripts over video | No change | keep |\n| `m_00d813` | `e_0034db` \u2013 consistent paycheck | No change | keep |\n| `m_00fff3` | `e_000484` \u2013 severe peanut allergy | No change | keep |\n| `m_009540` | `e_002a97` \u2013 large collection of Andean wool ponchos | No change | keep |\n| `m_00c00f` | `e_009b20` \u2013 unusually cold weather | No change | keep |\n\nOnly memory **`m_00f34f`** is affected and must be withdrawn.\n\n---\n\n```json\n{\n  \"changes\": {\n    \"m_00f34f\": \"withdraw\"\n  }\n}\n```",
+ "usage": {
+  "note": "dossier036 direct4",
+  "model": "granite-4.1-8b",
+  "input_tokens": 1727,
+  "output_tokens": 468,
+  "seconds": 12.18
+ }
+}

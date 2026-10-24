@@ -1,0 +1,12 @@
+{
+ "note": "dossier000 rag4",
+ "model": "granite-4.1-8b",
+ "response": "**Step\u2011by\u2011step reasoning**\n\n1. **Identify which updates affect each memory**  \n   - The policies state that a recommendation holds only while the personal circumstances it was based on still hold.  \n   - **Memory\u202fm_00b209** was based on *fact\u202fe_0097a5* (\u201cI\u2019ve kept the same three linen shirts in my closet for years because I prefer how they breathe\u201d). This fact is unchanged by later updates. \u2192 *keep*  \n   - **Memory\u202fm_004422** was based on *fact\u202fe_0068e5* (\u201cLately, I\u2019ve been really focused on studying astrophysics\u201d). No later update addresses astrophysics study; the user\u2019s focus on studying (any subject) is not contradicted. Hence the circumstances still hold. \u2192 *keep*  \n   - **Memory\u202fm_0070e0** was based on *fact\u202fe_001614* (\u201cI\u2019m settled in the coastal lowlands, so I\u2019m consistently at sea level\u201d). Two updates change this situation:  \n     - **Update\u202fu_00147b** (\u201cEver since I moved up to this mountain town, I\u2019ve had to take it easy on hikes because the thin air hits me pretty fast.\u201d) directly states the user moved from coastal lowlands to a mountain town, altering the sea\u2011level environment.  \n     - The policy requires the circumstance (being at sea level) to remain; it no longer does. Therefore the memory can no longer be justified. \u2192 *withdraw* (nothing else supports it).\n\n2. **Check for replacement or doubt**  \n   - No update merely replaces a fact (so no *recompute*), and no update merely hedges a fact (so no *uncertain*). The only relevant change is a complete reversal of the location, leading to withdrawal.\n\n3. **Compile the result**  \n   - Only **m_0070e0** needs a non\u2011\u201ckeep\u201d action, and that action is *withdraw*.\n\n**Output (JSON)**  \n\n```json\n{\"changes\": {\"m_0070e0\": \"withdraw\"}}\n```",
+ "usage": {
+  "note": "dossier000 rag4",
+  "model": "granite-4.1-8b",
+  "input_tokens": 1460,
+  "output_tokens": 450,
+  "seconds": 15.99
+ }
+}

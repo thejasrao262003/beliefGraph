@@ -1,0 +1,12 @@
+{
+ "note": "dossier022 ground.m_00c8e5~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step\u2011by\u2011step reasoning**\n\n1. **Interpret the policy**  \n   The policy states: *\u201cA plan or recommendation made for the user holds only while the personal circumstances it was based on still hold.\u201d*  \n   This means the memory about renewing a Permanent Resident (PR) card can be valid **only if the user\u2019s current personal circumstance \u2013 being a permanent resident \u2013 remains true**.\n\n2. **Split the policy into alternatives**  \n   The policy contains no \u201cor\u201d clause; there is a single group of conditions that must all be satisfied:  \n   - The user must be a permanent resident (the circumstance underlying the plan).\n\n3. **Identify which candidate satisfies the condition**  \n   - **Condition:** \u201cthe user is classified as a permanent resident.\u201d  \n   - **Candidate that states this fact:**  \n     - `e_005071` \u2013 *\u201cThe user said: 'Just to be clear on my file, I'm classified as a permanent resident.'\u201d*  \n\n   No other candidate directly references the permanent\u2011resident status, so the only satisfying candidate is `e_005071`. All other candidates refer to unrelated circumstances (savings targets, sleep disorder, home\u2011base routine, etc.).\n\n4. **Form the JSON output**  \n   Using the required format:\n\n   ```json\n   {\n     \"groups\": [\n       {\n         \"all_of\": [\n           {\n             \"condition\": \"user is classified as a permanent resident\",\n             \"item\": \"e_005071\"\n           }\n         ]\n       }\n     ]\n   }\n   ```\n\n   However, the problem asks for a concise JSON with **only the candidate ids** and the **short condition text**, as shown in the example. Therefore we produce exactly:\n\n   ```json\n   {\n     \"groups\": [\n       {\n         \"all_of\": [\n           {\n             \"condition\": \"user is classified as a permanent resident\",\n             \"item\": \"e_005071\"\n           }\n         ]\n       }\n     ]\n   }\n   ```\n\n**Final JSON answer**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"user is classified as a permanent resident\",\n          \"item\": \"e_005071\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier022 ground.m_00c8e5~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 1243,
+  "output_tokens": 475,
+  "seconds": 17.22
+ }
+}
