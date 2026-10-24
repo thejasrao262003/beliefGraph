@@ -47,24 +47,23 @@ def balanced(x: dict) -> float:
 
 
 def table(tag: str, models: list[str]) -> None:
-    print(f"{'model':22s} {'store':>6s} | {'BG bal':>6s} {'stale':>5s} {'over':>5s} | {'direct bal':>10s} {'stale':>5s} {'over':>5s}")
+    methods = ("BeliefGraph", "LLM-RAG", "LLM-direct")
+    print(f"{'model':22s} {'store':>6s} | " + " | ".join(f"{m:>11s} bal stale  over" for m in methods))
     for m in models:
         f = Path(f"data/beliefgraph/{tag}-{m}/results.json")
         if not f.exists():
             print(f"{m:22s} (no results)")
             continue
         r = json.loads(f.read_text())
-        if "pooled" in r:
-            p = r["pooled"]
-            bg, d = p["BeliefGraph"], p["LLM-direct"]
-            print(f"{m:22s} {'pooled':>6s} | {bg['final_balanced']:6.3f} {bg['stale']:5.2f} {bg['over_invalidation']:5.2f} | "
-                  f"{d['final_balanced']:10.3f} {d['stale']:5.2f} {d['over_invalidation']:5.2f}   "
-                  f"(step-mean balanced {bg['mean_step_balanced']:.3f} vs {d['mean_step_balanced']:.3f}; {len(r['sizes'])} stores)")
-            continue
-        for k, s in r["sizes"].items():
-            bg, d = s["final"]["BeliefGraph"], s["final"]["LLM-direct"]
-            print(f"{m:22s} {s['memories']:6d} | {balanced(bg):6.3f} {bg['stale']:5.2f} {bg['over_invalidation']:5.2f} | "
-                  f"{balanced(d):10.3f} {d['stale']:5.2f} {d['over_invalidation']:5.2f}")
+        rows = ([("pooled", r["pooled"], lambda x: x["final_balanced"])] if "pooled" in r else
+                [(str(s["memories"]), s["final"], balanced) for s in r["sizes"].values()])
+        for label, fin, bal in rows:
+            cells = []
+            for meth in methods:
+                x = fin.get(meth)
+                cells.append(f"{'':>11s} {bal(x):.3f} {x['stale']:5.2f} {x['over_invalidation']:5.2f}" if x
+                             else f"{'':>11s}   -     -     -  ")
+            print(f"{m:22s} {label:>6s} | " + " | ".join(cells))
 
 
 def main() -> None:
