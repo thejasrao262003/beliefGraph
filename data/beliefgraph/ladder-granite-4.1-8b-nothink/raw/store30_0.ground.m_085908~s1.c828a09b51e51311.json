@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 ground.m_085908~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Identify the policy's requirements.**  \nThe policy states: *A provider obtains major terminal priority when its annual passenger volume reaches **500,000 travelers or more**.*  \n\nThere is no \"or\" alternative; the single condition is:\n\n- **Condition:** Annual passenger volume **\u2265\u202f500,000**.\n\n**Step 2: Match the condition to candidate items.**  \nWe need a candidate that states Blue Sky Express's annual passenger volume and that it meets the \u2265\u202f500,000 threshold.\n\n- Candidate **e_0842e9**: \u201cBlue Sky Express recorded an annual passenger volume of 800000 travelers.\u201d  \n  - *Entity*: Blue Sky Express (same as memory)  \n  - *Condition*: 800,000\u202f\u2265\u202f500,000 \u2192 **satisfied**  \n\nAll other candidates either discuss different providers (e.g., BlueWave Express, Horizon Express, Apex Global Travel, AeroWay Express) or do not mention passenger volume thresholds.\n\n**Step 3: Construct the JSON output.**  \nSince there is only one group containing the single condition, the JSON is:\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"annual passenger volume \u2265 500000\",\n          \"item\": \"e_0842e9\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Note:** The JSON strictly follows the required format, listing only condition IDs and the corresponding candidate ID (or `null` if unsatisfied, which is not the case here).  \n\n**Final JSON output:**\n\n```json\n{\"groups\": [{\"all_of\": [{\"condition\": \"annual passenger volume >= 500000\", \"item\": \"e_0842e9\"}]}]}\n```",
+ "usage": {
+  "note": "store30_0 ground.m_085908~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 882,
+  "output_tokens": 370,
+  "seconds": 15.79
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "store10_0 ground.m_09886f~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy**\n\nPolicy text:  \n*\"An enterprise secures recognized flight authority status when **maintaining an active fleet size of at least 10 aircraft** **while holding an IATA Safety Audit certificate**.\"*\n\nSplit into conditions (group of AND conditions):\n- **Condition 1**: Active fleet size **\u2265\u202f10** aircraft.  \n- **Condition 2**: Holds an **IATA Safety Audit certificate**.\n\nNo \"or\" alternatives are present, so there is a single group containing both conditions.\n\n**Step 2: Identify candidate items for each condition**\n\n| Condition | Requirement | Candidate that satisfies it (if any) |\n|-----------|--------------|--------------------------------------|\n| Fleet size \u2265\u202f10 aircraft | Look for a fact/memory stating Vanguard Air Charter\u2019s fleet size. | `e_03d70d` \u2013 *\"Official FAA registry records confirm AeroSwift Freight operates an active fleet size of 15 aircraft.\"* (AeroSwift Freight, not Vanguard Air Charter). No candidate mentions Vanguard Air Charter's fleet size, so **null**. |\n| IATA Safety Audit certificate | Look for a fact/memory stating Vanguard Air Charter\u2019s IATA certification. | `e_0930d2` \u2013 *\"Vanguard Air Charter maintains an active IATA ground handling certification.\"* (ground handling, not safety audit). No candidate explicitly mentions an **IATA Safety Audit certificate**; therefore **null**. |\n\n**Step 3: Assemble the JSON output**\n\nOnly the conditions that have candidates (or nulls) are included. Both conditions fail to have a matching candidate, but we still list them with `null`.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"fleet size \u2265 10 aircraft\",\n          \"item\": null\n        },\n        {\n          \"condition\": \"holds IATA Safety Audit certificate\",\n          \"item\": null\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Note:** The memory \u201cVanguard Air Charter is approved for priority runway access.\u201d does not match the policy conditions directly, and no stored candidates satisfy both conditions for Vanguard Air Charter. Hence, the memory rests on `null` for each required condition.",
+ "usage": {
+  "note": "store10_0 ground.m_09886f~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 922,
+  "output_tokens": 462,
+  "seconds": 21.41
+ }
+}

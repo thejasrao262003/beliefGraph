@@ -1,0 +1,12 @@
+{
+ "note": "store10_0 ground.m_01dabd~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy into alternative groups**\n\nPolicy:  \n*\"Market deployment authorization is granted to an uncrewed aircraft if it holds an official broadcast permit **or** achieves a quarterly flight safety evaluation rating of at least 90 points.\"*\n\nThis translates to two alternative groups:\n- **Group 1**: The aircraft holds an official broadcast permit.\n- **Group 2**: The aircraft achieves a quarterly flight safety evaluation rating of at least 90 points.\n\n**Step 2: Match each condition to a candidate item**\n\n- **Group 1 condition**: \"holds an official broadcast permit\"  \n  Candidate satisfying this: **e_08b5f8** (\"AeroGlide Drone possesses an active FCC Class B broadcast permit.\")  \n  \u2192 **Item**: e_08b5f8\n\n- **Group 2 condition**: \"achieves a quarterly flight safety evaluation rating of at least 90 points\"  \n  Candidate satisfying this: **e_08e5ac** (\"AeroGlide Drone recorded a flight safety evaluation rating of 92 points this quarter.\")  \n  \u2192 **Item**: e_08e5ac\n\n**Step 3: Assemble the JSON output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds an official broadcast permit\",\n          \"item\": \"e_08b5f8\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"quarterly flight safety evaluation rating >= 90\",\n          \"item\": \"e_08e5ac\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely reflects the conditions from the policy that the memory \"AeroGlide 500 is clear for vendor catalog placement.\" rests upon, using the most directly matching candidate items.",
+ "usage": {
+  "note": "store10_0 ground.m_01dabd~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 946,
+  "output_tokens": 381,
+  "seconds": 15.6
+ }
+}

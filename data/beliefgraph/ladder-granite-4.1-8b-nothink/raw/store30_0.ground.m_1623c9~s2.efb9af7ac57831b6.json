@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 ground.m_1623c9~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step-by-step reasoning:**\n\n1. **Parse the policy:**  \n   *Policy:* \u201cCharter service providers qualify for heavy corporate transit agreements when maintaining an active fleet size of **10 aircraft or more**.\u201d  \n   \u2192 This translates to a single logical group: **AND** the charter provider must have an active fleet size **\u2265\u202f10**.\n\n2. **Identify conditions in the policy:**  \n   - Condition 1: *active fleet size \u2265\u202f10* (must be satisfied by a candidate fact or memory that states the fleet size of the entity *Horizon Charters*).\n\n3. **Match each condition to candidate items:**  \n   - For the condition \u201cactive fleet size \u2265\u202f10\u201d for **Horizon Charters**, examine candidates:\n     - `e_1649bc`: \u201cAccording to the civil aviation register, **Horizon Charters** operates an active fleet size of **12 aircraft**.\u201d \u2192 Satisfies the condition (12\u202f\u2265\u202f10).\n     - No other candidate mentions Horizon Charters\u2019 fleet size, so the first candidate is the unique match.\n\n4. **Formulate the JSON structure:**  \n   - One group (`all_of`) containing one condition (`active fleet size \u2265\u202f10`) with the matching candidate `e_1649bc`.\n\n**Resulting JSON:**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"active fleet size >= 10\",\n          \"item\": \"e_1649bc\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely captures the logical dependencies of the stored memory **\u201cHorizon Charters is assigned to enterprise flight contracts.\u201d** on the policy requiring a fleet size of at least 10 aircraft, using the candidate fact `e_1649bc`.",
+ "usage": {
+  "note": "store30_0 ground.m_1623c9~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 897,
+  "output_tokens": 384,
+  "seconds": 17.13
+ }
+}

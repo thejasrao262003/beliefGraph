@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 ground.m_04af9d~s2",
+ "model": "granite-4.1-8b",
+ "response": "The policy states that premier flight status is awarded if **one** of the following conditions are met (OR):\n\n1. The operator maintains an active **FAA Part 135 certificate**.\n2. The operator secures a **fleet safety rating of 4.8 stars or higher**.\n\nWe now identify which candidate items satisfy each condition for **AeroLuxe Charters**:\n\n- **Condition 1**: Active FAA Part 135 certificate  \n  - Candidate: **e_04ad97** \u2013 \"AeroLuxe Charters holds an active FAA Part 135 certificate.\" \u2192 **Satisfies**.\n\n- **Condition 2**: Fleet safety rating of 4.8 stars or higher  \n  - Candidate: **e_042481** \u2013 \"AeroLuxe Charters achieved a fleet safety rating of 4.9 stars.\" \u2192 **Satisfies** (4.9 \u2265 4.8).\n\nThus, the memory \"AeroLuxe Charters holds premier flight status.\" is supported by either **e_04ad97** or **e_042481**. The response groups reflect the logical structure (OR) of the policy:\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds an active FAA Part 135 certificate\",\n          \"item\": \"e_04ad97\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"has a fleet safety rating of 4.8 stars or higher\",\n          \"item\": \"e_042481\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nNote: The first group contains a single condition (all_of with one item), and the second group is analogous, reflecting the OR relationship of the policy.",
+ "usage": {
+  "note": "store30_0 ground.m_04af9d~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 922,
+  "output_tokens": 371,
+  "seconds": 16.68
+ }
+}

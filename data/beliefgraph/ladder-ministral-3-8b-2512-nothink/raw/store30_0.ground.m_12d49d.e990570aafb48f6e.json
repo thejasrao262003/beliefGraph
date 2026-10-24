@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 ground.m_12d49d",
+ "model": "ministral-3-8b-2512",
+ "response": "```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"backed by corporate partner standing (status or certification directly related to Apex Charters)\",\n          \"item\": \"e_081177\"\n        },\n        {\n          \"condition\": \"liability insurance coverage of at least 30 million dollars held by Apex Charters\",\n          \"item\": \"e_173ec2\"  // Reference to broad charters (unrelated, so null if strict to Apex; using null)\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Apex Charters is backed by corporate partner standing (or related approval for BLL30M insurance).\",\n          \"item\": null  // No direct backed approval linked to Apex\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Final Correct and Strict Call (deduced Policy on this memory only):**\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"corporate partner standing or certification for the entity\",\n          \"item\": null\n        },\n        {\n          \"condition\": \"Apex Charters liability insurance cap \u2265 30 million USD\",\n          \"item\": null\n        }\n      ]\n    }\n  ]\n}\n```\n\n**For *this exact memory only** *(alternative pull]:**\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"memory states selection by carrier contracts involving Apex Charters\",\n          \"item\": \"m_05f69f\"\n        },\n        {\n          \"condition\": \"entity has liablity broad coverage \u2265 $30M (jq check on other trails)\",\n          \"item\": null\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "store30_0 ground.m_12d49d",
+  "model": "ministral-3-8b-2512",
+  "input_tokens": 953,
+  "output_tokens": 394,
+  "seconds": 14.53
+ }
+}

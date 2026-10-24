@@ -70,6 +70,7 @@ class ProviderLLM:
     effort: str | None = "high"  # Anthropic: graph building is reasoning-heavy
     fallbacks: bool = True  # Anthropic: server-side refusal fallback (served model is recorded)
     thinking: bool | None = None  # self-hosted Qwen-style chat templates: False answers without thinking
+    json_mode: bool = False  # OpenAI-compatible servers: constrain the answer to valid JSON
     usage: list[dict] = field(default_factory=list)
 
     def __call__(self, system: str, message: str, note: str = "") -> str:
@@ -129,7 +130,8 @@ class ProviderLLM:
             messages=[{"role": "system", "content": system}, {"role": "user", "content": message}],
             **({"seed": seed} if seed is not None else {}),
             **({"extra_body": {"chat_template_kwargs": {"enable_thinking": self.thinking}}}
-               if self.thinking is not None else {}))
+               if self.thinking is not None else {}),
+            **({"response_format": {"type": "json_object"}} if self.json_mode else {}))
         choice = resp.choices[0]
         if getattr(choice, "finish_reason", None) == "content_filter":
             raise RefusalError(f"{self.provider}/{self.model} filtered the response")

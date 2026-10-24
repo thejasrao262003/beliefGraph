@@ -1,0 +1,12 @@
+{
+ "note": "store10_0 ground.m_01dabd~s1",
+ "model": "granite-4.1-8b",
+ "response": "To determine which stored items the memory \"AeroGlide 500 is clear for vendor catalog placement.\" rests on, we need to analyze the policy and match its conditions against the candidate items.\n\n**Policy Analysis:**\nThe policy states that an uncrewed aircraft obtains regional flight clearance if **either** of the following is true:\n1. **AND Group 1**: The aircraft demonstrates a flight safety evaluation duration of **at least 100 hours in a year** **and** holds an **ISO 9001 quality certificate**.\n2. **OR Group 2**: The aircraft secures a **FAA Commercial Airworthiness Certificate**.\n\n**Condition Matching:**\n\n1. **Group 1 (AND conditions):**\n   - Condition 1: Flight safety evaluation duration of at least 100 hours in a year.\n     - Candidate: `e_01a38b` (AeroGlide 500 logged 120 hours of flight safety testing this year.)\n   - Condition 2: Holding an ISO 9001 quality certificate.\n     - Candidate: `e_01accf` (AeroGlide 500 holds an ISO 9001 quality certificate.)\n\n2. **Group 2 (OR condition):**\n   - Condition 3: Securing a FAA Commercial Airworthiness Certificate.\n     - Candidate: `e_01e7d1` (AeroGlide 500 holds a FAA Commercial Airworthiness Certificate.)\n\n**Resulting JSON Object:**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Flight safety evaluation duration \u2265 100 hours in a year\",\n          \"item\": \"e_01a38b\"\n        },\n        {\n          \"condition\": \"Holds ISO 9001 quality certificate\",\n          \"item\": \"e_01accf\"\n        }\n      ]\n    },\n    {\n      \"any_of\": [\n        {\n          \"condition\": \"Secured FAA Commercial Airworthiness Certificate\",\n          \"item\": \"e_01e7d1\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON object captures the logical structure of the policy and identifies the candidate items that satisfy each condition.",
+ "usage": {
+  "note": "store10_0 ground.m_01dabd~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 968,
+  "output_tokens": 454,
+  "seconds": 13.33
+ }
+}

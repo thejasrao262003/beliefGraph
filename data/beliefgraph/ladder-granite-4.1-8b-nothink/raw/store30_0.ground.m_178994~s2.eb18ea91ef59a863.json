@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 ground.m_178994~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step\u2011by\u2011step reasoning**\n\n1. **Interpret the policy**  \n   The policy requires **charter service providers** to have an **active fleet size of 10 aircraft or more** in order to qualify for heavy corporate transit agreements.\n\n2. **Formulate the logical condition**  \n   `entity IS AeroSkies Charter AND fleet_size \u2265 10`.  \n   This condition has no \u201cor\u201d alternatives, so it forms a single group.\n\n3. **Identify candidate items**  \n   - **Fact `e_17f842`** states: *\u201cAeroSkies Charter operates a fleet size of 15 aircraft.\u201d* \u2192 satisfies the fleet\u2011size condition \u2192 candidate.  \n   - **Fact `e_1649bc`** mentions Horizon Charters, not AeroSkies Charter \u2192 does not satisfy the \u201csame entity\u201d requirement.  \n   - **Other candidates** discuss accreditation, liability coverage, other carriers, on\u2011time rates, etc.; they do **not** provide the required fleet\u2011size figure for AeroSkies Charter.\n\n4. **Select the ONE satisfying candidate**  \n   The only fact that meets both the \u201csame entity\u201d and the \u201c\u2265\u202f10 aircraft\u201d condition is **`e_17f842`**. All other candidates fail at least one condition, so they are mapped to **null** (though only `e_17f842` is needed for this memory).\n\n5. **Construct the JSON output**  \n   According to the requested format:\n\n   ```json\n   {\n     \"groups\": [\n       {\n         \"all_of\": [\n           {\n             \"condition\": \"AeroSkies Charter maintains a fleet size of 10 or more aircraft\",\n             \"item\": \"e_17f842\"\n           }\n         ]\n       }\n     ]\n   }\n   ```\n\n   (Only one group is needed; each condition is expressed concisely.)\n\n**Final JSON object**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"AeroSkies Charter maintains a fleet size of 10 or more aircraft\",\n          \"item\": \"e_17f842\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "store30_0 ground.m_178994~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 920,
+  "output_tokens": 461,
+  "seconds": 20.43
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 ground.m_046cfe~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Policy Requirements**\n\nThe policy states:  \n*\"Major regional transport provider status is granted to a marine line recording an annual passenger volume of at least 100,000 customers.\"*  \n\nThis translates to a single group of conditions (no OR alternatives):\n- The entity must be a **marine line** (implicitly, a ferry or similar transport provider).\n- It must have an **annual passenger volume \u2265 100,000**.\n\n**Step 2: Identify Candidate Items**\n\nFor each condition, find the candidate that satisfies it:\n\n1. **Condition:** Entity is a marine line (ferry provider).  \n   **Candidate:** The memory mentions *Mariner Tours qualifies as a major regional ferry provider*. The closest candidate reflecting the same entity is **`e_046bbd`** (\"Mariner Tours recorded an annual passenger volume of 150,000 customers this year.\"), which explicitly refers to Mariner Tours, a ferry provider.\n\n2. **Condition:** Annual passenger volume \u2265 100,000.  \n   **Candidate:** Again, **`e_046bbd`** states that Mariner Tours recorded **150,000** customers, satisfying the volume threshold. No other candidate explicitly provides the required volume for Mariner Tours.\n\nNo other candidates meet both conditions simultaneously.\n\n**Step 3: Construct JSON Output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Mariner Tours is a marine line\",\n          \"item\": \"e_046bbd\"\n        },\n        {\n          \"condition\": \"Annual passenger volume \u2265 100,000\",\n          \"item\": \"e_046bbd\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON captures the single group of conditions that must hold together, referencing the candidate item `e_046bbd` that satisfies both. No alternatives (OR) are present as per the policy.",
+ "usage": {
+  "note": "store30_0 ground.m_046cfe~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 901,
+  "output_tokens": 394,
+  "seconds": 15.06
+ }
+}

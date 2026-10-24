@@ -1,0 +1,12 @@
+{
+ "note": "store10_0 ground.m_01dabd~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy into alternative groups**\n\nThe policy states an OR condition:\n1. **Group 1 (AND condition):**  \n   - Condition A: *demonstrating a flight safety evaluation duration of at least 100 hours in a year*  \n   - Condition B: *holding an ISO 9001 quality certificate*  \n\n2. **Group 2 (stand-alone condition):**  \n   - Condition C: *securing a FAA Commercial Airworthiness Certificate*  \n\n**Step 2: Match each condition to the candidate items**\n\n- **Group 1 (Condition A):**  \n  - Need a fact stating \u201cAeroGlide 500 logged \u2265100 flight safety hours.\u201d  \n  - Candidate `e_01a38b` states \u201cAeroGlide 500 logged 120 hours of flight safety testing this year.\u201d \u2192 **satisfies Condition A**.\n\n- **Group 1 (Condition B):**  \n  - Need a fact stating \u201cAeroGlide 500 holds an ISO 9001 quality certificate.\u201d  \n  - Candidate `e_01accf` states \u201cAeroGlide 500 holds an ISO 9001 quality certificate.\u201d \u2192 **satisfies Condition B**.\n\n- **Group 2 (Condition C):**  \n  - Need a fact stating \u201cAeroGlide 500 secures a FAA Commercial Airworthiness Certificate.\u201d  \n  - Candidate `e_01e7d1` states \u201cAeroGlide 500 holds a FAA Commercial Airworthiness Certificate.\u201d \u2192 **satisfies Condition C**.\n\nNo other candidates satisfy these specific conditions.\n\n**Step 3: Construct the JSON output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        { \"condition\": \"flight safety evaluation duration \u2265 100 hours\", \"item\": \"e_01a38b\" },\n        { \"condition\": \"ISO 9001 quality certificate\", \"item\": \"e_01accf\" }\n      ]\n    },\n    {\n      \"all_of\": [\n        { \"condition\": \"FAA Commercial Airworthiness Certificate\", \"item\": \"e_01e7d1\" }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON captures the policy's alternative groups and the exact candidate items that satisfy each condition.",
+ "usage": {
+  "note": "store10_0 ground.m_01dabd~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 968,
+  "output_tokens": 483,
+  "seconds": 14.09
+ }
+}

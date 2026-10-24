@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 ground.m_18d191",
+ "model": "granite-4.1-8b",
+ "response": "To determine which stored items the memory \"Titan HVAC Unit is approved for commercial rebate tier status\" rests on, we need to break down the policy into alternative groups of conditions that must hold together (OR) and then match each condition to a candidate item.\n\n**Policy Breakdown:**\n- **Group 1 (AND):** The HVAC system maintains a seasonal energy efficiency ratio (SEER) of 20 or higher.\n- **Group 2 (AND):** The HVAC system has an acoustic sound level of 50 dB or lower.\n- **Group 3 (AND):** The HVAC system has a volumetric airflow rate of 2000 CFM or above.\n- **Group 4 (AND):** The HVAC system has an active AHRI (Air-Conditioning, Heating, and Refrigeration Institute) accreditation.\n\n**Conditions and Candidate Matches:**\n\n1. **Condition:** SEER of 20 or higher  \n   **Candidate:** `e_189d52` (Titan HVAC Unit demonstrated a seasonal energy efficiency ratio of 22.)\n\n2. **Condition:** Acoustic sound level of 50 dB or lower  \n   **Candidate:** `e_180292` (Titan HVAC Unit emitted an acoustic sound level of 48 dB.)\n\n3. **Condition:** Volumetric airflow rate of 2000 CFM or above  \n   **Candidate:** `e_187b3c` (Titan HVAC Unit delivered a volumetric airflow rate of 2400 CFM.)\n\n4. **Condition:** Active AHRI accreditation  \n   **Candidate:** `e_186a14` (Titan HVAC Unit holds an active AHRI accreditation.)\n\n**Output JSON:**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"SEER >= 20\",\n          \"item\": \"e_189d52\"\n        },\n        {\n          \"condition\": \"Acoustic sound level <= 50 dB\",\n          \"item\": \"e_180292\"\n        },\n        {\n          \"condition\": \"Volumetric airflow rate >= 2000 CFM\",\n          \"item\": \"e_187b3c\"\n        },\n        {\n          \"condition\": \"Active AHRI accreditation\",\n          \"item\": \"e_186a14\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON object lists the candidate items that satisfy each condition of the policy, showing how the memory \"Titan HVAC Unit is approved for commercial rebate tier status\" is supported by the provided candidates.",
+ "usage": {
+  "note": "store30_0 ground.m_18d191",
+  "model": "granite-4.1-8b",
+  "input_tokens": 955,
+  "output_tokens": 515,
+  "seconds": 22.7
+ }
+}

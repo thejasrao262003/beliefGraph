@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 ground.m_173cd1~s2",
+ "model": "granite-4.1-8b",
+ "response": "The policy states that an aviation enterprise attains charter accreditation if **any one** of the following conditions holds:\n\n1. **AND** the enterprise operates a minimum fleet size of 10 aircraft  \n2. **AND** the enterprise maintains valid ISO 9001 certification  \n3. **AND** the enterprise moves at least 40,000 passengers annually  \n4. **AND** the enterprise possesses an FAA Air Carrier Certificate  \n\nThese conditions are grouped by **OR** (any one of the four is sufficient).\n\nNow, match each condition with the relevant candidate items:\n\n- **Fleet size \u2265 10 aircraft**:  \n  - `e_17f842` states \"AeroSkies Charter operates a fleet size of 15 aircraft.\" \u2192 satisfies the fleet size condition.\n\n- **ISO 9001 certification**:  \n  - `e_173530` states \"AeroSkies Charter holds an active ISO 9001 quality management certification.\" \u2192 satisfies the ISO condition.\n\n- **Passenger volume \u2265 40,000**:  \n  - No candidate explicitly mentions passenger count. \u2192 `null`.\n\n- **FAA Air Carrier Certificate**:  \n  - `e_233da2` (for AeroWay Express) and `m_19258e` (for Skyward Charter) mention FAA status, but none directly state that **AeroSkies Charter** holds it. \u2192 `null` for AeroSkies Charter.\n\nThus, the groups are:\n\n- **Group 1** (fleet size condition) satisfied by `e_17f842`.\n- **Group 2** (ISO 9001 condition) satisfied by `e_173530`.\n- **Group 3** (passenger volume condition) has no satisfying candidate \u2192 `null`.\n- **Group 4** (FAA Air Carrier Certificate condition) has no satisfying candidate for AeroSkies Charter \u2192 `null`.\n\nHowever, the memory \"AeroSkies Charter meets executive flight contracting criteria\" can be satisfied by either the fleet size or the ISO condition alone, so we only need to list the groups that are satisfied.\n\n**Output JSON:**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"fleet size \u2265 10 aircraft\",\n          \"item\": \"e_17f842\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"ISO 9001 certification\",\n          \"item\": \"e_173530\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "store30_0 ground.m_173cd1~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 948,
+  "output_tokens": 520,
+  "seconds": 36.86
+ }
+}

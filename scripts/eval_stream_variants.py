@@ -31,6 +31,8 @@ VARIANTS = {
     "v0.4-vote-only": dict(adjudicate=False),
     "v0.5": dict(route_mode="verify", entity_ground=True),  # small-model mode: yes/no routing, named items
     "v0.5-route-only": dict(route_mode="verify"),
+    "v0.5s": dict(route_mode="score", entity_ground=True),  # relative 0-10 scoring of the 5 nearest policies
+    "v0.5s-route-only": dict(route_mode="score"),
     "v0.5-ground-only": dict(entity_ground=True),
 }
 
@@ -44,6 +46,7 @@ def main() -> None:
     ap.add_argument("--run", default="stream-qwen35-9b")
     ap.add_argument("--workers", type=int, default=24)
     ap.add_argument("--base-url", default=None)
+    ap.add_argument("--json-mode", action="store_true", help="constrain answers to valid JSON (OpenAI-compatible servers)")
     ap.add_argument("--thinking", default="default", choices=["default", "on", "off"])
     ap.add_argument("--max-output-tokens", type=int, default=16000)
     args = ap.parse_args()
@@ -55,7 +58,7 @@ def main() -> None:
         pass
     llm = CachedLLM(make_llm(args.provider, model=args.model, base_url=args.base_url, max_calls=20000,
                              max_output_tokens=args.max_output_tokens,
-                             thinking={"default": None, "on": True, "off": False}[args.thinking]),
+                             thinking={"default": None, "on": True, "off": False}[args.thinking], json_mode=args.json_mode),
                     Path("data/beliefgraph") / args.run / "raw")
     pool = [x for r in RUNS for x in load_accepted(Path("data/rendered") / r)]
     for k in args.sizes:

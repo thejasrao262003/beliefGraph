@@ -1,0 +1,12 @@
+{
+ "note": "store10_0 ground.m_03dcef~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy**\n\nPolicy:  \n*\"An enterprise secures recognized flight authority status when maintaining an active fleet size of at least 10 aircraft **while** holding an IATA Safety Audit certificate.\"*\n\nRequirements (ANDed together):\n1. **Active fleet size \u2265 10 aircraft**  \n2. **Holds an IATA Safety Audit certificate**\n\n**Step 2: Match each requirement to candidate items**\n\n- **Requirement 1 (fleet size \u2265 10):**  \n  Candidate that provides fleet count:  \n  `e_03d70d` \u2013 \"Official FAA registry records confirm AeroSwift Freight operates an active fleet size of 15 aircraft.\"  \n  15 \u2265 10 \u2192 satisfied.  \n  **Candidate:** `e_03d70d`\n\n- **Requirement 2 (IATA Safety Audit certificate):**  \n  Candidate that confirms IATA certificate:  \n  `e_0399aa` \u2013 \"A safety audit report confirms AeroSwift Freight holds a valid IATA Safety Audit certificate.\"  \n  **Candidate:** `e_0399aa`\n\nNo disjunctions (OR) are present; it's a single group of ANDed conditions.\n\n**Step 3: Form the JSON output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Active fleet size \u2265 10 aircraft\",\n          \"item\": \"e_03d70d\"\n        },\n        {\n          \"condition\": \"Holds an IATA Safety Audit certificate\",\n          \"item\": \"e_0399aa\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely captures the set of candidate items (facts) satisfying each condition required by the policy for the memory **\"AeroSwift Freight is selected for urgent cargo dispatch.\"**.",
+ "usage": {
+  "note": "store10_0 ground.m_03dcef~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 926,
+  "output_tokens": 375,
+  "seconds": 13.68
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "store10_0 ground.m_01515d~s1",
+ "model": "granite-4.1-8b",
+ "response": "To determine which stored items the memory \"AeroGlide 500 meets regional aviation fleet criteria\" rests on, we must analyze the policy and identify the conditions that must be satisfied.\n\n**Policy Analysis:**\nThe policy states:\n- An uncrewed aircraft obtains regional flight clearance either by:\n  1. Demonstrating a **flight safety evaluation duration of at least 100 hours in a year** **AND** holding an **ISO 9001 quality certificate**, **OR**\n  2. Securing a **FAA Commercial Airworthiness Certificate**.\n\n**Condition Matching:**\nWe need to find candidate items that satisfy each alternative condition.\n\n1. **First Alternative** (AND group):\n   - **Condition 1**: Flight safety evaluation duration of at least 100 hours in a year.\n     - **Candidate**: `e_01a38b` (\"AeroGlide 500 logged 120 hours of flight safety testing this year.\")\n   - **Condition 2**: Holding an ISO 9001 quality certificate.\n     - **Candidate**: `e_01accf` (\"AeroGlide 500 holds an ISO 9001 quality certificate.\")\n\n2. **Second Alternative** (OR condition):\n   - **Condition**: Securing a FAA Commercial Airworthiness Certificate.\n     - **Candidate**: `e_01e7d1` (\"AeroGlide 500 holds a FAA Commercial Airworthiness Certificate.\")\n\n**Conclusion:**\nThe memory \"AeroGlide 500 meets regional aviation fleet criteria\" rests on:\n- The **first alternative** group, which is satisfied by the candidates `e_01a38b` and `e_01accf`.\n- The **second alternative** is satisfied by the candidate `e_01e7d1`.\n\n**JSON Output:**\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Flight safety evaluation duration \u2265 100 hours in a year\",\n          \"item\": \"e_01a38b\"\n        },\n        {\n          \"condition\": \"Holds ISO 9001 quality certificate\",\n          \"item\": \"e_01accf\"\n        }\n      ]\n    },\n    {\n      \"any_of\": [\n        {\n          \"condition\": \"Secures FAA Commercial Airworthiness Certificate\",\n          \"item\": \"e_01e7d1\"\n        }\n      ]\n    }\n  ]\n}\n```\nThis JSON object captures the logical structure of the policy applied to the stored candidates, showing how the memory is supported by the available facts and memories.",
+ "usage": {
+  "note": "store10_0 ground.m_01515d~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 963,
+  "output_tokens": 530,
+  "seconds": 19.62
+ }
+}

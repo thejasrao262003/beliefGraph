@@ -1,0 +1,12 @@
+{
+ "note": "store10_0 ground.m_097d81~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step\u2011by\u2011step reasoning**\n\n1. **Interpret the policy**  \n   *Policy:* \u201cA charter firm with expedited flight scheduling should be selected for high\u2011priority corporate flight bookings.\u201d  \n   This can be split into two alternatives (OR) of grouped conditions (AND):\n\n   - **Alternative\u202f1:** The charter firm **has approved priority runway access**.  \n     Group condition: *approved priority runway access*.\n\n   - **Alternative\u202f2:** The charter firm **has an active IATA ground\u2011handling certification** *and* **meets rapid\u2011incident\u2011handling standards**.  \n     Group conditions: *active IATA ground\u2011handling certification* **AND** *rapid incident handling standards*.\n\n2. **Match each condition to the candidate items**  \n\n   - **Condition\u202fA:** \u201capproved priority runway access\u201d \u2192 candidate **m_09886f** satisfies this.  \n   - **Condition\u202fB:** \u201cactive IATA ground\u2011handling certification\u201d \u2192 candidate **e_0930d2** satisfies this.  \n   - **Condition\u202fC:** \u201crapid incident handling standards\u201d \u2192 candidate **m_030082** satisfies this.  \n\n   No other candidates meet the required conditions.\n\n3. **Map the alternatives into the required JSON format**  \n\n   ```json\n   {\n     \"groups\": [\n       {\n         \"all_of\": [\n           { \"condition\": \"approved priority runway access\", \"item\": \"m_09886f\" }\n         ]\n       },\n       {\n         \"all_of\": [\n           { \"condition\": \"active IATA ground handling certification\", \"item\": \"e_0930d2\" },\n           { \"condition\": \"rapid incident handling standards\", \"item\": \"m_030082\" }\n         ]\n       }\n     ]\n   }\n   ```\n\n   (The first group corresponds to Alternative\u202f1; the second group corresponds to Alternative\u202f2.)\n\n**Result**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        { \"condition\": \"approved priority runway access\", \"item\": \"m_09886f\" }\n      ]\n    },\n    {\n      \"all_of\": [\n        { \"condition\": \"active IATA ground handling certification\", \"item\": \"e_0930d2\" },\n        { \"condition\": \"rapid incident handling standards\", \"item\": \"m_030082\" }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "store10_0 ground.m_097d81~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 902,
+  "output_tokens": 509,
+  "seconds": 20.14
+ }
+}

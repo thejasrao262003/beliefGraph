@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 ground.m_178994~s1",
+ "model": "granite-4.1-8b",
+ "response": "The policy states that an aviation enterprise attains charter accreditation if **any one of the following conditions is met** (OR relationship between groups):\n\n1. **Operates a minimum fleet size of 10 aircraft** (AND group with a single condition).\n2. **Maintains valid ISO 9001 certification** (AND group with a single condition).\n3. **Moves at least 40,000 passengers annually** (AND group with a single condition).\n4. **Possesses an FAA Air Carrier Certificate** (AND group with a single condition).\n\nNow, we identify which candidate items satisfy each condition for AeroSkies Charter:\n\n- **Fleet size condition**:  \n  - Candidate `e_17f842` states \"AeroSkies Charter operates a fleet size of 15 aircraft.\"  \n  - 15 aircraft \u2265 10 aircraft \u2192 **satisfied**.  \n  - **Item**: `e_17f842`\n\n- **ISO 9001 certification condition**:  \n  - Candidate `e_173530` states \"AeroSkies Charter holds an active ISO 9001 quality management certification.\"  \n  - **Satisfied**.  \n  - **Item**: `e_173530`\n\n- **Passenger volume condition**:  \n  - No candidate directly states the passenger count for AeroSkies Charter.  \n  - **Unsatisfied** \u2192 **Item**: `null`\n\n- **FAA Air Carrier Certificate condition**:  \n  - No candidate directly states that AeroSkies Charter holds an FAA Air Carrier Certificate.  \n  - **Unsatisfied** \u2192 **Item**: `null`\n\nThus, the groups that are formed based on satisfied conditions are:\n\n- **Group 1** (fleet size satisfied): `[ { condition: \"fleet size \u2265 10 aircraft\", item: \"e_17f842\" } ]`\n- **Group 2** (ISO 9001 satisfied): `[ { condition: \"ISO 9001 certification\", item: \"e_173530\" } ]`\n\nThe passenger volume and FAA certificate conditions are not satisfied, so they do not form groups.\n\n**Output JSON:**\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"fleet size \u2265 10 aircraft\",\n          \"item\": \"e_17f842\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"ISO 9001 certification\",\n          \"item\": \"e_173530\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "store30_0 ground.m_178994~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 944,
+  "output_tokens": 523,
+  "seconds": 17.6
+ }
+}

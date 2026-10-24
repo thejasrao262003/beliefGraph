@@ -73,6 +73,7 @@ def main() -> None:
     ap.add_argument("--algo", default="v0.1", choices=["v0.1", "v0.2"],
                     help="v0.1: one graph-building call per store or batch; v0.2: policy-anchored decomposition")
     ap.add_argument("--max-output-tokens", type=int, default=16000)
+    ap.add_argument("--json-mode", action="store_true", help="constrain answers to valid JSON (OpenAI-compatible servers)")
     ap.add_argument("--thinking", default="default", choices=["default", "on", "off"],
                     help="self-hosted Qwen-style models: force thinking on/off (same for every method)")
     ap.add_argument("--dry-run", action="store_true")
@@ -102,7 +103,7 @@ def main() -> None:
     out = Path("data/beliefgraph") / args.run
     total_calls = sum(-(-len(s["memories"]) // args.batch_size) * 2 + 2 * len(s["updates"]) for _, s, _ in plans)
     llm = make_llm(args.provider, model=args.model, base_url=args.base_url, budget_usd=args.budget_usd, max_output_tokens=args.max_output_tokens,
-                   thinking={"default": None, "on": True, "off": False}[args.thinking],
+                   thinking={"default": None, "on": True, "off": False}[args.thinking], json_mode=args.json_mode,
                    max_calls=total_calls + 20)
     cached = CachedLLM(llm, out / "raw")
     bg = (DecomposedBeliefGraph(cached, workers=max(1, args.workers)) if args.algo == "v0.2"

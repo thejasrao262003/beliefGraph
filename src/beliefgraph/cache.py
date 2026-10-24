@@ -22,6 +22,7 @@ class CachedLLM:
         # frozen at the first versions' names so earlier cached responses stay valid when a
         # prompt is revised (the revised text alone changes its own calls' keys).
         mode = {False: "|no-thinking", True: "|thinking"}.get(getattr(self.llm, "thinking", None), "")
+        mode += "|json" if getattr(self.llm, "json_mode", False) else ""
         key = hashlib.sha256(f"{_KEY_PREFIX}|{getattr(self.llm, 'model', '')}{mode}|{system}|{message}"
                              .encode()).hexdigest()[:16]
         path = self.raw_dir / f"{note.replace(' ', '.')}.{key}.json"

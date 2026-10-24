@@ -1,0 +1,12 @@
+{
+ "note": "store10_0 direct4",
+ "model": "meta-llama-3.1-8b",
+ "response": "```python\nimport json\n\ndef process_memory(memory, facts, updates):\n    action = \"keep\"\n    for fact in facts:\n        if fact[\"id\"] in memory[\"supports\"]:\n            action = \"withdraw\"\n            break\n        elif fact[\"id\"] in memory[\"needs\"]:\n            action = \"recompute\"\n            break\n        elif fact[\"id\"] in memory[\"doubts\"]:\n            action = \"uncertain\"\n            break\n\n    for update in updates:\n        if update[\"id\"] in memory[\"supports\"]:\n            memory[\"supports\"].remove(update[\"id\"])\n        elif update[\"id\"] in memory[\"needs\"]:\n            memory[\"needs\"].remove(update[\"id\"])\n        elif update[\"id\"] in memory[\"doubts\"]:\n            memory[\"doubts\"].remove(update[\"id\"])\n\n    if action == \"withdraw\":\n        if not memory[\"needs\"]:\n            return \"withdraw\"\n    elif action == \"recompute\":\n        if not memory[\"needs\"]:\n            return \"recompute\"\n    elif action == \"uncertain\":\n        if not memory[\"needs\"]:\n            return \"uncertain\"\n\n    return \"keep\"\n\ndef process_memories(memories, facts, updates):\n    changes = {}\n    for memory in memories:\n        action = process_memory(memory, facts, updates)\n        if action != \"keep\":\n            changes[memory[\"id\"]] = action\n\n    return changes\n\ndata = {\n    \"facts\": [\n        # ... (same as in the input)\n    ],\n    \"memories\": [\n        # ... (same as in the input)\n    ],\n    \"policies\": [\n        # ... (same as in the input)\n    ],\n    \"updates\": [\n        # ... (same as in the input)\n    ]\n}\n\nchanges = process_memories(data[\"memories\"], data[\"facts\"], data[\"updates\"])\n\nprint(json.dumps({\"changes\": changes}, indent=4))\n```",
+ "usage": {
+  "note": "store10_0 direct4",
+  "model": "meta-llama-3.1-8b",
+  "input_tokens": 6639,
+  "output_tokens": 389,
+  "seconds": 14.93
+ }
+}

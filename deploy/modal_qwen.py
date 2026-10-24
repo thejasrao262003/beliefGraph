@@ -30,13 +30,19 @@ SLUG = re.sub(r"[^a-z0-9]+", "-", SERVED_NAME).strip("-")
 QWEN35 = "qwen3.5" in MODEL.lower()  # hybrid Gated-DeltaNet architecture, multimodal checkpoint
 PORT = 8000
 MINUTES = 60
-MAX_MODEL_LEN = int(os.environ.get("BG_MAX_MODEL_LEN", 131072 if QWEN35 else 65536))
-GPU = "H100" if "9b" in MODEL.lower() or "8b" in MODEL.lower() else "L40S"  # <=4B fits a 48 GB L40S
+MAX_MODEL_LEN = int(os.environ.get("BG_MAX_MODEL_LEN", 131072 if QWEN35 else 49152))
+GPU = "H100" if MODEL == "Qwen/Qwen3.5-9B" else "L40S"  # up to ~12B in bf16 fits a 48 GB L40S
+# Gemma 4 (gemma4_unified) needs a newer vLLM than the one the Qwen runs were made with.
+VLLM = "vllm==0.31.0" if MODEL.startswith("google/gemma-4") else "vllm==0.21.0"
+# Per-family serving flags (vLLM docs / model cards).
+EXTRA = {
+    "mistralai/": ["--tokenizer-mode", "mistral", "--config-format", "mistral", "--load-format", "mistral"],
+}
 
 image = (
     modal.Image.from_registry("nvidia/cuda:12.9.0-devel-ubuntu22.04", add_python="3.12")
     .entrypoint([])
-    .uv_pip_install("vllm==0.21.0")
+    .uv_pip_install(VLLM)
     .env({"HF_XET_HIGH_PERFORMANCE": "1", "BG_MODEL": MODEL, "BG_MAX_MODEL_LEN": str(MAX_MODEL_LEN)})
 )
 hf_cache = modal.Volume.from_name("huggingface-cache", create_if_missing=True)
@@ -80,6 +86,7 @@ class Server:
             "--host", "0.0.0.0", "--port", str(PORT),
             "--max-model-len", str(MAX_MODEL_LEN),
             *(qwen35 if QWEN35 else []),
+            *next((v for k, v in EXTRA.items() if MODEL.startswith(k)), []),
         ])
 
     @modal.exit()

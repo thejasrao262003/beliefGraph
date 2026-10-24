@@ -618,3 +618,10 @@ def test_v05_routes_by_yes_no_checks_and_grounds_on_named_items(tfidf):
                               k_ground=2).build(VIEW)
     assert g.justifications == {"m_1": [["e_1"], ["e_2"]], "m_2": [["e_3", "m_1"]]}
     assert all(len(c) >= 3 for c in seen_cands)  # every item names Acme, so none is cut below k_ground
+
+
+def test_load_json_repairs_small_model_syntax():
+    from beliefgraph.core import _load_json
+
+    assert _load_json('```json\n{"a": [1, 2,], "b": 1, , "c": 2}\n```') == {"a": [1, 2], "b": 1, "c": 2}
+    assert _load_json('{"groups": [{"all_of": [{"condition": "x", , "item": "e_1"}]}]}')["groups"][0]["all_of"][0]["item"] == "e_1"

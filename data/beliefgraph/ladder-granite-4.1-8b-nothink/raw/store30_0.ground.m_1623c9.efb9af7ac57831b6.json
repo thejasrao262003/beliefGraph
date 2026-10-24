@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 ground.m_1623c9",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Analyze the policy**\n\nPolicy: *\"Charter service providers qualify for heavy corporate transit agreements when maintaining an active fleet size of 10 aircraft or more.\"*\n\n- This policy has a single set of conditions (no \"OR\" alternative):\n  - **Entity**: Charter service provider (refers to the subject of the memory, Horizon Charters).\n  - **Condition**: Active fleet size \u2265 10 aircraft.\n\n**Step 2: Identify candidate items satisfying each condition**\n\n- **Condition**: Active fleet size of 10 aircraft or more for **Horizon Charters**.\n- **Candidates**:\n  - `e_1649bc`: \"According to the civil aviation register, Horizon Charters operates an active fleet size of 12 aircraft.\" \u2192 **Satisfies** the condition (12 \u2265 10).\n  - `e_17f842`: \"AeroSkies Charter operates a fleet size of 15 aircraft.\" \u2192 **Does not satisfy** because it refers to a different entity (AeroSkies Charter, not Horizon Charters).\n  - Other candidates either refer to different entities or unrelated information.\n\n**Step 3: Assemble the JSON structure**\n\nOnly one group is needed (all conditions must hold together), and it contains a single condition satisfied by candidate `e_1649bc`.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Horizon Charters operates an active fleet size of 10 aircraft or more.\",\n          \"item\": \"e_1649bc\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Output**\n\n```json\n{\"groups\": [{\"all_of\": [{\"condition\": \"Horizon Charters operates an active fleet size of 10 aircraft or more.\", \"item\": \"e_1649bc\"}]}]}\n```",
+ "usage": {
+  "note": "store30_0 ground.m_1623c9",
+  "model": "granite-4.1-8b",
+  "input_tokens": 897,
+  "output_tokens": 380,
+  "seconds": 16.98
+ }
+}

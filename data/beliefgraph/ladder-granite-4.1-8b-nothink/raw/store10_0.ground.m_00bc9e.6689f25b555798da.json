@@ -1,0 +1,12 @@
+{
+ "note": "store10_0 ground.m_00bc9e",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Extract the policy requirements.**  \nThe policy states: *\u201cEntry into the high-velocity document scanner registry requires a document throughput rate of at least 100 pages per minute.\u201d*  \n- **Condition:** The scanner must have a document throughput rate **\u2265\u202f100 pages per minute**.  \nThere is no \"or\" alternative, so we have a single group containing this condition.\n\n**Step 2: Identify candidate items that satisfy the condition.**  \n\n- **Condition:** Document throughput rate \u2265\u202f100\u202fppm.  \n  - **Candidate e_009f40:** States that *OptiScan P20 completed an optical processing speed test of 120 pages per minute.*  \n    \u2192 Meets the condition (120\u202fppm\u202f\u2265\u202f100\u202fppm).  \n  - All other candidates (m_019ab0, m_07997f, m_0412fa, m_02b9a9, e_00c517, m_02895e, m_00e78c, e_0170a5, e_0682d9, e_0715c2, e_002967, m_01c1c6, m_00dfa2, e_0255cd) either discuss unrelated products or metrics not concerning document throughput.  \n    \u2192 Do **not** satisfy the condition \u2192 assign **null**.\n\n**Step 3: Assemble the output JSON.**  \nOnly one group with one condition satisfied by candidate **e_009f40**.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"document throughput rate \u2265 100 pages per minute\",\n          \"item\": \"e_009f40\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**RESULT:**  \n\n```json\n{\"groups\": [{\"all_of\": [{\"condition\": \"document throughput rate >= 100 pages per minute\", \"item\": \"e_009f40\"}]}]}\n```",
+ "usage": {
+  "note": "store10_0 ground.m_00bc9e",
+  "model": "granite-4.1-8b",
+  "input_tokens": 956,
+  "output_tokens": 426,
+  "seconds": 17.34
+ }
+}

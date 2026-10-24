@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 ground.m_173cd1~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Interpret the policy**\n\nPolicy: *\"An air transport carrier is selected to handle corporate travel operations provided it is cleared for executive charter contracts.\"*\n\n- This policy has a single group of conditions (no \"OR\" specified).\n- The condition required is that the entity **must be cleared for executive charter contracts**.\n\n**Step 2: Identify candidate items satisfying the condition**\n\nWe need a candidate that states that **AeroSkies Charter** is cleared for executive charter contracts (i.e., meets executive flight contracting criteria).\n\nReviewing the candidates:\n\n- **m_1708c4**: \"AeroSkies Charter holds Approved Flight Supplier status.\"  \n  - *Implication*: Being an approved flight supplier often includes clearance for executive charter contracts. This satisfies the condition.\n\nOther candidates either refer to different carriers (e.g., AeroLuxe Charters, AeroWay Express, Horizon Charters, Apex Charters) or provide unrelated facts (fleet size, liability coverage, ISO certification, on-time arrival rate) that do not directly address executive charter clearance.\n\nThus, the **only** candidate that directly satisfies the condition is **m_1708c4**.\n\n**Step 3: Construct the JSON output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"cleared for executive charter contracts\",\n          \"item\": \"m_1708c4\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Output**\n\n```json\n{\"groups\": [{\"all_of\": [{\"condition\": \"cleared for executive charter contracts\", \"item\": \"m_1708c4\"}]}]}\n```",
+ "usage": {
+  "note": "store30_0 ground.m_173cd1~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 914,
+  "output_tokens": 342,
+  "seconds": 10.13
+ }
+}

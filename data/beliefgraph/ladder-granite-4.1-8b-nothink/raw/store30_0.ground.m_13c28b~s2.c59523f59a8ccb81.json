@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 ground.m_13c28b~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy**\n\n- Policy: \"A unit attains high-efficiency solar status if peak output is **no less than 450\u202fW**.\"\n- This is a single group of conditions (no \"or\" clause):\n  - Condition: **peak output \u2265 450\u202fW** for the *OmniSolar\u202f300* unit.\n\n**Step 2: Identify candidate items that satisfy the condition**\n\n- We need a fact that states the peak output of **OmniSolar\u202f300** and that it is **\u2265\u202f450\u202fW**.\n- Candidate items:\n  - `e_138d31`: \"OmniSolar 300 achieved peak output of 450\u202fW.\" \u2192 satisfies the condition (450\u202fW \u2265 450\u202fW).\n  - All other candidates either discuss different products, different metrics, or do not mention OmniSolar\u202f300.\n\n**Step 3: Construct the JSON output**\n\n- The only matching candidate is `e_138d31`.\n- JSON format:\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"peak output of OmniSolar 300 is no less than 450\u202fW\",\n          \"item\": \"e_138d31\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Result**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"peak output of OmniSolar 300 is no less than 450\u202fW\",\n          \"item\": \"e_138d31\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "store30_0 ground.m_13c28b~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 938,
+  "output_tokens": 349,
+  "seconds": 15.56
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 ground.m_042075~s2",
+ "model": "granite-4.1-8b",
+ "response": "The policy states that an aviation enterprise attains charter accreditation if **any** of the following conditions hold:\n\n1. **AND**: operates a minimum fleet size of 10 aircraft **AND** maintains valid ISO 9001 certification.\n2. **AND**: moves at least 40000 passengers annually (no additional requirement mentioned).\n3. **OR alone**: possesses an FAA Air Carrier Certificate (no additional requirement mentioned).\n\nFor the memory \"AeroLuxe Charters is authorized for corporate VIP charter contracts,\" we evaluate which candidate items satisfy these conditions:\n\n- **Condition 1**: Fleet size \u2265 10 aircraft **AND** ISO 9001 certification.\n  - **Fleet size \u2265 10**: Fact `e_17f842` states \"AeroSkies Charter operates a fleet size of 15 aircraft.\" (irrelevant to AeroLuxe Charters)  \n  - **ISO 9001 certification**: Fact `e_233da2` states \"AeroWay Express holds an official FAA Air Carrier Certificate.\" (irrelevant)  \n  - **AeroLuxe Charters specific**: No fact directly states fleet size for AeroLuxe Charters. Fact `e_233da2` mentions ISO 9001 for AeroWay Express, not AeroLuxe. Thus, **no matching candidate** for fleet size and ISO 9001 for AeroLuxe Charters.\n\n- **Condition 2**: Moves at least 40000 passengers annually.\n  - No candidate fact directly provides passenger movement data for AeroLuxe Charters. Hence, **no matching candidate**.\n\n- **Condition 3**: Possesses an FAA Air Carrier Certificate.\n  - Fact `e_04ad97` states \"AeroLuxe Charters holds an active FAA Part 135 certificate.\" This satisfies the FAA Air Carrier Certificate requirement for AeroLuxe Charters.\n\nThus, the only satisfied condition is **Condition 3** with candidate item `e_04ad97`.\n\n**Output:**\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"possesses an FAA Air Carrier Certificate\",\n          \"item\": \"e_04ad97\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "store30_0 ground.m_042075~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 946,
+  "output_tokens": 457,
+  "seconds": 22.2
+ }
+}

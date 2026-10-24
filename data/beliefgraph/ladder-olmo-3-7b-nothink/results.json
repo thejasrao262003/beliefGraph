@@ -1,0 +1,1447 @@
+{
+ "algo": "v0.2",
+ "max_output_tokens": 4000,
+ "provider": "modal",
+ "model": "olmo-3-7b",
+ "prompts": [
+  "bg-build-v1",
+  "bg-read-v2",
+  "llm-direct-store-v1"
+ ],
+ "seed": 0,
+ "batch_size": 25,
+ "sizes": {
+  "10": {
+   "memories": 45,
+   "facts": 48,
+   "updates": 12,
+   "graph_unsupported": 8,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.6317267085293651,
+    "LLM-direct": 0.8292737192879508
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.5111111111111111,
+     "acc_touched": 0.5111111111111111,
+     "stale": 0.36363636363636365,
+     "over_invalidation": 0.5,
+     "n_revising": 11
+    },
+    "LLM-direct": {
+     "acc_all": 0.7333333333333333,
+     "acc_touched": 0.7333333333333333,
+     "stale": 0.9090909090909091,
+     "over_invalidation": 0.058823529411764705,
+     "n_revising": 11
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 366,
+     "input_tokens": 269823,
+     "output_tokens": 13204,
+     "seconds": 1823.4800000000018,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 12,
+     "input_tokens": 9648,
+     "output_tokens": 569,
+     "seconds": 48.190000000000005,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 12,
+     "input_tokens": 81544,
+     "output_tokens": 1139,
+     "seconds": 71.45,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "stale": null,
+      "over_invalidation": 0.0,
+      "n_revising": 0
+     },
+     "LLM-direct": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "stale": null,
+      "over_invalidation": 0.0,
+      "n_revising": 0
+     },
+     "errors": [
+      "unknown memory 'e_050976'"
+     ]
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.9555555555555556,
+      "acc_touched": 0.75,
+      "stale": null,
+      "over_invalidation": 0.044444444444444446,
+      "n_revising": 0
+     },
+     "LLM-direct": {
+      "acc_all": 0.9555555555555556,
+      "acc_touched": 1.0,
+      "stale": null,
+      "over_invalidation": 0.044444444444444446,
+      "n_revising": 0
+     },
+     "errors": []
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.9111111111111111,
+      "acc_touched": 0.6666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.047619047619047616,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.9333333333333333,
+      "acc_touched": 0.75,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     },
+     "errors": [
+      "unknown memory 'e_05eca9'",
+      "unknown memory 'e_05d328'",
+      "unknown memory 'e_05b621'",
+      "unknown memory 'e_07bf52'",
+      "unknown memory 'e_07c84b'",
+      "unknown memory 'e_07d46f'",
+      "unknown memory 'e_09ad50'",
+      "unknown memory 'e_024157'",
+      "unknown memory 'e_09a3b8'"
+     ]
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.8222222222222222,
+      "acc_touched": 0.6470588235294118,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.16666666666666666,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.9333333333333333,
+      "acc_touched": 0.8235294117647058,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     },
+     "errors": [
+      "unknown memory 'e_05eca9'",
+      "unknown memory 'e_0255cd'"
+     ]
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.7333333333333333,
+      "acc_touched": 0.5909090909090909,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.2619047619047619,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.9333333333333333,
+      "acc_touched": 0.8636363636363636,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     },
+     "errors": [
+      "invalid JSON: Expecting property name enclosed in double quotes: line 1 column 520 (char 519)"
+     ]
+    },
+    {
+     "n": 6,
+     "BeliefGraph": {
+      "acc_all": 0.7111111111111111,
+      "acc_touched": 0.5454545454545454,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.2857142857142857,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.9333333333333333,
+      "acc_touched": 0.8636363636363636,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     },
+     "errors": [
+      "unknown memory 'e_05eca9'",
+      "unknown memory 'e_07bf52'",
+      "unknown memory 'e_09ad50'",
+      "unknown memory 'e_0255cd'"
+     ]
+    },
+    {
+     "n": 7,
+     "BeliefGraph": {
+      "acc_all": 0.7111111111111111,
+      "acc_touched": 0.6153846153846154,
+      "stale": 0.2,
+      "over_invalidation": 0.3,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.8888888888888888,
+      "acc_touched": 0.8076923076923077,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [
+      "unknown memory 'e_05eca9'",
+      "unknown memory 'e_07bf52'"
+     ]
+    },
+    {
+     "n": 8,
+     "BeliefGraph": {
+      "acc_all": 0.6888888888888889,
+      "acc_touched": 0.6451612903225806,
+      "stale": 0.25,
+      "over_invalidation": 0.32432432432432434,
+      "n_revising": 8
+     },
+     "LLM-direct": {
+      "acc_all": 0.8222222222222222,
+      "acc_touched": 0.7419354838709677,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 8
+     },
+     "errors": [
+      "unknown memory 'e_0257b3'",
+      "unknown memory 'e_09c874'"
+     ]
+    },
+    {
+     "n": 9,
+     "BeliefGraph": {
+      "acc_all": 0.6222222222222222,
+      "acc_touched": 0.5833333333333334,
+      "stale": 0.25,
+      "over_invalidation": 0.40540540540540543,
+      "n_revising": 8
+     },
+     "LLM-direct": {
+      "acc_all": 0.8222222222222222,
+      "acc_touched": 0.7777777777777778,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 8
+     },
+     "errors": [
+      "invalid JSON: Extra data: line 1 column 239 (char 238)"
+     ]
+    },
+    {
+     "n": 10,
+     "BeliefGraph": {
+      "acc_all": 0.5555555555555556,
+      "acc_touched": 0.5128205128205128,
+      "stale": 0.25,
+      "over_invalidation": 0.4864864864864865,
+      "n_revising": 8
+     },
+     "LLM-direct": {
+      "acc_all": 0.8222222222222222,
+      "acc_touched": 0.7948717948717948,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 8
+     },
+     "errors": [
+      "invalid JSON: Expecting property name enclosed in double quotes: line 1 column 389 (char 388)"
+     ]
+    },
+    {
+     "n": 11,
+     "BeliefGraph": {
+      "acc_all": 0.5555555555555556,
+      "acc_touched": 0.5128205128205128,
+      "stale": 0.25,
+      "over_invalidation": 0.4864864864864865,
+      "n_revising": 8
+     },
+     "LLM-direct": {
+      "acc_all": 0.8222222222222222,
+      "acc_touched": 0.7948717948717948,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 8
+     },
+     "errors": [
+      "unknown memory 'e_09ad50'",
+      "unknown memory 'e_08b5f8'",
+      "unknown memory 'e_09ac3f'"
+     ]
+    },
+    {
+     "n": 12,
+     "BeliefGraph": {
+      "acc_all": 0.5111111111111111,
+      "acc_touched": 0.5111111111111111,
+      "stale": 0.36363636363636365,
+      "over_invalidation": 0.5,
+      "n_revising": 11
+     },
+     "LLM-direct": {
+      "acc_all": 0.7333333333333333,
+      "acc_touched": 0.7333333333333333,
+      "stale": 0.9090909090909091,
+      "over_invalidation": 0.058823529411764705,
+      "n_revising": 11
+     },
+     "errors": [
+      "unknown memory 'm_09acd2'",
+      "unknown memory 'm_0bc9e'",
+      "unknown memory 'm_08acdf'"
+     ]
+    }
+   ]
+  },
+  "30": {
+   "memories": 143,
+   "facts": 165,
+   "updates": 43,
+   "graph_unsupported": 19,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.6619424171558459,
+    "LLM-direct": 0.7040724691701563
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.6433566433566433,
+     "acc_touched": 0.6433566433566433,
+     "stale": 0.425531914893617,
+     "over_invalidation": 0.23958333333333334,
+     "n_revising": 47
+    },
+    "LLM-direct": {
+     "acc_all": 0.6713286713286714,
+     "acc_touched": 0.6713286713286714,
+     "stale": 1.0,
+     "over_invalidation": 0.0,
+     "n_revising": 47
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 1440,
+     "input_tokens": 1098637,
+     "output_tokens": 58431,
+     "seconds": 4678.899999999995,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 43,
+     "input_tokens": 34485,
+     "output_tokens": 1986,
+     "seconds": 213.01,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 43,
+     "input_tokens": 925391,
+     "output_tokens": 9754,
+     "seconds": 408.0299999999999,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.986013986013986,
+      "acc_touched": 0.6,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     },
+     "errors": [
+      "unknown memory 'e_267785'"
+     ]
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 0.986013986013986,
+      "acc_touched": 0.8,
+      "stale": 0.4,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.965034965034965,
+      "acc_touched": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [
+      "unknown memory 'e_267785'",
+      "unknown memory 'e_205597'"
+     ]
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.986013986013986,
+      "acc_touched": 0.8461538461538461,
+      "stale": 0.4,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.965034965034965,
+      "acc_touched": 0.6153846153846154,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [
+      "unknown memory 'e_267327'",
+      "unknown memory 'e_205597'"
+     ]
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.9790209790209791,
+      "acc_touched": 0.8823529411764706,
+      "stale": 0.4,
+      "over_invalidation": 0.007246376811594203,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.965034965034965,
+      "acc_touched": 0.7058823529411765,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [
+      "unknown memory 'e_267785'",
+      "unknown memory 'e_1198ab'"
+     ]
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.965034965034965,
+      "acc_touched": 0.8095238095238095,
+      "stale": 0.4,
+      "over_invalidation": 0.021739130434782608,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.965034965034965,
+      "acc_touched": 0.7619047619047619,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "errors": [
+      "unknown memory 'e_267785'",
+      "unknown memory 'e_1198ab'"
+     ]
+    },
+    {
+     "n": 6,
+     "BeliefGraph": {
+      "acc_all": 0.9300699300699301,
+      "acc_touched": 0.7037037037037037,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.029850746268656716,
+      "n_revising": 9
+     },
+     "LLM-direct": {
+      "acc_all": 0.9370629370629371,
+      "acc_touched": 0.6666666666666666,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 9
+     },
+     "errors": [
+      "unknown memory 'e_1743b'",
+      "unknown memory 'e_17ab44'"
+     ]
+    },
+    {
+     "n": 7,
+     "BeliefGraph": {
+      "acc_all": 0.916083916083916,
+      "acc_touched": 0.6875,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.04477611940298507,
+      "n_revising": 9
+     },
+     "LLM-direct": {
+      "acc_all": 0.9370629370629371,
+      "acc_touched": 0.71875,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 9
+     },
+     "errors": [
+      "unknown memory 'e_132a4c'",
+      "unknown memory 'e_17ab44'"
+     ]
+    },
+    {
+     "n": 8,
+     "BeliefGraph": {
+      "acc_all": 0.916083916083916,
+      "acc_touched": 0.7297297297297297,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.04477611940298507,
+      "n_revising": 9
+     },
+     "LLM-direct": {
+      "acc_all": 0.9370629370629371,
+      "acc_touched": 0.7567567567567568,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 9
+     },
+     "errors": [
+      "unknown memory 'e_173530'",
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'"
+     ]
+    },
+    {
+     "n": 9,
+     "BeliefGraph": {
+      "acc_all": 0.8811188811188811,
+      "acc_touched": 0.6666666666666666,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.08208955223880597,
+      "n_revising": 9
+     },
+     "LLM-direct": {
+      "acc_all": 0.9370629370629371,
+      "acc_touched": 0.7857142857142857,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 9
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'"
+     ]
+    },
+    {
+     "n": 10,
+     "BeliefGraph": {
+      "acc_all": 0.8811188811188811,
+      "acc_touched": 0.6956521739130435,
+      "stale": 0.5,
+      "over_invalidation": 0.08396946564885496,
+      "n_revising": 12
+     },
+     "LLM-direct": {
+      "acc_all": 0.916083916083916,
+      "acc_touched": 0.7391304347826086,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 12
+     },
+     "errors": [
+      "unknown memory 'e_097fe6'",
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'"
+     ]
+    },
+    {
+     "n": 11,
+     "BeliefGraph": {
+      "acc_all": 0.8461538461538461,
+      "acc_touched": 0.6481481481481481,
+      "stale": 0.6470588235294118,
+      "over_invalidation": 0.0873015873015873,
+      "n_revising": 17
+     },
+     "LLM-direct": {
+      "acc_all": 0.8811188811188811,
+      "acc_touched": 0.6851851851851852,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 17
+     },
+     "errors": [
+      "unknown memory 'e_133a85'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'u_2197cb'"
+     ]
+    },
+    {
+     "n": 12,
+     "BeliefGraph": {
+      "acc_all": 0.8321678321678322,
+      "acc_touched": 0.6271186440677966,
+      "stale": 0.65,
+      "over_invalidation": 0.08943089430894309,
+      "n_revising": 20
+     },
+     "LLM-direct": {
+      "acc_all": 0.8601398601398601,
+      "acc_touched": 0.6610169491525424,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 20
+     },
+     "errors": [
+      "unknown memory 'e_0977f4'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_1198ab'"
+     ]
+    },
+    {
+     "n": 13,
+     "BeliefGraph": {
+      "acc_all": 0.8041958041958042,
+      "acc_touched": 0.6031746031746031,
+      "stale": 0.65,
+      "over_invalidation": 0.12195121951219512,
+      "n_revising": 20
+     },
+     "LLM-direct": {
+      "acc_all": 0.8601398601398601,
+      "acc_touched": 0.6825396825396826,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 20
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'u_1198ab'",
+      "unknown memory 'u_17ab44'",
+      "unknown memory 'u_2197cb'",
+      "unknown memory 'u_043b06'"
+     ]
+    },
+    {
+     "n": 14,
+     "BeliefGraph": {
+      "acc_all": 0.7972027972027972,
+      "acc_touched": 0.6176470588235294,
+      "stale": 0.6,
+      "over_invalidation": 0.13008130081300814,
+      "n_revising": 20
+     },
+     "LLM-direct": {
+      "acc_all": 0.8601398601398601,
+      "acc_touched": 0.7058823529411765,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 20
+     },
+     "errors": [
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'u_224f0d'"
+     ]
+    },
+    {
+     "n": 15,
+     "BeliefGraph": {
+      "acc_all": 0.7902097902097902,
+      "acc_touched": 0.6351351351351351,
+      "stale": 0.6,
+      "over_invalidation": 0.13821138211382114,
+      "n_revising": 20
+     },
+     "LLM-direct": {
+      "acc_all": 0.8601398601398601,
+      "acc_touched": 0.7297297297297297,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 20
+     },
+     "errors": [
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_141194'",
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'u_25479a'",
+      "unknown memory 'u_094f13'"
+     ]
+    },
+    {
+     "n": 16,
+     "BeliefGraph": {
+      "acc_all": 0.7902097902097902,
+      "acc_touched": 0.6351351351351351,
+      "stale": 0.6,
+      "over_invalidation": 0.13821138211382114,
+      "n_revising": 20
+     },
+     "LLM-direct": {
+      "acc_all": 0.8601398601398601,
+      "acc_touched": 0.7297297297297297,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 20
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_094f13'"
+     ]
+    },
+    {
+     "n": 17,
+     "BeliefGraph": {
+      "acc_all": 0.7832167832167832,
+      "acc_touched": 0.6455696202531646,
+      "stale": 0.5909090909090909,
+      "over_invalidation": 0.14049586776859505,
+      "n_revising": 22
+     },
+     "LLM-direct": {
+      "acc_all": 0.8461538461538461,
+      "acc_touched": 0.7215189873417721,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 22
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_224f0d'",
+      "unknown memory 'u_094f13'"
+     ]
+    },
+    {
+     "n": 18,
+     "BeliefGraph": {
+      "acc_all": 0.7832167832167832,
+      "acc_touched": 0.6455696202531646,
+      "stale": 0.5909090909090909,
+      "over_invalidation": 0.14049586776859505,
+      "n_revising": 22
+     },
+     "LLM-direct": {
+      "acc_all": 0.8461538461538461,
+      "acc_touched": 0.7215189873417721,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 22
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_043b06'",
+      "unknown memory 'e_224f0d'",
+      "unknown memory 'e_094f13'"
+     ]
+    },
+    {
+     "n": 19,
+     "BeliefGraph": {
+      "acc_all": 0.7692307692307693,
+      "acc_touched": 0.6428571428571429,
+      "stale": 0.5909090909090909,
+      "over_invalidation": 0.15702479338842976,
+      "n_revising": 22
+     },
+     "LLM-direct": {
+      "acc_all": 0.8461538461538461,
+      "acc_touched": 0.7380952380952381,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 22
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_224f0d'",
+      "unknown memory 'e_094f13'"
+     ]
+    },
+    {
+     "n": 20,
+     "BeliefGraph": {
+      "acc_all": 0.7482517482517482,
+      "acc_touched": 0.625,
+      "stale": 0.5909090909090909,
+      "over_invalidation": 0.18181818181818182,
+      "n_revising": 22
+     },
+     "LLM-direct": {
+      "acc_all": 0.8461538461538461,
+      "acc_touched": 0.75,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 22
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'u_094f13'",
+      "unknown memory 'u_18149a'"
+     ]
+    },
+    {
+     "n": 21,
+     "BeliefGraph": {
+      "acc_all": 0.7412587412587412,
+      "acc_touched": 0.6304347826086957,
+      "stale": 0.56,
+      "over_invalidation": 0.1864406779661017,
+      "n_revising": 25
+     },
+     "LLM-direct": {
+      "acc_all": 0.8251748251748252,
+      "acc_touched": 0.7282608695652174,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 25
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_094f13'",
+      "unknown memory 'u_094f13'"
+     ]
+    },
+    {
+     "n": 22,
+     "BeliefGraph": {
+      "acc_all": 0.7412587412587412,
+      "acc_touched": 0.6494845360824743,
+      "stale": 0.56,
+      "over_invalidation": 0.1864406779661017,
+      "n_revising": 25
+     },
+     "LLM-direct": {
+      "acc_all": 0.8251748251748252,
+      "acc_touched": 0.7422680412371134,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 25
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'u_1198ab'",
+      "unknown memory 'u_17ab44'",
+      "unknown memory 'u_131cb3'",
+      "unknown memory 'u_2197cb'"
+     ]
+    },
+    {
+     "n": 23,
+     "BeliefGraph": {
+      "acc_all": 0.7412587412587412,
+      "acc_touched": 0.6494845360824743,
+      "stale": 0.56,
+      "over_invalidation": 0.1864406779661017,
+      "n_revising": 25
+     },
+     "LLM-direct": {
+      "acc_all": 0.8251748251748252,
+      "acc_touched": 0.7422680412371134,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 25
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'u_1198ab'",
+      "unknown memory 'u_17ab44'",
+      "unknown memory 'u_131cb3'",
+      "unknown memory 'u_2197cb'",
+      "unknown memory 'u_094f13'"
+     ]
+    },
+    {
+     "n": 24,
+     "BeliefGraph": {
+      "acc_all": 0.7482517482517482,
+      "acc_touched": 0.6597938144329897,
+      "stale": 0.5,
+      "over_invalidation": 0.1826086956521739,
+      "n_revising": 28
+     },
+     "LLM-direct": {
+      "acc_all": 0.8041958041958042,
+      "acc_touched": 0.711340206185567,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 28
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_094f13'",
+      "unknown memory 'e_18149a'",
+      "unknown memory 'e_108d8a'"
+     ]
+    },
+    {
+     "n": 25,
+     "BeliefGraph": {
+      "acc_all": 0.7342657342657343,
+      "acc_touched": 0.6435643564356436,
+      "stale": 0.5333333333333333,
+      "over_invalidation": 0.18584070796460178,
+      "n_revising": 30
+     },
+     "LLM-direct": {
+      "acc_all": 0.7902097902097902,
+      "acc_touched": 0.7029702970297029,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 30
+     },
+     "errors": [
+      "invalid JSON: Expecting property name enclosed in double quotes: line 21 column 29 (char 546)"
+     ]
+    },
+    {
+     "n": 26,
+     "BeliefGraph": {
+      "acc_all": 0.7342657342657343,
+      "acc_touched": 0.6435643564356436,
+      "stale": 0.5333333333333333,
+      "over_invalidation": 0.18584070796460178,
+      "n_revising": 30
+     },
+     "LLM-direct": {
+      "acc_all": 0.7902097902097902,
+      "acc_touched": 0.7029702970297029,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 30
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_194eb9'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_094f13'",
+      "unknown memory 'e_144e74'",
+      "unknown memory 'e_29f74c'",
+      "unknown memory 'e_222cf7'",
+      "unknown memory 'e_005ce3'"
+     ]
+    },
+    {
+     "n": 27,
+     "BeliefGraph": {
+      "acc_all": 0.7132867132867133,
+      "acc_touched": 0.6320754716981132,
+      "stale": 0.5757575757575758,
+      "over_invalidation": 0.19090909090909092,
+      "n_revising": 33
+     },
+     "LLM-direct": {
+      "acc_all": 0.7692307692307693,
+      "acc_touched": 0.6886792452830188,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 33
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_094f13'",
+      "unknown memory 'e_144e74'",
+      "unknown memory 'e_29f74c'",
+      "unknown memory 'e_222cf7'",
+      "unknown memory 'e_005ce3'"
+     ]
+    },
+    {
+     "n": 28,
+     "BeliefGraph": {
+      "acc_all": 0.6993006993006993,
+      "acc_touched": 0.625,
+      "stale": 0.5757575757575758,
+      "over_invalidation": 0.20909090909090908,
+      "n_revising": 33
+     },
+     "LLM-direct": {
+      "acc_all": 0.7692307692307693,
+      "acc_touched": 0.7053571428571429,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 33
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_094f13'",
+      "unknown memory 'e_144e74'",
+      "unknown memory 'e_28b4d0'"
+     ]
+    },
+    {
+     "n": 29,
+     "BeliefGraph": {
+      "acc_all": 0.6783216783216783,
+      "acc_touched": 0.6086956521739131,
+      "stale": 0.5757575757575758,
+      "over_invalidation": 0.23636363636363636,
+      "n_revising": 33
+     },
+     "LLM-direct": {
+      "acc_all": 0.7692307692307693,
+      "acc_touched": 0.7130434782608696,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 33
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'u_2197cb'",
+      "unknown memory 'e_224f0d'",
+      "unknown memory 'e_094f13'",
+      "unknown memory 'e_144e74'",
+      "unknown memory 'e_29f74c'",
+      "unknown memory 'e_222cf7'",
+      "unknown memory 'e_2217b6'",
+      "unknown memory 'e_005ce3'"
+     ]
+    },
+    {
+     "n": 30,
+     "BeliefGraph": {
+      "acc_all": 0.6783216783216783,
+      "acc_touched": 0.6086956521739131,
+      "stale": 0.5757575757575758,
+      "over_invalidation": 0.23636363636363636,
+      "n_revising": 33
+     },
+     "LLM-direct": {
+      "acc_all": 0.7692307692307693,
+      "acc_touched": 0.7130434782608696,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 33
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'u_2197cb'",
+      "unknown memory 'u_094f13'",
+      "unknown memory 'u_2217b6'"
+     ]
+    },
+    {
+     "n": 31,
+     "BeliefGraph": {
+      "acc_all": 0.6783216783216783,
+      "acc_touched": 0.6186440677966102,
+      "stale": 0.5588235294117647,
+      "over_invalidation": 0.23853211009174313,
+      "n_revising": 34
+     },
+     "LLM-direct": {
+      "acc_all": 0.7622377622377622,
+      "acc_touched": 0.711864406779661,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 34
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'u_1198ab'",
+      "unknown memory 'u_17ab44'",
+      "unknown memory 'u_09ef57'",
+      "unknown memory 'u_16bd7b'"
+     ]
+    },
+    {
+     "n": 32,
+     "BeliefGraph": {
+      "acc_all": 0.6783216783216783,
+      "acc_touched": 0.6186440677966102,
+      "stale": 0.5588235294117647,
+      "over_invalidation": 0.23853211009174313,
+      "n_revising": 34
+     },
+     "LLM-direct": {
+      "acc_all": 0.7622377622377622,
+      "acc_touched": 0.711864406779661,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 34
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_094f13'",
+      "unknown memory 'e_144e74'",
+      "unknown memory 'u_1198ab'",
+      "unknown memory 'u_17ab44'",
+      "unknown memory 'u_131cb3'",
+      "unknown memory 'u_2197cb'",
+      "unknown memory 'u_094f13'",
+      "unknown memory 'u_144e74'"
+     ]
+    },
+    {
+     "n": 33,
+     "BeliefGraph": {
+      "acc_all": 0.6783216783216783,
+      "acc_touched": 0.6186440677966102,
+      "stale": 0.5588235294117647,
+      "over_invalidation": 0.23853211009174313,
+      "n_revising": 34
+     },
+     "LLM-direct": {
+      "acc_all": 0.7622377622377622,
+      "acc_touched": 0.711864406779661,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 34
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_094f13'",
+      "unknown memory 'e_2217b6'",
+      "unknown memory 'e_23e5b8'",
+      "unknown memory 'e_05ce3'",
+      "unknown memory 'e_18a129'",
+      "unknown memory 'e_16bd7b'"
+     ]
+    },
+    {
+     "n": 34,
+     "BeliefGraph": {
+      "acc_all": 0.6713286713286714,
+      "acc_touched": 0.6178861788617886,
+      "stale": 0.5588235294117647,
+      "over_invalidation": 0.24770642201834864,
+      "n_revising": 34
+     },
+     "LLM-direct": {
+      "acc_all": 0.7622377622377622,
+      "acc_touched": 0.7235772357723578,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 34
+     },
+     "errors": [
+      "invalid JSON: Expecting property name enclosed in double quotes: line 7 column 30 (char 161)"
+     ]
+    },
+    {
+     "n": 35,
+     "BeliefGraph": {
+      "acc_all": 0.6503496503496503,
+      "acc_touched": 0.609375,
+      "stale": 0.5588235294117647,
+      "over_invalidation": 0.27522935779816515,
+      "n_revising": 34
+     },
+     "LLM-direct": {
+      "acc_all": 0.7622377622377622,
+      "acc_touched": 0.734375,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 34
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_094f13'",
+      "unknown memory 'e_144e74'",
+      "unknown memory 'e_29f74c'",
+      "unknown memory 'e_222cf7'",
+      "unknown memory 'e_005ce3'",
+      "unknown memory 'u_09bdef'"
+     ]
+    },
+    {
+     "n": 36,
+     "BeliefGraph": {
+      "acc_all": 0.6363636363636364,
+      "acc_touched": 0.59375,
+      "stale": 0.5675675675675675,
+      "over_invalidation": 0.27358490566037735,
+      "n_revising": 37
+     },
+     "LLM-direct": {
+      "acc_all": 0.7412587412587412,
+      "acc_touched": 0.7109375,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 37
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_094f13'",
+      "unknown memory 'e_144e74'",
+      "unknown memory 'e_29f74c'",
+      "unknown memory 'u_23fb90'"
+     ]
+    },
+    {
+     "n": 37,
+     "BeliefGraph": {
+      "acc_all": 0.6363636363636364,
+      "acc_touched": 0.6119402985074627,
+      "stale": 0.5675675675675675,
+      "over_invalidation": 0.27358490566037735,
+      "n_revising": 37
+     },
+     "LLM-direct": {
+      "acc_all": 0.7412587412587412,
+      "acc_touched": 0.7238805970149254,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 37
+     },
+     "errors": [
+      "invalid JSON: Expecting property name enclosed in double quotes: line 4 column 30 (char 75)"
+     ]
+    },
+    {
+     "n": 38,
+     "BeliefGraph": {
+      "acc_all": 0.6293706293706294,
+      "acc_touched": 0.6044776119402985,
+      "stale": 0.5641025641025641,
+      "over_invalidation": 0.2692307692307692,
+      "n_revising": 39
+     },
+     "LLM-direct": {
+      "acc_all": 0.7272727272727273,
+      "acc_touched": 0.7089552238805971,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 39
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_094f13'",
+      "unknown memory 'e_144e74'",
+      "unknown memory 'u_1198ab'",
+      "unknown memory 'u_17ab44'",
+      "unknown memory 'u_094f13'",
+      "unknown memory 'u_1468a2'"
+     ]
+    },
+    {
+     "n": 39,
+     "BeliefGraph": {
+      "acc_all": 0.6293706293706294,
+      "acc_touched": 0.6044776119402985,
+      "stale": 0.5641025641025641,
+      "over_invalidation": 0.2692307692307692,
+      "n_revising": 39
+     },
+     "LLM-direct": {
+      "acc_all": 0.7272727272727273,
+      "acc_touched": 0.7089552238805971,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 39
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_094f13'",
+      "unknown memory 'e_144e74'",
+      "unknown memory 'e_29f74c'",
+      "unknown memory 'e_222cf7'",
+      "unknown memory 'e_005ce3'",
+      "unknown memory 'e_18a129'",
+      "unknown memory 'e_23a73f'",
+      "unknown memory 'e_23e5b8'",
+      "unknown memory 'e_2217b6'",
+      "unknown memory 'e_09ef57'",
+      "unknown memory 'e_16bd7b'"
+     ]
+    },
+    {
+     "n": 40,
+     "BeliefGraph": {
+      "acc_all": 0.6293706293706294,
+      "acc_touched": 0.6044776119402985,
+      "stale": 0.5238095238095238,
+      "over_invalidation": 0.24752475247524752,
+      "n_revising": 42
+     },
+     "LLM-direct": {
+      "acc_all": 0.6993006993006993,
+      "acc_touched": 0.6791044776119403,
+      "stale": 1.0,
+      "over_invalidation": 0.009900990099009901,
+      "n_revising": 42
+     },
+     "errors": [
+      "unknown memory 'm_2197cb'",
+      "unknown memory 'm_029d340'",
+      "unknown memory 'm_1198ab'",
+      "unknown memory 'm_17ab44'",
+      "unknown memory 'm_131cb3'",
+      "unknown memory 'm_144e74'",
+      "unknown memory 'm_194eb9'",
+      "unknown memory 'u_2197cb'"
+     ]
+    },
+    {
+     "n": 41,
+     "BeliefGraph": {
+      "acc_all": 0.6293706293706294,
+      "acc_touched": 0.6044776119402985,
+      "stale": 0.5,
+      "over_invalidation": 0.23232323232323232,
+      "n_revising": 44
+     },
+     "LLM-direct": {
+      "acc_all": 0.6923076923076923,
+      "acc_touched": 0.6716417910447762,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 44
+     },
+     "errors": [
+      "unknown memory 'e_1198ab'",
+      "unknown memory 'e_17ab44'",
+      "unknown memory 'e_131cb3'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_094f13'",
+      "unknown memory 'e_144e74'",
+      "unknown memory 'u_09bdef'",
+      "unknown memory 'u_094933'",
+      "unknown memory 'u_0741fa'"
+     ]
+    },
+    {
+     "n": 42,
+     "BeliefGraph": {
+      "acc_all": 0.6293706293706294,
+      "acc_touched": 0.6159420289855072,
+      "stale": 0.5,
+      "over_invalidation": 0.23232323232323232,
+      "n_revising": 44
+     },
+     "LLM-direct": {
+      "acc_all": 0.6923076923076923,
+      "acc_touched": 0.6811594202898551,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 44
+     },
+     "errors": [
+      "unknown memory 'e_173530'",
+      "unknown memory 'e_2197cb'",
+      "unknown memory 'e_2379a9'",
+      "unknown memory 'e_219ab0'",
+      "unknown memory 'e_094f13'",
+      "unknown memory 'e_173cd1'",
+      "unknown memory 'e_2378a5'",
+      "unknown memory 'e_173ec2'",
+      "unknown memory 'e_0938d2'",
+      "unknown memory 'e_142b00'",
+      "unknown memory 'e_144e74'",
+      "unknown memory 'e_094c54'",
+      "unknown memory 'e_2197b3'",
+      "unknown memory 'e_2197b6'",
+      "unknown memory 'e_2197ab'"
+     ]
+    },
+    {
+     "n": 43,
+     "BeliefGraph": {
+      "acc_all": 0.6433566433566433,
+      "acc_touched": 0.6433566433566433,
+      "stale": 0.425531914893617,
+      "over_invalidation": 0.23958333333333334,
+      "n_revising": 47
+     },
+     "LLM-direct": {
+      "acc_all": 0.6713286713286714,
+      "acc_touched": 0.6713286713286714,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 47
+     },
+     "errors": [
+      "invalid JSON: Expecting property name enclosed in double quotes: line 16 column 25 (char 401)"
+     ]
+    }
+   ]
+  }
+ }
+}

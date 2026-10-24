@@ -88,6 +88,7 @@ RELIABILITY_VERSION = "bg-rel-v1"
 OUTCOME_VERSION = "bg-outcome-v1"
 ADJUDICATE_VERSION = "bg-adjudicate-v1"
 VERIFY_VERSION = "bg-verify-v1"
+SCORE_VERSION = "bg-score-v1"
 ROUTE_OUTCOME_VERSION = "bg-route-outcome-v1"
 
 ROUTE_PROMPT = """\
@@ -183,4 +184,20 @@ the rule is about something else, or if it merely REQUIRES something like the me
 grants one of the memory's own premises.
 
 OUTPUT: a single JSON object, no prose: {"answer": "yes" | "no"}
+"""
+
+# v0.5: relative scoring. A yes/no check is biased to "no" on small models when wording
+# differs (Qwen3.5-9B said yes to 32 of 1800 checks); a score is only compared with the other
+# candidates' scores, so a uniformly strict model still ranks the right rule first.
+SCORE_PROMPT = """\
+You are BeliefGraph. An AI assistant stored a MEMORY (a conclusion or plan) by applying one of \
+its rules. Rate how likely it is that the given RULE is the one that produced this memory, \
+from 0 (unrelated) to 10 (certainly this rule).
+
+High: the rule's outcome is what the memory states, possibly in other words (for example \
+"approved for the fleet catalog" for "catalog listing is granted").
+Low: the rule is about something else, or it only REQUIRES something like the memory, or it \
+grants one of the memory's own premises.
+
+OUTPUT: a single JSON object, no prose: {"score": <0-10>}
 """

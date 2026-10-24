@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 ground.m_072075~s1",
+ "model": "granite-4.1-8b",
+ "response": "The policy states that an enterprise achieves approved supplier qualification when **either**:\n\n1. Its annual sales revenue equals **1500000 USD or more** over the year **(AND)**  \n2. It holds a **Tier-1 Supplier License**.\n\nWe examine the candidates for each condition:\n\n1. **Annual sales revenue \u2265 1500000 USD**  \n   - Candidate **e_07e50c** states: \"ValenTech recorded annual sales revenue of 2000000 USD for the year.\"  \n   - This satisfies the revenue condition (2000000 \u2265 1500000).  \n   - **Candidate for this condition:** e_07e50c  \n\n2. **Tier-1 Supplier License**  \n   - Candidate **e_07dfe6** states: \"ValenTech holds a Tier-1 Supplier License.\"  \n   - This satisfies the license condition.  \n   - **Candidate for this condition:** e_07dfe6  \n\nSince the policy uses **OR**, both groups are valid, but we need to capture the structure as per the instruction (a single group containing the OR alternatives). Therefore, the policy is satisfied by either of the two individual conditions.\n\n**Output JSON:**\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"annual sales revenue \u2265 1500000 USD\",\n          \"item\": \"e_07e50c\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds Tier-1 Supplier License\",\n          \"item\": \"e_07dfe6\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "store30_0 ground.m_072075~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 931,
+  "output_tokens": 346,
+  "seconds": 15.34
+ }
+}

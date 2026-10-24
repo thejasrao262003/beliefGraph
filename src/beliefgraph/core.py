@@ -5,6 +5,7 @@ tested against Veritas-TMS)."""
 from __future__ import annotations
 
 import json
+import re
 from collections import Counter
 from collections.abc import Callable
 from dataclasses import dataclass, field
@@ -23,6 +24,7 @@ from beliefgraph.prompts import (
     RETRY_NOTE,
     ROUTE_OUTCOME_PROMPT,
     ROUTE_PROMPT,
+    SCORE_PROMPT,
     VERIFY_PROMPT,
 )
 
@@ -49,9 +51,18 @@ class UpdateReading:
 
 
 def _load_json(raw: str) -> dict:
+    """The JSON object in a model's answer. Small models often wrap it in code fences or break
+    the syntax in small ways (doubled or trailing commas); those are repaired, nothing else."""
     text = raw.strip().removeprefix("```json").removeprefix("```").removesuffix("```").strip()
     start, end = text.find("{"), text.rfind("}")
-    return json.loads(text[start : end + 1] if start >= 0 else text)
+    text = text[start : end + 1] if start >= 0 else text
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        fixed = re.sub(r",\s*(?=,)", "", text)            # ", ," -> ","
+        fixed = re.sub(r",\s*([}\]])", r"\1", fixed)      # trailing commas
+        fixed = re.sub(r"([{,]\s*),", r"\1", fixed)        # "{," or ", ," leftovers
+        return json.loads(fixed)
 
 
 def build_message(view: dict) -> str:
@@ -285,8 +296,8 @@ class DecomposedBeliefGraph(BeliefGraph):
         super().__init__(llm)
         self.samples, self.resolve_conflicts, self.conflict_rounds = samples, resolve_conflicts, conflict_rounds
         self.adjudicate = adjudicate
-        if route_mode not in ("choose", "verify"):
-            raise ValueError(f"route_mode must be 'choose' or 'verify', not {route_mode!r}")
+        if route_mode not in ("choose", "verify", "score"):
+            raise ValueError(f"route_mode must be 'choose', 'verify' or 'score', not {route_mode!r}")
         self.route_mode, self.k_verify, self.entity_ground, self.k_ground = route_mode, k_verify, entity_ground, k_ground
         self.outcome_routing, self.outcome_batch = outcome_routing, outcome_batch
         self.max_reroutes = max_reroutes
@@ -443,6 +454,20 @@ class DecomposedBeliefGraph(BeliefGraph):
             got = self._samples(ask)
             return sum(got) / len(got)
 
+        def score(mid: str, policy: str, tag: str) -> float:
+            """Mean 0-10 rating of "this rule produced this memory" over samples (unparsable = 0)."""
+            msg = json.dumps({"memory": mems[mid]["text"], "rule": pols[policy]["text"]}, indent=1)
+
+            def ask(k):
+                try:
+                    v = _load_json(self.llm(SCORE_PROMPT, msg, sample_note(f"{sid} score{tag}.{mid}.{policy}", k))).get("score")
+                    return min(10.0, max(0.0, float(v)))
+                except Exception:  # noqa: BLE001 -- unparsable or failed: no support
+                    return 0.0
+
+            got = self._samples(ask)
+            return sum(got) / len(got)
+
         def ground(mid: str, policy: str, tag: str, k: int = 0) -> tuple[list[list[str]], list[str]]:
             text, errs = mems[mid]["text"], []
             cands = ground_candidates(mid, policy)
@@ -486,6 +511,30 @@ class DecomposedBeliefGraph(BeliefGraph):
             """Route (voted), ground the voted policies in order, and when none grounds, re-route
             with them excluded: a decoy or wrong rule cannot be grounded in the facts."""
             ranked, tried, errs = rank_policies(mems[mid]["text"]), set(banned), []
+            if self.route_mode == "score":
+                # windows of k_verify policies in retrieval order, each rated 0-10; the best-rated
+                # ones (ties: retrieval order) are grounded in turn, grounding being the filter
+                for w in range(self.max_reroutes + 1):
+                    window = [p for p in ranked if p not in tried][: self.k_verify]
+                    if not window:
+                        break
+                    tag = tag0 + ("" if w == 0 else f"w{w}")
+                    scores = dict(zip(window, self._map_inner(lambda p: score(mid, p, tag0), window)))
+                    order = sorted(window, key=lambda p: (-scores[p], window.index(p)))
+                    for policy in order[:2]:
+                        if scores[policy] <= 0:
+                            break
+                        sets, gerrs = voted_ground(mid, policy, tag)
+                        errs += gerrs
+                        if sets:
+                            top = scores[order[0]]
+                            margin = top - max([scores[p] for p in order[1:]] or [0])
+                            return {"policy": policy, "share": 1.0 if policy == order[0] and margin >= 2 else 0.5,
+                                    "sets": sets, "errs": errs, "votes": {}, "tag": tag}
+                        errs.append(f"policy {policy} could not be grounded")
+                    tried.update(order[:2])
+                errs.append("no policy scored and grounded")
+                return {"policy": None, "share": 0.0, "sets": [], "errs": errs}
             if self.route_mode == "verify":
                 # windows of k_verify policies in retrieval order; within a window, every "yes"
                 # (majority of samples) is grounded in order of its yes-share, then rank

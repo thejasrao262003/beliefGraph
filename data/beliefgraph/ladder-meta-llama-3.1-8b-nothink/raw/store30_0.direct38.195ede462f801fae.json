@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 direct38",
+ "model": "meta-llama-3.1-8b",
+ "response": "```python\nimport json\nfrom datetime import datetime\n\ndef process_memory(memory, updates):\n    # Find all updates that are relevant to this memory\n    relevant_updates = [u for u in updates if u['id'] in memory['text'] or u['id'] in memory['id']]\n    \n    # Check if any of the relevant updates have changed the memory\n    for u in relevant_updates:\n        # Check if the update is older than the memory\n        if datetime.strptime(u['observed'], '%Y-%m-%d') < datetime.strptime(memory['observed'], '%Y-%m-%d'):\n            continue\n        \n        # Check if the update has changed the memory\n        if u['id'] in memory['text']:\n            if u['text'] == 'withdrawn' or u['text'] == 'retracted':\n                return 'withdraw'\n            elif u['text'] == 'replaced':\n                return 'recompute'\n            elif u['text'] == 'doubtful':\n                return 'uncertain'\n    \n    # If no updates have changed the memory, keep it\n    return 'keep'\n\ndef process_memories(memories, updates):\n    # Process each memory\n    for memory in memories:\n        action = process_memory(memory, updates)\n        if action != 'keep':\n            print(json.dumps({'id': memory['id'], 'action': action}))\n\n# Load the data\ndata = json.loads(open('data.json').read())\n\n# Process the memories\nprocess_memories(data['memories'], data['updates'])\n```",
+ "usage": {
+  "note": "store30_0 direct38",
+  "model": "meta-llama-3.1-8b",
+  "input_tokens": 22585,
+  "output_tokens": 319,
+  "seconds": 19.49
+ }
+}

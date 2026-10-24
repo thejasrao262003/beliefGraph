@@ -1,0 +1,12 @@
+{
+ "note": "store10_0 ground.m_08e40f~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy into alternative groups**\n\nThe policy states:  \n*\"Market deployment authorization is granted to an uncrewed aircraft if it holds an official broadcast permit **or** achieves a quarterly flight safety evaluation rating of at least 90 points.\"*\n\n- **Group 1 (OR group):**  \n  - Condition A: *holds an official broadcast permit*  \n  - Condition B: *flight safety evaluation rating \u2265 90 points*\n\n**Step 2: Identify candidate items for each condition**\n\n- **Condition A \u2013 official broadcast permit**  \n  - Candidate `e_08b5f8`: *\"AeroGlide Drone possesses an active FCC Class B broadcast permit.\"*  \n  - This directly satisfies the condition. No other candidate matches this condition.\n\n- **Condition B \u2013 flight safety evaluation rating \u2265 90**  \n  - Candidate `e_08e5ac`: *\"AeroGlide Drone recorded a flight safety evaluation rating of 92 points this quarter.\"*  \n  - This meets the \u2265 90 requirement. No other candidate matches this condition.\n\n**Step 3: Construct the JSON output**\n\nEach alternative group is represented as an `all_of` list containing its respective conditions and their satisfying candidates.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds an official broadcast permit\",\n          \"item\": \"e_08b5f8\"\n        },\n        {\n          \"condition\": \"flight safety evaluation rating \u2265 90 points\",\n          \"item\": \"e_08e5ac\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely captures the logical structure of the policy and points to the exact candidate items that satisfy each condition.",
+ "usage": {
+  "note": "store10_0 ground.m_08e40f~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 945,
+  "output_tokens": 360,
+  "seconds": 17.99
+ }
+}

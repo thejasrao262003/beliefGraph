@@ -1,0 +1,12 @@
+{
+ "note": "store30_0 ground.m_1708c4",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Decode the policy**\n\nThe policy states an air transport carrier receives Preferred Provider designation by satisfying **either**:\n\n- **Group A** (all conditions must hold together):\n  1. Yearly punctuality \u2265\u202f90\u202f%\n  2. Active aircraft count \u2265\u202f10\n  3. Holds ISO\u202f9001 quality management certification\n  4. Yearly safety infractions \u2264\u202f2\n\n- **Group B** (all conditions must hold together):\n  1. Holds Platinum Flight Operations Accreditation\n\n**Step 2: Map conditions to candidate items (or null)**\n\n| Condition | Relevant Candidate(s) | Satisfying Candidate ID |\n|-----------|-----------------------|--------------------------|\n| Yearly punctuality \u2265\u202f90\u202f% | Fact: \"AeroSkies Charter achieved an on-time arrival rate of 92% this year.\" | `e_17b478` |\n| Active aircraft count \u2265\u202f10 | Fact: \"AeroSkies Charter operates a fleet size of 15 aircraft.\" | `e_17f842` |\n| ISO\u202f9001 certification | Fact: \"AeroSkies Charter holds an active ISO 9001 quality management certification.\" | `e_173530` |\n| Safety infractions \u2264\u202f2 | No explicit safety infractions fact found \u2192 `null` |\n| Platinum Flight Operations Accreditation | Fact: \"AeroSkies Charter holds an active Platinum Flight Operations Accreditation.\" | `e_17ac94` |\n\n**Step 3: Assemble the groups**\n\n- **Group A** requires all four conditions. Since the safety infractions condition is not satisfied (`null`), Group A cannot hold.\n- **Group B** requires only the Platinum accreditation, which is satisfied by `e_17ac94`.\n\n**Step 4: Produce JSON output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds Platinum Flight Operations Accreditation\",\n          \"item\": \"e_17ac94\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON succinctly captures that the memory \"AeroSkies Charter holds Approved Flight Supplier status\" is supported by the candidate fact that AeroSkies Charter holds an active Platinum Flight Operations Accreditation, satisfying the disjunctive policy criteria.",
+ "usage": {
+  "note": "store30_0 ground.m_1708c4",
+  "model": "granite-4.1-8b",
+  "input_tokens": 952,
+  "output_tokens": 493,
+  "seconds": 20.89
+ }
+}
