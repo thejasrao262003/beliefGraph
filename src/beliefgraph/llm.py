@@ -69,6 +69,7 @@ class ProviderLLM:
     max_output_tokens: int = 16_000
     effort: str | None = "high"  # Anthropic: graph building is reasoning-heavy
     fallbacks: bool = True  # Anthropic: server-side refusal fallback (served model is recorded)
+    thinking: bool | None = None  # self-hosted Qwen-style chat templates: False answers without thinking
     usage: list[dict] = field(default_factory=list)
 
     def __call__(self, system: str, message: str, note: str = "") -> str:
@@ -108,7 +109,9 @@ class ProviderLLM:
         resp = self.client.chat.completions.create(
             model=self.model, max_tokens=self.max_output_tokens,
             messages=[{"role": "system", "content": system}, {"role": "user", "content": message}],
-            **({"seed": seed} if seed is not None else {}))
+            **({"seed": seed} if seed is not None else {}),
+            **({"extra_body": {"chat_template_kwargs": {"enable_thinking": self.thinking}}}
+               if self.thinking is not None else {}))
         choice = resp.choices[0]
         if getattr(choice, "finish_reason", None) == "content_filter":
             raise RefusalError(f"{self.provider}/{self.model} filtered the response")

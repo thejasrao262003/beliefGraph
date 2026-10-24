@@ -45,8 +45,8 @@ _SUITES: dict[int, dict] = {}
 
 def gold_inputs(sv: dict, ev: dict, seed: int) -> tuple[dict, dict, dict[str, UpdateReading]]:
     """Gold graph, gold source reliabilities and gold update readings, in opaque ids."""
-    if seed not in _SUITES:
-        _SUITES[seed] = {s.id: s for s in generate_suite(10, seed)}
+    if seed not in _SUITES:  # each scenario has its own RNG stream, so a longer suite keeps the first ones
+        _SUITES[seed] = {s.id: s for s in generate_suite(60, seed)}
     s = _SUITES[seed][ev["source_scenario"]]
     idmap = ev["idmap"]
     reliability = {idmap[n.id]: n.reliability for n in s.nodes if n.is_evidence}

@@ -677,6 +677,11 @@ class Rendering:
         return not self.errors
 
 
+def _as_item(x) -> dict:
+    """A node or update entry: an object, or (from weaker models) a bare text string."""
+    return x if isinstance(x, dict) else {"text": x} if isinstance(x, str) else {}
+
+
 def parse_response(s: Scenario, raw: str, require_policies: bool = True, version: str = PROMPT_VERSION) -> Rendering:
     """Parse and structurally validate a renderer response. Problems go to ``errors``."""
     errors: list[str] = []
@@ -684,11 +689,14 @@ def parse_response(s: Scenario, raw: str, require_policies: bool = True, version
         obj = json.loads(raw.strip().removeprefix("```json").removesuffix("```").strip())
     except json.JSONDecodeError as e:
         return Rendering("", {}, {}, {}, {}, [f"invalid JSON: {e}"])
-    nodes, updates, rationale = obj.get("nodes", {}), obj.get("updates", {}), obj.get("rationale", {})
+    if not isinstance(obj, dict):
+        return Rendering("", {}, {}, {}, {}, ["the answer must be one JSON object"])
+    nodes, updates, rationale = (x if isinstance(x, dict) else {} for x in
+                                 (obj.get("nodes", {}), obj.get("updates", {}), obj.get("rationale", {})))
     policies = obj.get("policies", {}) or {}
     texts, sources, update_texts = {}, {}, {}
     for n in s.nodes:
-        item = nodes.get(n.id) or {}
+        item = _as_item(nodes.get(n.id))
         text = (item.get("text") or "").strip()
         if not text:
             errors.append(f"{n.id}: missing text")
@@ -701,10 +709,10 @@ def parse_response(s: Scenario, raw: str, require_policies: bool = True, version
         else:
             if len(rationale.get(n.id) or []) != len(n.justifications):
                 errors.append(f"{n.id}: expected {len(n.justifications)} rationale sentences")
-            if require_policies and not (policies.get(n.id) or "").strip():
+            if require_policies and not str(policies.get(n.id) or "").strip():
                 errors.append(f"{n.id}: missing policy")
     for u in s.updates:
-        item = updates.get(u.id) or {}
+        item = _as_item(updates.get(u.id))
         update_texts[u.id] = (item.get("text") or "").strip()
         sources[u.id] = (item.get("source") or "").strip()
         if not update_texts[u.id] or not sources[u.id]:

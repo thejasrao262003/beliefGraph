@@ -21,7 +21,8 @@ class CachedLLM:
         # The system prompt text identifies the prompt (and its version). The key prefix is
         # frozen at the first versions' names so earlier cached responses stay valid when a
         # prompt is revised (the revised text alone changes its own calls' keys).
-        key = hashlib.sha256(f"{_KEY_PREFIX}|{getattr(self.llm, 'model', '')}|{system}|{message}"
+        mode = {False: "|no-thinking", True: "|thinking"}.get(getattr(self.llm, "thinking", None), "")
+        key = hashlib.sha256(f"{_KEY_PREFIX}|{getattr(self.llm, 'model', '')}{mode}|{system}|{message}"
                              .encode()).hexdigest()[:16]
         path = self.raw_dir / f"{note.replace(' ', '.')}.{key}.json"
         if path.exists():

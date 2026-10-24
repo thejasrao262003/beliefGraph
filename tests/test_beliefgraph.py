@@ -568,3 +568,20 @@ def test_v04_adjudicates_split_votes_with_grounded_candidates(tfidf):
     g = DecomposedBeliefGraph(llm, workers=1).build(VIEW)
     assert shown and all("premises" in v for v in shown[0].values())
     assert any("adjudicated" in e for e in g.errors) and g.confidence["m_2"] == 1.0
+
+
+def test_cache_separates_thinking_modes(tmp_path):
+    from beliefgraph.cache import CachedLLM
+
+    class Fake:
+        model, usage = "m", []
+
+        def __init__(self, thinking):
+            self.thinking = thinking
+
+        def __call__(self, system, message, note=""):
+            return f"thinking={self.thinking}"
+
+    assert CachedLLM(Fake(None), tmp_path)("s", "x", "n") == "thinking=None"
+    assert CachedLLM(Fake(False), tmp_path)("s", "x", "n") == "thinking=False"  # not the cached default answer
+    assert CachedLLM(Fake(None), tmp_path)("s", "x", "n") == "thinking=None"
