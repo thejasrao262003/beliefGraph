@@ -68,7 +68,7 @@ app = modal.App("beliefgraph-qwen35-9b" if MODEL == "Qwen/Qwen3.5-9B" else f"bel
              "/root/.cache/flashinfer": flashinfer_cache},
     secrets=secrets,
     max_containers=1,
-    scaledown_window=20 * MINUTES,  # stay warm between experiment calls; idle cost stops after this
+    scaledown_window=5 * MINUTES,  # idle containers stop after 5 minutes (the user asked to keep idle cost down)
     startup_timeout=20 * MINUTES,
     unauthenticated=True,  # reachable without Modal auth; vLLM itself requires the API key
 )
