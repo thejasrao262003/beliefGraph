@@ -39,6 +39,10 @@ EXTRA = {
     # Served at vLLM defaults like every other model. (The model card recommends temperature <0.1;
     # at 0.05 the router abstained on 87/143 memories and balanced accuracy fell 0.777 -> 0.665.)
     "mistralai/": ["--tokenizer-mode", "mistral", "--config-format", "mistral", "--load-format", "mistral"],
+    # Qwen3-Reranker as a cross-encoder scorer (/score, /rerank): P("yes") from the no/yes logits
+    "Qwen/Qwen3-Reranker": ["--runner", "pooling", "--hf-overrides",
+                            '{"architectures": ["Qwen3ForSequenceClassification"], '
+                            '"classifier_from_token": ["no", "yes"], "is_original_qwen3_reranker": true}'],
 }
 
 image = (
