@@ -439,7 +439,7 @@ def test_v02_reads_each_update_against_its_nearest_facts(tfidf):
         seen.append(json.loads(message))
         return json.dumps(READ)
 
-    readings, _ = DecomposedBeliefGraph(llm, k_read=1, workers=1).read_updates(VIEW)
+    readings, _ = DecomposedBeliefGraph(llm, k_read=1, workers=1, read_implicit=False).read_updates(VIEW)
     assert readings["u_1"].target == "e_1" and [f["id"] for f in seen[0]["facts"]] == ["e_1"]
 
 

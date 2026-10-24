@@ -365,7 +365,7 @@ class DecomposedBeliefGraph(BeliefGraph):
                  outcome_batch: int = 20, samples: int = 3, resolve_conflicts: bool = False, conflict_rounds: int = 2,
                  adjudicate: bool = True, route_mode: str = "choose", k_verify: int = 5,
                  entity_ground: bool = False, k_ground: int = 8, conflict_mode: str = "overlap",
-                 rule_parse: bool = False, read_implicit: bool = False):
+                 rule_parse: bool = False, read_implicit: bool = True):
         super().__init__(llm)
         self.samples, self.resolve_conflicts, self.conflict_rounds = samples, resolve_conflicts, conflict_rounds
         self.adjudicate = adjudicate
