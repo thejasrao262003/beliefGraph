@@ -1,0 +1,12 @@
+{
+ "note": "dossier017 ground.m_0021b4~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Split the policy into alternatives (OR) of groups of conditions (AND).**\n\nPolicy: \"Candidate reference validation is granted either when an applicant presents at least 3 reference letters, **or** holds an executive recommendation endorsement.\"\n\n- Group 1: (AT_LEAST 3 reference letters)\n- Group 2: (EXECUTIVE_RECOMMENDATION)\n\n**Step 2: Identify candidate items satisfying each condition.**\n\n- **Group 1 \u2013 AT_LEAST 3 reference letters:**\n  - Condition: \"an applicant presents at least 3 reference letters.\"\n  - Candidate: \n    - **e_005052** states \"Elena Rostova submitted 5 professional reference letters.\" (5 \u2265 3, satisfies condition.)\n\n- **Group 2 \u2013 EXECUTIVE_RECOMMENDATION:**\n  - Condition: \"holds an executive recommendation endorsement.\"\n  - Candidate:\n    - **e_00fc97** states \"Elena Rostova holds an executive recommendation endorsement.\" (directly satisfies condition.)\n\n**Resulting JSON:**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"present at least 3 reference letters\",\n          \"item\": \"e_005052\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds executive recommendation endorsement\",\n          \"item\": \"e_00fc97\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Output:**\n\n```json\n{\"groups\": [{\"all_of\": [{\"condition\": \"present at least 3 reference letters\", \"item\": \"e_005052\"}]}, {\"all_of\": [{\"condition\": \"holds executive recommendation endorsement\", \"item\": \"e_00fc97\"}]}]}\n```",
+ "usage": {
+  "note": "dossier017 ground.m_0021b4~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 892,
+  "output_tokens": 374,
+  "seconds": 22.55
+ }
+}

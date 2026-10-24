@@ -1,0 +1,12 @@
+{
+ "note": "dossier001 rag2",
+ "model": "ministral-3-8b-2512",
+ "response": "```json\n{\"changes\": {\n  \"m_00d496\": \"withdraw\",\n  \"m_001f94\": \"uncertain\",\n  \"m_006c7b\": \"recompute\"\n}}\n```\n\n---\n**Explanation-by-support-dependency** (for understanding the above action choices):\n- `\"m_001f94\"` (**uncertain**): The supplementary risk assessment now needs both:\n  (1) Either the independent audit (92/100), or\n  **(2) a verified risk reserve** (since `u_0080cf` is *unverified*\u2014hedged by source, per policy).\n  `m_006017` is intact but insufficient alone; the claim `u_0080cf` makes the remaining option (`m_00fb41`/`e_00fb41`), dubious.\n- `\"m_00d496\"` (**withdraw**): Reliance on the **liquid reserve claim** (`e_00e5a5`/$5,000,000) was invalid due to the under-$3M threshold; *no other parallel fact guarantees liquidity*.\n- `\"m_006c7b\"` (**recompute**): Convention for \"financial stability verification\" now hinges only on one unsupported claim (**institutional deposit**, absent) **and** the retractable liquidity line. Since one assumed source fails, recalculate from the rest of relevant facts.\n\n....\nNo parachute support remains for either `\"m_0300000\"`s full-permission (e.g. `'m_00879c'` or `'m_00929d'`) unless further facts intervene.",
+ "usage": {
+  "note": "dossier001 rag2",
+  "model": "ministral-3-8b-2512",
+  "input_tokens": 1315,
+  "output_tokens": 389,
+  "seconds": 6.16
+ }
+}

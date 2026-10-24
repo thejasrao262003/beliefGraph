@@ -1,0 +1,12 @@
+{
+ "note": "dossier035 ground.m_001702",
+ "model": "granite-4.1-8b",
+ "response": "**Step\u2011by\u2011step reasoning**\n\n1. **Policy interpretation**  \n   The policy states that *network distribution capacity is satisfied* if **any** of the following OR\u2011group conditions hold:  \n   - **Group\u202f1:** \u201ca minimum of 8 regional dispatch hubs\u201d  \n   - **Group\u202f2:** \u201cat least 10 priority landing slots\u201d  \n   - **Group\u202f3:** \u201cat least 6 heavy\u2011lift freighters\u201d\n\n2. **Identify candidate items for each condition**  \n\n   - **Condition \u201ca minimum of 8 regional dispatch hubs\u201d**  \n     - Candidate `e_0071da` says *\u201cBlueSky Freight operates **10** regional dispatch hubs.\u201d*  \n       \u2192 Satisfies the condition (10\u202f\u2265\u202f8).  \n     - No other candidate mentions regional dispatch hubs.  \n\n   - **Condition \u201cat least 10 priority landing slots\u201d**  \n     - Candidate `e_00e652` says *\u201cBlueSky Freight holds **15** priority landing slots.\u201d*  \n       \u2192 Satisfies the condition (15\u202f\u2265\u202f10).  \n     - No other candidate mentions priority landing slots.  \n\n   - **Condition \u201cat least 6 heavy\u2011lift freighters\u201d**  \n     - None of the candidates mention heavy\u2011lift aircraft or freighters.  \n       \u2192 No satisfying candidate \u2192 `null`.  \n\n3. **Assemble the JSON**  \n   The policy is satisfied by **any** one of the three groups, so the output groups each contain the relevant condition(s).  \n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"minimum of 8 regional dispatch hubs\",\n          \"item\": \"e_0071da\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"at least 10 priority landing slots\",\n          \"item\": \"e_00e652\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"at least 6 heavy\u2011lift freighters\",\n          \"item\": \"null\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Result** \u2013 the memory *\u201cSummit Aviation satisfies local airfield connectivity standards.\u201d* rests on the fact that **BlueSky Freight** meets either the dispatch\u2011hub or the priority\u2011landing\u2011slot requirement, with no supporting evidence for heavy\u2011lift freighters.",
+ "usage": {
+  "note": "dossier035 ground.m_001702",
+  "model": "granite-4.1-8b",
+  "input_tokens": 892,
+  "output_tokens": 517,
+  "seconds": 23.13
+ }
+}

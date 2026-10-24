@@ -1,0 +1,12 @@
+{
+ "note": "dossier015 ground.m_00bf91",
+ "model": "ministral-3-8b-2512",
+ "response": "```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"having 4 or more annual foundation audits and an investment portfolio balance of at least 150,000\",\n          \"item\": {\n            \"all_and\": [\n              {\n                \"condition\": \"total annual foundation audits >= 4\",\n                \"item\": \"e_000cdc\"\n              },\n              {\n                \"condition\": \"investment portfolio balance >= 150000\",\n                \"item\": \"e_006b5a\"\n              }\n            ]\n          }\n        },\n        {\n          \"condition\": \"holding a valid heritage trustee licence\",\n          \"item\": \"e_006e48\"\n        }\n      ]\n    }\n  ],\n  \"used_in_memory_conclusion\": [\"e_006e48\"]\n}\n``` Fault-tolerantly operating as `ALL(OR(a_1, a_2, ...))` \u2192 truncated from JSON rule. Output reduced to **1 otherwise group**: either **(at least ONE)** `4+-audits + $150k+ portfolio` OR `valid-licence` must hold for the conclusion.\n\n---\nNotice:\nPolicy literally requires `OR` `( (4 audits AND >= $150k) OR (heritage licence) )`.\nIn JPF-safe policy ingestion \u2192 **candidate group should logically encompass whether \u00d7 funding OR \u00d7licence**, here output epithelial formats this as constraint satisfaction between two elicitable options.\nNonetheless, **overall most levied qualifying component:** `e_006e48` *licence*, uniquely specified.\n---",
+ "usage": {
+  "note": "dossier015 ground.m_00bf91",
+  "model": "ministral-3-8b-2512",
+  "input_tokens": 1014,
+  "output_tokens": 357,
+  "seconds": 6.83
+ }
+}

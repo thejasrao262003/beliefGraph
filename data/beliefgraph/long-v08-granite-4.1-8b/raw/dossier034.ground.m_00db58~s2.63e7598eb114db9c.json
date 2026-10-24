@@ -1,0 +1,12 @@
+{
+ "note": "dossier034 ground.m_00db58~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy into groups of conditions.**\n\nPolicy: *\"An enterprise receives Tier-1 supply chain clearance if recognized with high-capacity freight status **while keeping a driver safety rating of no less than 90 points**.\"*\n\n- The policy contains **one group** (no \"or\" condition).\n- **Group condition 1 (AND group)**:\n  1. Recognized with **high-capacity freight status**.\n  2. **Driver safety rating \u2265 90 points**.\n\n**Step 2: Identify candidate items that satisfy each condition.**\n\n| Condition | Candidate that satisfies it | Reason |\n|-----------|-----------------------------|--------|\n| Recognized with high-capacity freight status | `m_003b7e` (\"AeroMove Logistics holds Tier-1 supply chain authorization.\") | The memory mentions Tier\u20111 supply chain authorization, which implies high\u2011capacity freight status. However, the most direct match for \u201chigh\u2011capacity freight status\u201d is not explicitly stated; we must select the item that best aligns with the requirement. The closest related item is `m_003b7e`, assuming Tier\u20111 authorization equates to high\u2011capacity status. |\n| Driver safety rating \u2265 90 points | `e_008a26` (\"AeroMove Logistics maintains a driver safety rating of 92 points.\") | Directly states the rating (92), which is \u2265 90. |\n\nNo other candidate directly satisfies the high\u2011capacity freight status condition more explicitly, so we choose `m_003b7e` as the best match. All other facts are irrelevant to this requirement.\n\n**Step 3: Assemble the JSON output.**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"high-capacity freight status\",\n          \"item\": \"m_003b7e\"\n        },\n        {\n          \"condition\": \"driver safety rating \u2265 90 points\",\n          \"item\": \"e_008a26\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely reflects the logical grouping and condition satisfaction derived from the given policy and candidate items.",
+ "usage": {
+  "note": "dossier034 ground.m_00db58~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 907,
+  "output_tokens": 447,
+  "seconds": 18.31
+ }
+}

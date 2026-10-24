@@ -1,0 +1,12 @@
+{
+ "note": "dossier032 ground.m_00225a",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Interpret the policy**\n\nThe policy states two mutually exclusive ways (OR) for a client to achieve preferential risk rating status:\n\n1. **Sovereign wealth endorsement** (single condition).\n2. **Entity evaluation score \u2265 85** **AND** **\u22655 verified beneficial ownership certificates** **AND** **\u226510 independent compliance reviews annually** (group of conditions).\n\n**Step 2: Identify candidate items for each condition**\n\n- **Condition 1: Sovereign wealth endorsement**\n  - Candidate: `e_00320c` (states \"Apex Holdings maintains a sovereign wealth endorsement.\") \u2714\ufe0f\n\n- **Condition 2: Group of conditions**\n  - **Entity evaluation score \u2265 85**\n    - Candidate: `e_003e16` (states \"Apex Holdings maintains a legal entity identifier risk rating of 92 points.\") \u2714\ufe0f\n  - **\u22655 verified beneficial ownership certificates**\n    - Candidate: `e_001c06` (states \"Apex Holdings submitted 8 verified ultimate beneficial ownership certificates.\") \u2714\ufe0f\n  - **\u226510 independent compliance reviews annually**\n    - Candidate: `e_009924` (states \"Apex Holdings completed 12 independent compliance reviews this year.\") \u2714\ufe0f\n\n**Step 3: Assemble the JSON structure**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        { \"condition\": \"holds sovereign wealth endorsement\", \"item\": \"e_00320c\" }\n      ]\n    },\n    {\n      \"all_of\": [\n        { \"condition\": \"entity evaluation score \u2265 85\", \"item\": \"e_003e16\" },\n        { \"condition\": \"\u22655 verified beneficial ownership certificates\", \"item\": \"e_001c06\" },\n        { \"condition\": \"\u226510 independent compliance reviews annually\", \"item\": \"e_009924\" }\n      ]\n    }\n  ]\n}\n```\n\n**Final JSON Output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        { \"condition\": \"holds sovereign wealth endorsement\", \"item\": \"e_00320c\" }\n      ]\n    },\n    {\n      \"all_of\": [\n        { \"condition\": \"entity evaluation score \u2265 85\", \"item\": \"e_003e16\" },\n        { \"condition\": \"\u22655 verified beneficial ownership certificates\", \"item\": \"e_001c06\" },\n        { \"condition\": \"\u226510 independent compliance reviews annually\", \"item\": \"e_009924\" }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier032 ground.m_00225a",
+  "model": "granite-4.1-8b",
+  "input_tokens": 924,
+  "output_tokens": 544,
+  "seconds": 26.1
+ }
+}

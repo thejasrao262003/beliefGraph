@@ -1,0 +1,12 @@
+{
+ "note": "dossier035 ground.m_007186~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy**\n\n- Policy: \"Deep-sea vessel compliance requires a minimum fleet size of 10 container vessels.\"\n- This is a single condition group: **AND** the entity must have **\u2265 10 container vessels**.\n\n**Step 2: Identify candidate items satisfying the condition**\n\n- We need facts about Oceanic Express and its container vessel fleet size.\n- Candidate facts:\n  - `e_00bc7a`: \"Oceanic Express operates 14 container vessels.\" \u2192 satisfies the condition (14\u202f\u2265\u202f10).\n  - Other candidates are unrelated to container vessel fleet size (certificates, other companies, etc.).\n\n**Step 3: Construct the output JSON**\n\n- One group with one condition: \u201cminimum fleet size of 10 container vessels.\u201d\n- The satisfying candidate is `e_00bc7a`.\n- No alternatives (OR) are present.\n\n**Resulting JSON**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"minimum fleet size of 10 container vessels\",\n          \"item\": \"e_00bc7a\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier035 ground.m_007186~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 873,
+  "output_tokens": 248,
+  "seconds": 15.05
+ }
+}

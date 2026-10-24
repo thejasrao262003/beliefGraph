@@ -1,0 +1,12 @@
+{
+ "note": "dossier000 ground.m_004254~s1",
+ "model": "granite-4.1-8b",
+ "response": "The policy can be split into two alternative groups using \"OR\":\n\n1. **Group 1**: The supplier holds **Premier Preferred Vendor** credentials.\n   - Condition: \"holds Premier Preferred Vendor status\"\n   - Candidate that satisfies this: `e_007598`\n\n2. **Group 2**: The supplier employs **\u2265 40 software engineers**, has **annual turnover \u2265 10,000,000 USD**, and has **valid SOC 2 Type II security compliance**.\n   - Condition 1: \"employs at least 40 software engineers\"\n     - Candidate: `e_00b939` (50 full-time engineers)\n   - Condition 2: \"annual turnover of 10000000 USD or more\"\n     - Candidate: `e_00b6a4` (annual revenue of 12000000 USD)\n   - Condition 3: \"valid SOC 2 Type II security compliance\"\n     - Candidate: `e_00a736`\n\nThus, the JSON representation of the alternative groups with their satisfying candidates is:\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds Premier Preferred Vendor status\",\n          \"item\": \"e_007598\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"employs at least 40 software engineers\",\n          \"item\": \"e_00b939\"\n        },\n        {\n          \"condition\": \"annual turnover of 10000000 USD or more\",\n          \"item\": \"e_00b6a4\"\n        },\n        {\n          \"condition\": \"valid SOC 2 Type II security compliance\",\n          \"item\": \"e_00a736\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier000 ground.m_004254~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 920,
+  "output_tokens": 369,
+  "seconds": 18.06
+ }
+}

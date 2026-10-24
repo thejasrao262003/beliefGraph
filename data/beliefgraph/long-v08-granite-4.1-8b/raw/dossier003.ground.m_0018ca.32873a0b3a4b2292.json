@@ -1,0 +1,12 @@
+{
+ "note": "dossier003 ground.m_0018ca",
+ "model": "granite-4.1-8b",
+ "response": "The policy states that **full operational eligibility** requires two conditions to hold together:\n\n1. **Verified hygiene compliance**\n2. **Outpatient service authorization**\n\nFrom the candidates, we identify the items that satisfy each condition for **Apex Health Clinic**:\n\n- **Verified hygiene compliance**:  \n  - `m_00ddee` (\"Apex Health Clinic maintains sufficient hygiene controls.\")  \n  - `m_0036e8` (\"Apex Health Clinic exhibits high cleanliness controls.\")  \n  - `m_00f017` (\"Apex Health Clinic qualifies for top sanitation excellence status.\")  \n\n  The most directly relevant is `m_00ddee`.\n\n- **Outpatient service authorization**:  \n  - `m_00c728` (\"Apex Health Clinic meets full operational compliance.\") includes authorization.  \n  - The specific memory stating authorization is `\"Apex Health Clinic is cleared to operate outpatient services.\"` which is the **memory** itself, but since we are extracting dependencies, we use `m_00c728` as it explicitly mentions full operational compliance.\n\nThus, the memory **\"Apex Health Clinic is cleared to operate outpatient services.\"** rests on:\n\n- **Group 1**: Both conditions must hold together.\n  - Condition 1 (hygiene compliance): `m_00ddee`\n  - Condition 2 (outpatient authorization): `m_00c728`\n\nOutput as requested:\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"verified hygiene compliance\",\n          \"item\": \"m_00ddee\"\n        },\n        {\n          \"condition\": \"outpatient service authorization\",\n          \"item\": \"m_00c728\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier003 ground.m_0018ca",
+  "model": "granite-4.1-8b",
+  "input_tokens": 864,
+  "output_tokens": 364,
+  "seconds": 12.86
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier008 ground.m_009067",
+ "model": "granite-4.1-8b",
+ "response": "**Step\u2011by\u2011step reasoning**\n\n1. **Interpret the policy**  \n   The policy states: *Senior practitioner status is recognized when an individual completes at least 100 training hours **annually**, possesses a senior recruiter certification, **or** finishes at least 10 client projects in a year.*  \n   This translates into three mutually exclusive alternatives (OR):\n   - **Alternative\u202f1**:\u202f\u2265\u202f100 training hours.  \n   - **Alternative\u202f2**:\u202fhas senior recruiter certification.  \n   - **Alternative\u202f3**:\u202f\u2265\u202f10 client projects.\n\n2. **Identify candidates that satisfy each alternative**  \n\n   - **Alternative\u202f1 (training hours)**:  \n     Candidate `e_00d36b` reports \u201cElena Rostova logged 120 training hours this year.\u201d \u2192 120\u202f\u2265\u202f100, so it satisfies the condition.\n\n   - **Alternative\u202f2 (senior recruiter certification)**:  \n     Candidate `e_00f3aa` states \u201cElena Rostova holds a senior recruiter certification.\u201d \u2192 directly satisfies the condition.\n\n   - **Alternative\u202f3 (client projects)**:  \n     Candidate `e_0086d7` reports \u201cElena Rostova completed 15 client projects this year.\u201d \u2192 15\u202f\u2265\u202f10, so it satisfies the condition.\n\n3. **Structure the output**  \n   Each alternative is a group of conditions that must hold together (here each group contains a single condition). The required JSON format is:\n\n   ```json\n   {\n     \"groups\": [\n       { \"all_of\": [{ \"condition\": \"\u2265 100 training hours\",   \"item\": \"e_00d36b\" }] },\n       { \"all_of\": [{ \"condition\": \"has senior recruiter certification\", \"item\": \"e_00f3aa\" }] },\n       { \"all_of\": [{ \"condition\": \"\u2265 10 client projects\",      \"item\": \"e_0086d7\" }] }\n     ]\n   }\n   ```\n\n   (The wording of the condition strings is kept short as requested.)\n\n**Resulting JSON**\n\n```json\n{\n  \"groups\": [\n    {\"all_of\": [{\"condition\": \"\u2265 100 training hours\", \"item\": \"e_00d36b\"}]},\n    {\"all_of\": [{\"condition\": \"has senior recruiter certification\", \"item\": \"e_00f3aa\"}]},\n    {\"all_of\": [{\"condition\": \"\u2265 10 client projects\", \"item\": \"e_0086d7\"}]}\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier008 ground.m_009067",
+  "model": "granite-4.1-8b",
+  "input_tokens": 909,
+  "output_tokens": 554,
+  "seconds": 25.99
+ }
+}

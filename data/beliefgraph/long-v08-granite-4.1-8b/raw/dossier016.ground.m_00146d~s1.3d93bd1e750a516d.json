@@ -1,0 +1,12 @@
+{
+ "note": "dossier016 ground.m_00146d~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step\u2011by\u2011step reasoning**\n\n1. **Policy decomposition**  \n   The policy states:  \n   *\u201cLarge\u2011scale operational readiness is recognized when a business has a warehouse capacity of **40000\u202fsq\u202fft or greater** **and** a quarterly order accuracy rate of **95\u202f% or higher**.\u201d*  \n\n   This yields **one group** of conditions (no \u201cOR\u201d clause).  \n   The group contains two atomic conditions that **must both hold** (AND):\n   - Condition\u202fA: *warehouse capacity \u2265\u202f40000\u202fsq\u202fft*  \n   - Condition\u202fB: *quarterly order accuracy \u2265\u202f95\u202f%*\n\n2. **Identify candidate that satisfies each condition**  \n   - **Condition\u202fA** (warehouse capacity) \u2192 candidate *e_00d945* (warehouse = 50000\u202fsq\u202fft) meets the \u2265\u202f40000 threshold. No other candidate mentions warehouse capacity.  \n   - **Condition\u202fB** (order accuracy) \u2192 candidate *e_0032ff* (order accuracy = 98\u202f%) meets the \u2265\u202f95\u202f% threshold. No other candidate mentions order accuracy.  \n\n   All other candidates either discuss unrelated topics (transport, compliance, revenue, delivery accuracy, client approval, ISO certification, etc.) and therefore cannot satisfy these two conditions.\n\n3. **Construct the JSON**  \n   Each condition is expressed as `<short>` text reflecting the condition itself, and the candidate id that satisfies it.\n\n   ```json\n   {\n     \"groups\": [\n       {\n         \"all_of\": [\n           {\n             \"condition\": \"warehouse capacity \u2265 40000 sq ft\",\n             \"item\": \"e_00d945\"\n           },\n           {\n             \"condition\": \"quarterly order accuracy \u2265 95 %\",\n             \"item\": \"e_0032ff\"\n           }\n         ]\n       }\n     ]\n   }\n   ```\n\n**Result**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"warehouse capacity \u2265 40000 sq ft\",\n          \"item\": \"e_00d945\"\n        },\n        {\n          \"condition\": \"quarterly order accuracy \u2265 95 %\",\n          \"item\": \"e_0032ff\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier016 ground.m_00146d~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 894,
+  "output_tokens": 499,
+  "seconds": 38.58
+ }
+}

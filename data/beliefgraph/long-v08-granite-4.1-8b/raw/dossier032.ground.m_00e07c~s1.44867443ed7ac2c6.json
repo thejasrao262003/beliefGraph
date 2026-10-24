@@ -1,0 +1,12 @@
+{
+ "note": "dossier032 ground.m_00e07c~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy into alternatives (OR) of groups (AND).**\n\nThe policy states:\n- *\u201cA market participant secures a clean regulatory compliance profile either by possessing a global sanctions clearing passport, **or** by maintaining an entity evaluation score of 80 points or higher **along with** at least 10 annual cross\u2011border compliance verifications.\u201d*\n\nThis translates to two alternatives (OR):\n1. **Group 1** \u2013 possesses a global sanctions clearing passport.\n2. **Group 2** \u2013 **AND** (entity evaluation score \u2265 80 points **AND** at least 10 annual cross\u2011border compliance verifications).\n\n**Step 2: Identify candidate items that satisfy each condition.**\n\n| Condition | Candidate that satisfies it (or null) |\n|-----------|----------------------------------------|\n| possesses a global sanctions clearing passport | `e_00c272` (Apex Holdings holds a sanctions clearance passport.) |\n| entity evaluation score \u2265 80 points | `e_003e16` (Apex Holdings maintains a legal entity identifier risk rating of 92 points.) |\n| at least 10 annual cross\u2011border compliance verifications | `e_009924` (Apex Holdings completed 12 independent compliance reviews this year.)  *(Note: \"compliance reviews\" aligns with \"cross\u2011border compliance verifications\" as the only related fact.)* |\n\nNo other candidate directly satisfies the remaining conditions.\n\n**Step 3: Assemble the JSON object.**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"possesses a global sanctions clearing passport\",\n          \"item\": \"e_00c272\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"entity evaluation score \u2265 80 points\",\n          \"item\": \"e_003e16\"\n        },\n        {\n          \"condition\": \"at least 10 annual cross\u2011border compliance verifications\",\n          \"item\": \"e_009924\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON captures exactly the logical structure required by the policy and points to the specific candidate items that satisfy each condition.",
+ "usage": {
+  "note": "dossier032 ground.m_00e07c~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 902,
+  "output_tokens": 455,
+  "seconds": 24.84
+ }
+}

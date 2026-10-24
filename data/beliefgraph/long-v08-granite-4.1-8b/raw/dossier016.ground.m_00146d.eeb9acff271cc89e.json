@@ -1,0 +1,12 @@
+{
+ "note": "dossier016 ground.m_00146d",
+ "model": "granite-4.1-8b",
+ "response": "The policy requires the following conditions to be met for assigning a warehousing premium designation:\n\n1. Warehouse capacity of 40000 sq ft or greater.\n2. Staff safety score of 85 or above.\n3. ISO 9001 certification.\n\nNow, identify the candidate items that satisfy each condition for Apex Logistics:\n\n- **Warehouse capacity condition**:  \n  - Fact `e_00d945` states \"Apex Logistics has a warehouse capacity of 50000 sq ft.\" \u2192 Satisfies the warehouse capacity condition.  \n  **Item**: `e_00d945`\n\n- **Staff safety score condition**:  \n  - Fact `e_007a0a` states \"Apex Logistics maintains a staff safety score of 90.\" \u2192 Satisfies the staff safety score condition (90 \u2265 85).  \n  **Item**: `e_007a0a`\n\n- **ISO 9001 certification condition**:  \n  - Fact `e_001a9a` states \"Apex Logistics holds ISO 9001 certification.\" \u2192 Satisfies the ISO 9001 certification condition.  \n  **Item**: `e_001a9a`\n\nAll three conditions are satisfied together, forming a single group of requirements.\n\n**Output JSON:**\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"warehouse capacity \u2265 40000 sq ft\",\n          \"item\": \"e_00d945\"\n        },\n        {\n          \"condition\": \"staff safety score \u2265 85\",\n          \"item\": \"e_007a0a\"\n        },\n        {\n          \"condition\": \"ISO 9001 certification\",\n          \"item\": \"e_001a9a\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier016 ground.m_00146d",
+  "model": "granite-4.1-8b",
+  "input_tokens": 891,
+  "output_tokens": 365,
+  "seconds": 14.55
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier030 ground.m_001395~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy**\n\nPolicy: \"Institutional trading approval is granted to an entity with primary solvency clearance **that** maintains a regulatory risk score of at least 80 points.\"\n\nThis translates into a single group of conditions (no \"OR\" mentioned):\n- Condition 1: Entity has primary solvency clearance.\n- Condition 2: Entity\u2019s regulatory risk score \u2265 80 points.\n\n**Step 2: Identify candidate items that satisfy each condition**\n\n- **Condition 1 (primary solvency clearance)**  \n  - Candidate `m_0009b6`: \"Apex Trading Ltd is approved for institutional trading clearance.\"  \n  (This implies primary solvency clearance, as approval for institutional trading typically requires it.)  \n  \u2192 **Satisfies**.\n\n- **Condition 2 (regulatory risk score \u2265 80)**  \n  - Candidate `e_0078dd`: \"Apex Trading Ltd holds a regulatory risk score of 85 points.\"  \n  \u2192 **Satisfies** (85 \u2265 80).\n\nNo other candidates directly state these conditions for Apex Trading Ltd. Therefore, the only relevant candidates are `m_0009b6` and `e_0078dd`.\n\n**Step 3: Construct the JSON output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"entity has primary solvency clearance\",\n          \"item\": \"m_0009b6\"\n        },\n        {\n          \"condition\": \"regulatory risk score >= 80\",\n          \"item\": \"e_0078dd\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely captures the logical structure required by the policy, linking the memory to the two supporting candidate items.",
+ "usage": {
+  "note": "dossier030 ground.m_001395~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 915,
+  "output_tokens": 369,
+  "seconds": 18.29
+ }
+}

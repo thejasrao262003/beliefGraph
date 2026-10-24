@@ -1,0 +1,12 @@
+{
+ "note": "dossier014 ground.m_00aef0",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1:** Parse the policy into alternatives and groups:\n\n- **Alternative 1:** The entity has **yearly compliance training coverage reaching at least 90 percent**.\n- **Alternative 2:** The entity maintains **active ISO 37001 certification**.\n\nEach alternative is a single group (no AND within an alternative).\n\n**Step 2:** Match each condition to a candidate item:\n\n- **Condition for Alternative 1:** \"Yearly compliance training coverage reaching at least 90 percent.\"\n  - **Candidate:** {id: \"e_00a2df\", kind: \"fact\", text: \"Compliance records show Apex Capital Corp maintains annual compliance training coverage of 95 percent.\"} satisfies the condition (95% \u2265 90%).\n\n- **Condition for Alternative 2:** \"Maintaining active ISO 37001 certification.\"\n  - **Candidate:** {id: \"e_00342e\", kind: \"fact\", text: \"Regulatory filings confirm Apex Capital Corp holds valid ISO 37001 certification.\"} satisfies the condition.\n\n**Step 3:** Construct the JSON output:\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Compliance training coverage \u2265 90%\",\n          \"item\": \"e_00a2df\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Active ISO 37001 certification\",\n          \"item\": \"e_00342e\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON captures both alternatives the policy allows, each with the specific candidate that fulfills the condition.",
+ "usage": {
+  "note": "dossier014 ground.m_00aef0",
+  "model": "granite-4.1-8b",
+  "input_tokens": 916,
+  "output_tokens": 339,
+  "seconds": 16.24
+ }
+}

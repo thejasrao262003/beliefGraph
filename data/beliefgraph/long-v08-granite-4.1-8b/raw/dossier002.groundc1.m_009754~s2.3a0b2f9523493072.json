@@ -1,0 +1,12 @@
+{
+ "note": "dossier002 groundc1.m_009754~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy**  \nPolicy: \"A regular desk assignment is granted when a worker attains **standard status** **and** submits **at least 1 identity document**.\"\n\nThis translates to two requirements (AND group):\n- Requirement A: The worker attains **standard status**.  \n- Requirement B: The worker **submits at least 1 identity document**.\n\nNo \"or\" alternatives exist; there is a single group containing both requirements.\n\n**Step 2: Identify candidate items for each requirement**\n\n| Requirement | Condition wording | Candidate that satisfies it |\n|-------------|-------------------|-----------------------------|\n| A | \u201cattains standard status\u201d | **m_00ee85** \u2013 \u201cMarcus Vance reaches standard onboarding status.\u201d |\n| B | \u201csubmits at least 1 identity document\u201d | **e_00df84** \u2013 \u201cMarcus Vance submitted 2 identity verification documents.\u201d (since 2 \u2265 1) |\n\nAll other candidates either discuss unrelated statuses (e.g., provisional permit, clearance levels, certifications, mentorship) or do not address identity document submission. Thus they are not used.\n\n**Step 3: Assemble the JSON output**  \nOnly one group, containing two `all_of` conditions, each with its satisfying candidate.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"attains standard status\",\n          \"item\": \"m_00ee85\"\n        },\n        {\n          \"condition\": \"submits at least 1 identity document\",\n          \"item\": \"e_00df84\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Result**: This JSON captures exactly which stored items (candidate memories/facts) the memory \u201cMarcus Vance meets initial orientation requirements.\u201d relies upon according to the specified policy.",
+ "usage": {
+  "note": "dossier002 groundc1.m_009754~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 839,
+  "output_tokens": 379,
+  "seconds": 11.98
+ }
+}

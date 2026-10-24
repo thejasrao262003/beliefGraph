@@ -1,0 +1,12 @@
+{
+ "note": "dossier014 ground.m_00b2b8~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step\u2011by\u2011step reasoning**\n\n1. **Extract the policy\u2019s logical structure**  \n   The policy states: *\u201cA commercial vendor receives global payment gateway access when holding a rolling liquidity reserve of at least 50000 EUR.\u201d*  \n   This is a **single group** with one **condition**: the vendor must have a rolling liquidity reserve \u2265\u202f50\u202f000\u202fEUR.\n\n2. **Express the condition in short form**  \n   *Condition:* \u201cholds a rolling liquidity reserve of at least 50000\u202fEUR\u201d\n\n3. **Search the candidate items for a fact that satisfies this condition**  \n   - **e_00382a**: mentions paid\u2011in capital in USD, unrelated to liquidity reserve.  \n   - **e_004fa0**: mentions a financial institution license, unrelated.  \n   - **m_0095bd**, **m_00106b**, **m_0062ea**, **m_00bcb3**, **m_000783**, **m_00cb0f**, **m_00aef0**, **m_005a2d**, **m_000dca**, **m_0064ed**, **m_0055a2**, **m_009732**: all describe compliance, authorizations, governance, or credit scores \u2013 none mention a liquidity reserve.  \n   - **e_000c20**, **e_00f734**: discuss credit score and collateral deposit (in USD), but **do not specify a liquidity reserve in EUR**.  \n\n   **Result:** No candidate item explicitly states that Apex Capital Corp holds a rolling liquidity reserve of \u2265\u202f50\u202f000\u202fEUR.\n\n4. **Assemble the JSON output**  \n   Because the required condition is not met by any candidate, the `item` for this condition is `null`.\n\n**JSON output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds a rolling liquidity reserve of at least 50000 EUR\",\n          \"item\": null\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier014 ground.m_00b2b8~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 895,
+  "output_tokens": 439,
+  "seconds": 19.51
+ }
+}

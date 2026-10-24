@@ -1,0 +1,12 @@
+{
+ "note": "dossier035 ground.m_00ad71",
+ "model": "ministral-3-8b-2512",
+ "response": "```json\n{\n  \"groups\": econ\u00f3micoAndr\u00e9near character map\": {\n    \"all_of\": [\n      {\n        \"condition\": \"holding comprehensive shipping authorization (about Oceanic Express)\",\n        \"item\": \"m_00cf1d\"\n      },\n      {\n        \"condition\": \"authorizes marine transit (implies shipping clearance)\",\n        \"item\": \"null\"\n      },\n      {\n        \"condition\": \"maintains operational vessel compliance (related to shipping authority)\",\n        \"item\": \"m_007186\"\n      }\n    ]\n  }\n}\n```\n\n### **Correction & Precise Split:**\nActual Policy = **single group**:\n*\"company holding comprehensive shipping authorization\"* (AND)\n\n---\n1. **\"Company\"** \u2192 `Oceanic Express` (Named entity in memory).\n2. **\"Holding comprehensive shipping authorization\"** \u2192 Must include:\n   - A **memory** about *permission/authorization* (i.e., *\"gains complete marine transit clearance\"*): **`m_00cf1d`**\n   - (No standalone fact replaces this.)\n\n3. The policy excludes unrelated facts/settings (e.g., international maritime safety certificates).\n   **Vessel count, compliance, or other certs** are irrelevant\u2014\"comprehensive shipping authorization\" = **direct authorization to chart routes, not just cleanship compliance**.\n\n---\n**Revised JSON (correct single group without spurious ANDs):**\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"the company mentioned (Oceanic Express) has a memory declaring comprehensive shipping authority/clearance\",\n          \"item\": \"m_00cf1d\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier035 ground.m_00ad71",
+  "model": "ministral-3-8b-2512",
+  "input_tokens": 916,
+  "output_tokens": 359,
+  "seconds": 11.56
+ }
+}

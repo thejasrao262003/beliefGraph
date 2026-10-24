@@ -1,0 +1,12 @@
+{
+ "note": "dossier004 ground.m_004480",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy into alternatives**\n\nThe policy states:  \n- *Enterprise stability clearance is granted either with a yearly SLA performance score of at least 90% **and** a workplace safety rating of 80 points or higher, **or** with yearly revenue of at least 10,000,000 USD.*\n\nThus we have two alternatives (OR groups):\n1. **Group 1 (SLA & Safety)**  \n   - Condition A: SLA performance score \u2265 90%  \n   - Condition B: Workplace safety rating \u2265 80 points  \n   (both must hold together: AND)\n\n2. **Group 2 (Revenue)**  \n   - Condition C: Yearly revenue \u2265 10,000,000 USD  \n   (single condition, no additional conjunctions)\n\n**Step 2: Match each condition to the closest candidate item**\n\n- **Condition A (SLA \u2265 90%)**  \n  Candidate: **e_0054ab** \u2013 \"Apex Industrial reported an annual SLA compliance rate of 96%.\" (96\u202f% \u2265\u202f90\u202f%)  \n\n- **Condition B (Safety \u2265 80)**  \n  Candidate: **e_00e3bb** \u2013 \"Apex Industrial has a corporate safety index of 88 points.\" (88\u202f\u2265\u202f80)  \n\n- **Condition C (Revenue \u2265 10,000,000 USD)**  \n  Candidate: **e_00c8f7** \u2013 \"Apex Industrial has operating capital of 4,000,000 USD.\" (4,000,000\u202f<\u202f10,000,000) \u2192 **null** (no candidate meets this)\n\n**Step 3: Assemble the JSON**\n\nOnly Group\u202f1 satisfies its two conditions (both have matching candidates). Group\u202f2 fails because the revenue condition is not met.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"SLA performance score \u2265 90%\",\n          \"item\": \"e_0054ab\"\n        },\n        {\n          \"condition\": \"Workplace safety rating \u2265 80 points\",\n          \"item\": \"e_00e3bb\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Yearly revenue \u2265 10,000,000 USD\",\n          \"item\": null\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON encodes the two policy alternatives, each with its required conditions and the exact candidate items that satisfy them (or `null` where none do).",
+ "usage": {
+  "note": "dossier004 ground.m_004480",
+  "model": "granite-4.1-8b",
+  "input_tokens": 917,
+  "output_tokens": 543,
+  "seconds": 24.31
+ }
+}

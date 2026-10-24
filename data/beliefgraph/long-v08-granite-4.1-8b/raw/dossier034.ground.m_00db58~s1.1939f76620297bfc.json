@@ -1,0 +1,12 @@
+{
+ "note": "dossier034 ground.m_00db58~s1",
+ "model": "granite-4.1-8b",
+ "response": "The policy specifies that a carrier earns high-capacity freight status when **all three** of the following conditions are met:\n\n1. **Operating a minimum fleet of 20 refrigerated trucks**  \n2. **Holding an ISO 28000 security certification**  \n3. **Completing at least 100 express deliveries last quarter**\n\nNow, identify the candidate items that satisfy each condition:\n\n- **Fleet size condition**:  \n  - Fact `e_005311` states \"AeroMove Logistics maintains a fleet of 25 refrigerated trucks.\" \u2192 satisfies the fleet size requirement.  \n  - **Candidate item**: `e_005311`\n\n- **ISO 28000 certification condition**:  \n  - Fact `e_00949c` states \"AeroMove Logistics holds an ISO 28000 security certification.\" \u2192 satisfies the certification requirement.  \n  - **Candidate item**: `e_00949c`\n\n- **Express deliveries condition**:  \n  - No candidate directly mentions the number of express deliveries completed last quarter. The available memories (`m_005376`, `m_00fa42`, etc.) refer to other achievements (green freight certification, enterprise fleet standards, etc.) but none specify the required \u201cat least 100 express deliveries.\u201d  \n  - **Candidate item**: `null`\n\nSince the policy has **no OR alternatives** (only a single group of AND conditions), the JSON structure reflects this single group with all three conditions.\n\n**Output:**\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"operating a minimum fleet of 20 refrigerated trucks\",\n          \"item\": \"e_005311\"\n        },\n        {\n          \"condition\": \"holding an ISO 28000 security certification\",\n          \"item\": \"e_00949c\"\n        },\n        {\n          \"condition\": \"completing at least 100 express deliveries last quarter\",\n          \"item\": \"null\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier034 ground.m_00db58~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 919,
+  "output_tokens": 412,
+  "seconds": 20.56
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier027 ground.m_001e96",
+ "model": "granite-4.1-8b",
+ "response": "**Step\u2011by\u2011step reasoning**\n\n1. **Interpret the policy**:  \n   *\u201cCore onboarding readiness is satisfied when an applicant **with background experience qualification** **also gains system access**.\u201d*  \n\n   This translates to an **AND** condition group:  \n   - Condition\u202f1: *applicant has background experience qualification*  \n   - Condition\u202f2: *applicant gains system access*  \n\n   There is no \u201cOR\u201d alternative in the policy, so only one group exists.\n\n2. **Identify candidates for each condition**  \n\n   - **Condition\u202f1 \u2013 background experience qualification**  \n     Candidate that directly states this:  \n     `m_0071b6` \u2192 *\u201cClara Vance satisfies background experience requirements.\u201d*  \n     (No other candidate expresses the exact same qualification.)\n\n   - **Condition\u202f2 \u2013 system access**  \n     Candidate that states system access:  \n     `m_0003f1` \u2192 *\u201cClara Vance is approved for system security access.\u201d*  \n     (Other facts (`e_005396`, `e_00c8d9`, etc.) are unrelated to this condition.)\n\n3. **Assemble the JSON**  \n\n   The JSON must list the single **all_of** group with the two conditions, each referencing its candidate item.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"applicant has background experience qualification\",\n          \"item\": \"m_0071b6\"\n        },\n        {\n          \"condition\": \"applicant gains system access\",\n          \"item\": \"m_0003f1\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely reflects the policy\u2019s logical structure and the matching stored items.",
+ "usage": {
+  "note": "dossier027 ground.m_001e96",
+  "model": "granite-4.1-8b",
+  "input_tokens": 869,
+  "output_tokens": 366,
+  "seconds": 13.87
+ }
+}

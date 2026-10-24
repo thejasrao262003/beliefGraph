@@ -1,0 +1,12 @@
+{
+ "note": "dossier014 ground.m_0095bd~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Split the policy into alternatives (OR) of groups of conditions that must hold together (AND).**\n\nThe policy:  \n*\"A client is awarded a main credit facility upon reaching top tier counterparty standing **and** depositing collateral of at least 2000000 USD.\"*\n\n- There is **no \"or\"** in the policy, so there is **a single group**.\n- The group requires **both** of the following conditions to hold:\n  1. **Top tier counterparty standing** (i.e., the client reaches \"top tier counterparty standing\").\n  2. **Collateral \u2265 2000000 USD** (i.e., the client deposits at least two million dollars in collateral).\n\n**Step 2: Identify candidate items that satisfy each condition.**\n\n| Condition | Candidate that satisfies it | Reason |\n|-----------|----------------------------|--------|\n| Top tier counterparty standing | `m_0062ea` | \"Apex Capital Corp achieves tier-one counterparty status.\" This directly states the client has top tier counterparty standing. |\n| Collateral \u2265 2000000 USD | `e_00f734` | \"Treasury records confirm Apex Capital Corp deposited collateral of 5000000 USD.\" The deposited amount (5,000,000 USD) is greater than the 2,000,000 USD threshold. |\n\nNo other candidate meets these conditions directly.\n\n**Step 3: Construct the JSON output.**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"top tier counterparty standing\",\n          \"item\": \"m_0062ea\"\n        },\n        {\n          \"condition\": \"collateral >= 2000000 USD\",\n          \"item\": \"e_00f734\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON captures the logical structure required by the policy and links each condition to its corresponding candidate memory/fact.",
+ "usage": {
+  "note": "dossier014 ground.m_0095bd~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 912,
+  "output_tokens": 405,
+  "seconds": 18.53
+ }
+}

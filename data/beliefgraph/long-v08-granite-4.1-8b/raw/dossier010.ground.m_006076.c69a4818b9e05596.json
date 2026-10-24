@@ -1,0 +1,12 @@
+{
+ "note": "dossier010 ground.m_006076",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Interpret the policy**\n\nThe policy states:  \n*\"High-volume account status is assigned when **monthly group bookings equal 30 or more** **alongside** an **active ISO 27001 Security Certification**.\"*\n\nThis can be broken into two conditions that must hold together (AND):\n1. **Monthly group bookings \u2265 30**  \n2. **Active ISO 27001 Security Certification**\n\nThere is no \"OR\" alternative in this policy.\n\n**Step 2: Match each condition to candidate items**\n\n- **Condition 1 (monthly group bookings \u2265 30)**  \n  - Candidate **e_00ad3d**: \"Vanguard Mobility logged 40 monthly group bookings this month.\"  \n    \u2192 40 \u2265 30 \u2192 **satisfies**. No other candidate provides group booking data for Vanguard Mobility.\n\n- **Condition 2 (active ISO 27001 Security Certification)**  \n  - Candidate **e_002094**: \"Vanguard Mobility holds a valid ISO 27001 Security Certification.\"  \n    \u2192 **satisfies**. No other candidate mentions this certification.\n\n**Step 3: Construct the JSON output**\n\nBoth conditions are met by the respective candidates, forming a single group of requirements.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"monthly group bookings \u2265 30\",\n          \"item\": \"e_00ad3d\"\n        },\n        {\n          \"condition\": \"active ISO 27001 Security Certification\",\n          \"item\": \"e_002094\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely captures the conditions and their satisfying candidates for the policy that led to the memory \"Vanguard Mobility is designated as a high-volume corporate account.\"",
+ "usage": {
+  "note": "dossier010 ground.m_006076",
+  "model": "granite-4.1-8b",
+  "input_tokens": 918,
+  "output_tokens": 364,
+  "seconds": 27.56
+ }
+}

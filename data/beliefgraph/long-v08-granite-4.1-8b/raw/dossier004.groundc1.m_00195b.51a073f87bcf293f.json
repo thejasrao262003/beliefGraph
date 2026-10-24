@@ -1,0 +1,12 @@
+{
+ "note": "dossier004 groundc1.m_00195b",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy**\n\nPolicy: *\"Primary framework contract approval is granted to a strategic partner clearance holder possessing liquid operational reserves of at least 3,000,000 USD.\"*\n\nRequirements (conditions):\n- The entity must be a **strategic partner clearance holder**.\n- The entity must possess **liquid operational reserves of at least 3,000,000\u202fUSD**.\n\nNo \"OR\" alternatives are present; both conditions must hold together (AND).\n\n**Step 2: Identify candidate items for each condition**\n\n| Condition | Candidate that satisfies it | Reason |\n|-----------|----------------------------|--------|\n| Strategic partner clearance holder | `m_002c77` (Apex Industrial achieves master strategic partner qualification.) | Directly states strategic partner clearance (Apex Industrial). |\n| Liquid operational reserves \u2265\u202f3,000,000\u202fUSD | `e_001cf9` (Apex Industrial has operating capital of 4,000,000\u202fUSD.) | Provides the required liquid reserve amount. |\n\nBoth conditions are satisfied by **Apex Industrial** (`m_002c77` and `e_001cf9`). The memory in question is about **Beacon Logistics**, which does not match the strategic partner condition (`m_003a95` talks about emergency IT support, `m_00f9ce` about resilience benchmarks, but none explicitly state strategic partner clearance, and `e_0090d1` reports profit, not operational reserves). Therefore, the policy condition set that validates the memory **does not apply to Beacon Logistics**; however, the task asks only for the decomposition of the policy onto candidate items, not for evaluating the memory's validity.\n\n**Step 3: Construct the JSON output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"strategic partner clearance holder\",\n          \"item\": \"m_002c77\"\n        },\n        {\n          \"condition\": \"liquid operational reserves >= 3,000,000 USD\",\n          \"item\": \"e_001cf9\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON object lists the single group of conditions (AND) required by the policy and the candidate items that satisfy each condition.",
+ "usage": {
+  "note": "dossier004 groundc1.m_00195b",
+  "model": "granite-4.1-8b",
+  "input_tokens": 896,
+  "output_tokens": 468,
+  "seconds": 14.75
+ }
+}

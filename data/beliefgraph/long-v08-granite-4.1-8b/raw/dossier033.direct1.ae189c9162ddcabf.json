@@ -1,0 +1,12 @@
+{
+ "note": "dossier033 direct1",
+ "model": "granite-4.1-8b",
+ "response": "**Step\u2011by\u2011step reasoning**\n\n1. **Identify the factual support for each memory**  \n   - **m_00c7d0** (\u201cZenith Ltd achieves high\u2011throughput operational rating\u201d) relies on the fact that Zenith Ltd reports a client transaction velocity of **800 operations per day** (fact\u202fe_00c4b3).  \n   - All other memories are supported by facts that are unrelated to the updated velocity (e.g., capital, licenses, compliance checks, staff counts, etc.) and therefore are not directly affected by the update about transaction velocity.\n\n2. **Apply the update**  \n   - The update **u_006cb0** (observed 2026\u201103\u201101) states that *Zenith Ltd revised its reported client transaction velocity to 200 operations per day*.  \n   - This directly contradicts the earlier fact (e_00c4b3 = 800 operations per day).  \n   - The policy for \u201chigh\u2011volume processing status\u201d requires **\u2265\u202f500 operations per day** *or* an active Tier\u20111 Banking License, etc. With the velocity now 200, the original velocity\u2011based support for m_00c7d0 is lost, and no alternative source remains to re\u2011establish that memory.\n\n3. **Determine the appropriate action for each memory**  \n   - **m_00c7d0** \u2192 the essential supporting fact is false and there is no other support \u2192 **withdraw**.  \n   - All other memories (e.g., m_00e0e2, m_00cedf, m_00100f, etc.) depend on facts that are unchanged (capital, licenses, compliance, staff counts). Therefore they stay **keep**.  \n   - No memory requires recalculation (recompute) or remains only doubtful (uncertain) because the only affected line of reasoning has been completely removed.\n\n4. **Construct the output JSON**  \n   Only the memory whose action is *not* \u201ckeep\u201d is listed:\n\n```json\n{\"changes\": {\"m_00c7d0\": \"withdraw\"}}\n```\n\n**Final answer**\n\n```json\n{\"changes\": {\"m_00c7d0\": \"withdraw\"}}\n```",
+ "usage": {
+  "note": "dossier033 direct1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 2478,
+  "output_tokens": 468,
+  "seconds": 19.92
+ }
+}

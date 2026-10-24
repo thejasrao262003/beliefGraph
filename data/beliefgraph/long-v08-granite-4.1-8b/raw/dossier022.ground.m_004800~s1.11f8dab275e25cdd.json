@@ -1,0 +1,12 @@
+{
+ "note": "dossier022 ground.m_004800~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Decode the policy into conditions**\n\nPolicy: *\"Project lead classification is awarded to candidates presenting a verified PMP credential.\"*\n\nThis yields a single logical group with one condition:\n- **Condition**: The candidate must present a **verified PMP credential**.\n\n**Step 2: Identify candidate items that satisfy the condition**\n\nWe search the `candidates` list for items that state that Evan Brooks (the entity in the memory) presented a verified PMP credential.\n\n- **Candidate e_00a161**: \"Evan Brooks presented a valid PMP credential.\"  \n  \u2192 Matches the condition exactly.\n\nNo other candidates mention Evan Brooks or a PMP credential, so the suitable candidate is `e_00a161`.\n\n**Step 3: Assemble the output JSON**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"presented a verified PMP credential\",\n          \"item\": \"e_00a161\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Result**\n\n```json\n{\"groups\": [{\"all_of\": [{\"condition\": \"presented a verified PMP credential\", \"item\": \"e_00a161\"}]}]}\n```",
+ "usage": {
+  "note": "dossier022 ground.m_004800~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 841,
+  "output_tokens": 252,
+  "seconds": 11.2
+ }
+}

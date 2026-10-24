@@ -1,0 +1,12 @@
+{
+ "note": "dossier023 ground.m_008641~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy**\n\nThe policy states:  \n*A firm meets basic operational criteria either by recording an annual revenue of at least 10 million USD last year or by holding a Class A Transport Licence.*\n\nThis translates to two alternative groups of conditions:\n\n- **Group 1 (revenue condition):** Annual revenue \u2265 10\u202fmillion USD last year.\n- **Group 2 (license condition):** Holds a Class A Transport Licence.\n\n**Step 2: Identify candidate items for each condition**\n\n- **Condition 1:** \u201cAnnual revenue of at least 10\u202fmillion USD last year.\u201d  \n  Candidate: **e_00ae28** \u2013 \u201cApex Express recorded an annual revenue of 15\u202fmillion USD last year.\u201d (Meets the threshold.)\n\n- **Condition 2:** \u201cHolds a Class A Transport Licence.\u201d  \n  Candidate: **e_00ebef** \u2013 \u201cApex Express holds a Class A Transport Licence.\u201d (Directly satisfies the condition.)\n\nNo other candidates satisfy either condition.\n\n**Step 3: Construct the JSON output**\n\nEach group contains all its conditions satisfied by the identified candidates.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Annual revenue \u2265 10\u202fmillion USD last year\",\n          \"item\": \"e_00ae28\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Holds a Class A Transport Licence\",\n          \"item\": \"e_00ebef\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Output:**\n\n```json\n{\"groups\": [{\"all_of\": [{\"condition\": \"Annual revenue \u2265 10\\u202fmillion USD last year\", \"item\": \"e_00ae28\"}]}, {\"all_of\": [{\"condition\": \"Holds a Class A Transport Licence\", \"item\": \"e_00ebef\"}]}]}\n```",
+ "usage": {
+  "note": "dossier023 ground.m_008641~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 888,
+  "output_tokens": 406,
+  "seconds": 17.55
+ }
+}

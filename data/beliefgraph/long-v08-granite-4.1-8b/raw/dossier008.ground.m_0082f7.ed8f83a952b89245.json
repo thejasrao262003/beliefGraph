@@ -1,0 +1,12 @@
+{
+ "note": "dossier008 ground.m_0082f7",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Interpret the Policy**\n\nThe policy for recognizing senior practitioner status includes three OR alternatives:\n\n1. **Alternative 1 (AND group):**  \n   - Condition 1.1: The individual completes **at least 100 training hours annually**.\n\n2. **Alternative 2 (AND group):**  \n   - Condition 2.1: The individual **possesses a senior recruiter certification**.\n\n3. **Alternative 3 (AND group):**  \n   - Condition 3.1: The individual **finishes at least 10 client projects in a year**.\n\n**Step 2: Match Conditions to Candidate Items**\n\nFor each condition, identify the candidate item that satisfies it:\n\n- **Condition 1.1 (\u2265100 training hours):**  \n  Candidate: **e_00d36b** \u2013 \"Elena Rostova logged 120 training hours this year.\" (\u2265100)\n\n- **Condition 2.1 (senior recruiter certification):**  \n  Candidate: **e_00f3aa** \u2013 \"Elena Rostova holds a senior recruiter certification.\" (exact match)\n\n- **Condition 3.1 (\u226510 client projects):**  \n  Candidate: **e_0086d7** \u2013 \"Elena Rostova completed 15 client projects this year.\" (\u226510)\n\nNo conditions refer to other conclusions, so each condition can be satisfied by the single candidate item identified.\n\n**Step 3: Construct the JSON Output**\n\nEach alternative is an `all_of` group containing its respective condition and candidate:\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"completes at least 100 training hours annually\",\n          \"item\": \"e_00d36b\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"possesses a senior recruiter certification\",\n          \"item\": \"e_00f3aa\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"finishes at least 10 client projects in a year\",\n          \"item\": \"e_0086d7\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely captures the policy's OR alternatives, each supported by a corresponding candidate fact.",
+ "usage": {
+  "note": "dossier008 ground.m_0082f7",
+  "model": "granite-4.1-8b",
+  "input_tokens": 907,
+  "output_tokens": 489,
+  "seconds": 23.73
+ }
+}

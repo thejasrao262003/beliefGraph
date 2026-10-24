@@ -1,0 +1,12 @@
+{
+ "note": "dossier015 ground.m_0083a7",
+ "model": "granite-4.1-8b",
+ "response": "To determine which stored items the memory \"Arthur Pendelton is authorized for Executive Villa Access.\" rests on, we break down the policy into its alternatives and then match each condition to the candidate items.\n\n### Policy Breakdown\nThe policy states two alternative conditions for estate development pre-authorization:\n1. **Condition Group 1 (AND):**\n   - Minimum property account balance of **$40,000**.\n   - At least **3 yearly site evaluations**.\n2. **Condition Group 2 (OR):**\n   - Holding a valid **builder advisory credential**.\n\n### Matching Conditions to Candidate Items\n1. **Condition 1 of Group 1: Minimum property account balance of $40,000**\n   - Candidate: `{ \"id\": \"e_001fc8\", \"kind\": \"fact\", \"text\": \"Arthur Pendelton's home renovation fund balance is $50,000.\" }`\n   - This satisfies the condition as $50,000 \u2265 $40,000.\n\n2. **Condition 2 of Group 1: At least 3 yearly site evaluations**\n   - Candidate: `{ \"id\": \"e_007d8f\", \"kind\": \"fact\", \"text\": \"Arthur Pendelton has completed 4 property inspections this year.\" }`\n   - This satisfies the condition as 4 evaluations \u2265 3.\n\n3. **Condition of Group 2: Holding a valid builder advisory credential**\n   - Candidate: `{ \"id\": \"e_009376\", \"kind\": \"fact\", \"text\": \"Arthur Pendelton holds an active Master Builder Advisory Pass.\" }`\n   - This directly satisfies the condition of having a builder advisory credential.\n\n### Resulting JSON Structure\nThe memory rests on the satisfaction of either Group 1 **all** conditions **or** Group 2 **any** condition.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"property account balance >= $40,000\",\n          \"item\": \"e_001fc8\"\n        },\n        {\n          \"condition\": \"at least 3 yearly site evaluations\",\n          \"item\": \"e_007d8f\"\n        }\n      ]\n    },\n    {\n      \"any_of\": [\n        {\n          \"condition\": \"valid builder advisory credential\",\n          \"item\": \"e_009376\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier015 ground.m_0083a7",
+  "model": "granite-4.1-8b",
+  "input_tokens": 936,
+  "output_tokens": 497,
+  "seconds": 21.05
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier016 ground.m_00146d~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step\u2011by\u2011step reasoning**\n\n1. **Extract policy requirements**  \n   The policy states three *AND* conditions that must all hold for the warehousing premium designation:  \n   - Warehouse capacity **\u2265\u202f40000\u202fsq\u202fft**  \n   - Staff safety score **\u2265\u202f85**  \n   - ISO\u202f9001 certification  \n\n   There is **no \u201cor\u201d** in the policy, so we have a single group containing these three conditions.\n\n2. **Match each condition to the closest candidate**  \n\n   | Condition | Candidate that satisfies it | Reason |\n   |-----------|----------------------------|--------|\n   | Warehouse capacity \u2265\u202f40000\u202fsq\u202fft | **e_00d945** | Fact states \u201cApex Logistics has a warehouse capacity of 50000\u202fsq\u202fft.\u201d |\n   | Staff safety score \u2265\u202f85 | **e_007a0a** | Fact states \u201cApex Logistics maintains a staff safety score of 90.\u201d |\n   | ISO\u202f9001 certification | **e_001a9a** | Fact states \u201cApex Logistics holds ISO\u202f9001 certification.\u201d |\n\n   Each condition finds exactly one candidate that mentions the same entity (Apex Logistics) and meets the numeric threshold or the certification requirement.\n\n3. **Construct the JSON output**  \n   The JSON must list the single group with all three conditions, using the candidate IDs found above.\n\n**Resulting JSON**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"warehouse capacity \u2265 40000 sq ft\",\n          \"item\": \"e_00d945\"\n        },\n        {\n          \"condition\": \"staff safety score \u2265 85\",\n          \"item\": \"e_007a0a\"\n        },\n        {\n          \"condition\": \"ISO 9001 certification\",\n          \"item\": \"e_001a9a\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n(Notice that any extra candidate items that are not needed for the policy are omitted; only the relevant ones are referenced.)",
+ "usage": {
+  "note": "dossier016 ground.m_00146d~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 891,
+  "output_tokens": 443,
+  "seconds": 17.37
+ }
+}

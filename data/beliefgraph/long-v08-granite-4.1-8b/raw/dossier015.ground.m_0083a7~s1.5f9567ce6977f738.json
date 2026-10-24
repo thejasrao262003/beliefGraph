@@ -1,0 +1,12 @@
+{
+ "note": "dossier015 ground.m_0083a7~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Split the policy into alternatives (OR) of groups of conditions (AND).**\n\nThe policy:  \n> \"Global event backing qualification is met either with a builder advisory credential alongside annual corporate backing of at least $50,000, **or** by holding an active diplomatic VIP credential.\"\n\nThis gives us two alternative groups:\n\n1. **Group 1 (AND):**  \n   - Condition A: The entity holds a **builder advisory credential**.  \n   - Condition B: The entity has **annual corporate backing of at least $50,000**.\n\n2. **Group 2 (AND):**  \n   - Condition A: The entity holds an **active diplomatic VIP credential**.\n\n**Step 2: Find the ONE candidate item that satisfies each condition.**\n\n- **Group 1:**  \n  - **Condition A (builder advisory credential):**  \n    - Candidate **e_009376** states \"Arthur Pendelton holds an active Master Builder Advisory Pass.\" \u2192 satisfies the credential.  \n  - **Condition B (annual corporate backing \u2265 $50,000):**  \n    - Candidate **e_00bce5** states \"Arthur Pendelton's corporate sponsorship funding is $60,000 this year.\" \u2192 satisfies the funding threshold.\n\n- **Group 2:**  \n  - **Condition A (active diplomatic VIP credential):**  \n    - Candidate **e_009335** states \"Arthur Pendelton holds a verified Global Diplomatic VIP Pass.\" \u2192 satisfies the diplomatic VIP credential.\n\n**Step 3: Output the JSON object.**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"has builder advisory credential\",\n          \"item\": \"e_009376\"\n        },\n        {\n          \"condition\": \"annual corporate backing \u2265 $50,000\",\n          \"item\": \"e_00bce5\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"has active diplomatic VIP credential\",\n          \"item\": \"e_009335\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely reflects the policy's alternatives and the candidate items that satisfy each condition.",
+ "usage": {
+  "note": "dossier015 ground.m_0083a7~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 922,
+  "output_tokens": 457,
+  "seconds": 26.7
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier014 ground.m_0062ea",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy into conditions**\n\nThe policy states:  \n*\"An enterprise is credited with a robust internal governance framework when it holds active ISO 37001 certification **and** employs a minimum of 2 full-time compliance officers annually.\"*\n\nThis yields a single group of conditions (no \"or\" alternatives):\n- **Condition 1:** Holds active ISO 37001 certification.\n- **Condition 2:** Employs a minimum of 2 full-time compliance officers annually.\n\n**Step 2: Identify candidate items that satisfy each condition**\n\n- **Condition 1 \u2013 ISO 37001 certification**  \n  Candidate: `{ \"id\": \"e_00342e\", \"text\": \"Regulatory filings confirm Apex Capital Corp holds valid ISO 37001 certification.\" }`  \n  \u2192 Satisfies the condition (explicit ISO 37001).\n\n- **Condition 2 \u2013 Minimum 2 full-time compliance officers**  \n  Candidate: `{ \"id\": \"e_009a9a\", \"text\": \"A staff memo indicates Apex Capital Corp maintained 2 full-time compliance officers this year.\" }`  \n  \u2192 Satisfies the condition (exactly 2 officers).\n\nNo \"or\" alternatives are present, so we have a single group with both conditions.\n\nAll conditions are satisfied; therefore, the answer includes the IDs of the matching candidates.\n\n**Step 3: Construct the JSON output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds active ISO 37001 certification\",\n          \"item\": \"e_00342e\"\n        },\n        {\n          \"condition\": \"employs a minimum of 2 full-time compliance officers annually\",\n          \"item\": \"e_009a9a\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely encodes the policy's requirement group and the candidate items that fulfill each condition.",
+ "usage": {
+  "note": "dossier014 ground.m_0062ea",
+  "model": "granite-4.1-8b",
+  "input_tokens": 924,
+  "output_tokens": 396,
+  "seconds": 17.92
+ }
+}

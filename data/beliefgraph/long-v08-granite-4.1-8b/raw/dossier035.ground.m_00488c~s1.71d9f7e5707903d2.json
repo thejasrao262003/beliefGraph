@@ -1,0 +1,12 @@
+{
+ "note": "dossier035 ground.m_00488c~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Extract policy requirements and split into alternatives (OR) of groups (AND).**\n\nThe policy states:  \n*\"Operational fleet capability is granted if an operator maintains at least 10 cargo aircraft, 4 maintenance hangars, and 15 flight crews.\"*\n\n- This is a single group of conditions (no \"or\" mentioned):\n  - **AND** of three conditions:\n    1. \u2265\u202f10 cargo aircraft  \n    2. \u2265\u202f4 maintenance hangars  \n    3. \u2265\u202f15 flight crews  \n\n**Step 2: Match each condition to the best candidate item.**\n\n| Condition | Candidate Item(s) that satisfy it | Chosen Candidate (or null) |\n|-----------|-----------------------------------|----------------------------|\n| \u2265\u202f10 cargo aircraft | `e_007d3b` \u2013 \"BlueSky Freight maintains 12 operational cargo aircraft.\" | `e_007d3b` |\n| \u2265\u202f4 maintenance hangars | `e_004918` \u2013 \"BlueSky Freight has 5 dedicated maintenance hangars.\" (5\u202f\u2265\u202f4) | `e_004918` |\n| \u2265\u202f15 flight crews | `e_00aba4` \u2013 \"BlueSky Freight maintains 20 certified flight crews.\" (20\u202f\u2265\u202f15) | `e_00aba4` |\n\nAll conditions are satisfied by the listed candidates.\n\n**Resulting JSON object:**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"\u2265 10 cargo aircraft\",\n          \"item\": \"e_007d3b\"\n        },\n        {\n          \"condition\": \"\u2265 4 maintenance hangars\",\n          \"item\": \"e_004918\"\n        },\n        {\n          \"condition\": \"\u2265 15 flight crews\",\n          \"item\": \"e_00aba4\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier035 ground.m_00488c~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 879,
+  "output_tokens": 411,
+  "seconds": 19.17
+ }
+}

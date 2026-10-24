@@ -1,0 +1,12 @@
+{
+ "note": "dossier014 ground.m_001920~s1",
+ "model": "granite-4.1-8b",
+ "response": "The policy states that an institution meets baseline identification criteria **either** by:\n\n1. **AND GROUP 1**: Holding active ISO 37001 certification **AND** completing **at least 3** anti-money laundering audits in a year.\n   - Condition 1.1: Holds active ISO 37001 certification \u2192 Candidate `e_00342e`\n   - Condition 1.2: Completed at least 3 anti-money laundering audits \u2192 Candidate `e_00ef85` (mentions 4 audits)\n\n2. **OR GROUP 2**: Recording **0** sanction violations in a year.\n   - Condition 2.1: Recorded 0 sanction violations \u2192 Candidate `e_006110`\n\nNow, we construct the JSON output reflecting these groups and their respective conditions:\n\n```json\n{\n \"groups\": [\n  {\n   \"all_of\": [\n    { \"condition\": \"holds active ISO 37001 certification\", \"item\": \"e_00342e\" },\n    { \"condition\": \"completed at least 3 anti-money laundering audits\", \"item\": \"e_00ef85\" }\n   ]\n  },\n  {\n   \"all_of\": [\n    { \"condition\": \"recorded 0 sanction violations\", \"item\": \"e_006110\" }\n   ]\n  }\n ]\n}\n```\n\nThis JSON precisely captures the logical structure of the policy and identifies the candidate items satisfying each condition.",
+ "usage": {
+  "note": "dossier014 ground.m_001920~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 931,
+  "output_tokens": 289,
+  "seconds": 22.13
+ }
+}

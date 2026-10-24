@@ -1,0 +1,12 @@
+{
+ "note": "dossier010 ground.m_007ffe~s2",
+ "model": "granite-4.1-8b",
+ "response": "The policy states that continuous dispatch assistance is available if **any** of the following conditions are met for the organization (Vanguard Mobility):\n\n1. **Completes at least 10 monthly emergency transport reroutings**.\n2. **Logs 35 or more monthly group bookings**.\n3. **Records a minimum of 20 monthly VIP transfers**.\n\nWe evaluate each candidate fact against these conditions:\n\n- **Condition 1 (\u226510 emergency transport reroutings)**:  \n  - Candidate `e_00e82a` states \"Vanguard Mobility logged 12 monthly emergency transport reroutings this month.\" \u2192 **Satisfies** this condition.  \n  - Other candidates do not address emergency transport reroutings.\n\n- **Condition 2 (\u226535 monthly group bookings)**:  \n  - Candidate `e_00ad3d` states \"Vanguard Mobility logged 40 monthly group bookings this month.\" \u2192 **Satisfies** this condition.  \n  - No other candidate addresses group bookings.\n\n- **Condition 3 (\u226520 monthly VIP transfers)**:  \n  - Candidate `e_005945` states \"Vanguard Mobility recorded 25 monthly VIP transfers this month.\" \u2192 **Satisfies** this condition.  \n  - No other candidate addresses VIP transfers.\n\nGiven the policy uses **OR** between these groups of conditions, any one of them is sufficient. However, for completeness, each satisfied condition is listed in separate groups.\n\n**Resulting JSON structure:**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"\u226510 emergency transport reroutings\",\n          \"item\": \"e_00e82a\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"\u226535 monthly group bookings\",\n          \"item\": \"e_00ad3d\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"\u226520 monthly VIP transfers\",\n          \"item\": \"e_005945\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON captures each alternative group of conditions that satisfies the policy for the memory \"Vanguard Mobility qualifies for round-the-clock dispatch support.\"",
+ "usage": {
+  "note": "dossier010 ground.m_007ffe~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 932,
+  "output_tokens": 467,
+  "seconds": 18.13
+ }
+}

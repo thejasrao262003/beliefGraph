@@ -1,0 +1,12 @@
+{
+ "note": "dossier020 ground.m_00c17e~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step\u2011by\u2011step reasoning**\n\n1. **Extract the policy\u2019s logical structure**  \n   The policy states: *\u201cExecutive route allocation is awarded to any transit provider holding tier\u2011one carrier authorization **while** operating an active fleet size of at least 25 motorcoaches.\u201d*  \n\n   - **Alternatives (OR)**: None \u2013 there is only one way to satisfy the policy.  \n   - **Required group (AND)**:  \n     - Condition\u202f1: *holds tier\u2011one carrier authorization*  \n     - Condition\u202f2: *operating an active fleet size of \u2265\u202f25 motorcoaches*  \n\n2. **Find candidate items that satisfy each condition**  \n\n   - **Condition\u202f1 \u2013 tier\u2011one carrier authorization**  \n     - Candidate `m_00b668`: \u201cApex Excursions maintains tier\u2011one carrier standing.\u201d \u2192 **satisfies**.  \n     - Other candidates (`m_00ef22`, `m_00f535`, `m_00c234`, `m_00baad`, etc.) mention regional authorisation, tier\u2011two endorsement, etc., **do not** satisfy tier\u2011one.  \n\n   - **Condition\u202f2 \u2013 fleet size \u2265\u202f25 motorcoaches**  \n     - Candidate `e_001298`: \u201cApex Excursions maintains an active fleet size of 30 motorcoaches.\u201d \u2192 **satisfies** (30\u202f\u2265\u202f25).  \n     - No other candidate directly gives a fleet\u2011size fact; thus this is the only match.  \n\n   Both conditions are met by distinct candidate items that refer to the same entity (Apex Excursions).\n\n3. **Assemble the JSON output**  \n   Using the format required:\n   ```json\n   {\n     \"groups\": [\n       {\n         \"all_of\": [\n           {\n             \"condition\": \"holds tier\u2011one carrier authorization\",\n             \"item\": \"m_00b668\"\n           },\n           {\n             \"condition\": \"fleet size \u2265 25 motorcoaches\",\n             \"item\": \"e_001298\"\n           }\n         ]\n       }\n     ]\n   }\n   ```\n\n**Final JSON**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds tier-one carrier authorization\",\n          \"item\": \"m_00b668\"\n        },\n        {\n          \"condition\": \"fleet size >= 25 motorcoaches\",\n          \"item\": \"e_001298\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier020 ground.m_00c17e~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 895,
+  "output_tokens": 534,
+  "seconds": 23.1
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier028 ground.m_000fb7~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Interpret the policy**\n\nPolicy text:  \n*\"Adequate staffing validation is achieved by maintaining an active staff count of at least 30 full-time employees.\"*\n\nThis translates to a single logical group with **one condition**:\n- **Condition**: Driftwood Security's active staff count must be **\u2265 30** full-time employees.\n\n**Step 2: Identify candidate items satisfying the condition**\n\nWe scan the candidate list for facts related to *Driftwood Security* and its staff count:\n\n- `e_001e23`: *\"Driftwood Security maintains an active staff count of 50 full-time employees.\"*  \n  - **Matches** the entity (Driftwood Security) and provides a staff count of 50, which satisfies `\u2265 30`.\n\nAll other candidates refer to different entities (Apex Logistics, Elmwood Analytics, Crestview Office Supplies) or discuss unrelated aspects (uptime, compliance audits, certifications), so they do **not** satisfy the condition.\n\n**Step 3: Construct the JSON output**\n\n- One group with one all\u2011of clause.\n- Condition expressed succinctly: *\"active staff count \u2265 30\"*.\n- Candidate item: `e_001e23`.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"active staff count \u2265 30\",\n          \"item\": \"e_001e23\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Output**:\n\n```json\n{\"groups\": [{\"all_of\": [{\"condition\": \"active staff count \\u2265 30\", \"item\": \"e_001e23\"}]}]}\n```",
+ "usage": {
+  "note": "dossier028 ground.m_000fb7~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 893,
+  "output_tokens": 347,
+  "seconds": 16.42
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier029 ground.m_00d50c~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Policy Requirements**\n\nThe policy states:  \n- *Fundamental account qualification is established if*  \n  - **(OR)**  \n    - *an entity employs at least 8 certified compliance officers*,  \n    - **or** *maintains FINRA broker-dealer registration*,  \n    - **or** *holds equity assets under management of at least $40,000,000*.\n\n**Step 2: Identify Candidate Items for Each Condition**\n\n| Condition | Candidate Item (must meet condition) | Candidate ID |\n|-----------|---------------------------------------|---------------|\n| **Entity employs at least 8 certified compliance officers** | \"Apex Capital Management maintains 10 certified compliance officers.\" | `e_005c55` |\n| **Entity maintains FINRA broker-dealer registration** | \"Apex Capital Management holds a valid FINRA broker-dealer registration.\" | `e_00f038` |\n| **Entity holds equity assets under management of at least $40,000,000** | \"Apex Capital Management maintains equity assets under management of $50,000,000.\" | `e_00bc75` |\n\nAll three conditions are satisfied by distinct candidates, and each candidate directly addresses a different clause of the OR statement.\n\n**Step 3: Formulate the Output JSON**\n\nSince the policy\u2019s outcomes are split into three OR groups, each group contains exactly one condition that must hold:\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"employs at least 8 certified compliance officers\",\n          \"item\": \"e_005c55\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"maintains FINRA broker-dealer registration\",\n          \"item\": \"e_00f038\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds equity assets under management of at least $40,000,000\",\n          \"item\": \"e_00bc75\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON accurately captures the policy structure (OR of independent groups) and maps each condition to the single candidate that satisfies it, using null for none (none are null here).",
+ "usage": {
+  "note": "dossier029 ground.m_00d50c~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 923,
+  "output_tokens": 469,
+  "seconds": 22.96
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier008 ground.m_005e9e",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Interpret the policy as alternatives of groups of conditions**\n\nThe policy states:  \n*\"Core hiring verification is achieved when a candidate maintains workplace risk clearance **and** has system access pass issuance approved.\"*\n\nThis implies a single group with two *AND* conditions:\n1. The candidate maintains workplace risk clearance.  \n2. The candidate has system access pass issuance approved.\n\n**Step 2: Identify candidate items that satisfy each condition**\n\n- **Condition 1: maintains workplace risk clearance**  \n  - Candidate `e_00290e` mentions \u201cElena Rostova possesses a corporate security clearance.\u201d  \n  - Corporate security clearance implies workplace risk clearance \u2192 **satisfies**.  \n  - **Selected candidate:** `e_00290e`.\n\n- **Condition 2: has system access pass issuance approved**  \n  - Candidate `m_009773` states \u201cAuthorize system badge provisioning for Elena Rostova.\u201d  \n  - System badge provisioning is equivalent to system access pass issuance \u2192 **satisfies**.  \n  - **Selected candidate:** `m_009773`.\n\nNo other candidates directly satisfy these conditions; others either mention different aspects (e.g., certification, training) or unrelated steps.\n\n**Step 3: Construct the JSON output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"maintains workplace risk clearance\",\n          \"item\": \"e_00290e\"\n        },\n        {\n          \"condition\": \"has system access pass issuance approved\",\n          \"item\": \"m_009773\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely captures the required conditions and their matching candidate items.",
+ "usage": {
+  "note": "dossier008 ground.m_005e9e",
+  "model": "granite-4.1-8b",
+  "input_tokens": 892,
+  "output_tokens": 351,
+  "seconds": 17.07
+ }
+}

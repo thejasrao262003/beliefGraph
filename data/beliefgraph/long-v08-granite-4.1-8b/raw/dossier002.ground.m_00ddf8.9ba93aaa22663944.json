@@ -1,0 +1,12 @@
+{
+ "note": "dossier002 ground.m_00ddf8",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy**\n\nPolicy: \"An onboarding candidate attains standard status upon approval for initial wage registry.\"\n\n**Requirements (extracted):**\n- The candidate (`Marcus Vance`) must be an *onboarding candidate*.\n- The candidate must *attain standard status*.\n- This must occur *upon approval for initial wage registry*.\n\n**Step 2: Group conditions**\n\nThe policy has a single mandatory group (no OR logic):\n1. (AND) The candidate is an onboarding candidate **and**\n2. The candidate attains standard status **and**\n3. This happens upon approval for initial wage registry.\n\n**Step 3: Find candidate items for each condition**\n\n| Condition | Candidate Item(s) that satisfy it | Chosen Candidate (exact ID) |\n|-----------|-----------------------------------|-----------------------------|\n| **(1) Candidate is an onboarding candidate** | m_003792: \"Marcus Vance achieves preliminary HR clearance.\" <br> m_009754: \"Marcus Vance meets initial orientation requirements.\" <br> All relate to onboarding processes for Marcus Vance. | m_003792 (first relevant onboarding memory) |\n| **(2) Candidate attains standard status** | m_00ee85: \"Marcus Vance reaches standard onboarding status.\" <br> This directly states the attainment of standard status. | m_00ee85 |\n| **(3) Upon approval for initial wage registry** | No explicit memory mentions \"initial wage registry\" approval. | null |\n\n**Step 4: Produce JSON**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Candidate is an onboarding candidate\",\n          \"item\": \"m_003792\"\n        },\n        {\n          \"condition\": \"Candidate attains standard status\",\n          \"item\": \"m_00ee85\"\n        },\n        {\n          \"condition\": \"Approval for initial wage registry\",\n          \"item\": null\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Note:** The policy requires a condition about \u201capproval for initial wage registry,\u201d but no candidate memory matches that exact phrase, so the item for that condition is `null`. The JSON follows the requested format strictly.",
+ "usage": {
+  "note": "dossier002 ground.m_00ddf8",
+  "model": "granite-4.1-8b",
+  "input_tokens": 835,
+  "output_tokens": 463,
+  "seconds": 53.66
+ }
+}

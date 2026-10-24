@@ -1,0 +1,12 @@
+{
+ "note": "dossier030 ground.m_00b742",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Split the policy into alternatives (OR) of groups of conditions that must hold together (AND).**\n\nThe policy states:\n> \"Corporate account authorization is extended to an enterprise with **baseline onboarding clearance** **that holds a liquid cash reserve of at least 1,500,000 USD**.\"\n\nThere are no \"or\" alternatives; it consists of a single group of AND conditions:\n- **Condition 1:** The enterprise has **baseline onboarding clearance**.\n- **Condition 2:** The enterprise holds a **liquid cash reserve of at least 1,500,000 USD**.\n\n**Step 2: Identify the candidate items that satisfy each condition.**\n\n- **Condition 1 (baseline onboarding clearance):**  \n  Candidate: *m_00310c* \u2013 \"Apex Trading Ltd satisfies baseline onboarding requirements.\"\n\n- **Condition 2 (liquid cash reserve \u2265 1,500,000 USD):**  \n  Candidate: *e_00e2c8* \u2013 \"Apex Trading Ltd maintains a liquid cash reserve of 2,000,000 USD.\" (This meets the threshold.)\n\n**Step 3: Construct the JSON object.**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"baseline onboarding clearance\",\n          \"item\": \"m_00310c\"\n        },\n        {\n          \"condition\": \"liquid cash reserve \u2265 1,500,000 USD\",\n          \"item\": \"e_00e2c8\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n- The policy has **no** \"or\" alternatives, so there is **one** group.\n- Both conditions are satisfied by the respective candidates *m_00310c* and *e_00e2c8*.\n- No conditions refer to other conclusions, and all conditions are met by existing candidates.\n\n**Final Output:**\n```json\n{\"groups\": [{\"all_of\": [{\"condition\": \"baseline onboarding clearance\", \"item\": \"m_00310c\"}, {\"condition\": \"liquid cash reserve >= 1,500,000 USD\", \"item\": \"e_00e2c8\"}]}]}\n```",
+ "usage": {
+  "note": "dossier030 ground.m_00b742",
+  "model": "granite-4.1-8b",
+  "input_tokens": 926,
+  "output_tokens": 459,
+  "seconds": 15.51
+ }
+}

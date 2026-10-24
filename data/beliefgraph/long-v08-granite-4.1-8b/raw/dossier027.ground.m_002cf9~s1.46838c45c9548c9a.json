@@ -1,0 +1,12 @@
+{
+ "note": "dossier027 ground.m_002cf9~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Interpret the policy**\n\nPolicy: *\"Fast-track leadership placement requires senior tier classification alongside an evaluation mark of at least 85 points on leadership testing.\"*\n\n- **Requirements (AND group):**\n  1. **Senior tier classification** \u2013 the individual must be designated as a senior tier hire.\n  2. **Leadership testing evaluation mark \u2265 85** \u2013 the individual must have a leadership assessment score of at least 85 points.\n\nThere is no \u201cOR\u201d splitting in the policy; it is a single group with both conditions required together.\n\n**Step 2: Identify candidate items for each condition**\n\n- **Condition 1: Senior tier classification**  \n  - Candidate that states Clara Vance is a senior tier hire: `memory` item **m_006a0b** (\"Clara Vance is designated as a senior tier hire.\").  \n  - (Other items describe unrelated qualifications, so they do not satisfy this condition.)\n\n- **Condition 2: Leadership testing evaluation mark \u2265 85**  \n  - Candidate that provides the leadership assessment score: `fact` item **e_003175** (\"Clara Vance achieved a leadership assessment score of 90 points.\").  \n  - (Score 90 meets the \u226585 threshold; other items refer to background check scores, not leadership testing.)\n\n**Step 3: Assemble the JSON output**\n\n- Both conditions are satisfied by the identified candidates, forming one group with `all_of` conditions.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"senior tier classification\",\n          \"item\": \"m_006a0b\"\n        },\n        {\n          \"condition\": \"leadership assessment score \u2265 85\",\n          \"item\": \"e_003175\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely captures the memory's reliance on the two satisfied conditions from the candidate set.",
+ "usage": {
+  "note": "dossier027 ground.m_002cf9~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 873,
+  "output_tokens": 397,
+  "seconds": 14.83
+ }
+}

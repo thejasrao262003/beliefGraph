@@ -1,0 +1,12 @@
+{
+ "note": "dossier015 ground.m_00bf91",
+ "model": "granite-4.1-8b",
+ "response": "The policy specifies two alternative groups of conditions for \"Tier-one financial consulting eligibility\":\n\n1. **Group 1** (AND group):\n   - Investment portfolio balance of at least $150,000.\n   - Liquid capital of no less than $50,000.\n   - 3 or more yearly site evaluations.\n\n2. **Group 2** (OR group):\n   - Total high-value asset valuation of $400,000.\n\nWe identify the candidate items that satisfy each condition:\n\n- **Group 1 Conditions**:\n  - **Investment portfolio balance \u2265 $150,000**: Satisfied by candidate `e_006b5a` (\"Arthur Pendelton's investment portfolio balance is $200,000.\").\n  - **Liquid capital \u2265 $50,000**: Satisfied by candidate `e_001fc8` (\"Arthur Pendelton's home renovation fund balance is $50,000.\").\n  - **3 or more yearly site evaluations**: Satisfied by candidate `e_000cdc` (\"Arthur Pendelton has completed 5 cultural foundation audits this year.\").\n\n- **Group 2 Condition**:\n  - **Total high-value asset valuation = $400,000**: Satisfied by candidate `e_005922` (\"Arthur Pendelton's total luxury assets value is $500,000.\") but it exceeds $400,000, so no candidate meets the exact threshold. However, since we need any total high-value asset valuation of $400,000 or more, `e_005922` (valued at $500,000) satisfies this condition.\n\nThus, the JSON representation of the groups and their satisfying candidates is:\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"investment portfolio balance \u2265 $150,000\",\n          \"item\": \"e_006b5a\"\n        },\n        {\n          \"condition\": \"liquid capital \u2265 $50,000\",\n          \"item\": \"e_001fc8\"\n        },\n        {\n          \"condition\": \"3 or more yearly site evaluations\",\n          \"item\": \"e_000cdc\"\n        }\n      ]\n    },\n    {\n      \"any_of\": [\n        {\n          \"condition\": \"total high-value asset valuation \u2265 $400,000\",\n          \"item\": \"e_005922\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nNote: The original policy uses \"or\" between the two groups, which is interpreted as an \"any_of\" structure in the JSON output. Each condition within a group must be satisfied for that group, and at least one group must be satisfied.",
+ "usage": {
+  "note": "dossier015 ground.m_00bf91",
+  "model": "granite-4.1-8b",
+  "input_tokens": 961,
+  "output_tokens": 540,
+  "seconds": 22.08
+ }
+}

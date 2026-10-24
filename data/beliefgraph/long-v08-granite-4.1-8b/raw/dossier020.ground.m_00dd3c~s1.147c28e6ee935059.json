@@ -1,0 +1,12 @@
+{
+ "note": "dossier020 ground.m_00dd3c~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy into conditions.**\n\nThe policy states:  \n*\"Cross\u2011border service authorization is awarded to providers holding tier\u2011two logistics recognition **who carry commercial liability insurance coverage of 3,000,000 USD or more**.\"*\n\nThis translates to **two mandatory conditions (AND group):**  \n1. Provider must hold **tier\u2011two logistics recognition**.  \n2. Provider must have **commercial liability insurance coverage \u2265 3,000,000 USD**.\n\nThere is **no \u201cor\u201d** alternative, so there is a single group containing both conditions.\n\n**Step 2: Identify satisfying candidate items.**\n\n- **Condition 1 \u2013 tier\u2011two logistics recognition**  \n  Candidate that states this: `m_00f535` (\u201cApex Excursions obtains tier\u2011two logistics endorsement.\u201d) \u2192 **satisfies**.\n\n- **Condition 2 \u2013 commercial liability insurance \u2265 3,000,000 USD**  \n  Candidate that states this: `e_001531` (\u201cApex Excursions maintains commercial liability insurance coverage of 5,000,000 USD.\u201d) \u2192 **satisfies** (5,000,000\u202fUSD \u2265 3,000,000\u202fUSD).\n\nAll other candidates either discuss unrelated authorizations, ratings, or different types of certifications, and therefore do **not** meet these specific conditions.\n\n**Step 3: Assemble the JSON output.**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds tier-two logistics recognition\",\n          \"item\": \"m_00f535\"\n        },\n        {\n          \"condition\": \"commercial liability insurance coverage >= 3000000 USD\",\n          \"item\": \"e_001531\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely reflects the policy\u2019s requirements and the candidate items that satisfy them.",
+ "usage": {
+  "note": "dossier020 ground.m_00dd3c~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 906,
+  "output_tokens": 393,
+  "seconds": 15.21
+ }
+}

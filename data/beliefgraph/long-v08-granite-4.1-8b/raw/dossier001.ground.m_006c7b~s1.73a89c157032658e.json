@@ -1,0 +1,12 @@
+{
+ "note": "dossier001 ground.m_006c7b~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step\u2011by\u2011step reasoning**\n\n1. **Interpret the policy**  \n   The policy states: *\u201cEssential liquidity provisioning is established when an entity maintains an institutional cash deposit of $10,000,000 or greater.\u201d*  \n   - This is a **single group** of conditions (no \u201cor\u201d clause).  \n   - The **condition** is: \u201cinstitutional cash deposit \u2265\u202f$10,000,000\u201d.\n\n2. **Identify candidate items that satisfy the condition for the given entity** (`Apex Horizon Trading`).  \n\n   | Candidate ID | Kind | Text (relevant to condition) | Satisfies $10M+ cash deposit? |\n   |---------------|------|------------------------------|--------------------------------|\n   | `e_004279`    | fact | \u201cApex Horizon Trading maintains an institutional cash deposit of $15,000,000.\u201d | **Yes** |\n   | `e_00e5a5`    | fact | \u201cApex Horizon Trading maintains a liquid reserve of $5,000,000.\u201d | No (reserve \u2260 cash deposit) |\n   | `e_00fb41`    | fact | \u201cApex Horizon Trading maintains a risk reserve of $4,000,000.\u201d | No |\n   | Other candidates (memories or different facts) do not mention the required $10\u202fM cash deposit. |\n\n   The only candidate that directly meets the condition is **`e_004279`**.  \n\n3. **Form the JSON structure**  \n   - One group (`all_of`) containing one condition.  \n   - Condition description: \u201cinstitutional cash deposit \u2265\u202f$10,000,000\u201d.  \n   - Item: `e_004279`.\n\n**Resulting JSON**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"institutional cash deposit >= $10,000,000\",\n          \"item\": \"e_004279\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON exactly reflects the split policy into groups of conditions, assigns the single satisfying candidate, and represents the dependency of the stored memory \u201cApex Horizon Trading holds verified financial stability status.\u201d on the fact that its institutional cash deposit meets the $10\u202fM threshold.",
+ "usage": {
+  "note": "dossier001 ground.m_006c7b~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 892,
+  "output_tokens": 474,
+  "seconds": 18.39
+ }
+}
