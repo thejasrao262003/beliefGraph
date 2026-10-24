@@ -100,6 +100,10 @@ class DenseIndex:
 
     MODEL = "nomic-ai/nomic-embed-text-v1.5"
     _models: dict = {}
+    # One vector per distinct text per process, and one embedding call at a time: re-embedding
+    # the same texts from many threads made the ONNX runtime grow to ~5 GB per process.
+    _vectors: dict = {}
+    _lock = __import__("threading").Lock()
 
     def __init__(self, items: list[tuple[str, str]], model: str | None = None):
         self.ids = [i for i, _ in items]
@@ -115,15 +119,24 @@ class DenseIndex:
             self.np, self.tfidf = None, Index(items)
             return
         self.np = np
-        if self.model_name not in self._models:
-            self._models[self.model_name] = TextEmbedding(self.model_name)
+        with self._lock:
+            if self.model_name not in self._models:
+                self._models[self.model_name] = TextEmbedding(self.model_name, threads=4)
         self.model = self._models[self.model_name]
         self.vecs = self._embed([t for _, t in items]) if items else np.zeros((0, 1))
 
     def _embed(self, texts: list[str]):
         np = self.np
-        X = np.array(list(self.model.embed(texts)))
-        return X / np.linalg.norm(X, axis=1, keepdims=True)
+        cache = self._vectors.setdefault(self.model_name, {})
+        missing = list(dict.fromkeys(t for t in texts if t not in cache))
+        if missing:
+            with self._lock:
+                missing = [t for t in missing if t not in cache]
+                if missing:
+                    X = np.array(list(self.model.embed(missing, batch_size=32)))
+                    for t, v in zip(missing, X / np.linalg.norm(X, axis=1, keepdims=True)):
+                        cache[t] = v.astype(np.float32)
+        return np.stack([cache[t] for t in texts])
 
     def rank(self, text: str, exclude: set[str] = frozenset()) -> list[str]:
         if self.np is None:  # a full ranking, as the dense one: no-overlap items come last

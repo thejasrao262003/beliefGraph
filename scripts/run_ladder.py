@@ -73,11 +73,12 @@ def main() -> None:
     ap.add_argument("--tag", required=True)
     ap.add_argument("--models", nargs="+", default=list(LADDER), choices=list(LADDER))
     ap.add_argument("--table-only", action="store_true")
+    ap.add_argument("--parallel", type=int, default=2, help="models run at once (each process holds an embedding model)")
     args = ap.parse_args(argv[: argv.index("--")] if "--" in argv else argv)
     if not args.table_only:
         log_dir = Path("data/beliefgraph/logs")
         log_dir.mkdir(parents=True, exist_ok=True)
-        with ThreadPoolExecutor(len(args.models)) as pool:
+        with ThreadPoolExecutor(max(1, min(args.parallel, len(args.models)))) as pool:
             codes = dict(zip(args.models, pool.map(lambda m: run(m, args.tag, extra, log_dir), args.models)))
         print("exit codes:", codes)
     table(args.tag, args.models)
