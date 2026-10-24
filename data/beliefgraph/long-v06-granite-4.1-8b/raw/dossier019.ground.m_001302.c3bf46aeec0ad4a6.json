@@ -1,0 +1,12 @@
+{
+ "note": "dossier019 ground.m_001302",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Interpret the policy**\n\nPolicy:  \n*A facility holding educational standards approval attains top clinical status if it maintains a patient safety index of 85 or above annually.*\n\nThis policy has a single implicit group of conditions that must all be true for the conclusion to hold:\n\n- **Condition 1 (AND):** The facility **holds educational standards approval**.  \n- **Condition 2 (AND):** The facility **maintains a patient safety index of 85 or above annually**.\n\n**Step 2: Identify candidate items for each condition**\n\n- **Condition 1 \u2013 Educational standards approval:**  \n  The candidates mentioning educational approval or similar are:\n  - `m_009aab` \u2013 \"Solis Medical Center qualifies for Tier-1 clinical accreditation.\" (implies approval)  \n  No other candidates explicitly mention educational standards approval.  \n  \u2192 **Best candidate:** `m_009aab` (it satisfies the approval aspect).\n\n- **Condition 2 \u2013 Patient safety index \u2265 85:**  \n  The candidates mentioning a patient safety index are:\n  - `e_00c274` \u2013 \"Solis Medical Center recorded a patient safety index of 92 this year.\" (92 \u2265 85)  \n  \u2192 **Candidate:** `e_00c274`.\n\n**Step 3: Assemble the JSON output**\n\nBoth conditions must hold together (AND) for the policy group.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds educational standards approval\",\n          \"item\": \"m_009aab\"\n        },\n        {\n          \"condition\": \"maintains patient safety index >= 85 annually\",\n          \"item\": \"e_00c274\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Result:** The memory \"Solis Medical Center ought to receive preferred facility funding.\" rests on the facts that Solis Medical Center holds educational standards approval (memory `m_009aab`) **and** maintains a patient safety index of 92 (fact `e_00c274`). Both satisfy the policy's requirements.",
+ "usage": {
+  "note": "dossier019 ground.m_001302",
+  "model": "granite-4.1-8b",
+  "input_tokens": 900,
+  "output_tokens": 432,
+  "seconds": 18.55
+ }
+}

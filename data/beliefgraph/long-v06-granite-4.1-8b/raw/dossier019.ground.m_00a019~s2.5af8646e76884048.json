@@ -1,0 +1,12 @@
+{
+ "note": "dossier019 ground.m_00a019~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy into conditions**\n\nPolicy: \"Highest safety authorization is granted when a facility holds an ISO 9001 certification, maintains an infection control score of 90 or higher, and conducts at least 10 hygiene inspections annually.\"\n\nThis translates to three **AND** grouped conditions:\n1. Facility holds an ISO 9001 certification.\n2. Facility maintains an infection control score **\u2265 90**.\n3. Facility conducts **\u2265 10** hygiene inspections annually.\n\n**Step 2: Match each condition to the candidate items**\n\n| Condition | Candidate that satisfies it | Reason |\n|-----------|----------------------------|--------|\n| Holds ISO 9001 certification | `e_006360` | Text states \"Beacon Surgical Institute holds an active ISO 9001 certification.\" |\n| Maintains infection control score \u2265 90 | `e_001e25` | Text states \"Beacon Surgical Institute maintains an infection control score of 95.\" (95 \u2265 90) |\n| Conducts \u2265 10 hygiene inspections annually | `e_0046ce` | Text states \"Beacon Surgical Institute logged 15 hygiene inspections this year.\" (15 \u2265 10) |\n\nAll three conditions are satisfied by distinct candidates, so each group consists of the three all\u2011of conditions.\n\n**Output JSON**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds ISO 9001 certification\",\n          \"item\": \"e_006360\"\n        },\n        {\n          \"condition\": \"maintains infection control score >= 90\",\n          \"item\": \"e_001e25\"\n        },\n        {\n          \"condition\": \"conducts at least 10 hygiene inspections annually\",\n          \"item\": \"e_0046ce\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier019 ground.m_00a019~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 903,
+  "output_tokens": 380,
+  "seconds": 16.61
+ }
+}

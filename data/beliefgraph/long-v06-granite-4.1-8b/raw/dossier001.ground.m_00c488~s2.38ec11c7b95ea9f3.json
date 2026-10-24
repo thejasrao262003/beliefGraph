@@ -1,0 +1,12 @@
+{
+ "note": "dossier001 ground.m_00c488~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy**\n\nThe policy states:  \n*\"Supplementary risk assessment is satisfied either through an independent audit rating of 90 points or higher, **or** by maintaining a risk reserve of at least $2,000,000.\"*\n\nThis creates two **OR** alternatives, each consisting of a single **AND** group of conditions:\n1. **Group 1**: Independent audit rating **\u2265 90**.\n2. **Group 2**: Risk reserve **\u2265 $2,000,000**.\n\n**Step 2: Identify candidate items for each condition**\n\n- **Condition 1:** \u201cindependent audit rating of 90 points or higher.\u201d  \n  Candidate that satisfies this is **e_006017** \u2192 \u201cApex Horizon Trading has an independent audit rating of 92 points.\u201d\n\n- **Condition 2:** \u201crisk reserve of at least $2,000,000.\u201d  \n  Candidate that satisfies this is **e_00fb41** \u2192 \u201cApex Horizon Trading maintains a risk reserve of $4,000,000.\u201d\n\nNo other candidates meet these thresholds, so the rest are `null`.\n\n**Step 3: Assemble the JSON**\n\nEach group contains a single condition-item pair.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"independent audit rating >= 90\",\n          \"item\": \"e_006017\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"risk reserve >= $2,000,000\",\n          \"item\": \"e_00fb41\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Final Output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"independent audit rating >= 90\",\n          \"item\": \"e_006017\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"risk reserve >= $2,000,000\",\n          \"item\": \"e_00fb41\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier001 ground.m_00c488~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 902,
+  "output_tokens": 447,
+  "seconds": 19.4
+ }
+}

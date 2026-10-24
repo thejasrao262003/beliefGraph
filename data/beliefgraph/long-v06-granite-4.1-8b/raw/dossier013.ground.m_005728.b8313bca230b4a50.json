@@ -1,0 +1,12 @@
+{
+ "note": "dossier013 ground.m_005728",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy into conditions**\n\nPolicy:  \n*\"Placement on a lead software track is recommended for an applicant attaining senior developer standing **who also completes a minimum compliance training time of 25 hours**.\"*\n\nThis translates to a single group with two **AND** conditions:\n1. **Senior developer standing** \u2013 the applicant must *attain senior developer standing*.\n2. **Compliance training** \u2013 the applicant must *complete a minimum of 25 hours of compliance training*.\n\n**Step 2: Match each condition to the best candidate memory/fact**\n\n- **Condition 1 \u2013 Senior developer standing**  \n  Candidate that explicitly states Elena Rostova satisfies this condition: **`m_009319`** (\"Elena Rostova achieves senior developer qualification.\"). No other candidate directly satisfies this condition, so `m_009319` is the chosen item.\n\n- **Condition 2 \u2013 Minimum compliance training (\u226525 hours)**  \n  Candidate fact that mentions Elena Rostova\u2019s compliance training: **`e_00cb7c`** (\"Elena Rostova completed 30 hours of compliance training.\"). 30 hours \u2265 25 hours, so this satisfies the condition. No other candidate provides a relevant training figure, thus `e_00cb7c` is the chosen item.\n\n**Step 3: Construct the JSON output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"attains senior developer standing\",\n          \"item\": \"m_009319\"\n        },\n        {\n          \"condition\": \"completes at least 25 hours of compliance training\",\n          \"item\": \"e_00cb7c\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely reflects the policy\u2019s requirements mapped to the most appropriate stored items.",
+ "usage": {
+  "note": "dossier013 ground.m_005728",
+  "model": "granite-4.1-8b",
+  "input_tokens": 908,
+  "output_tokens": 383,
+  "seconds": 22.63
+ }
+}

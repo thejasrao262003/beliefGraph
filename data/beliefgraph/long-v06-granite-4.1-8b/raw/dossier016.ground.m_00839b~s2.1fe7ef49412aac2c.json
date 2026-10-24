@@ -1,0 +1,12 @@
+{
+ "note": "dossier016 ground.m_00839b~s2",
+ "model": "granite-4.1-8b",
+ "response": "The policy states that a supplier's baseline status is granted if either:\n\n1. The supplier achieves a quarterly delivery accuracy of at least 90% **and** a quarterly client approval score of 80% or higher.\n2. The supplier holds ISO 9001 certification.\n\nWe need to identify which candidate items satisfy these conditions for the memory \"Apex Logistics is classified as an approved contractor.\"\n\n**Condition 1 Requirements (AND group):**\n- Quarterly delivery accuracy \u2265 90%.\n- Quarterly client approval score \u2265 80%.\n\n**Condition 2 Requirements (single condition):**\n- Holds ISO 9001 certification.\n\n**Matching Candidates:**\n- **Quarterly delivery accuracy \u2265 90%:** Fact `e_00fc84` states \"Apex Logistics maintains a quarterly delivery accuracy of 92%.\"\n- **Quarterly client approval score \u2265 80%:** Fact `e_00aef2` states \"Apex Logistics achieved a quarterly client approval score of 85%.\"\n- **ISO 9001 certification:** Fact `e_001a9a` states \"Apex Logistics holds ISO 9001 certification.\"\n\n**JSON Output:**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"quarterly delivery accuracy >= 90%\",\n          \"item\": \"e_00fc84\"\n        },\n        {\n          \"condition\": \"quarterly client approval score >= 80%\",\n          \"item\": \"e_00aef2\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds ISO 9001 certification\",\n          \"item\": \"e_001a9a\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier016 ground.m_00839b~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 877,
+  "output_tokens": 359,
+  "seconds": 21.79
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier004 ground.m_00be68~s1",
+ "model": "granite-4.1-8b",
+ "response": "The policy specifies two alternative conditions for a supplier to be designated as a qualified primary seller: either an SLA performance score of at least 90% **or** a client approval rating of at least 85%. The memory state that \"Apex Industrial is designated as an approved core vendor\" must rest on one of these conditions.\n\n**Conditions:**\n1. **SLA performance score \u2265 90%**  \n   - Candidate that satisfies: `e_0054ab` (Apex Industrial reported an annual SLA compliance rate of 96%)\n2. **Client approval rating \u2265 85%**  \n   - Candidate that satisfies: `e_001e99` (Apex Industrial logged a customer satisfaction rating of 92% this year)\n\nSince both conditions are satisfied, either could support the memory. However, the policy uses an OR, so we provide both groups in the output, each containing a single condition.\n\n**Output JSON:**\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"SLA performance score >= 90%\",\n          \"item\": \"e_0054ab\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"Client approval rating >= 85%\",\n          \"item\": \"e_001e99\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier004 ground.m_00be68~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 904,
+  "output_tokens": 287,
+  "seconds": 9.7
+ }
+}

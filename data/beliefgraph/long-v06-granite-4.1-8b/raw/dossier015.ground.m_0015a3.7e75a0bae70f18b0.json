@@ -1,0 +1,12 @@
+{
+ "note": "dossier015 ground.m_0015a3",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Identify the policy alternatives**\n\nThe policy states two mutually exclusive ways to confer estate development pre\u2011authorization:\n\n1. **Alternative A** \u2013 *AND* conditions:\n   - Minimum property account balance of **$40,000**\n   - At least **3 yearly site evaluations**\n\n2. **Alternative B** \u2013 *Holding a valid builder advisory credential* (single condition).\n\n**Step 2: Match each condition to the candidate items**\n\n| Condition | Candidate(s) satisfying it | Explanation |\n|-----------|----------------------------|-------------|\n| Minimum property account balance **\u2265 $40,000** | `e_001fc8` (balance $50,000) | Directly states the balance. |\n| At least **3** yearly site evaluations | `e_007d8f` (4 property inspections) | 4 inspections \u2265 3 evaluations. |\n| Valid builder advisory credential | `e_009376` (Master Builder Advisory Pass) | Provides the required credential. |\n| No candidate for other unrelated conditions | \u2013 | N/A |\n\nNo candidates satisfy the other unrelated conditions, so they are omitted.\n\n**Step 3: Compile the JSON output**\n\nOnly the relevant groups are included:\n\n- **Group 1** (Alternative A): all conditions must hold together.\n- **Group 2** (Alternative B): single condition.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"property account balance \u2265 $40,000\",\n          \"item\": \"e_001fc8\"\n        },\n        {\n          \"condition\": \"\u2265 3 yearly site evaluations\",\n          \"item\": \"e_007d8f\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"valid builder advisory credential\",\n          \"item\": \"e_009376\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely reflects the policy's requirements and the candidate items that satisfy each condition.",
+ "usage": {
+  "note": "dossier015 ground.m_0015a3",
+  "model": "granite-4.1-8b",
+  "input_tokens": 941,
+  "output_tokens": 415,
+  "seconds": 19.41
+ }
+}

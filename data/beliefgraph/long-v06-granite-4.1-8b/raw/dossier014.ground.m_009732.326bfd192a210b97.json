@@ -1,0 +1,12 @@
+{
+ "note": "dossier014 ground.m_009732",
+ "model": "granite-4.1-8b",
+ "response": "The policy states that an institution fulfills baseline identification criteria **either** by:\n\n1. **AND** holding active ISO 37001 certification **and** completing at least 3 anti-money laundering audits in a year, **or**\n2. **AND** recording 0 sanction violations in a year.\n\nFor the memory \"Apex Capital Corp is cleared for automated clearing house processing,\" we need to identify which candidate items satisfy these conditions.\n\n### Condition 1: ISO 37001 certification **AND** \u22653 AML audits\n- **ISO 37001 certification**: Satisfied by `e_00342e` (\"Regulatory filings confirm Apex Capital Corp holds valid ISO 37001 certification.\")\n- **\u22653 AML audits**: Satisfied by `e_00ef85` (\"An audit summary notes Apex Capital Corp completed 4 anti-money laundering audits this year.\")\n\nBoth conditions are met, so this group is satisfied.\n\n### Condition 2: 0 sanction violations\n- **0 sanction violations**: Satisfied by `e_006110` (\"Sanction tracking systems verify Apex Capital Corp recorded 0 sanction violations this year.\")\n\nThis group is also satisfied.\n\n### Output\nBoth groups satisfy the policy, but we only need to list one set of conditions that leads to the memory. We'll choose the first group (ISO 37001 certification AND AML audits) as the primary satisfying condition.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds active ISO 37001 certification\",\n          \"item\": \"e_00342e\"\n        },\n        {\n          \"condition\": \"completed at least 3 anti-money laundering audits in a year\",\n          \"item\": \"e_00ef85\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON object specifies that the memory is supported by the conditions and candidate items listed above.",
+ "usage": {
+  "note": "dossier014 ground.m_009732",
+  "model": "granite-4.1-8b",
+  "input_tokens": 938,
+  "output_tokens": 391,
+  "seconds": 24.68
+ }
+}

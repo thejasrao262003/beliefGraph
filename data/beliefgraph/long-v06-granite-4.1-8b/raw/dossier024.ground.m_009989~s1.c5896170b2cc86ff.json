@@ -1,0 +1,12 @@
+{
+ "note": "dossier024 ground.m_009989~s1",
+ "model": "granite-4.1-8b",
+ "response": "To determine the stored items (candidates) that the memory \"Apex Health Center receives Regional Care Center status.\" rests on, we need to apply the policy: \"Facility license renewal is approved for any center holding a risk management credential alongside a facility safety rating of 90 points or greater.\"\n\n**Step 1: Split the policy into alternatives (OR) of groups of conditions that must hold together (AND).**\n\nThe policy has no \"or\" condition, so we have a single group of conditions:\n- **AND group**: \n  1. The center must hold a risk management credential.\n  2. The center must have a facility safety rating of 90 points or greater.\n\n**Step 2: Identify the candidate items that satisfy each condition.**\n\n- **Condition 1**: The center holds a risk management credential.\n  - **Candidate**: m_00873d (Apex Health Center earns risk management accreditation.)\n\n- **Condition 2**: The center has a facility safety rating of 90 points or greater.\n  - **Candidate**: e_00648f (Apex Health Center has a facility safety score of 95 points.)\n\n**Step 3: Construct the JSON output.**\n\nBoth conditions are satisfied by the identified candidates, so we include them in the \"all_of\" list within a single \"groups\" array.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds risk management credential\",\n          \"item\": \"m_00873d\"\n        },\n        {\n          \"condition\": \"facility safety rating >= 90\",\n          \"item\": \"e_00648f\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON object accurately reflects the conditions required by the policy and the candidate items that satisfy those conditions.",
+ "usage": {
+  "note": "dossier024 ground.m_009989~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 889,
+  "output_tokens": 372,
+  "seconds": 14.67
+ }
+}

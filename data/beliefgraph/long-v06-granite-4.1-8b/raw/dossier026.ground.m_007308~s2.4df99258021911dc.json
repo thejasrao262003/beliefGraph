@@ -1,0 +1,12 @@
+{
+ "note": "dossier026 ground.m_007308~s2",
+ "model": "granite-4.1-8b",
+ "response": "The policy requires that the provider (Apex Medical Center) must have:\n1. Higher-tier healthcare status (OR any of the statuses that indicate higher-tier standing).\n2. Maintain 15 or more ICU beds.\n\n**Conditions and candidate items:**\n\n1. **Higher-tier healthcare status**:  \n   - \"Apex Medical Center is designated as a regional trauma care provider.\" (m_00097e)  \n   - \"Apex Medical Center attains public health leadership status.\" (m_00904a)  \n   - \"Apex Medical Center achieves primary healthcare facility accreditation.\" (m_005562)  \n   - \"Apex Medical Center holds advanced clinical standing.\" (m_004753)  \n   - \"Apex Medical Center holds Joint Commission Accreditation.\" (e_00df29)  \n\n   Any of these satisfies the first condition. We can choose one, e.g., `m_004753`.\n\n2. **Maintain 15 or more ICU beds**:  \n   - \"Facility records verify Apex Medical Center maintains 20 ICU beds.\" (e_00de98)  \n\n   This satisfies the second condition with `e_00de98`.\n\nThus, the memory rests on the group where both conditions hold together.\n\n**Output:**\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"higher-tier healthcare status\",\n          \"item\": \"m_004753\"\n        },\n        {\n          \"condition\": \"maintains 15 or more ICU beds\",\n          \"item\": \"e_00de98\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier026 ground.m_007308~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 897,
+  "output_tokens": 336,
+  "seconds": 14.66
+ }
+}

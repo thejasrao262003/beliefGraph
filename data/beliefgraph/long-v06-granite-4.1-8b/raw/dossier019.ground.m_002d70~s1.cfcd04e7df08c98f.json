@@ -1,0 +1,12 @@
+{
+ "note": "dossier019 ground.m_002d70~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Interpret the policy**\n\nThe policy states: *Capacity qualification is achieved when a facility handles at least 10,000 diagnostic samples processed annually.*\n\nThis translates to a single logical group with one condition:\n- **Condition**: The facility processed **\u2265\u202f10,000** diagnostic samples annually.\n\n**Step 2: Identify candidate items satisfying the condition**\n\nWe look through the candidate list for items that mention Grace Diagnostics and the number of diagnostic samples processed:\n\n- **Candidate e_007b83**: \"Grace Diagnostics processed 12000 diagnostic samples this year.\"  \n  - This directly states that Grace Diagnostics handled 12,000 samples, which satisfies **\u2265\u202f10,000**.\n\nAll other candidates either refer to different entities (Solis Medical Center, Beacon Surgical Institute, Crestview Pharmacy, Eldridge Care Home, DocuHealth Systems) or discuss topics unrelated to sample volume (accreditations, certifications, safety scores, staffing, etc.).\n\n**Step 3: Assemble the JSON output**\n\nSince there is only one required group with one condition met by candidate `e_007b83`, the JSON structure is:\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"processed at least 10000 diagnostic samples annually\",\n          \"item\": \"e_007b83\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Final JSON response**\n\n```json\n{\"groups\": [{\"all_of\": [{\"condition\": \"processed at least 10000 diagnostic samples annually\", \"item\": \"e_007b83\"}]}]}\n```",
+ "usage": {
+  "note": "dossier019 ground.m_002d70~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 891,
+  "output_tokens": 336,
+  "seconds": 13.97
+ }
+}

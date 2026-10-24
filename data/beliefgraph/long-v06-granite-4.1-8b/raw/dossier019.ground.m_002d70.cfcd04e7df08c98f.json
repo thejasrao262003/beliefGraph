@@ -1,0 +1,12 @@
+{
+ "note": "dossier019 ground.m_002d70",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Translate the policy into groups of conditions (OR structure).**  \nThe policy states: *\u201cCapacity qualification is achieved when a facility handles at least 10000 diagnostic samples processed annually.\u201d*  \nThere is no \"or\" clause, so we have a single group containing one condition:\n\n- **Condition:** The facility processed **\u2265\u202f10000** diagnostic samples annually. *(implicitly refers to \u201cGrace Diagnostics\u201d)*\n\n**Step 2: Identify the candidate item that satisfies the condition.**  \n\n- **Candidate:** \n  - **e_007b83** \u2013 \u201cGrace Diagnostics processed 12000 diagnostic samples this year.\u201d  \n    This directly satisfies \u201c\u2265\u202f10000\u201d samples for Grace Diagnostics.\n\nNo other candidate mentions Grace Diagnostics or the required sample volume, so the relevant candidate is **e_007b83**. No alternatives are needed because the policy is a single condition with no OR branching.\n\n**Step 3: Construct the JSON output.**  \n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"processed \u2265 10000 diagnostic samples annually\",\n          \"item\": \"e_007b83\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier019 ground.m_002d70",
+  "model": "granite-4.1-8b",
+  "input_tokens": 891,
+  "output_tokens": 264,
+  "seconds": 11.74
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier028 ground.m_002208",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Split the policy into alternatives (OR) of groups of conditions (AND).**\n\nThe policy states:\n- *A supplier achieves a high performance rating either by holding ISO 27001 certification **and** a customer satisfaction rating of 90 percent or higher, **or** by recording 100 or more successful deliveries per quarter.*\n\nThus, we have two groups (alternatives):\n1. **Group 1 (AND group):**  \n   - Condition A: Supplier holds ISO 27001 certification.  \n   - Condition B: Supplier\u2019s customer satisfaction rating is 90% or higher.\n\n2. **Group 2 (AND group):**  \n   - Condition C: Supplier records 100 or more successful deliveries per quarter.\n\n**Step 2: Identify the candidate item(s) that satisfy each condition.**\n\n- **Condition A (ISO 27001 certification):**  \n  Candidate: `e_0037a1` \u2013 \u201cApex Logistics holds ISO 27001 certification.\u201d\n\n- **Condition B (Customer satisfaction rating \u2265 90%):**  \n  Candidate: `e_00eba6` \u2013 \u201cApex Logistics achieved a customer satisfaction rating of 92 percent.\u201d\n\n- **Condition C (\u2265 100 successful deliveries per quarter):**  \n  Candidate: `e_001bb9` \u2013 \u201cApex Logistics completed 150 successful deliveries last quarter.\u201d\n\nAll conditions are satisfied by the respective candidates, so no nulls are needed.\n\n**Output JSON:**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds ISO 27001 certification\",\n          \"item\": \"e_0037a1\"\n        },\n        {\n          \"condition\": \"customer satisfaction rating of 90 percent or higher\",\n          \"item\": \"e_00eba6\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"records 100 or more successful deliveries per quarter\",\n          \"item\": \"e_001bb9\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier028 ground.m_002208",
+  "model": "granite-4.1-8b",
+  "input_tokens": 904,
+  "output_tokens": 430,
+  "seconds": 20.65
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier026 ground.m_00d505",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Split the policy into conditions**\n\nThe policy states: *\u201cSuperior pharmacy recognition is conferred on a facility that maintains an annual prescription accuracy rate of 98.0% or higher.\u201d*\n\nThis translates to a single group of conditions (no OR alternatives):\n- The facility must have an annual prescription accuracy rate **\u2265 98.0%**.\n\n**Step 2: Identify candidate items satisfying each condition**\n\n- Condition: annual prescription accuracy rate \u2265 98.0% for **Crestview Pharmacy**.\n- Candidate items:\n  - `e_00a366`: \"Dispensing logs show Crestview Pharmacy maintains an annual prescription accuracy rate of 99.5%.\" \u2192 **satisfies** the condition.\n  - All other candidates relate to Apex Medical Center, Dental Care Plus, or unrelated metrics, so they **do not** satisfy this condition.\n\nThus, the correct candidate for the condition is `e_00a366`.\n\n**Step 3: Construct the JSON output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"annual prescription accuracy rate \u2265 98.0% for Crestview Pharmacy\",\n          \"item\": \"e_00a366\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON captures exactly which stored item the memory rests on according to the given policy.",
+ "usage": {
+  "note": "dossier026 ground.m_00d505",
+  "model": "granite-4.1-8b",
+  "input_tokens": 922,
+  "output_tokens": 286,
+  "seconds": 11.47
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier002 groundc1.m_001e42",
+ "model": "granite-4.1-8b",
+ "response": "The policy conditions for accelerated managerial promise are:\n1. Holding a **Senior Specialist Certification**.\n2. Finishing **at least 5 training modules**.\n3. Securing a **peer evaluation score of 80 percent or higher**.\n\nThese conditions must all hold together (AND). The policy has no \"or\" alternatives, so there is a single group.\n\nNow, match each condition to the candidate items:\n\n1. **Condition**: Holding a Senior Specialist Certification  \n   **Satisfying Candidate**: `e_00dc10` (states \"Marcus Vance holds a Senior Specialist Certification.\")\n\n2. **Condition**: Finishing at least 5 training modules  \n   **Satisfying Candidate**: `e_00f20f` mentions \"completed 4 leadership seminars.\" Since 4 < 5, no candidate satisfies this condition. \u2192 **null**\n\n3. **Condition**: Peer evaluation score of 80 percent or higher  \n   **Satisfying Candidate**: `e_00a3b1` (states \"Marcus Vance earned a peer rating of 85 percent.\") \u2192 satisfies the condition.\n\nSince the second condition is not met, the group as a whole fails, but we still list the candidates that satisfy each condition as specified.\n\n**Output JSON:**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds Senior Specialist Certification\",\n          \"item\": \"e_00dc10\"\n        },\n        {\n          \"condition\": \"completed at least 5 training modules\",\n          \"item\": null\n        },\n        {\n          \"condition\": \"peer evaluation score >= 80%\",\n          \"item\": \"e_00a3b1\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier002 groundc1.m_001e42",
+  "model": "granite-4.1-8b",
+  "input_tokens": 856,
+  "output_tokens": 360,
+  "seconds": 11.4
+ }
+}

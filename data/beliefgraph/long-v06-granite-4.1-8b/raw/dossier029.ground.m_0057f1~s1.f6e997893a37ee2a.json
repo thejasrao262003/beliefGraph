@@ -1,0 +1,12 @@
+{
+ "note": "dossier029 ground.m_0057f1~s1",
+ "model": "granite-4.1-8b",
+ "response": "The policy states that the Institutional oversight benchmark is met when an entity **with baseline regulatory clearance** receives an institutional audit rating of **80 points or higher**. This translates to two groups of conditions (OR):\n\n1. **Group 1**: The entity has baseline regulatory clearance **AND** its institutional audit rating is \u2265 80 points.\n2. **Group 2**: Either condition alone (though logically, the policy implies both must be true for the benchmark to be met, so we consider the single group with both conditions conjoined).\n\nFrom the candidates, we identify:\n\n- **Baseline regulatory clearance**: Satisfied by `m_008ad0` (\"Apex Capital Management receives basic regulatory authorization.\").\n- **Institutional audit rating \u2265 80 points**: Satisfied by `e_006828` (\"Apex Capital Management maintains an institutional audit rating of 85 points.\").\n\nThus, the memory \"Apex Capital Management is approved for corporate line of credit.\" rests on the following condition group:\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"has baseline regulatory clearance\",\n          \"item\": \"m_008ad0\"\n        },\n        {\n          \"condition\": \"institutional audit rating >= 80 points\",\n          \"item\": \"e_006828\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON object specifies the exact conditions and corresponding candidate items that support the stored memory.",
+ "usage": {
+  "note": "dossier029 ground.m_0057f1~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 896,
+  "output_tokens": 300,
+  "seconds": 13.63
+ }
+}

@@ -1,0 +1,12 @@
+{
+ "note": "dossier015 ground.m_000745",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy into conditions**\n\nThe policy states:  \n- *Art collection valued at $800,000 or higher*  \n- *Protective deposit of at least $25,000*  \n- *Completes 4 or more annual foundation audits*\n\nThese three conditions must all hold together (no OR in the policy).\n\n**Step 2: Match each condition to a candidate**\n\n| Condition | Required entity/value | Candidate that satisfies it | Reason |\n|-----------|----------------------|-----------------------------|--------|\n| Art collection \u2265 $800,000 | Arthur Pendelton's art collection valuation | **e_009ef4** | Text: \"Arthur Pendelton's private art collection valuation is $1,000,000.\" |\n| Protective deposit \u2265 $25,000 | Arthur Pendelton's security deposit balance | **e_00b308** | Text: \"Arthur Pendelton's private security deposit balance is $30,000.\" |\n| Annual foundation audits \u2265 4 | Number of annual foundation audits completed by Arthur Pendelton | **e_000cdc** | Text: \"Arthur Pendelton has completed 5 cultural foundation audits this year.\" |\n\nAll three conditions are met by the listed candidates.\n\n**Step 3: Construct the JSON output**\n\nThe policy has a single group (no OR alternatives), and each condition is matched with its candidate.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"art collection value \u2265 $800,000\",\n          \"item\": \"e_009ef4\"\n        },\n        {\n          \"condition\": \"protective deposit \u2265 $25,000\",\n          \"item\": \"e_00b308\"\n        },\n        {\n          \"condition\": \"annual foundation audits \u2265 4\",\n          \"item\": \"e_000cdc\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely captures the memory's dependency on the specified conditions and their satisfying candidates.",
+ "usage": {
+  "note": "dossier015 ground.m_000745",
+  "model": "granite-4.1-8b",
+  "input_tokens": 947,
+  "output_tokens": 412,
+  "seconds": 32.24
+ }
+}

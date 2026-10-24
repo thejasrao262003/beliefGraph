@@ -1,0 +1,12 @@
+{
+ "note": "dossier019 ground.m_009aab",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy into condition groups**  \nThe policy states:  \n*A facility holding educational standards approval attains top clinical status **if it maintains a patient safety index of 85 or above annually**.*  \n\n- **Educational standards approval** \u2192 implied condition.  \n- **Patient safety index \u2265 85 annually** \u2192 numeric threshold condition.  \n\nBecause the policy does **not** contain an \"or\" clause, there is a single group containing both conditions (both must hold).  \n\n**Step 2: Identify candidate items for each condition**  \n\n1. **Educational standards approval**  \n   - Candidate: *m_00bebf* \u2013 \u201cSolis Medical Center fulfills mandatory training criteria.\u201d (implies educational standards approval).  \n\n2. **Patient safety index \u2265 85**  \n   - Candidate: *e_00c274* \u2013 \u201cSolis Medical Center recorded a patient safety index of 92 this year.\u201d (92 \u2265 85).  \n   - No other candidate directly satisfies the numeric threshold; thus this is the sole match.  \n\n**Step 3: Assemble the JSON structure**  \n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"educational standards approval\",\n          \"item\": \"m_00bebf\"\n        },\n        {\n          \"condition\": \"patient safety index \u2265 85\",\n          \"item\": \"e_00c274\"\n        }\n      ]\n    }\n  ]\n}\n```\n\n**Result (as specified):**\n\n```json\n{\"groups\": [{\"all_of\": [{\"condition\": \"educational standards approval\", \"item\": \"m_00bebf\"}, {\"condition\": \"patient safety index \u2265 85\", \"item\": \"e_00c274\"}]}]}\n```",
+ "usage": {
+  "note": "dossier019 ground.m_009aab",
+  "model": "granite-4.1-8b",
+  "input_tokens": 898,
+  "output_tokens": 371,
+  "seconds": 16.08
+ }
+}

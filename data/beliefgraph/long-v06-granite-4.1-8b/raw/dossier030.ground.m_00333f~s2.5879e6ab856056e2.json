@@ -1,0 +1,12 @@
+{
+ "note": "dossier030 ground.m_00333f~s2",
+ "model": "granite-4.1-8b",
+ "response": "The policy states that verification credibility status is established if **any** of the following conditions hold for a firm:\n\n1. **Turnover condition**: the firm generates turnover of at least **10,000,000 USD per year**.\n2. **Commercial banking charter condition**: the firm **holds a commercial banking charter**.\n3. **Credit rating condition**: the firm **maintains an international credit rating of at least 75 points**.\n\nWe need to identify which candidate items satisfy each condition for **Beacon Holdings LLC**.\n\n### Condition Analysis\n\n1. **Turnover condition**  \n   - Candidate: `e_00fbdc` states \"Beacon Holdings LLC recorded annual turnover of 15,000,000 USD.\"  \n   - This satisfies the turnover condition (15,000,000 USD \u2265 10,000,000 USD).  \n   - **Item**: `e_00fbdc`\n\n2. **Commercial banking charter condition**  \n   - Candidate: `e_00b38b` states \"Beacon Holdings LLC holds an active commercial banking charter.\"  \n   - This satisfies the commercial banking charter condition.  \n   - **Item**: `e_00b38b`\n\n3. **Credit rating condition**  \n   - Candidate: `e_003fc6` states \"Beacon Holdings LLC maintains an international credit rating of 80 points.\"  \n   - This satisfies the credit rating condition (80 points \u2265 75 points).  \n   - **Item**: `e_003fc6`\n\n### Grouping Conditions\n\nSince the policy uses **OR** between the conditions, we have three separate groups, each containing the respective condition that must hold together.\n\n### JSON Output\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"turnover of at least 10,000,000 USD\",\n          \"item\": \"e_00fbdc\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds a commercial banking charter\",\n          \"item\": \"e_00b38b\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"maintains an international credit rating of at least 75 points\",\n          \"item\": \"e_003fc6\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier030 ground.m_00333f~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 924,
+  "output_tokens": 488,
+  "seconds": 14.52
+ }
+}

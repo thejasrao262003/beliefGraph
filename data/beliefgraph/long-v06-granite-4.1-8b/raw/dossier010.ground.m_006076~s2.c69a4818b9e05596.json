@@ -1,0 +1,12 @@
+{
+ "note": "dossier010 ground.m_006076~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy into conditions (OR groups).**\n\nThe policy states:  \n*\u201cHigh-volume account status is assigned when monthly group bookings equal 30 or more **alongside** an active ISO 27001 Security Certification.\u201d*\n\nThis translates to a single logical group with two **AND** conditions that must both hold together:\n\n1. Monthly group bookings **\u2265 30**  \n2. The account holds an **active ISO 27001 Security Certification**  \n\n(Only one group is needed because there is no \u201cor\u201d separating alternative groups.)\n\n**Step 2: Match each condition to the candidate items.**\n\n- **Condition 1 \u2013 \u201cmonthly group bookings equal 30 or more\u201d**  \n  - Candidate fact: `\"e_00ad3d\"` states **\u201cVanguard Mobility logged 40 monthly group bookings this month.\u201d**  \n  - 40\u202f\u2265\u202f30 \u2192 condition satisfied.  \n  - No other candidate provides the required booking count for Vanguard Mobility.\n\n- **Condition 2 \u2013 \u201cactive ISO 27001 Security Certification\u201d**  \n  - Candidate fact: `\"e_002094\"` states **\u201cVanguard Mobility holds a valid ISO 27001 Security Certification.\u201d**  \n  - This directly satisfies the certification requirement.\n\nBoth conditions are satisfied by distinct candidate IDs.\n\n**Step 3: Construct the JSON output.**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"monthly group bookings \u2265 30\",\n          \"item\": \"e_00ad3d\"\n        },\n        {\n          \"condition\": \"active ISO 27001 Security Certification\",\n          \"item\": \"e_002094\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThe output is precisely formatted as requested, listing only the candidate IDs that satisfy each condition within the sole logical group defined by the policy.",
+ "usage": {
+  "note": "dossier010 ground.m_006076~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 918,
+  "output_tokens": 391,
+  "seconds": 15.76
+ }
+}

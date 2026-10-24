@@ -1,0 +1,12 @@
+{
+ "note": "dossier028 ground.m_00a9ef~s2",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the Policy into Alternatives**\n\nThe policy states:  \n*\"A supplier achieves a high performance rating either by holding ISO 27001 certification **alongside a customer satisfaction rating of 90 percent or higher**, or by recording **100 or more successful deliveries per quarter**.\"*\n\nThis translates into two mutually exclusive groups (OR):\n\n- **Group 1 (AND group):**  \n  1. Supplier holds ISO 27001 certification.  \n  2. Supplier has a customer satisfaction rating \u2265 90%.\n\n- **Group 2 (single condition, no AND):**  \n  Supplier records \u2265 100 successful deliveries per quarter.\n\n**Step 2: Map Conditions to Candidate Items**\n\nFor each condition, identify the candidate item that satisfies it, referencing the same entity (Apex Logistics).\n\n| Condition | Candidate Item (if any) | Reason |\n|-----------|--------------------------|--------|\n| Holds ISO 27001 certification | `e_0037a1` | Directly states Apex Logistics holds ISO 27001 certification. |\n| Customer satisfaction rating \u2265 90% | `e_00eba6` | Directly states Apex Logistics achieved a customer satisfaction rating of 92 percent. |\n| Records \u2265 100 successful deliveries per quarter | `e_001bb9` | Directly states Apex Logistics completed 150 successful deliveries last quarter, which meets the \u201c100 or more\u201d threshold. |\n\nNo conditions are left unsatisfied; each has a matching candidate.\n\n**Step 3: Construct the JSON Output**\n\nOrdered by the groups defined in Step 1:\n\n- **Group 1 (all_of):** Both conditions must hold.\n- **Group 2 (single condition):** Condition alone suffices.\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds ISO 27001 certification\",\n          \"item\": \"e_0037a1\"\n        },\n        {\n          \"condition\": \"customer satisfaction rating \u2265 90%\",\n          \"item\": \"e_00eba6\"\n        }\n      ]\n    },\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"records \u2265 100 successful deliveries per quarter\",\n          \"item\": \"e_001bb9\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely captures the logical structure required by the policy and the supporting evidence from the candidate items.",
+ "usage": {
+  "note": "dossier028 ground.m_00a9ef~s2",
+  "model": "granite-4.1-8b",
+  "input_tokens": 908,
+  "output_tokens": 497,
+  "seconds": 18.33
+ }
+}

@@ -201,3 +201,21 @@ grants one of the memory's own premises.
 
 OUTPUT: a single JSON object, no prose: {"score": <0-10>}
 """
+
+# v0.7: each rule is parsed once (per rule, not per memory) into what it produces (THEN) and
+# what it requires (IF, as OR-of-AND condition groups), as VERBATIM spans of the rule text.
+# Routing then matches a memory to THEN clauses, and a memory that matches a rule's IF is
+# evidence that the rule is downstream of it, not its source.
+RULE_PARSE_VERSION = "bg-rule-parse-v1"
+RULE_PARSE_PROMPT = """\
+Split the RULE into what it produces and what it requires. Copy the words of the rule; do not \
+paraphrase or summarise.
+
+- "then": the part of the rule that states the outcome it grants, produces or decides (a status, \
+an approval, a selection, a classification);
+- "if": the conditions it checks, as a list of alternatives; each alternative is a list of \
+conditions that must ALL hold. A rule with no "or" has one alternative.
+
+OUTPUT: a single JSON object, no prose:
+{"then": "<span of the rule>", "if": [["<span>", "<span>"], ["<span>"]]}
+"""

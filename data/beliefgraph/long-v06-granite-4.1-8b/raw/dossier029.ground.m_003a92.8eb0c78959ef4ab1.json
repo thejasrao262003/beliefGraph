@@ -1,0 +1,12 @@
+{
+ "note": "dossier029 ground.m_003a92",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Parse the policy**\n\nThe policy states:  \n*\"Comprehensive governance criteria are satisfied when an entity with operational security endorsement achieves an annual staff compliance training rate of at least 90%.\"*\n\nThis translates to two **AND** conditions that must both hold:\n1. **Operational security endorsement** \u2013 the entity must have this endorsement.\n2. **Annual staff compliance training rate \u2265 90%** \u2013 the entity must have achieved this rate.\n\nThere is **no \"OR\"** component in the policy, so there is a single group with these two conditions.\n\n**Step 2: Identify candidate items for each condition**\n\n| Condition | Requirement | Candidate that satisfies it |\n|-----------|-------------|------------------------------|\n| Operational security endorsement | The entity must have an endorsement of operational security. | **m_0072b1** \u2013 *\"Apex Capital Management attains high-level operational security verification.\"* |\n| Annual staff compliance training rate \u2265 90% | The entity must have completed compliance training for at least 90% of its staff. | **e_00e827** \u2013 *\"Apex Capital Management completed annual compliance training for 95% of staff.\"* |\n\nAll other candidates either refer to related but distinct topics (e.g., supervisory compliance, solvency requirements, anti-money laundering certification) or do not meet the specific threshold required for the training rate.\n\n**Step 3: Construct the JSON output**\n\nThe JSON object must list the single group containing both conditions, referencing the appropriate candidate IDs (or `null` if no candidate existed, which is not the case here).\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"operational security endorsement\",\n          \"item\": \"m_0072b1\"\n        },\n        {\n          \"condition\": \"annual staff compliance training rate >= 90%\",\n          \"item\": \"e_00e827\"\n        }\n      ]\n    }\n  ]\n}\n```",
+ "usage": {
+  "note": "dossier029 ground.m_003a92",
+  "model": "granite-4.1-8b",
+  "input_tokens": 902,
+  "output_tokens": 408,
+  "seconds": 17.78
+ }
+}

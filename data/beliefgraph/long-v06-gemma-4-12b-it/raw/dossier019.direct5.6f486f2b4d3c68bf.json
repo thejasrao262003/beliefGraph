@@ -1,0 +1,12 @@
+{
+ "note": "dossier019 direct5",
+ "model": "gemma-4-12b-it",
+ "response": "```json\n{\n \"changes\": {\n  \"m_00a019\": \"withdraw\",\n  \"m_00333f\": \"keep\",\n  \"m_0003d5\": \"keep\"\n }\n}\n```\n\n**Note on logic:**\n1. **m_00a019 (Beacon Surgical Institute achieves maximum safety compliance)**: Requires ISO 9001 (e_006360), infection control score $\\ge$ 90 (e_001e25), and $\\ge$ 10 hygiene inspections (e_0046ce).\n    - Update `u_00aab8` (official revocation) confirms the infection control score is **not** 95. Since it was the only fact provided for that specific metric (e_001e25), and the memory requires it, the memory is withdrawn.\n2. **m_00333f (Beacon Surgical Institute should be approved for surgical center renewal)**: Requires \"essential sanitation clearance\". \n    - \"Essential sanitation clearance\" is achieved if infection control $\\ge$ 80 **OR** external sanitation rating $\\ge$ 75.\n    - Even though the infection control score was retracted (u_00aab8), the fact e_001c42 (external sanitation rating of 88) remains valid. Therefore, the memory is **kept**.\n3. **m_0003d5 (Beacon Surgical Institute meets baseline hygiene requirements)**: Relies on the sanitation rating/infection control. Since the sanitation rating (88) is still valid, it is **kept**.\n4. **m_000068** (Pharmacy): No changes to facts.\n5. **m_009aab** (Solis clinical status): Relies on patient safety index (92) and educational standards (12 modules). Both facts remain valid.\n6. **m_006fbd** (Fernwood license): Fact remains valid.\n7. **m_002410** (Solis license expansion): Requires top clinical status (m_009aab) and $\\ge$ 3 audit reviews (e_008eae). Both remain valid.\n8. **m_00877c** (Solis subsidies): Requires active standing (12 modules), broadened permit (m_002410), and liability coverage $\\ge$ $2M (e_007f8a). All remain valid.\n9. **m_00bebf** (Solis training): Fact remains valid.\n10. **m_002d70** (Grace high-volume): Fact remains valid.\n11. **m_00aab6** (Eldridge staffing): Fact e_001419 (0.25) is > 0.20. Valid.\n12. **m_0065e8** (DocuHealth): Fact remains valid.\n13. **m_001302** (Solis funding): Relies on m_00877c. Valid.\n14. **m_002f05** (Solis standing): Relies on modules (e_00c1f2). Valid.",
+ "usage": {
+  "note": "dossier019 direct5",
+  "model": "gemma-4-12b-it",
+  "input_tokens": 2558,
+  "output_tokens": 743,
+  "seconds": 51.3
+ }
+}

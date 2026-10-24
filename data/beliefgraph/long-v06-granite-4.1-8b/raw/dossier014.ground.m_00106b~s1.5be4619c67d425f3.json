@@ -1,0 +1,12 @@
+{
+ "note": "dossier014 ground.m_00106b~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step 1: Interpret the policy**\n\nPolicy: \"A corporate client fulfills heightened due diligence standards when demonstrating a robust internal governance framework **alongside** a corporate credit score of at least 700 points.\"\n\n- This policy consists of **one group** (no \"or\" clause).\n- **Conditions that must hold together (AND):**\n  1. **Robust internal governance framework** \u2013 interpreted as \"maintains adequate internal governance controls.\"\n  2. **Corporate credit score \u2265 700 points** \u2013 interpreted as \"corporate credit score of at least 700 points.\"\n\n**Step 2: Identify candidate items for each condition**\n\n- **Condition 1 (internal governance):**  \n  Candidate that states \"maintains adequate internal governance controls\" \u2192 **m_0064ed**.\n\n- **Condition 2 (credit score \u2265 700):**  \n  Fact that provides the credit score: \"Credit agency data shows Apex Capital Corp maintains a corporate credit score of 780 points.\" \u2192 **e_000c20** (780 \u2265 700). No other candidate directly meets this numeric threshold.\n\n- No alternatives (OR) are present, so only one group is required.\n\n**Step 3: Construct the JSON output**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"robust internal governance framework\",\n          \"item\": \"m_0064ed\"\n        },\n        {\n          \"condition\": \"corporate credit score >= 700 points\",\n          \"item\": \"e_000c20\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely reflects the policy requirements and the candidate items that satisfy each condition.",
+ "usage": {
+  "note": "dossier014 ground.m_00106b~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 921,
+  "output_tokens": 351,
+  "seconds": 16.32
+ }
+}

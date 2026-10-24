@@ -1,0 +1,12 @@
+{
+ "note": "dossier019 ground.m_001302~s1",
+ "model": "granite-4.1-8b",
+ "response": "**Step\u2011by\u2011step reasoning**\n\n1. **Interpret the policy**  \n   *Policy*: \u201cA facility holding educational standards approval attains top clinical status if it maintains a patient safety index of **85 or above annually**.\u201d  \n\n   - **Condition group (AND)**:  \n     1. The facility must **hold educational standards approval**.  \n     2. The facility must **maintain a patient safety index \u2265\u202f85** for the year in question.\n\n   - Since the statement contains no \u201cor\u201d, there is **one** AND\u2011group.\n\n2. **Identify candidate items for each condition**  \n\n   - **Condition\u202f1 \u2013 educational standards approval**  \n     - Candidate that mentions this approval for Solis Medical Center:  \n       `m_009aab` \u2013 \u201cSolis Medical Center qualifies for Tier-1 clinical accreditation.\u201d  \n       Tier\u20111 clinical accreditation implies educational standards approval (the wording \u201cqualifies for\u201d covers the required approval).  \n     - No other candidate directly states the approval, so **m_009aab** is the best match.\n\n   - **Condition\u202f2 \u2013 patient safety index \u2265\u202f85**  \n     - Relevant fact: `e_00c274` \u2013 \u201cSolis Medical Center recorded a patient safety index of 92 this year.\u201d  \n       92\u202f\u2265\u202f85, satisfying the condition.  \n     - No other candidate provides a patient safety index value, so **e_00c274** is the sole satisfying candidate.\n\n3. **Assemble the JSON output**  \n   - Only the two conditions form the required `all_of` group.  \n   - Each condition maps to its selected candidate ID (or `null` if none existed, which is not the case here).\n\n**Resulting JSON**\n\n```json\n{\n  \"groups\": [\n    {\n      \"all_of\": [\n        {\n          \"condition\": \"holds educational standards approval\",\n          \"item\": \"m_009aab\"\n        },\n        {\n          \"condition\": \"maintains patient safety index \u2265 85\",\n          \"item\": \"e_00c274\"\n        }\n      ]\n    }\n  ]\n}\n```\n\nThis JSON precisely reflects the policy\u2019s requirements and the candidate items that satisfy them.",
+ "usage": {
+  "note": "dossier019 ground.m_001302~s1",
+  "model": "granite-4.1-8b",
+  "input_tokens": 900,
+  "output_tokens": 467,
+  "seconds": 19.93
+ }
+}
