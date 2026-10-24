@@ -141,10 +141,15 @@ def main() -> None:
                     help="targeted repairs of a rejected rendering before the next whole attempt")
     ap.add_argument("--stop-on-failure", action="store_true",
                     help="stop the whole run when a scenario fails all its attempts (pilot-2 control)")
+    ap.add_argument("--families", nargs="+", default=None, help="e.g. F7 (long dossiers); default: the pilot families")
+    ap.add_argument("--long-domains", action="store_true", help="use the long-scenario domain list")
     ap.add_argument("--dry-run", action="store_true")
     args = ap.parse_args()
 
-    suite = generate_suite(args.n_per_family, args.seed)
+    from beliefbench.generate import FAMILIES, LONG_DOMAINS, PILOT_DOMAINS
+
+    suite = generate_suite(args.n_per_family, args.seed, families=tuple(args.families or FAMILIES),
+                           domains=LONG_DOMAINS if args.long_domains else PILOT_DOMAINS)
     if args.limit:
         # Smoke test: one scenario per family first, so a small run still covers all families.
         by_fam = {}

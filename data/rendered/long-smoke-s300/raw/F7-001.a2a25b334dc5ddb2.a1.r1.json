@@ -1,0 +1,851 @@
+{
+ "scenario": "F7-001",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.B1": "record_window_not_in_policy 'record none, clause year'",
+  "conditions.B1": "record_window_not_in_policy 'record none, clause year'",
+  "facts.E1": "record_window_not_in_policy 'record none, clause year'",
+  "nodes.E1.text": "record_window_not_in_policy 'record none, clause year'",
+  "nodes.E1.source": "record_window_not_in_policy 'record none, clause year'",
+  "policies.B6": "record_window_not_in_policy 'year'",
+  "conditions.B6": "record_window_not_in_policy 'year'",
+  "facts.E9": "record_window_not_in_policy 'year'",
+  "nodes.E9.text": "record_window_not_in_policy 'year'",
+  "nodes.E9.source": "record_window_not_in_policy 'year'",
+  "policies.B13": "record_window_not_in_policy 'year'",
+  "conditions.B13": "record_window_not_in_policy 'year'",
+  "facts.E15": "record_window_not_in_policy 'year'",
+  "nodes.E15.text": "record_window_not_in_policy 'year'",
+  "nodes.E15.source": "record_window_not_in_policy 'year'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B1\": [\n   {\n    \"premise\": \"E1\",\n    \"kind\": \"credential\",\n    \"entity\": \"Apex Health\",\n    \"relation\": null,\n    \"quantity\": \"HIPAA Compliance Certification\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E2\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Health\",\n    \"relation\": null,\n    \"quantity\": \"internal audit reviews\",\n    \"comparator\": \">=\",\n    \"threshold\": 10,\n    \"unit\": \"reviews\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E3\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Health\",\n    \"relation\": null,\n    \"quantity\": \"facility safety score\",\n    \"comparator\": \">=\",\n    \"threshold\": 90,\n    \"unit\": \"points\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"conditions.B13\": [\n   {\n    \"premise\": \"E15\",\n    \"kind\": \"number\",\n    \"entity\": \"CareFirst Pharmacy\",\n    \"relation\": null,\n    \"quantity\": \"inventory discrepancies\",\n    \"comparator\": \"<=\",\n    \"threshold\": 0,\n    \"unit\": \"discrepancies\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"conditions.B6\": [\n   {\n    \"premise\": \"E8\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Health\",\n    \"relation\": null,\n    \"quantity\": \"response time for critical incidents\",\n    \"comparator\": \"<=\",\n    \"threshold\": 30,\n    \"unit\": \"minutes\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E9\",\n    \"kind\": \"number\",\n    \"entity\": \"Apex Health\",\n    \"relation\": null,\n    \"quantity\": \"safety violations\",\n    \"comparator\": \"<=\",\n    \"threshold\": 0,\n    \"unit\": \"violations\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E1\": {\n   \"entity\": \"Apex Health\",\n   \"kind\": \"credential\",\n   \"quantity\": \"HIPAA Compliance Certification\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"facts.E15\": {\n   \"entity\": \"CareFirst Pharmacy\",\n   \"kind\": \"number\",\n   \"quantity\": \"inventory discrepancies\",\n   \"value\": 0,\n   \"unit\": \"discrepancies\",\n   \"window\": \"year\",\n   \"scope\": \"none\"\n  },\n  \"facts.E9\": {\n   \"entity\": \"Apex Health\",\n   \"kind\": \"number\",\n   \"quantity\": \"safety violations\",\n   \"value\": 0,\n   \"unit\": \"violations\",\n   \"window\": \"year\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E1.source\": \"Department of Health Audit Portal, official record\",\n  \"nodes.E1.text\": \"An audit report confirmed Apex Health holds an active HIPAA Compliance Certification.\",\n  \"nodes.E15.source\": \"CareFirst Pharmacy Audit Log, official record\",\n  \"nodes.E15.text\": \"CareFirst Pharmacy recorded 0 inventory discrepancies this year.\",\n  \"nodes.E9.source\": \"State Health Inspectorate, annual report\",\n  \"nodes.E9.text\": \"Apex Health recorded 0 safety violations this year.\",\n  \"policies.B1\": \"A facility satisfies core regulatory benchmarks if it holds active HIPAA certification and completes at least 10 internal audit reviews per year, or if its facility safety evaluation reaches at least 90 points per year.\",\n  \"policies.B13\": \"Flawless stock management status is granted when a pharmacy logs zero inventory discrepancies per year.\",\n  \"policies.B6\": \"Superior risk management performance is established when emergency incident response time stays under 30 minutes while zero safety infractions are logged per year.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 11828,
+   "output_tokens": 7944,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 11828,
+    "completion_tokens": 7944
+   }
+  },
+  "est_usd": 0.115983,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "policies.B1",
+  "policies.B13",
+  "policies.B6"
+ ],
+ "merged": {
+  "world": "Apex Health, Beacon Clinic, Crestview Hospital, and CareFirst Pharmacy are being evaluated for regulatory compliance and operational permissions.",
+  "nodes": {
+   "E1": {
+    "text": "An audit report confirmed Apex Health holds an active HIPAA Compliance Certification.",
+    "source": "Department of Health Audit Portal, official record"
+   },
+   "E2": {
+    "text": "Apex Health recorded 12 internal audit reviews this year.",
+    "source": "Apex Health Compliance Database, official log"
+   },
+   "E3": {
+    "text": "An evaluation verified Apex Health achieved a facility safety score of 95 this year.",
+    "source": "State Healthcare Quality Board, certified report"
+   },
+   "E4": {
+    "text": "Apex Health maintains 4 full-time compliance officers.",
+    "source": "Apex Health Human Resources Register, system of record"
+   },
+   "E5": {
+    "text": "Apex Health completed 5 training workshops this year.",
+    "source": "Apex Health Education Portal, verified record"
+   },
+   "E6": {
+    "text": "Apex Health filed 2 quarterly compliance disclosures this year.",
+    "source": "State Regulatory Registry, official submission"
+   },
+   "E7": {
+    "text": "Apex Health resolved 15 patient grievances this year.",
+    "source": "Apex Health Patient Relations Log, official registry"
+   },
+   "E8": {
+    "text": "Apex Health maintained an average response time of 18 minutes for critical incidents.",
+    "source": "Apex Health Emergency Operations Log, official record"
+   },
+   "E9": {
+    "text": "Apex Health recorded 0 safety violations this year.",
+    "source": "State Health Inspectorate, annual report"
+   },
+   "E10": {
+    "text": "Apex Health invested $50,000 in staff safety training this year.",
+    "source": "Apex Health Financial Ledger, verified record"
+   },
+   "E11": {
+    "text": "Apex Health conducted 8 safety drills this year.",
+    "source": "Safety Officer Memo, staff note"
+   },
+   "E12": {
+    "text": "Apex Health holds ISO 45001 Certification.",
+    "source": "International Safety Registrar, official certificate"
+   },
+   "E13": {
+    "text": "Beacon Clinic maintains 2 certified safety officers.",
+    "source": "Beacon Clinic Staff Directory, official record"
+   },
+   "E14": {
+    "text": "Crestview Hospital holds Joint Commission Accreditation.",
+    "source": "Joint Commission Registry, official record"
+   },
+   "E15": {
+    "text": "CareFirst Pharmacy recorded 0 inventory discrepancies this year.",
+    "source": "CareFirst Pharmacy Audit Log, official record"
+   },
+   "B1": {
+    "text": "Apex Health meets fundamental regulatory standards."
+   },
+   "B2": {
+    "text": "Apex Health qualifies for high-level governance clearance."
+   },
+   "D1": {
+    "text": "Apex Health should be granted unrestricted operational licensing."
+   },
+   "B3": {
+    "text": "Apex Health fulfills reporting obligations."
+   },
+   "B4": {
+    "text": "Apex Health attains tier-one accreditation status."
+   },
+   "D2": {
+    "text": "Apex Health should receive preference for state grant allocations."
+   },
+   "B5": {
+    "text": "Apex Health maintains effective patient resolution procedures."
+   },
+   "D3": {
+    "text": "Apex Health should be exempted from monthly supervisory inspections."
+   },
+   "B6": {
+    "text": "Apex Health maintains exemplary safety performance."
+   },
+   "B7": {
+    "text": "Apex Health qualifies for preferred insurance premium rates."
+   },
+   "B8": {
+    "text": "Apex Health satisfies risk mitigation criteria."
+   },
+   "D4": {
+    "text": "Apex Health should be authorized for expanded clinical operations."
+   },
+   "B9": {
+    "text": "Apex Health satisfies workplace safety standards."
+   },
+   "B10": {
+    "text": "Apex Health achieves comprehensive compliance designation."
+   },
+   "B11": {
+    "text": "Beacon Clinic meets safety staffing requirements."
+   },
+   "B12": {
+    "text": "Crestview Hospital satisfies national quality benchmarks."
+   },
+   "B13": {
+    "text": "CareFirst Pharmacy maintains error-free inventory control."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An unverified forum post alleged Apex Health never conducted safety drills this year.",
+    "source": "Healthcare Employee Forum, anonymous post"
+   },
+   "U2": {
+    "text": "A regulatory audit notice confirmed Apex Health's HIPAA Compliance Certification was revoked.",
+    "source": "Department of Health Audit Portal, official notice"
+   },
+   "U3": {
+    "text": "A corrected financial audit confirmed Apex Health invested $35,000 in staff safety training this year.",
+    "source": "Apex Health Financial Ledger, corrected report"
+   },
+   "U4": {
+    "text": "A state health inspection update confirmed Apex Health was cited for safety violations.",
+    "source": "State Health Inspectorate, formal notice"
+   },
+   "U5": {
+    "text": "A compliance investigation raised concerns regarding the documentation of Apex Health's safety drills this year.",
+    "source": "State Healthcare Oversight Board, preliminary inquiry"
+   }
+  },
+  "policies": {
+   "B1": "A facility satisfies core regulatory benchmarks if it holds active HIPAA certification and completes at least 10 internal audit reviews per year, or if its facility safety evaluation reaches at least 90 points per year.",
+   "B2": "An institution holding core regulatory benchmarks receives advanced oversight clearance provided it retains a minimum staffing level of 3 compliance officers.",
+   "D1": "Granting full operational licensing requires an entity with advanced oversight clearance to conduct no fewer than 4 training workshops annually.",
+   "B3": "A provider satisfies disclosure duties when submitting 2 or more quarterly compliance filings per year.",
+   "B4": "Top tier authorization is attained by a provider fulfilling disclosure duties that possesses full operational licensing.",
+   "D2": "Priority for public funding distribution is awarded to organizations possessing top tier authorization.",
+   "B5": "A facility demonstrates proper grievance resolution mechanisms by handling at least 10 patient complaints yearly alongside filing 2 quarterly compliance filings each year.",
+   "D3": "Exemption from regular monitoring reviews is granted to facilities demonstrating proper grievance resolution mechanisms.",
+   "B6": "Superior risk management performance is established when emergency incident response time stays under 30 minutes while zero safety infractions are logged per year.",
+   "B7": "Discounted coverage rates apply to providers showing superior risk management performance that hold full operational licensing.",
+   "B8": "Full risk reduction certification is granted to an applicant eligible for discounted coverage rates.",
+   "D4": "Approval for extended facility services is conferred on institutions holding full risk reduction certification.",
+   "B9": "Workplace hazard prevention approval requires either spending $40,000 or more annually on employee training along with a yearly facility safety evaluation of at least 90 points and 6 safety drills per year, or holding ISO 45001 Certification.",
+   "B10": "An entity with workplace hazard prevention approval that secures approval for extended facility services earns overall regulatory distinction.",
+   "B11": "Safety personnel standards are met when a health provider employs a minimum certified safety staffing level of 2.",
+   "B12": "National quality standing is established if a hospital holds Joint Commission Accreditation.",
+   "B13": "Flawless stock management status is granted when a pharmacy logs zero inventory discrepancies per year."
+  },
+  "decoy_policies": [
+   "An outpatient provider secures emergency transport authorization provided it operates 3 mobile response units and logs 100 transport hours per quarter.",
+   "Commercial laboratory verification requires possessing a sterile water processing license alongside spending $100,000 annually on equipment maintenance."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "holds",
+   "D1": "holds",
+   "B3": "holds",
+   "B4": "holds",
+   "D2": "holds",
+   "B5": "holds",
+   "D3": "holds",
+   "B6": "fails",
+   "B7": "fails",
+   "B8": "fails",
+   "D4": "fails",
+   "B9": "holds",
+   "B10": "fails",
+   "B11": "holds",
+   "B12": "holds",
+   "B13": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Apex Health",
+    "kind": "credential",
+    "quantity": "HIPAA Compliance Certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Apex Health",
+    "kind": "number",
+    "quantity": "internal audit reviews",
+    "value": 12,
+    "unit": "reviews",
+    "window": "year",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Apex Health",
+    "kind": "number",
+    "quantity": "facility safety score",
+    "value": 95,
+    "unit": "points",
+    "window": "year",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Apex Health",
+    "kind": "number",
+    "quantity": "compliance officers",
+    "value": 4,
+    "unit": "officers",
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Apex Health",
+    "kind": "number",
+    "quantity": "training workshops",
+    "value": 5,
+    "unit": "workshops",
+    "window": "year",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Apex Health",
+    "kind": "number",
+    "quantity": "quarterly compliance disclosures",
+    "value": 2,
+    "unit": "disclosures",
+    "window": "year",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Apex Health",
+    "kind": "number",
+    "quantity": "patient grievances",
+    "value": 15,
+    "unit": "grievances",
+    "window": "year",
+    "scope": "none"
+   },
+   "E8": {
+    "entity": "Apex Health",
+    "kind": "number",
+    "quantity": "response time for critical incidents",
+    "value": 18,
+    "unit": "minutes",
+    "window": "none",
+    "scope": "none"
+   },
+   "E9": {
+    "entity": "Apex Health",
+    "kind": "number",
+    "quantity": "safety violations",
+    "value": 0,
+    "unit": "violations",
+    "window": "year",
+    "scope": "none"
+   },
+   "E10": {
+    "entity": "Apex Health",
+    "kind": "number",
+    "quantity": "staff safety training investment",
+    "value": 50000,
+    "unit": "USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "E11": {
+    "entity": "Apex Health",
+    "kind": "number",
+    "quantity": "safety drills",
+    "value": 8,
+    "unit": "drills",
+    "window": "year",
+    "scope": "none"
+   },
+   "E12": {
+    "entity": "Apex Health",
+    "kind": "credential",
+    "quantity": "ISO 45001 Certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E13": {
+    "entity": "Beacon Clinic",
+    "kind": "number",
+    "quantity": "certified safety officers",
+    "value": 2,
+    "unit": "officers",
+    "window": "none",
+    "scope": "none"
+   },
+   "E14": {
+    "entity": "Crestview Hospital",
+    "kind": "credential",
+    "quantity": "Joint Commission Accreditation",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E15": {
+    "entity": "CareFirst Pharmacy",
+    "kind": "number",
+    "quantity": "inventory discrepancies",
+    "value": 0,
+    "unit": "discrepancies",
+    "window": "year",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Apex Health",
+    "kind": "number",
+    "quantity": "safety drills",
+    "value": null,
+    "unit": "drills",
+    "window": "year",
+    "scope": "none"
+   },
+   "U2": {
+    "entity": "Apex Health",
+    "kind": "credential",
+    "quantity": "HIPAA Compliance Certification",
+    "value": false,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U3": {
+    "entity": "Apex Health",
+    "kind": "number",
+    "quantity": "staff safety training investment",
+    "value": 35000,
+    "unit": "USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "U4": {
+    "entity": "Apex Health",
+    "kind": "number",
+    "quantity": "safety violations",
+    "value": null,
+    "unit": "violations",
+    "window": "year",
+    "scope": "none"
+   },
+   "U5": {
+    "entity": "Apex Health",
+    "kind": "number",
+    "quantity": "safety drills",
+    "value": null,
+    "unit": "drills",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "credential",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "HIPAA Compliance Certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "internal audit reviews",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "reviews",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "facility safety score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "points",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "meets fundamental regulatory standards",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "compliance officers",
+     "comparator": ">=",
+     "threshold": 3,
+     "unit": "officers",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "qualifies for high-level governance clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "training workshops",
+     "comparator": ">=",
+     "threshold": 4,
+     "unit": "workshops",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "quarterly compliance disclosures",
+     "comparator": ">=",
+     "threshold": 2,
+     "unit": "disclosures",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "fulfills reporting obligations",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "D1",
+     "kind": "conclusion",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "should be granted unrestricted operational licensing",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D2": [
+    {
+     "premise": "B4",
+     "kind": "conclusion",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "attains tier-one accreditation status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "patient grievances",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "grievances",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "quarterly compliance disclosures",
+     "comparator": ">=",
+     "threshold": 2,
+     "unit": "disclosures",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "D3": [
+    {
+     "premise": "B5",
+     "kind": "conclusion",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "maintains effective patient resolution procedures",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "E8",
+     "kind": "number",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "response time for critical incidents",
+     "comparator": "<=",
+     "threshold": 30,
+     "unit": "minutes",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E9",
+     "kind": "number",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "safety violations",
+     "comparator": "<=",
+     "threshold": 0,
+     "unit": "violations",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B7": [
+    {
+     "premise": "B6",
+     "kind": "conclusion",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "maintains exemplary safety performance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "D1",
+     "kind": "conclusion",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "should be granted unrestricted operational licensing",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B8": [
+    {
+     "premise": "B7",
+     "kind": "conclusion",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "qualifies for preferred insurance premium rates",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D4": [
+    {
+     "premise": "B8",
+     "kind": "conclusion",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "satisfies risk mitigation criteria",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B9": [
+    {
+     "premise": "E10",
+     "kind": "number",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "staff safety training investment",
+     "comparator": ">=",
+     "threshold": 40000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "facility safety score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "points",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E11",
+     "kind": "number",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "safety drills",
+     "comparator": ">=",
+     "threshold": 6,
+     "unit": "drills",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E12",
+     "kind": "credential",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "ISO 45001 Certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B10": [
+    {
+     "premise": "B9",
+     "kind": "conclusion",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "satisfies workplace safety standards",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "D4",
+     "kind": "conclusion",
+     "entity": "Apex Health",
+     "relation": null,
+     "quantity": "should be authorized for expanded clinical operations",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B11": [
+    {
+     "premise": "E13",
+     "kind": "number",
+     "entity": "Beacon Clinic",
+     "relation": null,
+     "quantity": "certified safety officers",
+     "comparator": ">=",
+     "threshold": 2,
+     "unit": "officers",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B12": [
+    {
+     "premise": "E14",
+     "kind": "credential",
+     "entity": "Crestview Hospital",
+     "relation": null,
+     "quantity": "Joint Commission Accreditation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B13": [
+    {
+     "premise": "E15",
+     "kind": "number",
+     "entity": "CareFirst Pharmacy",
+     "relation": null,
+     "quantity": "inventory discrepancies",
+     "comparator": "<=",
+     "threshold": 0,
+     "unit": "discrepancies",
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Apex Health holds active HIPAA certification and completed 12 internal audit reviews this year, which meets the requirement of at least 10 annual reviews.",
+    "Apex Health achieved a facility safety score of 95 this year, which meets the threshold of 90 points."
+   ],
+   "B2": [
+    "Apex Health meets fundamental regulatory standards and employs 4 compliance officers, satisfying the minimum requirement of 3 officers."
+   ],
+   "D1": [
+    "Apex Health holds high-level governance clearance and completed 5 training workshops this year, exceeding the threshold of 4 annual workshops."
+   ],
+   "B3": [
+    "Apex Health submitted 2 quarterly compliance disclosures this year, meeting the requirement of at least 2 filings."
+   ],
+   "B4": [
+    "Apex Health fulfills reporting obligations and holds full operational licensing."
+   ],
+   "D2": [
+    "Apex Health holds top tier authorization, qualifying it for priority state grant distribution."
+   ],
+   "B5": [
+    "Apex Health resolved 15 patient grievances and submitted 2 quarterly compliance disclosures this year, satisfying both requirements."
+   ],
+   "D3": [
+    "Apex Health maintains effective patient resolution procedures, entitling it to inspection exemption."
+   ],
+   "B6": [
+    "Apex Health recorded an 18-minute critical incident response time and 0 safety violations this year, meeting both risk management thresholds."
+   ],
+   "B7": [
+    "Apex Health demonstrates superior risk management performance and holds full operational licensing."
+   ],
+   "B8": [
+    "Apex Health is eligible for discounted coverage rates, qualifying it for full risk reduction certification."
+   ],
+   "D4": [
+    "Apex Health possesses full risk reduction certification, satisfying the requirement for extended facility operations approval."
+   ],
+   "B9": [
+    "Apex Health invested $50,000 in safety training, achieved a 95 safety score, and conducted 8 safety drills this year, satisfying all three criteria.",
+    "Apex Health holds ISO 45001 Certification, which independently satisfies workplace hazard prevention standards."
+   ],
+   "B10": [
+    "Apex Health holds workplace hazard prevention approval and expanded clinical operations authorization, earning overall regulatory distinction."
+   ],
+   "B11": [
+    "Beacon Clinic employs 2 certified safety officers, satisfying the staffing threshold of 2 officers."
+   ],
+   "B12": [
+    "Crestview Hospital holds Joint Commission Accreditation, satisfying national quality criteria."
+   ],
+   "B13": [
+    "CareFirst Pharmacy recorded 0 inventory discrepancies this year, meeting the requirement of zero discrepancies."
+   ]
+  }
+ }
+}

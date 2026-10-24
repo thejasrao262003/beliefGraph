@@ -1,0 +1,233 @@
+# Renderer review sheet
+
+## s_b5c70e4230  (F7-000, personal assistant)
+
+*World:* An AI assistant tracks executive support tasks, performance metrics, and compliance status across client accounts.
+
+### A. System view (judge C7 from this alone)
+- `e_ca95` [2026-01-08, Assistant calendar log.] Arthur Pendelton completed 15 client workshops this month.
+- `e_988a` [2026-01-11, Federal Aviation Administration registry.] Dorian Drake holds commercial pilot certification.
+- `e_d5af` [2026-01-14, Professional development portal.] Beatrix Solis accumulated 50 training credits this quarter.
+- `e_de7c` [2026-01-17, Salesforce CRM dashboard.] Elena Rostova secured 12 new client contracts this month.
+- `e_f548` [2026-01-20, Staff timesheet entry.] Arthur Pendelton logged 120 billable hours this month.
+- `e_2469` [2026-01-23, Corporate registry database.] Arthur Pendelton holds a senior advisor credential.
+- `e_c1c6` [2026-01-26, Official compliance office ledger.] Clara Montez completed 25 security audits this year.
+- `e_9d69` [2026-01-29, Monthly accounting summary.] Arthur Pendelton generated $45,000 in retainer revenue this month.
+- `e_6bac` [2026-02-01, Academic repository report.] Arthur Pendelton published 8 research publications this year.
+- memories:
+  - `m_d885` Beatrix Solis satisfies continuous learning requirements.
+  - `m_94f7` Authorize the bonus disbursement for Arthur Pendelton.
+  - `m_e4cf` Arthur Pendelton qualifies for executive bonus review.
+  - `m_9b0e` Arthur Pendelton holds Tier One billing status.
+  - `m_8671` Beatrix Solis holds master practitioner standing.
+  - `m_1c06` Dorian Drake is authorized for charter flights.
+  - `m_a10e` Clara Montez receives cybersecurity lead clearance.
+  - `m_a93e` Arthur Pendelton receives the quarterly leadership stipend.
+  - `m_382d` Arthur Pendelton is appointed to the executive advisory board.
+  - `m_1c42` Assign prime corporate accounts to Arthur Pendelton.
+  - `m_e1c5` Elena Rostova earns monthly sales honors.
+  - `m_fa8c` Arthur Pendelton earns the thought leadership designation.
+  - `m_f865` Approve Beatrix Solis for lead mentor duties.
+- update `u_19e9` [2026-02-04, Unverified message on public forum.] Arthur Pendelton did not log 120 billable hours this month.
+- update `u_b5f5` [2026-02-07, Anonymous email tip.] Beatrix Solis did not accumulate 50 training credits this quarter.
+- update `u_26af` [2026-02-10, Unconfirmed chat channel rumor.] Arthur Pendelton has not completed 120 billable hours this month.
+- update `u_8195` [2026-02-13, Compliance committee formal notice.] Internal committee is auditing whether Beatrix Solis accumulated 50 training credits this quarter.
+- update `u_6ceb` [2026-02-16, Audited payroll audit report.] Official payroll records show Arthur Pendelton did not record 120 billable hours this month.
+- update `u_5a7b` [2026-02-19, Internal finance audit memo.] Audit review shows Arthur Pendelton did not complete 15 client workshops this month.
+- update `u_dbd9` [2026-02-22, Audited sales commission statement.] Elena Rostova secured 8 new client contracts this month.
+- policies:
+  - `p_f8ff` Selection for supervisory mentoring occurs if a team member possesses expert standing.
+  - `p_0b16` System protection oversight authorization requires annual safety inspections of 20 or more.
+  - `p_a36c` Subject authority recognition is awarded when scholarly papers in a year reach 5 or more.
+  - `p_499a` Financial release of extra compensation occurs when a consultant possesses a leadership grant.
+  - `p_ac73` Educational compliance is fulfilled when quarterly professional points equal at least 40.
+  - `p_9505` Travel expense reimbursement is approved when submitted receipts during a week total under $500.
+  - `p_14e1` Key client allocations are made to a practitioner with Senior tier status who possesses a valid principal consulting certification.
+  - `p_bd91` Commercial excellence recognition is given for monthly client signups reaching 10.
+  - `p_0adb` Expert standing is assigned to an individual who maintains educational compliance.
+  - `p_bc0e` A consultant gets a leadership grant provided bonus evaluation is active.
+  - `p_6ea4` An advisor undergoes bonus evaluation if monthly billable hours equal at least 100 and monthly client workshops total at least 10.
+  - `p_6b51` A commercial vendor achieves premier standard qualification when annual procurement spending reaches $100,000.
+  - `p_bd68` Board placement is granted when a consultant holding subject authority recognition receives key client allocations.
+  - `p_2d78` Private transport flight clearance is granted when holding a flight crew license.
+  - `p_3abd` Senior tier status is granted when monthly work hours equal at least 100 alongside monthly client retainers of at least $40,000.
+
+### B. Intended structure
+- `m_e4cf` (B1) [policy `p_6ea4`] <= (`e_f548` AND `e_ca95`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton satisfies the bonus evaluation criteria with 120 billable hours and 15 client workshops completed this month, exceeding the thresholds of 100 hours and 10 workshops.
+- `m_a93e` (B2) [policy `p_bc0e`] <= (`m_e4cf`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton qualifies for the leadership grant because he meets the precondition of being under executive bonus review.
+- `m_94f7` (D1) [policy `p_499a`] <= (`m_a93e`); gold after update: **withdraw**
+  - set 1: Bonus disbursement is authorized for Arthur Pendelton because he holds a active leadership grant.
+- `m_9b0e` (B3) [policy `p_3abd`] <= (`e_f548` AND `e_9d69`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton meets Tier One billing status criteria by logging 120 hours (at least 100) and generating $45,000 in monthly retainers (at least $40,000).
+- `m_1c42` (D2) [policy `p_14e1`] <= (`m_9b0e` AND `e_2469`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton is assigned prime corporate accounts because he holds Tier One billing status and possesses a valid senior advisor credential.
+- `m_fa8c` (B4) [policy `p_a36c`] <= (`e_6bac`); gold after update: **keep**
+  - set 1: Arthur Pendelton earns thought leadership recognition by publishing 8 research publications this year, exceeding the threshold of 5.
+- `m_382d` (B5) [policy `p_bd68`] <= (`m_fa8c` AND `m_1c42`); gold after update: **withdraw**
+  - set 1: Arthur Pendelton qualifies for executive advisory board placement because he holds the thought leadership designation and was assigned prime corporate accounts.
+- `m_d885` (B6) [policy `p_ac73`] <= (`e_d5af`); gold after update: **uncertain**
+  - set 1: Beatrix Solis satisfies continuous learning requirements with 50 training credits this quarter, exceeding the 40 credits required.
+- `m_8671` (B7) [policy `p_0adb`] <= (`m_d885`); gold after update: **uncertain**
+  - set 1: Beatrix Solis attains master practitioner standing because she maintains continuous learning compliance.
+- `m_f865` (D3) [policy `p_f8ff`] <= (`m_8671`); gold after update: **uncertain**
+  - set 1: Beatrix Solis is approved for lead mentor duties because she holds master practitioner standing.
+- `m_a10e` (B8) [policy `p_0b16`] <= (`e_c1c6`); gold after update: **keep**
+  - set 1: Clara Montez receives cybersecurity lead clearance by completing 25 security audits this year, exceeding the threshold of 20.
+- `m_1c06` (B9) [policy `p_2d78`] <= (`e_988a`); gold after update: **keep**
+  - set 1: Dorian Drake is authorized for charter flights because he holds valid commercial pilot certification.
+- `m_e1c5` (B10) [policy `p_bd91`] <= (`e_de7c`); gold after update: **recompute**
+  - set 1: Elena Rostova earns monthly sales honors by securing 12 new client contracts this month, meeting the threshold of 10.
+- `u_19e9` retracts `e_f548` (reliability low)
+- `u_b5f5` retracts `e_d5af` (reliability low)
+- `u_26af` retracts `e_f548` (reliability low)
+- `u_8195` hedges `e_d5af` (reliability high)
+- `u_6ceb` retracts `e_f548` (reliability high)
+- `u_5a7b` retracts `e_ca95` (reliability high)
+- `u_dbd9` supersedes `e_de7c` (reliability high)
+- decoy policies: `p_6b51`, `p_9505`
+- final state after updates (gold action -> state): `m_e4cf` withdraw -> fails; `m_9b0e` withdraw -> fails; `m_fa8c` keep -> holds; `m_d885` uncertain -> undetermined; `m_a10e` keep -> holds; `m_1c06` keep -> holds; `m_e1c5` recompute -> fails; `m_a93e` withdraw -> fails; `m_1c42` withdraw -> fails; `m_8671` uncertain -> undetermined; `m_94f7` withdraw -> fails; `m_382d` withdraw -> fails; `m_f865` uncertain -> undetermined
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).
+
+## s_8bcad06c28  (F7-001, healthcare compliance)
+
+*World:* Apex Health, Beacon Clinic, Crestview Hospital, and CareFirst Pharmacy are being evaluated for regulatory compliance and operational permissions.
+
+### A. System view (judge C7 from this alone)
+- `e_79ce` [2026-01-08, Department of Health Audit Portal, official record] An audit report confirmed Apex Health holds an active HIPAA Compliance Certification.
+- `e_c559` [2026-01-11, Apex Health Education Portal, verified record] Apex Health completed 5 training workshops this year.
+- `e_ddde` [2026-01-14, Safety Officer Memo, staff note] Apex Health conducted 8 safety drills this year.
+- `e_508f` [2026-01-17, Apex Health Compliance Database, official log] Apex Health recorded 12 internal audit reviews this year.
+- `e_ef6d` [2026-01-20, Joint Commission Registry, official record] Crestview Hospital holds Joint Commission Accreditation.
+- `e_242a` [2026-01-23, Beacon Clinic Staff Directory, official record] Beacon Clinic maintains 2 certified safety officers.
+- `e_01dc` [2026-01-26, State Regulatory Registry, official submission] Apex Health filed 2 quarterly compliance disclosures this year.
+- `e_3899` [2026-01-29, Apex Health Financial Ledger, verified record] Apex Health invested $50,000 in staff safety training this year.
+- `e_aabe` [2026-02-01, International Safety Registrar, official certificate] Apex Health holds ISO 45001 Certification.
+- `e_62d4` [2026-02-04, Apex Health Human Resources Register, system of record] Apex Health maintains 4 full-time compliance officers.
+- `e_2181` [2026-02-07, State Health Inspectorate, annual report] Apex Health recorded 0 safety violations this year.
+- `e_3185` [2026-02-10, Apex Health Patient Relations Log, official registry] Apex Health resolved 15 patient grievances this year.
+- `e_3706` [2026-02-13, Apex Health Emergency Operations Log, official record] Apex Health maintained an average response time of 18 minutes for critical incidents.
+- `e_cad3` [2026-02-16, State Healthcare Quality Board, certified report] An evaluation verified Apex Health achieved a facility safety score of 95 this year.
+- `e_e838` [2026-02-19, CareFirst Pharmacy Audit Log, official record] CareFirst Pharmacy recorded 0 inventory discrepancies this year.
+- memories:
+  - `m_36e8` Apex Health maintains effective patient resolution procedures.
+  - `m_3ad5` Apex Health satisfies workplace safety standards.
+  - `m_85d1` Apex Health should be authorized for expanded clinical operations.
+  - `m_1414` Apex Health achieves comprehensive compliance designation.
+  - `m_5248` Apex Health should receive preference for state grant allocations.
+  - `m_6f14` Crestview Hospital satisfies national quality benchmarks.
+  - `m_45a1` Beacon Clinic meets safety staffing requirements.
+  - `m_8dc4` Apex Health satisfies risk mitigation criteria.
+  - `m_c728` Apex Health attains tier-one accreditation status.
+  - `m_e640` Apex Health qualifies for high-level governance clearance.
+  - `m_f017` Apex Health should be exempted from monthly supervisory inspections.
+  - `m_ec7c` Apex Health maintains exemplary safety performance.
+  - `m_c97b` Apex Health meets fundamental regulatory standards.
+  - `m_18ca` Apex Health should be granted unrestricted operational licensing.
+  - `m_7296` CareFirst Pharmacy maintains error-free inventory control.
+  - `m_ddee` Apex Health fulfills reporting obligations.
+  - `m_0e47` Apex Health qualifies for preferred insurance premium rates.
+- update `u_0692` [2026-02-22, Healthcare Employee Forum, anonymous post] An unverified forum post alleged Apex Health never conducted safety drills this year.
+- update `u_0d1b` [2026-02-25, Department of Health Audit Portal, official notice] A regulatory audit notice confirmed Apex Health's HIPAA Compliance Certification was revoked.
+- update `u_3112` [2026-02-28, Apex Health Financial Ledger, corrected report] A corrected financial audit confirmed Apex Health invested $35,000 in staff safety training this year.
+- update `u_efc0` [2026-03-03, State Health Inspectorate, formal notice] A state health inspection update confirmed Apex Health was cited for safety violations.
+- update `u_a5a9` [2026-03-06, State Healthcare Oversight Board, preliminary inquiry] A compliance investigation raised concerns regarding the documentation of Apex Health's safety drills this year.
+- policies:
+  - `p_10cc` Discounted coverage rates apply to providers showing superior risk management performance that hold full operational licensing.
+  - `p_b190` Priority for public funding distribution is awarded to organizations possessing top tier authorization.
+  - `p_4401` Flawless stock management status is granted when a pharmacy logs zero inventory discrepancies per year.
+  - `p_a316` Top tier authorization is attained by a provider fulfilling disclosure duties that possesses full operational licensing.
+  - `p_30c5` A facility satisfies core regulatory benchmarks if it holds active HIPAA certification and completes at least 10 internal audit reviews per year, or if its facility safety evaluation reaches at least 90 points per year.
+  - `p_5466` Exemption from regular monitoring reviews is granted to facilities demonstrating proper grievance resolution mechanisms.
+  - `p_5aac` An entity with workplace hazard prevention approval that secures approval for extended facility services earns overall regulatory distinction.
+  - `p_e248` A facility demonstrates proper grievance resolution mechanisms by handling at least 10 patient complaints yearly alongside filing 2 quarterly compliance filings each year.
+  - `p_2029` National quality standing is established if a hospital holds Joint Commission Accreditation.
+  - `p_6c0a` An outpatient provider secures emergency transport authorization provided it operates 3 mobile response units and logs 100 transport hours per quarter.
+  - `p_847f` Full risk reduction certification is granted to an applicant eligible for discounted coverage rates.
+  - `p_bb60` Granting full operational licensing requires an entity with advanced oversight clearance to conduct no fewer than 4 training workshops annually.
+  - `p_7ec9` A provider satisfies disclosure duties when submitting 2 or more quarterly compliance filings per year.
+  - `p_9cc7` Commercial laboratory verification requires possessing a sterile water processing license alongside spending $100,000 annually on equipment maintenance.
+  - `p_854c` An institution holding core regulatory benchmarks receives advanced oversight clearance provided it retains a minimum staffing level of 3 compliance officers.
+  - `p_ce27` Safety personnel standards are met when a health provider employs a minimum certified safety staffing level of 2.
+  - `p_8636` Superior risk management performance is established when emergency incident response time stays under 30 minutes while zero safety infractions are logged per year.
+  - `p_9ecd` Workplace hazard prevention approval requires either spending $40,000 or more annually on employee training along with a yearly facility safety evaluation of at least 90 points and 6 safety drills per year, or holding ISO 45001 Certification.
+  - `p_c5db` Approval for extended facility services is conferred on institutions holding full risk reduction certification.
+
+### B. Intended structure
+- `m_c97b` (B1) [policy `p_30c5`] <= (`e_79ce` AND `e_508f`) **OR** (`e_cad3`); gold after update: **keep**
+  - set 1: Apex Health holds active HIPAA certification and completed 12 internal audit reviews this year, which meets the requirement of at least 10 annual reviews.
+  - set 2: Apex Health achieved a facility safety score of 95 this year, which meets the threshold of 90 points.
+- `m_e640` (B2) [policy `p_854c`] <= (`m_c97b` AND `e_62d4`); gold after update: **keep**
+  - set 1: Apex Health meets fundamental regulatory standards and employs 4 compliance officers, satisfying the minimum requirement of 3 officers.
+- `m_18ca` (D1) [policy `p_bb60`] <= (`m_e640` AND `e_c559`); gold after update: **keep**
+  - set 1: Apex Health holds high-level governance clearance and completed 5 training workshops this year, exceeding the threshold of 4 annual workshops.
+- `m_ddee` (B3) [policy `p_7ec9`] <= (`e_01dc`); gold after update: **keep**
+  - set 1: Apex Health submitted 2 quarterly compliance disclosures this year, meeting the requirement of at least 2 filings.
+- `m_c728` (B4) [policy `p_a316`] <= (`m_ddee` AND `m_18ca`); gold after update: **keep**
+  - set 1: Apex Health fulfills reporting obligations and holds full operational licensing.
+- `m_5248` (D2) [policy `p_b190`] <= (`m_c728`); gold after update: **keep**
+  - set 1: Apex Health holds top tier authorization, qualifying it for priority state grant distribution.
+- `m_36e8` (B5) [policy `p_e248`] <= (`e_3185` AND `e_01dc`); gold after update: **keep**
+  - set 1: Apex Health resolved 15 patient grievances and submitted 2 quarterly compliance disclosures this year, satisfying both requirements.
+- `m_f017` (D3) [policy `p_5466`] <= (`m_36e8`); gold after update: **keep**
+  - set 1: Apex Health maintains effective patient resolution procedures, entitling it to inspection exemption.
+- `m_ec7c` (B6) [policy `p_8636`] <= (`e_3706` AND `e_2181`); gold after update: **withdraw**
+  - set 1: Apex Health recorded an 18-minute critical incident response time and 0 safety violations this year, meeting both risk management thresholds.
+- `m_0e47` (B7) [policy `p_10cc`] <= (`m_ec7c` AND `m_18ca`); gold after update: **withdraw**
+  - set 1: Apex Health demonstrates superior risk management performance and holds full operational licensing.
+- `m_8dc4` (B8) [policy `p_847f`] <= (`m_0e47`); gold after update: **withdraw**
+  - set 1: Apex Health is eligible for discounted coverage rates, qualifying it for full risk reduction certification.
+- `m_85d1` (D4) [policy `p_c5db`] <= (`m_8dc4`); gold after update: **withdraw**
+  - set 1: Apex Health possesses full risk reduction certification, satisfying the requirement for extended facility operations approval.
+- `m_3ad5` (B9) [policy `p_9ecd`] <= (`e_3899` AND `e_cad3` AND `e_ddde`) **OR** (`e_aabe`); gold after update: **keep**
+  - set 1: Apex Health invested $50,000 in safety training, achieved a 95 safety score, and conducted 8 safety drills this year, satisfying all three criteria.
+  - set 2: Apex Health holds ISO 45001 Certification, which independently satisfies workplace hazard prevention standards.
+- `m_1414` (B10) [policy `p_5aac`] <= (`m_3ad5` AND `m_85d1`); gold after update: **withdraw**
+  - set 1: Apex Health holds workplace hazard prevention approval and expanded clinical operations authorization, earning overall regulatory distinction.
+- `m_45a1` (B11) [policy `p_ce27`] <= (`e_242a`); gold after update: **keep**
+  - set 1: Beacon Clinic employs 2 certified safety officers, satisfying the staffing threshold of 2 officers.
+- `m_6f14` (B12) [policy `p_2029`] <= (`e_ef6d`); gold after update: **keep**
+  - set 1: Crestview Hospital holds Joint Commission Accreditation, satisfying national quality criteria.
+- `m_7296` (B13) [policy `p_4401`] <= (`e_e838`); gold after update: **keep**
+  - set 1: CareFirst Pharmacy recorded 0 inventory discrepancies this year, meeting the requirement of zero discrepancies.
+- `u_0692` retracts `e_ddde` (reliability low)
+- `u_0d1b` retracts `e_79ce` (reliability high)
+- `u_3112` supersedes `e_3899` (reliability high)
+- `u_efc0` retracts `e_2181` (reliability high)
+- `u_a5a9` hedges `e_ddde` (reliability high)
+- decoy policies: `p_6c0a`, `p_9cc7`
+- final state after updates (gold action -> state): `m_c97b` keep -> holds; `m_ddee` keep -> holds; `m_36e8` keep -> holds; `m_ec7c` withdraw -> fails; `m_3ad5` keep -> holds; `m_45a1` keep -> holds; `m_6f14` keep -> holds; `m_7296` keep -> holds; `m_e640` keep -> holds; `m_f017` keep -> holds; `m_18ca` keep -> holds; `m_c728` keep -> holds; `m_0e47` withdraw -> fails; `m_5248` keep -> holds; `m_8dc4` withdraw -> fails; `m_85d1` withdraw -> fails; `m_1414` withdraw -> fails
+
+### C. Automated flags (for review, not verdicts)
+- soft `e_508f~p_30c5` policy_echoes_evidence: "internal audit reviews" (judge under C7/C11)
+- soft `u_0692` retraction_reads_as_hedge: "alleged" (judge under C4)
+
+### Checklist (record pass/fail + reason in the CSV)
+- [ ] **C1_meaning** Each text says what its node is meant to say (evidence = a fact; memory = a conclusion or plan).
+- [ ] **C2_and** Within each justification set, all facts together entail the conclusion, and dropping any one breaks it.
+- [ ] **C3_or** Each alternative justification set alone entails the conclusion, using genuinely different facts.
+- [ ] **C4_updates** Each update says what its relation requires (retracts / supersedes with a new value / hedges), speaks only about its target, and its source matches the stated reliability.
+- [ ] **C5_sources** Evidence source descriptions match their reliability (high / medium / low).
+- [ ] **C6_distractors** Facts and memories in different groups are unrelated: nothing in one bears on another.
+- [ ] **C7_no_reveal** Read as the system would (system view only): the wording does not reveal which facts support which memory, beyond what the meaning itself implies.
+- [ ] **C8_inferable** From the visible facts and policies alone, the intended AND/OR structure can be inferred.
+- [ ] **C9_no_hidden_needed** Every gold label can be derived without the hidden rationale or any eval metadata.
+- [ ] **C10_unambiguous** No reasonable alternative reading of the text would make a gold label wrong.
+- [ ] **C11_policy_not_graph** Policies state reusable rules about kinds of facts; they do not name the specific entity, quote evidence, or otherwise disclose which item supports which memory.
+- [ ] **C12_decoys_inert** Decoy policies govern nothing here and offer no alternative route to any memory.
+- [ ] **C13_final_state** The renderer's after-update state for each memory follows from the policies and the facts that remain credible (and recompute results are right).

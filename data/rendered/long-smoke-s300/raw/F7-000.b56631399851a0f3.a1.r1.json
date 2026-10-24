@@ -1,0 +1,611 @@
+{
+ "scenario": "F7-000",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "facts.E2": "record_scope_not_in_text 'record none, text international'",
+  "nodes.E2.text": "record_scope_not_in_text 'record none, text international'",
+  "nodes.E2.source": "record_scope_not_in_text 'record none, text international'",
+  "facts.U6": "record_scope_not_in_text 'record none, text international'",
+  "updates.U6.text": "record_scope_not_in_text 'record none, text international'",
+  "updates.U6.source": "record_scope_not_in_text 'record none, text international'",
+  "policies.B3": "record_window_not_in_policy 'record none, clause year'",
+  "conditions.B3": "record_window_not_in_policy 'record none, clause year'",
+  "facts.E3": "record_window_not_in_policy 'record none, clause year'",
+  "nodes.E3.text": "record_window_not_in_policy 'record none, clause year'",
+  "nodes.E3.source": "record_window_not_in_policy 'record none, clause year'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B3\": [\n   {\n    \"premise\": \"E1\",\n    \"kind\": \"number\",\n    \"entity\": \"Marcus Vance\",\n    \"relation\": null,\n    \"quantity\": \"flight hours\",\n    \"comparator\": \">=\",\n    \"threshold\": 100,\n    \"unit\": \"hours\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E3\",\n    \"kind\": \"credential\",\n    \"entity\": \"Marcus Vance\",\n    \"relation\": null,\n    \"quantity\": \"Global Entry clearance\",\n    \"comparator\": \"==\",\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E2\": {\n   \"entity\": \"Marcus Vance\",\n   \"kind\": \"number\",\n   \"quantity\": \"international business trips\",\n   \"value\": 12,\n   \"unit\": \"trips\",\n   \"window\": \"year\",\n   \"scope\": \"international\"\n  },\n  \"facts.E3\": {\n   \"entity\": \"Marcus Vance\",\n   \"kind\": \"credential\",\n   \"quantity\": \"Global Entry clearance\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"facts.U6\": {\n   \"entity\": \"Marcus Vance\",\n   \"kind\": \"number\",\n   \"quantity\": \"international business trips\",\n   \"value\": null,\n   \"unit\": \"trips\",\n   \"window\": \"year\",\n   \"scope\": \"international\"\n  },\n  \"nodes.E2.source\": \"Marcus Vance's international travel record\",\n  \"nodes.E2.text\": \"Marcus Vance completed 12 international business trips this year.\",\n  \"nodes.E3.source\": \"U.S. Customs and Border Protection system record\",\n  \"nodes.E3.text\": \"Marcus Vance holds active Global Entry clearance.\",\n  \"policies.B3\": \"Expedited border passage approval applies to an individual logging 100 or more air hours in a year who possesses valid Global Entry clearance.\",\n  \"updates.U6.source\": \"International travel database record\",\n  \"updates.U6.text\": \"The executive travel department confirmed Marcus Vance completed no international business trips this year.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 9404,
+   "output_tokens": 7681,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 9404,
+    "completion_tokens": 7681
+   }
+  },
+  "est_usd": 0.10757025,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "facts.E2.scope",
+  "facts.U6.scope",
+  "nodes.E2.source",
+  "policies.B3",
+  "updates.U6.source"
+ ],
+ "merged": {
+  "world": "An AI executive assistant manages travel arrangements, team reimbursements, venue selections, vendor statuses, and fitness club options for corporate operations.",
+  "nodes": {
+   "E1": {
+    "text": "Marcus Vance logged 150 flight hours this year.",
+    "source": "Marcus Vance's flight log summary"
+   },
+   "E2": {
+    "text": "Marcus Vance completed 12 international business trips this year.",
+    "source": "Marcus Vance's international travel record"
+   },
+   "E3": {
+    "text": "Marcus Vance holds active Global Entry clearance.",
+    "source": "U.S. Customs and Border Protection system record"
+   },
+   "E4": {
+    "text": "Marcus Vance maintains a corporate travel account balance of $50000.",
+    "source": "Executive finance ledger"
+   },
+   "E5": {
+    "text": "Marcus Vance registered 5 preferred airline loyalty profiles.",
+    "source": "Central booking portal database"
+   },
+   "E6": {
+    "text": "Elena Rostova submitted 8 quarterly expense receipts.",
+    "source": "Staff accounting memo"
+   },
+   "E7": {
+    "text": "Oakridge Manor maintains a booking capacity of 200 guests.",
+    "source": "Official venue contract specifications"
+   },
+   "E8": {
+    "text": "Clara Bennett completed 40 billable hours this month.",
+    "source": "Verified monthly timesheet log"
+   },
+   "E9": {
+    "text": "Solis Fitness requires a monthly membership fee of $120.",
+    "source": "Verified membership brochure"
+   },
+   "B1": {
+    "text": "Marcus Vance achieves high-frequency flyer qualification."
+   },
+   "B2": {
+    "text": "Marcus Vance qualifies for executive airport lounge access."
+   },
+   "D1": {
+    "text": "Reserve priority airport lounge passes for Marcus Vance."
+   },
+   "B3": {
+    "text": "Marcus Vance is designated for fast-track customs clearance."
+   },
+   "D2": {
+    "text": "Assign a private travel concierge to Marcus Vance."
+   },
+   "B4": {
+    "text": "Marcus Vance is eligible for multi-airline points pooling."
+   },
+   "B5": {
+    "text": "Marcus Vance attains elite rewards account status."
+   },
+   "B6": {
+    "text": "Elena Rostova achieves expense audit clearance."
+   },
+   "B7": {
+    "text": "Elena Rostova holds pre-approved expense reimbursement authorization."
+   },
+   "D3": {
+    "text": "Issue automated reimbursement payments to Elena Rostova."
+   },
+   "B8": {
+    "text": "Oakridge Manor is eligible for hosting large corporate galas."
+   },
+   "B9": {
+    "text": "Clara Bennett qualifies as a preferred contractor."
+   },
+   "B10": {
+    "text": "Solis Fitness meets the criteria for affordable fitness facilities."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An unverified forum post claimed Marcus Vance never logged any flight hours.",
+    "source": "Anonymous online message board post"
+   },
+   "U2": {
+    "text": "A tipster asserted Elena Rostova did not submit expense receipts.",
+    "source": "Unverified internal helpline phone call"
+   },
+   "U3": {
+    "text": "An unverified blog comment claimed Marcus Vance's flight log summary was falsified.",
+    "source": "Unsubstantiated travel blog comment"
+   },
+   "U4": {
+    "text": "An official compliance audit questioned whether Elena Rostova's quarterly expense receipts were properly categorized.",
+    "source": "Internal Audit Compliance Division report"
+   },
+   "U5": {
+    "text": "The flight operations system of record confirmed Marcus Vance recorded no flight hours this year.",
+    "source": "Aviation authority certified flight log system"
+   },
+   "U6": {
+    "text": "The executive travel department confirmed Marcus Vance completed no international business trips this year.",
+    "source": "International travel database record"
+   },
+   "U7": {
+    "text": "Solis Fitness updated its rate schedule to require a monthly membership fee of $180.",
+    "source": "Solis Fitness published rate sheet"
+   }
+  },
+  "policies": {
+   "B1": "High-frequency flyer status is granted when a client records at least 100 air hours alongside 10 or more overseas journeys in a year.",
+   "B2": "An individual designated as a high-frequency flyer receives priority terminal lounge privileges.",
+   "D1": "When a person holds priority terminal lounge privileges, automated booking issues special departure passes.",
+   "B3": "Expedited border passage approval applies to an individual logging 100 or more air hours in a year who possesses valid Global Entry clearance.",
+   "D2": "A traveler granted expedited border passage who retains a flight fund balance of at least $20000 is allocated dedicated personal itinerary management.",
+   "B4": "Consolidated rewards transfer permission is granted to clients maintaining 3 or more carrier loyalty memberships.",
+   "B5": "An individual with consolidated rewards transfer authorization who also receives personal itinerary management earns premier benefits tier recognition.",
+   "B6": "Discretionary auditing approval is awarded to team members filing at least 5 spending document submissions per quarter.",
+   "B7": "Staff cleared through discretionary auditing gain automatic reimbursement entitlement.",
+   "D3": "For employees having automatic reimbursement entitlement, the system executes scheduled payment payouts.",
+   "B8": "A site providing room space for 150 guests or more satisfies major reception hosting standards.",
+   "B9": "A consultant providing 30 hours or more monthly work logs earns priority freelancer status.",
+   "B10": "An athletic center charging $150 or less in recurring monthly rates qualifies for economic wellness venue designation."
+  },
+  "decoy_policies": [
+   "A commercial vendor maintaining a minimum product warranty period of 24 months is awarded quality assurance accreditation.",
+   "An office location equipped with at least 10 dedicated vehicle parking spots receives green commute certification."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "B2": "fails",
+   "D1": "fails",
+   "B3": "fails",
+   "D2": "fails",
+   "B4": "holds",
+   "B5": "fails",
+   "B6": "undetermined",
+   "B7": "undetermined",
+   "D3": "undetermined",
+   "B8": "holds",
+   "B9": "holds",
+   "B10": "fails"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Marcus Vance",
+    "kind": "number",
+    "quantity": "flight hours",
+    "value": 150,
+    "unit": "hours",
+    "window": "year",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Marcus Vance",
+    "kind": "number",
+    "quantity": "international business trips",
+    "value": 12,
+    "unit": "trips",
+    "window": "year",
+    "scope": "international"
+   },
+   "E3": {
+    "entity": "Marcus Vance",
+    "kind": "credential",
+    "quantity": "Global Entry clearance",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Marcus Vance",
+    "kind": "number",
+    "quantity": "corporate travel account balance",
+    "value": 50000,
+    "unit": "$",
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Marcus Vance",
+    "kind": "number",
+    "quantity": "preferred airline loyalty profiles",
+    "value": 5,
+    "unit": "profiles",
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Elena Rostova",
+    "kind": "number",
+    "quantity": "quarterly expense receipts",
+    "value": 8,
+    "unit": "receipts",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Oakridge Manor",
+    "kind": "number",
+    "quantity": "booking capacity",
+    "value": 200,
+    "unit": "guests",
+    "window": "none",
+    "scope": "none"
+   },
+   "E8": {
+    "entity": "Clara Bennett",
+    "kind": "number",
+    "quantity": "billable hours",
+    "value": 40,
+    "unit": "hours",
+    "window": "month",
+    "scope": "none"
+   },
+   "E9": {
+    "entity": "Solis Fitness",
+    "kind": "number",
+    "quantity": "monthly membership fee",
+    "value": 120,
+    "unit": "$",
+    "window": "month",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Marcus Vance",
+    "kind": "number",
+    "quantity": "flight hours",
+    "value": null,
+    "unit": "hours",
+    "window": "year",
+    "scope": "none"
+   },
+   "U2": {
+    "entity": "Elena Rostova",
+    "kind": "number",
+    "quantity": "quarterly expense receipts",
+    "value": null,
+    "unit": "receipts",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "U3": {
+    "entity": "Marcus Vance",
+    "kind": "number",
+    "quantity": "flight hours",
+    "value": null,
+    "unit": "hours",
+    "window": "year",
+    "scope": "none"
+   },
+   "U4": {
+    "entity": "Elena Rostova",
+    "kind": "number",
+    "quantity": "quarterly expense receipts",
+    "value": null,
+    "unit": "receipts",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "U5": {
+    "entity": "Marcus Vance",
+    "kind": "number",
+    "quantity": "flight hours",
+    "value": null,
+    "unit": "hours",
+    "window": "year",
+    "scope": "none"
+   },
+   "U6": {
+    "entity": "Marcus Vance",
+    "kind": "number",
+    "quantity": "international business trips",
+    "value": null,
+    "unit": "trips",
+    "window": "year",
+    "scope": "international"
+   },
+   "U7": {
+    "entity": "Solis Fitness",
+    "kind": "number",
+    "quantity": "monthly membership fee",
+    "value": 180,
+    "unit": "$",
+    "window": "month",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Marcus Vance",
+     "relation": null,
+     "quantity": "flight hours",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "hours",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Marcus Vance",
+     "relation": null,
+     "quantity": "international business trips",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "trips",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Marcus Vance",
+     "relation": null,
+     "quantity": "high-frequency flyer status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Marcus Vance",
+     "relation": null,
+     "quantity": "priority terminal lounge privileges",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Marcus Vance",
+     "relation": null,
+     "quantity": "flight hours",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "hours",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "Marcus Vance",
+     "relation": null,
+     "quantity": "Global Entry clearance",
+     "comparator": "==",
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D2": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Marcus Vance",
+     "relation": null,
+     "quantity": "expedited border passage approval",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Marcus Vance",
+     "relation": null,
+     "quantity": "corporate travel account balance",
+     "comparator": ">=",
+     "threshold": 20000,
+     "unit": "$",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Marcus Vance",
+     "relation": null,
+     "quantity": "preferred airline loyalty profiles",
+     "comparator": ">=",
+     "threshold": 3,
+     "unit": "profiles",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "B4",
+     "kind": "conclusion",
+     "entity": "Marcus Vance",
+     "relation": null,
+     "quantity": "consolidated rewards transfer permission",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "D2",
+     "kind": "conclusion",
+     "entity": "Marcus Vance",
+     "relation": null,
+     "quantity": "dedicated personal itinerary management",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "quarterly expense receipts",
+     "comparator": ">=",
+     "threshold": 5,
+     "unit": "receipts",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "B7": [
+    {
+     "premise": "B6",
+     "kind": "conclusion",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "discretionary auditing approval",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D3": [
+    {
+     "premise": "B7",
+     "kind": "conclusion",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "automatic reimbursement entitlement",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B8": [
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "Oakridge Manor",
+     "relation": null,
+     "quantity": "booking capacity",
+     "comparator": ">=",
+     "threshold": 150,
+     "unit": "guests",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B9": [
+    {
+     "premise": "E8",
+     "kind": "number",
+     "entity": "Clara Bennett",
+     "relation": null,
+     "quantity": "billable hours",
+     "comparator": ">=",
+     "threshold": 30,
+     "unit": "hours",
+     "window": "month",
+     "scope": "none"
+    }
+   ],
+   "B10": [
+    {
+     "premise": "E9",
+     "kind": "number",
+     "entity": "Solis Fitness",
+     "relation": null,
+     "quantity": "monthly membership fee",
+     "comparator": "<=",
+     "threshold": 150,
+     "unit": "$",
+     "window": "month",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Marcus Vance logged 150 flight hours this year (>= 100) and completed 12 international business trips this year (>= 10), granting him high-frequency flyer status."
+   ],
+   "B2": [
+    "Marcus Vance holds high-frequency flyer status, which qualifies him for priority terminal lounge privileges."
+   ],
+   "D1": [
+    "Marcus Vance possesses priority terminal lounge privileges, prompting the reservation of priority airport lounge passes."
+   ],
+   "B3": [
+    "Marcus Vance recorded 150 flight hours this year (>= 100) and holds Global Entry clearance, satisfying the policy for expedited border passage approval."
+   ],
+   "D2": [
+    "Marcus Vance has expedited border passage approval and maintains a corporate travel account balance of $50000 (>= $20000), qualifying him for dedicated personal itinerary management."
+   ],
+   "B4": [
+    "Marcus Vance registered 5 preferred airline loyalty profiles (>= 3), granting him consolidated rewards transfer permission."
+   ],
+   "B5": [
+    "Marcus Vance has consolidated rewards transfer permission and receives dedicated personal itinerary management, earning him premier benefits tier recognition."
+   ],
+   "B6": [
+    "Elena Rostova submitted 8 quarterly expense receipts (>= 5), earning discretionary auditing approval."
+   ],
+   "B7": [
+    "Elena Rostova achieved discretionary auditing approval, granting her automatic reimbursement entitlement."
+   ],
+   "D3": [
+    "Elena Rostova holds automatic reimbursement entitlement, triggering automated reimbursement payment issuance."
+   ],
+   "B8": [
+    "Oakridge Manor has a booking capacity of 200 guests (>= 150), meeting major reception hosting standards."
+   ],
+   "B9": [
+    "Clara Bennett logged 40 billable hours this month (>= 30), granting her priority freelancer status."
+   ],
+   "B10": [
+    "Solis Fitness charges a monthly membership fee of $120 (<= $150), qualifying it for economic wellness venue designation."
+   ]
+  }
+ }
+}

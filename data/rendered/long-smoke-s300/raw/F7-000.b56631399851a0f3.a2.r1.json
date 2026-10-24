@@ -1,0 +1,606 @@
+{
+ "scenario": "F7-000",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "decoy_policies[0]": "decoy_shares_memory_word 'corporate,tier' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)",
+  "policies.B1": "record_window_not_in_policy 'month'; record_window_not_in_policy 'month'",
+  "conditions.B1": "record_window_not_in_policy 'month'; record_window_not_in_policy 'month'",
+  "facts.E1": "record_window_not_in_policy 'month'",
+  "nodes.E1.text": "record_window_not_in_policy 'month'",
+  "nodes.E1.source": "record_window_not_in_policy 'month'",
+  "facts.E2": "record_window_not_in_policy 'month'",
+  "nodes.E2.text": "record_window_not_in_policy 'month'",
+  "nodes.E2.source": "record_window_not_in_policy 'month'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B1\": [\n   {\n    \"premise\": \"E1\",\n    \"kind\": \"number\",\n    \"entity\": \"Arthur Pendelton\",\n    \"relation\": null,\n    \"quantity\": \"billable hours\",\n    \"comparator\": \">=\",\n    \"threshold\": 100,\n    \"unit\": \"hours\",\n    \"window\": \"month\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E2\",\n    \"kind\": \"number\",\n    \"entity\": \"Arthur Pendelton\",\n    \"relation\": null,\n    \"quantity\": \"client workshops\",\n    \"comparator\": \">=\",\n    \"threshold\": 10,\n    \"unit\": \"workshops\",\n    \"window\": \"month\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"decoy_policies[0]\": \"A commercial vendor achieves premier standard qualification when annual procurement spending reaches $100,000.\",\n  \"facts.E1\": {\n   \"entity\": \"Arthur Pendelton\",\n   \"kind\": \"number\",\n   \"quantity\": \"billable hours\",\n   \"value\": 120,\n   \"unit\": \"hours\",\n   \"window\": \"month\",\n   \"scope\": \"none\"\n  },\n  \"facts.E2\": {\n   \"entity\": \"Arthur Pendelton\",\n   \"kind\": \"number\",\n   \"quantity\": \"client workshops\",\n   \"value\": 15,\n   \"unit\": \"workshops\",\n   \"window\": \"month\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E1.source\": \"Staff timesheet entry.\",\n  \"nodes.E1.text\": \"Arthur Pendelton logged 120 billable hours this month.\",\n  \"nodes.E2.source\": \"Assistant calendar log.\",\n  \"nodes.E2.text\": \"Arthur Pendelton completed 15 client workshops this month.\",\n  \"policies.B1\": \"An advisor undergoes bonus evaluation if monthly billable hours equal at least 100 and monthly client workshops total at least 10.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 9264,
+   "output_tokens": 4828,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 9264,
+    "completion_tokens": 4828
+   }
+  },
+  "est_usd": 0.075159,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "decoy_policies[0]",
+  "policies.B1"
+ ],
+ "merged": {
+  "world": "An AI assistant tracks executive support tasks, performance metrics, and compliance status across client accounts.",
+  "nodes": {
+   "E1": {
+    "text": "Arthur Pendelton logged 120 billable hours this month.",
+    "source": "Staff timesheet entry."
+   },
+   "E2": {
+    "text": "Arthur Pendelton completed 15 client workshops this month.",
+    "source": "Assistant calendar log."
+   },
+   "E3": {
+    "text": "Arthur Pendelton generated $45,000 in retainer revenue this month.",
+    "source": "Monthly accounting summary."
+   },
+   "E4": {
+    "text": "Arthur Pendelton holds a senior advisor credential.",
+    "source": "Corporate registry database."
+   },
+   "E5": {
+    "text": "Arthur Pendelton published 8 research publications this year.",
+    "source": "Academic repository report."
+   },
+   "E6": {
+    "text": "Beatrix Solis accumulated 50 training credits this quarter.",
+    "source": "Professional development portal."
+   },
+   "E7": {
+    "text": "Clara Montez completed 25 security audits this year.",
+    "source": "Official compliance office ledger."
+   },
+   "E8": {
+    "text": "Dorian Drake holds commercial pilot certification.",
+    "source": "Federal Aviation Administration registry."
+   },
+   "E9": {
+    "text": "Elena Rostova secured 12 new client contracts this month.",
+    "source": "Salesforce CRM dashboard."
+   },
+   "B1": {
+    "text": "Arthur Pendelton qualifies for executive bonus review."
+   },
+   "B2": {
+    "text": "Arthur Pendelton receives the quarterly leadership stipend."
+   },
+   "D1": {
+    "text": "Authorize the bonus disbursement for Arthur Pendelton."
+   },
+   "B3": {
+    "text": "Arthur Pendelton holds Tier One billing status."
+   },
+   "D2": {
+    "text": "Assign prime corporate accounts to Arthur Pendelton."
+   },
+   "B4": {
+    "text": "Arthur Pendelton earns the thought leadership designation."
+   },
+   "B5": {
+    "text": "Arthur Pendelton is appointed to the executive advisory board."
+   },
+   "B6": {
+    "text": "Beatrix Solis satisfies continuous learning requirements."
+   },
+   "B7": {
+    "text": "Beatrix Solis holds master practitioner standing."
+   },
+   "D3": {
+    "text": "Approve Beatrix Solis for lead mentor duties."
+   },
+   "B8": {
+    "text": "Clara Montez receives cybersecurity lead clearance."
+   },
+   "B9": {
+    "text": "Dorian Drake is authorized for charter flights."
+   },
+   "B10": {
+    "text": "Elena Rostova earns monthly sales honors."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Arthur Pendelton did not log 120 billable hours this month.",
+    "source": "Unverified message on public forum."
+   },
+   "U2": {
+    "text": "Beatrix Solis did not accumulate 50 training credits this quarter.",
+    "source": "Anonymous email tip."
+   },
+   "U3": {
+    "text": "Arthur Pendelton has not completed 120 billable hours this month.",
+    "source": "Unconfirmed chat channel rumor."
+   },
+   "U4": {
+    "text": "Internal committee is auditing whether Beatrix Solis accumulated 50 training credits this quarter.",
+    "source": "Compliance committee formal notice."
+   },
+   "U5": {
+    "text": "Official payroll records show Arthur Pendelton did not record 120 billable hours this month.",
+    "source": "Audited payroll audit report."
+   },
+   "U6": {
+    "text": "Audit review shows Arthur Pendelton did not complete 15 client workshops this month.",
+    "source": "Internal finance audit memo."
+   },
+   "U7": {
+    "text": "Elena Rostova secured 8 new client contracts this month.",
+    "source": "Audited sales commission statement."
+   }
+  },
+  "policies": {
+   "B1": "An advisor undergoes bonus evaluation if monthly billable hours equal at least 100 and monthly client workshops total at least 10.",
+   "B2": "A consultant gets a leadership grant provided bonus evaluation is active.",
+   "D1": "Financial release of extra compensation occurs when a consultant possesses a leadership grant.",
+   "B3": "Senior tier status is granted when monthly work hours equal at least 100 alongside monthly client retainers of at least $40,000.",
+   "D2": "Key client allocations are made to a practitioner with Senior tier status who possesses a valid principal consulting certification.",
+   "B4": "Subject authority recognition is awarded when scholarly papers in a year reach 5 or more.",
+   "B5": "Board placement is granted when a consultant holding subject authority recognition receives key client allocations.",
+   "B6": "Educational compliance is fulfilled when quarterly professional points equal at least 40.",
+   "B7": "Expert standing is assigned to an individual who maintains educational compliance.",
+   "D3": "Selection for supervisory mentoring occurs if a team member possesses expert standing.",
+   "B8": "System protection oversight authorization requires annual safety inspections of 20 or more.",
+   "B9": "Private transport flight clearance is granted when holding a flight crew license.",
+   "B10": "Commercial excellence recognition is given for monthly client signups reaching 10."
+  },
+  "decoy_policies": [
+   "A commercial vendor achieves premier standard qualification when annual procurement spending reaches $100,000.",
+   "Travel expense reimbursement is approved when submitted receipts during a week total under $500."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "B2": "fails",
+   "D1": "fails",
+   "B3": "fails",
+   "D2": "fails",
+   "B4": "holds",
+   "B5": "fails",
+   "B6": "undetermined",
+   "B7": "undetermined",
+   "D3": "undetermined",
+   "B8": "holds",
+   "B9": "holds",
+   "B10": "fails"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Arthur Pendelton",
+    "kind": "number",
+    "quantity": "billable hours",
+    "value": 120,
+    "unit": "hours",
+    "window": "month",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Arthur Pendelton",
+    "kind": "number",
+    "quantity": "client workshops",
+    "value": 15,
+    "unit": "workshops",
+    "window": "month",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Arthur Pendelton",
+    "kind": "number",
+    "quantity": "retainer revenue",
+    "value": 45000,
+    "unit": "USD",
+    "window": "month",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Arthur Pendelton",
+    "kind": "credential",
+    "quantity": "senior advisor credential",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Arthur Pendelton",
+    "kind": "number",
+    "quantity": "research publications",
+    "value": 8,
+    "unit": "publications",
+    "window": "year",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Beatrix Solis",
+    "kind": "number",
+    "quantity": "training credits",
+    "value": 50,
+    "unit": "credits",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Clara Montez",
+    "kind": "number",
+    "quantity": "security audits",
+    "value": 25,
+    "unit": "audits",
+    "window": "year",
+    "scope": "none"
+   },
+   "E8": {
+    "entity": "Dorian Drake",
+    "kind": "credential",
+    "quantity": "commercial pilot certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E9": {
+    "entity": "Elena Rostova",
+    "kind": "number",
+    "quantity": "new client contracts",
+    "value": 12,
+    "unit": "contracts",
+    "window": "month",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Arthur Pendelton",
+    "kind": "number",
+    "quantity": "billable hours",
+    "value": null,
+    "unit": "hours",
+    "window": "month",
+    "scope": "none"
+   },
+   "U2": {
+    "entity": "Beatrix Solis",
+    "kind": "number",
+    "quantity": "training credits",
+    "value": null,
+    "unit": "credits",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "U3": {
+    "entity": "Arthur Pendelton",
+    "kind": "number",
+    "quantity": "billable hours",
+    "value": null,
+    "unit": "hours",
+    "window": "month",
+    "scope": "none"
+   },
+   "U4": {
+    "entity": "Beatrix Solis",
+    "kind": "number",
+    "quantity": "training credits",
+    "value": null,
+    "unit": "credits",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "U5": {
+    "entity": "Arthur Pendelton",
+    "kind": "number",
+    "quantity": "billable hours",
+    "value": null,
+    "unit": "hours",
+    "window": "month",
+    "scope": "none"
+   },
+   "U6": {
+    "entity": "Arthur Pendelton",
+    "kind": "number",
+    "quantity": "client workshops",
+    "value": null,
+    "unit": "workshops",
+    "window": "month",
+    "scope": "none"
+   },
+   "U7": {
+    "entity": "Elena Rostova",
+    "kind": "number",
+    "quantity": "new client contracts",
+    "value": 8,
+    "unit": "contracts",
+    "window": "month",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Arthur Pendelton",
+     "relation": null,
+     "quantity": "billable hours",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "hours",
+     "window": "month",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Arthur Pendelton",
+     "relation": null,
+     "quantity": "client workshops",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "workshops",
+     "window": "month",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Arthur Pendelton",
+     "relation": null,
+     "quantity": "executive bonus review",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Arthur Pendelton",
+     "relation": null,
+     "quantity": "quarterly leadership stipend",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Arthur Pendelton",
+     "relation": null,
+     "quantity": "billable hours",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "hours",
+     "window": "month",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Arthur Pendelton",
+     "relation": null,
+     "quantity": "retainer revenue",
+     "comparator": ">=",
+     "threshold": 40000,
+     "unit": "USD",
+     "window": "month",
+     "scope": "none"
+    }
+   ],
+   "D2": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Arthur Pendelton",
+     "relation": null,
+     "quantity": "Tier One billing status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "credential",
+     "entity": "Arthur Pendelton",
+     "relation": null,
+     "quantity": "senior advisor credential",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Arthur Pendelton",
+     "relation": null,
+     "quantity": "research publications",
+     "comparator": ">=",
+     "threshold": 5,
+     "unit": "publications",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "B4",
+     "kind": "conclusion",
+     "entity": "Arthur Pendelton",
+     "relation": null,
+     "quantity": "thought leadership designation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "D2",
+     "kind": "conclusion",
+     "entity": "Arthur Pendelton",
+     "relation": null,
+     "quantity": "prime corporate accounts",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Beatrix Solis",
+     "relation": null,
+     "quantity": "training credits",
+     "comparator": ">=",
+     "threshold": 40,
+     "unit": "credits",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "B7": [
+    {
+     "premise": "B6",
+     "kind": "conclusion",
+     "entity": "Beatrix Solis",
+     "relation": null,
+     "quantity": "continuous learning requirements",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D3": [
+    {
+     "premise": "B7",
+     "kind": "conclusion",
+     "entity": "Beatrix Solis",
+     "relation": null,
+     "quantity": "master practitioner standing",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B8": [
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "Clara Montez",
+     "relation": null,
+     "quantity": "security audits",
+     "comparator": ">=",
+     "threshold": 20,
+     "unit": "audits",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B9": [
+    {
+     "premise": "E8",
+     "kind": "credential",
+     "entity": "Dorian Drake",
+     "relation": null,
+     "quantity": "commercial pilot certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B10": [
+    {
+     "premise": "E9",
+     "kind": "number",
+     "entity": "Elena Rostova",
+     "relation": null,
+     "quantity": "new client contracts",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "contracts",
+     "window": "month",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Arthur Pendelton satisfies the bonus evaluation criteria with 120 billable hours and 15 client workshops completed this month, exceeding the thresholds of 100 hours and 10 workshops."
+   ],
+   "B2": [
+    "Arthur Pendelton qualifies for the leadership grant because he meets the precondition of being under executive bonus review."
+   ],
+   "D1": [
+    "Bonus disbursement is authorized for Arthur Pendelton because he holds a active leadership grant."
+   ],
+   "B3": [
+    "Arthur Pendelton meets Tier One billing status criteria by logging 120 hours (at least 100) and generating $45,000 in monthly retainers (at least $40,000)."
+   ],
+   "D2": [
+    "Arthur Pendelton is assigned prime corporate accounts because he holds Tier One billing status and possesses a valid senior advisor credential."
+   ],
+   "B4": [
+    "Arthur Pendelton earns thought leadership recognition by publishing 8 research publications this year, exceeding the threshold of 5."
+   ],
+   "B5": [
+    "Arthur Pendelton qualifies for executive advisory board placement because he holds the thought leadership designation and was assigned prime corporate accounts."
+   ],
+   "B6": [
+    "Beatrix Solis satisfies continuous learning requirements with 50 training credits this quarter, exceeding the 40 credits required."
+   ],
+   "B7": [
+    "Beatrix Solis attains master practitioner standing because she maintains continuous learning compliance."
+   ],
+   "D3": [
+    "Beatrix Solis is approved for lead mentor duties because she holds master practitioner standing."
+   ],
+   "B8": [
+    "Clara Montez receives cybersecurity lead clearance by completing 25 security audits this year, exceeding the threshold of 20."
+   ],
+   "B9": [
+    "Dorian Drake is authorized for charter flights because he holds valid commercial pilot certification."
+   ],
+   "B10": [
+    "Elena Rostova earns monthly sales honors by securing 12 new client contracts this month, meeting the threshold of 10."
+   ]
+  }
+ }
+}

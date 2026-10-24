@@ -14,6 +14,9 @@ from beliefbench.labeler import gold_actions
 from beliefbench.schema import Justifications, Kind, Node, Relation, Scenario, Update
 
 PILOT_DOMAINS = ("product_eligibility", "travel_logistics")
+# Long scenarios (F7) span more of what an assistant remembers.
+LONG_DOMAINS = ("personal_assistant", "healthcare_compliance", "hr_onboarding", "vendor_procurement",
+                "travel_logistics", "finance_kyc")
 
 
 class _Builder:
@@ -140,11 +143,70 @@ def f6_ambiguous(rng: random.Random) -> tuple[_Builder, dict]:
     return b, {"variant": variant, "has_alternative": has_alt, "depth": depth}
 
 
+def f7_dossier(rng: random.Random, motifs: tuple[int, int] = (4, 7), updates: tuple[int, int] = (4, 8)) -> tuple[_Builder, dict]:
+    """A long case: 4-7 motifs (chain, alternative supports, conjunction, weak-source chain)
+    composed into one dependency DAG about the same few entities, with shared facts (one fact
+    feeding several conclusions), cross-motif links (a conclusion building on an earlier one)
+    and decisions on top; then 4-8 updates over time mixing retractions, new values, hedges,
+    weak-source denials, repeated hits on one fact and updates nothing depends on. Gold after
+    each update comes from the same labeller (several updates on a fact combine by minimum)."""
+    b = _Builder(rng)
+    pool: list[str] = []  # evidence that later motifs may share
+    tops: list[str] = []
+    shapes = []
+
+    def ev(share_p: float = 0.3) -> str:
+        if pool and rng.random() < share_p:
+            return rng.choice(pool)
+        e = b.evidence(reliability=rng.choice(["high", "high", "medium"]))
+        pool.append(e)
+        return e
+
+    for _ in range(rng.randint(*motifs)):
+        shape = rng.choice(["chain", "alternatives", "conjunction", "conjunction_alt"])
+        shapes.append(shape)
+        if shape == "chain":
+            justs: Justifications = [[ev()]]
+        elif shape == "alternatives":
+            justs = [[x] for x in dict.fromkeys(ev() for _ in range(rng.randint(2, 3)))]
+        else:
+            premises = list(dict.fromkeys(ev() for _ in range(rng.randint(2, 3))))
+            justs = [premises] + ([[ev(0.0)]] if shape == "conjunction_alt" else [])
+        belief = b.derived(justs)
+        if tops and rng.random() < 0.4:  # build on an earlier conclusion
+            belief = b.derived([[belief, rng.choice(tops)]])
+        depth = rng.randint(0, 2)
+        tops.append(b.chain(belief, depth) if depth else belief)
+    b.distractors(rng.randint(2, 4))
+    loose = [n.id for n in b.nodes if n.is_evidence and n.id not in pool]  # distractor evidence
+    hits = []
+    for _ in range(rng.randint(*updates)):
+        r = rng.random()
+        target = rng.choice(loose) if loose and r < 0.1 else rng.choice(hits) if hits and r < 0.2 else rng.choice(pool)
+        kind = rng.random()
+        if kind < 0.35:
+            b.update(target, Relation.RETRACTS)
+        elif kind < 0.65:
+            b.update(target, Relation.SUPERSEDES)
+        elif kind < 0.82:
+            b.update(target, Relation.HEDGES)
+        else:
+            b.update(target, Relation.RETRACTS, reliability="low")
+        hits.append(target)
+    return b, {"motifs": shapes, "derived": sum(not n.is_evidence for n in b.nodes),
+               "evidence": sum(n.is_evidence for n in b.nodes), "updates": len(b.updates),
+               "shared_facts": sum(1 for e in pool if sum(e in j for n in b.nodes for j in n.justifications) > 1)}
+
+
 FAMILIES: dict[str, Callable[[random.Random], tuple[_Builder, dict]]] = {
     "F1": f1_chain,
     "F2": f2_independent_support,
     "F3": f3_conjunctive,
     "F6": f6_ambiguous,
+}
+# Long families: not in the default suite (existing suites and runs are unchanged).
+LONG_FAMILIES: dict[str, Callable[[random.Random], tuple[_Builder, dict]]] = {
+    "F7": f7_dossier,
 }
 
 
@@ -160,6 +222,6 @@ def generate_suite(
     for fam in families:
         for i in range(n_per_family):
             rng = random.Random(f"{seed}:{fam}:{i}")
-            builder, meta = FAMILIES[fam](rng)
+            builder, meta = {**FAMILIES, **LONG_FAMILIES}[fam](rng)
             suite.append(builder.build(f"{fam}-{i:03d}", fam, domains[i % len(domains)], meta))
     return suite
