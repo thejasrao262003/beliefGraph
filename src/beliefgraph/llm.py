@@ -223,7 +223,9 @@ def make_llm(provider: str, model: str | None = None, api_key: str | None = None
                 os.environ.get("BELIEFGRAPH_VLLM_URL") if provider == "modal" else None)
             if not url:
                 raise ValueError(f"{provider}: pass base_url=<server URL>")
-            client = openai.OpenAI(api_key=_key(provider, api_key), base_url=url)
+            # whole-store baselines on self-hosted servers can take several minutes per call
+            client = openai.OpenAI(api_key=_key(provider, api_key), base_url=url,
+                                   timeout=1800 if provider in SEEDED else 600)
         elif provider == "anthropic":
             import anthropic
 
