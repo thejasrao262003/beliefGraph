@@ -1,0 +1,2980 @@
+{
+ "algo": "v0.2",
+ "variant": "v0.8",
+ "max_output_tokens": 4000,
+ "provider": "modal",
+ "model": "gemma-4-12b-it",
+ "prompts": [
+  "bg-build-v1",
+  "bg-read-v2",
+  "llm-direct-store-v1"
+ ],
+ "seed": 0,
+ "batch_size": 25,
+ "sizes": {
+  "d000": {
+   "memories": 443,
+   "facts": 488,
+   "updates": 96,
+   "graph_unsupported": 23,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.9587330699774266,
+    "LLM-direct": 0.5928094431903687,
+    "LLM-RAG": 0.6656320541760722
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.9345372460496614,
+     "acc_touched": 0.9345372460496614,
+     "balanced": 0.9611111111111111,
+     "stale": 0.07777777777777778,
+     "over_invalidation": 0.0,
+     "n_revising": 360
+    },
+    "LLM-direct": {
+     "acc_all": 0.1873589164785553,
+     "acc_touched": 0.1873589164785553,
+     "balanced": 0.5,
+     "stale": 1.0,
+     "over_invalidation": 0.0,
+     "n_revising": 360
+    },
+    "LLM-RAG": {
+     "acc_all": 0.3972911963882618,
+     "acc_touched": 0.3972911963882618,
+     "balanced": 0.646285140562249,
+     "stale": 0.6833333333333333,
+     "over_invalidation": 0.024096385542168676,
+     "n_revising": 360
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 2489,
+     "input_tokens": 2624944,
+     "output_tokens": 190589,
+     "seconds": 13432.640000000105,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 96,
+     "input_tokens": 135023,
+     "output_tokens": 4170,
+     "seconds": 331.88999999999993,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 96,
+     "input_tokens": 5710690,
+     "output_tokens": 372841,
+     "seconds": 18799.839999999993,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 96,
+     "input_tokens": 1599910,
+     "output_tokens": 91709,
+     "seconds": 6893.209999999999,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     },
+     "LLM-direct": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 1
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.9977426636568849,
+      "acc_touched": 0.9977426636568849,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.9977426636568849,
+      "acc_touched": 0.9977426636568849,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.9,
+      "stale": 0.2,
+      "over_invalidation": 0.0,
+      "n_revising": 10
+     },
+     "LLM-direct": {
+      "acc_all": 0.9774266365688488,
+      "acc_touched": 0.9774266365688488,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 10
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9841986455981941,
+      "acc_touched": 0.9841986455981941,
+      "balanced": 0.65,
+      "stale": 0.7,
+      "over_invalidation": 0.0,
+      "n_revising": 10
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.9090909090909092,
+      "stale": 0.18181818181818182,
+      "over_invalidation": 0.0,
+      "n_revising": 11
+     },
+     "LLM-direct": {
+      "acc_all": 0.9751693002257337,
+      "acc_touched": 0.9751693002257337,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 11
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.981941309255079,
+      "acc_touched": 0.981941309255079,
+      "balanced": 0.6363636363636364,
+      "stale": 0.7272727272727273,
+      "over_invalidation": 0.0,
+      "n_revising": 11
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.9166666666666667,
+      "stale": 0.16666666666666666,
+      "over_invalidation": 0.0,
+      "n_revising": 12
+     },
+     "LLM-direct": {
+      "acc_all": 0.9729119638826185,
+      "acc_touched": 0.9729119638826185,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 12
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9796839729119639,
+      "acc_touched": 0.9796839729119639,
+      "balanced": 0.625,
+      "stale": 0.75,
+      "over_invalidation": 0.0,
+      "n_revising": 12
+     }
+    },
+    {
+     "n": 6,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.9473684210526316,
+      "stale": 0.10526315789473684,
+      "over_invalidation": 0.0,
+      "n_revising": 19
+     },
+     "LLM-direct": {
+      "acc_all": 0.9571106094808126,
+      "acc_touched": 0.9571106094808126,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 19
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9706546275395034,
+      "acc_touched": 0.9706546275395034,
+      "balanced": 0.6578947368421053,
+      "stale": 0.6842105263157895,
+      "over_invalidation": 0.0,
+      "n_revising": 19
+     }
+    },
+    {
+     "n": 7,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.9583333333333333,
+      "stale": 0.08333333333333333,
+      "over_invalidation": 0.0,
+      "n_revising": 24
+     },
+     "LLM-direct": {
+      "acc_all": 0.945823927765237,
+      "acc_touched": 0.945823927765237,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 24
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9616252821670429,
+      "acc_touched": 0.9616252821670429,
+      "balanced": 0.6458333333333334,
+      "stale": 0.7083333333333334,
+      "over_invalidation": 0.0,
+      "n_revising": 24
+     }
+    },
+    {
+     "n": 8,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.96,
+      "stale": 0.08,
+      "over_invalidation": 0.0,
+      "n_revising": 25
+     },
+     "LLM-direct": {
+      "acc_all": 0.9435665914221218,
+      "acc_touched": 0.9435665914221218,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 25
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.963882618510158,
+      "acc_touched": 0.963882618510158,
+      "balanced": 0.6799999999999999,
+      "stale": 0.64,
+      "over_invalidation": 0.0,
+      "n_revising": 25
+     }
+    },
+    {
+     "n": 9,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.962962962962963,
+      "stale": 0.07407407407407407,
+      "over_invalidation": 0.0,
+      "n_revising": 27
+     },
+     "LLM-direct": {
+      "acc_all": 0.9390519187358917,
+      "acc_touched": 0.9390519187358917,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 27
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9593679458239278,
+      "acc_touched": 0.9593679458239278,
+      "balanced": 0.6839832621082621,
+      "stale": 0.6296296296296297,
+      "over_invalidation": 0.002403846153846154,
+      "n_revising": 27
+     }
+    },
+    {
+     "n": 10,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.9714285714285714,
+      "stale": 0.05714285714285714,
+      "over_invalidation": 0.0,
+      "n_revising": 35
+     },
+     "LLM-direct": {
+      "acc_all": 0.9209932279909706,
+      "acc_touched": 0.9209932279909706,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 35
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9390519187358917,
+      "acc_touched": 0.9390519187358917,
+      "balanced": 0.6404061624649859,
+      "stale": 0.7142857142857143,
+      "over_invalidation": 0.004901960784313725,
+      "n_revising": 35
+     }
+    },
+    {
+     "n": 11,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.9722222222222222,
+      "stale": 0.05555555555555555,
+      "over_invalidation": 0.0,
+      "n_revising": 36
+     },
+     "LLM-direct": {
+      "acc_all": 0.9187358916478555,
+      "acc_touched": 0.9187358916478555,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 36
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9322799097065463,
+      "acc_touched": 0.9322799097065463,
+      "balanced": 0.6364318864318864,
+      "stale": 0.7222222222222222,
+      "over_invalidation": 0.004914004914004914,
+      "n_revising": 36
+     }
+    },
+    {
+     "n": 12,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.9736842105263157,
+      "stale": 0.05263157894736842,
+      "over_invalidation": 0.0,
+      "n_revising": 38
+     },
+     "LLM-direct": {
+      "acc_all": 0.9142212189616253,
+      "acc_touched": 0.9142212189616253,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 38
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9345372460496614,
+      "acc_touched": 0.9345372460496614,
+      "balanced": 0.6303443794671865,
+      "stale": 0.7368421052631579,
+      "over_invalidation": 0.0024691358024691358,
+      "n_revising": 38
+     }
+    },
+    {
+     "n": 13,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.9743589743589743,
+      "stale": 0.05128205128205128,
+      "over_invalidation": 0.0,
+      "n_revising": 39
+     },
+     "LLM-direct": {
+      "acc_all": 0.9119638826185101,
+      "acc_touched": 0.9119638826185101,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 39
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9255079006772009,
+      "acc_touched": 0.9255079006772009,
+      "balanced": 0.6348375222137599,
+      "stale": 0.717948717948718,
+      "over_invalidation": 0.012376237623762377,
+      "n_revising": 39
+     }
+    },
+    {
+     "n": 14,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.975,
+      "stale": 0.05,
+      "over_invalidation": 0.0,
+      "n_revising": 40
+     },
+     "LLM-direct": {
+      "acc_all": 0.909706546275395,
+      "acc_touched": 0.909706546275395,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 40
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9232505643340858,
+      "acc_touched": 0.9232505643340858,
+      "balanced": 0.6312965260545906,
+      "stale": 0.725,
+      "over_invalidation": 0.01240694789081886,
+      "n_revising": 40
+     }
+    },
+    {
+     "n": 15,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.975609756097561,
+      "stale": 0.04878048780487805,
+      "over_invalidation": 0.0,
+      "n_revising": 41
+     },
+     "LLM-direct": {
+      "acc_all": 0.90744920993228,
+      "acc_touched": 0.90744920993228,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 41
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.90744920993228,
+      "acc_touched": 0.90744920993228,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 41
+     }
+    },
+    {
+     "n": 16,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.9767441860465116,
+      "stale": 0.046511627906976744,
+      "over_invalidation": 0.0,
+      "n_revising": 43
+     },
+     "LLM-direct": {
+      "acc_all": 0.9029345372460497,
+      "acc_touched": 0.9029345372460497,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 43
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9142212189616253,
+      "acc_touched": 0.9142212189616253,
+      "balanced": 0.6436627906976744,
+      "stale": 0.6976744186046512,
+      "over_invalidation": 0.015,
+      "n_revising": 43
+     }
+    },
+    {
+     "n": 17,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.9772727272727273,
+      "stale": 0.045454545454545456,
+      "over_invalidation": 0.0,
+      "n_revising": 44
+     },
+     "LLM-direct": {
+      "acc_all": 0.9006772009029346,
+      "acc_touched": 0.9006772009029346,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 44
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9119638826185101,
+      "acc_touched": 0.9119638826185101,
+      "balanced": 0.6300979722032354,
+      "stale": 0.7272727272727273,
+      "over_invalidation": 0.012531328320802004,
+      "n_revising": 44
+     }
+    },
+    {
+     "n": 18,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.9814814814814814,
+      "stale": 0.037037037037037035,
+      "over_invalidation": 0.0,
+      "n_revising": 54
+     },
+     "LLM-direct": {
+      "acc_all": 0.8781038374717833,
+      "acc_touched": 0.8781038374717833,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 54
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8961625282167043,
+      "acc_touched": 0.8961625282167043,
+      "balanced": 0.6139436351518613,
+      "stale": 0.7592592592592593,
+      "over_invalidation": 0.012853470437017995,
+      "n_revising": 54
+     }
+    },
+    {
+     "n": 19,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.9818181818181818,
+      "stale": 0.03636363636363636,
+      "over_invalidation": 0.0,
+      "n_revising": 55
+     },
+     "LLM-direct": {
+      "acc_all": 0.8758465011286681,
+      "acc_touched": 0.8758465011286681,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 55
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8893905191873589,
+      "acc_touched": 0.8893905191873589,
+      "balanced": 0.6260543580131208,
+      "stale": 0.7272727272727273,
+      "over_invalidation": 0.020618556701030927,
+      "n_revising": 55
+     }
+    },
+    {
+     "n": 20,
+     "BeliefGraph": {
+      "acc_all": 0.9954853273137697,
+      "acc_touched": 0.9954853273137697,
+      "balanced": 0.9821428571428572,
+      "stale": 0.03571428571428571,
+      "over_invalidation": 0.0,
+      "n_revising": 56
+     },
+     "LLM-direct": {
+      "acc_all": 0.873589164785553,
+      "acc_touched": 0.873589164785553,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 56
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8961625282167043,
+      "acc_touched": 0.8961625282167043,
+      "balanced": 0.6058508674787745,
+      "stale": 0.7857142857142857,
+      "over_invalidation": 0.002583979328165375,
+      "n_revising": 56
+     }
+    },
+    {
+     "n": 21,
+     "BeliefGraph": {
+      "acc_all": 0.9774266365688488,
+      "acc_touched": 0.9774266365688488,
+      "balanced": 0.9409737997879752,
+      "stale": 0.11267605633802817,
+      "over_invalidation": 0.005376344086021506,
+      "n_revising": 71
+     },
+     "LLM-direct": {
+      "acc_all": 0.8397291196388262,
+      "acc_touched": 0.8397291196388262,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 71
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8577878103837472,
+      "acc_touched": 0.8577878103837472,
+      "balanced": 0.584828865667121,
+      "stale": 0.8169014084507042,
+      "over_invalidation": 0.013440860215053764,
+      "n_revising": 71
+     }
+    },
+    {
+     "n": 22,
+     "BeliefGraph": {
+      "acc_all": 0.9774266365688488,
+      "acc_touched": 0.9774266365688488,
+      "balanced": 0.9459782226905515,
+      "stale": 0.10256410256410256,
+      "over_invalidation": 0.005479452054794521,
+      "n_revising": 78
+     },
+     "LLM-direct": {
+      "acc_all": 0.8239277652370203,
+      "acc_touched": 0.8239277652370203,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 78
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.837471783295711,
+      "acc_touched": 0.837471783295711,
+      "balanced": 0.5902353354408149,
+      "stale": 0.7948717948717948,
+      "over_invalidation": 0.024657534246575342,
+      "n_revising": 78
+     }
+    },
+    {
+     "n": 23,
+     "BeliefGraph": {
+      "acc_all": 0.9774266365688488,
+      "acc_touched": 0.9774266365688488,
+      "balanced": 0.9484494290926289,
+      "stale": 0.0975609756097561,
+      "over_invalidation": 0.00554016620498615,
+      "n_revising": 82
+     },
+     "LLM-direct": {
+      "acc_all": 0.8148984198645598,
+      "acc_touched": 0.8148984198645598,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 82
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8397291196388262,
+      "acc_touched": 0.8397291196388262,
+      "balanced": 0.6075434092291062,
+      "stale": 0.7682926829268293,
+      "over_invalidation": 0.01662049861495845,
+      "n_revising": 82
+     }
+    },
+    {
+     "n": 24,
+     "BeliefGraph": {
+      "acc_all": 0.9774266365688488,
+      "acc_touched": 0.9774266365688488,
+      "balanced": 0.9501478803812027,
+      "stale": 0.09411764705882353,
+      "over_invalidation": 0.00558659217877095,
+      "n_revising": 85
+     },
+     "LLM-direct": {
+      "acc_all": 0.8081264108352144,
+      "acc_touched": 0.8081264108352144,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 85
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.8194130925507901,
+      "acc_touched": 0.8194130925507901,
+      "balanced": 0.551840289188301,
+      "stale": 0.8823529411764706,
+      "over_invalidation": 0.013966480446927373,
+      "n_revising": 85
+     }
+    },
+    {
+     "n": 25,
+     "BeliefGraph": {
+      "acc_all": 0.9774266365688488,
+      "acc_touched": 0.9774266365688488,
+      "balanced": 0.9545814789977443,
+      "stale": 0.0851063829787234,
+      "over_invalidation": 0.0057306590257879654,
+      "n_revising": 94
+     },
+     "LLM-direct": {
+      "acc_all": 0.7878103837471784,
+      "acc_touched": 0.7878103837471784,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 94
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8058690744920993,
+      "acc_touched": 0.8058690744920993,
+      "balanced": 0.5726239102603182,
+      "stale": 0.8404255319148937,
+      "over_invalidation": 0.014326647564469915,
+      "n_revising": 94
+     }
+    },
+    {
+     "n": 26,
+     "BeliefGraph": {
+      "acc_all": 0.9774266365688488,
+      "acc_touched": 0.9774266365688488,
+      "balanced": 0.9550211736237144,
+      "stale": 0.08421052631578947,
+      "over_invalidation": 0.005747126436781609,
+      "n_revising": 95
+     },
+     "LLM-direct": {
+      "acc_all": 0.7855530474040632,
+      "acc_touched": 0.7855530474040632,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 95
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8194130925507901,
+      "acc_touched": 0.8194130925507901,
+      "balanced": 0.6253478523895947,
+      "stale": 0.7263157894736842,
+      "over_invalidation": 0.022988505747126436,
+      "n_revising": 95
+     }
+    },
+    {
+     "n": 27,
+     "BeliefGraph": {
+      "acc_all": 0.9774266365688488,
+      "acc_touched": 0.9774266365688488,
+      "balanced": 0.9554514889529299,
+      "stale": 0.08333333333333333,
+      "over_invalidation": 0.005763688760806916,
+      "n_revising": 96
+     },
+     "LLM-direct": {
+      "acc_all": 0.7832957110609481,
+      "acc_touched": 0.7832957110609481,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 96
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8171557562076749,
+      "acc_touched": 0.8171557562076749,
+      "balanced": 0.5818924111431316,
+      "stale": 0.8333333333333334,
+      "over_invalidation": 0.002881844380403458,
+      "n_revising": 96
+     }
+    },
+    {
+     "n": 28,
+     "BeliefGraph": {
+      "acc_all": 0.9774266365688488,
+      "acc_touched": 0.9774266365688488,
+      "balanced": 0.9558727131875335,
+      "stale": 0.08247422680412371,
+      "over_invalidation": 0.005780346820809248,
+      "n_revising": 97
+     },
+     "LLM-direct": {
+      "acc_all": 0.781038374717833,
+      "acc_touched": 0.781038374717833,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 97
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7990970654627539,
+      "acc_touched": 0.7990970654627539,
+      "balanced": 0.5834872772778738,
+      "stale": 0.8041237113402062,
+      "over_invalidation": 0.028901734104046242,
+      "n_revising": 97
+     }
+    },
+    {
+     "n": 29,
+     "BeliefGraph": {
+      "acc_all": 0.9774266365688488,
+      "acc_touched": 0.9774266365688488,
+      "balanced": 0.9566889828517735,
+      "stale": 0.08080808080808081,
+      "over_invalidation": 0.005813953488372093,
+      "n_revising": 99
+     },
+     "LLM-direct": {
+      "acc_all": 0.7765237020316027,
+      "acc_touched": 0.7765237020316027,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 99
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7990970654627539,
+      "acc_touched": 0.7990970654627539,
+      "balanced": 0.5915257223396758,
+      "stale": 0.7878787878787878,
+      "over_invalidation": 0.029069767441860465,
+      "n_revising": 99
+     }
+    },
+    {
+     "n": 30,
+     "BeliefGraph": {
+      "acc_all": 0.9774266365688488,
+      "acc_touched": 0.9774266365688488,
+      "balanced": 0.9570845481049564,
+      "stale": 0.08,
+      "over_invalidation": 0.0058309037900874635,
+      "n_revising": 100
+     },
+     "LLM-direct": {
+      "acc_all": 0.7742663656884876,
+      "acc_touched": 0.7742663656884876,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 100
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7945823927765236,
+      "acc_touched": 0.7945823927765236,
+      "balanced": 0.5954227405247814,
+      "stale": 0.78,
+      "over_invalidation": 0.029154518950437316,
+      "n_revising": 100
+     }
+    },
+    {
+     "n": 31,
+     "BeliefGraph": {
+      "acc_all": 0.9774266365688488,
+      "acc_touched": 0.9774266365688488,
+      "balanced": 0.9603087403175301,
+      "stale": 0.07339449541284404,
+      "over_invalidation": 0.005988023952095809,
+      "n_revising": 109
+     },
+     "LLM-direct": {
+      "acc_all": 0.7539503386004515,
+      "acc_touched": 0.7539503386004515,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 109
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7539503386004515,
+      "acc_touched": 0.7539503386004515,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 109
+     }
+    },
+    {
+     "n": 32,
+     "BeliefGraph": {
+      "acc_all": 0.9774266365688488,
+      "acc_touched": 0.9774266365688488,
+      "balanced": 0.9606333606333606,
+      "stale": 0.07272727272727272,
+      "over_invalidation": 0.006006006006006006,
+      "n_revising": 110
+     },
+     "LLM-direct": {
+      "acc_all": 0.7516930022573364,
+      "acc_touched": 0.7516930022573364,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 110
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7855530474040632,
+      "acc_touched": 0.7855530474040632,
+      "balanced": 0.6031258531258531,
+      "stale": 0.7727272727272727,
+      "over_invalidation": 0.021021021021021023,
+      "n_revising": 110
+     }
+    },
+    {
+     "n": 33,
+     "BeliefGraph": {
+      "acc_all": 0.9774266365688488,
+      "acc_touched": 0.9774266365688488,
+      "balanced": 0.9609519157711929,
+      "stale": 0.07207207207207207,
+      "over_invalidation": 0.006024096385542169,
+      "n_revising": 111
+     },
+     "LLM-direct": {
+      "acc_all": 0.7494356659142212,
+      "acc_touched": 0.7494356659142212,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 111
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7787810383747178,
+      "acc_touched": 0.7787810383747178,
+      "balanced": 0.5900493867361337,
+      "stale": 0.7927927927927928,
+      "over_invalidation": 0.02710843373493976,
+      "n_revising": 111
+     }
+    },
+    {
+     "n": 34,
+     "BeliefGraph": {
+      "acc_all": 0.9774266365688488,
+      "acc_touched": 0.9774266365688488,
+      "balanced": 0.9615714668812014,
+      "stale": 0.07079646017699115,
+      "over_invalidation": 0.006060606060606061,
+      "n_revising": 113
+     },
+     "LLM-direct": {
+      "acc_all": 0.5733634311512416,
+      "acc_touched": 0.5733634311512416,
+      "balanced": 0.5878519710378117,
+      "stale": 0.4424778761061947,
+      "over_invalidation": 0.38181818181818183,
+      "n_revising": 113
+     },
+     "errors": [
+      "unknown memory 'm_00cf2'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7878103837471784,
+      "acc_touched": 0.7878103837471784,
+      "balanced": 0.6161973719495843,
+      "stale": 0.7433628318584071,
+      "over_invalidation": 0.024242424242424242,
+      "n_revising": 113
+     }
+    },
+    {
+     "n": 35,
+     "BeliefGraph": {
+      "acc_all": 0.9751693002257337,
+      "acc_touched": 0.9751693002257337,
+      "balanced": 0.9581487925761889,
+      "stale": 0.07758620689655173,
+      "over_invalidation": 0.0061162079510703364,
+      "n_revising": 116
+     },
+     "LLM-direct": {
+      "acc_all": 0.7381489841986456,
+      "acc_touched": 0.7381489841986456,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 116
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7720090293453724,
+      "acc_touched": 0.7720090293453724,
+      "balanced": 0.6140198249499104,
+      "stale": 0.7413793103448276,
+      "over_invalidation": 0.03058103975535168,
+      "n_revising": 116
+     }
+    },
+    {
+     "n": 36,
+     "BeliefGraph": {
+      "acc_all": 0.9751693002257337,
+      "acc_touched": 0.9751693002257337,
+      "balanced": 0.9602896341463415,
+      "stale": 0.07317073170731707,
+      "over_invalidation": 0.00625,
+      "n_revising": 123
+     },
+     "LLM-direct": {
+      "acc_all": 0.7223476297968398,
+      "acc_touched": 0.7223476297968398,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 123
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7697516930022573,
+      "acc_touched": 0.7697516930022573,
+      "balanced": 0.6282139227642276,
+      "stale": 0.7154471544715447,
+      "over_invalidation": 0.028125,
+      "n_revising": 123
+     }
+    },
+    {
+     "n": 37,
+     "BeliefGraph": {
+      "acc_all": 0.9751693002257337,
+      "acc_touched": 0.9751693002257337,
+      "balanced": 0.9608553459119498,
+      "stale": 0.072,
+      "over_invalidation": 0.006289308176100629,
+      "n_revising": 125
+     },
+     "LLM-direct": {
+      "acc_all": 0.7178329571106095,
+      "acc_touched": 0.7178329571106095,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 125
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7607223476297968,
+      "acc_touched": 0.7607223476297968,
+      "balanced": 0.6202767295597484,
+      "stale": 0.728,
+      "over_invalidation": 0.031446540880503145,
+      "n_revising": 125
+     }
+    },
+    {
+     "n": 38,
+     "BeliefGraph": {
+      "acc_all": 0.9751693002257337,
+      "acc_touched": 0.9751693002257337,
+      "balanced": 0.9619315656939713,
+      "stale": 0.06976744186046512,
+      "over_invalidation": 0.006369426751592357,
+      "n_revising": 129
+     },
+     "LLM-direct": {
+      "acc_all": 0.708803611738149,
+      "acc_touched": 0.708803611738149,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 129
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7494356659142212,
+      "acc_touched": 0.7494356659142212,
+      "balanced": 0.6110823087937589,
+      "stale": 0.7364341085271318,
+      "over_invalidation": 0.041401273885350316,
+      "n_revising": 129
+     }
+    },
+    {
+     "n": 39,
+     "BeliefGraph": {
+      "acc_all": 0.9751693002257337,
+      "acc_touched": 0.9751693002257337,
+      "balanced": 0.9621897272057016,
+      "stale": 0.06923076923076923,
+      "over_invalidation": 0.006389776357827476,
+      "n_revising": 130
+     },
+     "LLM-direct": {
+      "acc_all": 0.7065462753950339,
+      "acc_touched": 0.7065462753950339,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 130
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7065462753950339,
+      "acc_touched": 0.7065462753950339,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 130
+     }
+    },
+    {
+     "n": 40,
+     "BeliefGraph": {
+      "acc_all": 0.9751693002257337,
+      "acc_touched": 0.9751693002257337,
+      "balanced": 0.9624437267567039,
+      "stale": 0.06870229007633588,
+      "over_invalidation": 0.00641025641025641,
+      "n_revising": 131
+     },
+     "LLM-direct": {
+      "acc_all": 0.7042889390519187,
+      "acc_touched": 0.7042889390519187,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 131
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.744920993227991,
+      "acc_touched": 0.744920993227991,
+      "balanced": 0.6143570170287728,
+      "stale": 0.732824427480916,
+      "over_invalidation": 0.038461538461538464,
+      "n_revising": 131
+     }
+    },
+    {
+     "n": 41,
+     "BeliefGraph": {
+      "acc_all": 0.9571106094808126,
+      "acc_touched": 0.9571106094808126,
+      "balanced": 0.9355594471790989,
+      "stale": 0.1223021582733813,
+      "over_invalidation": 0.006578947368421052,
+      "n_revising": 139
+     },
+     "LLM-direct": {
+      "acc_all": 0.6862302483069977,
+      "acc_touched": 0.6862302483069977,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 139
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7291196388261851,
+      "acc_touched": 0.7291196388261851,
+      "balanced": 0.61140429761454,
+      "stale": 0.7410071942446043,
+      "over_invalidation": 0.03618421052631579,
+      "n_revising": 139
+     }
+    },
+    {
+     "n": 42,
+     "BeliefGraph": {
+      "acc_all": 0.945823927765237,
+      "acc_touched": 0.945823927765237,
+      "balanced": 0.9246562993013296,
+      "stale": 0.1437908496732026,
+      "over_invalidation": 0.006896551724137931,
+      "n_revising": 153
+     },
+     "LLM-direct": {
+      "acc_all": 0.654627539503386,
+      "acc_touched": 0.654627539503386,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 153
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.708803611738149,
+      "acc_touched": 0.708803611738149,
+      "balanced": 0.6117534370069867,
+      "stale": 0.738562091503268,
+      "over_invalidation": 0.03793103448275862,
+      "n_revising": 153
+     }
+    },
+    {
+     "n": 43,
+     "BeliefGraph": {
+      "acc_all": 0.945823927765237,
+      "acc_touched": 0.945823927765237,
+      "balanced": 0.9251112209589718,
+      "stale": 0.14285714285714285,
+      "over_invalidation": 0.006920415224913495,
+      "n_revising": 154
+     },
+     "LLM-direct": {
+      "acc_all": 0.6523702031602708,
+      "acc_touched": 0.6523702031602708,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 154
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6862302483069977,
+      "acc_touched": 0.6862302483069977,
+      "balanced": 0.5831348582213635,
+      "stale": 0.7922077922077922,
+      "over_invalidation": 0.04152249134948097,
+      "n_revising": 154
+     }
+    },
+    {
+     "n": 44,
+     "BeliefGraph": {
+      "acc_all": 0.945823927765237,
+      "acc_touched": 0.945823927765237,
+      "balanced": 0.925560035842294,
+      "stale": 0.14193548387096774,
+      "over_invalidation": 0.006944444444444444,
+      "n_revising": 155
+     },
+     "LLM-direct": {
+      "acc_all": 0.6501128668171557,
+      "acc_touched": 0.6501128668171557,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 155
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6862302483069977,
+      "acc_touched": 0.6862302483069977,
+      "balanced": 0.5791666666666667,
+      "stale": 0.8,
+      "over_invalidation": 0.041666666666666664,
+      "n_revising": 155
+     }
+    },
+    {
+     "n": 45,
+     "BeliefGraph": {
+      "acc_all": 0.945823927765237,
+      "acc_touched": 0.945823927765237,
+      "balanced": 0.9264398022359805,
+      "stale": 0.14012738853503184,
+      "over_invalidation": 0.006993006993006993,
+      "n_revising": 157
+     },
+     "LLM-direct": {
+      "acc_all": 0.6455981941309256,
+      "acc_touched": 0.6455981941309256,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 157
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7133182844243793,
+      "acc_touched": 0.7133182844243793,
+      "balanced": 0.6255177943076032,
+      "stale": 0.7070063694267515,
+      "over_invalidation": 0.04195804195804196,
+      "n_revising": 157
+     }
+    },
+    {
+     "n": 46,
+     "BeliefGraph": {
+      "acc_all": 0.945823927765237,
+      "acc_touched": 0.945823927765237,
+      "balanced": 0.9268709749056185,
+      "stale": 0.13924050632911392,
+      "over_invalidation": 0.007017543859649123,
+      "n_revising": 158
+     },
+     "LLM-direct": {
+      "acc_all": 0.6433408577878104,
+      "acc_touched": 0.6433408577878104,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 158
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7133182844243793,
+      "acc_touched": 0.7133182844243793,
+      "balanced": 0.6340106595602931,
+      "stale": 0.689873417721519,
+      "over_invalidation": 0.042105263157894736,
+      "n_revising": 158
+     }
+    },
+    {
+     "n": 47,
+     "BeliefGraph": {
+      "acc_all": 0.945823927765237,
+      "acc_touched": 0.945823927765237,
+      "balanced": 0.9285400465708888,
+      "stale": 0.13580246913580246,
+      "over_invalidation": 0.0071174377224199285,
+      "n_revising": 162
+     },
+     "LLM-direct": {
+      "acc_all": 0.6343115124153499,
+      "acc_touched": 0.6343115124153499,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 162
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7020316027088036,
+      "acc_touched": 0.7020316027088036,
+      "balanced": 0.6224023549053205,
+      "stale": 0.7160493827160493,
+      "over_invalidation": 0.03914590747330961,
+      "n_revising": 162
+     }
+    },
+    {
+     "n": 48,
+     "BeliefGraph": {
+      "acc_all": 0.945823927765237,
+      "acc_touched": 0.945823927765237,
+      "balanced": 0.9289439088518843,
+      "stale": 0.13496932515337423,
+      "over_invalidation": 0.007142857142857143,
+      "n_revising": 163
+     },
+     "LLM-direct": {
+      "acc_all": 0.6320541760722348,
+      "acc_touched": 0.6320541760722348,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 163
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7020316027088036,
+      "acc_touched": 0.7020316027088036,
+      "balanced": 0.627092462751972,
+      "stale": 0.6993865030674846,
+      "over_invalidation": 0.04642857142857143,
+      "n_revising": 163
+     }
+    },
+    {
+     "n": 49,
+     "BeliefGraph": {
+      "acc_all": 0.945823927765237,
+      "acc_touched": 0.945823927765237,
+      "balanced": 0.9330641370764432,
+      "stale": 0.12643678160919541,
+      "over_invalidation": 0.007434944237918215,
+      "n_revising": 174
+     },
+     "LLM-direct": {
+      "acc_all": 0.6072234762979684,
+      "acc_touched": 0.6072234762979684,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 174
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6862302483069977,
+      "acc_touched": 0.6862302483069977,
+      "balanced": 0.6242468914241763,
+      "stale": 0.7068965517241379,
+      "over_invalidation": 0.04460966542750929,
+      "n_revising": 174
+     }
+    },
+    {
+     "n": 50,
+     "BeliefGraph": {
+      "acc_all": 0.945823927765237,
+      "acc_touched": 0.945823927765237,
+      "balanced": 0.9334115138592751,
+      "stale": 0.12571428571428572,
+      "over_invalidation": 0.007462686567164179,
+      "n_revising": 175
+     },
+     "LLM-direct": {
+      "acc_all": 0.6049661399548533,
+      "acc_touched": 0.6049661399548533,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 175
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6704288939051919,
+      "acc_touched": 0.6704288939051919,
+      "balanced": 0.6090405117270788,
+      "stale": 0.7371428571428571,
+      "over_invalidation": 0.04477611940298507,
+      "n_revising": 175
+     }
+    },
+    {
+     "n": 51,
+     "BeliefGraph": {
+      "acc_all": 0.945823927765237,
+      "acc_touched": 0.945823927765237,
+      "balanced": 0.9337546816479401,
+      "stale": 0.125,
+      "over_invalidation": 0.00749063670411985,
+      "n_revising": 176
+     },
+     "LLM-direct": {
+      "acc_all": 0.6027088036117382,
+      "acc_touched": 0.6027088036117382,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 176
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6681715575620768,
+      "acc_touched": 0.6681715575620768,
+      "balanced": 0.6110508171603677,
+      "stale": 0.7329545454545454,
+      "over_invalidation": 0.0449438202247191,
+      "n_revising": 176
+     }
+    },
+    {
+     "n": 52,
+     "BeliefGraph": {
+      "acc_all": 0.9435665914221218,
+      "acc_touched": 0.9435665914221218,
+      "balanced": 0.9349082186065916,
+      "stale": 0.12234042553191489,
+      "over_invalidation": 0.00784313725490196,
+      "n_revising": 188
+     },
+     "LLM-direct": {
+      "acc_all": 0.5756207674943566,
+      "acc_touched": 0.5756207674943566,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 188
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6297968397291196,
+      "acc_touched": 0.6297968397291196,
+      "balanced": 0.5855131414267835,
+      "stale": 0.7819148936170213,
+      "over_invalidation": 0.047058823529411764,
+      "n_revising": 188
+     }
+    },
+    {
+     "n": 53,
+     "BeliefGraph": {
+      "acc_all": 0.9435665914221218,
+      "acc_touched": 0.9435665914221218,
+      "balanced": 0.9352164312794233,
+      "stale": 0.12169312169312169,
+      "over_invalidation": 0.007874015748031496,
+      "n_revising": 189
+     },
+     "LLM-direct": {
+      "acc_all": 0.5733634311512416,
+      "acc_touched": 0.5733634311512416,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 189
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5733634311512416,
+      "acc_touched": 0.5733634311512416,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 189
+     }
+    },
+    {
+     "n": 54,
+     "BeliefGraph": {
+      "acc_all": 0.9435665914221218,
+      "acc_touched": 0.9435665914221218,
+      "balanced": 0.9355211150405658,
+      "stale": 0.12105263157894737,
+      "over_invalidation": 0.007905138339920948,
+      "n_revising": 190
+     },
+     "LLM-direct": {
+      "acc_all": 0.5711060948081265,
+      "acc_touched": 0.5711060948081265,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 190
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6591422121896162,
+      "acc_touched": 0.6591422121896162,
+      "balanced": 0.6151029748283753,
+      "stale": 0.7263157894736842,
+      "over_invalidation": 0.043478260869565216,
+      "n_revising": 190
+     }
+    },
+    {
+     "n": 55,
+     "BeliefGraph": {
+      "acc_all": 0.9300225733634312,
+      "acc_touched": 0.9300225733634312,
+      "balanced": 0.9250963983919929,
+      "stale": 0.13725490196078433,
+      "over_invalidation": 0.012552301255230125,
+      "n_revising": 204
+     },
+     "LLM-direct": {
+      "acc_all": 0.4221218961625282,
+      "acc_touched": 0.4221218961625282,
+      "balanced": 0.487724587743047,
+      "stale": 0.36764705882352944,
+      "over_invalidation": 0.6569037656903766,
+      "n_revising": 204
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.618510158013544,
+      "acc_touched": 0.618510158013544,
+      "balanced": 0.6079661990319141,
+      "stale": 0.7254901960784313,
+      "over_invalidation": 0.058577405857740586,
+      "n_revising": 204
+     }
+    },
+    {
+     "n": 56,
+     "BeliefGraph": {
+      "acc_all": 0.9300225733634312,
+      "acc_touched": 0.9300225733634312,
+      "balanced": 0.9257097210274057,
+      "stale": 0.13592233009708737,
+      "over_invalidation": 0.012658227848101266,
+      "n_revising": 206
+     },
+     "LLM-direct": {
+      "acc_all": 0.5349887133182845,
+      "acc_touched": 0.5349887133182845,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 206
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5349887133182845,
+      "acc_touched": 0.5349887133182845,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 206
+     }
+    },
+    {
+     "n": 57,
+     "BeliefGraph": {
+      "acc_all": 0.9300225733634312,
+      "acc_touched": 0.9300225733634312,
+      "balanced": 0.9260112175550643,
+      "stale": 0.13526570048309178,
+      "over_invalidation": 0.012711864406779662,
+      "n_revising": 207
+     },
+     "LLM-direct": {
+      "acc_all": 0.5327313769751693,
+      "acc_touched": 0.5327313769751693,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 207
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.618510158013544,
+      "acc_touched": 0.618510158013544,
+      "balanced": 0.6161569638909359,
+      "stale": 0.6956521739130435,
+      "over_invalidation": 0.07203389830508475,
+      "n_revising": 207
+     }
+    },
+    {
+     "n": 58,
+     "BeliefGraph": {
+      "acc_all": 0.9345372460496614,
+      "acc_touched": 0.9345372460496614,
+      "balanced": 0.9329559363525092,
+      "stale": 0.12093023255813953,
+      "over_invalidation": 0.013157894736842105,
+      "n_revising": 215
+     },
+     "LLM-direct": {
+      "acc_all": 0.5146726862302483,
+      "acc_touched": 0.5146726862302483,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 215
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5981941309255079,
+      "acc_touched": 0.5981941309255079,
+      "balanced": 0.6065075479396165,
+      "stale": 0.7255813953488373,
+      "over_invalidation": 0.06140350877192982,
+      "n_revising": 215
+     }
+    },
+    {
+     "n": 59,
+     "BeliefGraph": {
+      "acc_all": 0.927765237020316,
+      "acc_touched": 0.927765237020316,
+      "balanced": 0.9299142682180037,
+      "stale": 0.12608695652173912,
+      "over_invalidation": 0.014084507042253521,
+      "n_revising": 230
+     },
+     "LLM-direct": {
+      "acc_all": 0.48081264108352145,
+      "acc_touched": 0.48081264108352145,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 230
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5891647855530474,
+      "acc_touched": 0.5891647855530474,
+      "balanced": 0.6194835680751174,
+      "stale": 0.7,
+      "over_invalidation": 0.06103286384976526,
+      "n_revising": 230
+     }
+    },
+    {
+     "n": 60,
+     "BeliefGraph": {
+      "acc_all": 0.927765237020316,
+      "acc_touched": 0.927765237020316,
+      "balanced": 0.9310863338788871,
+      "stale": 0.12340425531914893,
+      "over_invalidation": 0.014423076923076924,
+      "n_revising": 235
+     },
+     "LLM-direct": {
+      "acc_all": 0.46952595936794583,
+      "acc_touched": 0.46952595936794583,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 235
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5778781038374717,
+      "acc_touched": 0.5778781038374717,
+      "balanced": 0.6139832242225859,
+      "stale": 0.7191489361702128,
+      "over_invalidation": 0.052884615384615384,
+      "n_revising": 235
+     }
+    },
+    {
+     "n": 61,
+     "BeliefGraph": {
+      "acc_all": 0.927765237020316,
+      "acc_touched": 0.927765237020316,
+      "balanced": 0.9313129452223041,
+      "stale": 0.1228813559322034,
+      "over_invalidation": 0.014492753623188406,
+      "n_revising": 236
+     },
+     "LLM-direct": {
+      "acc_all": 0.4672686230248307,
+      "acc_touched": 0.4672686230248307,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 236
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5711060948081265,
+      "acc_touched": 0.5711060948081265,
+      "balanced": 0.6177945631703923,
+      "stale": 0.7161016949152542,
+      "over_invalidation": 0.04830917874396135,
+      "n_revising": 236
+     }
+    },
+    {
+     "n": 62,
+     "BeliefGraph": {
+      "acc_all": 0.927765237020316,
+      "acc_touched": 0.927765237020316,
+      "balanced": 0.9317585570813691,
+      "stale": 0.12184873949579832,
+      "over_invalidation": 0.014634146341463415,
+      "n_revising": 238
+     },
+     "LLM-direct": {
+      "acc_all": 0.46275395033860045,
+      "acc_touched": 0.46275395033860045,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 238
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5620767494356659,
+      "acc_touched": 0.5620767494356659,
+      "balanced": 0.6044373847099815,
+      "stale": 0.7521008403361344,
+      "over_invalidation": 0.03902439024390244,
+      "n_revising": 238
+     }
+    },
+    {
+     "n": 63,
+     "BeliefGraph": {
+      "acc_all": 0.9345372460496614,
+      "acc_touched": 0.9345372460496614,
+      "balanced": 0.9417396745932416,
+      "stale": 0.10588235294117647,
+      "over_invalidation": 0.010638297872340425,
+      "n_revising": 255
+     },
+     "LLM-direct": {
+      "acc_all": 0.42437923250564336,
+      "acc_touched": 0.42437923250564336,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 255
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5440180586907449,
+      "acc_touched": 0.5440180586907449,
+      "balanced": 0.617104714226116,
+      "stale": 0.7019607843137254,
+      "over_invalidation": 0.06382978723404255,
+      "n_revising": 255
+     }
+    },
+    {
+     "n": 64,
+     "BeliefGraph": {
+      "acc_all": 0.9345372460496614,
+      "acc_touched": 0.9345372460496614,
+      "balanced": 0.9419180314171123,
+      "stale": 0.10546875,
+      "over_invalidation": 0.0106951871657754,
+      "n_revising": 256
+     },
+     "LLM-direct": {
+      "acc_all": 0.4221218961625282,
+      "acc_touched": 0.4221218961625282,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 256
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.54627539503386,
+      "acc_touched": 0.54627539503386,
+      "balanced": 0.6211877506684492,
+      "stale": 0.71484375,
+      "over_invalidation": 0.0427807486631016,
+      "n_revising": 256
+     }
+    },
+    {
+     "n": 65,
+     "BeliefGraph": {
+      "acc_all": 0.9345372460496614,
+      "acc_touched": 0.9345372460496614,
+      "balanced": 0.9429484205642951,
+      "stale": 0.10305343511450382,
+      "over_invalidation": 0.011049723756906077,
+      "n_revising": 262
+     },
+     "LLM-direct": {
+      "acc_all": 0.40857787810383744,
+      "acc_touched": 0.40857787810383744,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 262
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.49435665914221216,
+      "acc_touched": 0.49435665914221216,
+      "balanced": 0.5777908987389819,
+      "stale": 0.816793893129771,
+      "over_invalidation": 0.027624309392265192,
+      "n_revising": 262
+     }
+    },
+    {
+     "n": 66,
+     "BeliefGraph": {
+      "acc_all": 0.9435665914221218,
+      "acc_touched": 0.9435665914221218,
+      "balanced": 0.9513752665245203,
+      "stale": 0.08582089552238806,
+      "over_invalidation": 0.011428571428571429,
+      "n_revising": 268
+     },
+     "LLM-direct": {
+      "acc_all": 0.46952595936794583,
+      "acc_touched": 0.46952595936794583,
+      "balanced": 0.5134328358208955,
+      "stale": 0.373134328358209,
+      "over_invalidation": 0.6,
+      "n_revising": 268
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5169300225733634,
+      "acc_touched": 0.5169300225733634,
+      "balanced": 0.6133368869936034,
+      "stale": 0.7276119402985075,
+      "over_invalidation": 0.045714285714285714,
+      "n_revising": 268
+     }
+    },
+    {
+     "n": 67,
+     "BeliefGraph": {
+      "acc_all": 0.9435665914221218,
+      "acc_touched": 0.9435665914221218,
+      "balanced": 0.9515019441951886,
+      "stale": 0.08550185873605948,
+      "over_invalidation": 0.011494252873563218,
+      "n_revising": 269
+     },
+     "LLM-direct": {
+      "acc_all": 0.3927765237020316,
+      "acc_touched": 0.3927765237020316,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 269
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.49435665914221216,
+      "acc_touched": 0.49435665914221216,
+      "balanced": 0.5849891039610307,
+      "stale": 0.7955390334572491,
+      "over_invalidation": 0.034482758620689655,
+      "n_revising": 269
+     }
+    },
+    {
+     "n": 68,
+     "BeliefGraph": {
+      "acc_all": 0.9435665914221218,
+      "acc_touched": 0.9435665914221218,
+      "balanced": 0.9522294372294373,
+      "stale": 0.08363636363636363,
+      "over_invalidation": 0.011904761904761904,
+      "n_revising": 275
+     },
+     "LLM-direct": {
+      "acc_all": 0.3792325056433409,
+      "acc_touched": 0.3792325056433409,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 275
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.49435665914221216,
+      "acc_touched": 0.49435665914221216,
+      "balanced": 0.6039610389610389,
+      "stale": 0.7563636363636363,
+      "over_invalidation": 0.03571428571428571,
+      "n_revising": 275
+     }
+    },
+    {
+     "n": 69,
+     "BeliefGraph": {
+      "acc_all": 0.9435665914221218,
+      "acc_touched": 0.9435665914221218,
+      "balanced": 0.9523453093812375,
+      "stale": 0.08333333333333333,
+      "over_invalidation": 0.011976047904191617,
+      "n_revising": 276
+     },
+     "LLM-direct": {
+      "acc_all": 0.37697516930022573,
+      "acc_touched": 0.37697516930022573,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 276
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5079006772009029,
+      "acc_touched": 0.5079006772009029,
+      "balanced": 0.6167230755879545,
+      "stale": 0.7246376811594203,
+      "over_invalidation": 0.041916167664670656,
+      "n_revising": 276
+     }
+    },
+    {
+     "n": 70,
+     "BeliefGraph": {
+      "acc_all": 0.9435665914221218,
+      "acc_touched": 0.9435665914221218,
+      "balanced": 0.9524596581270932,
+      "stale": 0.08303249097472924,
+      "over_invalidation": 0.012048192771084338,
+      "n_revising": 277
+     },
+     "LLM-direct": {
+      "acc_all": 0.3747178329571106,
+      "acc_touched": 0.3747178329571106,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 277
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5033860045146726,
+      "acc_touched": 0.5033860045146726,
+      "balanced": 0.6142947240224436,
+      "stale": 0.7292418772563177,
+      "over_invalidation": 0.04216867469879518,
+      "n_revising": 277
+     }
+    },
+    {
+     "n": 71,
+     "BeliefGraph": {
+      "acc_all": 0.9435665914221218,
+      "acc_touched": 0.9435665914221218,
+      "balanced": 0.9525724874645738,
+      "stale": 0.08273381294964029,
+      "over_invalidation": 0.012121212121212121,
+      "n_revising": 278
+     },
+     "LLM-direct": {
+      "acc_all": 0.3724604966139955,
+      "acc_touched": 0.3724604966139955,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 278
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4966139954853273,
+      "acc_touched": 0.4966139954853273,
+      "balanced": 0.6082842816655766,
+      "stale": 0.7410071942446043,
+      "over_invalidation": 0.04242424242424243,
+      "n_revising": 278
+     }
+    },
+    {
+     "n": 72,
+     "BeliefGraph": {
+      "acc_all": 0.9435665914221218,
+      "acc_touched": 0.9435665914221218,
+      "balanced": 0.9525724874645738,
+      "stale": 0.08273381294964029,
+      "over_invalidation": 0.012121212121212121,
+      "n_revising": 278
+     },
+     "LLM-direct": {
+      "acc_all": 0.3724604966139955,
+      "acc_touched": 0.3724604966139955,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 278
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4966139954853273,
+      "acc_touched": 0.4966139954853273,
+      "balanced": 0.602321778940484,
+      "stale": 0.7589928057553957,
+      "over_invalidation": 0.03636363636363636,
+      "n_revising": 278
+     }
+    },
+    {
+     "n": 73,
+     "BeliefGraph": {
+      "acc_all": 0.9413092550790068,
+      "acc_touched": 0.9413092550790068,
+      "balanced": 0.9508916863362182,
+      "stale": 0.08602150537634409,
+      "over_invalidation": 0.012195121951219513,
+      "n_revising": 279
+     },
+     "LLM-direct": {
+      "acc_all": 0.37020316027088035,
+      "acc_touched": 0.37020316027088035,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 279
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5011286681715575,
+      "acc_touched": 0.5011286681715575,
+      "balanced": 0.6094829093452225,
+      "stale": 0.7383512544802867,
+      "over_invalidation": 0.042682926829268296,
+      "n_revising": 279
+     }
+    },
+    {
+     "n": 74,
+     "BeliefGraph": {
+      "acc_all": 0.9413092550790068,
+      "acc_touched": 0.9413092550790068,
+      "balanced": 0.9510078878177037,
+      "stale": 0.08571428571428572,
+      "over_invalidation": 0.012269938650306749,
+      "n_revising": 280
+     },
+     "LLM-direct": {
+      "acc_all": 0.36794582392776526,
+      "acc_touched": 0.36794582392776526,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 280
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5056433408577878,
+      "acc_touched": 0.5056433408577878,
+      "balanced": 0.6201029798422436,
+      "stale": 0.7107142857142857,
+      "over_invalidation": 0.049079754601226995,
+      "n_revising": 280
+     }
+    },
+    {
+     "n": 75,
+     "BeliefGraph": {
+      "acc_all": 0.9367945823927766,
+      "acc_touched": 0.9367945823927766,
+      "balanced": 0.9530201342281879,
+      "stale": 0.09395973154362416,
+      "over_invalidation": 0.0,
+      "n_revising": 298
+     },
+     "LLM-direct": {
+      "acc_all": 0.327313769751693,
+      "acc_touched": 0.327313769751693,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 298
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.43792325056433407,
+      "acc_touched": 0.43792325056433407,
+      "balanced": 0.591819023374219,
+      "stale": 0.7818791946308725,
+      "over_invalidation": 0.034482758620689655,
+      "n_revising": 298
+     }
+    },
+    {
+     "n": 76,
+     "BeliefGraph": {
+      "acc_all": 0.9367945823927766,
+      "acc_touched": 0.9367945823927766,
+      "balanced": 0.9531772575250836,
+      "stale": 0.09364548494983277,
+      "over_invalidation": 0.0,
+      "n_revising": 299
+     },
+     "LLM-direct": {
+      "acc_all": 0.32505643340857787,
+      "acc_touched": 0.32505643340857787,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 299
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4650112866817156,
+      "acc_touched": 0.4650112866817156,
+      "balanced": 0.6076737272389446,
+      "stale": 0.7290969899665551,
+      "over_invalidation": 0.05555555555555555,
+      "n_revising": 299
+     }
+    },
+    {
+     "n": 77,
+     "BeliefGraph": {
+      "acc_all": 0.9367945823927766,
+      "acc_touched": 0.9367945823927766,
+      "balanced": 0.9539473684210527,
+      "stale": 0.09210526315789473,
+      "over_invalidation": 0.0,
+      "n_revising": 304
+     },
+     "LLM-direct": {
+      "acc_all": 0.31376975169300225,
+      "acc_touched": 0.31376975169300225,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 304
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4582392776523702,
+      "acc_touched": 0.4582392776523702,
+      "balanced": 0.6096885649375237,
+      "stale": 0.7302631578947368,
+      "over_invalidation": 0.050359712230215826,
+      "n_revising": 304
+     }
+    },
+    {
+     "n": 78,
+     "BeliefGraph": {
+      "acc_all": 0.9367945823927766,
+      "acc_touched": 0.9367945823927766,
+      "balanced": 0.9540983606557377,
+      "stale": 0.09180327868852459,
+      "over_invalidation": 0.0,
+      "n_revising": 305
+     },
+     "LLM-direct": {
+      "acc_all": 0.3115124153498871,
+      "acc_touched": 0.3115124153498871,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 305
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4582392776523702,
+      "acc_touched": 0.4582392776523702,
+      "balanced": 0.607080066524115,
+      "stale": 0.7278688524590164,
+      "over_invalidation": 0.057971014492753624,
+      "n_revising": 305
+     }
+    },
+    {
+     "n": 79,
+     "BeliefGraph": {
+      "acc_all": 0.9367945823927766,
+      "acc_touched": 0.9367945823927766,
+      "balanced": 0.9548387096774194,
+      "stale": 0.09032258064516129,
+      "over_invalidation": 0.0,
+      "n_revising": 310
+     },
+     "LLM-direct": {
+      "acc_all": 0.3002257336343115,
+      "acc_touched": 0.3002257336343115,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 310
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4469525959367946,
+      "acc_touched": 0.4469525959367946,
+      "balanced": 0.6054086829978171,
+      "stale": 0.7290322580645161,
+      "over_invalidation": 0.06015037593984962,
+      "n_revising": 310
+     }
+    },
+    {
+     "n": 80,
+     "BeliefGraph": {
+      "acc_all": 0.9390519187358917,
+      "acc_touched": 0.9390519187358917,
+      "balanced": 0.9575471698113207,
+      "stale": 0.08490566037735849,
+      "over_invalidation": 0.0,
+      "n_revising": 318
+     },
+     "LLM-direct": {
+      "acc_all": 0.28216704288939054,
+      "acc_touched": 0.28216704288939054,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 318
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.43340857787810383,
+      "acc_touched": 0.43340857787810383,
+      "balanced": 0.6089308176100628,
+      "stale": 0.7421383647798742,
+      "over_invalidation": 0.04,
+      "n_revising": 318
+     }
+    },
+    {
+     "n": 81,
+     "BeliefGraph": {
+      "acc_all": 0.9390519187358917,
+      "acc_touched": 0.9390519187358917,
+      "balanced": 0.957680250783699,
+      "stale": 0.08463949843260188,
+      "over_invalidation": 0.0,
+      "n_revising": 319
+     },
+     "LLM-direct": {
+      "acc_all": 0.2799097065462754,
+      "acc_touched": 0.2799097065462754,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 319
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.40632054176072235,
+      "acc_touched": 0.40632054176072235,
+      "balanced": 0.5839569218323389,
+      "stale": 0.7836990595611285,
+      "over_invalidation": 0.04838709677419355,
+      "n_revising": 319
+     }
+    },
+    {
+     "n": 82,
+     "BeliefGraph": {
+      "acc_all": 0.9390519187358917,
+      "acc_touched": 0.9390519187358917,
+      "balanced": 0.9583333333333333,
+      "stale": 0.08333333333333333,
+      "over_invalidation": 0.0,
+      "n_revising": 324
+     },
+     "LLM-direct": {
+      "acc_all": 0.2686230248306998,
+      "acc_touched": 0.2686230248306998,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 324
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4108352144469526,
+      "acc_touched": 0.4108352144469526,
+      "balanced": 0.5943043884220355,
+      "stale": 0.7777777777777778,
+      "over_invalidation": 0.03361344537815126,
+      "n_revising": 324
+     }
+    },
+    {
+     "n": 83,
+     "BeliefGraph": {
+      "acc_all": 0.9390519187358917,
+      "acc_touched": 0.9390519187358917,
+      "balanced": 0.9588414634146342,
+      "stale": 0.08231707317073171,
+      "over_invalidation": 0.0,
+      "n_revising": 328
+     },
+     "LLM-direct": {
+      "acc_all": 0.2595936794582393,
+      "acc_touched": 0.2595936794582393,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 328
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4288939051918736,
+      "acc_touched": 0.4288939051918736,
+      "balanced": 0.6152306468716862,
+      "stale": 0.7347560975609756,
+      "over_invalidation": 0.034782608695652174,
+      "n_revising": 328
+     }
+    },
+    {
+     "n": 84,
+     "BeliefGraph": {
+      "acc_all": 0.9390519187358917,
+      "acc_touched": 0.9390519187358917,
+      "balanced": 0.9590909090909091,
+      "stale": 0.08181818181818182,
+      "over_invalidation": 0.0,
+      "n_revising": 330
+     },
+     "LLM-direct": {
+      "acc_all": 0.255079006772009,
+      "acc_touched": 0.255079006772009,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 330
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.255079006772009,
+      "acc_touched": 0.255079006772009,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 330
+     }
+    },
+    {
+     "n": 85,
+     "BeliefGraph": {
+      "acc_all": 0.9390519187358917,
+      "acc_touched": 0.9390519187358917,
+      "balanced": 0.959214501510574,
+      "stale": 0.08157099697885196,
+      "over_invalidation": 0.0,
+      "n_revising": 331
+     },
+     "LLM-direct": {
+      "acc_all": 0.2528216704288939,
+      "acc_touched": 0.2528216704288939,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 331
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4221218961625282,
+      "acc_touched": 0.4221218961625282,
+      "balanced": 0.6164490720759603,
+      "stale": 0.7492447129909365,
+      "over_invalidation": 0.017857142857142856,
+      "n_revising": 331
+     }
+    },
+    {
+     "n": 86,
+     "BeliefGraph": {
+      "acc_all": 0.9390519187358917,
+      "acc_touched": 0.9390519187358917,
+      "balanced": 0.9593373493975903,
+      "stale": 0.08132530120481928,
+      "over_invalidation": 0.0,
+      "n_revising": 332
+     },
+     "LLM-direct": {
+      "acc_all": 0.2505643340857788,
+      "acc_touched": 0.2505643340857788,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 332
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4153498871331828,
+      "acc_touched": 0.4153498871331828,
+      "balanced": 0.6160181265602953,
+      "stale": 0.7319277108433735,
+      "over_invalidation": 0.036036036036036036,
+      "n_revising": 332
+     }
+    },
+    {
+     "n": 87,
+     "BeliefGraph": {
+      "acc_all": 0.9367945823927766,
+      "acc_touched": 0.9367945823927766,
+      "balanced": 0.957957957957958,
+      "stale": 0.08408408408408409,
+      "over_invalidation": 0.0,
+      "n_revising": 333
+     },
+     "LLM-direct": {
+      "acc_all": 0.24830699774266365,
+      "acc_touched": 0.24830699774266365,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 333
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.42663656884875845,
+      "acc_touched": 0.42663656884875845,
+      "balanced": 0.6320911820911821,
+      "stale": 0.7267267267267268,
+      "over_invalidation": 0.00909090909090909,
+      "n_revising": 333
+     }
+    },
+    {
+     "n": 88,
+     "BeliefGraph": {
+      "acc_all": 0.9367945823927766,
+      "acc_touched": 0.9367945823927766,
+      "balanced": 0.9582089552238806,
+      "stale": 0.08358208955223881,
+      "over_invalidation": 0.0,
+      "n_revising": 335
+     },
+     "LLM-direct": {
+      "acc_all": 0.24379232505643342,
+      "acc_touched": 0.24379232505643342,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 335
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.36343115124153497,
+      "acc_touched": 0.36343115124153497,
+      "balanced": 0.5892482034273079,
+      "stale": 0.8029850746268656,
+      "over_invalidation": 0.018518518518518517,
+      "n_revising": 335
+     }
+    },
+    {
+     "n": 89,
+     "BeliefGraph": {
+      "acc_all": 0.9367945823927766,
+      "acc_touched": 0.9367945823927766,
+      "balanced": 0.9583333333333333,
+      "stale": 0.08333333333333333,
+      "over_invalidation": 0.0,
+      "n_revising": 336
+     },
+     "LLM-direct": {
+      "acc_all": 0.24153498871331827,
+      "acc_touched": 0.24153498871331827,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 336
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.3476297968397291,
+      "acc_touched": 0.3476297968397291,
+      "balanced": 0.5799399198931909,
+      "stale": 0.8214285714285714,
+      "over_invalidation": 0.018691588785046728,
+      "n_revising": 336
+     }
+    },
+    {
+     "n": 90,
+     "BeliefGraph": {
+      "acc_all": 0.9367945823927766,
+      "acc_touched": 0.9367945823927766,
+      "balanced": 0.9585798816568047,
+      "stale": 0.08284023668639054,
+      "over_invalidation": 0.0,
+      "n_revising": 338
+     },
+     "LLM-direct": {
+      "acc_all": 0.23702031602708803,
+      "acc_touched": 0.23702031602708803,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 338
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.3544018058690745,
+      "acc_touched": 0.3544018058690745,
+      "balanced": 0.5851507466892082,
+      "stale": 0.8106508875739645,
+      "over_invalidation": 0.01904761904761905,
+      "n_revising": 338
+     }
+    },
+    {
+     "n": 91,
+     "BeliefGraph": {
+      "acc_all": 0.9345372460496614,
+      "acc_touched": 0.9345372460496614,
+      "balanced": 0.9595375722543353,
+      "stale": 0.08092485549132948,
+      "over_invalidation": 0.0,
+      "n_revising": 346
+     },
+     "LLM-direct": {
+      "acc_all": 0.21896162528216703,
+      "acc_touched": 0.21896162528216703,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 346
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4153498871331828,
+      "acc_touched": 0.4153498871331828,
+      "balanced": 0.6348250998152672,
+      "stale": 0.6994219653179191,
+      "over_invalidation": 0.030927835051546393,
+      "n_revising": 346
+     }
+    },
+    {
+     "n": 92,
+     "BeliefGraph": {
+      "acc_all": 0.9345372460496614,
+      "acc_touched": 0.9345372460496614,
+      "balanced": 0.9597701149425287,
+      "stale": 0.08045977011494253,
+      "over_invalidation": 0.0,
+      "n_revising": 348
+     },
+     "LLM-direct": {
+      "acc_all": 0.2144469525959368,
+      "acc_touched": 0.2144469525959368,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 348
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4040632054176072,
+      "acc_touched": 0.4040632054176072,
+      "balanced": 0.6384150030248034,
+      "stale": 0.7126436781609196,
+      "over_invalidation": 0.010526315789473684,
+      "n_revising": 348
+     }
+    },
+    {
+     "n": 93,
+     "BeliefGraph": {
+      "acc_all": 0.9345372460496614,
+      "acc_touched": 0.9345372460496614,
+      "balanced": 0.9597701149425287,
+      "stale": 0.08045977011494253,
+      "over_invalidation": 0.0,
+      "n_revising": 348
+     },
+     "LLM-direct": {
+      "acc_all": 0.2144469525959368,
+      "acc_touched": 0.2144469525959368,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 348
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4018058690744921,
+      "acc_touched": 0.4018058690744921,
+      "balanced": 0.6336358136721113,
+      "stale": 0.7011494252873564,
+      "over_invalidation": 0.031578947368421054,
+      "n_revising": 348
+     }
+    },
+    {
+     "n": 94,
+     "BeliefGraph": {
+      "acc_all": 0.9345372460496614,
+      "acc_touched": 0.9345372460496614,
+      "balanced": 0.9598853868194843,
+      "stale": 0.08022922636103152,
+      "over_invalidation": 0.0,
+      "n_revising": 349
+     },
+     "LLM-direct": {
+      "acc_all": 0.21218961625282168,
+      "acc_touched": 0.21218961625282168,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 349
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.3747178329571106,
+      "acc_touched": 0.3747178329571106,
+      "balanced": 0.6183015302078888,
+      "stale": 0.7421203438395415,
+      "over_invalidation": 0.02127659574468085,
+      "n_revising": 349
+     }
+    },
+    {
+     "n": 95,
+     "BeliefGraph": {
+      "acc_all": 0.9345372460496614,
+      "acc_touched": 0.9345372460496614,
+      "balanced": 0.9603399433427762,
+      "stale": 0.07932011331444759,
+      "over_invalidation": 0.0,
+      "n_revising": 353
+     },
+     "LLM-direct": {
+      "acc_all": 0.3905191873589165,
+      "acc_touched": 0.3905191873589165,
+      "balanced": 0.5497167138810198,
+      "stale": 0.6005665722379604,
+      "over_invalidation": 0.3,
+      "n_revising": 353
+     },
+     "errors": [
+      "unknown memory 'm_000b14'",
+      "unknown memory 'm_00ec67'",
+      "unknown memory 'm_00b7b6'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.40857787810383744,
+      "acc_touched": 0.40857787810383744,
+      "balanced": 0.648945546112685,
+      "stale": 0.6798866855524079,
+      "over_invalidation": 0.022222222222222223,
+      "n_revising": 353
+     }
+    },
+    {
+     "n": 96,
+     "BeliefGraph": {
+      "acc_all": 0.9345372460496614,
+      "acc_touched": 0.9345372460496614,
+      "balanced": 0.9611111111111111,
+      "stale": 0.07777777777777778,
+      "over_invalidation": 0.0,
+      "n_revising": 360
+     },
+     "LLM-direct": {
+      "acc_all": 0.1873589164785553,
+      "acc_touched": 0.1873589164785553,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 360
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.3972911963882618,
+      "acc_touched": 0.3972911963882618,
+      "balanced": 0.646285140562249,
+      "stale": 0.6833333333333333,
+      "over_invalidation": 0.024096385542168676,
+      "n_revising": 360
+     }
+    }
+   ]
+  }
+ },
+ "pooled": {
+  "BeliefGraph": {
+   "final_acc": 0.9345372460496614,
+   "final_balanced": 0.9611111111111111,
+   "mean_step_balanced": 0.951597355590629,
+   "stale": 0.07777777777777778,
+   "over_invalidation": 0.0
+  },
+  "LLM-direct": {
+   "final_acc": 0.1873589164785553,
+   "final_balanced": 0.5,
+   "mean_step_balanced": 0.5092575636300288,
+   "stale": 1.0,
+   "over_invalidation": 0.0
+  },
+  "LLM-RAG": {
+   "final_acc": 0.3972911963882618,
+   "final_balanced": 0.646285140562249,
+   "mean_step_balanced": 0.6123209998200961,
+   "stale": 0.6833333333333333,
+   "over_invalidation": 0.024096385542168676
+  }
+ }
+}

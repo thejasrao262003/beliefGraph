@@ -1,0 +1,2972 @@
+{
+ "algo": "v0.2",
+ "variant": "v0.8",
+ "max_output_tokens": 4000,
+ "provider": "modal",
+ "model": "gemma-4-12b-it",
+ "prompts": [
+  "bg-build-v1",
+  "bg-read-v2",
+  "llm-direct-store-v1"
+ ],
+ "seed": 0,
+ "batch_size": 25,
+ "sizes": {
+  "d000": {
+   "memories": 140,
+   "facts": 226,
+   "updates": 96,
+   "graph_unsupported": 1,
+   "mean_acc_touched": {
+    "BeliefGraph": 0.9828125,
+    "LLM-direct": 0.6361607142857143,
+    "LLM-RAG": 0.6809523809523809
+   },
+   "final": {
+    "BeliefGraph": {
+     "acc_all": 0.9785714285714285,
+     "acc_touched": 0.9785714285714285,
+     "balanced": 0.9875,
+     "stale": 0.025,
+     "over_invalidation": 0.0,
+     "n_revising": 120
+    },
+    "LLM-direct": {
+     "acc_all": 0.6785714285714286,
+     "acc_touched": 0.6785714285714286,
+     "balanced": 0.7166666666666667,
+     "stale": 0.11666666666666667,
+     "over_invalidation": 0.45,
+     "n_revising": 120
+    },
+    "LLM-RAG": {
+     "acc_all": 0.32857142857142857,
+     "acc_touched": 0.32857142857142857,
+     "balanced": 0.6416666666666666,
+     "stale": 0.7166666666666667,
+     "over_invalidation": 0.0,
+     "n_revising": 120
+    }
+   },
+   "usage": {
+    "BeliefGraph-build": {
+     "calls": 718,
+     "input_tokens": 745940,
+     "output_tokens": 49651,
+     "seconds": 6788.419999999996,
+     "est_usd": 0
+    },
+    "BeliefGraph-read": {
+     "calls": 96,
+     "input_tokens": 134914,
+     "output_tokens": 4143,
+     "seconds": 424.5099999999998,
+     "est_usd": 0
+    },
+    "LLM-direct": {
+     "calls": 96,
+     "input_tokens": 2648288,
+     "output_tokens": 163704,
+     "seconds": 7938.000000000003,
+     "est_usd": 0
+    },
+    "LLM-RAG": {
+     "calls": 96,
+     "input_tokens": 1374506,
+     "output_tokens": 50396,
+     "seconds": 4112.46,
+     "est_usd": 0
+    }
+   },
+   "steps": [
+    {
+     "n": 1,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     },
+     "LLM-direct": {
+      "acc_all": 0.9928571428571429,
+      "acc_touched": 0.9928571428571429,
+      "balanced": 0.9963768115942029,
+      "stale": 0.0,
+      "over_invalidation": 0.007246376811594203,
+      "n_revising": 2
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 2
+     }
+    },
+    {
+     "n": 2,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     },
+     "LLM-direct": {
+      "acc_all": 0.9785714285714285,
+      "acc_touched": 0.9785714285714285,
+      "balanced": 0.8260340632603407,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.014598540145985401,
+      "n_revising": 3
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 3
+     }
+    },
+    {
+     "n": 3,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     },
+     "LLM-direct": {
+      "acc_all": 0.9714285714285714,
+      "acc_touched": 0.9714285714285714,
+      "balanced": 0.7463235294117647,
+      "stale": 0.5,
+      "over_invalidation": 0.007352941176470588,
+      "n_revising": 4
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.9928571428571429,
+      "acc_touched": 0.9928571428571429,
+      "balanced": 0.875,
+      "stale": 0.25,
+      "over_invalidation": 0.0,
+      "n_revising": 4
+     }
+    },
+    {
+     "n": 4,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     },
+     "LLM-direct": {
+      "acc_all": 0.9428571428571428,
+      "acc_touched": 0.9428571428571428,
+      "balanced": 0.6851851851851851,
+      "stale": 0.6,
+      "over_invalidation": 0.02962962962962963,
+      "n_revising": 5
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.9928571428571429,
+      "acc_touched": 0.9928571428571429,
+      "balanced": 0.9,
+      "stale": 0.2,
+      "over_invalidation": 0.0,
+      "n_revising": 5
+     }
+    },
+    {
+     "n": 5,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 6
+     },
+     "LLM-direct": {
+      "acc_all": 0.9571428571428572,
+      "acc_touched": 0.9571428571428572,
+      "balanced": 0.7462686567164178,
+      "stale": 0.5,
+      "over_invalidation": 0.007462686567164179,
+      "n_revising": 6
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.8333333333333333,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.0,
+      "n_revising": 6
+     }
+    },
+    {
+     "n": 6,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 8
+     },
+     "LLM-direct": {
+      "acc_all": 0.9214285714285714,
+      "acc_touched": 0.9214285714285714,
+      "balanced": 0.6685606060606061,
+      "stale": 0.625,
+      "over_invalidation": 0.03787878787878788,
+      "n_revising": 8
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.9714285714285714,
+      "acc_touched": 0.9714285714285714,
+      "balanced": 0.75,
+      "stale": 0.5,
+      "over_invalidation": 0.0,
+      "n_revising": 8
+     }
+    },
+    {
+     "n": 7,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 9
+     },
+     "LLM-direct": {
+      "acc_all": 0.55,
+      "acc_touched": 0.55,
+      "balanced": 0.6119592875318066,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.44274809160305345,
+      "n_revising": 9
+     },
+     "errors": [
+      "unknown memory 'm_00ea48'",
+      "unknown memory 'm_00bc3d'",
+      "unknown memory 'm_00fb6d'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9714285714285714,
+      "acc_touched": 0.9714285714285714,
+      "balanced": 0.7777777777777778,
+      "stale": 0.4444444444444444,
+      "over_invalidation": 0.0,
+      "n_revising": 9
+     }
+    },
+    {
+     "n": 8,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 10
+     },
+     "LLM-direct": {
+      "acc_all": 0.9285714285714286,
+      "acc_touched": 0.9285714285714286,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 10
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9571428571428572,
+      "acc_touched": 0.9571428571428572,
+      "balanced": 0.7,
+      "stale": 0.6,
+      "over_invalidation": 0.0,
+      "n_revising": 10
+     }
+    },
+    {
+     "n": 9,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 11
+     },
+     "LLM-direct": {
+      "acc_all": 0.9214285714285714,
+      "acc_touched": 0.9214285714285714,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 11
+     },
+     "errors": [
+      "invalid JSON: Extra data: line 2 column 1 (char 1039)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9357142857142857,
+      "acc_touched": 0.9357142857142857,
+      "balanced": 0.6363636363636364,
+      "stale": 0.7272727272727273,
+      "over_invalidation": 0.0,
+      "n_revising": 11
+     }
+    },
+    {
+     "n": 10,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 12
+     },
+     "LLM-direct": {
+      "acc_all": 0.6642857142857143,
+      "acc_touched": 0.6642857142857143,
+      "balanced": 0.4427083333333333,
+      "stale": 0.8333333333333334,
+      "over_invalidation": 0.28125,
+      "n_revising": 12
+     },
+     "errors": [
+      "unknown memory 'm_00e0a8'",
+      "unknown memory 'm_00c9ac'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9285714285714286,
+      "acc_touched": 0.9285714285714286,
+      "balanced": 0.625,
+      "stale": 0.75,
+      "over_invalidation": 0.0,
+      "n_revising": 12
+     }
+    },
+    {
+     "n": 11,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 13
+     },
+     "LLM-direct": {
+      "acc_all": 0.5214285714285715,
+      "acc_touched": 0.5214285714285715,
+      "balanced": 0.4678982434887947,
+      "stale": 0.6153846153846154,
+      "over_invalidation": 0.44881889763779526,
+      "n_revising": 13
+     },
+     "errors": [
+      "unknown memory 'm_00bb3a'",
+      "unknown memory 'm_00ea48'",
+      "unknown memory 'm_00c912'",
+      "unknown memory 'm_00bc1'",
+      "unknown memory 'm_00fb6'",
+      "unknown memory 'm_00ebbd'",
+      "unknown memory 'm_00bd6'",
+      "unknown memory 'm_006a74'",
+      "unknown memory 'm_000b14'",
+      "unknown memory 'm_006d20'",
+      "unknown memory 'm_002bea'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9285714285714286,
+      "acc_touched": 0.9285714285714286,
+      "balanced": 0.6153846153846154,
+      "stale": 0.7692307692307693,
+      "over_invalidation": 0.0,
+      "n_revising": 13
+     }
+    },
+    {
+     "n": 12,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 14
+     },
+     "LLM-direct": {
+      "acc_all": 0.8785714285714286,
+      "acc_touched": 0.8785714285714286,
+      "balanced": 0.8531746031746031,
+      "stale": 0.21428571428571427,
+      "over_invalidation": 0.07936507936507936,
+      "n_revising": 14
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9285714285714286,
+      "acc_touched": 0.9285714285714286,
+      "balanced": 0.6428571428571428,
+      "stale": 0.7142857142857143,
+      "over_invalidation": 0.0,
+      "n_revising": 14
+     }
+    },
+    {
+     "n": 13,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 15
+     },
+     "LLM-direct": {
+      "acc_all": 0.8142857142857143,
+      "acc_touched": 0.8142857142857143,
+      "balanced": 0.7946666666666666,
+      "stale": 0.26666666666666666,
+      "over_invalidation": 0.144,
+      "n_revising": 15
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.9142857142857143,
+      "acc_touched": 0.9142857142857143,
+      "balanced": 0.6293333333333333,
+      "stale": 0.7333333333333333,
+      "over_invalidation": 0.008,
+      "n_revising": 15
+     }
+    },
+    {
+     "n": 14,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 16
+     },
+     "LLM-direct": {
+      "acc_all": 0.8857142857142857,
+      "acc_touched": 0.8857142857142857,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 16
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8928571428571429,
+      "acc_touched": 0.8928571428571429,
+      "balanced": 0.6441532258064516,
+      "stale": 0.6875,
+      "over_invalidation": 0.024193548387096774,
+      "n_revising": 16
+     }
+    },
+    {
+     "n": 15,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 17
+     },
+     "LLM-direct": {
+      "acc_all": 0.7642857142857142,
+      "acc_touched": 0.7642857142857142,
+      "balanced": 0.7513151602104257,
+      "stale": 0.29411764705882354,
+      "over_invalidation": 0.2032520325203252,
+      "n_revising": 17
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9071428571428571,
+      "acc_touched": 0.9071428571428571,
+      "balanced": 0.6683405069344811,
+      "stale": 0.6470588235294118,
+      "over_invalidation": 0.016260162601626018,
+      "n_revising": 17
+     }
+    },
+    {
+     "n": 16,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 18
+     },
+     "LLM-direct": {
+      "acc_all": 0.8428571428571429,
+      "acc_touched": 0.8428571428571429,
+      "balanced": 0.6771402550091075,
+      "stale": 0.5555555555555556,
+      "over_invalidation": 0.09016393442622951,
+      "n_revising": 18
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8928571428571429,
+      "acc_touched": 0.8928571428571429,
+      "balanced": 0.686247723132969,
+      "stale": 0.6111111111111112,
+      "over_invalidation": 0.01639344262295082,
+      "n_revising": 18
+     }
+    },
+    {
+     "n": 17,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 19
+     },
+     "LLM-direct": {
+      "acc_all": 0.8,
+      "acc_touched": 0.8,
+      "balanced": 0.7331448455850369,
+      "stale": 0.3684210526315789,
+      "over_invalidation": 0.1652892561983471,
+      "n_revising": 19
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8714285714285714,
+      "acc_touched": 0.8714285714285714,
+      "balanced": 0.6454980426272292,
+      "stale": 0.6842105263157895,
+      "over_invalidation": 0.024793388429752067,
+      "n_revising": 19
+     }
+    },
+    {
+     "n": 18,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 20
+     },
+     "LLM-direct": {
+      "acc_all": 0.7928571428571428,
+      "acc_touched": 0.7928571428571428,
+      "balanced": 0.7875,
+      "stale": 0.25,
+      "over_invalidation": 0.175,
+      "n_revising": 20
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.9,
+      "acc_touched": 0.9,
+      "balanced": 0.6708333333333334,
+      "stale": 0.65,
+      "over_invalidation": 0.008333333333333333,
+      "n_revising": 20
+     }
+    },
+    {
+     "n": 19,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 21
+     },
+     "LLM-direct": {
+      "acc_all": 0.85,
+      "acc_touched": 0.85,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 21
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8785714285714286,
+      "acc_touched": 0.8785714285714286,
+      "balanced": 0.6736694677871149,
+      "stale": 0.6190476190476191,
+      "over_invalidation": 0.03361344537815126,
+      "n_revising": 21
+     }
+    },
+    {
+     "n": 20,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 23
+     },
+     "LLM-direct": {
+      "acc_all": 0.7928571428571428,
+      "acc_touched": 0.7928571428571428,
+      "balanced": 0.7448903753251579,
+      "stale": 0.34782608695652173,
+      "over_invalidation": 0.1623931623931624,
+      "n_revising": 23
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8571428571428571,
+      "acc_touched": 0.8571428571428571,
+      "balanced": 0.6436269044964698,
+      "stale": 0.6956521739130435,
+      "over_invalidation": 0.017094017094017096,
+      "n_revising": 23
+     }
+    },
+    {
+     "n": 21,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 25
+     },
+     "LLM-direct": {
+      "acc_all": 0.8285714285714286,
+      "acc_touched": 0.8285714285714286,
+      "balanced": 0.7565217391304347,
+      "stale": 0.4,
+      "over_invalidation": 0.08695652173913043,
+      "n_revising": 25
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8571428571428571,
+      "acc_touched": 0.8571428571428571,
+      "balanced": 0.6313043478260869,
+      "stale": 0.72,
+      "over_invalidation": 0.017391304347826087,
+      "n_revising": 25
+     }
+    },
+    {
+     "n": 22,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 26
+     },
+     "LLM-direct": {
+      "acc_all": 0.8,
+      "acc_touched": 0.8,
+      "balanced": 0.8485155195681511,
+      "stale": 0.15384615384615385,
+      "over_invalidation": 0.14912280701754385,
+      "n_revising": 26
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8357142857142857,
+      "acc_touched": 0.8357142857142857,
+      "balanced": 0.659919028340081,
+      "stale": 0.6538461538461539,
+      "over_invalidation": 0.02631578947368421,
+      "n_revising": 26
+     }
+    },
+    {
+     "n": 23,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 27
+     },
+     "LLM-direct": {
+      "acc_all": 0.8285714285714286,
+      "acc_touched": 0.8285714285714286,
+      "balanced": 0.677155031137332,
+      "stale": 0.5925925925925926,
+      "over_invalidation": 0.05309734513274336,
+      "n_revising": 27
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8214285714285714,
+      "acc_touched": 0.8214285714285714,
+      "balanced": 0.6304490331039003,
+      "stale": 0.7037037037037037,
+      "over_invalidation": 0.035398230088495575,
+      "n_revising": 27
+     }
+    },
+    {
+     "n": 24,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 28
+     },
+     "LLM-direct": {
+      "acc_all": 0.7785714285714286,
+      "acc_touched": 0.7785714285714286,
+      "balanced": 0.7723214285714286,
+      "stale": 0.2857142857142857,
+      "over_invalidation": 0.16964285714285715,
+      "n_revising": 28
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8357142857142857,
+      "acc_touched": 0.8357142857142857,
+      "balanced": 0.6696428571428571,
+      "stale": 0.6428571428571429,
+      "over_invalidation": 0.017857142857142856,
+      "n_revising": 28
+     }
+    },
+    {
+     "n": 25,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 29
+     },
+     "LLM-direct": {
+      "acc_all": 0.7071428571428572,
+      "acc_touched": 0.7071428571428572,
+      "balanced": 0.7958993476234855,
+      "stale": 0.13793103448275862,
+      "over_invalidation": 0.2702702702702703,
+      "n_revising": 29
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8142857142857143,
+      "acc_touched": 0.8142857142857143,
+      "balanced": 0.6416589002795899,
+      "stale": 0.6896551724137931,
+      "over_invalidation": 0.02702702702702703,
+      "n_revising": 29
+     }
+    },
+    {
+     "n": 26,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 30
+     },
+     "LLM-direct": {
+      "acc_all": 0.5285714285714286,
+      "acc_touched": 0.5285714285714286,
+      "balanced": 0.606060606060606,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.45454545454545453,
+      "n_revising": 30
+     },
+     "errors": [
+      "unknown memory 'm_00a47e'",
+      "unknown memory 'm_00cf96'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8071428571428572,
+      "acc_touched": 0.8071428571428572,
+      "balanced": 0.6363636363636364,
+      "stale": 0.7,
+      "over_invalidation": 0.02727272727272727,
+      "n_revising": 30
+     }
+    },
+    {
+     "n": 27,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 31
+     },
+     "LLM-direct": {
+      "acc_all": 0.7785714285714286,
+      "acc_touched": 0.7785714285714286,
+      "balanced": 0.7445989937851436,
+      "stale": 0.3548387096774194,
+      "over_invalidation": 0.1559633027522936,
+      "n_revising": 31
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.8142857142857143,
+      "acc_touched": 0.8142857142857143,
+      "balanced": 0.6636578869488015,
+      "stale": 0.6451612903225806,
+      "over_invalidation": 0.027522935779816515,
+      "n_revising": 31
+     }
+    },
+    {
+     "n": 28,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 32
+     },
+     "LLM-direct": {
+      "acc_all": 0.7357142857142858,
+      "acc_touched": 0.7357142857142858,
+      "balanced": 0.7418981481481481,
+      "stale": 0.3125,
+      "over_invalidation": 0.2037037037037037,
+      "n_revising": 32
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7785714285714286,
+      "acc_touched": 0.7785714285714286,
+      "balanced": 0.6018518518518519,
+      "stale": 0.75,
+      "over_invalidation": 0.046296296296296294,
+      "n_revising": 32
+     }
+    },
+    {
+     "n": 29,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 33
+     },
+     "LLM-direct": {
+      "acc_all": 0.37142857142857144,
+      "acc_touched": 0.37142857142857144,
+      "balanced": 0.572642310960068,
+      "stale": 0.18181818181818182,
+      "over_invalidation": 0.6728971962616822,
+      "n_revising": 33
+     },
+     "errors": [
+      "unknown memory 'm_00625'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7642857142857142,
+      "acc_touched": 0.7642857142857142,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 33
+     }
+    },
+    {
+     "n": 30,
+     "BeliefGraph": {
+      "acc_all": 1.0,
+      "acc_touched": 1.0,
+      "balanced": 1.0,
+      "stale": 0.0,
+      "over_invalidation": 0.0,
+      "n_revising": 34
+     },
+     "LLM-direct": {
+      "acc_all": 0.7214285714285714,
+      "acc_touched": 0.7214285714285714,
+      "balanced": 0.7544395116537181,
+      "stale": 0.2647058823529412,
+      "over_invalidation": 0.22641509433962265,
+      "n_revising": 34
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7785714285714286,
+      "acc_touched": 0.7785714285714286,
+      "balanced": 0.6281908990011099,
+      "stale": 0.7058823529411765,
+      "over_invalidation": 0.03773584905660377,
+      "n_revising": 34
+     }
+    },
+    {
+     "n": 31,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.980952380952381,
+      "stale": 0.02857142857142857,
+      "over_invalidation": 0.009523809523809525,
+      "n_revising": 35
+     },
+     "LLM-direct": {
+      "acc_all": 0.5428571428571428,
+      "acc_touched": 0.5428571428571428,
+      "balanced": 0.5952380952380952,
+      "stale": 0.37142857142857144,
+      "over_invalidation": 0.4380952380952381,
+      "n_revising": 35
+     },
+     "errors": [
+      "unknown memory 'm_00a47e'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7571428571428571,
+      "acc_touched": 0.7571428571428571,
+      "balanced": 0.6238095238095238,
+      "stale": 0.7142857142857143,
+      "over_invalidation": 0.0380952380952381,
+      "n_revising": 35
+     }
+    },
+    {
+     "n": 32,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9813034188034189,
+      "stale": 0.027777777777777776,
+      "over_invalidation": 0.009615384615384616,
+      "n_revising": 36
+     },
+     "LLM-direct": {
+      "acc_all": 0.5714285714285714,
+      "acc_touched": 0.5714285714285714,
+      "balanced": 0.7323717948717949,
+      "stale": 0.08333333333333333,
+      "over_invalidation": 0.4519230769230769,
+      "n_revising": 36
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.7785714285714286,
+      "acc_touched": 0.7785714285714286,
+      "balanced": 0.6661324786324786,
+      "stale": 0.6388888888888888,
+      "over_invalidation": 0.028846153846153848,
+      "n_revising": 36
+     }
+    },
+    {
+     "n": 33,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9816321175544477,
+      "stale": 0.02702702702702703,
+      "over_invalidation": 0.009708737864077669,
+      "n_revising": 37
+     },
+     "LLM-direct": {
+      "acc_all": 0.7357142857142858,
+      "acc_touched": 0.7357142857142858,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 37
+     },
+     "errors": [
+      "invalid JSON: Expecting value: line 1 column 1 (char 0)"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7785714285714286,
+      "acc_touched": 0.7785714285714286,
+      "balanced": 0.6475990553660457,
+      "stale": 0.6756756756756757,
+      "over_invalidation": 0.02912621359223301,
+      "n_revising": 37
+     }
+    },
+    {
+     "n": 34,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9819401444788443,
+      "stale": 0.02631578947368421,
+      "over_invalidation": 0.00980392156862745,
+      "n_revising": 38
+     },
+     "LLM-direct": {
+      "acc_all": 0.7214285714285714,
+      "acc_touched": 0.7214285714285714,
+      "balanced": 0.7770897832817337,
+      "stale": 0.21052631578947367,
+      "over_invalidation": 0.23529411764705882,
+      "n_revising": 38
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7428571428571429,
+      "acc_touched": 0.7428571428571429,
+      "balanced": 0.6498968008255934,
+      "stale": 0.631578947368421,
+      "over_invalidation": 0.06862745098039216,
+      "n_revising": 38
+     }
+    },
+    {
+     "n": 35,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9822289921299823,
+      "stale": 0.02564102564102564,
+      "over_invalidation": 0.009900990099009901,
+      "n_revising": 39
+     },
+     "LLM-direct": {
+      "acc_all": 0.35714285714285715,
+      "acc_touched": 0.35714285714285715,
+      "balanced": 0.5952018278750952,
+      "stale": 0.07692307692307693,
+      "over_invalidation": 0.7326732673267327,
+      "n_revising": 39
+     },
+     "errors": [
+      "unknown memory 'm_00625'",
+      "unknown memory 'm_007bc1'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7714285714285715,
+      "acc_touched": 0.7714285714285715,
+      "balanced": 0.6704747397816705,
+      "stale": 0.5897435897435898,
+      "over_invalidation": 0.06930693069306931,
+      "n_revising": 39
+     }
+    },
+    {
+     "n": 36,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9824999999999999,
+      "stale": 0.025,
+      "over_invalidation": 0.01,
+      "n_revising": 40
+     },
+     "LLM-direct": {
+      "acc_all": 0.6571428571428571,
+      "acc_touched": 0.6571428571428571,
+      "balanced": 0.7475,
+      "stale": 0.175,
+      "over_invalidation": 0.33,
+      "n_revising": 40
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7285714285714285,
+      "acc_touched": 0.7285714285714285,
+      "balanced": 0.6375,
+      "stale": 0.675,
+      "over_invalidation": 0.05,
+      "n_revising": 40
+     }
+    },
+    {
+     "n": 37,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9834280303030303,
+      "stale": 0.022727272727272728,
+      "over_invalidation": 0.010416666666666666,
+      "n_revising": 44
+     },
+     "LLM-direct": {
+      "acc_all": 0.3142857142857143,
+      "acc_touched": 0.3142857142857143,
+      "balanced": 0.571969696969697,
+      "stale": 0.022727272727272728,
+      "over_invalidation": 0.8333333333333334,
+      "n_revising": 44
+     },
+     "errors": [
+      "unknown memory 'm_00625'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7071428571428572,
+      "acc_touched": 0.7071428571428572,
+      "balanced": 0.5885416666666667,
+      "stale": 0.75,
+      "over_invalidation": 0.07291666666666667,
+      "n_revising": 44
+     }
+    },
+    {
+     "n": 38,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9836257309941521,
+      "stale": 0.022222222222222223,
+      "over_invalidation": 0.010526315789473684,
+      "n_revising": 45
+     },
+     "LLM-direct": {
+      "acc_all": 0.40714285714285714,
+      "acc_touched": 0.40714285714285714,
+      "balanced": 0.5859649122807018,
+      "stale": 0.13333333333333333,
+      "over_invalidation": 0.6947368421052632,
+      "n_revising": 45
+     },
+     "errors": [
+      "unknown memory 'm_00625'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6928571428571428,
+      "acc_touched": 0.6928571428571428,
+      "balanced": 0.6064327485380117,
+      "stale": 0.7555555555555555,
+      "over_invalidation": 0.031578947368421054,
+      "n_revising": 45
+     }
+    },
+    {
+     "n": 39,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9838112858464385,
+      "stale": 0.021739130434782608,
+      "over_invalidation": 0.010638297872340425,
+      "n_revising": 46
+     },
+     "LLM-direct": {
+      "acc_all": 0.6,
+      "acc_touched": 0.6,
+      "balanced": 0.6998149861239593,
+      "stale": 0.21739130434782608,
+      "over_invalidation": 0.3829787234042553,
+      "n_revising": 46
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6857142857142857,
+      "acc_touched": 0.6857142857142857,
+      "balanced": 0.6096207215541165,
+      "stale": 0.6956521739130435,
+      "over_invalidation": 0.0851063829787234,
+      "n_revising": 46
+     }
+    },
+    {
+     "n": 40,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.983985358041638,
+      "stale": 0.02127659574468085,
+      "over_invalidation": 0.010752688172043012,
+      "n_revising": 47
+     },
+     "LLM-direct": {
+      "acc_all": 0.5142857142857142,
+      "acc_touched": 0.5142857142857142,
+      "balanced": 0.6673530084648822,
+      "stale": 0.1276595744680851,
+      "over_invalidation": 0.5376344086021505,
+      "n_revising": 47
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7,
+      "acc_touched": 0.7,
+      "balanced": 0.6433310455273393,
+      "stale": 0.6595744680851063,
+      "over_invalidation": 0.053763440860215055,
+      "n_revising": 47
+     }
+    },
+    {
+     "n": 41,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9845781009032826,
+      "stale": 0.0196078431372549,
+      "over_invalidation": 0.011235955056179775,
+      "n_revising": 51
+     },
+     "LLM-direct": {
+      "acc_all": 0.2714285714285714,
+      "acc_touched": 0.2714285714285714,
+      "balanced": 0.5168539325842697,
+      "stale": 0.0,
+      "over_invalidation": 0.9662921348314607,
+      "n_revising": 51
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.6928571428571428,
+      "acc_touched": 0.6928571428571428,
+      "balanced": 0.649812734082397,
+      "stale": 0.6666666666666666,
+      "over_invalidation": 0.033707865168539325,
+      "n_revising": 51
+     }
+    },
+    {
+     "n": 42,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9847027972027972,
+      "stale": 0.019230769230769232,
+      "over_invalidation": 0.011363636363636364,
+      "n_revising": 52
+     },
+     "LLM-direct": {
+      "acc_all": 0.6642857142857143,
+      "acc_touched": 0.6642857142857143,
+      "balanced": 0.7312062937062938,
+      "stale": 0.23076923076923078,
+      "over_invalidation": 0.3068181818181818,
+      "n_revising": 52
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6857142857142857,
+      "acc_touched": 0.6857142857142857,
+      "balanced": 0.659965034965035,
+      "stale": 0.6346153846153846,
+      "over_invalidation": 0.045454545454545456,
+      "n_revising": 52
+     }
+    },
+    {
+     "n": 43,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9848189112990675,
+      "stale": 0.018867924528301886,
+      "over_invalidation": 0.011494252873563218,
+      "n_revising": 53
+     },
+     "LLM-direct": {
+      "acc_all": 0.6428571428571429,
+      "acc_touched": 0.6428571428571429,
+      "balanced": 0.7389937106918238,
+      "stale": 0.18867924528301888,
+      "over_invalidation": 0.3333333333333333,
+      "n_revising": 53
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6857142857142857,
+      "acc_touched": 0.6857142857142857,
+      "balanced": 0.6488831056170028,
+      "stale": 0.6792452830188679,
+      "over_invalidation": 0.022988505747126436,
+      "n_revising": 53
+     }
+    },
+    {
+     "n": 44,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9850267379679145,
+      "stale": 0.01818181818181818,
+      "over_invalidation": 0.011764705882352941,
+      "n_revising": 55
+     },
+     "LLM-direct": {
+      "acc_all": 0.6785714285714286,
+      "acc_touched": 0.6785714285714286,
+      "balanced": 0.7352941176470589,
+      "stale": 0.2,
+      "over_invalidation": 0.32941176470588235,
+      "n_revising": 55
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6857142857142857,
+      "acc_touched": 0.6857142857142857,
+      "balanced": 0.6732620320855616,
+      "stale": 0.6181818181818182,
+      "over_invalidation": 0.03529411764705882,
+      "n_revising": 55
+     }
+    },
+    {
+     "n": 45,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9851190476190477,
+      "stale": 0.017857142857142856,
+      "over_invalidation": 0.011904761904761904,
+      "n_revising": 56
+     },
+     "LLM-direct": {
+      "acc_all": 0.6785714285714286,
+      "acc_touched": 0.6785714285714286,
+      "balanced": 0.7440476190476191,
+      "stale": 0.21428571428571427,
+      "over_invalidation": 0.2976190476190476,
+      "n_revising": 56
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.65,
+      "acc_touched": 0.65,
+      "balanced": 0.6279761904761905,
+      "stale": 0.6964285714285714,
+      "over_invalidation": 0.047619047619047616,
+      "n_revising": 56
+     }
+    },
+    {
+     "n": 46,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9852039737898963,
+      "stale": 0.017543859649122806,
+      "over_invalidation": 0.012048192771084338,
+      "n_revising": 57
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.7813358697949694,
+      "stale": 0.2807017543859649,
+      "over_invalidation": 0.1566265060240964,
+      "n_revising": 57
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5928571428571429,
+      "acc_touched": 0.5928571428571429,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 57
+     }
+    },
+    {
+     "n": 47,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9852817493692179,
+      "stale": 0.017241379310344827,
+      "over_invalidation": 0.012195121951219513,
+      "n_revising": 58
+     },
+     "LLM-direct": {
+      "acc_all": 0.7285714285714285,
+      "acc_touched": 0.7285714285714285,
+      "balanced": 0.7867956265769555,
+      "stale": 0.20689655172413793,
+      "over_invalidation": 0.21951219512195122,
+      "n_revising": 58
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7071428571428572,
+      "acc_touched": 0.7071428571428572,
+      "balanced": 0.6774600504625736,
+      "stale": 0.6206896551724138,
+      "over_invalidation": 0.024390243902439025,
+      "n_revising": 58
+     }
+    },
+    {
+     "n": 48,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9853525842226407,
+      "stale": 0.01694915254237288,
+      "over_invalidation": 0.012345679012345678,
+      "n_revising": 59
+     },
+     "LLM-direct": {
+      "acc_all": 0.4714285714285714,
+      "acc_touched": 0.4714285714285714,
+      "balanced": 0.6027411592383344,
+      "stale": 0.15254237288135594,
+      "over_invalidation": 0.6419753086419753,
+      "n_revising": 59
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7071428571428572,
+      "acc_touched": 0.7071428571428572,
+      "balanced": 0.6825695752249424,
+      "stale": 0.6101694915254238,
+      "over_invalidation": 0.024691358024691357,
+      "n_revising": 59
+     }
+    },
+    {
+     "n": 49,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.9854166666666666,
+      "stale": 0.016666666666666666,
+      "over_invalidation": 0.0125,
+      "n_revising": 60
+     },
+     "LLM-direct": {
+      "acc_all": 0.7,
+      "acc_touched": 0.7,
+      "balanced": 0.7583333333333333,
+      "stale": 0.23333333333333334,
+      "over_invalidation": 0.25,
+      "n_revising": 60
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.7071428571428572,
+      "acc_touched": 0.7071428571428572,
+      "balanced": 0.6958333333333333,
+      "stale": 0.5833333333333334,
+      "over_invalidation": 0.025,
+      "n_revising": 60
+     }
+    },
+    {
+     "n": 50,
+     "BeliefGraph": {
+      "acc_all": 0.9857142857142858,
+      "acc_touched": 0.9857142857142858,
+      "balanced": 0.985474164764474,
+      "stale": 0.01639344262295082,
+      "over_invalidation": 0.012658227848101266,
+      "n_revising": 61
+     },
+     "LLM-direct": {
+      "acc_all": 0.4142857142857143,
+      "acc_touched": 0.4142857142857143,
+      "balanced": 0.5446150653662586,
+      "stale": 0.16393442622950818,
+      "over_invalidation": 0.7468354430379747,
+      "n_revising": 61
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.6714285714285714,
+      "acc_touched": 0.6714285714285714,
+      "balanced": 0.6859306910147334,
+      "stale": 0.5901639344262295,
+      "over_invalidation": 0.0379746835443038,
+      "n_revising": 61
+     }
+    },
+    {
+     "n": 51,
+     "BeliefGraph": {
+      "acc_all": 0.9714285714285714,
+      "acc_touched": 0.9714285714285714,
+      "balanced": 0.9710504549214227,
+      "stale": 0.03225806451612903,
+      "over_invalidation": 0.02564102564102564,
+      "n_revising": 62
+     },
+     "LLM-direct": {
+      "acc_all": 0.4714285714285714,
+      "acc_touched": 0.4714285714285714,
+      "balanced": 0.5270885028949545,
+      "stale": 0.5483870967741935,
+      "over_invalidation": 0.3974358974358974,
+      "n_revising": 62
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.7,
+      "acc_touched": 0.7,
+      "balanced": 0.6921009098428453,
+      "stale": 0.5645161290322581,
+      "over_invalidation": 0.05128205128205128,
+      "n_revising": 62
+     }
+    },
+    {
+     "n": 52,
+     "BeliefGraph": {
+      "acc_all": 0.9714285714285714,
+      "acc_touched": 0.9714285714285714,
+      "balanced": 0.9711399711399711,
+      "stale": 0.031746031746031744,
+      "over_invalidation": 0.025974025974025976,
+      "n_revising": 63
+     },
+     "LLM-direct": {
+      "acc_all": 0.5142857142857142,
+      "acc_touched": 0.5142857142857142,
+      "balanced": 0.6370851370851371,
+      "stale": 0.06349206349206349,
+      "over_invalidation": 0.6623376623376623,
+      "n_revising": 63
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6785714285714286,
+      "acc_touched": 0.6785714285714286,
+      "balanced": 0.6774891774891775,
+      "stale": 0.6190476190476191,
+      "over_invalidation": 0.025974025974025976,
+      "n_revising": 63
+     }
+    },
+    {
+     "n": 53,
+     "BeliefGraph": {
+      "acc_all": 0.9714285714285714,
+      "acc_touched": 0.9714285714285714,
+      "balanced": 0.971217105263158,
+      "stale": 0.03125,
+      "over_invalidation": 0.02631578947368421,
+      "n_revising": 64
+     },
+     "LLM-direct": {
+      "acc_all": 0.5857142857142857,
+      "acc_touched": 0.5857142857142857,
+      "balanced": 0.6875,
+      "stale": 0.125,
+      "over_invalidation": 0.5,
+      "n_revising": 64
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6642857142857143,
+      "acc_touched": 0.6642857142857143,
+      "balanced": 0.6599506578947368,
+      "stale": 0.640625,
+      "over_invalidation": 0.039473684210526314,
+      "n_revising": 64
+     }
+    },
+    {
+     "n": 54,
+     "BeliefGraph": {
+      "acc_all": 0.9714285714285714,
+      "acc_touched": 0.9714285714285714,
+      "balanced": 0.9712820512820513,
+      "stale": 0.03076923076923077,
+      "over_invalidation": 0.02666666666666667,
+      "n_revising": 65
+     },
+     "LLM-direct": {
+      "acc_all": 0.45714285714285713,
+      "acc_touched": 0.45714285714285713,
+      "balanced": 0.5882051282051283,
+      "stale": 0.07692307692307693,
+      "over_invalidation": 0.7466666666666667,
+      "n_revising": 65
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6642857142857143,
+      "acc_touched": 0.6642857142857143,
+      "balanced": 0.6907692307692308,
+      "stale": 0.5384615384615384,
+      "over_invalidation": 0.08,
+      "n_revising": 65
+     }
+    },
+    {
+     "n": 55,
+     "BeliefGraph": {
+      "acc_all": 0.9714285714285714,
+      "acc_touched": 0.9714285714285714,
+      "balanced": 0.9713349713349714,
+      "stale": 0.030303030303030304,
+      "over_invalidation": 0.02702702702702703,
+      "n_revising": 66
+     },
+     "LLM-direct": {
+      "acc_all": 0.6428571428571429,
+      "acc_touched": 0.6428571428571429,
+      "balanced": 0.709049959049959,
+      "stale": 0.25757575757575757,
+      "over_invalidation": 0.32432432432432434,
+      "n_revising": 66
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6428571428571429,
+      "acc_touched": 0.6428571428571429,
+      "balanced": 0.6607289107289107,
+      "stale": 0.6515151515151515,
+      "over_invalidation": 0.02702702702702703,
+      "n_revising": 66
+     }
+    },
+    {
+     "n": 56,
+     "BeliefGraph": {
+      "acc_all": 0.9714285714285714,
+      "acc_touched": 0.9714285714285714,
+      "balanced": 0.9713759967286854,
+      "stale": 0.029850746268656716,
+      "over_invalidation": 0.0273972602739726,
+      "n_revising": 67
+     },
+     "LLM-direct": {
+      "acc_all": 0.5071428571428571,
+      "acc_touched": 0.5071428571428571,
+      "balanced": 0.6122469842567981,
+      "stale": 0.26865671641791045,
+      "over_invalidation": 0.5068493150684932,
+      "n_revising": 67
+     },
+     "errors": [
+      "unknown memory 'm_00625'",
+      "unknown memory 'm_00fb07'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6142857142857143,
+      "acc_touched": 0.6142857142857143,
+      "balanced": 0.6846248210999795,
+      "stale": 0.5074626865671642,
+      "over_invalidation": 0.1232876712328767,
+      "n_revising": 67
+     }
+    },
+    {
+     "n": 57,
+     "BeliefGraph": {
+      "acc_all": 0.9785714285714285,
+      "acc_touched": 0.9785714285714285,
+      "balanced": 0.9783496732026145,
+      "stale": 0.029411764705882353,
+      "over_invalidation": 0.013888888888888888,
+      "n_revising": 68
+     },
+     "LLM-direct": {
+      "acc_all": 0.5142857142857142,
+      "acc_touched": 0.5142857142857142,
+      "balanced": 0.6196895424836601,
+      "stale": 0.19117647058823528,
+      "over_invalidation": 0.5694444444444444,
+      "n_revising": 68
+     },
+     "errors": [
+      "unknown memory 'm_00625'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6428571428571429,
+      "acc_touched": 0.6428571428571429,
+      "balanced": 0.6776960784313726,
+      "stale": 0.6029411764705882,
+      "over_invalidation": 0.041666666666666664,
+      "n_revising": 68
+     }
+    },
+    {
+     "n": 58,
+     "BeliefGraph": {
+      "acc_all": 0.9785714285714285,
+      "acc_touched": 0.9785714285714285,
+      "balanced": 0.9784649928556848,
+      "stale": 0.028985507246376812,
+      "over_invalidation": 0.014084507042253521,
+      "n_revising": 69
+     },
+     "LLM-direct": {
+      "acc_all": 0.5142857142857142,
+      "acc_touched": 0.5142857142857142,
+      "balanced": 0.6009389671361502,
+      "stale": 0.3333333333333333,
+      "over_invalidation": 0.4647887323943662,
+      "n_revising": 69
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6071428571428571,
+      "acc_touched": 0.6071428571428571,
+      "balanced": 0.6898346601347214,
+      "stale": 0.5217391304347826,
+      "over_invalidation": 0.09859154929577464,
+      "n_revising": 69
+     }
+    },
+    {
+     "n": 59,
+     "BeliefGraph": {
+      "acc_all": 0.9785714285714285,
+      "acc_touched": 0.9785714285714285,
+      "balanced": 0.9785714285714286,
+      "stale": 0.02857142857142857,
+      "over_invalidation": 0.014285714285714285,
+      "n_revising": 70
+     },
+     "LLM-direct": {
+      "acc_all": 0.4714285714285714,
+      "acc_touched": 0.4714285714285714,
+      "balanced": 0.6071428571428571,
+      "stale": 0.02857142857142857,
+      "over_invalidation": 0.7571428571428571,
+      "n_revising": 70
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6285714285714286,
+      "acc_touched": 0.6285714285714286,
+      "balanced": 0.6928571428571428,
+      "stale": 0.5285714285714286,
+      "over_invalidation": 0.08571428571428572,
+      "n_revising": 70
+     }
+    },
+    {
+     "n": 60,
+     "BeliefGraph": {
+      "acc_all": 0.9785714285714285,
+      "acc_touched": 0.9785714285714285,
+      "balanced": 0.9786691161461523,
+      "stale": 0.028169014084507043,
+      "over_invalidation": 0.014492753623188406,
+      "n_revising": 71
+     },
+     "LLM-direct": {
+      "acc_all": 0.45,
+      "acc_touched": 0.45,
+      "balanced": 0.5803225147989386,
+      "stale": 0.04225352112676056,
+      "over_invalidation": 0.7971014492753623,
+      "n_revising": 71
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.6357142857142857,
+      "acc_touched": 0.6357142857142857,
+      "balanced": 0.6826903449683609,
+      "stale": 0.6056338028169014,
+      "over_invalidation": 0.028985507246376812,
+      "n_revising": 71
+     }
+    },
+    {
+     "n": 61,
+     "BeliefGraph": {
+      "acc_all": 0.9785714285714285,
+      "acc_touched": 0.9785714285714285,
+      "balanced": 0.9787581699346406,
+      "stale": 0.027777777777777776,
+      "over_invalidation": 0.014705882352941176,
+      "n_revising": 72
+     },
+     "LLM-direct": {
+      "acc_all": 0.44285714285714284,
+      "acc_touched": 0.44285714285714284,
+      "balanced": 0.5674019607843137,
+      "stale": 0.041666666666666664,
+      "over_invalidation": 0.8235294117647058,
+      "n_revising": 72
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5928571428571429,
+      "acc_touched": 0.5928571428571429,
+      "balanced": 0.6380718954248366,
+      "stale": 0.6944444444444444,
+      "over_invalidation": 0.029411764705882353,
+      "n_revising": 72
+     }
+    },
+    {
+     "n": 62,
+     "BeliefGraph": {
+      "acc_all": 0.9785714285714285,
+      "acc_touched": 0.9785714285714285,
+      "balanced": 0.9789107289107289,
+      "stale": 0.02702702702702703,
+      "over_invalidation": 0.015151515151515152,
+      "n_revising": 74
+     },
+     "LLM-direct": {
+      "acc_all": 0.5142857142857142,
+      "acc_touched": 0.5142857142857142,
+      "balanced": 0.6304258804258804,
+      "stale": 0.02702702702702703,
+      "over_invalidation": 0.7121212121212122,
+      "n_revising": 74
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5714285714285714,
+      "acc_touched": 0.5714285714285714,
+      "balanced": 0.6216216216216216,
+      "stale": 0.7567567567567568,
+      "over_invalidation": 0.0,
+      "n_revising": 74
+     }
+    },
+    {
+     "n": 63,
+     "BeliefGraph": {
+      "acc_all": 0.9785714285714285,
+      "acc_touched": 0.9785714285714285,
+      "balanced": 0.978974358974359,
+      "stale": 0.02666666666666667,
+      "over_invalidation": 0.015384615384615385,
+      "n_revising": 75
+     },
+     "LLM-direct": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.6153846153846154,
+      "stale": 0.2,
+      "over_invalidation": 0.5692307692307692,
+      "n_revising": 75
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5928571428571429,
+      "acc_touched": 0.5928571428571429,
+      "balanced": 0.6815384615384615,
+      "stale": 0.56,
+      "over_invalidation": 0.07692307692307693,
+      "n_revising": 75
+     }
+    },
+    {
+     "n": 64,
+     "BeliefGraph": {
+      "acc_all": 0.9785714285714285,
+      "acc_touched": 0.9785714285714285,
+      "balanced": 0.979029605263158,
+      "stale": 0.02631578947368421,
+      "over_invalidation": 0.015625,
+      "n_revising": 76
+     },
+     "LLM-direct": {
+      "acc_all": 0.4642857142857143,
+      "acc_touched": 0.4642857142857143,
+      "balanced": 0.5797697368421053,
+      "stale": 0.18421052631578946,
+      "over_invalidation": 0.65625,
+      "n_revising": 76
+     },
+     "errors": [
+      "unknown memory 'm_00625'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.6,
+      "acc_touched": 0.6,
+      "balanced": 0.6833881578947368,
+      "stale": 0.5394736842105263,
+      "over_invalidation": 0.09375,
+      "n_revising": 76
+     }
+    },
+    {
+     "n": 65,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9632034632034632,
+      "stale": 0.025974025974025976,
+      "over_invalidation": 0.047619047619047616,
+      "n_revising": 77
+     },
+     "LLM-direct": {
+      "acc_all": 0.4785714285714286,
+      "acc_touched": 0.4785714285714286,
+      "balanced": 0.5692640692640693,
+      "stale": 0.19480519480519481,
+      "over_invalidation": 0.6666666666666666,
+      "n_revising": 77
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5642857142857143,
+      "acc_touched": 0.5642857142857143,
+      "balanced": 0.6659451659451658,
+      "stale": 0.4935064935064935,
+      "over_invalidation": 0.1746031746031746,
+      "n_revising": 77
+     }
+    },
+    {
+     "n": 66,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9629859387923905,
+      "stale": 0.02564102564102564,
+      "over_invalidation": 0.04838709677419355,
+      "n_revising": 78
+     },
+     "LLM-direct": {
+      "acc_all": 0.4714285714285714,
+      "acc_touched": 0.4714285714285714,
+      "balanced": 0.5742349048800662,
+      "stale": 0.01282051282051282,
+      "over_invalidation": 0.8387096774193549,
+      "n_revising": 78
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5785714285714286,
+      "acc_touched": 0.5785714285714286,
+      "balanced": 0.6565343258891646,
+      "stale": 0.5256410256410257,
+      "over_invalidation": 0.16129032258064516,
+      "n_revising": 78
+     }
+    },
+    {
+     "n": 67,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9627516082174725,
+      "stale": 0.02531645569620253,
+      "over_invalidation": 0.04918032786885246,
+      "n_revising": 79
+     },
+     "LLM-direct": {
+      "acc_all": 0.5071428571428571,
+      "acc_touched": 0.5071428571428571,
+      "balanced": 0.6025108943764267,
+      "stale": 0.13924050632911392,
+      "over_invalidation": 0.6557377049180327,
+      "n_revising": 79
+     },
+     "errors": [
+      "unknown memory 'm_00bc1'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5714285714285714,
+      "acc_touched": 0.5714285714285714,
+      "balanced": 0.6667358373106453,
+      "stale": 0.5189873417721519,
+      "over_invalidation": 0.14754098360655737,
+      "n_revising": 79
+     }
+    },
+    {
+     "n": 68,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9624999999999999,
+      "stale": 0.025,
+      "over_invalidation": 0.05,
+      "n_revising": 80
+     },
+     "LLM-direct": {
+      "acc_all": 0.45714285714285713,
+      "acc_touched": 0.45714285714285713,
+      "balanced": 0.5458333333333333,
+      "stale": 0.025,
+      "over_invalidation": 0.8833333333333333,
+      "n_revising": 80
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5571428571428572,
+      "acc_touched": 0.5571428571428572,
+      "balanced": 0.6645833333333333,
+      "stale": 0.4875,
+      "over_invalidation": 0.18333333333333332,
+      "n_revising": 80
+     }
+    },
+    {
+     "n": 69,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.962230592174095,
+      "stale": 0.024691358024691357,
+      "over_invalidation": 0.05084745762711865,
+      "n_revising": 81
+     },
+     "LLM-direct": {
+      "acc_all": 0.4928571428571429,
+      "acc_touched": 0.4928571428571429,
+      "balanced": 0.5724000836995187,
+      "stale": 0.024691358024691357,
+      "over_invalidation": 0.8305084745762712,
+      "n_revising": 81
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5785714285714286,
+      "acc_touched": 0.5785714285714286,
+      "balanced": 0.6759782381251307,
+      "stale": 0.5802469135802469,
+      "over_invalidation": 0.06779661016949153,
+      "n_revising": 81
+     }
+    },
+    {
+     "n": 70,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9619428090832632,
+      "stale": 0.024390243902439025,
+      "over_invalidation": 0.05172413793103448,
+      "n_revising": 82
+     },
+     "LLM-direct": {
+      "acc_all": 0.5142857142857142,
+      "acc_touched": 0.5142857142857142,
+      "balanced": 0.6028174936921783,
+      "stale": 0.12195121951219512,
+      "over_invalidation": 0.6724137931034483,
+      "n_revising": 82
+     },
+     "errors": [
+      "unknown memory 'm_00625'",
+      "unknown memory 'm_00bc1'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5357142857142857,
+      "acc_touched": 0.5357142857142857,
+      "balanced": 0.6312026913372581,
+      "stale": 0.6341463414634146,
+      "over_invalidation": 0.10344827586206896,
+      "n_revising": 82
+     }
+    },
+    {
+     "n": 71,
+     "BeliefGraph": {
+      "acc_all": 0.9714285714285714,
+      "acc_touched": 0.9714285714285714,
+      "balanced": 0.9704079475797929,
+      "stale": 0.024096385542168676,
+      "over_invalidation": 0.03508771929824561,
+      "n_revising": 83
+     },
+     "LLM-direct": {
+      "acc_all": 0.5785714285714286,
+      "acc_touched": 0.5785714285714286,
+      "balanced": 0.666138237159163,
+      "stale": 0.03614457831325301,
+      "over_invalidation": 0.631578947368421,
+      "n_revising": 83
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5357142857142857,
+      "acc_touched": 0.5357142857142857,
+      "balanced": 0.6504967237370535,
+      "stale": 0.5060240963855421,
+      "over_invalidation": 0.19298245614035087,
+      "n_revising": 83
+     }
+    },
+    {
+     "n": 72,
+     "BeliefGraph": {
+      "acc_all": 0.9714285714285714,
+      "acc_touched": 0.9714285714285714,
+      "balanced": 0.9702380952380952,
+      "stale": 0.023809523809523808,
+      "over_invalidation": 0.03571428571428571,
+      "n_revising": 84
+     },
+     "LLM-direct": {
+      "acc_all": 0.5571428571428572,
+      "acc_touched": 0.5571428571428572,
+      "balanced": 0.6339285714285714,
+      "stale": 0.03571428571428571,
+      "over_invalidation": 0.6964285714285714,
+      "n_revising": 84
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5285714285714286,
+      "acc_touched": 0.5285714285714286,
+      "balanced": 0.6458333333333334,
+      "stale": 0.5119047619047619,
+      "over_invalidation": 0.19642857142857142,
+      "n_revising": 84
+     }
+    },
+    {
+     "n": 73,
+     "BeliefGraph": {
+      "acc_all": 0.9714285714285714,
+      "acc_touched": 0.9714285714285714,
+      "balanced": 0.9700534759358288,
+      "stale": 0.023529411764705882,
+      "over_invalidation": 0.03636363636363636,
+      "n_revising": 85
+     },
+     "LLM-direct": {
+      "acc_all": 0.5571428571428572,
+      "acc_touched": 0.5571428571428572,
+      "balanced": 0.6315508021390375,
+      "stale": 0.08235294117647059,
+      "over_invalidation": 0.6545454545454545,
+      "n_revising": 85
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5285714285714286,
+      "acc_touched": 0.5285714285714286,
+      "balanced": 0.6475935828877005,
+      "stale": 0.5411764705882353,
+      "over_invalidation": 0.16363636363636364,
+      "n_revising": 85
+     }
+    },
+    {
+     "n": 74,
+     "BeliefGraph": {
+      "acc_all": 0.9714285714285714,
+      "acc_touched": 0.9714285714285714,
+      "balanced": 0.9698535745047372,
+      "stale": 0.023255813953488372,
+      "over_invalidation": 0.037037037037037035,
+      "n_revising": 86
+     },
+     "LLM-direct": {
+      "acc_all": 0.5571428571428572,
+      "acc_touched": 0.5571428571428572,
+      "balanced": 0.6363049095607235,
+      "stale": 0.11627906976744186,
+      "over_invalidation": 0.6111111111111112,
+      "n_revising": 86
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.4857142857142857,
+      "acc_touched": 0.4857142857142857,
+      "balanced": 0.5979758828596038,
+      "stale": 0.6744186046511628,
+      "over_invalidation": 0.12962962962962962,
+      "n_revising": 86
+     }
+    },
+    {
+     "n": 75,
+     "BeliefGraph": {
+      "acc_all": 0.9714285714285714,
+      "acc_touched": 0.9714285714285714,
+      "balanced": 0.9696378225981349,
+      "stale": 0.022988505747126436,
+      "over_invalidation": 0.03773584905660377,
+      "n_revising": 87
+     },
+     "LLM-direct": {
+      "acc_all": 0.4642857142857143,
+      "acc_touched": 0.4642857142857143,
+      "balanced": 0.5432661027976577,
+      "stale": 0.5172413793103449,
+      "over_invalidation": 0.39622641509433965,
+      "n_revising": 87
+     },
+     "errors": [
+      "unknown memory 'm_00c912'",
+      "unknown memory 'm_00bc4c'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5285714285714286,
+      "acc_touched": 0.5285714285714286,
+      "balanced": 0.6564736499674692,
+      "stale": 0.5172413793103449,
+      "over_invalidation": 0.16981132075471697,
+      "n_revising": 87
+     }
+    },
+    {
+     "n": 76,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9637237762237763,
+      "stale": 0.03409090909090909,
+      "over_invalidation": 0.038461538461538464,
+      "n_revising": 88
+     },
+     "LLM-direct": {
+      "acc_all": 0.5071428571428571,
+      "acc_touched": 0.5071428571428571,
+      "balanced": 0.5603146853146853,
+      "stale": 0.09090909090909091,
+      "over_invalidation": 0.7884615384615384,
+      "n_revising": 88
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5214285714285715,
+      "acc_touched": 0.5214285714285715,
+      "balanced": 0.6560314685314685,
+      "stale": 0.5340909090909091,
+      "over_invalidation": 0.15384615384615385,
+      "n_revising": 88
+     }
+    },
+    {
+     "n": 77,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9635382242784755,
+      "stale": 0.033707865168539325,
+      "over_invalidation": 0.0392156862745098,
+      "n_revising": 89
+     },
+     "LLM-direct": {
+      "acc_all": 0.5142857142857142,
+      "acc_touched": 0.5142857142857142,
+      "balanced": 0.5559594624366601,
+      "stale": 0.0449438202247191,
+      "over_invalidation": 0.8431372549019608,
+      "n_revising": 89
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4928571428571429,
+      "acc_touched": 0.4928571428571429,
+      "balanced": 0.6223837849746641,
+      "stale": 0.6179775280898876,
+      "over_invalidation": 0.13725490196078433,
+      "n_revising": 89
+     }
+    },
+    {
+     "n": 78,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9633333333333334,
+      "stale": 0.03333333333333333,
+      "over_invalidation": 0.04,
+      "n_revising": 90
+     },
+     "LLM-direct": {
+      "acc_all": 0.5357142857142857,
+      "acc_touched": 0.5357142857142857,
+      "balanced": 0.5766666666666667,
+      "stale": 0.06666666666666667,
+      "over_invalidation": 0.78,
+      "n_revising": 90
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5071428571428571,
+      "acc_touched": 0.5071428571428571,
+      "balanced": 0.6477777777777778,
+      "stale": 0.5444444444444444,
+      "over_invalidation": 0.16,
+      "n_revising": 90
+     }
+    },
+    {
+     "n": 79,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9631083202511774,
+      "stale": 0.03296703296703297,
+      "over_invalidation": 0.04081632653061224,
+      "n_revising": 91
+     },
+     "LLM-direct": {
+      "acc_all": 0.5642857142857143,
+      "acc_touched": 0.5642857142857143,
+      "balanced": 0.6145996860282574,
+      "stale": 0.07692307692307693,
+      "over_invalidation": 0.6938775510204082,
+      "n_revising": 91
+     },
+     "errors": [
+      "unknown memory 'm_00625'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5142857142857142,
+      "acc_touched": 0.5142857142857142,
+      "balanced": 0.6538461538461539,
+      "stale": 0.5494505494505495,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 91
+     }
+    },
+    {
+     "n": 80,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9628623188405797,
+      "stale": 0.03260869565217391,
+      "over_invalidation": 0.041666666666666664,
+      "n_revising": 92
+     },
+     "LLM-direct": {
+      "acc_all": 0.5714285714285714,
+      "acc_touched": 0.5714285714285714,
+      "balanced": 0.6326992753623188,
+      "stale": 0.13043478260869565,
+      "over_invalidation": 0.6041666666666666,
+      "n_revising": 92
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.34285714285714286,
+      "acc_touched": 0.34285714285714286,
+      "balanced": 0.5,
+      "stale": 1.0,
+      "over_invalidation": 0.0,
+      "n_revising": 92
+     }
+    },
+    {
+     "n": 81,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9625943719972547,
+      "stale": 0.03225806451612903,
+      "over_invalidation": 0.0425531914893617,
+      "n_revising": 93
+     },
+     "LLM-direct": {
+      "acc_all": 0.5714285714285714,
+      "acc_touched": 0.5714285714285714,
+      "balanced": 0.6060398078242965,
+      "stale": 0.06451612903225806,
+      "over_invalidation": 0.723404255319149,
+      "n_revising": 93
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.5214285714285715,
+      "acc_touched": 0.5214285714285715,
+      "balanced": 0.6726149622512011,
+      "stale": 0.5483870967741935,
+      "over_invalidation": 0.10638297872340426,
+      "n_revising": 93
+     }
+    },
+    {
+     "n": 82,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9616477272727273,
+      "stale": 0.03125,
+      "over_invalidation": 0.045454545454545456,
+      "n_revising": 96
+     },
+     "LLM-direct": {
+      "acc_all": 0.6142857142857143,
+      "acc_touched": 0.6142857142857143,
+      "balanced": 0.6699810606060606,
+      "stale": 0.11458333333333333,
+      "over_invalidation": 0.5454545454545454,
+      "n_revising": 96
+     },
+     "errors": [],
+     "LLM-RAG": {
+      "acc_all": 0.4714285714285714,
+      "acc_touched": 0.4714285714285714,
+      "balanced": 0.6297348484848485,
+      "stale": 0.6041666666666666,
+      "over_invalidation": 0.13636363636363635,
+      "n_revising": 96
+     }
+    },
+    {
+     "n": 83,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9612802685207384,
+      "stale": 0.030927835051546393,
+      "over_invalidation": 0.046511627906976744,
+      "n_revising": 97
+     },
+     "LLM-direct": {
+      "acc_all": 0.6214285714285714,
+      "acc_touched": 0.6214285714285714,
+      "balanced": 0.6421721409733877,
+      "stale": 0.041237113402061855,
+      "over_invalidation": 0.6744186046511628,
+      "n_revising": 97
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5214285714285715,
+      "acc_touched": 0.5214285714285715,
+      "balanced": 0.6763366099256773,
+      "stale": 0.4845360824742268,
+      "over_invalidation": 0.16279069767441862,
+      "n_revising": 97
+     }
+    },
+    {
+     "n": 84,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9608843537414966,
+      "stale": 0.030612244897959183,
+      "over_invalidation": 0.047619047619047616,
+      "n_revising": 98
+     },
+     "LLM-direct": {
+      "acc_all": 0.6,
+      "acc_touched": 0.6,
+      "balanced": 0.5986394557823129,
+      "stale": 0.04081632653061224,
+      "over_invalidation": 0.7619047619047619,
+      "n_revising": 98
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5285714285714286,
+      "acc_touched": 0.5285714285714286,
+      "balanced": 0.6887755102040816,
+      "stale": 0.47959183673469385,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 98
+     }
+    },
+    {
+     "n": 85,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9604582409460458,
+      "stale": 0.030303030303030304,
+      "over_invalidation": 0.04878048780487805,
+      "n_revising": 99
+     },
+     "LLM-direct": {
+      "acc_all": 0.6285714285714286,
+      "acc_touched": 0.6285714285714286,
+      "balanced": 0.6526237989652623,
+      "stale": 0.06060606060606061,
+      "over_invalidation": 0.6341463414634146,
+      "n_revising": 99
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5214285714285715,
+      "acc_touched": 0.5214285714285715,
+      "balanced": 0.6844050258684404,
+      "stale": 0.48484848484848486,
+      "over_invalidation": 0.14634146341463414,
+      "n_revising": 99
+     }
+    },
+    {
+     "n": 86,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.96,
+      "stale": 0.03,
+      "over_invalidation": 0.05,
+      "n_revising": 100
+     },
+     "LLM-direct": {
+      "acc_all": 0.6357142857142857,
+      "acc_touched": 0.6357142857142857,
+      "balanced": 0.68,
+      "stale": 0.09,
+      "over_invalidation": 0.55,
+      "n_revising": 100
+     },
+     "errors": [
+      "unknown memory 'm_00ff4c'",
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5071428571428571,
+      "acc_touched": 0.5071428571428571,
+      "balanced": 0.6625,
+      "stale": 0.5,
+      "over_invalidation": 0.175,
+      "n_revising": 100
+     }
+    },
+    {
+     "n": 87,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9595074892104595,
+      "stale": 0.0297029702970297,
+      "over_invalidation": 0.05128205128205128,
+      "n_revising": 101
+     },
+     "LLM-direct": {
+      "acc_all": 0.6357142857142857,
+      "acc_touched": 0.6357142857142857,
+      "balanced": 0.6261741558771261,
+      "stale": 0.0297029702970297,
+      "over_invalidation": 0.717948717948718,
+      "n_revising": 101
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4857142857142857,
+      "acc_touched": 0.4857142857142857,
+      "balanced": 0.6557501904036558,
+      "stale": 0.5346534653465347,
+      "over_invalidation": 0.15384615384615385,
+      "n_revising": 101
+     }
+    },
+    {
+     "n": 88,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9589783281733746,
+      "stale": 0.029411764705882353,
+      "over_invalidation": 0.05263157894736842,
+      "n_revising": 102
+     },
+     "LLM-direct": {
+      "acc_all": 0.6357142857142857,
+      "acc_touched": 0.6357142857142857,
+      "balanced": 0.6664086687306501,
+      "stale": 0.08823529411764706,
+      "over_invalidation": 0.5789473684210527,
+      "n_revising": 102
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4928571428571429,
+      "acc_touched": 0.4928571428571429,
+      "balanced": 0.6547987616099071,
+      "stale": 0.5588235294117647,
+      "over_invalidation": 0.13157894736842105,
+      "n_revising": 102
+     }
+    },
+    {
+     "n": 89,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9584098661768565,
+      "stale": 0.02912621359223301,
+      "over_invalidation": 0.05405405405405406,
+      "n_revising": 103
+     },
+     "LLM-direct": {
+      "acc_all": 0.65,
+      "acc_touched": 0.65,
+      "balanced": 0.6822356336919444,
+      "stale": 0.06796116504854369,
+      "over_invalidation": 0.5675675675675675,
+      "n_revising": 103
+     },
+     "errors": [
+      "unknown memory 'm_00ff4c'",
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.5,
+      "acc_touched": 0.5,
+      "balanced": 0.6664917344528996,
+      "stale": 0.5048543689320388,
+      "over_invalidation": 0.16216216216216217,
+      "n_revising": 103
+     }
+    },
+    {
+     "n": 90,
+     "BeliefGraph": {
+      "acc_all": 0.9642857142857143,
+      "acc_touched": 0.9642857142857143,
+      "balanced": 0.9556782781081847,
+      "stale": 0.028037383177570093,
+      "over_invalidation": 0.06060606060606061,
+      "n_revising": 107
+     },
+     "LLM-direct": {
+      "acc_all": 0.6428571428571429,
+      "acc_touched": 0.6428571428571429,
+      "balanced": 0.6607193429623336,
+      "stale": 0.102803738317757,
+      "over_invalidation": 0.5757575757575758,
+      "n_revising": 107
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.42857142857142855,
+      "acc_touched": 0.42857142857142855,
+      "balanced": 0.6158312092891532,
+      "stale": 0.616822429906542,
+      "over_invalidation": 0.15151515151515152,
+      "n_revising": 107
+     }
+    },
+    {
+     "n": 91,
+     "BeliefGraph": {
+      "acc_all": 0.9785714285714285,
+      "acc_touched": 0.9785714285714285,
+      "balanced": 0.9867256637168141,
+      "stale": 0.02654867256637168,
+      "over_invalidation": 0.0,
+      "n_revising": 113
+     },
+     "LLM-direct": {
+      "acc_all": 0.7071428571428572,
+      "acc_touched": 0.7071428571428572,
+      "balanced": 0.7000983284169124,
+      "stale": 0.04424778761061947,
+      "over_invalidation": 0.5555555555555556,
+      "n_revising": 113
+     },
+     "errors": [
+      "unknown memory 'm_00ff4c'",
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.4357142857142857,
+      "acc_touched": 0.4357142857142857,
+      "balanced": 0.685021304490331,
+      "stale": 0.5929203539823009,
+      "over_invalidation": 0.037037037037037035,
+      "n_revising": 113
+     }
+    },
+    {
+     "n": 92,
+     "BeliefGraph": {
+      "acc_all": 0.9785714285714285,
+      "acc_touched": 0.9785714285714285,
+      "balanced": 0.986842105263158,
+      "stale": 0.02631578947368421,
+      "over_invalidation": 0.0,
+      "n_revising": 114
+     },
+     "LLM-direct": {
+      "acc_all": 0.6714285714285714,
+      "acc_touched": 0.6714285714285714,
+      "balanced": 0.6720647773279352,
+      "stale": 0.07894736842105263,
+      "over_invalidation": 0.5769230769230769,
+      "n_revising": 114
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.39285714285714285,
+      "acc_touched": 0.39285714285714285,
+      "balanced": 0.6518218623481782,
+      "stale": 0.6578947368421053,
+      "over_invalidation": 0.038461538461538464,
+      "n_revising": 114
+     }
+    },
+    {
+     "n": 93,
+     "BeliefGraph": {
+      "acc_all": 0.9785714285714285,
+      "acc_touched": 0.9785714285714285,
+      "balanced": 0.9871794871794872,
+      "stale": 0.02564102564102564,
+      "over_invalidation": 0.0,
+      "n_revising": 117
+     },
+     "LLM-direct": {
+      "acc_all": 0.7142857142857143,
+      "acc_touched": 0.7142857142857143,
+      "balanced": 0.7309550353028613,
+      "stale": 0.05982905982905983,
+      "over_invalidation": 0.4782608695652174,
+      "n_revising": 117
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.44285714285714284,
+      "acc_touched": 0.44285714285714284,
+      "balanced": 0.7051282051282051,
+      "stale": 0.5897435897435898,
+      "over_invalidation": 0.0,
+      "n_revising": 117
+     }
+    },
+    {
+     "n": 94,
+     "BeliefGraph": {
+      "acc_all": 0.9785714285714285,
+      "acc_touched": 0.9785714285714285,
+      "balanced": 0.9872881355932204,
+      "stale": 0.025423728813559324,
+      "over_invalidation": 0.0,
+      "n_revising": 118
+     },
+     "LLM-direct": {
+      "acc_all": 0.75,
+      "acc_touched": 0.75,
+      "balanced": 0.8667180277349769,
+      "stale": 0.0847457627118644,
+      "over_invalidation": 0.18181818181818182,
+      "n_revising": 118
+     },
+     "errors": [
+      "unknown memory 'm_006320'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.36428571428571427,
+      "acc_touched": 0.36428571428571427,
+      "balanced": 0.652542372881356,
+      "stale": 0.6949152542372882,
+      "over_invalidation": 0.0,
+      "n_revising": 118
+     }
+    },
+    {
+     "n": 95,
+     "BeliefGraph": {
+      "acc_all": 0.9785714285714285,
+      "acc_touched": 0.9785714285714285,
+      "balanced": 0.9873949579831933,
+      "stale": 0.025210084033613446,
+      "over_invalidation": 0.0,
+      "n_revising": 119
+     },
+     "LLM-direct": {
+      "acc_all": 0.6642857142857143,
+      "acc_touched": 0.6642857142857143,
+      "balanced": 0.7184873949579832,
+      "stale": 0.13445378151260504,
+      "over_invalidation": 0.42857142857142855,
+      "n_revising": 119
+     },
+     "errors": [
+      "unknown memory 'm_00ff4e'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.2785714285714286,
+      "acc_touched": 0.2785714285714286,
+      "balanced": 0.5504201680672268,
+      "stale": 0.7563025210084033,
+      "over_invalidation": 0.14285714285714285,
+      "n_revising": 119
+     }
+    },
+    {
+     "n": 96,
+     "BeliefGraph": {
+      "acc_all": 0.9785714285714285,
+      "acc_touched": 0.9785714285714285,
+      "balanced": 0.9875,
+      "stale": 0.025,
+      "over_invalidation": 0.0,
+      "n_revising": 120
+     },
+     "LLM-direct": {
+      "acc_all": 0.6785714285714286,
+      "acc_touched": 0.6785714285714286,
+      "balanced": 0.7166666666666667,
+      "stale": 0.11666666666666667,
+      "over_invalidation": 0.45,
+      "n_revising": 120
+     },
+     "errors": [
+      "unknown memory 'm_00ff4c'",
+      "unknown memory 'm_00625'"
+     ],
+     "LLM-RAG": {
+      "acc_all": 0.32857142857142857,
+      "acc_touched": 0.32857142857142857,
+      "balanced": 0.6416666666666666,
+      "stale": 0.7166666666666667,
+      "over_invalidation": 0.0,
+      "n_revising": 120
+     }
+    }
+   ]
+  }
+ },
+ "pooled": {
+  "BeliefGraph": {
+   "final_acc": 0.9785714285714285,
+   "final_balanced": 0.9875,
+   "mean_step_balanced": 0.9822734519955832,
+   "stale": 0.025,
+   "over_invalidation": 0.0
+  },
+  "LLM-direct": {
+   "final_acc": 0.6785714285714286,
+   "final_balanced": 0.7166666666666667,
+   "mean_step_balanced": 0.6581942224243269,
+   "stale": 0.11666666666666667,
+   "over_invalidation": 0.45
+  },
+  "LLM-RAG": {
+   "final_acc": 0.32857142857142857,
+   "final_balanced": 0.6416666666666666,
+   "mean_step_balanced": 0.665542525673051,
+   "stale": 0.7166666666666667,
+   "over_invalidation": 0.0
+  }
+ }
+}
