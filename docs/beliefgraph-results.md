@@ -256,7 +256,7 @@ Errors were attributed from cached calls, at no cost, by swapping in the gold gr
 | ProofWriter | **0.847** | 0.620 | 0.636 | 0.500 | 0.489 |
 | STALE v2 | **0.892** | 0.756 | 0.750 | 0.684 | 0.500 |
 | MQuAKE-T, ~12 memories | 0.963 | **0.984** | 0.725 | 0.594 | — |
-| MQuAKE-T, 140 memories | **0.988** | 0.717 | 0.642 | 0.533 | (running) |
+| MQuAKE-T, 140 memories | **0.988** | 0.717 | 0.642 | 0.533 | 0.538 |
 | MQuAKE-T, 443 memories | **0.961** | 0.500 | 0.646 | 0.532 | — |
 
 - **Mem0 detects fact changes but does not propagate them.** It changes the fact an update targets for 39–75% of updates. Yet only 1–15% of updates reach a stored conclusion on the dossiers, ProofWriter and the large MQuAKE stores. On STALE and the small MQuAKE stores the figure is higher (38–47%), because a plan rests on a single fact and is often worded like it.
