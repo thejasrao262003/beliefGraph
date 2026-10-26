@@ -161,10 +161,16 @@ def main() -> None:
     out = Path("data/beliefgraph") / args.run
     out.mkdir(parents=True, exist_ok=True)
     log = out / "mem0_events.jsonl"
-    log.write_text("")
+    log.touch()
     root = Path(tempfile.mkdtemp(prefix="mem0-"))
     wait_for_server(args.base_url, os.environ["BELIEFGRAPH_VLLM_KEY"])
     results = {"method": "Mem0 (mem0ai 1.0.5)", "model": args.model, "sizes": {}}
+    prev = out / "results.json"
+    if prev.exists():  # resume: keep finished stores (these runners have no call cache)
+        done = json.loads(prev.read_text()).get("sizes", {})
+        results["sizes"].update(done)
+        plans = [p for p in plans if p[0] not in done]
+        print(f"resuming: {len(done)} stores already done, {len(plans)} to run", flush=True)
     from concurrent.futures import ProcessPoolExecutor
     from functools import partial
 

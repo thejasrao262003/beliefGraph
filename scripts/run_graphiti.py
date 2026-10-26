@@ -171,6 +171,12 @@ def main() -> None:
     from concurrent.futures import ProcessPoolExecutor
 
     results = {"method": "Graphiti (graphiti-core 0.31.2, FalkorDB Lite)", "model": args.model, "sizes": {}}
+    prev = out / "results.json"
+    if prev.exists():  # resume: keep finished stores (these runners have no call cache)
+        done = json.loads(prev.read_text()).get("sizes", {})
+        results["sizes"].update(done)
+        plans = [p for p in plans if p[0] not in done]
+        print(f"resuming: {len(done)} stores already done, {len(plans)} to run", flush=True)
     with ProcessPoolExecutor(max_workers=args.store_workers) as pool_:
         for key, entry in pool_.map(partial(run_store, args=args, root=root), plans):
             results["sizes"][key] = entry
