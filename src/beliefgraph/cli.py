@@ -1,8 +1,13 @@
 """beliefgraph CLI.
 
     beliefgraph providers
-    beliefgraph build  snapshot.json --provider anthropic [--model M] [-o graph.json]
+    beliefgraph build  snapshot.json --provider anthropic [--model M] [-o graph.json] [--algo v0.8|v0.1]
     beliefgraph revise snapshot.json --provider xai --model <id> [--graph graph.json]
+
+--algo v0.8 (default) builds the graph one memory at a time from small scoped calls (rule choice
+from token probabilities with a joint per-entity assignment where the provider exposes logprobs,
+else sampled votes; condition grounding; implicit-update reader). v0.1 is the original single
+call over the whole snapshot.
 
 A snapshot is JSON: {"scenario", "evidence": [{id, observed, source, text}],
 "memories": [{id, text}], "policies": [{id, text}], "updates": [{id, observed, source, text}]}.
@@ -18,7 +23,7 @@ import sys
 from dataclasses import asdict
 from pathlib import Path
 
-from beliefgraph.core import BeliefGraph, Graph, revise
+from beliefgraph.core import BeliefGraph, DecomposedBeliefGraph, Graph, revise
 from beliefgraph.llm import KEY_ENV, OPENAI_COMPATIBLE, PROVIDERS, make_llm
 
 
@@ -37,6 +42,7 @@ def main(argv: list[str] | None = None) -> None:
         p.add_argument("--model", default=None)
         p.add_argument("--base-url", default=None, help="for openai-compatible servers")
         p.add_argument("--budget-usd", type=float, default=1.0, help="hard cap (lyzr provider)")
+        p.add_argument("--algo", default="v0.8", choices=["v0.8", "v0.1"])
         if name == "build":
             p.add_argument("-o", "--out", type=Path, default=None)
         else:
@@ -50,7 +56,7 @@ def main(argv: list[str] | None = None) -> None:
         return
     view = json.loads(args.snapshot.read_text())
     llm = _llm(args)
-    bg = BeliefGraph(llm)
+    bg = DecomposedBeliefGraph(llm, route_mode="assign") if args.algo == "v0.8" else BeliefGraph(llm)
     try:
         if args.cmd == "build":
             graph = bg.build(view)

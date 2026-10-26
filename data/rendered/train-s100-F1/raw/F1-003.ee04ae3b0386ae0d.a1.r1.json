@@ -1,0 +1,306 @@
+{
+ "scenario": "F1-003",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.B6": "policy_echoes_memory 'premium passenger service' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B5": "record_scope_not_in_policy 'international'",
+  "conditions.B5": "record_scope_not_in_policy 'international'",
+  "facts.E4": "record_scope_not_in_policy 'international'",
+  "nodes.E4.text": "record_scope_not_in_policy 'international'",
+  "nodes.E4.source": "record_scope_not_in_policy 'international'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B5\": [\n   {\n    \"premise\": \"E4\",\n    \"kind\": \"credential\",\n    \"entity\": \"Trekker Ltd\",\n    \"relation\": null,\n    \"quantity\": \"International Tour Operator Accreditation\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E4\": {\n   \"entity\": \"Trekker Ltd\",\n   \"kind\": \"credential\",\n   \"quantity\": \"International Tour Operator Accreditation\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E4.source\": \"Global Tourism Board Database\",\n  \"nodes.E4.text\": \"Trekker Ltd holds an International Tour Operator Accreditation.\",\n  \"policies.B5\": \"Cross-border excursion authorization is conferred upon any firm holding an International Tour Operator Accreditation.\",\n  \"policies.B6\": \"A top-grade passenger transit standard is granted when a provider secures a customer satisfaction score of 85 percent or higher.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6486,
+   "output_tokens": 3576,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6486,
+    "completion_tokens": 3576
+   }
+  },
+  "est_usd": 0.0548235,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.B5[0].scope",
+  "facts.E4.scope",
+  "policies.B6"
+ ],
+ "merged": {
+  "world": "Travel agency operations evaluate partner carriers, dispatch services, tour operators, and rail providers to determine service designations and booking policies.",
+  "nodes": {
+   "E1": {
+    "text": "Skylink Charters maintains an active fleet size of 12 commercial jets.",
+    "source": "Aviation Authority Registry"
+   },
+   "E2": {
+    "text": "Skylink Charters achieved an on-time arrival rate of 92 percent this year.",
+    "source": "Department of Transportation Annual Report"
+   },
+   "E3": {
+    "text": "Navigator Express completed 500 express deliveries this quarter.",
+    "source": "Logistics Auditor System"
+   },
+   "E4": {
+    "text": "Trekker Ltd holds an International Tour Operator Accreditation.",
+    "source": "Global Tourism Board Database"
+   },
+   "E5": {
+    "text": "BlueSky Rail maintains a customer satisfaction score of 88 percent.",
+    "source": "Passenger Survey Bureau"
+   },
+   "B1": {
+    "text": "Skylink Charters possesses adequate carrier capacity."
+   },
+   "B2": {
+    "text": "Skylink Charters is approved for regional transit operations."
+   },
+   "B3": {
+    "text": "Skylink Charters meets the standard for preferred carrier designation."
+   },
+   "D1": {
+    "text": "Book Skylink Charters for all executive travel accounts."
+   },
+   "B4": {
+    "text": "Navigator Express holds top-tier dispatch status."
+   },
+   "B5": {
+    "text": "Trekker Ltd is authorized for cross-border excursions."
+   },
+   "B6": {
+    "text": "BlueSky Rail satisfies the premium passenger service criteria."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An official audit determined that Skylink Charters does not maintain an active fleet size of 12 commercial jets.",
+    "source": "Aviation Authority Inspection Report"
+   }
+  },
+  "policies": {
+   "B1": "Transport capacity clearance is granted when an operator maintains a total fleet size of at least 10 jets.",
+   "B2": "Approval for regional routing requires an operator with transport capacity clearance.",
+   "B3": "Preferred carrier status is assigned to an agency possessing approval for regional routing that maintains a minimum annual on-time arrival rate of 90 percent.",
+   "D1": "Selection for corporate flight bookings is restricted to providers possessing preferred carrier status.",
+   "B4": "Top-tier dispatch qualification is awarded when a handler records a minimum quarterly volume of 400 express deliveries.",
+   "B5": "Cross-border excursion authorization is conferred upon any firm holding an International Tour Operator Accreditation.",
+   "B6": "A top-grade passenger transit standard is granted when a provider secures a customer satisfaction score of 85 percent or higher."
+  },
+  "decoy_policies": [
+   "Priority freight clearance is given to any vendor maintaining a storage facility of at least 50,000 square feet.",
+   "An eco-friendly fleet certification is awarded if a company operates at least 30 electric shuttle vans."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "B2": "fails",
+   "B3": "fails",
+   "D1": "fails",
+   "B4": "holds",
+   "B5": "holds",
+   "B6": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Skylink Charters",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 12,
+    "unit": "jets",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Skylink Charters",
+    "kind": "number",
+    "quantity": "on-time arrival rate",
+    "value": 92,
+    "unit": "percent",
+    "window": "year",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Navigator Express",
+    "kind": "number",
+    "quantity": "express deliveries",
+    "value": 500,
+    "unit": "deliveries",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Trekker Ltd",
+    "kind": "credential",
+    "quantity": "International Tour Operator Accreditation",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "BlueSky Rail",
+    "kind": "number",
+    "quantity": "customer satisfaction score",
+    "value": 88,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Skylink Charters",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": null,
+    "unit": "jets",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Skylink Charters",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "jets",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Skylink Charters",
+     "relation": null,
+     "quantity": "transport capacity clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Skylink Charters",
+     "relation": null,
+     "quantity": "approval for regional routing",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Skylink Charters",
+     "relation": null,
+     "quantity": "on-time arrival rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Skylink Charters",
+     "relation": null,
+     "quantity": "preferred carrier status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Navigator Express",
+     "relation": null,
+     "quantity": "express deliveries",
+     "comparator": ">=",
+     "threshold": 400,
+     "unit": "deliveries",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E4",
+     "kind": "credential",
+     "entity": "Trekker Ltd",
+     "relation": null,
+     "quantity": "International Tour Operator Accreditation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "BlueSky Rail",
+     "relation": null,
+     "quantity": "customer satisfaction score",
+     "comparator": ">=",
+     "threshold": 85,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Having 12 commercial jets meets the minimum threshold of 10 jets required for transport capacity clearance."
+   ],
+   "B2": [
+    "Holding transport capacity clearance satisfies the sole condition for regional routing approval."
+   ],
+   "B3": [
+    "Holding approval for regional routing together with a 92 percent annual on-time arrival rate satisfies all criteria for preferred carrier status."
+   ],
+   "D1": [
+    "Possessing preferred carrier status fulfills the requirement for corporate flight bookings selection."
+   ],
+   "B4": [
+    "Completing 500 express deliveries this quarter surpasses the required volume of 400 deliveries for top-tier dispatch qualification."
+   ],
+   "B5": [
+    "Holding an International Tour Operator Accreditation fulfills the requirement for cross-border excursion authorization."
+   ],
+   "B6": [
+    "Maintaining an 88 percent customer satisfaction score exceeds the 85 percent requirement for a premium passenger service rating."
+   ]
+  }
+ }
+}

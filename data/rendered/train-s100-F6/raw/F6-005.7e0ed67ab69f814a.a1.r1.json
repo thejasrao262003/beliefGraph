@@ -1,0 +1,270 @@
+{
+ "scenario": "F6-005",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.D1": "policy_echoes_memory 'the international summit' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B2": "policy_echoes_memory 'holds preferred agency' (a policy may not share a 3-word phrase with any memory)"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"policies.B2\": \"An agency receives corporate flight clearance if it maintains preferred agency rank and commands a jet fleet of at least 10 aircraft.\",\n  \"policies.D1\": \"A carrier receives an international summit logistics agreement when granted corporate flight clearance.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 5991,
+   "output_tokens": 2804,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 5991,
+    "completion_tokens": 2804
+   }
+  },
+  "est_usd": 0.04502475,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "policies.B2",
+  "policies.D1"
+ ],
+ "merged": {
+  "world": "Travel logistics managers evaluate agency capabilities, cruise vessel ratings, and freight customs clearances for commercial transport contracts.",
+  "nodes": {
+   "E1": {
+    "text": "Vanguard Travel Services completed 500 corporate charters last year.",
+    "source": "Civil Aviation Authority annual report"
+   },
+   "E2": {
+    "text": "Vanguard Travel Services holds an active IATA Accreditation.",
+    "source": "International Air Transport Association registry"
+   },
+   "E3": {
+    "text": "Vanguard Travel Services operates a jet fleet of 15 aircraft.",
+    "source": "Federal Aviation Administration fleet audit"
+   },
+   "B1": {
+    "text": "Vanguard Travel Services holds preferred agency classification."
+   },
+   "B2": {
+    "text": "Vanguard Travel Services is authorized for corporate flight operations."
+   },
+   "D1": {
+    "text": "Select Vanguard Travel Services for the international summit transport contract."
+   },
+   "E4": {
+    "text": "Oceanic Cruise Lines maintains a customer satisfaction rating of 92 percent.",
+    "source": "Maritime Passenger Quality Survey"
+   },
+   "B3": {
+    "text": "Oceanic Cruise Lines earns premier fleet recognition."
+   },
+   "E5": {
+    "text": "Atlas Cargo Logistics holds a valid CTPAT certification.",
+    "source": "Customs and Border Protection database"
+   },
+   "B4": {
+    "text": "Atlas Cargo Logistics secures priority customs clearance."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An unverified forum post claims Vanguard Travel Services did not complete 500 corporate charters last year.",
+    "source": "Unverified travel discussion forum post"
+   }
+  },
+  "policies": {
+   "B1": "A travel broker gains preferred agency status when executing at least 400 corporate charters yearly or retaining an active IATA Accreditation.",
+   "B2": "An agency receives corporate flight clearance if it maintains preferred agency rank and commands a jet fleet of at least 10 aircraft.",
+   "D1": "A carrier receives an international summit logistics agreement when granted corporate flight clearance.",
+   "B3": "A passenger vessel operator obtains premier fleet status provided its customer satisfaction rating is 85 percent or higher.",
+   "B4": "A freight entity qualifies for priority customs entry upon holding valid CTPAT certification."
+  },
+  "decoy_policies": [
+   "A rail operator receives high-speed transit certification when operating at least 20 electric locomotives.",
+   "A hotel partner qualifies for luxury network inclusion if it maintains a regional hospitality review score of 4.8 or higher."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "holds",
+   "D1": "holds",
+   "B3": "holds",
+   "B4": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Vanguard Travel Services",
+    "kind": "number",
+    "quantity": "corporate charters",
+    "value": 500,
+    "unit": "charters",
+    "window": "year",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Vanguard Travel Services",
+    "kind": "credential",
+    "quantity": "IATA Accreditation",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Vanguard Travel Services",
+    "kind": "number",
+    "quantity": "jet fleet",
+    "value": 15,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Oceanic Cruise Lines",
+    "kind": "number",
+    "quantity": "customer satisfaction rating",
+    "value": 92,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Atlas Cargo Logistics",
+    "kind": "credential",
+    "quantity": "CTPAT certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Vanguard Travel Services",
+    "kind": "number",
+    "quantity": "corporate charters",
+    "value": null,
+    "unit": "charters",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Vanguard Travel Services",
+     "relation": null,
+     "quantity": "corporate charters",
+     "comparator": ">=",
+     "threshold": 400,
+     "unit": "charters",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "credential",
+     "entity": "Vanguard Travel Services",
+     "relation": null,
+     "quantity": "IATA Accreditation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Vanguard Travel Services",
+     "relation": null,
+     "quantity": "preferred agency status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Vanguard Travel Services",
+     "relation": null,
+     "quantity": "jet fleet",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Vanguard Travel Services",
+     "relation": null,
+     "quantity": "corporate flight clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Oceanic Cruise Lines",
+     "relation": null,
+     "quantity": "customer satisfaction rating",
+     "comparator": ">=",
+     "threshold": 85,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "Atlas Cargo Logistics",
+     "relation": null,
+     "quantity": "CTPAT certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Vanguard Travel Services completed 500 corporate charters last year, exceeding the threshold of 400 charters required for preferred status.",
+    "Vanguard Travel Services holds an active IATA Accreditation, satisfying the alternative credential requirement for preferred status."
+   ],
+   "B2": [
+    "Vanguard Travel Services holds preferred agency status and operates 15 aircraft, which meets the 10-aircraft threshold required for corporate flight clearance."
+   ],
+   "D1": [
+    "Vanguard Travel Services holds corporate flight clearance, satisfying the policy condition to be selected for the transport contract."
+   ],
+   "B3": [
+    "Oceanic Cruise Lines has a customer satisfaction rating of 92 percent, which meets the 85 percent threshold for premier fleet status."
+   ],
+   "B4": [
+    "Atlas Cargo Logistics possesses valid CTPAT certification, fulfilling the policy requirement for priority customs entry."
+   ]
+  }
+ }
+}

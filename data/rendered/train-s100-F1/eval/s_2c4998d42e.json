@@ -1,0 +1,186 @@
+{
+ "scenario": "s_2c4998d42e",
+ "source_scenario": "F1-008",
+ "family": "F1",
+ "meta": {
+  "depth": 2,
+  "relation": "retracts"
+ },
+ "idmap": {
+  "E1": "e_3faf",
+  "E2": "e_d7c3",
+  "B1": "m_02d2",
+  "D1": "m_8868",
+  "E3": "e_ebcd",
+  "B2": "m_06b7",
+  "U1": "u_ab6f"
+ },
+ "groups": {
+  "e_3faf": 1,
+  "m_02d2": 1,
+  "m_8868": 1,
+  "e_d7c3": 1,
+  "e_ebcd": 2,
+  "m_06b7": 2
+ },
+ "policy_of": {
+  "p_fe6b": "m_02d2",
+  "p_4978": "m_8868",
+  "p_0d5e": "m_06b7"
+ },
+ "gold": {
+  "e_3faf": "withdraw",
+  "e_d7c3": "keep",
+  "e_ebcd": "keep",
+  "m_02d2": "withdraw",
+  "m_06b7": "keep",
+  "m_8868": "withdraw"
+ },
+ "justifications": {
+  "m_02d2": [
+   [
+    "e_3faf",
+    "e_d7c3"
+   ]
+  ],
+  "m_8868": [
+   [
+    "m_02d2"
+   ]
+  ],
+  "m_06b7": [
+   [
+    "e_ebcd"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_ab6f": {
+   "target": "e_3faf",
+   "relation": "retracts",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_a63e",
+  "p_6eaa"
+ ],
+ "after_updates": {
+  "m_02d2": "fails",
+  "m_8868": "fails",
+  "m_06b7": "holds"
+ },
+ "final_state": {
+  "m_02d2": "fails",
+  "m_06b7": "holds",
+  "m_8868": "fails"
+ },
+ "world": "An e-commerce platform evaluates catalog items for special promotional status and warranty program placement based on safety, sales, and defect metrics.",
+ "rationale": {
+  "m_02d2": [
+   "Aura Gloss holds an active dermatologist safety certification and achieved quarterly sales of 10,000 units, satisfying both conditions required for the Premium Retailer Showcase."
+  ],
+  "m_8868": [
+   "Aura Gloss is included in the Premium Retailer Showcase, which qualifies it for primary homepage spotlight placement."
+  ],
+  "m_06b7": [
+   "Zenith Blender has an annual customer defect rate of 0.5%, which is below the maximum threshold of 1.0% required for the Extended Warranty Catalog."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_3faf": {
+    "entity": "Aura Gloss",
+    "kind": "credential",
+    "quantity": "dermatologist safety certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_d7c3": {
+    "entity": "Aura Gloss",
+    "kind": "number",
+    "quantity": "sales",
+    "value": 10000,
+    "unit": "units",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "e_ebcd": {
+    "entity": "Zenith Blender",
+    "kind": "number",
+    "quantity": "customer defect rate",
+    "value": 0.5,
+    "unit": "%",
+    "window": "year",
+    "scope": "none"
+   },
+   "u_ab6f": {
+    "entity": "Aura Gloss",
+    "kind": "credential",
+    "quantity": "dermatologist safety certification",
+    "value": false,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_02d2": [
+    {
+     "premise": "e_3faf",
+     "kind": "credential",
+     "entity": "Aura Gloss",
+     "relation": null,
+     "quantity": "dermatologist safety certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_d7c3",
+     "kind": "number",
+     "entity": "Aura Gloss",
+     "relation": null,
+     "quantity": "sales",
+     "comparator": ">=",
+     "threshold": 10000,
+     "unit": "units",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "m_8868": [
+    {
+     "premise": "m_02d2",
+     "kind": "conclusion",
+     "entity": "Aura Gloss",
+     "relation": null,
+     "quantity": "Premium Retailer Showcase",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_06b7": [
+    {
+     "premise": "e_ebcd",
+     "kind": "number",
+     "entity": "Zenith Blender",
+     "relation": null,
+     "quantity": "customer defect rate",
+     "comparator": "<=",
+     "threshold": 1.0,
+     "unit": "%",
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

@@ -21,6 +21,13 @@ import sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+try:  # local configuration (git-ignored): keys and BELIEFGRAPH_MODAL_WORKSPACE
+    from dotenv import load_dotenv
+
+    load_dotenv(Path.cwd() / ".env")
+except ImportError:
+    pass
+
 sys.path.insert(0, str(Path(__file__).parent))
 from run_stream import RUNS  # noqa: E402
 
@@ -49,10 +56,54 @@ def stores():
     yield "36 long dossiers", "long-v06-gemma-4-12b-it", ds
 
 
+def assignment(dist) -> int:
+    """#4: per entity group, maximise the summed log-probability of a one-to-one memory-to-rule
+    assignment (Hungarian). Groups: memories of one store that share an entity name."""
+    import numpy as np
+    from scipy.optimize import linear_sum_assignment
+
+    from beliefgraph.retrieve import entity_names
+
+    groups: dict = {}
+    for meta, gold, probs in dist:
+        groups.setdefault(meta[0], []).append((meta, gold, probs))
+    right = 0
+    for items in groups.values():
+        # union memories that share a name
+        parent = list(range(len(items)))
+
+        def find(i):
+            while parent[i] != i:
+                parent[i] = parent[parent[i]]
+                i = parent[i]
+            return i
+
+        names = [entity_names(meta[2]) for meta, _, _ in items]
+        for i in range(len(items)):
+            for j in range(i):
+                if names[i] & names[j]:
+                    parent[find(i)] = find(j)
+        clusters: dict = {}
+        for i in range(len(items)):
+            clusters.setdefault(find(i), []).append(i)
+        for idx in clusters.values():
+            rules = sorted({p for i in idx for p in items[i][2]})
+            cost = np.full((len(idx), len(rules)), 50.0)
+            for r, i in enumerate(idx):
+                tot = sum(items[i][2].values()) or 1.0
+                for c, p in enumerate(rules):
+                    v = items[i][2].get(p, 0.0) / tot
+                    if v > 0:
+                        cost[r, c] = -np.log(v + 1e-9)
+            rows, cols = linear_sum_assignment(cost)
+            right += sum(rules[c] == items[idx[r]][1] for r, c in zip(rows, cols))
+    return right
+
+
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="gemma-4-12b-it")
-    ap.add_argument("--base-url", default="https://<workspace>--beliefgraph-gemma-4-12b-it-server.us-east.modal.direct/v1")
+    ap.add_argument("--base-url", default=f"https://{os.environ.get('BELIEFGRAPH_MODAL_WORKSPACE', '<workspace>')}--beliefgraph-gemma-4-12b-it-server.us-east.modal.direct/v1")
     args = ap.parse_args()
     from dotenv import load_dotenv
     import openai
@@ -128,10 +179,11 @@ def main() -> None:
                 lettered = [json.dumps({"memory": text, "facts_about_it": about,
                                         "policies": {LETTERS[k]: pols[p]["text"] for k, p in enumerate(order)}}, indent=1)
                             for order in (cands, cands[::-1])]
-                jobs.append((pol_of[mid], cands, pick, lettered, voted))
+                jobs.append((pol_of[mid], cands, pick, lettered, voted, (store["scenario"], mid, text)))
         with ThreadPoolExecutor(32) as pool:
             probs = list(pool.map(lambda j: [letter_probs(m) for m in j[3]], jobs))
-        for (gold, cands, pick, _, voted), (p_id, p_rev) in zip(jobs, probs):
+        dist = []  # per memory: {policy: averaged probability}
+        for (gold, cands, pick, _, voted, _meta), (p_id, p_rev) in zip(jobs, probs):
             if pick == "uncached":
                 continue
             n += 1
@@ -144,6 +196,10 @@ def main() -> None:
             right_lp += bool(s_id) and max(s_id, key=s_id.get) == gold
             both = {p: s_id.get(p, 0) + s_rev.get(p, 0) for p in cands}
             right_perm += max(both, key=both.get) == gold
+            dist.append((_meta, gold, both))
+        right_assign = assignment(dist)
+        print(f"{name}: global assignment (one rule per memory, at most one memory per rule per entity group): "
+              f"{right_assign / len(dist):.3f}", flush=True)
         print(f"{name}: {n} memories (gold among the 12 for {gold_offered}) | right rule first: sampled pick "
               f"{right_sample / n:.3f}, 3-sample vote {right_vote / n:.3f}, logprob {right_lp / n:.3f}, logprob + reversed order {right_perm / n:.3f}", flush=True)
 

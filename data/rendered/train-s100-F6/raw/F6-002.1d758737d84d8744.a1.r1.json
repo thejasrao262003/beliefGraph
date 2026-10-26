@@ -1,0 +1,188 @@
+{
+ "scenario": "F6-002",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "nodes.E3.text": "graph_id 'B2' (item ids may not appear in any text)",
+  "nodes.B2.text": "graph_id 'B2' (item ids may not appear in any text)"
+ },
+ "response": "```json\n{\n  \"replacements\": {\n    \"nodes.B2.text\": \"Lumina Battery Unit B200 is approved for residential grid hookup.\",\n    \"nodes.E3.text\": \"Lumina Battery Unit B200 holds an active UL 1973 safety certification.\"\n  }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 5334,
+   "output_tokens": 3004,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 5334,
+    "completion_tokens": 3004
+   }
+  },
+  "est_usd": 0.0457965,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "nodes.B2.text",
+  "nodes.E3.text"
+ ],
+ "merged": {
+  "world": "Evaluating clean energy incentive and grid interconnection qualification for renewable power hardware.",
+  "nodes": {
+   "E1": {
+    "text": "AeroGrid Turbine T50 demonstrated 42 percent generation efficiency in technical trials.",
+    "source": "AeroGrid Turbine T50 official technical evaluation log"
+   },
+   "E2": {
+    "text": "AeroGrid Turbine T50 carries a standard warranty coverage of 20 years.",
+    "source": "AeroGrid Turbine T50 warranty certificate archive"
+   },
+   "B1": {
+    "text": "AeroGrid Turbine T50 is approved for commercial clean energy incentive funding."
+   },
+   "D1": {
+    "text": "AeroGrid Turbine T50 is selected for state procurement catalog inclusion."
+   },
+   "E3": {
+    "text": "Lumina Battery Unit B200 holds an active UL 1973 safety certification.",
+    "source": "UL Solutions online registry entry"
+   },
+   "B2": {
+    "text": "Lumina Battery Unit B200 is approved for residential grid hookup."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An audit report flagged potential sensor calibration errors during the generation efficiency test of AeroGrid Turbine T50.",
+    "source": "National Renewable Testing Laboratory audit notice"
+   }
+  },
+  "policies": {
+   "B1": "Clean energy funding is granted to any power system demonstrating generation efficiency of at least 40 percent, or possessing warranty coverage of 15 years or more.",
+   "D1": "A utility system supported by clean energy funding gains state procurement registry entry.",
+   "B2": "An energy storage product secures residential grid connection rights when holding valid UL 1973 safety credentials."
+  },
+  "decoy_policies": [
+   "Industrial solar inverter models are designated as premium hardware if their peak conversion ratio exceeds 98 percent.",
+   "A biomass heating system achieves municipal smoke compliance when its particulate output remains below 15 milligrams per cubic meter."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "D1": "holds",
+   "B2": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "AeroGrid Turbine T50",
+    "kind": "number",
+    "quantity": "generation efficiency",
+    "value": 42,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "AeroGrid Turbine T50",
+    "kind": "number",
+    "quantity": "warranty coverage",
+    "value": 20,
+    "unit": "years",
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Lumina Battery Unit B2",
+    "kind": "credential",
+    "quantity": "UL 1973 safety certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "AeroGrid Turbine T50",
+    "kind": "number",
+    "quantity": "generation efficiency",
+    "value": null,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "AeroGrid Turbine T50",
+     "relation": null,
+     "quantity": "generation efficiency",
+     "comparator": ">=",
+     "threshold": 40,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "AeroGrid Turbine T50",
+     "relation": null,
+     "quantity": "warranty coverage",
+     "comparator": ">=",
+     "threshold": 15,
+     "unit": "years",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "AeroGrid Turbine T50",
+     "relation": null,
+     "quantity": "clean energy incentive funding",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "Lumina Battery Unit B2",
+     "relation": null,
+     "quantity": "UL 1973 safety certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "AeroGrid Turbine T50 achieved a generation efficiency of 42 percent, exceeding the 40 percent threshold required for clean energy funding.",
+    "AeroGrid Turbine T50 offers 20 years of warranty coverage, meeting the minimum 15-year requirement for clean energy funding."
+   ],
+   "D1": [
+    "AeroGrid Turbine T50 receives clean energy funding, which qualifies it for entry on the state procurement registry."
+   ],
+   "B2": [
+    "Lumina Battery Unit B2 holds valid UL 1973 safety credentials, granting it residential grid connection rights."
+   ]
+  }
+ }
+}

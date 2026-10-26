@@ -1,0 +1,282 @@
+{
+ "scenario": "s_4a927483e2",
+ "source_scenario": "F1-005",
+ "family": "F1",
+ "meta": {
+  "depth": 4,
+  "relation": "supersedes"
+ },
+ "idmap": {
+  "E1": "e_eed2",
+  "B1": "m_ac4a",
+  "B2": "m_b8fb",
+  "B3": "m_6e28",
+  "E2": "e_f0e1",
+  "D1": "m_18c1",
+  "E3": "e_3a29",
+  "B4": "m_99ba",
+  "E4": "e_fb64",
+  "B5": "m_81fa",
+  "U1": "u_a3c8"
+ },
+ "groups": {
+  "e_eed2": 1,
+  "m_ac4a": 1,
+  "m_b8fb": 1,
+  "m_6e28": 1,
+  "m_18c1": 1,
+  "e_f0e1": 1,
+  "e_3a29": 2,
+  "m_99ba": 2,
+  "e_fb64": 3,
+  "m_81fa": 3
+ },
+ "policy_of": {
+  "p_fc4e": "m_ac4a",
+  "p_0c61": "m_b8fb",
+  "p_b7eb": "m_6e28",
+  "p_88f0": "m_18c1",
+  "p_f14c": "m_99ba",
+  "p_10d2": "m_81fa"
+ },
+ "gold": {
+  "e_eed2": "supersede",
+  "e_f0e1": "keep",
+  "e_3a29": "keep",
+  "e_fb64": "keep",
+  "m_ac4a": "recompute",
+  "m_99ba": "keep",
+  "m_81fa": "keep",
+  "m_b8fb": "recompute",
+  "m_6e28": "recompute",
+  "m_18c1": "recompute"
+ },
+ "justifications": {
+  "m_ac4a": [
+   [
+    "e_eed2"
+   ]
+  ],
+  "m_b8fb": [
+   [
+    "m_ac4a"
+   ]
+  ],
+  "m_6e28": [
+   [
+    "m_b8fb"
+   ]
+  ],
+  "m_18c1": [
+   [
+    "m_6e28",
+    "e_f0e1"
+   ]
+  ],
+  "m_99ba": [
+   [
+    "e_3a29"
+   ]
+  ],
+  "m_81fa": [
+   [
+    "e_fb64"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_a3c8": {
+   "target": "e_eed2",
+   "relation": "supersedes",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_3b43",
+  "p_7779"
+ ],
+ "after_updates": {
+  "m_ac4a": "fails",
+  "m_b8fb": "fails",
+  "m_6e28": "fails",
+  "m_18c1": "fails",
+  "m_99ba": "holds",
+  "m_81fa": "holds"
+ },
+ "final_state": {
+  "m_ac4a": "fails",
+  "m_99ba": "holds",
+  "m_81fa": "holds",
+  "m_b8fb": "fails",
+  "m_6e28": "fails",
+  "m_18c1": "fails"
+ },
+ "world": "Assessment of partner statuses, service authorizations, and staff allocations across travel service providers.",
+ "rationale": {
+  "m_ac4a": [
+   "Kensington Expeditions meets the VIP partner standing threshold with a client booking volume of 1,200 passengers this year, which exceeds 1,000 passengers."
+  ],
+  "m_b8fb": [
+   "Kensington Expeditions holds VIP partner standing, which satisfies the requirement for priority transit privileges."
+  ],
+  "m_6e28": [
+   "Kensington Expeditions possesses priority transit privileges, fulfilling the condition for fast-track luggage management clearance."
+  ],
+  "m_18c1": [
+   "Kensington Expeditions possesses fast-track luggage management clearance and maintains a dedicated ground support staff of 12 personnel, satisfying both requirements for an assigned apron manager."
+  ],
+  "m_99ba": [
+   "Meridian Aviation holds an active international charter operator licence, which satisfies the condition for global travel permissions."
+  ],
+  "m_81fa": [
+   "Pacifica Freight maintains a fleet size of 25 commercial vehicles, which satisfies the threshold of at least 20 commercial vehicles."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_eed2": {
+    "entity": "Kensington Expeditions",
+    "kind": "number",
+    "quantity": "client booking volume",
+    "value": 1200,
+    "unit": "passengers",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_f0e1": {
+    "entity": "Kensington Expeditions",
+    "kind": "number",
+    "quantity": "dedicated ground support staff",
+    "value": 12,
+    "unit": "personnel",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_3a29": {
+    "entity": "Meridian Aviation",
+    "kind": "credential",
+    "quantity": "active international charter operator licence",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "international"
+   },
+   "e_fb64": {
+    "entity": "Pacifica Freight",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 25,
+    "unit": "vehicles",
+    "window": "none",
+    "scope": "none"
+   },
+   "u_a3c8": {
+    "entity": "Kensington Expeditions",
+    "kind": "number",
+    "quantity": "client booking volume",
+    "value": 850,
+    "unit": "passengers",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_ac4a": [
+    {
+     "premise": "e_eed2",
+     "kind": "number",
+     "entity": "Kensington Expeditions",
+     "relation": null,
+     "quantity": "client booking volume",
+     "comparator": ">=",
+     "threshold": 1000,
+     "unit": "passengers",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "m_b8fb": [
+    {
+     "premise": "m_ac4a",
+     "kind": "conclusion",
+     "entity": "Kensington Expeditions",
+     "relation": null,
+     "quantity": "VIP partner standing",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_6e28": [
+    {
+     "premise": "m_b8fb",
+     "kind": "conclusion",
+     "entity": "Kensington Expeditions",
+     "relation": null,
+     "quantity": "priority transit privileges",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_18c1": [
+    {
+     "premise": "m_6e28",
+     "kind": "conclusion",
+     "entity": "Kensington Expeditions",
+     "relation": null,
+     "quantity": "fast-track luggage management clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_f0e1",
+     "kind": "number",
+     "entity": "Kensington Expeditions",
+     "relation": null,
+     "quantity": "dedicated ground support staff",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "personnel",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_99ba": [
+    {
+     "premise": "e_3a29",
+     "kind": "credential",
+     "entity": "Meridian Aviation",
+     "relation": null,
+     "quantity": "active international charter operator licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_81fa": [
+    {
+     "premise": "e_fb64",
+     "kind": "number",
+     "entity": "Pacifica Freight",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 20,
+     "unit": "vehicles",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

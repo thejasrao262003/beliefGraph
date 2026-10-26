@@ -1,0 +1,268 @@
+{
+ "scenario": "s_c1b0c8b76c",
+ "source_scenario": "F3-007",
+ "family": "F3",
+ "meta": {
+  "conj_size": 2,
+  "has_alternative": false,
+  "depth": 1,
+  "relation": "supersedes"
+ },
+ "idmap": {
+  "E1": "e_514f",
+  "E2": "e_9d4f",
+  "B1": "m_9196",
+  "D1": "m_21b2",
+  "E3": "e_1ff2",
+  "B2": "m_973c",
+  "E4": "e_21fe",
+  "B3": "m_378e",
+  "E5": "e_9ca1",
+  "B4": "m_1a5b",
+  "U1": "u_ad60"
+ },
+ "groups": {
+  "e_514f": 1,
+  "m_9196": 1,
+  "m_21b2": 1,
+  "e_9d4f": 1,
+  "e_1ff2": 2,
+  "m_973c": 2,
+  "e_21fe": 3,
+  "m_378e": 3,
+  "e_9ca1": 4,
+  "m_1a5b": 4
+ },
+ "policy_of": {
+  "p_d784": "m_9196",
+  "p_7c4b": "m_21b2",
+  "p_b154": "m_973c",
+  "p_d9c6": "m_378e",
+  "p_4741": "m_1a5b"
+ },
+ "gold": {
+  "e_514f": "keep",
+  "e_9d4f": "supersede",
+  "e_1ff2": "keep",
+  "e_21fe": "keep",
+  "e_9ca1": "keep",
+  "m_9196": "recompute",
+  "m_973c": "keep",
+  "m_378e": "keep",
+  "m_1a5b": "keep",
+  "m_21b2": "recompute"
+ },
+ "justifications": {
+  "m_9196": [
+   [
+    "e_514f",
+    "e_9d4f"
+   ]
+  ],
+  "m_21b2": [
+   [
+    "m_9196"
+   ]
+  ],
+  "m_973c": [
+   [
+    "e_1ff2"
+   ]
+  ],
+  "m_378e": [
+   [
+    "e_21fe"
+   ]
+  ],
+  "m_1a5b": [
+   [
+    "e_9ca1"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_ad60": {
+   "target": "e_9d4f",
+   "relation": "supersedes",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_c71a",
+  "p_bc5e"
+ ],
+ "after_updates": {
+  "m_9196": "fails",
+  "m_21b2": "fails",
+  "m_973c": "holds",
+  "m_378e": "holds",
+  "m_1a5b": "holds"
+ },
+ "final_state": {
+  "m_9196": "fails",
+  "m_973c": "holds",
+  "m_378e": "holds",
+  "m_1a5b": "holds",
+  "m_21b2": "fails"
+ },
+ "world": "Evaluation of travel service providers and charters for corporate logistics approval.",
+ "rationale": {
+  "m_9196": [
+   "AeroExpress Charters holds an international aviation safety certification and recorded 450 long-haul flights this year, meeting the minimum threshold of 400."
+  ],
+  "m_21b2": [
+   "AeroExpress Charters achieves preferred international carrier status, satisfying the condition for executive travel placement."
+  ],
+  "m_973c": [
+   "BlueWave Expeditions maintains 12 passenger vessels, exceeding the required fleet threshold of 10."
+  ],
+  "m_378e": [
+   "Meridian Overland accumulated 850,000 passenger miles this year, exceeding the threshold of 750,000."
+  ],
+  "m_1a5b": [
+   "Summit Rail Tours maintains an active national railway safety certificate, satisfying the required safety criteria."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_514f": {
+    "entity": "AeroExpress Charters",
+    "kind": "credential",
+    "quantity": "international aviation safety certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "international"
+   },
+   "e_9d4f": {
+    "entity": "AeroExpress Charters",
+    "kind": "number",
+    "quantity": "long-haul flights",
+    "value": 450,
+    "unit": "flights",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_1ff2": {
+    "entity": "BlueWave Expeditions",
+    "kind": "number",
+    "quantity": "passenger vessels",
+    "value": 12,
+    "unit": "vessels",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_21fe": {
+    "entity": "Meridian Overland",
+    "kind": "number",
+    "quantity": "passenger miles",
+    "value": 850000,
+    "unit": "miles",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_9ca1": {
+    "entity": "Summit Rail Tours",
+    "kind": "credential",
+    "quantity": "national railway safety certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "national"
+   },
+   "u_ad60": {
+    "entity": "AeroExpress Charters",
+    "kind": "number",
+    "quantity": "long-haul flights",
+    "value": 320,
+    "unit": "flights",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_9196": [
+    {
+     "premise": "e_514f",
+     "kind": "credential",
+     "entity": "AeroExpress Charters",
+     "relation": null,
+     "quantity": "international aviation safety certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "international"
+    },
+    {
+     "premise": "e_9d4f",
+     "kind": "number",
+     "entity": "AeroExpress Charters",
+     "relation": null,
+     "quantity": "long-haul flights",
+     "comparator": ">=",
+     "threshold": 400,
+     "unit": "flights",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "m_21b2": [
+    {
+     "premise": "m_9196",
+     "kind": "conclusion",
+     "entity": "AeroExpress Charters",
+     "relation": null,
+     "quantity": "preferred international carrier status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_973c": [
+    {
+     "premise": "e_1ff2",
+     "kind": "number",
+     "entity": "BlueWave Expeditions",
+     "relation": null,
+     "quantity": "passenger vessels",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "vessels",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_378e": [
+    {
+     "premise": "e_21fe",
+     "kind": "number",
+     "entity": "Meridian Overland",
+     "relation": null,
+     "quantity": "passenger miles",
+     "comparator": ">=",
+     "threshold": 750000,
+     "unit": "miles",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "m_1a5b": [
+    {
+     "premise": "e_9ca1",
+     "kind": "credential",
+     "entity": "Summit Rail Tours",
+     "relation": null,
+     "quantity": "national railway safety certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "national"
+    }
+   ]
+  }
+ }
+}

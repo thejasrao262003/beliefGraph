@@ -1,0 +1,192 @@
+{
+ "scenario": "s_b222c9ae12",
+ "source_scenario": "F2-011",
+ "family": "F2",
+ "meta": {
+  "fan_in": 2,
+  "revised_supports": 1,
+  "preserved": true,
+  "depth": 1,
+  "relation": "supersedes"
+ },
+ "idmap": {
+  "E1": "e_2e76",
+  "E2": "e_14a8",
+  "B1": "m_b3a6",
+  "D1": "m_e06f",
+  "E3": "e_8a08",
+  "B2": "m_f473",
+  "U1": "u_5d54"
+ },
+ "groups": {
+  "e_2e76": 1,
+  "m_b3a6": 1,
+  "m_e06f": 1,
+  "e_14a8": 1,
+  "e_8a08": 2,
+  "m_f473": 2
+ },
+ "policy_of": {
+  "p_4d40": "m_b3a6",
+  "p_5d40": "m_e06f",
+  "p_0b09": "m_f473"
+ },
+ "gold": {
+  "e_2e76": "keep",
+  "e_14a8": "supersede",
+  "e_8a08": "keep",
+  "m_b3a6": "keep",
+  "m_f473": "keep",
+  "m_e06f": "keep"
+ },
+ "justifications": {
+  "m_b3a6": [
+   [
+    "e_2e76"
+   ],
+   [
+    "e_14a8"
+   ]
+  ],
+  "m_e06f": [
+   [
+    "m_b3a6"
+   ]
+  ],
+  "m_f473": [
+   [
+    "e_8a08"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_5d54": {
+   "target": "e_14a8",
+   "relation": "supersedes",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_744d",
+  "p_f53d"
+ ],
+ "after_updates": {
+  "m_b3a6": "holds",
+  "m_e06f": "holds",
+  "m_f473": "holds"
+ },
+ "final_state": {
+  "m_b3a6": "holds",
+  "m_f473": "holds",
+  "m_e06f": "holds"
+ },
+ "world": "Evaluating cargo carriers and tour operators for high-priority logistics assignments and licensing.",
+ "rationale": {
+  "m_b3a6": [
+   "Vanguard Freight maintains a vehicle safety index of 94 percent, meeting the minimum 90 percent requirement for expedited customs clearance.",
+   "Vanguard Freight achieved a quarterly punctuality rate of 96 percent, meeting the minimum 95 percent threshold for expedited customs clearance."
+  ],
+  "m_e06f": [
+   "Vanguard Freight qualifies for expedited customs clearance, satisfying the policy condition for urgent transatlantic cargo transfers."
+  ],
+  "m_f473": [
+   "Solis Transport holds a valid Tier 1 Passenger Safety Licence, satisfying the requirement for premium tour authorization."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_2e76": {
+    "entity": "Vanguard Freight",
+    "kind": "number",
+    "quantity": "vehicle safety index",
+    "value": 94,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_14a8": {
+    "entity": "Vanguard Freight",
+    "kind": "number",
+    "quantity": "punctuality rate",
+    "value": 96,
+    "unit": "percent",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "u_5d54": {
+    "entity": "Vanguard Freight",
+    "kind": "number",
+    "quantity": "punctuality rate",
+    "value": 88,
+    "unit": "percent",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "e_8a08": {
+    "entity": "Solis Transport",
+    "kind": "credential",
+    "quantity": "Tier 1 Passenger Safety Licence",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_b3a6": [
+    {
+     "premise": "e_2e76",
+     "kind": "number",
+     "entity": "Vanguard Freight",
+     "relation": null,
+     "quantity": "vehicle safety index",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_14a8",
+     "kind": "number",
+     "entity": "Vanguard Freight",
+     "relation": null,
+     "quantity": "punctuality rate",
+     "comparator": ">=",
+     "threshold": 95,
+     "unit": "percent",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "m_e06f": [
+    {
+     "premise": "m_b3a6",
+     "kind": "conclusion",
+     "entity": "Vanguard Freight",
+     "relation": null,
+     "quantity": "priority customs processing",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_f473": [
+    {
+     "premise": "e_8a08",
+     "kind": "credential",
+     "entity": "Solis Transport",
+     "relation": null,
+     "quantity": "Tier 1 Passenger Safety Licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

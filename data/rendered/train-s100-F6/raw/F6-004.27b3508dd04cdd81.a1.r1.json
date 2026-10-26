@@ -1,0 +1,186 @@
+{
+ "scenario": "F6-004",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "decoy_policies[0]": "decoy_shares_memory_word 'energy' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"decoy_policies[0]\": \"A commercial refrigeration unit gains commercial safety clearance if its annual power draw remains below 500 kWh.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 5378,
+   "output_tokens": 1237,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 5378,
+    "completion_tokens": 1237
+   }
+  },
+  "est_usd": 0.02601675,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "decoy_policies[0]"
+ ],
+ "merged": {
+  "world": "Evaluating equipment eligibility for regional green subsidies and specialized catalog listings.",
+  "nodes": {
+   "E1": {
+    "text": "A lab report shows Helios Energy's SolarPulse Inverter achieved an energy efficiency rating of 96%.",
+    "source": "National Renewable Energy Testing Lab Report"
+   },
+   "E2": {
+    "text": "Documentation indicates Helios Energy's SolarPulse Inverter features a warranty duration of 10 years.",
+    "source": "Helios Energy Product Specification Sheet"
+   },
+   "B1": {
+    "text": "Helios Energy's SolarPulse Inverter is approved for regional eco-subsidies."
+   },
+   "D1": {
+    "text": "Helios Energy's SolarPulse Inverter will be featured in the Q1 green equipment catalog."
+   },
+   "E3": {
+    "text": "An acoustic test certificate shows Vortex Air's AeroVent Fan has an operational noise level of 35 dB.",
+    "source": "Acoustic Standards Inspection Report"
+   },
+   "B2": {
+    "text": "Vortex Air's AeroVent Fan complies with hospital ventilation standards."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "A compliance memorandum notes questions have been raised regarding whether Helios Energy's SolarPulse Inverter achieved an energy efficiency rating of 96%.",
+    "source": "State Energy Compliance Audit Notice"
+   }
+  },
+  "policies": {
+   "B1": "A solar unit qualifies for regional eco-rebates when its energy efficiency rating is at least 95%, or when its warranty duration is 8 years or more.",
+   "D1": "A commercial device is listed in the quarterly merchandise selection provided it qualifies for regional eco-rebates.",
+   "B2": "Air circulation equipment satisfies hospital ventilation requirements if its operational noise level does not exceed 40 dB."
+  },
+  "decoy_policies": [
+   "A commercial refrigeration unit gains commercial safety clearance if its annual power draw remains below 500 kWh.",
+   "Water purification hardware earns emergency supply designation when its filtration capacity exceeds 1000 liters per hour."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "D1": "holds",
+   "B2": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Helios Energy's SolarPulse Inverter",
+    "kind": "number",
+    "quantity": "energy efficiency rating",
+    "value": 96,
+    "unit": "%",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Helios Energy's SolarPulse Inverter",
+    "kind": "number",
+    "quantity": "warranty duration",
+    "value": 10,
+    "unit": "years",
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Vortex Air's AeroVent Fan",
+    "kind": "number",
+    "quantity": "operational noise level",
+    "value": 35,
+    "unit": "dB",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Helios Energy's SolarPulse Inverter",
+    "kind": "number",
+    "quantity": "energy efficiency rating",
+    "value": null,
+    "unit": "%",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Helios Energy's SolarPulse Inverter",
+     "relation": null,
+     "quantity": "energy efficiency rating",
+     "comparator": ">=",
+     "threshold": 95,
+     "unit": "%",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Helios Energy's SolarPulse Inverter",
+     "relation": null,
+     "quantity": "warranty duration",
+     "comparator": ">=",
+     "threshold": 8,
+     "unit": "years",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Helios Energy's SolarPulse Inverter",
+     "relation": null,
+     "quantity": "regional eco-rebates",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Vortex Air's AeroVent Fan",
+     "relation": null,
+     "quantity": "operational noise level",
+     "comparator": "<=",
+     "threshold": 40,
+     "unit": "dB",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Helios Energy's SolarPulse Inverter has an energy efficiency rating of 96%, which meets the minimum threshold of 95% required for regional eco-rebates.",
+    "Helios Energy's SolarPulse Inverter has a warranty duration of 10 years, which satisfies the requirement of at least 8 years for regional eco-rebates."
+   ],
+   "D1": [
+    "Helios Energy's SolarPulse Inverter is approved for regional eco-subsidies, which satisfies the condition for listing in the quarterly merchandise selection."
+   ],
+   "B2": [
+    "Vortex Air's AeroVent Fan has an operational noise level of 35 dB, which does not exceed the maximum threshold of 40 dB required for hospital ventilation requirements."
+   ]
+  }
+ }
+}

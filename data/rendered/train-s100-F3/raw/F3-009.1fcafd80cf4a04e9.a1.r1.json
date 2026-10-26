@@ -1,0 +1,283 @@
+{
+ "scenario": "F3-009",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "nodes.B2.text": "reliability_word 'Reliability' (the word 'reliability' may not appear in any text)",
+  "policies.B2": "reliability_word 'Reliability' (the word 'reliability' may not appear in any text)"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"nodes.B2.text\": \"Meridian Charters holds Premier Dispatch Certification.\",\n  \"policies.B2\": \"A charter enterprise achieves premier dispatch certification when demonstrating a punctuality rate of at least 95%.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6163,
+   "output_tokens": 1297,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6163,
+    "completion_tokens": 1297
+   }
+  },
+  "est_usd": 0.028458,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "nodes.B2.text",
+  "policies.B2"
+ ],
+ "merged": {
+  "world": "Evaluations of regional transport operators and fleet service compliance for carrier routing assignments.",
+  "nodes": {
+   "E1": {
+    "text": "Horizon Express recorded a fleet safety rating of 92 points.",
+    "source": "Official fleet audit report from the National Transport Safety Bureau."
+   },
+   "E2": {
+    "text": "Horizon Express achieved a driver compliance training rate of 100%.",
+    "source": "Internal compliance log signed by the operations director."
+   },
+   "E3": {
+    "text": "Horizon Express holds an ISO 39001 road traffic safety certification.",
+    "source": "Verified certificate registry of the International Safety Association."
+   },
+   "E4": {
+    "text": "Meridian Charters maintained a punctuality rate of 96%.",
+    "source": "Quarterly performance audit from the Regional Transit Authority."
+   },
+   "E5": {
+    "text": "Solar Logistics maintains insurance coverage of 5000000 USD.",
+    "source": "Active policy certificate issued by Global Freight Insurance."
+   },
+   "E6": {
+    "text": "Polaris Ferries holds a maritime passenger transport permit.",
+    "source": "Official registry entry from the Coast Maritime Authority."
+   },
+   "B1": {
+    "text": "Horizon Express achieves approval as a Tier-One Transit Vendor."
+   },
+   "D1": {
+    "text": "Horizon Express is selected for Priority Corridor Service."
+   },
+   "B2": {
+    "text": "Meridian Charters holds Premier Dispatch Certification."
+   },
+   "B3": {
+    "text": "Solar Logistics holds Tier-A Cargo Protection clearance."
+   },
+   "B4": {
+    "text": "Polaris Ferries holds Coastal Vessel Operating Clearance."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Horizon Express revised its fleet safety rating to 75 points following a re-inspection.",
+    "source": "Updated audit summary from the National Transport Safety Bureau."
+   }
+  },
+  "policies": {
+   "B1": "A transport company qualifies for Tier-One Transit Vendor recognition either by maintaining a safety rating of at least 90 points along with a training rate of 100%, or through holding an ISO 39001 road traffic safety certification.",
+   "D1": "A transit enterprise is assigned to Priority Corridor Service provided that vendor qualifies for Tier-One Transit Vendor recognition.",
+   "B2": "A charter enterprise achieves premier dispatch certification when demonstrating a punctuality rate of at least 95%.",
+   "B3": "A carrier achieves Tier-A Cargo Protection clearance provided its insurance coverage is 5000000 USD or more.",
+   "B4": "A maritime carrier obtains Coastal Vessel Operating Clearance provided it maintains a maritime passenger transport permit."
+  },
+  "decoy_policies": [
+   "A transport business receives Green Fleet Endorsement if its fleet electrification percentage reaches at least 80%.",
+   "An air freight firm qualifies for Rapid Customs Pre-check provided its manifest accuracy rate is at least 99%."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "D1": "holds",
+   "B2": "holds",
+   "B3": "holds",
+   "B4": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Horizon Express",
+    "kind": "number",
+    "quantity": "safety rating",
+    "value": 92,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Horizon Express",
+    "kind": "number",
+    "quantity": "training rate",
+    "value": 100,
+    "unit": "%",
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Horizon Express",
+    "kind": "credential",
+    "quantity": "ISO 39001 road traffic safety certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Horizon Express",
+    "kind": "number",
+    "quantity": "safety rating",
+    "value": 75,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Meridian Charters",
+    "kind": "number",
+    "quantity": "punctuality rate",
+    "value": 96,
+    "unit": "%",
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Solar Logistics",
+    "kind": "number",
+    "quantity": "insurance coverage",
+    "value": 5000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Polaris Ferries",
+    "kind": "credential",
+    "quantity": "maritime passenger transport permit",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Horizon Express",
+     "relation": null,
+     "quantity": "safety rating",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Horizon Express",
+     "relation": null,
+     "quantity": "training rate",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "%",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "Horizon Express",
+     "relation": null,
+     "quantity": "ISO 39001 road traffic safety certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Horizon Express",
+     "relation": null,
+     "quantity": "Tier-One Transit Vendor recognition",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Meridian Charters",
+     "relation": null,
+     "quantity": "punctuality rate",
+     "comparator": ">=",
+     "threshold": 95,
+     "unit": "%",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Solar Logistics",
+     "relation": null,
+     "quantity": "insurance coverage",
+     "comparator": ">=",
+     "threshold": 5000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E6",
+     "kind": "credential",
+     "entity": "Polaris Ferries",
+     "relation": null,
+     "quantity": "maritime passenger transport permit",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Horizon Express fulfills the first pathway by maintaining a safety rating of 92 points, exceeding 90 points, and a training rate of 100%.",
+    "Horizon Express satisfies the alternative pathway by holding an ISO 39001 road traffic safety certification."
+   ],
+   "D1": [
+    "Horizon Express qualifies for Priority Corridor Service because it achieves Tier-One Transit Vendor recognition."
+   ],
+   "B2": [
+    "Meridian Charters gains High-Reliability Dispatch Certification by achieving a punctuality rate of 96%, which meets the 95% threshold."
+   ],
+   "B3": [
+    "Solar Logistics secures Tier-A Cargo Protection clearance with insurance coverage of 5000000 USD."
+   ],
+   "B4": [
+    "Polaris Ferries obtains Coastal Vessel Operating Clearance by holding a maritime passenger transport permit."
+   ]
+  }
+ }
+}

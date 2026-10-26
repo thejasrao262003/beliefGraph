@@ -1,0 +1,266 @@
+{
+ "scenario": "s_e490107dc7",
+ "source_scenario": "F1-011",
+ "family": "F1",
+ "meta": {
+  "depth": 2,
+  "relation": "supersedes"
+ },
+ "idmap": {
+  "E1": "e_f6b9",
+  "E2": "e_3993",
+  "B1": "m_51b4",
+  "D1": "m_e238",
+  "E3": "e_3184",
+  "B2": "m_172d",
+  "E4": "e_cae8",
+  "B3": "m_3e02",
+  "E5": "e_6eba",
+  "B4": "m_42c9",
+  "U1": "u_3ee6"
+ },
+ "groups": {
+  "e_f6b9": 1,
+  "m_51b4": 1,
+  "m_e238": 1,
+  "e_3993": 1,
+  "e_3184": 2,
+  "m_172d": 2,
+  "e_cae8": 3,
+  "m_3e02": 3,
+  "e_6eba": 4,
+  "m_42c9": 4
+ },
+ "policy_of": {
+  "p_9c06": "m_51b4",
+  "p_b356": "m_e238",
+  "p_50d8": "m_172d",
+  "p_34db": "m_3e02",
+  "p_8e12": "m_42c9"
+ },
+ "gold": {
+  "e_f6b9": "supersede",
+  "e_3993": "keep",
+  "e_3184": "keep",
+  "e_cae8": "keep",
+  "e_6eba": "keep",
+  "m_51b4": "recompute",
+  "m_172d": "keep",
+  "m_3e02": "keep",
+  "m_42c9": "keep",
+  "m_e238": "recompute"
+ },
+ "justifications": {
+  "m_51b4": [
+   [
+    "e_f6b9",
+    "e_3993"
+   ]
+  ],
+  "m_e238": [
+   [
+    "m_51b4"
+   ]
+  ],
+  "m_172d": [
+   [
+    "e_3184"
+   ]
+  ],
+  "m_3e02": [
+   [
+    "e_cae8"
+   ]
+  ],
+  "m_42c9": [
+   [
+    "e_6eba"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_3ee6": {
+   "target": "e_f6b9",
+   "relation": "supersedes",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_e1a0",
+  "p_d0f1"
+ ],
+ "after_updates": {
+  "m_51b4": "fails",
+  "m_e238": "fails",
+  "m_172d": "holds",
+  "m_3e02": "holds",
+  "m_42c9": "holds"
+ },
+ "final_state": {
+  "m_51b4": "fails",
+  "m_172d": "holds",
+  "m_3e02": "holds",
+  "m_42c9": "holds",
+  "m_e238": "fails"
+ },
+ "world": "Travel logistics operators are evaluated for service tiers, regulatory clearances, and contract assignments based on safety scores, licenses, and operational metrics.",
+ "rationale": {
+  "m_51b4": [
+   "Vanguard Transit possesses a Commercial Transport License and holds a fleet safety score of 92 points this year, satisfying the requirements for elite carrier safety approval."
+  ],
+  "m_e238": [
+   "Vanguard Transit holds elite carrier safety approval, qualifying it for assignment to the VIP overland service package."
+  ],
+  "m_172d": [
+   "BlueSky Freight recorded an annual cargo volume of 150000 metric tons, meeting the threshold for tier-one logistics ranking."
+  ],
+  "m_3e02": [
+   "Marina Express holds active Maritime Safety Certification, granting permission for overseas docking."
+  ],
+  "m_42c9": [
+   "Solaria Tours reached a passenger satisfaction rating of 88 percent this year, fulfilling the criteria for preferred distributor standing."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_f6b9": {
+    "entity": "Vanguard Transit",
+    "kind": "number",
+    "quantity": "fleet safety score",
+    "value": 92,
+    "unit": "points",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_3993": {
+    "entity": "Vanguard Transit",
+    "kind": "credential",
+    "quantity": "Commercial Transport License",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_3184": {
+    "entity": "BlueSky Freight",
+    "kind": "number",
+    "quantity": "annual cargo volume",
+    "value": 150000,
+    "unit": "metric tons",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_cae8": {
+    "entity": "Marina Express",
+    "kind": "credential",
+    "quantity": "Maritime Safety Certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_6eba": {
+    "entity": "Solaria Tours",
+    "kind": "number",
+    "quantity": "passenger satisfaction rating",
+    "value": 88,
+    "unit": "percent",
+    "window": "year",
+    "scope": "none"
+   },
+   "u_3ee6": {
+    "entity": "Vanguard Transit",
+    "kind": "number",
+    "quantity": "fleet safety score",
+    "value": 84,
+    "unit": "points",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_51b4": [
+    {
+     "premise": "e_f6b9",
+     "kind": "number",
+     "entity": "Vanguard Transit",
+     "relation": null,
+     "quantity": "fleet safety score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "points",
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "e_3993",
+     "kind": "credential",
+     "entity": "Vanguard Transit",
+     "relation": null,
+     "quantity": "Commercial Transport License",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_e238": [
+    {
+     "premise": "m_51b4",
+     "kind": "conclusion",
+     "entity": "Vanguard Transit",
+     "relation": null,
+     "quantity": "elite carrier safety approval",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_172d": [
+    {
+     "premise": "e_3184",
+     "kind": "number",
+     "entity": "BlueSky Freight",
+     "relation": null,
+     "quantity": "annual cargo volume",
+     "comparator": ">=",
+     "threshold": 100000,
+     "unit": "metric tons",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "m_3e02": [
+    {
+     "premise": "e_cae8",
+     "kind": "credential",
+     "entity": "Marina Express",
+     "relation": null,
+     "quantity": "Maritime Safety Certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_42c9": [
+    {
+     "premise": "e_6eba",
+     "kind": "number",
+     "entity": "Solaria Tours",
+     "relation": null,
+     "quantity": "passenger satisfaction rating",
+     "comparator": ">=",
+     "threshold": 80,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

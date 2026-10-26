@@ -1,0 +1,207 @@
+{
+ "scenario": "s_eb1e9ff8d5",
+ "source_scenario": "F2-007",
+ "family": "F2",
+ "meta": {
+  "fan_in": 2,
+  "revised_supports": 2,
+  "preserved": false,
+  "depth": 1,
+  "relation": "retracts"
+ },
+ "idmap": {
+  "E1": "e_4b32",
+  "E2": "e_3e25",
+  "B1": "m_ebb9",
+  "D1": "m_516b",
+  "E3": "e_1a5d",
+  "B2": "m_66d0",
+  "U1": "u_f927",
+  "U2": "u_994f"
+ },
+ "groups": {
+  "e_4b32": 1,
+  "m_ebb9": 1,
+  "m_516b": 1,
+  "e_3e25": 1,
+  "e_1a5d": 2,
+  "m_66d0": 2
+ },
+ "policy_of": {
+  "p_f641": "m_ebb9",
+  "p_df6e": "m_516b",
+  "p_f059": "m_66d0"
+ },
+ "gold": {
+  "e_4b32": "withdraw",
+  "e_3e25": "withdraw",
+  "e_1a5d": "keep",
+  "m_ebb9": "withdraw",
+  "m_66d0": "keep",
+  "m_516b": "withdraw"
+ },
+ "justifications": {
+  "m_ebb9": [
+   [
+    "e_4b32"
+   ],
+   [
+    "e_3e25"
+   ]
+  ],
+  "m_516b": [
+   [
+    "m_ebb9"
+   ]
+  ],
+  "m_66d0": [
+   [
+    "e_1a5d"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_f927": {
+   "target": "e_4b32",
+   "relation": "retracts",
+   "reliability": "high"
+  },
+  "u_994f": {
+   "target": "e_3e25",
+   "relation": "retracts",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_f56b",
+  "p_8313"
+ ],
+ "after_updates": {
+  "m_ebb9": "fails",
+  "m_516b": "fails",
+  "m_66d0": "holds"
+ },
+ "final_state": {
+  "m_ebb9": "fails",
+  "m_66d0": "holds",
+  "m_516b": "fails"
+ },
+ "world": "Evaluation of charter aviation providers and maritime cruise operators for corporate travel contracts.",
+ "rationale": {
+  "m_ebb9": [
+   "Vanguard Aviation holds Gold Safety Accreditation, satisfying the credential requirement for favored aviation vendor status.",
+   "Vanguard Aviation achieved an annual safety inspection score of 95 points, exceeding the 90-point threshold for favored aviation vendor standing."
+  ],
+  "m_516b": [
+   "Vanguard Aviation is approved as a preferred flight provider, satisfying the requirement for VIP flight operation assignments."
+  ],
+  "m_66d0": [
+   "Solaria Cruises maintains an active vessel fleet total of 12 ships, meeting the 10-ship threshold for top-tier maritime carrier classification."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_4b32": {
+    "entity": "Vanguard Aviation",
+    "kind": "credential",
+    "quantity": "Gold Safety Accreditation",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_3e25": {
+    "entity": "Vanguard Aviation",
+    "kind": "number",
+    "quantity": "safety inspection score",
+    "value": 95,
+    "unit": "points",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_1a5d": {
+    "entity": "Solaria Cruises",
+    "kind": "number",
+    "quantity": "active vessel fleet total",
+    "value": 12,
+    "unit": "ships",
+    "window": "none",
+    "scope": "none"
+   },
+   "u_f927": {
+    "entity": "Vanguard Aviation",
+    "kind": "credential",
+    "quantity": "Gold Safety Accreditation",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "u_994f": {
+    "entity": "Vanguard Aviation",
+    "kind": "number",
+    "quantity": "safety inspection score",
+    "value": null,
+    "unit": "points",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_ebb9": [
+    {
+     "premise": "e_4b32",
+     "kind": "credential",
+     "entity": "Vanguard Aviation",
+     "relation": null,
+     "quantity": "Gold Safety Accreditation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_3e25",
+     "kind": "number",
+     "entity": "Vanguard Aviation",
+     "relation": null,
+     "quantity": "safety inspection score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "points",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "m_516b": [
+    {
+     "premise": "m_ebb9",
+     "kind": "conclusion",
+     "entity": "Vanguard Aviation",
+     "relation": null,
+     "quantity": "favored aviation vendor",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_66d0": [
+    {
+     "premise": "e_1a5d",
+     "kind": "number",
+     "entity": "Solaria Cruises",
+     "relation": null,
+     "quantity": "active vessel fleet total",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "ships",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

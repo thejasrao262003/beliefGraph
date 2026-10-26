@@ -1,0 +1,266 @@
+{
+ "scenario": "F1-005",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "facts.E3": "record_scope_not_in_text 'record none, text international'",
+  "nodes.E3.text": "record_scope_not_in_text 'record none, text international'",
+  "nodes.E3.source": "record_scope_not_in_text 'record none, text international'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"facts.E3\": {\n   \"entity\": \"Meridian Aviation\",\n   \"kind\": \"credential\",\n   \"quantity\": \"active international charter operator licence\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"international\"\n  },\n  \"nodes.E3.source\": \"Civil Aviation Authority public database.\",\n  \"nodes.E3.text\": \"Meridian Aviation holds an active international charter operator licence.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6026,
+   "output_tokens": 3403,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6026,
+    "completion_tokens": 3403
+   }
+  },
+  "est_usd": 0.05184225,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "facts.E3.scope"
+ ],
+ "merged": {
+  "world": "Assessment of partner statuses, service authorizations, and staff allocations across travel service providers.",
+  "nodes": {
+   "E1": {
+    "text": "Kensington Expeditions recorded an annual client booking volume of 1,200 passengers this year.",
+    "source": "Official passenger manifest system log."
+   },
+   "E2": {
+    "text": "Kensington Expeditions maintains a dedicated ground support staff of 12 personnel.",
+    "source": "Verified airport operations registry."
+   },
+   "E3": {
+    "text": "Meridian Aviation holds an active international charter operator licence.",
+    "source": "Civil Aviation Authority public database."
+   },
+   "E4": {
+    "text": "Pacifica Freight maintains a fleet size of 25 commercial vehicles.",
+    "source": "Department of Transportation fleet registry."
+   },
+   "B1": {
+    "text": "Kensington Expeditions holds Premier VIP Status."
+   },
+   "B2": {
+    "text": "Kensington Expeditions is approved for expedited clearance access."
+   },
+   "B3": {
+    "text": "Kensington Expeditions secures priority baggage handling authorization."
+   },
+   "D1": {
+    "text": "Kensington Expeditions receives a designated tarmac escort coordinator."
+   },
+   "B4": {
+    "text": "Meridian Aviation possesses valid cross-border flight authorization."
+   },
+   "B5": {
+    "text": "Pacifica Freight achieves tier-two logistics operator classification."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Kensington Expeditions recorded an annual client booking volume of 850 passengers this year.",
+    "source": "Updated passenger booking audit."
+   }
+  },
+  "policies": {
+   "B1": "VIP partner standing is granted to a travel provider maintaining a customer booking count of 1,000 passengers or more per year.",
+   "B2": "Priority transit privileges are conferred on a client with VIP partner standing.",
+   "B3": "Fast-track luggage management clearance is issued to an enterprise possessing priority transit privileges.",
+   "D1": "An assigned apron manager is provided to an entity holding fast-track luggage management clearance that retains a minimum dedicated ground support staff of 10 personnel.",
+   "B4": "Global travel permissions are assigned to a carrier maintaining an active international charter operator licence.",
+   "B5": "Standard transit certification is awarded to a carrier maintaining a fleet size of at least 20 commercial vehicles."
+  },
+  "decoy_policies": [
+   "Maritime cargo registration requires a registered vessel displacement of 5,000 gross tons.",
+   "Regional warehouse accreditation is granted to a distributor maintaining an operational storage footprint of 50,000 square feet."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "B2": "fails",
+   "B3": "fails",
+   "D1": "fails",
+   "B4": "holds",
+   "B5": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Kensington Expeditions",
+    "kind": "number",
+    "quantity": "client booking volume",
+    "value": 1200,
+    "unit": "passengers",
+    "window": "year",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Kensington Expeditions",
+    "kind": "number",
+    "quantity": "dedicated ground support staff",
+    "value": 12,
+    "unit": "personnel",
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Meridian Aviation",
+    "kind": "credential",
+    "quantity": "active international charter operator licence",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "international"
+   },
+   "E4": {
+    "entity": "Pacifica Freight",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 25,
+    "unit": "vehicles",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Kensington Expeditions",
+    "kind": "number",
+    "quantity": "client booking volume",
+    "value": 850,
+    "unit": "passengers",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Kensington Expeditions",
+     "relation": null,
+     "quantity": "client booking volume",
+     "comparator": ">=",
+     "threshold": 1000,
+     "unit": "passengers",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Kensington Expeditions",
+     "relation": null,
+     "quantity": "VIP partner standing",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Kensington Expeditions",
+     "relation": null,
+     "quantity": "priority transit privileges",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Kensington Expeditions",
+     "relation": null,
+     "quantity": "fast-track luggage management clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Kensington Expeditions",
+     "relation": null,
+     "quantity": "dedicated ground support staff",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "personnel",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "Meridian Aviation",
+     "relation": null,
+     "quantity": "active international charter operator licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Pacifica Freight",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 20,
+     "unit": "vehicles",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Kensington Expeditions meets the VIP partner standing threshold with a client booking volume of 1,200 passengers this year, which exceeds 1,000 passengers."
+   ],
+   "B2": [
+    "Kensington Expeditions holds VIP partner standing, which satisfies the requirement for priority transit privileges."
+   ],
+   "B3": [
+    "Kensington Expeditions possesses priority transit privileges, fulfilling the condition for fast-track luggage management clearance."
+   ],
+   "D1": [
+    "Kensington Expeditions possesses fast-track luggage management clearance and maintains a dedicated ground support staff of 12 personnel, satisfying both requirements for an assigned apron manager."
+   ],
+   "B4": [
+    "Meridian Aviation holds an active international charter operator licence, which satisfies the condition for global travel permissions."
+   ],
+   "B5": [
+    "Pacifica Freight maintains a fleet size of 25 commercial vehicles, which satisfies the threshold of at least 20 commercial vehicles."
+   ]
+  }
+ }
+}

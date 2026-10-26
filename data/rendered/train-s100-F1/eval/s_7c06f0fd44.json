@@ -1,0 +1,214 @@
+{
+ "scenario": "s_7c06f0fd44",
+ "source_scenario": "F1-013",
+ "family": "F1",
+ "meta": {
+  "depth": 3,
+  "relation": "retracts"
+ },
+ "idmap": {
+  "E1": "e_8538",
+  "E2": "e_523b",
+  "B1": "m_d013",
+  "B2": "m_9bf1",
+  "D1": "m_7785",
+  "E3": "e_7cd5",
+  "B3": "m_766c",
+  "U1": "u_7181"
+ },
+ "groups": {
+  "e_8538": 1,
+  "m_d013": 1,
+  "m_9bf1": 1,
+  "m_7785": 1,
+  "e_523b": 1,
+  "e_7cd5": 2,
+  "m_766c": 2
+ },
+ "policy_of": {
+  "p_1c8b": "m_d013",
+  "p_2d72": "m_9bf1",
+  "p_5035": "m_7785",
+  "p_f061": "m_766c"
+ },
+ "gold": {
+  "e_8538": "withdraw",
+  "e_523b": "keep",
+  "e_7cd5": "keep",
+  "m_d013": "withdraw",
+  "m_766c": "keep",
+  "m_9bf1": "withdraw",
+  "m_7785": "withdraw"
+ },
+ "justifications": {
+  "m_d013": [
+   [
+    "e_8538",
+    "e_523b"
+   ]
+  ],
+  "m_9bf1": [
+   [
+    "m_d013"
+   ]
+  ],
+  "m_7785": [
+   [
+    "m_9bf1"
+   ]
+  ],
+  "m_766c": [
+   [
+    "e_7cd5"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_7181": {
+   "target": "e_8538",
+   "relation": "retracts",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_aeaa",
+  "p_5a3e"
+ ],
+ "after_updates": {
+  "m_d013": "fails",
+  "m_9bf1": "fails",
+  "m_7785": "fails",
+  "m_766c": "holds"
+ },
+ "final_state": {
+  "m_d013": "fails",
+  "m_766c": "holds",
+  "m_9bf1": "fails",
+  "m_7785": "fails"
+ },
+ "world": "Evaluation of flight operator certifications and coach service volume for event logistics planning.",
+ "rationale": {
+  "m_d013": [
+   "AeroLink Charter holds a valid Civil Aviation Authority licence and maintains a fleet size of 12 aircraft, which satisfies the threshold of 10 aircraft required for safety clearance."
+  ],
+  "m_9bf1": [
+   "AeroLink Charter satisfies commercial flight safety standards, granting it tier-one charter status."
+  ],
+  "m_7785": [
+   "AeroLink Charter meets premium charter eligibility criteria, qualifying it to be selected as chief event carrier."
+  ],
+  "m_766c": [
+   "Meridian Coaches completed 450 long-distance trips this year, exceeding the threshold of 400 trips required for preferred fleet standing."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_8538": {
+    "entity": "AeroLink Charter",
+    "kind": "credential",
+    "quantity": "Civil Aviation Authority licence",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_523b": {
+    "entity": "AeroLink Charter",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 12,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_7cd5": {
+    "entity": "Meridian Coaches",
+    "kind": "number",
+    "quantity": "long-distance trips",
+    "value": 450,
+    "unit": "trips",
+    "window": "year",
+    "scope": "none"
+   },
+   "u_7181": {
+    "entity": "AeroLink Charter",
+    "kind": "credential",
+    "quantity": "Civil Aviation Authority licence",
+    "value": false,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_d013": [
+    {
+     "premise": "e_8538",
+     "kind": "credential",
+     "entity": "AeroLink Charter",
+     "relation": null,
+     "quantity": "Civil Aviation Authority licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_523b",
+     "kind": "number",
+     "entity": "AeroLink Charter",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_9bf1": [
+    {
+     "premise": "m_d013",
+     "kind": "conclusion",
+     "entity": "AeroLink Charter",
+     "relation": null,
+     "quantity": "commercial flight safety standards",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_7785": [
+    {
+     "premise": "m_9bf1",
+     "kind": "conclusion",
+     "entity": "AeroLink Charter",
+     "relation": null,
+     "quantity": "premium charter eligibility criteria",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_766c": [
+    {
+     "premise": "e_7cd5",
+     "kind": "number",
+     "entity": "Meridian Coaches",
+     "relation": null,
+     "quantity": "long-distance trips",
+     "comparator": ">=",
+     "threshold": 400,
+     "unit": "trips",
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

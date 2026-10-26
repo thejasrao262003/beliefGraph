@@ -1,0 +1,268 @@
+{
+ "scenario": "F6-007",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.D1": "policy_echoes_memory 'clearance for preferred; for preferred hub; preferred hub access' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B3": "record_window_not_in_policy 'year'",
+  "conditions.B3": "record_window_not_in_policy 'year'",
+  "facts.E2": "record_window_not_in_policy 'year'",
+  "nodes.E2.text": "record_window_not_in_policy 'year'",
+  "nodes.E2.source": "record_window_not_in_policy 'year'",
+  "policies.B5": "record_window_not_in_policy 'year'",
+  "conditions.B5": "record_window_not_in_policy 'year'",
+  "facts.E4": "record_window_not_in_policy 'year'",
+  "nodes.E4.text": "record_window_not_in_policy 'year'",
+  "nodes.E4.source": "record_window_not_in_policy 'year'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B3\": [\n   {\n    \"premise\": \"E2\",\n    \"kind\": \"number\",\n    \"entity\": \"Summit Express\",\n    \"relation\": null,\n    \"quantity\": \"total passenger volume\",\n    \"comparator\": \">=\",\n    \"threshold\": 100000,\n    \"unit\": \"travellers\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"conditions.B5\": [\n   {\n    \"premise\": \"E4\",\n    \"kind\": \"number\",\n    \"entity\": \"Trekkers Shuttle\",\n    \"relation\": null,\n    \"quantity\": \"customer satisfaction score\",\n    \"comparator\": \">=\",\n    \"threshold\": 90,\n    \"unit\": \"points\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E2\": {\n   \"entity\": \"Summit Express\",\n   \"kind\": \"number\",\n   \"quantity\": \"total passenger volume\",\n   \"value\": 150000,\n   \"unit\": \"travellers\",\n   \"window\": \"year\",\n   \"scope\": \"none\"\n  },\n  \"facts.E4\": {\n   \"entity\": \"Trekkers Shuttle\",\n   \"kind\": \"number\",\n   \"quantity\": \"customer satisfaction score\",\n   \"value\": 92,\n   \"unit\": \"points\",\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E2.source\": \"Annual transportation registry publication.\",\n  \"nodes.E2.text\": \"Summit Express recorded an annual total passenger volume of 150000 travellers.\",\n  \"nodes.E4.source\": \"Verified feedback compilation report.\",\n  \"nodes.E4.text\": \"Trekkers Shuttle achieved a customer satisfaction score of 92 points.\",\n  \"policies.B3\": \"A transport carrier earns high-capacity transit rating if its annual total passenger volume reaches at least 100000 travellers.\",\n  \"policies.B5\": \"A shuttle vendor qualifies for top service provider status when its customer satisfaction score is at least 90 points.\",\n  \"policies.D1\": \"A transit firm is assigned the primary business service agreement if it maintains priority hub permission.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6444,
+   "output_tokens": 5698,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6444,
+    "completion_tokens": 5698
+   }
+  },
+  "est_usd": 0.0786015,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.B5[0].window",
+  "facts.E4.window",
+  "nodes.E2.text",
+  "nodes.E4.text",
+  "policies.B3",
+  "policies.B5",
+  "policies.D1"
+ ],
+ "merged": {
+  "world": "Evaluation of regional transit operators and fleet standards for upcoming service allocations.",
+  "nodes": {
+   "E1": {
+    "text": "AeroJet Charters maintains an active fleet count of 12 aircraft.",
+    "source": "Official fleet registration record from the Civil Aviation Authority."
+   },
+   "B1": {
+    "text": "AeroJet Charters meets the criteria for Tier-1 operator designation."
+   },
+   "B2": {
+    "text": "AeroJet Charters holds clearance for preferred hub access."
+   },
+   "D1": {
+    "text": "AeroJet Charters is selected for the main corporate routing contract."
+   },
+   "E2": {
+    "text": "Summit Express recorded an annual total passenger volume of 150000 travellers.",
+    "source": "Annual transportation registry publication."
+   },
+   "B3": {
+    "text": "Summit Express achieves high-capacity transport classification."
+   },
+   "E3": {
+    "text": "Portside Cruises maintains a valid maritime safety certification.",
+    "source": "Official maritime registry document."
+   },
+   "B4": {
+    "text": "Portside Cruises satisfies standard maritime compliance."
+   },
+   "E4": {
+    "text": "Trekkers Shuttle achieved a customer satisfaction score of 92 points.",
+    "source": "Verified feedback compilation report."
+   },
+   "B5": {
+    "text": "Trekkers Shuttle earns premier customer service standing."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "A recent safety inquiry questions whether several aircraft assigned to AeroJet Charters meet active flight requirements.",
+    "source": "Audit report issued by the National Aviation Safety Board."
+   }
+  },
+  "policies": {
+   "B1": "An organization attains Tier-1 operator status when its active fleet count is 10 aircraft or higher.",
+   "B2": "Clearance for hub preference is granted to any transit operator recognized with Tier-1 operator designation.",
+   "D1": "A transit firm is assigned the primary business service agreement if it maintains priority hub permission.",
+   "B3": "A transport carrier earns high-capacity transit rating if its annual total passenger volume reaches at least 100000 travellers.",
+   "B4": "An oceanic operator is rated compliant on safety standard benchmarks when holding a valid maritime safety certification.",
+   "B5": "A shuttle vendor qualifies for top service provider status when its customer satisfaction score is at least 90 points."
+  },
+  "decoy_policies": [
+   "A hospitality provider obtains gold partner status when maintaining an average guest review score of 4.8 stars or higher.",
+   "A logistics warehouse qualifies for expedited border passage if it possesses an international cargo handling permit."
+  ],
+  "after_updates": {
+   "B1": "undetermined",
+   "B2": "undetermined",
+   "D1": "undetermined",
+   "B3": "holds",
+   "B4": "holds",
+   "B5": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "AeroJet Charters",
+    "kind": "number",
+    "quantity": "active fleet count",
+    "value": 12,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Summit Express",
+    "kind": "number",
+    "quantity": "total passenger volume",
+    "value": 150000,
+    "unit": "travellers",
+    "window": "year",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Portside Cruises",
+    "kind": "credential",
+    "quantity": "maritime safety certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Trekkers Shuttle",
+    "kind": "number",
+    "quantity": "customer satisfaction score",
+    "value": 92,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "AeroJet Charters",
+    "kind": "number",
+    "quantity": "active fleet count",
+    "value": null,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "AeroJet Charters",
+     "relation": null,
+     "quantity": "active fleet count",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "AeroJet Charters",
+     "relation": null,
+     "quantity": "Tier-1 operator designation",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "AeroJet Charters",
+     "relation": null,
+     "quantity": "clearance for preferred hub access",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Summit Express",
+     "relation": null,
+     "quantity": "total passenger volume",
+     "comparator": ">=",
+     "threshold": 100000,
+     "unit": "travellers",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "Portside Cruises",
+     "relation": null,
+     "quantity": "maritime safety certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Trekkers Shuttle",
+     "relation": null,
+     "quantity": "customer satisfaction score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "AeroJet Charters meets the policy requirement because its active fleet count of 12 aircraft meets or exceeds the threshold of 10 aircraft."
+   ],
+   "B2": [
+    "AeroJet Charters satisfies the policy condition by being recognized with Tier-1 operator designation."
+   ],
+   "D1": [
+    "AeroJet Charters qualifies under the policy because it holds clearance for preferred hub access."
+   ],
+   "B3": [
+    "Summit Express fulfills the policy because its annual passenger volume of 150000 travellers exceeds the required 100000 travellers."
+   ],
+   "B4": [
+    "Portside Cruises satisfies the policy by holding a valid maritime safety certification."
+   ],
+   "B5": [
+    "Trekkers Shuttle satisfies the policy requirements with an annual customer satisfaction score of 92 points, meeting the 90-point benchmark."
+   ]
+  }
+ }
+}

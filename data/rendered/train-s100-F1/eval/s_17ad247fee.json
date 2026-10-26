@@ -1,0 +1,254 @@
+{
+ "scenario": "s_17ad247fee",
+ "source_scenario": "F1-006",
+ "family": "F1",
+ "meta": {
+  "depth": 3,
+  "relation": "retracts"
+ },
+ "idmap": {
+  "E1": "e_80b4",
+  "B1": "m_3845",
+  "E2": "e_8e3f",
+  "B2": "m_8f7d",
+  "D1": "m_2ebf",
+  "E3": "e_3888",
+  "B3": "m_45ce",
+  "E4": "e_df40",
+  "B4": "m_66dc",
+  "U1": "u_bba5"
+ },
+ "groups": {
+  "e_80b4": 1,
+  "m_3845": 1,
+  "m_8f7d": 1,
+  "m_2ebf": 1,
+  "e_8e3f": 1,
+  "e_3888": 2,
+  "m_45ce": 2,
+  "e_df40": 3,
+  "m_66dc": 3
+ },
+ "policy_of": {
+  "p_f511": "m_3845",
+  "p_f9b5": "m_8f7d",
+  "p_2d0b": "m_2ebf",
+  "p_e027": "m_45ce",
+  "p_0b67": "m_66dc"
+ },
+ "gold": {
+  "e_80b4": "withdraw",
+  "e_8e3f": "keep",
+  "e_3888": "keep",
+  "e_df40": "keep",
+  "m_3845": "withdraw",
+  "m_45ce": "keep",
+  "m_66dc": "keep",
+  "m_8f7d": "withdraw",
+  "m_2ebf": "withdraw"
+ },
+ "justifications": {
+  "m_3845": [
+   [
+    "e_80b4"
+   ]
+  ],
+  "m_8f7d": [
+   [
+    "m_3845",
+    "e_8e3f"
+   ]
+  ],
+  "m_2ebf": [
+   [
+    "m_8f7d"
+   ]
+  ],
+  "m_45ce": [
+   [
+    "e_3888"
+   ]
+  ],
+  "m_66dc": [
+   [
+    "e_df40"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_bba5": {
+   "target": "e_80b4",
+   "relation": "retracts",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_34e9",
+  "p_fbea"
+ ],
+ "after_updates": {
+  "m_3845": "fails",
+  "m_8f7d": "fails",
+  "m_2ebf": "fails",
+  "m_45ce": "holds",
+  "m_66dc": "holds"
+ },
+ "final_state": {
+  "m_3845": "fails",
+  "m_45ce": "holds",
+  "m_66dc": "holds",
+  "m_8f7d": "fails",
+  "m_2ebf": "fails"
+ },
+ "world": "Evaluation of product eligibility and compliance for retail distribution across distinct hardware items.",
+ "rationale": {
+  "m_3845": [
+   "The surge protection rating of 1500 joules exceeds the 1000 joules threshold required for standard safety compliance."
+  ],
+  "m_8f7d": [
+   "Apex Power Pack meets standard safety compliance and holds an IP67 waterproof rating certificate, satisfying both requirements for commercial outdoor placement."
+  ],
+  "m_2ebf": [
+   "Apex Power Pack is eligible for commercial outdoor placement, which satisfies the condition for nationwide store placement."
+  ],
+  "m_45ce": [
+   "The peak output of 450 watts exceeds the 400 watts threshold required for high-efficiency classification."
+  ],
+  "m_66dc": [
+   "The maximum speed of 25 km/h is below the 30 km/h limit required for urban transit designation."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_80b4": {
+    "entity": "Apex Power Pack",
+    "kind": "number",
+    "quantity": "surge protection rating",
+    "value": 1500,
+    "unit": "joules",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_8e3f": {
+    "entity": "Apex Power Pack",
+    "kind": "credential",
+    "quantity": "IP67 waterproof rating certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_3888": {
+    "entity": "Solis Solar Panel",
+    "kind": "number",
+    "quantity": "peak output",
+    "value": 450,
+    "unit": "watts",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_df40": {
+    "entity": "VeloX E-Bike",
+    "kind": "number",
+    "quantity": "maximum speed",
+    "value": 25,
+    "unit": "km/h",
+    "window": "none",
+    "scope": "none"
+   },
+   "u_bba5": {
+    "entity": "Apex Power Pack",
+    "kind": "number",
+    "quantity": "surge protection rating",
+    "value": null,
+    "unit": "joules",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_3845": [
+    {
+     "premise": "e_80b4",
+     "kind": "number",
+     "entity": "Apex Power Pack",
+     "relation": null,
+     "quantity": "surge protection rating",
+     "comparator": ">=",
+     "threshold": 1000,
+     "unit": "joules",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_8f7d": [
+    {
+     "premise": "m_3845",
+     "kind": "conclusion",
+     "entity": "Apex Power Pack",
+     "relation": null,
+     "quantity": "standard electrical safety criteria",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_8e3f",
+     "kind": "credential",
+     "entity": "Apex Power Pack",
+     "relation": null,
+     "quantity": "IP67 waterproof rating certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_2ebf": [
+    {
+     "premise": "m_8f7d",
+     "kind": "conclusion",
+     "entity": "Apex Power Pack",
+     "relation": null,
+     "quantity": "outdoor commercial listing",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_45ce": [
+    {
+     "premise": "e_3888",
+     "kind": "number",
+     "entity": "Solis Solar Panel",
+     "relation": null,
+     "quantity": "peak output",
+     "comparator": ">=",
+     "threshold": 400,
+     "unit": "watts",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_66dc": [
+    {
+     "premise": "e_df40",
+     "kind": "number",
+     "entity": "VeloX E-Bike",
+     "relation": null,
+     "quantity": "maximum speed",
+     "comparator": "<=",
+     "threshold": 30,
+     "unit": "km/h",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

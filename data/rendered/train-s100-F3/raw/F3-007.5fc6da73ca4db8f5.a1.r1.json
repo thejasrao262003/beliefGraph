@@ -1,0 +1,265 @@
+{
+ "scenario": "F3-007",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.B1": "record_scope_not_in_policy 'international'",
+  "conditions.B1": "record_scope_not_in_policy 'international'",
+  "facts.E1": "record_scope_not_in_policy 'international'",
+  "nodes.E1.text": "record_scope_not_in_policy 'international'",
+  "nodes.E1.source": "record_scope_not_in_policy 'international'",
+  "policies.B4": "record_scope_not_in_policy 'national'",
+  "conditions.B4": "record_scope_not_in_policy 'national'",
+  "facts.E5": "record_scope_not_in_policy 'national'",
+  "nodes.E5.text": "record_scope_not_in_policy 'national'",
+  "nodes.E5.source": "record_scope_not_in_policy 'national'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B1\": [\n   {\n    \"premise\": \"E1\",\n    \"kind\": \"credential\",\n    \"entity\": \"AeroExpress Charters\",\n    \"relation\": null,\n    \"quantity\": \"international aviation safety certification\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"international\"\n   },\n   {\n    \"premise\": \"E2\",\n    \"kind\": \"number\",\n    \"entity\": \"AeroExpress Charters\",\n    \"relation\": null,\n    \"quantity\": \"long-haul flights\",\n    \"comparator\": \">=\",\n    \"threshold\": 400,\n    \"unit\": \"flights\",\n    \"window\": \"year\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"conditions.B4\": [\n   {\n    \"premise\": \"E5\",\n    \"kind\": \"credential\",\n    \"entity\": \"Summit Rail Tours\",\n    \"relation\": null,\n    \"quantity\": \"national railway safety certificate\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"national\"\n   }\n  ],\n  \"facts.E1\": {\n   \"entity\": \"AeroExpress Charters\",\n   \"kind\": \"credential\",\n   \"quantity\": \"international aviation safety certification\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"international\"\n  },\n  \"facts.E5\": {\n   \"entity\": \"Summit Rail Tours\",\n   \"kind\": \"credential\",\n   \"quantity\": \"national railway safety certificate\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"national\"\n  },\n  \"nodes.E1.source\": \"Official registry of the International Aviation Safety Authority\",\n  \"nodes.E1.text\": \"AeroExpress Charters holds an active international aviation safety certification.\",\n  \"nodes.E5.source\": \"Official certificate issued by the Federal Railway Administration\",\n  \"nodes.E5.text\": \"Summit Rail Tours possesses a national railway safety certificate.\",\n  \"policies.B1\": \"Carrier preferred designation is granted when an air operator holds a valid international safety credential and completes a minimum of 400 long-haul flights annually.\",\n  \"policies.B4\": \"Approved rail operator designation is extended to any train service maintaining an official national safety credential.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6434,
+   "output_tokens": 3808,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6434,
+    "completion_tokens": 3808
+   }
+  },
+  "est_usd": 0.0573165,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "policies.B1",
+  "policies.B4"
+ ],
+ "merged": {
+  "world": "Evaluation of travel service providers and charters for corporate logistics approval.",
+  "nodes": {
+   "E1": {
+    "text": "AeroExpress Charters holds an active international aviation safety certification.",
+    "source": "Official registry of the International Aviation Safety Authority"
+   },
+   "E2": {
+    "text": "AeroExpress Charters logged 450 long-haul flights this year.",
+    "source": "Annual flight operations report submitted to the Ministry of Transport"
+   },
+   "E3": {
+    "text": "BlueWave Expeditions maintains a fleet of 12 passenger vessels.",
+    "source": "Official maritime vessel registry entry"
+   },
+   "E4": {
+    "text": "Meridian Overland recorded 850,000 passenger miles this year.",
+    "source": "Certified annual performance report from the Department of Transit"
+   },
+   "E5": {
+    "text": "Summit Rail Tours possesses a national railway safety certificate.",
+    "source": "Official certificate issued by the Federal Railway Administration"
+   },
+   "B1": {
+    "text": "AeroExpress Charters qualifies for preferred international carrier status."
+   },
+   "D1": {
+    "text": "AeroExpress Charters is designated for executive travel bookings."
+   },
+   "B2": {
+    "text": "BlueWave Expeditions qualifies as a large fleet maritime operator."
+   },
+   "B3": {
+    "text": "Meridian Overland meets primary transit provider requirements."
+   },
+   "B4": {
+    "text": "Summit Rail Tours receives licensed rail charter authorization."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "A corrected flight log reveals AeroExpress Charters completed 320 long-haul flights this year.",
+    "source": "Audited flight log summary from the Civil Aviation Audit Bureau"
+   }
+  },
+  "policies": {
+   "B1": "Carrier preferred designation is granted when an air operator holds a valid international safety credential and completes a minimum of 400 long-haul flights annually.",
+   "D1": "Executive booking allocation is granted to an operator achieving preferred carrier designation.",
+   "B2": "High-capacity sea carrier standing is conferred upon any tour provider possessing at least 10 passenger vessels.",
+   "B3": "Tier-one transit provider status is awarded to a coach company accumulating over 750,000 passenger miles annually.",
+   "B4": "Approved rail operator designation is extended to any train service maintaining an official national safety credential."
+  },
+  "decoy_policies": [
+   "Luxury hospitality endorsement requires a customer satisfaction score of at least 90 percent over the previous year.",
+   "Cargo transport eligibility is granted to freight firms operating more than 20 heavy trucks."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "D1": "fails",
+   "B2": "holds",
+   "B3": "holds",
+   "B4": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "AeroExpress Charters",
+    "kind": "credential",
+    "quantity": "international aviation safety certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "international"
+   },
+   "E2": {
+    "entity": "AeroExpress Charters",
+    "kind": "number",
+    "quantity": "long-haul flights",
+    "value": 450,
+    "unit": "flights",
+    "window": "year",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "BlueWave Expeditions",
+    "kind": "number",
+    "quantity": "passenger vessels",
+    "value": 12,
+    "unit": "vessels",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Meridian Overland",
+    "kind": "number",
+    "quantity": "passenger miles",
+    "value": 850000,
+    "unit": "miles",
+    "window": "year",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Summit Rail Tours",
+    "kind": "credential",
+    "quantity": "national railway safety certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "national"
+   },
+   "U1": {
+    "entity": "AeroExpress Charters",
+    "kind": "number",
+    "quantity": "long-haul flights",
+    "value": 320,
+    "unit": "flights",
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "credential",
+     "entity": "AeroExpress Charters",
+     "relation": null,
+     "quantity": "international aviation safety certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "international"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "AeroExpress Charters",
+     "relation": null,
+     "quantity": "long-haul flights",
+     "comparator": ">=",
+     "threshold": 400,
+     "unit": "flights",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "AeroExpress Charters",
+     "relation": null,
+     "quantity": "preferred international carrier status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "BlueWave Expeditions",
+     "relation": null,
+     "quantity": "passenger vessels",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "vessels",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Meridian Overland",
+     "relation": null,
+     "quantity": "passenger miles",
+     "comparator": ">=",
+     "threshold": 750000,
+     "unit": "miles",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "Summit Rail Tours",
+     "relation": null,
+     "quantity": "national railway safety certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "national"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "AeroExpress Charters holds an international aviation safety certification and recorded 450 long-haul flights this year, meeting the minimum threshold of 400."
+   ],
+   "D1": [
+    "AeroExpress Charters achieves preferred international carrier status, satisfying the condition for executive travel placement."
+   ],
+   "B2": [
+    "BlueWave Expeditions maintains 12 passenger vessels, exceeding the required fleet threshold of 10."
+   ],
+   "B3": [
+    "Meridian Overland accumulated 850,000 passenger miles this year, exceeding the threshold of 750,000."
+   ],
+   "B4": [
+    "Summit Rail Tours maintains an active national railway safety certificate, satisfying the required safety criteria."
+   ]
+  }
+ }
+}

@@ -1,0 +1,285 @@
+{
+ "scenario": "F1-001",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "facts.E1": "record_scope_not_in_text 'record none, text international'",
+  "nodes.E1.text": "record_scope_not_in_text 'record none, text international'",
+  "nodes.E1.source": "record_scope_not_in_text 'record none, text international'",
+  "facts.U1": "record_scope_not_in_text 'record none, text international'",
+  "updates.U1.text": "record_scope_not_in_text 'record none, text international'",
+  "updates.U1.source": "record_scope_not_in_text 'record none, text international'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"facts.E1\": {\n   \"entity\": \"Aria Vance\",\n   \"kind\": \"number\",\n   \"quantity\": \"international flights\",\n   \"value\": 12,\n   \"unit\": null,\n   \"window\": \"year\",\n   \"scope\": \"none\"\n  },\n  \"facts.U1\": {\n   \"entity\": \"Aria Vance\",\n   \"kind\": \"number\",\n   \"quantity\": \"international flights\",\n   \"value\": 6,\n   \"unit\": null,\n   \"window\": \"year\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E1.source\": \"Corporate travel log\",\n  \"nodes.E1.text\": \"Aria Vance logged 12 overseas flights this year.\",\n  \"updates.U1.source\": \"Audited corporate travel log\",\n  \"updates.U1.text\": \"A revised audit shows Aria Vance logged 6 overseas flights this year.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6253,
+   "output_tokens": 5029,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6253,
+    "completion_tokens": 5029
+   }
+  },
+  "est_usd": 0.0706455,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "nodes.E1.text",
+  "updates.U1.text"
+ ],
+ "merged": {
+  "world": "Corporate travel accounts and fleet logistics are being evaluated for annual tier upgrades and service clearances.",
+  "nodes": {
+   "E1": {
+    "text": "Aria Vance logged 12 overseas flights this year.",
+    "source": "Corporate travel log"
+   },
+   "E2": {
+    "text": "Aria Vance generated 15000 USD in travel spending this year.",
+    "source": "Corporate expense summary"
+   },
+   "E3": {
+    "text": "Aria Vance recorded 0 flight cancellations this year.",
+    "source": "Airline booking system"
+   },
+   "E4": {
+    "text": "Aria Vance received a feedback score of 4.8 this year.",
+    "source": "Passenger review database"
+   },
+   "E5": {
+    "text": "Borealis Charters operates 15 active motorcoaches.",
+    "source": "Fleet management registry"
+   },
+   "B1": {
+    "text": "Aria Vance holds Gold Frequent Flyer status."
+   },
+   "B2": {
+    "text": "Aria Vance receives executive lounge access."
+   },
+   "B3": {
+    "text": "Aria Vance obtains priority concierge service."
+   },
+   "D1": {
+    "text": "Issue an upgraded international travel permit to Aria Vance."
+   },
+   "B4": {
+    "text": "Borealis Charters achieves primary transit status."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "A revised audit shows Aria Vance logged 6 overseas flights this year.",
+    "source": "Audited corporate travel log"
+   }
+  },
+  "policies": {
+   "B1": "Loyalty Tier Gold is conferred on travelers who log a minimum of 10 international flights annually alongside yearly travel spending of at least 10000 USD.",
+   "B2": "An individual maintaining Loyalty Tier Gold who records no more than 1 flight cancellation annually secures private concourse admission.",
+   "B3": "A traveler with private concourse admission who achieves a feedback score of 4.5 or higher annually gains elite assistance privileges.",
+   "D1": "A traveler gaining elite assistance privileges is granted a premier passage voucher.",
+   "B4": "A bus enterprise maintaining active motorcoaches of at least 10 attains major transport recognition."
+  },
+  "decoy_policies": [
+   "A maritime cargo firm shipping over 500 containers per month qualifies for expedited port clearance.",
+   "A car rental network with vehicle readiness exceeding 80 percent earns regional licensing."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "B2": "fails",
+   "B3": "fails",
+   "D1": "fails",
+   "B4": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Aria Vance",
+    "kind": "number",
+    "quantity": "international flights",
+    "value": 12,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Aria Vance",
+    "kind": "number",
+    "quantity": "travel spending",
+    "value": 15000,
+    "unit": "USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Aria Vance",
+    "kind": "number",
+    "quantity": "flight cancellations",
+    "value": 0,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Aria Vance",
+    "kind": "number",
+    "quantity": "feedback score",
+    "value": 4.8,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Borealis Charters",
+    "kind": "number",
+    "quantity": "active motorcoaches",
+    "value": 15,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Aria Vance",
+    "kind": "number",
+    "quantity": "international flights",
+    "value": 6,
+    "unit": null,
+    "window": "year",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Aria Vance",
+     "relation": null,
+     "quantity": "international flights",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Aria Vance",
+     "relation": null,
+     "quantity": "travel spending",
+     "comparator": ">=",
+     "threshold": 10000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Aria Vance",
+     "relation": null,
+     "quantity": "Gold Frequent Flyer status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Aria Vance",
+     "relation": null,
+     "quantity": "flight cancellations",
+     "comparator": "<=",
+     "threshold": 1,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Aria Vance",
+     "relation": null,
+     "quantity": "executive lounge access",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Aria Vance",
+     "relation": null,
+     "quantity": "feedback score",
+     "comparator": ">=",
+     "threshold": 4.5,
+     "unit": null,
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Aria Vance",
+     "relation": null,
+     "quantity": "priority concierge service",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Borealis Charters",
+     "relation": null,
+     "quantity": "active motorcoaches",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Aria Vance logged 12 international flights and generated 15000 USD in travel spending this year, meeting the criteria of at least 10 international flights and 10000 USD in travel spending."
+   ],
+   "B2": [
+    "Aria Vance holds Gold Frequent Flyer status and recorded 0 flight cancellations this year, satisfying the requirement of Loyalty Tier Gold and no more than 1 cancellation."
+   ],
+   "B3": [
+    "Aria Vance receives executive lounge access and achieved a feedback score of 4.8 this year, fulfilling the requirement for private concourse admission and a score of at least 4.5."
+   ],
+   "D1": [
+    "Aria Vance obtains priority concierge service, satisfying the prerequisite of holding elite assistance privileges."
+   ],
+   "B4": [
+    "Borealis Charters operates 15 active motorcoaches, meeting the threshold of at least 10."
+   ]
+  }
+ }
+}

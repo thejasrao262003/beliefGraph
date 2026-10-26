@@ -1,0 +1,198 @@
+{
+ "scenario": "s_323062cd77",
+ "source_scenario": "F1-014",
+ "family": "F1",
+ "meta": {
+  "depth": 1,
+  "relation": "retracts"
+ },
+ "idmap": {
+  "E1": "e_be31",
+  "E2": "e_6567",
+  "D1": "m_4f4e",
+  "E3": "e_f03f",
+  "B1": "m_8480",
+  "E4": "e_48bf",
+  "B2": "m_7756",
+  "U1": "u_e2d9"
+ },
+ "groups": {
+  "e_be31": 1,
+  "m_4f4e": 1,
+  "e_6567": 1,
+  "e_f03f": 2,
+  "m_8480": 2,
+  "e_48bf": 3,
+  "m_7756": 3
+ },
+ "policy_of": {
+  "p_f4df": "m_4f4e",
+  "p_578f": "m_8480",
+  "p_0c02": "m_7756"
+ },
+ "gold": {
+  "e_be31": "withdraw",
+  "e_6567": "keep",
+  "e_f03f": "keep",
+  "e_48bf": "keep",
+  "m_4f4e": "withdraw",
+  "m_8480": "keep",
+  "m_7756": "keep"
+ },
+ "justifications": {
+  "m_4f4e": [
+   [
+    "e_be31",
+    "e_6567"
+   ]
+  ],
+  "m_8480": [
+   [
+    "e_f03f"
+   ]
+  ],
+  "m_7756": [
+   [
+    "e_48bf"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_e2d9": {
+   "target": "e_be31",
+   "relation": "retracts",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_f558",
+  "p_7d51"
+ ],
+ "after_updates": {
+  "m_4f4e": "fails",
+  "m_8480": "holds",
+  "m_7756": "holds"
+ },
+ "final_state": {
+  "m_4f4e": "fails",
+  "m_8480": "holds",
+  "m_7756": "holds"
+ },
+ "world": "An assistant evaluates product eligibility and compliance certifications for municipal purchasing, emergency readiness, and commercial skyway operations.",
+ "rationale": {
+  "m_4f4e": [
+   "VeloBike Pro satisfies civic fleet purchase authorization because its motor power of 750 W does not exceed 750 W and it holds UL 2272 safety certification."
+  ],
+  "m_8480": [
+   "Solaris Max earns disaster readiness endorsement because its battery capacity of 1200 Wh meets the minimum requirement of 1000 Wh."
+  ],
+  "m_7756": [
+   "AeroDyne X1 obtains clearance for commercial skyways because its 50 hours of flight testing this year meets the 40-hour annual threshold."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_be31": {
+    "entity": "VeloBike Pro",
+    "kind": "number",
+    "quantity": "motor power",
+    "value": 750,
+    "unit": "W",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_6567": {
+    "entity": "VeloBike Pro",
+    "kind": "credential",
+    "quantity": "UL 2272 safety certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_f03f": {
+    "entity": "Solaris Max",
+    "kind": "number",
+    "quantity": "battery capacity",
+    "value": 1200,
+    "unit": "Wh",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_48bf": {
+    "entity": "AeroDyne X1",
+    "kind": "number",
+    "quantity": "flight testing hours",
+    "value": 50,
+    "unit": "hours",
+    "window": "year",
+    "scope": "none"
+   },
+   "u_e2d9": {
+    "entity": "VeloBike Pro",
+    "kind": "number",
+    "quantity": "motor power",
+    "value": null,
+    "unit": "W",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_4f4e": [
+    {
+     "premise": "e_be31",
+     "kind": "number",
+     "entity": "VeloBike Pro",
+     "relation": null,
+     "quantity": "motor power",
+     "comparator": "<=",
+     "threshold": 750,
+     "unit": "W",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_6567",
+     "kind": "credential",
+     "entity": "VeloBike Pro",
+     "relation": null,
+     "quantity": "UL 2272 safety certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_8480": [
+    {
+     "premise": "e_f03f",
+     "kind": "number",
+     "entity": "Solaris Max",
+     "relation": null,
+     "quantity": "battery capacity",
+     "comparator": ">=",
+     "threshold": 1000,
+     "unit": "Wh",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_7756": [
+    {
+     "premise": "e_48bf",
+     "kind": "number",
+     "entity": "AeroDyne X1",
+     "relation": null,
+     "quantity": "flight testing hours",
+     "comparator": ">=",
+     "threshold": 40,
+     "unit": "hours",
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

@@ -1,0 +1,161 @@
+{
+ "scenario": "s_c291502f2e",
+ "source_scenario": "F1-012",
+ "family": "F1",
+ "meta": {
+  "depth": 2,
+  "relation": "retracts"
+ },
+ "idmap": {
+  "E1": "e_eb05",
+  "B1": "m_2574",
+  "D1": "m_e167",
+  "E2": "e_8f75",
+  "B2": "m_5916",
+  "U1": "u_d85b"
+ },
+ "groups": {
+  "e_eb05": 1,
+  "m_2574": 1,
+  "m_e167": 1,
+  "e_8f75": 2,
+  "m_5916": 2
+ },
+ "policy_of": {
+  "p_3cea": "m_2574",
+  "p_bab4": "m_e167",
+  "p_726f": "m_5916"
+ },
+ "gold": {
+  "e_eb05": "withdraw",
+  "e_8f75": "keep",
+  "m_2574": "withdraw",
+  "m_5916": "keep",
+  "m_e167": "withdraw"
+ },
+ "justifications": {
+  "m_2574": [
+   [
+    "e_eb05"
+   ]
+  ],
+  "m_e167": [
+   [
+    "m_2574"
+   ]
+  ],
+  "m_5916": [
+   [
+    "e_8f75"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_d85b": {
+   "target": "e_eb05",
+   "relation": "retracts",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_0ecc",
+  "p_a497"
+ ],
+ "after_updates": {
+  "m_2574": "fails",
+  "m_e167": "fails",
+  "m_5916": "holds"
+ },
+ "final_state": {
+  "m_2574": "fails",
+  "m_5916": "holds",
+  "m_e167": "fails"
+ },
+ "world": "The assistant tracks commercial product certifications and distribution clearances based on testing data and safety standards.",
+ "rationale": {
+  "m_2574": [
+   "Solastorm Battery Pack holds a valid UL 1973 safety certification, satisfying the safety protocol rule."
+  ],
+  "m_e167": [
+   "Solastorm Battery Pack meets baseline technical safety standard, satisfying the commercial clearance requirement."
+  ],
+  "m_5916": [
+   "BioPure Water Filter removes 99.9 percent of heavy metals, meeting the required threshold of 99.5 percent."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_eb05": {
+    "entity": "Solastorm Battery Pack",
+    "kind": "credential",
+    "quantity": "UL 1973 safety certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_8f75": {
+    "entity": "BioPure Water Filter",
+    "kind": "number",
+    "quantity": "heavy metal removal",
+    "value": 99.9,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "u_d85b": {
+    "entity": "Solastorm Battery Pack",
+    "kind": "credential",
+    "quantity": "UL 1973 safety certification",
+    "value": false,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_2574": [
+    {
+     "premise": "e_eb05",
+     "kind": "credential",
+     "entity": "Solastorm Battery Pack",
+     "relation": null,
+     "quantity": "UL 1973 safety certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_e167": [
+    {
+     "premise": "m_2574",
+     "kind": "conclusion",
+     "entity": "Solastorm Battery Pack",
+     "relation": null,
+     "quantity": "baseline technical safety standard",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_5916": [
+    {
+     "premise": "e_8f75",
+     "kind": "number",
+     "entity": "BioPure Water Filter",
+     "relation": null,
+     "quantity": "heavy metal removal",
+     "comparator": ">=",
+     "threshold": 99.5,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

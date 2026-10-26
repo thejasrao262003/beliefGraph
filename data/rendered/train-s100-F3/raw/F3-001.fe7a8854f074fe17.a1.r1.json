@@ -1,0 +1,332 @@
+{
+ "scenario": "F3-001",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.D1": "policy_echoes_memory 'executive transit clearance; holds executive transit' (a policy may not share a 3-word phrase with any memory)",
+  "facts.E3": "record_value_not_in_text '50'; record_threshold_not_in_policy '40'",
+  "nodes.E3.text": "record_value_not_in_text '50'; record_threshold_not_in_policy '40'",
+  "nodes.E3.source": "record_value_not_in_text '50'; record_threshold_not_in_policy '40'",
+  "policies.B1": "record_threshold_not_in_policy '40'",
+  "conditions.B1": "record_threshold_not_in_policy '40'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B1\": [\n   {\n    \"premise\": \"E1\",\n    \"kind\": \"number\",\n    \"entity\": \"AeroSwift Charters\",\n    \"relation\": null,\n    \"quantity\": \"safety rating\",\n    \"comparator\": \">=\",\n    \"threshold\": 95,\n    \"unit\": \"percent\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E2\",\n    \"kind\": \"number\",\n    \"entity\": \"AeroSwift Charters\",\n    \"relation\": null,\n    \"quantity\": \"fleet size\",\n    \"comparator\": \">=\",\n    \"threshold\": 10,\n    \"unit\": \"aircraft\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E3\",\n    \"kind\": \"number\",\n    \"entity\": \"AeroSwift Charters\",\n    \"relation\": null,\n    \"quantity\": \"liability coverage\",\n    \"comparator\": \">=\",\n    \"threshold\": 40000000,\n    \"unit\": \"dollars\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E4\",\n    \"kind\": \"credential\",\n    \"entity\": \"AeroSwift Charters\",\n    \"relation\": null,\n    \"quantity\": \"Part 135 certificate\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E5\",\n    \"kind\": \"credential\",\n    \"entity\": \"AeroSwift Charters\",\n    \"relation\": null,\n    \"quantity\": \"IOSA certification\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E3\": {\n   \"entity\": \"AeroSwift Charters\",\n   \"kind\": \"number\",\n   \"quantity\": \"liability coverage\",\n   \"value\": 50000000,\n   \"unit\": \"dollars\",\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E3.source\": \"Aviation Insurance Group policy document\",\n  \"nodes.E3.text\": \"AeroSwift Charters carries liability coverage of 50,000,000 dollars.\",\n  \"policies.B1\": \"Authorization for executive transit is granted to any charter operator that maintains a safety rating of 95 percent or higher, a fleet size of at least 10 aircraft, indemnity protection of no less than 40,000,000 dollars, and a valid Part 135 certificate, or holds active IOSA certification.\",\n  \"policies.D1\": \"An operator is chosen for rapid priority dispatch provided it possesses executive transit authorization and maintains a response time of no more than 3 hours.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 7096,
+   "output_tokens": 9608,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 7096,
+    "completion_tokens": 9608
+   }
+  },
+  "est_usd": 0.124056,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.B1[2].threshold",
+  "conditions.B1[2].unit",
+  "facts.E3.unit",
+  "facts.E3.value",
+  "nodes.E3.text",
+  "policies.B1",
+  "policies.D1"
+ ],
+ "merged": {
+  "world": "Travel logistics evaluations for flight charter operators, rail carriers, and cruise lines.",
+  "nodes": {
+   "E1": {
+    "text": "AeroSwift Charters maintains a safety rating of 98 percent.",
+    "source": "Civil Aviation Authority safety registry"
+   },
+   "E2": {
+    "text": "AeroSwift Charters operates a fleet size of 15 aircraft.",
+    "source": "AeroSwift Charters annual operational report"
+   },
+   "E3": {
+    "text": "AeroSwift Charters carries liability coverage of 50,000,000 dollars.",
+    "source": "Aviation Insurance Group policy document"
+   },
+   "E4": {
+    "text": "AeroSwift Charters holds an active Part 135 certificate.",
+    "source": "Federal Aviation Administration licensing database"
+   },
+   "E5": {
+    "text": "AeroSwift Charters holds an active IOSA certification.",
+    "source": "International Air Transport Association registry"
+   },
+   "E6": {
+    "text": "AeroSwift Charters guarantees a response time of 2 hours.",
+    "source": "AeroSwift Charters service level agreement"
+   },
+   "E7": {
+    "text": "BlueSky Rail maintains a punctual arrival rate of 94 percent across regional routes.",
+    "source": "Regional Transit Board quarterly performance review"
+   },
+   "E8": {
+    "text": "NaviLuxe Cruises holds a Maritime Safety Code certificate.",
+    "source": "International Maritime Organization database"
+   },
+   "B1": {
+    "text": "AeroSwift Charters holds executive transit clearance."
+   },
+   "D1": {
+    "text": "AeroSwift Charters is assigned to rapid priority deployment."
+   },
+   "B2": {
+    "text": "BlueSky Rail holds priority regional rail authorization."
+   },
+   "B3": {
+    "text": "NaviLuxe Cruises is approved for deep-water luxury voyages."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "A revised audit shows that AeroSwift Charters operates a fleet size of 6 aircraft.",
+    "source": "Civil Aviation Authority fleet inspection certificate"
+   }
+  },
+  "policies": {
+   "B1": "Authorization for executive transit is granted to any charter operator that maintains a safety rating of 95 percent or higher, a fleet size of at least 10 aircraft, indemnity protection of no less than 40,000,000 dollars, and a valid Part 135 certificate, or holds active IOSA certification.",
+   "D1": "An operator is chosen for rapid priority dispatch provided it possesses executive transit authorization and maintains a response time of no more than 3 hours.",
+   "B2": "Priority regional rail endorsement is granted to any train operator that maintains a punctual arrival rate of at least 90 percent across regional routes.",
+   "B3": "Deep-water luxury voyage authorization is granted to cruise lines holding a Maritime Safety Code certificate."
+  },
+  "decoy_policies": [
+   "VIP passenger lounge access is granted to any frequent traveller maintaining a yearly flight count of at least 40 segments.",
+   "Special charter permit validation requires an international transport firm to retain cargo insurance of at least 15 million euros."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "D1": "holds",
+   "B2": "holds",
+   "B3": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "AeroSwift Charters",
+    "kind": "number",
+    "quantity": "safety rating",
+    "value": 98,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "AeroSwift Charters",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 15,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "AeroSwift Charters",
+    "kind": "number",
+    "quantity": "liability coverage",
+    "value": 50000000,
+    "unit": "dollars",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "AeroSwift Charters",
+    "kind": "credential",
+    "quantity": "Part 135 certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "AeroSwift Charters",
+    "kind": "credential",
+    "quantity": "IOSA certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "AeroSwift Charters",
+    "kind": "number",
+    "quantity": "response time",
+    "value": 2,
+    "unit": "hours",
+    "window": "none",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "BlueSky Rail",
+    "kind": "number",
+    "quantity": "punctual arrival rate",
+    "value": 94,
+    "unit": "percent",
+    "window": "none",
+    "scope": "regional"
+   },
+   "E8": {
+    "entity": "NaviLuxe Cruises",
+    "kind": "credential",
+    "quantity": "Maritime Safety Code certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "AeroSwift Charters",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 6,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "AeroSwift Charters",
+     "relation": null,
+     "quantity": "safety rating",
+     "comparator": ">=",
+     "threshold": 95,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "AeroSwift Charters",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "AeroSwift Charters",
+     "relation": null,
+     "quantity": "liability coverage",
+     "comparator": ">=",
+     "threshold": 40000000,
+     "unit": "dollars",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "credential",
+     "entity": "AeroSwift Charters",
+     "relation": null,
+     "quantity": "Part 135 certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "AeroSwift Charters",
+     "relation": null,
+     "quantity": "IOSA certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "AeroSwift Charters",
+     "relation": null,
+     "quantity": "executive transit clearance",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "AeroSwift Charters",
+     "relation": null,
+     "quantity": "response time",
+     "comparator": "<=",
+     "threshold": 3,
+     "unit": "hours",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E7",
+     "kind": "number",
+     "entity": "BlueSky Rail",
+     "relation": null,
+     "quantity": "punctual arrival rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "none",
+     "scope": "regional"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E8",
+     "kind": "credential",
+     "entity": "NaviLuxe Cruises",
+     "relation": null,
+     "quantity": "Maritime Safety Code certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "AeroSwift Charters meets all criteria for the first path to executive transit clearance with a safety rating of 98 percent, 15 aircraft, 50 million dollars in liability coverage, and an active Part 135 certificate.",
+    "AeroSwift Charters independently satisfies executive transit clearance requirements by maintaining active IOSA certification."
+   ],
+   "D1": [
+    "AeroSwift Charters holds executive transit clearance and guarantees a response time of 2 hours, fulfilling all conditions for rapid priority deployment."
+   ],
+   "B2": [
+    "BlueSky Rail satisfies the condition for priority regional rail authorization by maintaining a punctual arrival rate of 94 percent across regional routes."
+   ],
+   "B3": [
+    "NaviLuxe Cruises meets the requirement for deep-water luxury voyage authorization by holding a Maritime Safety Code certificate."
+   ]
+  }
+ }
+}

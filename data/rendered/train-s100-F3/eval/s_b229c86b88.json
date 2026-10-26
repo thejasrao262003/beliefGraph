@@ -1,0 +1,278 @@
+{
+ "scenario": "s_b229c86b88",
+ "source_scenario": "F3-003",
+ "family": "F3",
+ "meta": {
+  "conj_size": 4,
+  "has_alternative": false,
+  "depth": 1,
+  "relation": "supersedes"
+ },
+ "idmap": {
+  "E1": "e_0ce1",
+  "E2": "e_23c5",
+  "E3": "e_29b1",
+  "E4": "e_ca3e",
+  "B1": "m_b97f",
+  "D1": "m_17e0",
+  "E5": "e_8e85",
+  "B2": "m_5627",
+  "E6": "e_d161",
+  "B3": "m_b378",
+  "U1": "u_4136"
+ },
+ "groups": {
+  "e_0ce1": 1,
+  "m_b97f": 1,
+  "m_17e0": 1,
+  "e_29b1": 1,
+  "e_ca3e": 1,
+  "e_23c5": 1,
+  "e_8e85": 2,
+  "m_5627": 2,
+  "e_d161": 3,
+  "m_b378": 3
+ },
+ "policy_of": {
+  "p_d4eb": "m_b97f",
+  "p_4da2": "m_17e0",
+  "p_5ef0": "m_5627",
+  "p_1a0e": "m_b378"
+ },
+ "gold": {
+  "e_0ce1": "keep",
+  "e_23c5": "keep",
+  "e_29b1": "keep",
+  "e_ca3e": "supersede",
+  "e_8e85": "keep",
+  "e_d161": "keep",
+  "m_b97f": "recompute",
+  "m_5627": "keep",
+  "m_b378": "keep",
+  "m_17e0": "recompute"
+ },
+ "justifications": {
+  "m_b97f": [
+   [
+    "e_0ce1",
+    "e_23c5",
+    "e_29b1",
+    "e_ca3e"
+   ]
+  ],
+  "m_17e0": [
+   [
+    "m_b97f"
+   ]
+  ],
+  "m_5627": [
+   [
+    "e_8e85"
+   ]
+  ],
+  "m_b378": [
+   [
+    "e_d161"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_4136": {
+   "target": "e_ca3e",
+   "relation": "supersedes",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_a96e",
+  "p_8bc3"
+ ],
+ "after_updates": {
+  "m_b97f": "fails",
+  "m_17e0": "fails",
+  "m_5627": "holds",
+  "m_b378": "holds"
+ },
+ "final_state": {
+  "m_b97f": "fails",
+  "m_5627": "holds",
+  "m_b378": "holds",
+  "m_17e0": "fails"
+ },
+ "world": "Travel logistics operators are evaluated for service compliance and operational contracting based on performance records and official credentials.",
+ "rationale": {
+  "m_b97f": [
+   "Vanguard Charters satisfies the safety rating, regulatory permit, fleet count, and monthly punctuality requirements needed for preferred carrier classification."
+  ],
+  "m_17e0": [
+   "Vanguard Charters' status as a preferred carrier qualifies it for the annual passenger contract."
+  ],
+  "m_5627": [
+   "Solis Excursions holds the active Maritime Passenger License required for coastal excursion authorization."
+  ],
+  "m_b378": [
+   "Orion Freight's monthly regional transit time of 24 hours meets the express cargo standard of 30 hours or less."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_0ce1": {
+    "entity": "Vanguard Charters",
+    "kind": "number",
+    "quantity": "safety rating score",
+    "value": 92,
+    "unit": "points",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_23c5": {
+    "entity": "Vanguard Charters",
+    "kind": "credential",
+    "quantity": "Civil Aviation Authority permit",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_29b1": {
+    "entity": "Vanguard Charters",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 15,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_ca3e": {
+    "entity": "Vanguard Charters",
+    "kind": "number",
+    "quantity": "on-time departure rate",
+    "value": 94,
+    "unit": "percent",
+    "window": "month",
+    "scope": "none"
+   },
+   "e_8e85": {
+    "entity": "Solis Excursions",
+    "kind": "credential",
+    "quantity": "Maritime Passenger License",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_d161": {
+    "entity": "Orion Freight",
+    "kind": "number",
+    "quantity": "transit time",
+    "value": 24,
+    "unit": "hours",
+    "window": "month",
+    "scope": "regional"
+   },
+   "u_4136": {
+    "entity": "Vanguard Charters",
+    "kind": "number",
+    "quantity": "on-time departure rate",
+    "value": 82,
+    "unit": "percent",
+    "window": "month",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_b97f": [
+    {
+     "premise": "e_0ce1",
+     "kind": "number",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "safety rating score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "points",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_23c5",
+     "kind": "credential",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "Civil Aviation Authority permit",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_29b1",
+     "kind": "number",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_ca3e",
+     "kind": "number",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "on-time departure rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "month",
+     "scope": "none"
+    }
+   ],
+   "m_17e0": [
+    {
+     "premise": "m_b97f",
+     "kind": "conclusion",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "preferred carrier status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_5627": [
+    {
+     "premise": "e_8e85",
+     "kind": "credential",
+     "entity": "Solis Excursions",
+     "relation": null,
+     "quantity": "Maritime Passenger License",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_b378": [
+    {
+     "premise": "e_d161",
+     "kind": "number",
+     "entity": "Orion Freight",
+     "relation": null,
+     "quantity": "transit time",
+     "comparator": "<=",
+     "threshold": 30,
+     "unit": "hours",
+     "window": "month",
+     "scope": "regional"
+    }
+   ]
+  }
+ }
+}

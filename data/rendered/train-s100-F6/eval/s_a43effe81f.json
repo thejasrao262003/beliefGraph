@@ -1,0 +1,270 @@
+{
+ "scenario": "s_a43effe81f",
+ "source_scenario": "F6-003",
+ "family": "F6",
+ "meta": {
+  "variant": "low_reliability",
+  "has_alternative": true,
+  "depth": 1
+ },
+ "idmap": {
+  "E1": "e_7013",
+  "E2": "e_8b55",
+  "B1": "m_c3b5",
+  "D1": "m_be23",
+  "E3": "e_d944",
+  "B2": "m_cf53",
+  "E4": "e_7129",
+  "B3": "m_a338",
+  "E5": "e_0cb6",
+  "B4": "m_f6df",
+  "U1": "u_02f2"
+ },
+ "groups": {
+  "e_7013": 1,
+  "m_c3b5": 1,
+  "m_be23": 1,
+  "e_8b55": 1,
+  "e_d944": 2,
+  "m_cf53": 2,
+  "e_7129": 3,
+  "m_a338": 3,
+  "e_0cb6": 4,
+  "m_f6df": 4
+ },
+ "policy_of": {
+  "p_7918": "m_c3b5",
+  "p_275a": "m_be23",
+  "p_f033": "m_cf53",
+  "p_be10": "m_a338",
+  "p_a034": "m_f6df"
+ },
+ "gold": {
+  "e_7013": "uncertain",
+  "e_8b55": "keep",
+  "e_d944": "keep",
+  "e_7129": "keep",
+  "e_0cb6": "keep",
+  "m_c3b5": "keep",
+  "m_cf53": "keep",
+  "m_a338": "keep",
+  "m_f6df": "keep",
+  "m_be23": "keep"
+ },
+ "justifications": {
+  "m_c3b5": [
+   [
+    "e_7013"
+   ],
+   [
+    "e_8b55"
+   ]
+  ],
+  "m_be23": [
+   [
+    "m_c3b5"
+   ]
+  ],
+  "m_cf53": [
+   [
+    "e_d944"
+   ]
+  ],
+  "m_a338": [
+   [
+    "e_7129"
+   ]
+  ],
+  "m_f6df": [
+   [
+    "e_0cb6"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_02f2": {
+   "target": "e_7013",
+   "relation": "retracts",
+   "reliability": "low"
+  }
+ },
+ "decoy_policies": [
+  "p_b92c",
+  "p_776c"
+ ],
+ "after_updates": {
+  "m_c3b5": "holds",
+  "m_be23": "holds",
+  "m_cf53": "holds",
+  "m_a338": "holds",
+  "m_f6df": "holds"
+ },
+ "final_state": {
+  "m_c3b5": "holds",
+  "m_cf53": "holds",
+  "m_a338": "holds",
+  "m_f6df": "holds",
+  "m_be23": "holds"
+ },
+ "world": "An evaluation of travel and transport vendors across flight, resort, rail, and bus operations.",
+ "rationale": {
+  "m_c3b5": [
+   "Holding a Commercial Flight Permit grants top tier transport endorsement under the policy.",
+   "A safety evaluation score of 95 points meets the yearly benchmark of at least 90 points to secure top tier transport endorsement."
+  ],
+  "m_be23": [
+   "Achieving top tier transport endorsement qualifies Aeronav Express for assignment to executive travel charters under the policy."
+  ],
+  "m_cf53": [
+   "A passenger lounge capacity of 150 seats exceeds the 100-seat threshold required to classify Solaria Resort as a main transit node."
+  ],
+  "m_a338": [
+   "Possessing an Express Transit License fulfills the credential requirement for Portside Rail to gain expedited corridor clearance."
+  ],
+  "m_f6df": [
+   "A yearly fleet distance of 500,000 kilometers satisfies the 400,000-kilometer requirement for Wayfare Logistics to achieve extended territory benchmarks."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_7013": {
+    "entity": "Aeronav Express",
+    "kind": "credential",
+    "quantity": "Commercial Flight Permit",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_8b55": {
+    "entity": "Aeronav Express",
+    "kind": "number",
+    "quantity": "safety evaluation score",
+    "value": 95,
+    "unit": "points",
+    "window": "year",
+    "scope": "none"
+   },
+   "e_d944": {
+    "entity": "Solaria Resort",
+    "kind": "number",
+    "quantity": "passenger lounge capacity",
+    "value": 150,
+    "unit": "seats",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_7129": {
+    "entity": "Portside Rail",
+    "kind": "credential",
+    "quantity": "Express Transit License",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_0cb6": {
+    "entity": "Wayfare Logistics",
+    "kind": "number",
+    "quantity": "fleet distance",
+    "value": 500000,
+    "unit": "kilometers",
+    "window": "year",
+    "scope": "none"
+   },
+   "u_02f2": {
+    "entity": "Aeronav Express",
+    "kind": "credential",
+    "quantity": "Commercial Flight Permit",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_c3b5": [
+    {
+     "premise": "e_7013",
+     "kind": "credential",
+     "entity": "Aeronav Express",
+     "relation": null,
+     "quantity": "Commercial Flight Permit",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_8b55",
+     "kind": "number",
+     "entity": "Aeronav Express",
+     "relation": null,
+     "quantity": "safety evaluation score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "points",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "m_be23": [
+    {
+     "premise": "m_c3b5",
+     "kind": "conclusion",
+     "entity": "Aeronav Express",
+     "relation": null,
+     "quantity": "premier flight provider status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_cf53": [
+    {
+     "premise": "e_d944",
+     "kind": "number",
+     "entity": "Solaria Resort",
+     "relation": null,
+     "quantity": "passenger lounge capacity",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "seats",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_a338": [
+    {
+     "premise": "e_7129",
+     "kind": "credential",
+     "entity": "Portside Rail",
+     "relation": null,
+     "quantity": "Express Transit License",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_f6df": [
+    {
+     "premise": "e_0cb6",
+     "kind": "number",
+     "entity": "Wayfare Logistics",
+     "relation": null,
+     "quantity": "fleet distance",
+     "comparator": ">=",
+     "threshold": 400000,
+     "unit": "kilometers",
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

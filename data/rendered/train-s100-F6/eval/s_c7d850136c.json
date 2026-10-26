@@ -1,0 +1,190 @@
+{
+ "scenario": "s_c7d850136c",
+ "source_scenario": "F6-002",
+ "family": "F6",
+ "meta": {
+  "variant": "hedge",
+  "has_alternative": true,
+  "depth": 1
+ },
+ "idmap": {
+  "E1": "e_af7d",
+  "E2": "e_f51b",
+  "B1": "m_514a",
+  "D1": "m_71d3",
+  "E3": "e_50dd",
+  "B2": "m_08fa",
+  "U1": "u_1b6d"
+ },
+ "groups": {
+  "e_af7d": 1,
+  "m_514a": 1,
+  "m_71d3": 1,
+  "e_f51b": 1,
+  "e_50dd": 2,
+  "m_08fa": 2
+ },
+ "policy_of": {
+  "p_ac1d": "m_514a",
+  "p_7aa9": "m_71d3",
+  "p_ea38": "m_08fa"
+ },
+ "gold": {
+  "e_af7d": "uncertain",
+  "e_f51b": "keep",
+  "e_50dd": "keep",
+  "m_514a": "keep",
+  "m_08fa": "keep",
+  "m_71d3": "keep"
+ },
+ "justifications": {
+  "m_514a": [
+   [
+    "e_af7d"
+   ],
+   [
+    "e_f51b"
+   ]
+  ],
+  "m_71d3": [
+   [
+    "m_514a"
+   ]
+  ],
+  "m_08fa": [
+   [
+    "e_50dd"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_1b6d": {
+   "target": "e_af7d",
+   "relation": "hedges",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_4514",
+  "p_8250"
+ ],
+ "after_updates": {
+  "m_514a": "holds",
+  "m_71d3": "holds",
+  "m_08fa": "holds"
+ },
+ "final_state": {
+  "m_514a": "holds",
+  "m_08fa": "holds",
+  "m_71d3": "holds"
+ },
+ "world": "Evaluating clean energy incentive and grid interconnection qualification for renewable power hardware.",
+ "rationale": {
+  "m_514a": [
+   "AeroGrid Turbine T50 achieved a generation efficiency of 42 percent, exceeding the 40 percent threshold required for clean energy funding.",
+   "AeroGrid Turbine T50 offers 20 years of warranty coverage, meeting the minimum 15-year requirement for clean energy funding."
+  ],
+  "m_71d3": [
+   "AeroGrid Turbine T50 receives clean energy funding, which qualifies it for entry on the state procurement registry."
+  ],
+  "m_08fa": [
+   "Lumina Battery Unit B2 holds valid UL 1973 safety credentials, granting it residential grid connection rights."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_af7d": {
+    "entity": "AeroGrid Turbine T50",
+    "kind": "number",
+    "quantity": "generation efficiency",
+    "value": 42,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_f51b": {
+    "entity": "AeroGrid Turbine T50",
+    "kind": "number",
+    "quantity": "warranty coverage",
+    "value": 20,
+    "unit": "years",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_50dd": {
+    "entity": "Lumina Battery Unit B2",
+    "kind": "credential",
+    "quantity": "UL 1973 safety certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "u_1b6d": {
+    "entity": "AeroGrid Turbine T50",
+    "kind": "number",
+    "quantity": "generation efficiency",
+    "value": null,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_514a": [
+    {
+     "premise": "e_af7d",
+     "kind": "number",
+     "entity": "AeroGrid Turbine T50",
+     "relation": null,
+     "quantity": "generation efficiency",
+     "comparator": ">=",
+     "threshold": 40,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_f51b",
+     "kind": "number",
+     "entity": "AeroGrid Turbine T50",
+     "relation": null,
+     "quantity": "warranty coverage",
+     "comparator": ">=",
+     "threshold": 15,
+     "unit": "years",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_71d3": [
+    {
+     "premise": "m_514a",
+     "kind": "conclusion",
+     "entity": "AeroGrid Turbine T50",
+     "relation": null,
+     "quantity": "clean energy incentive funding",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_08fa": [
+    {
+     "premise": "e_50dd",
+     "kind": "credential",
+     "entity": "Lumina Battery Unit B2",
+     "relation": null,
+     "quantity": "UL 1973 safety certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

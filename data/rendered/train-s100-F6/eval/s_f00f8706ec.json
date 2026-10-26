@@ -1,0 +1,255 @@
+{
+ "scenario": "s_f00f8706ec",
+ "source_scenario": "F6-011",
+ "family": "F6",
+ "meta": {
+  "variant": "low_reliability",
+  "has_alternative": true,
+  "depth": 1
+ },
+ "idmap": {
+  "E1": "e_372e",
+  "E2": "e_55dc",
+  "B1": "m_df8e",
+  "E3": "e_2071",
+  "D1": "m_f96c",
+  "E4": "e_ee11",
+  "B2": "m_4d1e",
+  "E5": "e_56a5",
+  "B3": "m_4eef",
+  "U1": "u_ea28"
+ },
+ "groups": {
+  "e_372e": 1,
+  "m_df8e": 1,
+  "m_f96c": 1,
+  "e_2071": 1,
+  "e_55dc": 1,
+  "e_ee11": 2,
+  "m_4d1e": 2,
+  "e_56a5": 3,
+  "m_4eef": 3
+ },
+ "policy_of": {
+  "p_8169": "m_df8e",
+  "p_5fef": "m_f96c",
+  "p_7cd0": "m_4d1e",
+  "p_01cb": "m_4eef"
+ },
+ "gold": {
+  "e_372e": "uncertain",
+  "e_55dc": "keep",
+  "e_2071": "keep",
+  "e_ee11": "keep",
+  "e_56a5": "keep",
+  "m_df8e": "keep",
+  "m_4d1e": "keep",
+  "m_4eef": "keep",
+  "m_f96c": "keep"
+ },
+ "justifications": {
+  "m_df8e": [
+   [
+    "e_372e"
+   ],
+   [
+    "e_55dc"
+   ]
+  ],
+  "m_f96c": [
+   [
+    "m_df8e",
+    "e_2071"
+   ]
+  ],
+  "m_4d1e": [
+   [
+    "e_ee11"
+   ]
+  ],
+  "m_4eef": [
+   [
+    "e_56a5"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_ea28": {
+   "target": "e_372e",
+   "relation": "retracts",
+   "reliability": "low"
+  }
+ },
+ "decoy_policies": [
+  "p_0250",
+  "p_f5a5"
+ ],
+ "after_updates": {
+  "m_df8e": "holds",
+  "m_f96c": "holds",
+  "m_4d1e": "holds",
+  "m_4eef": "holds"
+ },
+ "final_state": {
+  "m_df8e": "holds",
+  "m_4d1e": "holds",
+  "m_4eef": "holds",
+  "m_f96c": "holds"
+ },
+ "world": "An evaluation of travel service providers and charter operators across ground, air, and marine transport sectors.",
+ "rationale": {
+  "m_df8e": [
+   "Vanguard Coaches meets the condition with a driver safety rating of 96%, exceeding the required 90%.",
+   "Vanguard Coaches meets the condition by holding an active ISO 39001 road traffic safety certification."
+  ],
+  "m_f96c": [
+   "Vanguard Coaches is a preferred transport vendor and holds passenger liability insurance coverage of 10000000 USD, meeting the 5000000 USD threshold."
+  ],
+  "m_4d1e": [
+   "AeroLink Aviation operates a fleet size of 15 aircraft, satisfying the minimum requirement of 10 aircraft."
+  ],
+  "m_4eef": [
+   "Mariner Charters holds a Maritime Coastguard Agency operator licence."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_372e": {
+    "entity": "Vanguard Coaches",
+    "kind": "number",
+    "quantity": "driver safety rating",
+    "value": 96,
+    "unit": "%",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_55dc": {
+    "entity": "Vanguard Coaches",
+    "kind": "credential",
+    "quantity": "ISO 39001 road traffic safety certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_2071": {
+    "entity": "Vanguard Coaches",
+    "kind": "number",
+    "quantity": "passenger liability insurance coverage",
+    "value": 10000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_ee11": {
+    "entity": "AeroLink Aviation",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 15,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_56a5": {
+    "entity": "Mariner Charters",
+    "kind": "credential",
+    "quantity": "Maritime Coastguard Agency operator licence",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "u_ea28": {
+    "entity": "Vanguard Coaches",
+    "kind": "number",
+    "quantity": "driver safety rating",
+    "value": null,
+    "unit": "%",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_df8e": [
+    {
+     "premise": "e_372e",
+     "kind": "number",
+     "entity": "Vanguard Coaches",
+     "relation": null,
+     "quantity": "driver safety rating",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "%",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_55dc",
+     "kind": "credential",
+     "entity": "Vanguard Coaches",
+     "relation": null,
+     "quantity": "ISO 39001 road traffic safety certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_f96c": [
+    {
+     "premise": "m_df8e",
+     "kind": "conclusion",
+     "entity": "Vanguard Coaches",
+     "relation": null,
+     "quantity": "preferred transport vendor",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_2071",
+     "kind": "number",
+     "entity": "Vanguard Coaches",
+     "relation": null,
+     "quantity": "passenger liability insurance coverage",
+     "comparator": ">=",
+     "threshold": 5000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_4d1e": [
+    {
+     "premise": "e_ee11",
+     "kind": "number",
+     "entity": "AeroLink Aviation",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_4eef": [
+    {
+     "premise": "e_56a5",
+     "kind": "credential",
+     "entity": "Mariner Charters",
+     "relation": null,
+     "quantity": "Maritime Coastguard Agency operator licence",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

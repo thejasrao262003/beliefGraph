@@ -1,0 +1,263 @@
+{
+ "scenario": "F6-009",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "nodes.B2.text": "reliability_word 'reliability' (the word 'reliability' may not appear in any text)",
+  "policies.B2": "reliability_word 'reliability' (the word 'reliability' may not appear in any text)",
+  "facts.E2": "record_scope_not_in_text 'record none, text international'",
+  "nodes.E2.text": "record_scope_not_in_text 'record none, text international'",
+  "nodes.E2.source": "record_scope_not_in_text 'record none, text international'",
+  "facts.E3": "record_value_not_in_text '50'; record_threshold_not_in_policy '40'",
+  "nodes.E3.text": "record_value_not_in_text '50'; record_threshold_not_in_policy '40'",
+  "nodes.E3.source": "record_value_not_in_text '50'; record_threshold_not_in_policy '40'",
+  "policies.D1": "record_threshold_not_in_policy '40'",
+  "conditions.D1": "record_threshold_not_in_policy '40'"
+ },
+ "response": "{\n \"replacements\": {\n  \"conditions.D1\": [\n   {\n    \"premise\": \"B1\",\n    \"kind\": \"conclusion\",\n    \"entity\": \"Vanguard Charters\",\n    \"relation\": null,\n    \"quantity\": \"tier-one carrier endorsement\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E3\",\n    \"kind\": \"number\",\n    \"entity\": \"Vanguard Charters\",\n    \"relation\": null,\n    \"quantity\": \"liability insurance coverage\",\n    \"comparator\": \">=\",\n    \"threshold\": 40000000,\n    \"unit\": \"USD\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E2\": {\n   \"entity\": \"Vanguard Charters\",\n   \"kind\": \"number\",\n   \"quantity\": \"international charter flights\",\n   \"value\": 120,\n   \"unit\": \"flights\",\n   \"window\": \"quarter\",\n   \"scope\": \"international\"\n  },\n  \"facts.E3\": {\n   \"entity\": \"Vanguard Charters\",\n   \"kind\": \"number\",\n   \"quantity\": \"liability insurance coverage\",\n   \"value\": 50000000,\n   \"unit\": \"USD\",\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"nodes.B2.text\": \"Meridian Transit holds top-tier service qualification.\",\n  \"nodes.E2.source\": \"Quarterly Aviation Transport Log\",\n  \"nodes.E2.text\": \"Vanguard Charters completed 120 international charter flights last quarter.\",\n  \"nodes.E3.source\": \"Global Underwriters Certificate\",\n  \"nodes.E3.text\": \"Vanguard Charters maintains liability insurance coverage of 50000000 USD.\",\n  \"policies.B2\": \"A transit provider receives top-tier operational rating when its quarterly on-time arrival rate reaches 90 percent or greater.\",\n  \"policies.D1\": \"A vendor is chosen to handle corporate flight services if it holds tier-one status and maintains liability insurance coverage of 40000000 USD or higher.\"\n }\n}",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6410,
+   "output_tokens": 10138,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6410,
+    "completion_tokens": 10138
+   }
+  },
+  "est_usd": 0.128475,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.D1[1].threshold",
+  "conditions.D1[1].unit",
+  "facts.E2.scope",
+  "facts.E3.unit",
+  "facts.E3.value",
+  "nodes.B2.text",
+  "nodes.E3.text",
+  "policies.B2",
+  "policies.D1"
+ ],
+ "merged": {
+  "world": "An evaluation of travel and transport providers across air, rail, and maritime sectors for corporate logistics contracts.",
+  "nodes": {
+   "E1": {
+    "text": "Vanguard Charters maintains a fleet size of 15 active long-range aircraft.",
+    "source": "Civil Aviation Authority Fleet Registry"
+   },
+   "E2": {
+    "text": "Vanguard Charters completed 120 international charter flights last quarter.",
+    "source": "Quarterly Aviation Transport Log"
+   },
+   "E3": {
+    "text": "Vanguard Charters maintains liability insurance coverage of 50000000 USD.",
+    "source": "Global Underwriters Certificate"
+   },
+   "E4": {
+    "text": "Meridian Transit maintains an on-time arrival rate of 94 percent this quarter.",
+    "source": "Regional Transit Board Operational Summary"
+   },
+   "E5": {
+    "text": "Solstice Cruise Line holds an International Maritime Safety Certificate.",
+    "source": "International Maritime Organization Database"
+   },
+   "B1": {
+    "text": "Vanguard Charters qualifies for tier-one carrier endorsement."
+   },
+   "D1": {
+    "text": "Vanguard Charters is recommended for the executive transport contract."
+   },
+   "B2": {
+    "text": "Meridian Transit holds top-tier service qualification."
+   },
+   "B3": {
+    "text": "Solstice Cruise Line is authorized for deep-sea passenger voyages."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An audit review raised concerns regarding whether Vanguard Charters actually maintains a fleet size of 15 active long-range aircraft, citing unverified fleet records.",
+    "source": "Aviation Safety Board Special Inquiry"
+   }
+  },
+  "policies": {
+   "B1": "Carrier endorsement at tier-one status is granted if a charter provider maintains an active long-range aircraft fleet size of 12 or higher, or logs 100 or more international charter flights per quarter.",
+   "D1": "A vendor is chosen to handle corporate flight services if it holds tier-one status and maintains liability insurance coverage of 40000000 USD or higher.",
+   "B2": "A transit provider receives top-tier operational rating when its quarterly on-time arrival rate reaches 90 percent or greater.",
+   "B3": "A maritime carrier is permitted for deep-water passenger travel provided it retains valid International Maritime Safety Certification."
+  },
+  "decoy_policies": [
+   "A rail operator receives priority dispatch clearance if it records fewer than 2 equipment delays per month.",
+   "A tour agency earns sustainable vendor status if its seasonal carbon offset contribution exceeds 50000 USD."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "D1": "holds",
+   "B2": "holds",
+   "B3": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Vanguard Charters",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 15,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Vanguard Charters",
+    "kind": "number",
+    "quantity": "international charter flights",
+    "value": 120,
+    "unit": "flights",
+    "window": "quarter",
+    "scope": "international"
+   },
+   "E3": {
+    "entity": "Vanguard Charters",
+    "kind": "number",
+    "quantity": "liability insurance coverage",
+    "value": 50000000,
+    "unit": "USD",
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Meridian Transit",
+    "kind": "number",
+    "quantity": "on-time arrival rate",
+    "value": 94,
+    "unit": "percent",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Solstice Cruise Line",
+    "kind": "credential",
+    "quantity": "International Maritime Safety Certificate",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Vanguard Charters",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": null,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 12,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "international charter flights",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "flights",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "tier-one carrier endorsement",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "liability insurance coverage",
+     "comparator": ">=",
+     "threshold": 40000000,
+     "unit": "USD",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Meridian Transit",
+     "relation": null,
+     "quantity": "on-time arrival rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E5",
+     "kind": "credential",
+     "entity": "Solstice Cruise Line",
+     "relation": null,
+     "quantity": "International Maritime Safety Certificate",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Vanguard Charters maintains a fleet size of 15 aircraft, which meets the requirement of at least 12 aircraft.",
+    "Vanguard Charters completed 120 international charter flights last quarter, which meets the threshold of 100 flights per quarter."
+   ],
+   "D1": [
+    "Vanguard Charters holds tier-one carrier endorsement and maintains 50 million USD in liability insurance coverage, satisfying both requirements."
+   ],
+   "B2": [
+    "Meridian Transit maintains an on-time arrival rate of 94 percent, exceeding the 90 percent requirement."
+   ],
+   "B3": [
+    "Solstice Cruise Line holds an International Maritime Safety Certificate, fulfilling the certification requirement."
+   ]
+  }
+ }
+}

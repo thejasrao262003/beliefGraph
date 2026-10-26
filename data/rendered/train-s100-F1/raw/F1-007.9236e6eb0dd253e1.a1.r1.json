@@ -1,0 +1,256 @@
+{
+ "scenario": "F1-007",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.D1": "policy_echoes_memory 'corporate enterprise contracts; for corporate enterprise' (a policy may not share a 3-word phrase with any memory); policy_echoes_memory 'the preferred supplier' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B2": "policy_echoes_memory 'for corporate enterprise' (a policy may not share a 3-word phrase with any memory)",
+  "decoy_policies[0]": "decoy_shares_memory_word 'volume' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"decoy_policies[0]\": \"A travel firm generating a total sales turnover of $500,000 within a quarter secures elite distribution partner standing.\",\n  \"policies.B2\": \"An agency holding heavy-capacity transport status qualifies for institutional business agreements.\",\n  \"policies.D1\": \"A provider cleared for institutional business agreements shall be placed on the primary vendor index.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6025,
+   "output_tokens": 2560,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6025,
+    "completion_tokens": 2560
+   }
+  },
+  "est_usd": 0.04235625,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "decoy_policies[0]",
+  "policies.B2",
+  "policies.D1"
+ ],
+ "merged": {
+  "world": "An evaluation of regional passenger transport companies is being conducted to assess qualification for corporate contracts and regulatory compliance.",
+  "nodes": {
+   "E1": {
+    "text": "AeroLink Charter maintains a fleet of 12 coaches.",
+    "source": "Official transport registry audit, published January 17, 2026."
+   },
+   "B1": {
+    "text": "AeroLink Charter achieves high-volume carrier qualification."
+   },
+   "B2": {
+    "text": "AeroLink Charter is eligible for corporate enterprise contracts."
+   },
+   "D1": {
+    "text": "AeroLink Charter is added to the preferred supplier directory."
+   },
+   "E2": {
+    "text": "Summit Shuttles recorded a customer safety score of 94 percent this year.",
+    "source": "Annual regional transit authority report, published January 11, 2026."
+   },
+   "B3": {
+    "text": "Summit Shuttles receives safety excellence recognition."
+   },
+   "E3": {
+    "text": "Crestline Charters holds an active commercial carrier license.",
+    "source": "Department of Transportation registry entry, observed January 8, 2026."
+   },
+   "B4": {
+    "text": "Crestline Charters fulfills regulatory operation standards."
+   },
+   "E4": {
+    "text": "Horizon Transit completed 150 international charter trips this year.",
+    "source": "Global Logistics Association annual log, recorded January 14, 2026."
+   },
+   "B5": {
+    "text": "Horizon Transit achieves cross-border vendor endorsement."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "AeroLink Charter maintains a fleet of 4 coaches.",
+    "source": "Updated transport licensing audit, issued January 20, 2026."
+   }
+  },
+  "policies": {
+   "B1": "A transport firm possessing a fleet of at least 8 coaches meets high-volume carrier standards.",
+   "B2": "An agency holding heavy-capacity transport status qualifies for institutional business agreements.",
+   "D1": "A provider cleared for institutional business agreements shall be placed on the primary vendor index.",
+   "B3": "A transit business earning a yearly regional customer safety rating of 90 percent or higher obtains safety excellence status.",
+   "B4": "A charter firm maintaining a valid commercial carrier license satisfies regulatory operation requirements.",
+   "B5": "A transportation company executing at least 100 international charter trips annually attains cross-border vendor accreditation."
+  },
+  "decoy_policies": [
+   "A travel firm generating a total sales turnover of $500,000 within a quarter secures elite distribution partner standing.",
+   "A tour operator maintaining a client satisfaction rating above 95 percent over two consecutive years is eligible for industry leadership awards."
+  ],
+  "after_updates": {
+   "B1": "fails",
+   "B2": "fails",
+   "D1": "fails",
+   "B3": "holds",
+   "B4": "holds",
+   "B5": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "AeroLink Charter",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 12,
+    "unit": "coaches",
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "AeroLink Charter",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 4,
+    "unit": "coaches",
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Summit Shuttles",
+    "kind": "number",
+    "quantity": "customer safety score",
+    "value": 94,
+    "unit": "%",
+    "window": "year",
+    "scope": "regional"
+   },
+   "E3": {
+    "entity": "Crestline Charters",
+    "kind": "credential",
+    "quantity": "commercial carrier license",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Horizon Transit",
+    "kind": "number",
+    "quantity": "international charter trips",
+    "value": 150,
+    "unit": "trips",
+    "window": "year",
+    "scope": "international"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "AeroLink Charter",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 8,
+     "unit": "coaches",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "AeroLink Charter",
+     "relation": null,
+     "quantity": "high-volume carrier qualification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "AeroLink Charter",
+     "relation": null,
+     "quantity": "corporate enterprise contracts",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Summit Shuttles",
+     "relation": null,
+     "quantity": "customer safety score",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "%",
+     "window": "year",
+     "scope": "regional"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E3",
+     "kind": "credential",
+     "entity": "Crestline Charters",
+     "relation": null,
+     "quantity": "commercial carrier license",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Horizon Transit",
+     "relation": null,
+     "quantity": "international charter trips",
+     "comparator": ">=",
+     "threshold": 100,
+     "unit": "trips",
+     "window": "year",
+     "scope": "international"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "AeroLink Charter maintains a fleet of 12 coaches, which meets the threshold of 8 coaches required for high-volume carrier qualification."
+   ],
+   "B2": [
+    "AeroLink Charter achieves high-volume carrier qualification, satisfying the condition to be eligible for corporate enterprise contracts."
+   ],
+   "D1": [
+    "AeroLink Charter is eligible for corporate enterprise contracts, fulfilling the policy requirement to be added to the preferred supplier directory."
+   ],
+   "B3": [
+    "Summit Shuttles recorded a customer safety score of 94 percent this year, exceeding the 90 percent threshold required for safety excellence recognition."
+   ],
+   "B4": [
+    "Crestline Charters holds an active commercial carrier license, which satisfies the requirement for regulatory operation standards."
+   ],
+   "B5": [
+    "Horizon Transit completed 150 international charter trips this year, surpassing the 100 trips needed for cross-border vendor endorsement."
+   ]
+  }
+ }
+}

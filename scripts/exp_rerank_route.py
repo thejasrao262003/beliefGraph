@@ -21,6 +21,13 @@ import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
+try:  # local configuration (git-ignored): keys and BELIEFGRAPH_MODAL_WORKSPACE
+    from dotenv import load_dotenv
+
+    load_dotenv(Path.cwd() / ".env")
+except ImportError:
+    pass
+
 sys.path.insert(0, str(Path(__file__).parent))
 from run_stream import RUNS  # noqa: E402
 
@@ -55,7 +62,7 @@ def stores():
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="qwen3-reranker-4b")
-    ap.add_argument("--base-url", default="https://<workspace>--beliefgraph-qwen3-reranker-4b-server.us-east.modal.direct")
+    ap.add_argument("--base-url", default=f"https://{os.environ.get('BELIEFGRAPH_MODAL_WORKSPACE', '<workspace>')}--beliefgraph-qwen3-reranker-4b-server.us-east.modal.direct")
     ap.add_argument("--k", type=int, default=12)
     args = ap.parse_args()
     import requests

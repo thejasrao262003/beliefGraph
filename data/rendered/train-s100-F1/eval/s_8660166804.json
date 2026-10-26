@@ -1,0 +1,173 @@
+{
+ "scenario": "s_8660166804",
+ "source_scenario": "F1-010",
+ "family": "F1",
+ "meta": {
+  "depth": 1,
+  "relation": "retracts"
+ },
+ "idmap": {
+  "E1": "e_6b9b",
+  "D1": "m_e593",
+  "E2": "e_1345",
+  "B1": "m_8826",
+  "E3": "e_c19a",
+  "B2": "m_bb1e",
+  "U1": "u_a5da"
+ },
+ "groups": {
+  "e_6b9b": 1,
+  "m_e593": 1,
+  "e_1345": 2,
+  "m_8826": 2,
+  "e_c19a": 3,
+  "m_bb1e": 3
+ },
+ "policy_of": {
+  "p_aa46": "m_e593",
+  "p_1e72": "m_8826",
+  "p_f47a": "m_bb1e"
+ },
+ "gold": {
+  "e_6b9b": "withdraw",
+  "e_1345": "keep",
+  "e_c19a": "keep",
+  "m_e593": "withdraw",
+  "m_8826": "keep",
+  "m_bb1e": "keep"
+ },
+ "justifications": {
+  "m_e593": [
+   [
+    "e_6b9b"
+   ]
+  ],
+  "m_8826": [
+   [
+    "e_1345"
+   ]
+  ],
+  "m_bb1e": [
+   [
+    "e_c19a"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_a5da": {
+   "target": "e_6b9b",
+   "relation": "retracts",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_160a",
+  "p_4f20"
+ ],
+ "after_updates": {
+  "m_e593": "fails",
+  "m_8826": "holds",
+  "m_bb1e": "holds"
+ },
+ "final_state": {
+  "m_e593": "fails",
+  "m_8826": "holds",
+  "m_bb1e": "holds"
+ },
+ "world": "The assistant tracks regulatory approval and commercial distribution status for various medical products.",
+ "rationale": {
+  "m_e593": [
+   "Kova Tech holding active ISO 13485 certification satisfies the requirement for market entry fast-tracking of Kova Monitor."
+  ],
+  "m_8826": [
+   "Lumina Patch achieving an efficacy rate of 88 percent satisfies the threshold of exceeding 80 percent for top-tier drug roster inclusion."
+  ],
+  "m_bb1e": [
+   "Vident Scanner generating annual maintenance revenue of 450000 USD satisfies the requirement of at least 400000 USD for first-level sales partnership designation."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_6b9b": {
+    "entity": "Kova Tech",
+    "kind": "credential",
+    "quantity": "ISO 13485 certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_1345": {
+    "entity": "Lumina Patch",
+    "kind": "number",
+    "quantity": "efficacy rate",
+    "value": 88,
+    "unit": "percent",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_c19a": {
+    "entity": "Vident Scanner",
+    "kind": "number",
+    "quantity": "annual maintenance revenue",
+    "value": 450000,
+    "unit": "USD",
+    "window": "year",
+    "scope": "none"
+   },
+   "u_a5da": {
+    "entity": "Kova Tech",
+    "kind": "credential",
+    "quantity": "ISO 13485 certification",
+    "value": false,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_e593": [
+    {
+     "premise": "e_6b9b",
+     "kind": "credential",
+     "entity": "Kova Monitor",
+     "relation": "maker of",
+     "quantity": "ISO 13485 certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_8826": [
+    {
+     "premise": "e_1345",
+     "kind": "number",
+     "entity": "Lumina Patch",
+     "relation": null,
+     "quantity": "efficacy rate",
+     "comparator": ">",
+     "threshold": 80,
+     "unit": "percent",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_bb1e": [
+    {
+     "premise": "e_c19a",
+     "kind": "number",
+     "entity": "Vident Scanner",
+     "relation": null,
+     "quantity": "annual maintenance revenue",
+     "comparator": ">=",
+     "threshold": 400000,
+     "unit": "USD",
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

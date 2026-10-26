@@ -1,0 +1,388 @@
+{
+ "scenario": "F2-003",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "decoy_policies[0]": "decoy_shares_memory_word 'clearance' (a decoy policy may not use any distinctive word that appears in a memory, in any form or sense)",
+  "policies.D1": "record_window_not_in_policy 'quarter'",
+  "conditions.D1": "record_window_not_in_policy 'quarter'",
+  "facts.E5": "record_window_not_in_policy 'quarter'",
+  "nodes.E5.text": "record_window_not_in_policy 'quarter'",
+  "nodes.E5.source": "record_window_not_in_policy 'quarter'",
+  "policies.B6": "record_threshold_not_in_policy '0'; record_window_not_in_policy '3 years'",
+  "conditions.B6": "record_threshold_not_in_policy '0'; record_window_not_in_policy '3 years'",
+  "facts.E8": "record_threshold_not_in_policy '0'; record_window_not_in_policy '3 years'",
+  "nodes.E8.text": "record_threshold_not_in_policy '0'; record_window_not_in_policy '3 years'",
+  "nodes.E8.source": "record_threshold_not_in_policy '0'; record_window_not_in_policy '3 years'"
+ },
+ "response": "```json\n{\n  \"replacements\": {\n    \"conditions.B6\": [\n      {\n        \"premise\": \"E8\",\n        \"kind\": \"number\",\n        \"entity\": \"Apex Expeditions\",\n        \"relation\": null,\n        \"quantity\": \"safety incidents\",\n        \"comparator\": \"<=\",\n        \"threshold\": 0,\n        \"unit\": \"incidents\",\n        \"window\": \"3 years\",\n        \"scope\": \"none\"\n      }\n    ],\n    \"conditions.D1\": [\n      {\n        \"premise\": \"B3\",\n        \"kind\": \"conclusion\",\n        \"entity\": \"Vanguard Travel\",\n        \"relation\": null,\n        \"quantity\": \"preferred terminal positioning\",\n        \"comparator\": null,\n        \"threshold\": null,\n        \"unit\": null,\n        \"window\": \"none\",\n        \"scope\": \"none\"\n      },\n      {\n        \"premise\": \"E5\",\n        \"kind\": \"number\",\n        \"entity\": \"Vanguard Travel\",\n        \"relation\": null,\n        \"quantity\": \"security deposit\",\n        \"comparator\": \">=\",\n        \"threshold\": 400000,\n        \"unit\": \"USD\",\n        \"window\": \"quarter\",\n        \"scope\": \"none\"\n      }\n    ],\n    \"decoy_policies[0]\": \"A regional freight carrier achieves express customs authorization when maintaining a fleet fuel efficiency rating above 8 miles per gallon.\",\n    \"facts.E5\": {\n      \"entity\": \"Vanguard Travel\",\n      \"kind\": \"number\",\n      \"quantity\": \"security deposit\",\n      \"value\": 500000,\n      \"unit\": \"USD\",\n      \"window\": \"quarter\",\n      \"scope\": \"none\"\n    },\n    \"facts.E8\": {\n      \"entity\": \"Apex Expeditions\",\n      \"kind\": \"number\",\n      \"quantity\": \"safety incidents\",\n      \"value\": 0,\n      \"unit\": \"incidents\",\n      \"window\": \"3 years\",\n      \"scope\": \"none\"\n    },\n    \"nodes.E5.source\": \"Bank escrow confirmation receipt\",\n    \"nodes.E5.text\": \"Vanguard Travel deposited a security deposit of $500,000 this quarter.\",\n    \"nodes.E8.source\": \"National tour safety bureau report\",\n    \"nodes.E8.text\": \"Apex Expeditions logged 0 safety incidents over 3 years.\",\n    \"policies.B6\": \"An adventure tour business achieves highest safety recognition if it reports 0 safety incidents over 3 years.\",\n    \"policies.D1\": \"A transport provider with preferred gate placement obtains peak holiday runway privileges upon posting a financial escrow of no less than $400,000 per quarter.\"\n  }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 7634,
+   "output_tokens": 3469,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 7634,
+    "completion_tokens": 3469
+   }
+  },
+  "est_usd": 0.05620275,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "decoy_policies[0]",
+  "nodes.E8.text",
+  "policies.B6",
+  "policies.D1"
+ ],
+ "merged": {
+  "world": "Evaluating charter carrier permissions, cruise line environmental privileges, shuttle vendor status, and tour operator safety clearances in travel logistics.",
+  "nodes": {
+   "E1": {
+    "text": "Vanguard Travel operated 25 international charter flights this year.",
+    "source": "Official civil aviation flight registry"
+   },
+   "E2": {
+    "text": "Vanguard Travel maintains an active IATA Operational Safety Audit certification.",
+    "source": "IATA global membership database"
+   },
+   "E3": {
+    "text": "Vanguard Travel achieved a customer satisfaction rating of 92 percent this year.",
+    "source": "Passenger experience quarterly audit"
+   },
+   "E4": {
+    "text": "Vanguard Travel recorded a ground dispatch response time of 12 minutes.",
+    "source": "Airport dispatch operational record"
+   },
+   "E5": {
+    "text": "Vanguard Travel deposited a security deposit of $500,000 this quarter.",
+    "source": "Bank escrow confirmation receipt"
+   },
+   "E6": {
+    "text": "Horizon Cruises operates a passenger vessel fleet with a fleet average age of 4 years.",
+    "source": "Maritime vessel licensing authority"
+   },
+   "E7": {
+    "text": "Pacific Shuttles holds an ISO 9001 quality management credential.",
+    "source": "International Standards Registrar database"
+   },
+   "E8": {
+    "text": "Apex Expeditions logged 0 safety incidents over 3 years.",
+    "source": "National tour safety bureau report"
+   },
+   "B1": {
+    "text": "Vanguard Travel satisfies the premier air operator criteria."
+   },
+   "B2": {
+    "text": "Vanguard Travel qualifies for priority airport slot allocations."
+   },
+   "B3": {
+    "text": "Vanguard Travel receives preferred terminal positioning."
+   },
+   "D1": {
+    "text": "Vanguard Travel will be granted peak-season runway access authorization."
+   },
+   "B4": {
+    "text": "Horizon Cruises secures low-emission maritime privileges."
+   },
+   "B5": {
+    "text": "Pacific Shuttles earns elite transport vendor endorsement."
+   },
+   "B6": {
+    "text": "Apex Expeditions holds top-tier tour safety clearance."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "Vanguard Travel operated 15 international charter flights this year.",
+    "source": "Audited civil aviation annual flight log"
+   }
+  },
+  "policies": {
+   "B1": "An air carrier meets premier operator requirements either by maintaining a minimum annual international charter flight volume of 20 or by holding a valid IATA Operational Safety Audit accreditation.",
+   "B2": "An air operator cleared as a premier carrier receives priority slot rights when achieving a yearly client satisfaction score of at least 85 percent.",
+   "B3": "A carrier granted priority slots is assigned preferred gate placement if its ground dispatch delay remains under 15 minutes.",
+   "D1": "A transport provider with preferred gate placement obtains peak holiday runway privileges upon posting a financial escrow of no less than $400,000 per quarter.",
+   "B4": "A cruise line earns green port privileges when its passenger vessel fleet age averages 5 years or less.",
+   "B5": "A ground transit vendor obtains elite partner designation by holding a valid ISO 9001 certification.",
+   "B6": "An adventure tour business achieves highest safety recognition if it reports 0 safety incidents over 3 years."
+  },
+  "decoy_policies": [
+   "A regional freight carrier achieves express customs authorization when maintaining a fleet fuel efficiency rating above 8 miles per gallon.",
+   "A railway logistics firm gains automated tracking system integration upon completing 500 cargo shipments per quarter."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "holds",
+   "B3": "holds",
+   "D1": "holds",
+   "B4": "holds",
+   "B5": "holds",
+   "B6": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Vanguard Travel",
+    "kind": "number",
+    "quantity": "international charter flights",
+    "value": 25,
+    "unit": "flights",
+    "window": "year",
+    "scope": "international"
+   },
+   "U1": {
+    "entity": "Vanguard Travel",
+    "kind": "number",
+    "quantity": "international charter flights",
+    "value": 15,
+    "unit": "flights",
+    "window": "year",
+    "scope": "international"
+   },
+   "E2": {
+    "entity": "Vanguard Travel",
+    "kind": "credential",
+    "quantity": "IATA Operational Safety Audit certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Vanguard Travel",
+    "kind": "number",
+    "quantity": "customer satisfaction rating",
+    "value": 92,
+    "unit": "percent",
+    "window": "year",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Vanguard Travel",
+    "kind": "number",
+    "quantity": "ground dispatch response time",
+    "value": 12,
+    "unit": "minutes",
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Vanguard Travel",
+    "kind": "number",
+    "quantity": "security deposit",
+    "value": 500000,
+    "unit": "USD",
+    "window": "quarter",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Horizon Cruises",
+    "kind": "number",
+    "quantity": "fleet average age",
+    "value": 4,
+    "unit": "years",
+    "window": "none",
+    "scope": "none"
+   },
+   "E7": {
+    "entity": "Pacific Shuttles",
+    "kind": "credential",
+    "quantity": "ISO 9001 quality management credential",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E8": {
+    "entity": "Apex Expeditions",
+    "kind": "number",
+    "quantity": "safety incidents",
+    "value": 0,
+    "unit": "incidents",
+    "window": "3 years",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "number",
+     "entity": "Vanguard Travel",
+     "relation": null,
+     "quantity": "international charter flights",
+     "comparator": ">=",
+     "threshold": 20,
+     "unit": "flights",
+     "window": "year",
+     "scope": "international"
+    },
+    {
+     "premise": "E2",
+     "kind": "credential",
+     "entity": "Vanguard Travel",
+     "relation": null,
+     "quantity": "IATA Operational Safety Audit certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Vanguard Travel",
+     "relation": null,
+     "quantity": "premier air operator",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Vanguard Travel",
+     "relation": null,
+     "quantity": "customer satisfaction rating",
+     "comparator": ">=",
+     "threshold": 85,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Vanguard Travel",
+     "relation": null,
+     "quantity": "priority slot allocations",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Vanguard Travel",
+     "relation": null,
+     "quantity": "ground dispatch response time",
+     "comparator": "<=",
+     "threshold": 15,
+     "unit": "minutes",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B3",
+     "kind": "conclusion",
+     "entity": "Vanguard Travel",
+     "relation": null,
+     "quantity": "preferred terminal positioning",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Vanguard Travel",
+     "relation": null,
+     "quantity": "security deposit",
+     "comparator": ">=",
+     "threshold": 400000,
+     "unit": "USD",
+     "window": "quarter",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E6",
+     "kind": "number",
+     "entity": "Horizon Cruises",
+     "relation": null,
+     "quantity": "fleet average age",
+     "comparator": "<=",
+     "threshold": 5,
+     "unit": "years",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B5": [
+    {
+     "premise": "E7",
+     "kind": "credential",
+     "entity": "Pacific Shuttles",
+     "relation": null,
+     "quantity": "ISO 9001 quality management credential",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B6": [
+    {
+     "premise": "E8",
+     "kind": "number",
+     "entity": "Apex Expeditions",
+     "relation": null,
+     "quantity": "safety incidents",
+     "comparator": "<=",
+     "threshold": 0,
+     "unit": "incidents",
+     "window": "3 years",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Vanguard Travel operated 25 international charter flights this year, which meets the 20-flight requirement.",
+    "Vanguard Travel holds an active IATA Operational Safety Audit certification."
+   ],
+   "B2": [
+    "Vanguard Travel satisfies premier operator status and achieved a customer satisfaction rating of 92 percent this year, exceeding the 85 percent threshold."
+   ],
+   "B3": [
+    "Vanguard Travel qualifies for priority slots and recorded a ground dispatch response time of 12 minutes, which is within the 15-minute limit."
+   ],
+   "D1": [
+    "Vanguard Travel has preferred terminal positioning and posted a quarterly security deposit of $500,000, exceeding the required $400,000 threshold."
+   ],
+   "B4": [
+    "Horizon Cruises has a fleet average age of 4 years, which is within the 5-year maximum limit."
+   ],
+   "B5": [
+    "Pacific Shuttles maintains a valid ISO 9001 quality management credential."
+   ],
+   "B6": [
+    "Apex Expeditions recorded 0 safety incidents over the last 3 years, meeting the requirement of zero incidents."
+   ]
+  }
+ }
+}

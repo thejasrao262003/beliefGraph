@@ -1,0 +1,301 @@
+{
+ "scenario": "F6-001",
+ "repair": 1,
+ "prompt_version": "render-v12",
+ "permitted": {
+  "policies.B2": "policy_echoes_memory 'verified airlift vendor' (a policy may not share a 3-word phrase with any memory)",
+  "policies.B1": "policy_echoes_memory 'verified airlift vendor' (a policy may not share a 3-word phrase with any memory); record_scope_not_in_policy 'global'",
+  "conditions.B1": "record_scope_not_in_policy 'global'",
+  "facts.E1": "record_scope_not_in_policy 'global'",
+  "nodes.E1.text": "record_scope_not_in_policy 'global'",
+  "nodes.E1.source": "record_scope_not_in_policy 'global'"
+ },
+ "response": "```json\n{\n \"replacements\": {\n  \"conditions.B1\": [\n   {\n    \"premise\": \"E1\",\n    \"kind\": \"credential\",\n    \"entity\": \"Vanguard Charters\",\n    \"relation\": null,\n    \"quantity\": \"Global Charter Operations License\",\n    \"comparator\": null,\n    \"threshold\": null,\n    \"unit\": null,\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   },\n   {\n    \"premise\": \"E2\",\n    \"kind\": \"number\",\n    \"entity\": \"Vanguard Charters\",\n    \"relation\": null,\n    \"quantity\": \"fleet size\",\n    \"comparator\": \">=\",\n    \"threshold\": 10,\n    \"unit\": \"freighters\",\n    \"window\": \"none\",\n    \"scope\": \"none\"\n   }\n  ],\n  \"facts.E1\": {\n   \"entity\": \"Vanguard Charters\",\n   \"kind\": \"credential\",\n   \"quantity\": \"Global Charter Operations License\",\n   \"value\": true,\n   \"unit\": null,\n   \"window\": \"none\",\n   \"scope\": \"none\"\n  },\n  \"nodes.E1.source\": \"Aviation Commerce Registry\",\n  \"nodes.E1.text\": \"Vanguard Charters holds a Global Charter Operations License.\",\n  \"policies.B1\": \"A cargo enterprise qualifies as an accredited air transport provider if it possesses a Global Charter Operations License, or if its fleet size reaches at least 10 freighters.\",\n  \"policies.B2\": \"An enterprise earns approval as an elite carrier provided it is designated as an accredited air transport provider and achieves a yearly on-time delivery rate of 90 percent or higher.\"\n }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 6579,
+   "output_tokens": 4527,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 6579,
+    "completion_tokens": 4527
+   }
+  },
+  "est_usd": 0.0657315,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ },
+ "merge_errors": [],
+ "diff": [
+  "conditions.B1[0].scope",
+  "facts.E1.scope",
+  "policies.B1",
+  "policies.B2"
+ ],
+ "merged": {
+  "world": "Evaluation of freight transport carriers and logistics contracts.",
+  "nodes": {
+   "E1": {
+    "text": "Vanguard Charters holds a Global Charter Operations License.",
+    "source": "Aviation Commerce Registry"
+   },
+   "E2": {
+    "text": "Vanguard Charters maintains a fleet size of 12 freighters.",
+    "source": "Carrier Fleet Audit Report"
+   },
+   "E3": {
+    "text": "Vanguard Charters recorded an on-time delivery rate of 96 percent this year.",
+    "source": "Annual Operational Logistics Assessment"
+   },
+   "E4": {
+    "text": "Vanguard Charters holds cargo liability insurance of $5,000,000.",
+    "source": "Underwriter Policy Document"
+   },
+   "E5": {
+    "text": "Meridian Express maintains a fleet size of 50 refrigerated trucks.",
+    "source": "Fleet Inspection Log"
+   },
+   "E6": {
+    "text": "Atlas Marine holds a Certified Freight Forwarder license.",
+    "source": "Maritime Commerce Agency"
+   },
+   "B1": {
+    "text": "Vanguard Charters holds verified airlift vendor status."
+   },
+   "B2": {
+    "text": "Vanguard Charters meets elite carrier endorsement criteria."
+   },
+   "D1": {
+    "text": "Vanguard Charters is selected for the priority cargo dispatch."
+   },
+   "B3": {
+    "text": "Meridian Express fulfills baseline cold-chain transport standards."
+   },
+   "B4": {
+    "text": "Atlas Marine is approved for international ocean dispatch."
+   }
+  },
+  "updates": {
+   "U1": {
+    "text": "An unverified regulatory post claims Vanguard Charters might not possess a Global Charter Operations License.",
+    "source": "Industry Rumor Blog"
+   }
+  },
+  "policies": {
+   "B1": "A cargo enterprise qualifies as an accredited air transport provider if it possesses a Global Charter Operations License, or if its fleet size reaches at least 10 freighters.",
+   "B2": "An enterprise earns approval as an elite carrier provided it is designated as an accredited air transport provider and achieves a yearly on-time delivery rate of 90 percent or higher.",
+   "D1": "An organization receives a primary transport contract when accredited as an elite carrier while carrying cargo liability insurance of at least $3,000,000.",
+   "B3": "A haulage provider meets low-temperature distribution requirements provided its fleet size contains no fewer than 30 refrigerated trucks.",
+   "B4": "A shipping company obtains authorization for global sea freight when it possesses a Certified Freight Forwarder license."
+  },
+  "decoy_policies": [
+   "A rail operator qualifies for regional rail privileges if it maintains a track safety rating of 95 percent or higher.",
+   "An agency receives a customs clearance waiver provided its yearly import volume exceeds 50,000 metric tons."
+  ],
+  "after_updates": {
+   "B1": "holds",
+   "B2": "holds",
+   "D1": "holds",
+   "B3": "holds",
+   "B4": "holds"
+  },
+  "facts": {
+   "E1": {
+    "entity": "Vanguard Charters",
+    "kind": "credential",
+    "quantity": "Global Charter Operations License",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "E2": {
+    "entity": "Vanguard Charters",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 12,
+    "unit": "freighters",
+    "window": "none",
+    "scope": "none"
+   },
+   "E3": {
+    "entity": "Vanguard Charters",
+    "kind": "number",
+    "quantity": "on-time delivery rate",
+    "value": 96,
+    "unit": "percent",
+    "window": "year",
+    "scope": "none"
+   },
+   "E4": {
+    "entity": "Vanguard Charters",
+    "kind": "number",
+    "quantity": "cargo liability insurance",
+    "value": 5000000,
+    "unit": "$",
+    "window": "none",
+    "scope": "none"
+   },
+   "E5": {
+    "entity": "Meridian Express",
+    "kind": "number",
+    "quantity": "fleet size",
+    "value": 50,
+    "unit": "refrigerated trucks",
+    "window": "none",
+    "scope": "none"
+   },
+   "E6": {
+    "entity": "Atlas Marine",
+    "kind": "credential",
+    "quantity": "Certified Freight Forwarder license",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "U1": {
+    "entity": "Vanguard Charters",
+    "kind": "credential",
+    "quantity": "Global Charter Operations License",
+    "value": null,
+    "unit": null,
+    "window": "none",
+    "scope": "global"
+   }
+  },
+  "conditions": {
+   "B1": [
+    {
+     "premise": "E1",
+     "kind": "credential",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "Global Charter Operations License",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E2",
+     "kind": "number",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "freighters",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B2": [
+    {
+     "premise": "B1",
+     "kind": "conclusion",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "verified airlift vendor status",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E3",
+     "kind": "number",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "on-time delivery rate",
+     "comparator": ">=",
+     "threshold": 90,
+     "unit": "percent",
+     "window": "year",
+     "scope": "none"
+    }
+   ],
+   "D1": [
+    {
+     "premise": "B2",
+     "kind": "conclusion",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "elite carrier endorsement criteria",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "E4",
+     "kind": "number",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "cargo liability insurance",
+     "comparator": ">=",
+     "threshold": 3000000,
+     "unit": "$",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B3": [
+    {
+     "premise": "E5",
+     "kind": "number",
+     "entity": "Meridian Express",
+     "relation": null,
+     "quantity": "fleet size",
+     "comparator": ">=",
+     "threshold": 30,
+     "unit": "refrigerated trucks",
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "B4": [
+    {
+     "premise": "E6",
+     "kind": "credential",
+     "entity": "Atlas Marine",
+     "relation": null,
+     "quantity": "Certified Freight Forwarder license",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ]
+  },
+  "rationale": {
+   "B1": [
+    "Vanguard Charters holds a Global Charter Operations License, satisfying the policy requirement for vendor status.",
+    "Vanguard Charters operates 12 freighters, exceeding the required fleet size threshold of 10 freighters."
+   ],
+   "B2": [
+    "Vanguard Charters holds verified airlift vendor status and recorded a 96 percent on-time delivery rate this year, satisfying both requirements."
+   ],
+   "D1": [
+    "Vanguard Charters meets elite carrier endorsement criteria and carries $5,000,000 in cargo liability insurance, satisfying the threshold for the contract."
+   ],
+   "B3": [
+    "Meridian Express maintains a fleet size of 50 refrigerated trucks, exceeding the policy minimum of 30."
+   ],
+   "B4": [
+    "Atlas Marine holds a Certified Freight Forwarder license, fulfilling the policy requirement."
+   ]
+  }
+ }
+}

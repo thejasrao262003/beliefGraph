@@ -14,9 +14,17 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import random
 import sys
 from pathlib import Path
+
+try:  # local configuration (git-ignored): keys and BELIEFGRAPH_MODAL_WORKSPACE
+    from dotenv import load_dotenv
+
+    load_dotenv(Path.cwd() / ".env")
+except ImportError:
+    pass
 
 import numpy as np
 
@@ -49,7 +57,7 @@ def stores():
 def main() -> None:
     ap = argparse.ArgumentParser()
     ap.add_argument("--model", default="gemma-4-12b-it")
-    ap.add_argument("--base-url", default="https://<workspace>--beliefgraph-gemma-4-12b-it-server.us-east.modal.direct/v1")
+    ap.add_argument("--base-url", default=f"https://{os.environ.get('BELIEFGRAPH_MODAL_WORKSPACE', '<workspace>')}--beliefgraph-gemma-4-12b-it-server.us-east.modal.direct/v1")
     ap.add_argument("--thinking", default="default", choices=["default", "on", "off"])
     args = ap.parse_args()
     try:

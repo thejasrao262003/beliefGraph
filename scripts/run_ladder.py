@@ -12,12 +12,21 @@ from __future__ import annotations
 
 import argparse
 import json
+import os
 import subprocess
 import sys
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 
-ACCOUNT = "<workspace>"
+try:  # local configuration (git-ignored): keys and BELIEFGRAPH_MODAL_WORKSPACE
+    from dotenv import load_dotenv
+
+    load_dotenv(Path.cwd() / ".env")
+except ImportError:
+    pass
+
+# Modal workspace that serves the models (deploy/modal_qwen.py); set BELIEFGRAPH_MODAL_WORKSPACE
+ACCOUNT = os.environ.get("BELIEFGRAPH_MODAL_WORKSPACE", "<workspace>")
 # served model name -> (Modal app slug, thinking flag)
 LADDER = {
     "gemma-4-12b-it": ("gemma-4-12b-it", "default"),

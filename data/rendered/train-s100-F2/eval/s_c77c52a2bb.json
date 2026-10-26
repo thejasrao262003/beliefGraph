@@ -1,0 +1,192 @@
+{
+ "scenario": "s_c77c52a2bb",
+ "source_scenario": "F2-005",
+ "family": "F2",
+ "meta": {
+  "fan_in": 2,
+  "revised_supports": 1,
+  "preserved": true,
+  "depth": 1,
+  "relation": "supersedes"
+ },
+ "idmap": {
+  "E1": "e_869b",
+  "E2": "e_a31b",
+  "B1": "m_85e4",
+  "D1": "m_3372",
+  "E3": "e_b253",
+  "B2": "m_d22a",
+  "U1": "u_ca21"
+ },
+ "groups": {
+  "e_869b": 1,
+  "m_85e4": 1,
+  "m_3372": 1,
+  "e_a31b": 1,
+  "e_b253": 2,
+  "m_d22a": 2
+ },
+ "policy_of": {
+  "p_68bd": "m_85e4",
+  "p_7571": "m_3372",
+  "p_20a3": "m_d22a"
+ },
+ "gold": {
+  "e_869b": "supersede",
+  "e_a31b": "keep",
+  "e_b253": "keep",
+  "m_85e4": "keep",
+  "m_d22a": "keep",
+  "m_3372": "keep"
+ },
+ "justifications": {
+  "m_85e4": [
+   [
+    "e_869b"
+   ],
+   [
+    "e_a31b"
+   ]
+  ],
+  "m_3372": [
+   [
+    "m_85e4"
+   ]
+  ],
+  "m_d22a": [
+   [
+    "e_b253"
+   ]
+  ]
+ },
+ "update_targets": {
+  "u_ca21": {
+   "target": "e_869b",
+   "relation": "supersedes",
+   "reliability": "high"
+  }
+ },
+ "decoy_policies": [
+  "p_81a1",
+  "p_6dfc"
+ ],
+ "after_updates": {
+  "m_85e4": "holds",
+  "m_3372": "holds",
+  "m_d22a": "holds"
+ },
+ "final_state": {
+  "m_85e4": "holds",
+  "m_d22a": "holds",
+  "m_3372": "holds"
+ },
+ "world": "An AI assistant is managing flight scheduling and sustainability accreditations for travel logistics partners.",
+ "rationale": {
+  "m_85e4": [
+   "Vanguard Charters operates an active fleet size of 12 aircraft, which meets the requirement of at least 10 aircraft for landing rights at the preferred level.",
+   "Vanguard Charters holds a Charter Safety Certification, which satisfies the certification alternative for landing rights at the preferred level."
+  ],
+  "m_3372": [
+   "Vanguard Charters holds preferred landing rights, which qualifies the carrier for top priority in morning schedule slots."
+  ],
+  "m_d22a": [
+   "Solstice Expeditions logged 25,000 metric tons of annual carbon offsets, exceeding the 20,000 metric tons threshold required under the Green Eco-Tour Standard."
+  ]
+ },
+ "records": {
+  "facts": {
+   "e_869b": {
+    "entity": "Vanguard Charters",
+    "kind": "number",
+    "quantity": "active fleet size",
+    "value": 12,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   },
+   "e_a31b": {
+    "entity": "Vanguard Charters",
+    "kind": "credential",
+    "quantity": "Charter Safety Certification",
+    "value": true,
+    "unit": null,
+    "window": "none",
+    "scope": "none"
+   },
+   "e_b253": {
+    "entity": "Solstice Expeditions",
+    "kind": "number",
+    "quantity": "annual carbon offsets",
+    "value": 25000,
+    "unit": "metric tons",
+    "window": "year",
+    "scope": "none"
+   },
+   "u_ca21": {
+    "entity": "Vanguard Charters",
+    "kind": "number",
+    "quantity": "active fleet size",
+    "value": 8,
+    "unit": "aircraft",
+    "window": "none",
+    "scope": "none"
+   }
+  },
+  "conditions": {
+   "m_85e4": [
+    {
+     "premise": "e_869b",
+     "kind": "number",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "active fleet size",
+     "comparator": ">=",
+     "threshold": 10,
+     "unit": "aircraft",
+     "window": "none",
+     "scope": "none"
+    },
+    {
+     "premise": "e_a31b",
+     "kind": "credential",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "Charter Safety Certification",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_3372": [
+    {
+     "premise": "m_85e4",
+     "kind": "conclusion",
+     "entity": "Vanguard Charters",
+     "relation": null,
+     "quantity": "preferred landing rights",
+     "comparator": null,
+     "threshold": null,
+     "unit": null,
+     "window": "none",
+     "scope": "none"
+    }
+   ],
+   "m_d22a": [
+    {
+     "premise": "e_b253",
+     "kind": "number",
+     "entity": "Solstice Expeditions",
+     "relation": null,
+     "quantity": "annual carbon offsets",
+     "comparator": ">=",
+     "threshold": 20000,
+     "unit": "metric tons",
+     "window": "year",
+     "scope": "none"
+    }
+   ]
+  }
+ }
+}

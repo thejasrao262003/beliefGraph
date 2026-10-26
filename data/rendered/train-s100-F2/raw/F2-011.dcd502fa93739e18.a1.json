@@ -1,0 +1,29 @@
+{
+ "scenario": "F2-011",
+ "attempt": 1,
+ "prompt_version": "render-v12",
+ "model": "gemini-3.5-flash",
+ "feedback": [],
+ "response": "```json\n{\n  \"world\": \"Evaluating cargo carriers and tour operators for high-priority logistics assignments and licensing.\",\n  \"nodes\": {\n    \"E1\": {\n      \"text\": \"Vanguard Freight maintains a vehicle safety index of 94 percent.\",\n      \"source\": \"Department of Transportation Safety Audit Log\"\n    },\n    \"E2\": {\n      \"text\": \"Vanguard Freight recorded a punctuality rate of 96 percent last quarter.\",\n      \"source\": \"Global Logistics Tracking System Records\"\n    },\n    \"E3\": {\n      \"text\": \"Solis Transport holds an active Tier 1 Passenger Safety Licence.\",\n      \"source\": \"National Tour Licensing Board Registry\"\n    },\n    \"B1\": {\n      \"text\": \"Vanguard Freight qualifies for priority customs processing.\"\n    },\n    \"D1\": {\n      \"text\": \"Assign Vanguard Freight to the express transatlantic shipment.\"\n    },\n    \"B2\": {\n      \"text\": \"Solis Transport meets the high-standard passenger charter requirements.\"\n    }\n  },\n  \"updates\": {\n    \"U1\": {\n      \"text\": \"A corrected tracking report indicates Vanguard Freight recorded a punctuality rate of 88 percent last quarter.\",\n      \"source\": \"Verified Cargo Analytics System Revision\"\n    }\n  },\n  \"policies\": {\n    \"B1\": \"Expedited customs clearance is granted to any logistics firm that achieves a vehicle safety index of 90 percent or higher or holds a quarterly punctuality rate of at least 95 percent.\",\n    \"D1\": \"A carrier possessing expedited customs clearance is designated for urgent transatlantic cargo transfers.\",\n    \"B2\": \"Premium tour authorization is granted to any travel operator holding a valid Tier 1 Passenger Safety Licence.\"\n  },\n  \"decoy_policies\": [\n    \"A regional courier is awarded green fleet certification if its electric vehicle proportion reaches at least 60 percent.\",\n    \"Hazardous material transport clearance is issued to a vendor maintaining an incident-free record over three consecutive years.\"\n  ],\n  \"after_updates\": {\n    \"B1\": \"holds\",\n    \"D1\": \"holds\",\n    \"B2\": \"holds\"\n  },\n  \"facts\": {\n    \"E1\": {\n      \"entity\": \"Vanguard Freight\",\n      \"kind\": \"number\",\n      \"quantity\": \"vehicle safety index\",\n      \"value\": 94,\n      \"unit\": \"percent\",\n      \"window\": \"none\",\n      \"scope\": \"none\"\n    },\n    \"E2\": {\n      \"entity\": \"Vanguard Freight\",\n      \"kind\": \"number\",\n      \"quantity\": \"punctuality rate\",\n      \"value\": 96,\n      \"unit\": \"percent\",\n      \"window\": \"quarter\",\n      \"scope\": \"none\"\n    },\n    \"U1\": {\n      \"entity\": \"Vanguard Freight\",\n      \"kind\": \"number\",\n      \"quantity\": \"punctuality rate\",\n      \"value\": 88,\n      \"unit\": \"percent\",\n      \"window\": \"quarter\",\n      \"scope\": \"none\"\n    },\n    \"E3\": {\n      \"entity\": \"Solis Transport\",\n      \"kind\": \"credential\",\n      \"quantity\": \"Tier 1 Passenger Safety Licence\",\n      \"value\": true,\n      \"unit\": null,\n      \"window\": \"none\",\n      \"scope\": \"none\"\n    }\n  },\n  \"conditions\": {\n    \"B1\": [\n      {\n        \"premise\": \"E1\",\n        \"kind\": \"number\",\n        \"entity\": \"Vanguard Freight\",\n        \"relation\": null,\n        \"quantity\": \"vehicle safety index\",\n        \"comparator\": \">=\",\n        \"threshold\": 90,\n        \"unit\": \"percent\",\n        \"window\": \"none\",\n        \"scope\": \"none\"\n      },\n      {\n        \"premise\": \"E2\",\n        \"kind\": \"number\",\n        \"entity\": \"Vanguard Freight\",\n        \"relation\": null,\n        \"quantity\": \"punctuality rate\",\n        \"comparator\": \">=\",\n        \"threshold\": 95,\n        \"unit\": \"percent\",\n        \"window\": \"quarter\",\n        \"scope\": \"none\"\n      }\n    ],\n    \"D1\": [\n      {\n        \"premise\": \"B1\",\n        \"kind\": \"conclusion\",\n        \"entity\": \"Vanguard Freight\",\n        \"relation\": null,\n        \"quantity\": \"priority customs processing\",\n        \"comparator\": null,\n        \"threshold\": null,\n        \"unit\": null,\n        \"window\": \"none\",\n        \"scope\": \"none\"\n      }\n    ],\n    \"B2\": [\n      {\n        \"premise\": \"E3\",\n        \"kind\": \"credential\",\n        \"entity\": \"Solis Transport\",\n        \"relation\": null,\n        \"quantity\": \"Tier 1 Passenger Safety Licence\",\n        \"comparator\": null,\n        \"threshold\": null,\n        \"unit\": null,\n        \"window\": \"none\",\n        \"scope\": \"none\"\n      }\n    ]\n  },\n  \"rationale\": {\n    \"B1\": [\n      \"Vanguard Freight maintains a vehicle safety index of 94 percent, meeting the minimum 90 percent requirement for expedited customs clearance.\",\n      \"Vanguard Freight achieved a quarterly punctuality rate of 96 percent, meeting the minimum 95 percent threshold for expedited customs clearance.\"\n    ],\n    \"D1\": [\n      \"Vanguard Freight qualifies for expedited customs clearance, satisfying the policy condition for urgent transatlantic cargo transfers.\"\n    ],\n    \"B2\": [\n      \"Solis Transport holds a valid Tier 1 Passenger Safety Licence, satisfying the requirement for premium tour authorization.\"\n    ]\n  }\n}\n```",
+ "metadata": {
+  "raw_response_keys": [
+   "completion_tokens",
+   "module_outputs",
+   "prompt_tokens",
+   "response",
+   "total_tokens"
+  ],
+  "usage": {
+   "input_tokens": 3966,
+   "output_tokens": 5379,
+   "reasoning_tokens": 0,
+   "raw": {
+    "prompt_tokens": 3966,
+    "completion_tokens": 5379
+   }
+  },
+  "est_usd": 0.06943725,
+  "model": "gemini-3.5-flash",
+  "agent_id": "<redacted>"
+ }
+}
