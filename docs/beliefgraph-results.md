@@ -195,3 +195,98 @@ Errors were attributed from cached calls, at no cost, by swapping in the gold gr
 - **An explicit graph keeps a 9B model accurate as the store grows.** On touched memories, v0.4 scores 1.000, 0.947 and 0.905 at 45, 143 and 301 memories. LLM-direct scores 0.82, 0.71 and 0.75; on 301 memories it was run for 32 of 84 steps only, and mostly returns nothing at large sizes.
 - **Graph quality is now the limit, and it falls with store size:** graph set-F1 is 0.92 at 143 memories and 0.81 at 301.
 - **Voting removes noise but not a systematic bias.** For most remaining wrong routes, the right policy gets no vote at all. This matches the self-consistency literature. The likely next lever is training: LoRA fine-tuning of the small model on generator data, on seeds disjoint from evaluation.
+
+## v0.8 across ~10B models, four datasets and two memory systems (2026-10-24 – 26)
+
+### Method (v0.8 + reader v3)
+
+- **Graph building, once per memory.** Two narrow LLM steps, then deterministic propagation.
+  - **Route (pick the rule).** One forward pass reads the probability of each of the 12 nearest rules. Two option orders are averaged. Memories that name the same entity are then assigned rules jointly with the Hungarian algorithm: a rule produces at most one memory per entity.
+  - **Ground (link the facts).** Three seeded samples map the rule's OR-of-AND conditions onto the 16 nearest facts or memories, and majority sets are kept.
+- **Update reading, per update.** One call with only the update and its 12 nearest facts.
+  - **Reader v3** asks for the earlier fact the update makes untrue, outdated or doubtful, including by implication.
+- **Revision.** Truth-maintenance propagation over the graph, with no LLM.
+- **What changed from v0.6.** The joint rule assignment raised Gemma's long-dossier result from 0.846 to 0.935. Reader v3 changed nothing on explicit updates and lifted STALE v1 from 0.658 to 0.788.
+- **No-go experiments.** Each was tested on Gemma first:
+  - routing on the rule's THEN clause: 0.846 → 0.824;
+  - a reranker (Qwen3-Reranker-4B), which ranked the right rule first less often than Gemma's own picks;
+  - small-model yes/no or 0–10 routing;
+  - an overlap-conflict check;
+  - a confidence gate on the assignment.
+
+### Models
+
+| Group | Models |
+|---|---|
+| ~10B ladder | Gemma-4-12B (baseline), Qwen3.5-9B, Granite-4.1-8B, Llama-3.1-8B, Ministral-3-8B, Olmo-3-7B |
+| Size ladder | Qwen3.5-4B, -2B, -0.8B and Phi-4-mini |
+
+- **Serving.** Every model is served by vLLM on Modal with no fine-tuning. Qwen runs with thinking off; the others use their defaults.
+- **Size ladder result.** Graph building fails below about 4B, on the 45-memory store.
+
+### Datasets
+
+| Dataset | Source | Stores | Memories | Updates | Notes |
+|---|---|---|---|---|---|
+| Long dossiers (F7) | ours: generated, rendered by gemini-3.5-flash | 36 | 579 | 209 | 4–7 composed motifs, shared facts, 4–8 updates each |
+| ProofWriter | Tafjord et al. 2021 (test set, no-negation OWA, D5 + NatLang) | 36 | 266 | 159 | Graph taken from allProofs; updates added by us |
+| STALE v2 | STALE 2026 (LLM-written, expert-validated) | 37 | 296 | 185 implicit | Plans rest on old statements; stores packed so that no update has two plausible targets |
+| MQuAKE-T | Zhong et al. 2023 (real Wikidata edits) | 36 small; one of 140; one of 443 | 423 / 140 / 443 | 70 / 96 / 96 | Facts and rules deduplicated within each store |
+
+- **STALE v2 validation.** Claude's review of 40 items (an AI review, not human): gold clearly correct for 37/40, with 3 doubtful pairs inherited from STALE. That is roughly 8–12% noise.
+
+### Results (balanced accuracy; 0.5 = change nothing)
+
+**All ~10B models, BeliefGraph vs whole-store and RAG.** BeliefGraph wins in **17 of 18** model × dataset cells. The only loss is Olmo-3-7B on STALE v2.
+
+| Model | Long dossiers BG / whole / RAG | ProofWriter BG / whole / RAG | STALE v2 BG / whole / RAG |
+|---|---|---|---|
+| Gemma-4-12B | **0.935** / 0.752 / 0.730 | **0.847** / 0.620 / 0.636 | **0.892** / 0.756 / 0.750 |
+| Qwen3.5-9B | **0.841** / 0.595 / 0.641 | **0.901** / 0.531 / 0.490 | **0.787** / 0.599 / 0.689 |
+| Granite-4.1-8B | **0.831** / 0.633 / 0.654 | **0.856** / 0.664 / 0.635 | **0.777** / 0.706 / 0.664 |
+| Ministral-3-8B | **0.854** / 0.625 / 0.607 | **0.836** / 0.514 / 0.569 | **0.841** / 0.594 / 0.663 |
+| Llama-3.1-8B | **0.779** / 0.540 / 0.653 | **0.759** / 0.401 / 0.594 | **0.685** / 0.492 / 0.667 |
+| Olmo-3-7B | **0.696** / 0.537 / 0.618 | **0.618** / 0.456 / 0.544 | 0.512 / 0.531 / **0.653** |
+
+**Memory systems, Gemma-4-12B.** Same stores, gold and LLM; same embedder for Mem0.
+
+| Dataset | BeliefGraph | Whole store | RAG | Mem0 (1.0.5) | Graphiti (0.31.2) |
+|---|---|---|---|---|---|
+| Long dossiers | **0.935** | 0.752 | 0.730 | 0.527 | 0.500 |
+| ProofWriter | **0.847** | 0.620 | 0.636 | 0.500 | 0.489 |
+| STALE v2 | **0.892** | 0.756 | 0.750 | 0.684 | 0.500 |
+| MQuAKE-T, ~12 memories | 0.963 | **0.984** | 0.725 | 0.594 | — |
+| MQuAKE-T, 140 memories | **0.988** | 0.717 | 0.642 | 0.533 | (running) |
+| MQuAKE-T, 443 memories | **0.961** | 0.500 | 0.646 | 0.532 | — |
+
+- **Mem0 detects fact changes but does not propagate them.** It changes the fact an update targets for 39–75% of updates. Yet only 1–15% of updates reach a stored conclusion on the dossiers, ProofWriter and the large MQuAKE stores. On STALE and the small MQuAKE stores the figure is higher (38–47%), because a plan rests on a single fact and is often worded like it.
+- **Graphiti invalidates contradicted edges but never derived conclusions.** Its Kùzu backend cannot store edges in 0.31.2, so we used embedded FalkorDB Lite.
+
+### Scaling and cost (MQuAKE-T, Gemma-4-12B)
+
+| Store | BeliefGraph | Whole store | Input tokens per update (BG / whole / RAG) | Seconds per update (BG / whole) | Total input incl. build (BG / whole) |
+|---|---|---|---|---|---|
+| ~12 memories | 0.963 | **0.984** | 838 / 2,192 / 1,334 | 4.7 / 9.8 | 2.20M / 0.15M |
+| 140 memories | **0.988** | 0.717 | 1,405 / 27,586 / 14,318 | 4.4 / 82.7 | **0.88M** / 2.65M |
+| 443 memories | **0.961** | 0.500 | 1,406 / 59,486 / 16,666 | 3.5 / 195.8 | **2.76M** / 5.71M |
+
+- **Per update, BeliefGraph's cost stays flat** while the whole-store cost grows with the store.
+- **The one-time build costs about 4–5k input tokens per memory.** It dominates on small stores. By about 140 memories BeliefGraph is cheaper in total as well as more accurate.
+- **Timings were measured on a shared GPU.**
+
+### Where the remaining errors are
+
+With gold graph and gold readings, every dataset scores 1.000. So each remaining error has one source.
+
+| Dataset | Bottleneck | Measurements |
+|---|---|---|
+| ProofWriter | Graph building | Set-F1 0.658; the gold graph gives 1.000 |
+| STALE | Update reading | Right old statement found for 154/185 updates (Gemma), down to 62/185 (Olmo); gold readings lift the top five models to 0.91–1.00 |
+| Long dossiers | Graph building | Rule assignment is 94% right after v0.8 |
+
+### Caveats
+
+- **Single runs.** No seeds or confidence intervals yet.
+- **No human validation.** Benchmark validation is Claude's review only.
+- **Coverage gaps.** Mem0 and Graphiti were run on Gemma only, and Graphiti was not run on the small or 443-memory MQuAKE stores.
+- **Small stores favour whole-store prompting.** Below a few dozen memories it is as accurate and much cheaper.
