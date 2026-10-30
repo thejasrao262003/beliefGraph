@@ -25,7 +25,11 @@ import os
 import re
 
 MODEL = os.environ.get("BG_MODEL", "Qwen/Qwen3.5-9B")  # read at deploy time, baked into the image env
-SERVED_NAME = MODEL.split("/")[-1].lower().replace("-instruct", "")
+# Quantization study: BG_KV_DTYPE sets --kv-cache-dtype (e.g. turboquant_3bit_nc); BG_SUFFIX is appended
+# to the served name and app name, so each configuration has its own name (the call cache keys on it).
+KV_DTYPE = os.environ.get("BG_KV_DTYPE", "")
+SUFFIX = os.environ.get("BG_SUFFIX", "")
+SERVED_NAME = MODEL.split("/")[-1].lower().replace("-instruct", "") + (f"-{SUFFIX}" if SUFFIX else "")
 SLUG = re.sub(r"[^a-z0-9]+", "-", SERVED_NAME).strip("-")
 QWEN35 = "qwen3.5" in MODEL.lower()  # hybrid Gated-DeltaNet architecture, multimodal checkpoint
 PORT = 8000
@@ -33,7 +37,7 @@ MINUTES = 60
 MAX_MODEL_LEN = int(os.environ.get("BG_MAX_MODEL_LEN", 131072 if QWEN35 else 49152))
 GPU = "H100" if MODEL == "Qwen/Qwen3.5-9B" else "L40S"  # up to ~12B in bf16 fits a 48 GB L40S
 # Gemma 4 (gemma4_unified) needs a newer vLLM than the one the Qwen runs were made with.
-VLLM = "vllm==0.31.0" if MODEL.startswith("google/gemma-4") else "vllm==0.21.0"
+VLLM = os.environ.get("BG_VLLM") or ("vllm==0.31.0" if "gemma-4" in MODEL.lower() else "vllm==0.21.0")
 # Per-family serving flags (vLLM docs / model cards).
 EXTRA = {
     # Served at vLLM defaults like every other model. (The model card recommends temperature <0.1;
@@ -49,7 +53,8 @@ image = (
     modal.Image.from_registry("nvidia/cuda:12.9.0-devel-ubuntu22.04", add_python="3.12")
     .entrypoint([])
     .uv_pip_install(VLLM)
-    .env({"HF_XET_HIGH_PERFORMANCE": "1", "BG_MODEL": MODEL, "BG_MAX_MODEL_LEN": str(MAX_MODEL_LEN)})
+    .env({"HF_XET_HIGH_PERFORMANCE": "1", "BG_MODEL": MODEL, "BG_MAX_MODEL_LEN": str(MAX_MODEL_LEN),
+          "BG_KV_DTYPE": KV_DTYPE, "BG_SUFFIX": SUFFIX, "BG_VLLM": VLLM})
 )
 hf_cache = modal.Volume.from_name("huggingface-cache", create_if_missing=True)
 vllm_cache = modal.Volume.from_name("vllm-cache", create_if_missing=True)
@@ -93,6 +98,7 @@ class Server:
             "--max-model-len", str(MAX_MODEL_LEN),
             *(qwen35 if QWEN35 else []),
             *next((v for k, v in EXTRA.items() if MODEL.startswith(k)), []),
+            *(["--kv-cache-dtype", KV_DTYPE] if KV_DTYPE else []),
         ])
 
     @modal.exit()
