@@ -1,0 +1,12 @@
+{
+ "note": "dossier003 rag3",
+ "model": "gguf-gemma-4-12b-it-q4_k_m",
+ "response": "```json\n{\n  \"changes\": {\n    \"m_00c728\": \"recompute\",\n    \"m_003ad5\": \"keep\",\n    \"m_00ec7c\": \"keep\"\n  }\n}\n```\n\n**Reasoning:**\n1. **m_00c728 (Full operational compliance):** This memory depends on \"Full operational eligibility\" (Policy 4), which requires \"hygiene compliance\" (Policy 5) and \"outpatient service authorization\". Hygiene compliance requires 3 infection control specialists (none are listed in facts). More importantly, \"Clinical accreditation\" (Policy 7) is a component of compliance logic often linked to safety audits. Update **u_000d1b** (official portal) states the safety audit count is 0, contradicting the original fact (50 audits). Since the audit count is a requirement for the accreditation/compliance logic, and the update is from a high-authority source (State Department of Health), the previous status of \"full operational compliance\" must be recomputed/re-evaluated.\n2. **m_003ad5 (Sound data governance):** This memory is \"keep\" because Policy 8 states data governance is granted with ISO 27001 certification. Fact **e_00aabe** confirms ISO 27001 certification. Even though update **u_000692** suggests 0 data protection officers (contradicting fact e_00ddde), the update is from an \"Anonymous online blog\" (low reliability), so it does not override the \"staffing roster\" fact or the ISO certification.\n3. **m_00ec7c (Secure digital infrastructure):** This memory is \"keep\" because Policy 1 requires uptime $\\ge$ 99.0% (Fact **e_003706** is 99.5%) and cyber breaches $\\le$ 5 (Fact **e_002181** is 2). These facts remain unchanged.\n4. **m_00ddee (Sufficient hygiene controls):** This remains unchanged/not listed because it was never established (requires 3 specialists, none found).\n5. **m_0018ca (Outpatient services):** Remains unchanged.\n\n*Note: Memory m_00c728 is marked as recompute because the audit count dropped to 0, failing the requirement of 40.*",
+ "usage": {
+  "note": "dossier003 rag3",
+  "model": "gguf-gemma-4-12b-it-q4_k_m",
+  "input_tokens": 1585,
+  "output_tokens": 539,
+  "seconds": 225.93
+ }
+}

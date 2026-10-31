@@ -1,0 +1,12 @@
+{
+ "note": "dossier030 rag3",
+ "model": "gemma-4-12b-it-qat-w4a16-ct-kvfp8",
+ "response": "```json\n{\"changes\": {\"m_00d74c\": \"keep\", \"m_0041e5\": \"keep\", \"m_00b742\": \"keep\"}}\n```\n\n**Reasoning for specific actions:**\n- **m_00d74c (Capital reserve status):** The original support was `e_00b8fd` (5M USD). Update `u_0036d0` (March 2) replaces the paid-in equity value with 4M USD. Since the policy for capital reserve qualification requires \"at least 4,000,000 USD\", the memory is still supported and remains \"keep\".\n- **m_0041e5 (International account operations):** This requires \"baseline onboarding clearance\" and a \"liquid cash reserve of at least 1,500,000 USD\". \n    - Baseline onboarding clearance is satisfied by the new paid-in equity of 4M USD (via `u_0036d0`).\n    - Liquid cash reserve of 2M USD is still supported by `e_00e2c8`.\n    - Therefore, it remains \"keep\".\n- **m_00b742 (Overseas market participant):** This is an alias for the international brokerage licence. Since `e_00e52b` is still valid and hasn't been retracted or replaced, it remains \"keep\".\n- **Note on ISO 27001:** While `e_00d4dd` was retracted by `u_00150b` and hedged by `u_004dd5`, other memories (like `m_00310c` for baseline onboarding) are still supported by the brokerage licence and the new paid-in equity value, so those memories do not need to change.\n\n*Self-correction on JSON output*: The prompt asks only for memories whose action is **not** \"keep\". In this scenario, all memories actually remain supported by the updated facts (e.g., m_001395 is supported by the risk score, m_00310c by the new equity/licence, etc.). However, if the system logic implies checking if the *original* fact is still the *only* support, `m_00d74c` is recomputed/kept based on the new value. Since none are lost, the object should be empty or all are keep. Looking closely at `m_00310c`: it was supported by ISO 27001 (lost) but is now supported by Equity (new). Thus, it is \"keep\".\n\nFinal check: No memories were actually invalidated or forced into \"withdraw/recompute/uncertain\" because valid alternatives exist for all conditions.\n\n```json\n{}\n```",
+ "usage": {
+  "note": "dossier030 rag3",
+  "model": "gemma-4-12b-it-qat-w4a16-ct-kvfp8",
+  "input_tokens": 1530,
+  "output_tokens": 625,
+  "seconds": 28.66
+ }
+}

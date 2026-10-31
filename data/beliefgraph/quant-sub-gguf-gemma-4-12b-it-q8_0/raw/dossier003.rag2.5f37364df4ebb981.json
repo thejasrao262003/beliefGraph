@@ -1,0 +1,12 @@
+{
+ "note": "dossier003 rag2",
+ "model": "gguf-gemma-4-12b-it-q8_0",
+ "response": "```json\n{\n \"changes\": {\n  \"m_00c728\": \"withdraw\",\n  \"m_003ad5\": \"keep\",\n  \"m_00ec7c\": \"keep\"\n }\n}\n```\n\n**Reasoning:**\n1.  **m_003ad5 (Data Governance):** This memory is supported by the ISO 27001 certification (e_00aabe). The update (u_000692) about 0 data protection officers comes from an \"Anonymous online blog,\" which is less reliable than the \"staffing roster\" (e_00ddde) and the ISO registry. Thus, the memory remains \"keep\".\n2.  **m_00c728 (Full Operational Compliance):** This requires \"verified hygiene compliance\" (which requires 3 infection control specialists, not present in facts) and \"outpatient service authorization\" (not explicitly in facts, but if we look at the audit/safety requirements). However, the update (u_000d1b) from the \"State Department of Health\" (high reliability) confirms 0 safety audits, contradicting the \"internal safety log\" (e_0079ce). Since the safety audit count is now 0, the condition for clinical accreditation (minimum 40) is failed. More importantly, hygiene compliance is not supported by any fact (requires 3 specialists, none found). Because the underlying components of \"full operational compliance\" are unsupported or contradicted, it is withdrawn.\n3.  **m_00ec7c (Secure Digital Infrastructure):** Supported by cyber risk incidents (2) being under the limit of 5. The update about safety audits does not affect this.\n4.  **m_00ddee (Hygiene Controls):** This memory was not supported by any fact in the first place (requires 3 specialists), but it was listed as a memory. Since it has no support from credible facts, and no update specifically addresses it, it remains in its state (the prompt asks to list non-keeps; however, usually, memories without support are withdrawn or kept depending on interpretation. Given the logic of the instructions, if it had no support to begin with, it doesn't change unless the update affects it). Looking closely: \"Hygiene compliance is verified if a facility retains at least 3 infection control specialists.\" There is no fact stating they have 3 specialists. Therefore, m_00ddee technically has no support. However, the prompt asks for changes. Since it didn't have support and the update didn't change that, it's effectively \"keep\" (no change).",
+ "usage": {
+  "note": "dossier003 rag2",
+  "model": "gguf-gemma-4-12b-it-q8_0",
+  "input_tokens": 1409,
+  "output_tokens": 576,
+  "seconds": 218.59
+ }
+}

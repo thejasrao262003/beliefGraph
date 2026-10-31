@@ -1,0 +1,12 @@
+{
+ "note": "dossier030 direct1",
+ "model": "gemma-4-12b-it-qat-w4a16-ct",
+ "response": "```json\n{\"changes\": {\"m_00310c\": \"recompute\", \"m_0009b6\": \"uncertain\", \"m_0041e5\": \"uncertain\", \"m_00b742\": \"uncertain\", \"m_0009b6\": \"recompute\"}}\n```\n\nWait, let me re-evaluate that JSON. The memory `m_00310c` (Baseline onboarding) depends on ISO 27001, international brokerage license, or paid-in equity. Since Apex Trading Ltd *still* has an international brokerage license (`e_00e52b`), `m_00310c` should be **keep**.\n\nHowever, `m_0009b6` (Institutional trading) requires `m_001395` (Primary solvency) and a regulatory risk score of 85. `m_001395` depends on `m_00d74c` (Capital reserve qualification), which depends on paid-in equity >= 4M. Apex Trading Ltd's paid-in equity is 5M (`e_00b8fd`), so `m_001395` is still valid. \n\nWait, let me look at the dependencies again carefully:\n- `m_00310c`: \"Baseline onboarding\" = (paid-in equity >= 4M) OR (international brokerage license) OR (ISO 27001).\n  - `e_00b8fd` (5M equity) = True.\n  - `e_00e52b` (International brokerage license) = True.\n  - `e_00d4dd` (ISO 27001) = Now False via `u_00150b`.\n  - Conclusion: `m_00310c` is **keep** (still has two supporting facts).\n\n- `m_0009b6`: \"Institutional trading\" = `m_001395` AND risk score >= 80.\n  - `m_001395` is valid.\n  - `e_0078dd` (risk score 85) is True.\n  - Conclusion: `m_0009b6` is **keep**.\n\n- `m_0041e5`: \"International account permission\" = `m_0096aa` (Cross-border authorization).\n- `m_0096aa`: \"Cross-border authorization\" = international brokerage license (`e_00e52b`).\n  - `e_00e52b` is True.\n  - Conclusion: `m_0041e5` is **keep**.\n\n- `m_00b742`: \"Overseas market participation\" = `m_0041e5` AND 10+ compliance officers.\n  - `m_0041e5` is True.\n  - `e_00751e` (12 officers) is True.\n  - Conclusion: `m_00b742` is **keep**.\n\nLet me re-check the ISO 27001 fact. If any memory *only* relied on ISO 27001, it would be recomputed or withdrawn. \n- `m_00310c` relies on three OR conditions. It is kept.\n- Does anything else rely on ISO 27001? No.\n\nTherefore, no memories are actually affected because they have alternative supports or the update didn't invalidate the specific paths they depend on.\n\n```json\n{}\n```",
+ "usage": {
+  "note": "dossier030 direct1",
+  "model": "gemma-4-12b-it-qat-w4a16-ct",
+  "input_tokens": 2770,
+  "output_tokens": 834,
+  "seconds": 36.6
+ }
+}

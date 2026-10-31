@@ -1,0 +1,12 @@
+{
+ "note": "dossier030 direct1",
+ "model": "gemma-4-12b-it-qat-w4a16-ct-kvfp8",
+ "response": "```json\n{\"changes\": {\"m_00310c\": \"recompute\", \"m_0009b6\": \"uncertain\", \"m_0041e5\": \"uncertain\", \"m_00b742\": \"uncertain\", \"m_0009b6\": \"recompute\"}}\n```\n\nWait, let me re-evaluate that JSON. The memory `m_00310c` (Baseline onboarding) depends on ISO 27001, paid-in equity (Apex), or international brokerage license (Apex).\n- Apex paid-in equity: `e_00b8fd` = 5,000,000 USD (>= 4,000,000).\n- Apex international brokerage license: `e_00e52b`.\n- Apex ISO 27001: `e_00d4dd` (now retracted by `u_00150b`).\n\nSince `e_00b8fd` (5M) still supports the condition for `m_00310c`, it stays.\nHowever, `m_0009b6` (Institutional trading clearance) depends on `m_001395` (Primary solvency) and regulatory risk score (Apex: 85).\n`m_001395` depends on `m_00d74c` (Capital reserve).\n`m_00d74c` depends on paid-in equity (Apex: 5M).\n\nLet's re-check `m_00310c` (Baseline onboarding):\nCondition: Equity >= 4M OR License OR ISO.\nApex Equity (`e_00b8fd`) = 5M. \nSince Apex Equity is 5M, `m_00310c` is still supported by `e_00b8fd`.\n\nLet's check `m_00b742` (Overseas market participant):\nRequires International account permission (`m_0041e5`) AND >= 10 compliance officers.\n`m_0041e5` (International account permission) requires `m_0096aa` (Cross-border authorization).\n`m_0096aa` requires international brokerage license (`e_00e52b`).\n`e_00e52b` is still valid.\nSo `m_00b742` remains \"keep\".\n\nWait, I must check if any *fact* was withdrawn. `e_00d4dd` is the fact \"Apex Trading Ltd holds an ISO 27001 security certification\". The update `u_00150b` says it *does not* hold it. This withdraws `e_00d4dd`.\n\nDoes any memory rely *only* on `e_00d4dd`?\n- `m_00310c` (Baseline onboarding) relies on `e_00d4dd` OR `e_00b8fd` OR `e_00e52b`. It is supported by `e_00b8fd`. Keep.\n- `m_0096aa` relies on `e_00e52b`. Keep.\n- `m_0041e5` relies on `m_0096aa`. Keep.\n- `m_00b742` relies on `m_0041e5` and `e_00751e`. Keep.\n\nIs there any memory that relies on `e_00d4dd` and nothing else? No.\n\nTherefore, no memories should change.\n\n```json\n{\"changes\": {}}\n```",
+ "usage": {
+  "note": "dossier030 direct1",
+  "model": "gemma-4-12b-it-qat-w4a16-ct-kvfp8",
+  "input_tokens": 2770,
+  "output_tokens": 850,
+  "seconds": 34.47
+ }
+}
