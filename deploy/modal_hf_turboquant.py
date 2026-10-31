@@ -9,7 +9,7 @@ force the Triton attention backend, which rejects TurboQuant cache types).
     BG_TQ_LAYERS=full   # quantize only full-attention layers (as vLLM's TurboQuant does)
 
 transformers serves one request at a time per container, so Modal scales out to BG_CONTAINERS
-GPU containers under load; they stop after 5 idle minutes.
+GPU containers under load; they stop after 5 idle minutes (BG_MIN_CONTAINERS keeps some up).
 """
 
 import os
@@ -21,6 +21,9 @@ MODEL = os.environ.get("BG_MODEL", "google/gemma-4-12B-it")
 BITS = int(os.environ.get("BG_TQ_BITS", "3"))
 LAYERS = os.environ.get("BG_TQ_LAYERS", "all")
 CONTAINERS = int(os.environ.get("BG_CONTAINERS", "6"))
+# Containers kept up while a run is going (a fresh one takes minutes to load the weights, and
+# scale-downs during a run left no container to answer); stop the app when the run ends.
+MIN_CONTAINERS = int(os.environ.get("BG_MIN_CONTAINERS", "0"))
 TAG = (f"tq{BITS}" if BITS else "bf16") + ("-full" if BITS and LAYERS == "full" else "")
 SERVED_NAME = f"hf-{MODEL.split('/')[-1].lower()}-{TAG}"
 PORT = 8000
@@ -49,6 +52,7 @@ app = modal.App(f"beliefgraph-hf-{TAG}")
     secrets=secrets,
     target_concurrency=1,  # one request per container; queued requests wait for the next free one
     max_containers=CONTAINERS,
+    min_containers=MIN_CONTAINERS,
     scaledown_window=5 * MINUTES,
     startup_timeout=20 * MINUTES,
     unauthenticated=True,  # reachable without Modal auth; the server itself requires the API key
