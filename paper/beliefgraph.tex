@@ -145,42 +145,8 @@ The action for a memory is keep (\st{in}), recompute (\st{stale}), uncertain (\s
 
 \begin{figure*}[t]
 \centering
-\begin{tikzpicture}[
-  font=\scriptsize,
-  box/.style={draw=detline, fill=det, rounded corners=2pt, text width=2.75cm, align=center, inner sep=3pt, minimum height=1.45cm},
-  llmbox/.style={box, draw=llmline, fill=llm},
-  data/.style={box, draw=dataline, fill=datafill, text width=1.85cm},
-  a/.style={-{Stealth[length=5pt]}, semithick},
-  lane/.style={font=\footnotesize\bfseries, anchor=south west, inner sep=1pt}
-]
-% write path
-\node[data] (a0) at (0,0) {New memory $m$\\(text)};
-\node[box, right=0.28cm of a0] (a1) {Retrieve the 12 nearest rules (dense embeddings)};
-\node[llmbox, right=0.28cm of a1] (a2) {\textbf{Route}: distribution $q_m(p)$ over the 12 rules, read from next-token probabilities in two option orders};
-\node[box, right=0.28cm of a2] (a3) {\textbf{Assign}: Hungarian matching per entity group, one memory per rule; next-best rule as fallback};
-\node[llmbox, right=0.28cm of a3] (a4) {\textbf{Ground}: rule as OR-of-AND conditions matched to the 16 nearest items; 3 samples, majority};
-\node[data, right=0.28cm of a4] (a5) {Justification graph $J$, source reliability};
-\draw[a] (a0) -- (a1); \draw[a] (a1) -- (a2); \draw[a] (a2) -- (a3); \draw[a] (a3) -- (a4); \draw[a] (a4) -- (a5);
-\node[lane] at ($(a0.north west)+(0,0.08)$) {Write path: once per memory, a few small calls};
-% update path
-\node[data, below=1.0cm of a0] (b0) {Update $u$\\(text, source, time)};
-\node[box, right=0.28cm of b0] (b1) {Retrieve the 12 nearest facts};
-\node[llmbox, right=0.28cm of b1] (b2) {\textbf{Read}: the earlier fact $u$ makes untrue, outdated or doubtful; relation; source reliability};
-\node[box, right=0.28cm of b2] (b3) {\textbf{Effect} on the target: ignore if older; \st{unk} if hedged or weaker source; else \st{out} or \st{stale}};
-\node[box, right=0.28cm of b3, very thick, text width=3.4cm] (b4) {\textbf{Propagate}, no LLM:\\[3pt] ${\sigma(m)=\max_{A}\,\min_{x\in A}\sigma(x)}$\\[1pt] over ${A\in J(m)}$};
-\node[data, right=0.28cm of b4] (b5) {Action per memory: keep, withdraw, recompute, uncertain};
-\draw[a] (b0) -- (b1); \draw[a] (b1) -- (b2); \draw[a] (b2) -- (b3); \draw[a] (b3) -- (b4); \draw[a] (b4) -- (b5);
-\node[lane] at ($(b0.north west)+(0,0.08)$) {Update path: one call per update, about 1.4k input tokens whatever the store size};
-\draw[a, dataline] (a5.south) -- ++(0,-0.25) -| (b4.north);
-% legend
-\node[llmbox, minimum height=0.3cm, text width=0.5cm, below=0.35cm of b0.south west, anchor=north west] (l1) {};
-\node[right=0.05cm of l1, font=\scriptsize] (l1t) {LLM call};
-\node[box, minimum height=0.3cm, text width=0.5cm, right=0.3cm of l1t] (l2) {};
-\node[right=0.05cm of l2, font=\scriptsize] (l2t) {deterministic step};
-\node[data, minimum height=0.3cm, text width=0.5cm, right=0.3cm of l2t] (l3) {};
-\node[right=0.05cm of l3, font=\scriptsize] {stored data};
-\end{tikzpicture}
-\caption{BeliefGraph v0.8. The write path runs once per memory and records why the memory is believed. The update path runs once per update and reads only the update and its nearest facts. Revision is a deterministic propagation over the recorded graph.}
+\includegraphics[width=\textwidth]{figures/architecture.pdf}
+\caption{BeliefGraph v0.8 on the worked example of Fig.~\ref{fig:example}. Write time, once per memory: (a) the model's next-token probabilities over the 12 nearest rules give a distribution $q_m$; (b) memories that name the same entity are assigned rules jointly, so $m_3$ takes its own rule $p_3$ instead of $p_2$, which $m_2$ holds; (c) the rule's condition becomes OR-of-AND sets matched to stored items, kept by majority over three samples; (d) the graph is stored. Update time, once per update: (e) one call reads the update against its 12 nearest facts; (f) a fixed rule turns the reading into a status for the target; (g) propagation over the stored graph, with no LLM, marks $m_1$, $m_2$ and $m_3$ stale; (h) each memory gets an action. Orange marks LLM calls. The probabilities in (a) and (b) are illustrative.}
 \label{fig:arch}
 \end{figure*}
 
